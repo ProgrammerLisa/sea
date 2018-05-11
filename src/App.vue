@@ -16,4 +16,8 @@ export default {
 body {
   background-color: #fbf9fe;
 }
+
+.weui-cells{
+		border: 0px;
+	}
 </style>

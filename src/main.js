@@ -6,13 +6,22 @@ import VueRouter from 'vue-router'
 import App from './App'
 import Home from './components/HelloFromVux'
 import Login from './components/Login'
+import Register from './components/Register'
 
 Vue.use(VueRouter)
 
-const routes = [{
+const routes = [
+		{
 			path: '/',
 			component: Login
-}]
+		},
+		{
+			path:'/Register',
+			component: Register
+		}
+	]
+
+
 
 const router = new VueRouter({
 	routes

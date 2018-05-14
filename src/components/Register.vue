@@ -1,36 +1,47 @@
 <template>
 	<div id="register">
-		<h2>注册星球</h2>
-		<group label-width="5.5em" label-margin-right="2em" label-align="left">
-			<x-input id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号码" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
+		<div id="reg">  
+    		注册  
+   		 </div>  
+		<group style="margin-top: 90px;padding: 30px;margin-left: -14px;" label-width="5.5em" label-margin-right="2em" label-align="left">
+			<x-input id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="手机号码" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
 		</group>
 
-		<group>
+		<group style="margin-top: -60px;padding: 30px;margin-left: -14px;">
 			<x-input id="verification" v-model="verif" placeholder="验证码">
-				<x-button slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
+				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
 			</x-input>
 		</group>
 
-		<group>
-			<x-input v-model="inppwd" type="password" placeholder="密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
+		<group style="margin-top:-60px;padding: 30px;margin-left: -14px;">
+			<x-input  v-model="inppwd" type="password" placeholder="密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
+		</group>
+		
+		<group style="margin-top:-60px;padding: 30px;margin-left: -14px;">
+			<x-input  v-model="inppwd" type="password" placeholder="请再次输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
 		</group>
 
 		<div style="padding:15px;">
-			<x-button @click.native="submitData" type="primary">登录</x-button>
+			<x-button id="pwsbtn" @click.native="submitData" type="primary">立即注册</x-button>
 		</div>
+		<center>
+			<check-icon :value.sync="demo1"><span>我同意</span></check-icon>
+			<a href="#"><span>《星海行动使用协议》</span></a>
+		</center>
 	</div>
 
 </template>
 
 <script>
-	import { XInput, Group, XButton } from 'vux'
+	import { XInput, Group, XButton,CheckIcon } from 'vux'
 
 	export default {
 		name: "login",
 		components: {
 			XInput,
 			Group,
-			XButton
+			XButton,
+			CheckIcon
 		},
 		data() {
 			return {
@@ -41,7 +52,10 @@
 				verification: "654321",
 				pwd: '123456',
 				inppwd: "",
-				verif:""
+				verif:"",
+				check:"",
+				demo1:false,
+				demo2:true
 			}
 		},
 		mounted: function() {
@@ -70,9 +84,12 @@
 					if(this.inppwd != this.pwd) {
 						alert("密码错误");
 						return;
+					}if(this.check == this.demo1){
+						alert("请同意");
+						return;
 					} else {
 						alert("登录成功");
-						this.$router.push('/Home');
+						this.$router.push('/Main');
 					}
 				} else {
 					alert("手机号码不能为空 或 输入有误哦~");
@@ -110,6 +127,39 @@
 </script>
 
 <style scoped>
+	span{
+		font-size: 10px;
+	}
+	
+	.weui-cell__ft{
+		display: none;
+	}
+	
+	a{
+		color:#09a2d6 ;
+	}
+	
+	body{
+		background-color: white;
+	}
+	
+	#reg{  
+	    position:fixed;   
+	    top:0;   
+	    width:100%;   
+	    height: 50px;   
+	    background-color: white;
+	    text-align: center;
+	    line-height: 50px;
+	    border-bottom: 1px solid #C8C8CD;
+	}  
+	
+	#pwsbtn{
+		border-radius: 20px;
+		margin-top: -10px;
+		background-color: #09a2d6;
+	}
+	
 	.btns {
 		color: #7CCD7C;
 		border: 0px;
@@ -122,4 +172,17 @@
 	.weui-cells {
 		border: 0px;
 	}
+	
+	#verbtn{
+		position: absolute;
+		margin:-50px;
+		margin-top: -21px;
+		margin-left: -135px;
+		width: 150px;
+		border-radius: 20px;
+		background-color: #09a2d6;
+		color: white;
+	}
+	
+
 </style>

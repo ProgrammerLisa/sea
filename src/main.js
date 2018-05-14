@@ -4,28 +4,11 @@ import Vue from 'vue'
 import FastClick from 'fastclick'
 import VueRouter from 'vue-router'
 import App from './App'
-import Home from './components/HelloFromVux'
-import Login from './components/Login'
-import Register from './components/Register'
+import router from './router'
 
 Vue.use(VueRouter)
 
-const routes = [
-		{
-			path: '/',
-			component: Login
-		},
-		{
-			path:'/Register',
-			component: Register
-		}
-	]
 
-
-
-const router = new VueRouter({
-	routes
-})
 
 FastClick.attach(document.body)
 

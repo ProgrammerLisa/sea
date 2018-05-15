@@ -1,36 +1,28 @@
 <template>
-	<div id="login">
-		<div id="reg">
+	<div id="retrieve">
+		<div id="ret">
 			<img id="ret_img" src="../../static/images/return.png.png" onclick="window.history.go(-1)" />
-			注册
+		找回密码
 		</div>
-		<group style="margin-top: 90px;padding: 30px;margin-left: -14px;" label-width="5.5em" label-margin-right="2em" label-align="left">
-			<x-input id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
+		<group style="margin-top: 90px;padding: 30px;margin-left: -14px;" >
+			<x-input title="手机号码:" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
 		</group>
 
 		<group style="margin-top: -60px;padding: 30px;margin-left: -14px;">
-			<x-input id="verification" v-model="verif" placeholder="请输入短信验证码">
+			<x-input title="验证码:"  id="verification" v-model="verif" placeholder="请输入短信验证码">
 				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
 			</x-input>
 		</group>
 
 		<group style="margin-top:-60px;padding: 30px;margin-left: -14px;">
-			<x-input id="passwordModel_image" style="font-size: 10px;" v-model="passwordModel" type="password" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
+			<x-input title="设置密码:"  id="passwordModel_image" style="font-size: 10px;" v-model="passwordModel" type="password" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
 			<!--<span>@{{passwordValidate.errorText}}</span>-->
 		</group>
 
-		<group style="margin-top:-60px;padding: 30px;margin-left: -14px;">
-			<x-input id="passwordcheckModel_image" style="font-size: 10px;" v-model="passwordcheckModel" type="password" placeholder="请再次输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
-			<!--<span>@{{passwordCheckValidate.errorText}}</span>-->
-		</group>
-
 		<div style="padding:15px;">
-			<x-button id="pwsbtn" @click.native="submitData" type="primary">立即注册</x-button>
+			<x-button id="pwsbtn" @click.native="submitData" type="primary">完成</x-button>
 		</div>
-		<center>
-			<check-icon :value.sync="demo1"><span>我同意</span></check-icon>
-			<a href="#"><span>《星海行动使用协议》</span></a>
-		</center>
+		
 	</div>
 
 </template>
@@ -55,7 +47,6 @@
 				verification: "654321",
 				//				pwd: '123456',
 				passwordModel: "",
-				passwordcheckModel:"",
 				verif: "",
 				check: "",
 				demo1: false,
@@ -89,19 +80,12 @@
 					//						alert("密码错误");
 					//						return;
 					//					}
-					if(!/^[0-9A-Za-z]{6,15}$/.test(this.passwordcheckModel)) {
+					if(!/^[0-9A-Za-z]{6,15}$/.test(this.passwordModel)) {
 						alert('密码少于6位');
 						return;
-					} else if(this.passwordcheckModel !== this.passwordModel) {
-						alert('两次密码不匹配');
-						return;
-					}
-					if(this.check == this.demo1) {
-						alert("请同意");
-						return;
-					} else {
+					}else {
 						alert("登录成功");
-						this.$router.push('/#');
+						this.$router.push('/Main');
 					}
 				} else {
 					alert("手机号码不能为空 或 输入有误哦~");
@@ -144,10 +128,11 @@
 	}
 	
 	#ret_img{
-		width: 20px;
+		width:20px;
 		position: absolute;
-		margin-left:-130px ;
+		margin-left: -40% ;
 		margin-top: 17px;
+		text-align: right;
 	}
 	
 	i.weui-icon.weui_icon_clear.weui-icon-clear{
@@ -164,22 +149,19 @@
 	}
 	
 	#phone,#verification{
-		font-size: 10px;
+		font-size: 10rem;
 	}
 	
-	#passwordModel_image{
+	
+	
+	/*#passwordModel_image{
 		background-image: url(../../static/images/eye.png.png);
 		background-position:right;/*设置图标位置*/
-		background-repeat:no-repeat ;/*不会重复多个图标*/
-	}
-	#passwordcheckModel_image{
-		background-image: url(../../static/images/eye.png.png);
-		background-position:right;/*设置图标位置*/
-		background-repeat:no-repeat ;/*不会重复多个图标*/
-	}
+		/*background-repeat:no-repeat ;/*不会重复多个图标*/
+	/*}*/
 	
 	
-	#reg {
+	#ret {
 		position: fixed;
 		top: 0;
 		width: 100%;
@@ -218,5 +200,13 @@
 		border-radius: 30px;
 		background-color: #09a2d6;
 		color: white;
+	}
+	i.weui-icon.weui_icon_clear.weui-icon-clear{
+		display: none !important;
+	}
+	/*清除输入款X提示*/
+	i.weui-icon.weui_icon_clear.weui-icon-clear::before{
+		display: none;
+		list-style: none;
 	}
 </style>

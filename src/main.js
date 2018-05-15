@@ -8,21 +8,26 @@ import Home from './components/HelloFromVux'
 import Login from './components/Login'
 import Register from './components/Register'
 import Main from './components/Main'
+import Retrieve from './components/Retrieve_password'
 
 Vue.use(VueRouter)
 
 const routes = [
 		{
 			path: '/',
-			component: Login
+			component: Register
 		},
 		{
-			path:'/Register',
-			component: Register
+			path:'/Login',
+			component: Login
 		},
 		{
 			path:'/Main',
 			component: Main
+		},
+		{
+			path:'/Retrieve',
+			component: Retrieve
 		}
 	]
 

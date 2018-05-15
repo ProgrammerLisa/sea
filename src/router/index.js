@@ -6,6 +6,11 @@ import '@/assets/js/bootstrap.js'
 import HelloWorld from '@/components/HelloWorld'
 import Home from '@/components/HelloFromVux'
 import Login from '@/components/Login'
+import BlackDrill from '@/components/BlackDrill'
+import Force from '@/components/Force'
+import Introduce from '@/components/Introduce'
+import GetForce from '@/components/GetForce'
+import GetBlackDrill from '@/components/GetBlackDrill'
 
 Vue.use(Router)
 
@@ -34,6 +39,32 @@ export default new Router({
     	path:'/Home',
     	name:'Home',
     	component:Home
+    },
+    {
+      path:'/BlackDrill',
+      name:'BlackDrill',
+      component:BlackDrill
+    },
+    {
+      path:'/Force',
+      name:'Force',
+      component:Force
+    },
+    {
+      path:'/Introduce',
+      name:'Introduce',
+      component:Introduce
+    },
+    {
+      path:'/GetForce',
+      name:'GetForce',
+      component:GetForce
+    }
+    ,
+    {
+      path:'/GetBlackDrill',
+      name:'GetBlackDrill',
+      component:GetBlackDrill
     }
   ]
 })

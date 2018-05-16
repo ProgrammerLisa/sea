@@ -149,7 +149,7 @@
 	}
 	
 	#phone,#verification{
-		font-size: 10rem;
+		font-size: 0.8rem;
 	}
 	
 	

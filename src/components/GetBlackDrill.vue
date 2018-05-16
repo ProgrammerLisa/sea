@@ -7,7 +7,7 @@
         </div>
       </div>
       <div class="activity">
-        <div></div>
+        <div>1</div>
       </div>
     </div>
 </template>
@@ -40,5 +40,6 @@
   }
   .activity{
     background: #5A13B9;
+    color: #fff;
   }
 </style>

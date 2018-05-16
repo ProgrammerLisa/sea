@@ -11,6 +11,8 @@ import Force from '@/components/Force'
 import Introduce from '@/components/Introduce'
 import GetForce from '@/components/GetForce'
 import GetBlackDrill from '@/components/GetBlackDrill'
+import Shopping from '@/components/Shopping'
+import Personal from '@/components/Personal'
 
 Vue.use(Router)
 
@@ -32,6 +34,18 @@ export default new Router({
         {
           path:'Home',
           component:Home
+        },
+        {
+          path:'GetForce',
+          component:GetForce
+        },
+        {
+          path:'Shopping',
+          component:Shopping
+        },
+        {
+          path:'Personal',
+          component:Personal
         }
       ]
     },

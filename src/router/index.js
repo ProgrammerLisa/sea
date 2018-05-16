@@ -16,6 +16,7 @@ import Register from '@/components/Register'
 import Retrieve from '@/components/Retrieve_password'
 
 
+
 Vue.use(Router)
 
 export default new Router({
@@ -28,10 +29,6 @@ export default new Router({
         {
           path:'/',
           component:Home
-        },
-        {
-          path:'Login',
-          component:Login
         },
         {
           path:'Home',
@@ -71,7 +68,7 @@ export default new Router({
       component:GetBlackDrill
     },
     {
-			path: '/',
+			path: '/Register',
 			component: Register
 		},
 		{
@@ -81,6 +78,10 @@ export default new Router({
 		{
 			path:'/Retrieve',
 			component: Retrieve
+		},
+		{
+			path:'/HelloWorld',
+			component: HelloWorld
 		}
   ]
 })

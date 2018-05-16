@@ -1,8 +1,7 @@
 <template>
 	<div id="login">
 		<div id="reg">
-			<img id="ret_img" src="../../static/images/return.png.png" onclick="window.history.go(-1)" />
-			注册
+			<img id="ret_img" src="../assets/images/return.png.png" onclick="window.history.go(-1)" /> 注册
 		</div>
 		<group style="margin-top: 90px;padding: 30px;margin-left: -14px;" label-width="5.5em" label-margin-right="2em" label-align="left">
 			<x-input id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
@@ -55,7 +54,7 @@
 				verification: "654321",
 				//				pwd: '123456',
 				passwordModel: "",
-				passwordcheckModel:"",
+				passwordcheckModel: "",
 				verif: "",
 				check: "",
 				demo1: false,
@@ -144,16 +143,16 @@
 	}
 	
 	#ret_img{
-		width: 20px;
+		width:20px;
 		position: absolute;
-		margin-left:-130px ;
+		margin-left: -40% ;
 		margin-top: 17px;
+		text-align: right;
 	}
 	
-	i.weui-icon.weui_icon_clear.weui-icon-clear{
+	i.weui-icon.weui_icon_clear.weui-icon-clear {
 		display: none;
 	}
-	
 	
 	a {
 		color: #09a2d6;
@@ -163,21 +162,26 @@
 		background-color: white;
 	}
 	
-	#phone,#verification{
+	#phone,
+	#verification {
 		font-size: 10px;
 	}
 	
-	#passwordModel_image{
-		background-image: url(../../static/images/eye.png.png);
-		background-position:right;/*设置图标位置*/
-		background-repeat:no-repeat ;/*不会重复多个图标*/
-	}
-	#passwordcheckModel_image{
-		background-image: url(../../static/images/eye.png.png);
-		background-position:right;/*设置图标位置*/
-		background-repeat:no-repeat ;/*不会重复多个图标*/
+	#passwordModel_image {
+		background-image: url(../assets/images/eye.png.png);
+		background-position: right;
+		/*设置图标位置*/
+		background-repeat: no-repeat;
+		/*不会重复多个图标*/
 	}
 	
+	#passwordcheckModel_image {
+		background-image: url(../assets/images/eye.png.png);
+		background-position: right;
+		/*设置图标位置*/
+		background-repeat: no-repeat;
+		/*不会重复多个图标*/
+	}
 	
 	#reg {
 		position: fixed;
@@ -191,9 +195,8 @@
 	}
 	
 	#pwsbtn {
-		border-radius: 20px;
 		margin-top: -10px;
-		background-color: #09a2d6;
+		background-color: #09A2D6;
 	}
 	
 	.btns {
@@ -215,8 +218,8 @@
 		width: 100px;
 		height: 40px;
 		margin-left: -85px;
-		border-radius: 30px;
-		background-color: #09a2d6;
-		color: white;
+		background-color: #F5F5F5;
+		color: 646464;
+		margin-top: -24px;
 	}
 </style>

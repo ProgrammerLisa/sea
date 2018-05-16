@@ -1,21 +1,21 @@
 <template>
 	<div id="retrieve">
 		<div id="ret">
-			<img id="ret_img" src="../../static/images/return.png.png" onclick="window.history.go(-1)" />
+			<img id="ret_img" src="../assets/images/return.png.png" onclick="window.history.go(-1)" />
 		找回密码
 		</div>
 		<group style="margin-top: 90px;padding: 30px;margin-left: -14px;" >
-			<x-input title="手机号码:" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
+			<x-input  id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
 		</group>
 
-		<group style="margin-top: -60px;padding: 30px;margin-left: -14px;">
-			<x-input title="验证码:"  id="verification" v-model="verif" placeholder="请输入短信验证码">
+		<group style="margin-top: -70px;padding: 30px;margin-left: -14px;">
+			<x-input   id="verification" v-model="verif" placeholder="请输入短信验证码">
 				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
 			</x-input>
 		</group>
 
 		<group style="margin-top:-60px;padding: 30px;margin-left: -14px;">
-			<x-input title="设置密码:"  id="passwordModel_image" style="font-size: 10px;" v-model="passwordModel" type="password" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
+			<x-input   id="passwordModel_image" style="font-size: 10px;" v-model="passwordModel" type="password" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
 			<!--<span>@{{passwordValidate.errorText}}</span>-->
 		</group>
 
@@ -173,9 +173,8 @@
 	}
 	
 	#pwsbtn {
-		border-radius: 20px;
 		margin-top: -10px;
-		background-color: #09a2d6;
+		background-color: #09A2D6;
 	}
 	
 	.btns {
@@ -197,9 +196,9 @@
 		width: 100px;
 		height: 40px;
 		margin-left: -85px;
-		border-radius: 30px;
-		background-color: #09a2d6;
-		color: white;
+		background-color: #F5F5F5;
+		color: 646464;
+		margin-top: -24px;
 	}
 	i.weui-icon.weui_icon_clear.weui-icon-clear{
 		display: none !important;

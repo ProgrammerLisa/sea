@@ -37,7 +37,7 @@
             {{m.title}}
           </div>
           <div class="media-right">
-            <img class="media-object" src="../assets/images/more.png.png"/>
+            <img class="media-object" src="../assets/images/more.png"/>
           </div>
         </router-link>
 

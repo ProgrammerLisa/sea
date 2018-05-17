@@ -41,7 +41,7 @@
         imgSrcArr:[
           home,discovery,store,mine
         ],
-        isLogin:true
+        isLogin:false
       }
     },
     mounted:function(){

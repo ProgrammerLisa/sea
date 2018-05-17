@@ -13,11 +13,11 @@ export default {
 <style lang="less">
 @import '~vux/src/styles/reset.less';
 
-body {
-  background-color: #fbf9fe;
+html{
+  font-size:62.5%;
 }
 
 .weui-cells{
-		border: 0px;
+		border: 0;
 	}
 </style>

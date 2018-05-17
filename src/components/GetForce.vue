@@ -1,18 +1,13 @@
 <template>
     <div class="content">
-      <div class="panel panel-default BlackTitle">
-        <div class="panel-body">
-          <router-link to="/" tag="span" class="glyphicon glyphicon-menu-left"></router-link>
-          原力任务
-        </div>
-      </div>
+
       <div class="TitleImg">
-        <p class="TitleImg-Title">赶紧收取原力，加速获取黑钻</p>
-        <p class="TitleImg-body">原力越多，获取的黑钻会越多</p>
+        <p class="TitleImg-Title">平台 mo0 即将上线</p>
+        <p class="TitleImg-Title">任务越多，能量越多</p>
       </div>
       <div class="panel panel-default task">
         <div class="panel-body">
-          基础任务
+          <span class="glyphicon glyphicon-minus decorate"></span>基础任务
         </div>
       </div>
       <div class="container">
@@ -40,7 +35,7 @@
 
       <div class="panel panel-default task">
         <div class="panel-body">
-          独家任务
+          <span class="glyphicon glyphicon-minus decorate"></span>独家任务
         </div>
       </div>
       <div class="container">
@@ -64,6 +59,15 @@
             <div class="taskSuccess"><span class="glyphicon glyphicon-ok"></span> 已完成</div>
           </div>
         </div>
+
+      </div>
+
+      <div class="panel panel-default task">
+        <div class="panel-body">
+          <span class="glyphicon glyphicon-minus decorate"></span>独家任务
+        </div>
+      </div>
+      <div class="container">
         <div class="row task1">
           <div class="col-xs-4 taskList">
             <span class="glyphicon glyphicon-globe taskIcon"></span>
@@ -84,6 +88,7 @@
             <div class="taskSuccess"><span class="glyphicon glyphicon-ok"></span> 已完成</div>
           </div>
         </div>
+
       </div>
     </div>
 </template>
@@ -96,43 +101,31 @@
 
 <style scoped>
   .content{
-    padding-bottom: 100px;
+    padding-bottom: 6rem;
+    background-color: #f5f5f5;
+    color: #555;
   }
   .panel{
     border:none;
     border-radius: 0;
   }
   .panel-body {
-    padding: 10px;
-  }
-  .BlackTitle{
-    text-align: center;
-    letter-spacing: 1px;
-    font-size: 1.5rem;
-    margin: 0;
-  }
-  .glyphicon-menu-left{
-    float: left;
+    padding: 1rem;
   }
   .TitleImg{
     text-align: center;
-    background: -webkit-linear-gradient(90deg,#933CDC,#6F5EFE);
-    border-top: 1px solid transparent;
+    background-image:url("../assets/images/banner.png");
+    background-size: 100% 100%;
+    border-top: 0.1rem solid transparent;
     color: #fff;
-    padding: 20px 0;
+    padding: 4rem 0;
   }
   .TitleImg-Title{
-    font-size: 2rem;
-  }
-  .TitleImg-body{
-    background: rgba(255,255,255,0.2);
-    width: 60%;
-    margin: auto;
-    border-radius: 20px;
+    font-size: 1.8rem;
   }
   .task{
     margin-bottom: 0;
-    margin-top: 10px;
+    margin-top: 1rem;
   }
   .task1{
     border-top: 1px solid #f7f7f7;
@@ -141,35 +134,40 @@
     text-align: center;
   }
   .taskList{
-    border-right: 1px solid #eee;
-    padding: 5px 0;
+    border-right: 0.1rem solid #eee;
+    padding: 0.5rem 0;
   }
   .taskListLast{
-    padding: 5px 0;
+    padding: 0.5rem 0;
   }
   .taskIcon{
-    color: #933CDC;
-    font-size: 25px;
-    margin: 10px 0;
+    color: #09a2d6;
+    font-size: 2.5rem;
+    margin: 1rem 0;
   }
   .taskBody{
     font-size: 0.5rem;
     color: #666;
   }
   .taskBtn{
-    background:-webkit-linear-gradient(0deg,#6F5EFE,#933CDC);
+    background:#09a2d6;
     color: #fff;
     width: 80%;
-    margin: 10px auto;
-    border-radius: 2px;
+    margin: 1rem auto;
+    border-radius: 2rem;
   }
   .taskSuccess{
-    margin: 10px 0;
+    margin: 1rem 0;
   }
   .glyphicon-ok{
     background: #20C779;
     color: #fff;
-    padding: 4px;
+    padding: 0.4rem;
     border-radius: 50%;
+  }
+
+  .decorate{
+    color:#09a2d6;
+    transform: rotate(90deg);
   }
 </style>

@@ -166,7 +166,7 @@
 	body {
 		background-color: white;
 	}
-	
+
 	#verification {
 		font-size: 1rem;
 		padding-top: 40px;
@@ -180,9 +180,9 @@
 		vertical-align: middle;
 		line-height: 3;
 	}
-	
-	
-	
+
+
+
 	#verbtn {
 		position: absolute;
 		margin-top: -45px;
@@ -193,50 +193,50 @@
 		color: 646464;
 		font-size: 1rem;
 	}
-	
+
 	#phone_img {
-		/*background-image: url(../../static/images/account.png.png);	
+		/*background-image: url(../../static/images/account.png);
 		background-position:left ;/*设置图标位置*/
 		/*background-repeat:no-repeat ;/*不会重复多个图标*/
 		/*padding-left: 60px;*/
 		font-size: 1.5rem;
 	}
-	
+
 	#ipwd {
-		background-image: url(../assets/images/eye.png.png);
+		background-image: url(../assets/images/eye.png);
 		background-position: right;
 		/*设置图标位置*/
 		background-repeat: no-repeat;
 		/*不会重复多个图标*/
 		font-size: 1.5rem;
 	}
-	
+
 	.group_inputs {
 		margin: 10px;
 		margin-left: 25px;
 		width: 85%;
 		border-bottom: 1px solid #F5F5F5;
 	}
-	
+
 	.group_input {
 		margin: -40px;
 		width: 106%;
 		margin-left: 25px;
 	}
-	
+
 	div.weui-cells.vux-no-group-title::before {
 		border-top: 0px !important;
 	}
-	
+
 	#hyperlink {
 		margin-top: 10px;
 		margin-left: 55%;
 	}
-	
+
 	a {
 		color: #353535;
 	}
-	
+
 	#nav {
 		position: fixed;
 		top: 0;
@@ -247,7 +247,7 @@
 		line-height: 50px;
 		border-bottom: 1px solid #C8C8CD;
 	}
-	
+
 	#nav_register {
 		position: fixed;
 		top: 0;
@@ -259,14 +259,14 @@
 		border-bottom: 1px solid #C8C8CD;
 		margin-top: 70px;
 	}
-	
+
 	#nav_common {
 		position: fixed;
 		width: 100%;
 		margin-top: -25px;
 		margin-left: -30%;
 	}
-	
+
 	#nav_sms {
 		position: fixed;
 		width: 100%;
@@ -274,12 +274,12 @@
 		margin-top: -25px;
 	}
 	/*清除输入框感叹号提示*/
-	
+
 	i.vux-input-icon.weui-icon.weui_icon_warn.weui-icon-warn::before {
 		display: none;
 	}
 	/*清除输入款X提示*/
-	
+
 	i.weui-icon.weui_icon_clear.weui-icon-clear::before {
 		display: none;
 		list-style: none;

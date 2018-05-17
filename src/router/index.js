@@ -11,6 +11,8 @@ import Force from '@/components/Force'
 import Introduce from '@/components/Introduce'
 import GetForce from '@/components/GetForce'
 import GetBlackDrill from '@/components/GetBlackDrill'
+import Shopping from '@/components/Shopping'
+import Personal from '@/components/Personal'
 
 import Register from '@/components/Register'
 import Retrieve from '@/components/Retrieve_password'
@@ -23,8 +25,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Register',
-      component: Register,
+      name: 'HelloWorld',
+      component: HelloWorld,
       children:[
         {
           path:'/',
@@ -33,6 +35,18 @@ export default new Router({
         {
           path:'Home',
           component:Home
+        },
+        {
+          path:'GetForce',
+          component:GetForce
+        },
+        {
+          path:'Shopping',
+          component:Shopping
+        },
+        {
+          path:'Personal',
+          component:Personal
         }
       ]
     },

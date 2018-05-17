@@ -18,7 +18,13 @@ import Personal from '@/components/Personal'
 import Register from '@/components/Register'
 import Retrieve from '@/components/Retrieve_password'
 
-
+import friend from '@/components/friend'
+import address from '@/components/Address'
+import Service from '@/components/Service'
+import Setting from '@/components/Setting'
+import RealName from '@/components/RealName'
+import Wallet from '@/components/Wallet'
+import news from '@/components/news'
 
 Vue.use(Router)
 
@@ -97,6 +103,35 @@ export default new Router({
 		{
 			path:'/HelloWorld',
 			component: HelloWorld
-		}
+		},
+    {
+      path:'/friend',
+      component: friend
+    },
+    {
+      path:'/address',
+      component: address
+    },
+    {
+      path:'/Service',
+      component: Service
+    },
+    {
+      path:'/Setting',
+      component: Setting
+    },
+    {
+      path:'/RealName',
+      component: RealName
+    },
+    {
+      path:'/Wallet',
+      component: Wallet
+    },
+    {
+      path:'/news',
+      component: news
+    }
+
   ]
 })

@@ -1,11 +1,10 @@
 <template>
   <div class="content">
     <div class="personal">
-      <div class="envelope">
-        <img src="../assets/images/news.png" />
-        <div class="badgePosition">
-          <span class="badge">123</span>
-        </div>
+      <div class="news">
+        <router-link to="/news" tag="div" class="badgePosition">
+          <span class="badge">1</span>
+        </router-link>
       </div>
       <div class="container personalMessage">
         <div class="HeadPortrait">
@@ -14,14 +13,14 @@
         <p class="nickName">ZZZ</p>
         <p class="userId">ID：56789668</p>
         <div class="row ">
-          <div class="col-xs-5 col-xs-offset-1 wallet">
+          <router-link to="Wallet" tag="div" class="col-xs-5 col-xs-offset-1 wallet">
             <span class="glyphicon glyphicon-credit-card personalIcon"></span>
             <span class="personalText">我的钱包</span>
-          </div>
-          <div class="col-xs-5">
+          </router-link>
+          <router-link to="RealName" tag="div" class="col-xs-5">
             <span class="glyphicon glyphicon-user personalIcon"></span>
             <span class="personalText">实名信息</span>
-          </div>
+          </router-link>
         </div>
     </div>
 
@@ -42,10 +41,7 @@
         </router-link>
 
       </div>
-
     </div>
-
-
   </div>
 </template>
 
@@ -64,13 +60,13 @@
       data(){
           return{
             Personal:[
-              {title:'我的好友',PersonalHref:'Login',imfLeft:friend},
+              {title:'我的好友',PersonalHref:'friend',imfLeft:friend},
               {title:'我的邀请者',PersonalHref:'Login',imfLeft:inviter},
               {title:'邀请奖励',PersonalHref:'Login',imfLeft:award},
               {title:'商城订单',PersonalHref:'Login',imfLeft:indent},
-              {title:'收货地址',PersonalHref:'Login',imfLeft:address},
-              {title:'客服中心',PersonalHref:'Login',imfLeft:service},
-              {title:'账户设置',PersonalHref:'Login',imfLeft:setting}
+              {title:'收货地址',PersonalHref:'address',imfLeft:address},
+              {title:'客服中心',PersonalHref:'Service',imfLeft:service},
+              {title:'账户设置',PersonalHref:'Setting',imfLeft:setting}
             ],
             headPortrait:headImg
           }
@@ -91,18 +87,24 @@
     text-align: right;
     padding-bottom: 0.5rem;
   }
-  .envelope img{
-    width: 3.5rem;
+  .news{
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 0.4rem 0;
   }
   .badgePosition{
-    float: right;
+    width: 5rem;
+    height: 3rem;
+    background:url("../assets/images/news.png") no-repeat;
+    background-size: 60% 100%;
   }
   .badge{
     background: #FF0404;
     font-weight: normal;
     padding: 0.1rem 0.3rem;
     vertical-align: text-top;
-    margin-right: 1.5rem;
+    margin-right: 1.7rem;
+    float: right;
   }
   .personalMessage{
     background: #fff;

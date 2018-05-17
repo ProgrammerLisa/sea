@@ -4,6 +4,7 @@ import Vue from 'vue'
 import FastClick from 'fastclick'
 import VueRouter from 'vue-router'
 import App from './App'
+
 import router from './router'
 
 Vue.use(VueRouter)

@@ -14,6 +14,11 @@ import GetBlackDrill from '@/components/GetBlackDrill'
 import Shopping from '@/components/Shopping'
 import Personal from '@/components/Personal'
 
+import Register from '@/components/Register'
+import Retrieve from '@/components/Retrieve_password'
+
+
+
 Vue.use(Router)
 
 export default new Router({
@@ -26,10 +31,6 @@ export default new Router({
         {
           path:'/',
           component:Home
-        },
-        {
-          path:'Login',
-          component:Login
         },
         {
           path:'Home',
@@ -79,6 +80,22 @@ export default new Router({
       path:'/GetBlackDrill',
       name:'GetBlackDrill',
       component:GetBlackDrill
-    }
+    },
+    {
+			path: '/Register',
+			component: Register
+		},
+		{
+			path:'/Login',
+			component: Login
+		},
+		{
+			path:'/Retrieve',
+			component: Retrieve
+		},
+		{
+			path:'/HelloWorld',
+			component: HelloWorld
+		}
   ]
 })

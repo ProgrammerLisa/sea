@@ -4,17 +4,17 @@
 			<img id="ret_img" src="../assets/images/return.png.png" onclick="window.history.go(-1)" />
 		找回密码
 		</div>
-		<group style="margin-top: 90px;padding: 30px;margin-left: -14px;" >
+		<group style="margin-top: 90px;padding: 20px;margin-left: -7px;" >
 			<x-input  id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
 		</group>
 
-		<group style="margin-top: -70px;padding: 30px;margin-left: -14px;">
-			<x-input   id="verification" v-model="verif" placeholder="请输入短信验证码">
+		<div style="margin-top: -70px;padding: 20px;margin-left: -14px;">
+			<input  id="verification" v-model="verif" placeholder="请输入短信验证码">
 				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
-			</x-input>
-		</group>
+			</input>
+		</div>
 
-		<group style="margin-top:-60px;padding: 30px;margin-left: -14px;">
+		<group style="margin-top:-60px;padding: 25px;margin-left: -14px;">
 			<x-input   id="passwordModel_image" style="font-size: 10px;" v-model="passwordModel" type="password" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
 			<!--<span>@{{passwordValidate.errorText}}</span>-->
 		</group>
@@ -152,7 +152,16 @@
 		font-size: 0.8rem;
 	}
 	
-	
+	#verification{
+		margin: 10px;
+		border-bottom: 1px solid #F5F5F5;
+		border-top: none;
+		border-left: none;
+		border-right: none;
+		outline:none;
+		line-height: 3;
+		text-indent: 10px;
+	}
 	
 	/*#passwordModel_image{
 		background-image: url(../../static/images/eye.png.png);
@@ -195,10 +204,12 @@
 		margin-top: -20px;
 		width: 100px;
 		height: 40px;
-		margin-left: -85px;
+		margin-left: 70%;
+		border: none;
 		background-color: #F5F5F5;
 		color: 646464;
-		margin-top: -24px;
+		margin-top: -53px;
+		font-size: 1.3rem;
 	}
 	i.weui-icon.weui_icon_clear.weui-icon-clear{
 		display: none !important;

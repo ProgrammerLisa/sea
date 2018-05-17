@@ -15,8 +15,8 @@ export default {
 
 html{
   font-size:62.5%;
+  background-color: #f5f5f5;
 }
-
 .weui-cells{
 		border: 0;
 	}

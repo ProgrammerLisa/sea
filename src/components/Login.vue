@@ -3,23 +3,23 @@
 		<div id="reg">
 			<img id="ret_img" src="../assets/images/return.png" onclick="window.history.go(-1)" /> 注册
 		</div>
-		<group style="margin-top: 90px;padding: 30px;margin-left: -14px;" label-width="5.5em" label-margin-right="2em" label-align="left">
+		<group style="margin-top: 90px;padding: 10px;margin-left: 6px;" label-width="5.5em" label-margin-right="2em" label-align="left">
 			<x-input id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
 		</group>
 
-		<group style="margin-top: -60px;padding: 30px;margin-left: -14px;">
-			<x-input id="verification" v-model="verif" placeholder="请输入短信验证码">
+		<div style="margin-top: -60px;padding: 30px;margin-left: -14px;">
+			<input id="verification" v-model="verif" placeholder="请输入短信验证码">
 				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
-			</x-input>
-		</group>
+			</input>
+		</div>
 
 		<group style="margin-top:-60px;padding: 30px;margin-left: -14px;">
-			<x-input id="passwordModel_image" style="font-size: 10px;" v-model="passwordModel" type="password" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
+			<x-input id="passwordModel_image" style="font-size: 1.3rem;" v-model="passwordModel" type="password" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
 			<!--<span>@{{passwordValidate.errorText}}</span>-->
 		</group>
 
 		<group style="margin-top:-60px;padding: 30px;margin-left: -14px;">
-			<x-input id="passwordcheckModel_image" style="font-size: 10px;" v-model="passwordcheckModel" type="password" placeholder="请再次输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
+			<x-input id="passwordcheckModel_image" style="font-size: 1.3rem;" v-model="passwordcheckModel" type="password" placeholder="请再次输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
 			<!--<span>@{{passwordCheckValidate.errorText}}</span>-->
 		</group>
 
@@ -27,8 +27,10 @@
 			<x-button id="pwsbtn" @click.native="submitData" type="primary">立即注册</x-button>
 		</div>
 		<center>
-			<check-icon :value.sync="demo1"><span>我同意</span></check-icon>
-			<a href="#"><span>《星海行动使用协议》</span></a>
+			<div id="agree">
+				<check-icon :value.sync="demo1"><span>我同意</span></check-icon>
+				<a href="#"><span>《星海行动使用协议》</span></a>
+			</div>
 		</center>
 	</div>
 
@@ -150,6 +152,11 @@
 		text-align: right;
 	}
 
+	#agree{
+		margin-top: 65%;
+		font-size: 1rem;
+	}
+	
 	i.weui-icon.weui_icon_clear.weui-icon-clear {
 		display: none;
 	}
@@ -164,7 +171,23 @@
 
 	#phone,
 	#verification {
-		font-size: 10px;
+		font-size: 1.3rem;
+	}
+	#phone{
+		width: 80%;
+	}
+	input#verification{
+		border-top: none;
+		border-left: none;
+		border-right: none;
+		border-bottom: 1px solid #F5F5F5;
+		outline:none;
+		text-indent: 15px;
+		vertical-align: middle;
+		line-height: 3;
+	}
+	#verification{
+		margin-top: -5px;
 	}
 
 	#passwordModel_image {
@@ -214,12 +237,12 @@
 
 	#verbtn {
 		position: absolute;
-		margin-top: -20px;
 		width: 100px;
 		height: 40px;
-		margin-left: -85px;
+		margin-left: 65%;
 		background-color: #F5F5F5;
 		color: 646464;
-		margin-top: -24px;
+		margin-top: -43px;
+		font-size: 1.3rem;
 	}
 </style>

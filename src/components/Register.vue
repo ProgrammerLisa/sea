@@ -44,11 +44,11 @@
 				<x-input id="phone_img" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
 			</group>
 
-			<group style="margin-top: -50px;padding: 30px;margin-left: -10px;">
-				<x-input id="verification" v-model="verif" placeholder="请输入短信验证码">
+			<div style="margin-top: -50px;padding: 30px;margin-left: -10px;">
+				<input id="verification" v-model="verif" placeholder="请输入短信验证码">
 					<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</x-button>
-				</x-input>
-			</group>
+				</input>
+			</div>
 
 			<div style="padding:30px;">
 				<x-button @click.native="btnveif" type="primary" style=" background-color:#09A2D6;color: white;">登 录</x-button>
@@ -123,7 +123,7 @@
 						return;
 					} else {
 						alert("登录成功");
-						this.$router.push('/HelloFromVux');
+						this.$router.push('/GetForce');
 					}
 				} else {
 					alert("手机号码不能为空 或 输入有误哦~");
@@ -141,7 +141,7 @@
 						return;
 					}else{
 						alert("登录成功");
-						this.$router.push('/Home');
+						this.$router.push('/GetForce');
 					}
 				}else{
 					alert("手机号码不能为空 或 输入有误哦~");
@@ -171,19 +171,27 @@
 		font-size: 1rem;
 		padding-top: 40px;
 		width: 100%;
+		border-top: none;
+		border-left: none;
+		border-right: none;
+		border-bottom: 1px solid #F5F5F5;
+		outline:none;
+		text-indent: 20px;
+		vertical-align: middle;
+		line-height: 3;
 	}
 
 
 
 	#verbtn {
 		position: absolute;
-		margin-top: -20px;
+		margin-top: -45px;
 		width: 100px;
 		height: 40px;
-		margin-left: -85px;
+		margin-left: 55%;
 		background-color: #F5F5F5;
 		color: 646464;
-		margin-top: -24px;
+		font-size: 1rem;
 	}
 
 	#phone_img {
@@ -191,7 +199,7 @@
 		background-position:left ;/*设置图标位置*/
 		/*background-repeat:no-repeat ;/*不会重复多个图标*/
 		/*padding-left: 60px;*/
-		font-size: 10px;
+		font-size: 1.5rem;
 	}
 
 	#ipwd {
@@ -200,19 +208,19 @@
 		/*设置图标位置*/
 		background-repeat: no-repeat;
 		/*不会重复多个图标*/
-		font-size: 10px;
+		font-size: 1.5rem;
 	}
 
 	.group_inputs {
-		margin: -40px;
+		margin: 10px;
 		margin-left: 25px;
-		width: 79%;
+		width: 85%;
 		border-bottom: 1px solid #F5F5F5;
 	}
 
 	.group_input {
 		margin: -40px;
-		width: 100%;
+		width: 106%;
 		margin-left: 25px;
 	}
 

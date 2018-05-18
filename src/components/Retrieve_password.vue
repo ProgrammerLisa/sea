@@ -5,22 +5,22 @@
 		找回密码
 		</div>
 		<group style="margin-top: 90px;padding: 20px;margin-left: -7px;" >
-			<x-input  id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
+			<x-input  style="font-size: 1.3rem;" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
 		</group>
 
-		<div style="margin-top: -70px;padding: 20px;margin-left: -14px;">
-			<input  id="verification" v-model="verif" placeholder="请输入短信验证码">
+		<div style="margin-top: -60px;padding: 20px;margin-left: -14px;">
+			<input style="font-size: 1.3rem;"  id="verification" v-model="verif" placeholder="请输入短信验证码">
 				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
 			</input>
 		</div>
 
-		<group style="margin-top:-60px;padding: 25px;margin-left: -14px;">
-			<x-input   id="passwordModel_image" style="font-size: 10px;" v-model="passwordModel" type="password" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
+		<group style="margin-top:-40px;padding: 25px;margin-left: -14px;">
+			<x-input id="passwordModel_image" style="font-size: 1.3rem;" v-model="passwordModel" type="password" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
 			<!--<span>@{{passwordValidate.errorText}}</span>-->
 		</group>
 
 		<div style="padding:15px;">
-			<x-button id="pwsbtn" @click.native="submitData" type="primary">完成</x-button>
+			<x-button id="pwsbtn" @click.native="submitData" type="primary">完 成</x-button>
 		</div>
 
 	</div>
@@ -149,7 +149,7 @@
 	}
 
 	#phone,#verification{
-		font-size: 0.8rem;
+		font-size: 1rem;
 	}
 
 	#verification{
@@ -164,7 +164,7 @@
 	}
 
 	/*#passwordModel_image{
-		background-image: url(../../static/images/eye.png.png);
+		background-image: url(../../static/images/eye.png);
 		background-position:right;/*设置图标位置*/
 		/*background-repeat:no-repeat ;/*不会重复多个图标*/
 	/*}*/

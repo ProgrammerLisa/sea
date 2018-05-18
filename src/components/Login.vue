@@ -1,7 +1,7 @@
 <template>
 	<div id="login">
 		<div id="reg">
-			<img id="ret_img" src="../assets/images/return.png" onclick="window.history.go(-1)" /> 注册
+			<img id="ret_img" src="../assets/images/back.png" onclick="window.history.go(-1)" /> 注册
 		</div>
 		<group style="margin-top: 90px;padding: 10px;margin-left: 6px;" label-width="5.5em" label-margin-right="2em" label-align="left">
 			<x-input id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
@@ -156,7 +156,7 @@
 		margin-top: 65%;
 		font-size: 1rem;
 	}
-	
+
 	i.weui-icon.weui_icon_clear.weui-icon-clear {
 		display: none;
 	}

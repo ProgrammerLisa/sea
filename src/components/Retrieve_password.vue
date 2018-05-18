@@ -1,7 +1,7 @@
 <template>
 	<div id="retrieve">
 		<div id="ret">
-			<img id="ret_img" src="../assets/images/return.png.png" onclick="window.history.go(-1)" />
+			<img id="ret_img" src="../assets/images/back.png" onclick="window.history.go(-1)" />
 		找回密码
 		</div>
 		<group style="margin-top: 90px;padding: 20px;margin-left: -7px;" >
@@ -22,7 +22,7 @@
 		<div style="padding:15px;">
 			<x-button id="pwsbtn" @click.native="submitData" type="primary">完成</x-button>
 		</div>
-		
+
 	</div>
 
 </template>
@@ -126,7 +126,7 @@
 	span {
 		font-size: 10px;
 	}
-	
+
 	#ret_img{
 		width:20px;
 		position: absolute;
@@ -134,24 +134,24 @@
 		margin-top: 17px;
 		text-align: right;
 	}
-	
+
 	i.weui-icon.weui_icon_clear.weui-icon-clear{
 		display: none;
 	}
-	
-	
+
+
 	a {
 		color: #09a2d6;
 	}
-	
+
 	body {
 		background-color: white;
 	}
-	
+
 	#phone,#verification{
 		font-size: 0.8rem;
 	}
-	
+
 	#verification{
 		margin: 10px;
 		border-bottom: 1px solid #F5F5F5;
@@ -162,14 +162,14 @@
 		line-height: 3;
 		text-indent: 10px;
 	}
-	
+
 	/*#passwordModel_image{
 		background-image: url(../../static/images/eye.png.png);
 		background-position:right;/*设置图标位置*/
 		/*background-repeat:no-repeat ;/*不会重复多个图标*/
 	/*}*/
-	
-	
+
+
 	#ret {
 		position: fixed;
 		top: 0;
@@ -180,25 +180,25 @@
 		line-height: 50px;
 		border-bottom: 1px solid #C8C8CD;
 	}
-	
+
 	#pwsbtn {
 		margin-top: -10px;
 		background-color: #09A2D6;
 	}
-	
+
 	.btns {
 		color: #7CCD7C;
 		border: 0px;
 	}
-	
+
 	body>.el-container {
 		margin-bottom: 40px;
 	}
-	
+
 	.weui-cells {
 		border: 0px;
 	}
-	
+
 	#verbtn {
 		position: absolute;
 		margin-top: -20px;

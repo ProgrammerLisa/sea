@@ -2,7 +2,7 @@
   <div class="content">
     <div class="panel panel-default BlackTitle">
       <div class="panel-body">
-        <router-link to="/Personal" tag="span" class="back"> <img src="../assets/images/back.png"/></router-link>
+        <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
         收货地址
         <router-link to="/Personal" tag="span" class="copyreader"> <img src="../assets/images/copyreader.png"/></router-link>
       </div>
@@ -46,6 +46,9 @@
             that.myAddress[i].isdefault = false;
           }
           that.myAddress[index].isdefault = true;
+        },
+        goBack(){
+          this.$router.go(-1);
         }
       }
     }

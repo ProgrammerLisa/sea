@@ -140,35 +140,35 @@ export default {
     position: absolute;
   }
   .option1{
-    left: 15px;
-    top: 70px;
+    left: 1.5rem;
+    top: 7rem;
   }
   .option2{
-    left: 15px;
-    top: 100px;
+    left: 1.5rem;
+    top: 10rem;
   }
   .option3{
     right: 0;
-    top: 80px;
-    border-top: #09a2d6 solid 1.5px;
-    border-bottom: #09a2d6 solid 1.5px;
-    border-left: #09a2d6  solid 1px;
+    top: 8rem;
+    border-top: #09a2d6 solid 0.15rem;
+    border-bottom: #09a2d6 solid 0.15rem;
+    border-left: #09a2d6  solid 0.1rem;
     border-right:none;
-    padding: 2px 15px 2px 20px;
-    border-radius: 20px;
+    padding: 0.2rem 1.5rem 0.2rem 2rem;
+    border-radius: 2rem;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
   .option4-Icon span{
-    font-size: 25px;
+    font-size: 2.5rem;
   }
   .float-container {
-    width: 40px;
-    height: 40px;
+    width: 4rem;
+    height: 4rem;
     background: rgba(255,255,255,0.2);
-    borderRadius: 50%;
+    border-radius: 50%;
     position: absolute;
-    boxShadow: 1px 1px 1px #000
+    box-shadow: 0.1rem 0.1rem 0.1rem #000
   }
   .bcImg{
     width: 100%;
@@ -178,8 +178,8 @@ export default {
     text-align: center;
   }
   .table tr{
-    line-height: 40px;
-    border-bottom: 1px solid #efefef;
+    line-height: 4rem;
+    border-bottom: 0.1rem solid #efefef;
   }
   .bcfff{
     background: #fff;

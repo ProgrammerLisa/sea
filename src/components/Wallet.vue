@@ -2,7 +2,7 @@
   <div class="content">
     <div class="panel panel-default BlackTitle">
       <div class="panel-body">
-        <router-link to="/Personal" tag="span" class="back"> <img src="../assets/images/back.png"/></router-link>
+        <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
         我的钱包
       </div>
     </div>
@@ -24,10 +24,15 @@
             more:more,
             myWallet:[
               {url:'/',title:'我的账单'},
-              {url:'/',title:'我的账单'},
-              {url:'/',title:'我的账单'},
-              {url:'/',title:'我的账单'}
+              {url:'/',title:'收支记录'},
+              {url:'/',title:'我的钻石'},
+              {url:'/',title:'我的能量值'}
             ]
+          }
+        },
+        methods:{
+          goBack(){
+            this.$router.go(-1);
           }
         }
     }

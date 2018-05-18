@@ -2,8 +2,9 @@
     <div class="content">
       <div class="panel panel-default BlackTitle">
         <div class="panel-body">
-          <router-link to="/Personal" tag="span" class="back"> <img src="../assets/images/back.png"/></router-link>
+          <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
           我的好友
+          <router-link to="/AddFriends" tag="span" class="addTo"> <img src="../assets/images/award.png"/></router-link>
         </div>
       </div>
       <div class="media friends" v-for="f in friends">
@@ -28,6 +29,11 @@
               {headPortrait:headImg,friendName:'小红花',friendId:'123456789',sex:'♀',bcColor:'background: #FC8484;'},
               {headPortrait:headImg,friendName:'小红花',friendId:'123456789',sex:'♂',bcColor:'background: #5CB3FC;'}
             ]
+          }
+        },
+        methods:{
+          goBack(){
+            this.$router.go(-1);
           }
         }
     }
@@ -62,6 +68,12 @@
     float: left;
   }
   .back img{
+    height: 2.5rem;
+  }
+  .addTo{
+    float: right;
+  }
+  .addTo img{
     height: 2.5rem;
   }
   .friends{

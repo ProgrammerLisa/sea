@@ -2,7 +2,7 @@
   <div class="content">
     <div class="panel panel-default BlackTitle">
       <div class="panel-body">
-        <router-link to="/Personal" tag="span" class="back"> <img src="../assets/images/back.png"/></router-link>
+        <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
         客服中心
        </div>
     </div>
@@ -49,6 +49,11 @@
               that.Service[i].DialogStyle = 'border-bottom-left-radius:1rem;'
             }
 
+          }
+        },
+        methods:{
+          goBack(){
+            this.$router.go(-1);
           }
         }
     }

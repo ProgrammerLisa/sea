@@ -3,35 +3,37 @@
 		<div id="reg">
 			<img id="ret_img" src="../assets/images/back.png" onclick="window.history.go(-1)" /> 注册
 		</div>
-		<div style="margin-top: 80px;padding: 10px;margin-left: 6px;" label-width="5.5em" label-margin-right="2em" label-align="left">
+		<div style="margin-top: 50px;padding: 10px;margin-left: 6px;" label-width="5.5em" label-margin-right="2em" label-align="left">
 			<x-input id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
 		</div>
 
-		<div style="margin-top: -100px;padding: 30px;margin-left: -14px;">
+		<div style="margin-top: -100px;padding: 30px;margin-left: -25px;">
 			<input id="verification" v-model="verif" placeholder="请输入短信验证码">
 				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
 			</input>
 		</div>
 
-		<div style="margin-top:-60px;padding: 30px;margin-left: -14px;">
-			<x-input id="passwordModel_image" style="font-size: 1.3rem;border-bottom: 0.1rem solid #F5F5F5;"v-model="passwordModel" type="password" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
+		<div style="margin-top:-50px;padding: 30px;margin-left: -14px;">
+			<x-input :type="types" style="font-size: 1.3rem;border-bottom: 0.1rem solid #F5F5F5;"v-model="passwordModel" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
 			<!--<span>@{{passwordValidate.errorText}}</span>-->
+			<img id="group_input_img" @click="Alt()" :src="imgs"  />
 		</div>
 
-		<div style="margin-top:-60px;padding: 30px;margin-left: -14px;">
-			<x-input id="passwordcheckModel_image" style="font-size: 1.3rem;border-bottom: 0.1rem solid #F5F5F5;" @on-change="password" v-model="passwordcheckModel" type="password" placeholder="请再次输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
+		<div style="margin-top:-50px;padding: 30px;margin-left: -14px;">
+			<x-input :type="typeis" style="font-size: 1.3rem;border-bottom: 0.1rem solid #F5F5F5;" @on-change="password" v-model="passwordcheckModel"  placeholder="请再次输入密码" :min="6" :max="6" is-type="sendcode"calss="btns"></x-input>
 			<!--<span>@{{passwordCheckValidate.errorText}}</span>-->
+			<img id="group_input_imgs" @click="Alte()" :src="imges"  />
 		</div>
 
-		<div style="padding:15px;">
-			<x-button id="pwsbtn" @click.native="submitData" type="primary">立即注册</x-button>
+		<div style="padding:30px;">
+			<x-button id="pwsbtn" @click.native="submitData" type="primary">下一步</x-button>
 		</div>
-		<center>
+		<!--<center>
 			<div id="agree">
 				<check-icon :value.sync="demo1"><span>我同意</span></check-icon>
 				<a href="#"><span>《星海行动使用协议》</span></a>
 			</div>
-		</center>
+		</center>-->
 	</div>
 
 </template>
@@ -58,8 +60,12 @@
 				passwordcheckModel: "",
 				verif: "",
 				check: "",
-				demo1: false,
-				demo2: true
+//				demo1: false,
+//				demo2: true,
+				types:"password",
+				imgs:"../src/assets/images/eyeclick.png",
+				typeis:"password",
+				imges:"../src/assets/images/eyeclick.png"
 			}
 		},
 		mounted: function() {
@@ -70,6 +76,24 @@
 		methods: {
 			Trim(str) {
 				return str.replace(/(^\s+)|(s+$)/g, "");
+			},
+			Alt(){
+				if(this.types=="password"){
+					this.types="text"
+					this.imgs="../src/assets/images/eye.png"
+				}else{
+					this.types="password"
+					this.imgs="../src/assets/images/eyeclick.png"
+				}
+			},
+			Alte(){
+				if(this.typeis=="password"){
+					this.typeis="text"
+					this.imges="../src/assets/images/eye.png"
+				}else{
+					this.typeis="password"
+					this.imges="../src/assets/images/eyeclick.png"
+				}
 			},
 			submitData() {
 				//去获取验证手机号
@@ -95,12 +119,13 @@
 						alert('两次密码不匹配');
 						return;
 					}
-					if(this.check == this.demo1) {
-						alert("请同意");
-						return;
-					} else {
+//					if(this.check == this.demo1) {
+//						alert("请同意");
+//						return;
+//					} 
+					else {
 						alert("登录成功");
-						this.$router.push('/#');
+						this.$router.push('/Invite');
 					}
 				} else {
 					alert("手机号码不能为空 或 输入有误哦~");
@@ -150,6 +175,16 @@
 		text-align: right;
 	}
 
+	#group_input_imgs{
+    	position: absolute;
+    	margin-top: -55px;
+    	margin-left: 70%;
+    }
+    
+    #group_input_img{
+    	position: absolute;
+    }
+	
 	#agree{
 		margin-top: 65%;
 		font-size: 1rem;
@@ -172,11 +207,11 @@
 		font-size: 1.3rem;
 	}
 	#phone{
-		width: 100%;
+		width: 97.5%;
 		border-bottom: 0.1rem solid #F5F5F5;
 		margin-top: 40px;
 	}
-	input#verification{
+	/*input#verification{
 		border-top: none;
 		border-left: none;
 		border-right: none;
@@ -187,20 +222,17 @@
 		margin-top: 40px;
 		width: 100%;
 		border-bottom: 0.1rem solid #F5F5F5;
-	}
+		text-indent: 4px;
+	}*/
 	#verification{
-		margin-top: -5px;
+		margin-top: 45px;
+		border-bottom: 1px solid #F5F5F5;
+		text-indent: 4;
+		line-height: 3;
+		width: 98%;
+		padding-left: 12px;
 	}
-
-	#passwordModel_image {
-		background-image: url(../assets/images/eyeclick.png);
-		background-position: right;
-		/*设置图标位置*/
-		background-repeat: no-repeat;
-		/*不会重复多个图标*/
-		margin-top: 20px;
-	}
-
+	
 	#passwordcheckModel_image {
 		background-image: url(../assets/images/eyeclick.png);
 		background-position: right;
@@ -225,7 +257,9 @@
 
 	#pwsbtn {
 		margin-top: -10px;
+		width: 90%;
 		background-color: #09A2D6;
+		border-radius: 0;
 	}
 
 	.btns {
@@ -248,8 +282,9 @@
 		margin-left: 65%;
 		background-color: #F5F5F5;
 		color: 646464;
-		margin-top: -43px;
+		margin-top: -54px;
 		font-size: 1.3rem;
+		border-radius: 0;
 	}
 	.weui-btn:after{
 		border-radius: 0px;

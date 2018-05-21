@@ -31,7 +31,7 @@
      </tr>
      <tr class="arrow">
        <td class="text-left">空间清理</td>
-       <td class="text-right">35M <img :src="more" class="more"/></td>
+       <td class="text-right" @click="CleanUpCaching">35M <img :src="more" class="more"/></td>
      </tr>
      <tr class="spacing"><td></td><td></td></tr>
      <tr class="arrow">
@@ -76,6 +76,29 @@
               that.isOn = true;
             }
 
+          },
+          CleanUpCaching(){
+            this.$layer.confirm('确定清理缓存数据吗', {
+              type: 0, //0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+              title: '温馨提示',
+              content: '',
+              area: 'auto',
+              offset: 'auto',
+              icon: -1,
+              btn: '确定',
+              time: 0,
+              shade: true,
+              yes: '',
+              cancel: '',
+              tips: [3,'#c00'],//支持上右下左四个方向，通过1-4进行方向设定,可以设定tips: [1, '#c00']
+              tipsMore: false,//是否允许多个tips
+              shadeClose: false,
+            });
+            $(".vl-notice-title").css({display:'none'});
+            $(".vl-notify-btns").css({textAlign:'center',paddingBottom:'1rem'});
+            $(".vl-notify-content").css({textAlign:'center'});
+            $(".notify-btn-primary").css({background:'#09a2d6',borderRadius:0,padding:'0.2rem 1.5rem',margin:'0 1rem'});
+            $(".notify-btn-default").css({ borderRadius:0,padding:'0.2rem 1.5rem'});
           },
           goBack(){
             this.$router.go(-1);
@@ -176,4 +199,5 @@
     position: relative;
     border:0.1rem solid #09a2d6;
   }
+
 </style>

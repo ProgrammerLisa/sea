@@ -1,26 +1,23 @@
 <template>
 
 	<div id="login">
-<<<<<<< HEAD
-		<div id="reg">
-			<img id="ret_img" src="../assets/images/back.png" onclick="window.history.go(-1)" /> 注册
-=======
-		<div id="nav">
-			登录
-		</div>
-		<div id="nav_login">
-			<div id="nav_common" @click="sort(1)">
-				<a>普通登录</a>
-			</div>
+		<!--<div id="reg">-->
+			<!--<img id="ret_img" src="../assets/images/back.png" onclick="window.history.go(-1)" /> 注册-->
+		<!--<div id="nav">-->
+			<!--登录-->
+		<!--</div>-->
+		<!--<div id="nav_login">-->
+			<!--<div id="nav_common" @click="sort(1)">-->
+				<!--<a>普通登录</a>-->
+			<!--</div>-->
 
-			<div id="nav_sms" @click="sort(0)">
-				<a>短信登录</a>
-			</div>
->>>>>>> 7f1f2e7ae0d1150a260ebdc4d1c6a3c90be5c170
-		</div>
-		<div id="log">
-			<h3 style="text-align: center; margin: 120px;margin-top: 155px; line-height: 100%;">深海行动log</h3>
-		</div>
+			<!--<div id="nav_sms" @click="sort(0)">-->
+				<!--<a>短信登录</a>-->
+			<!--</div>-->
+		<!--</div>-->
+		<!--<div id="log">-->
+			<!--<h3 style="text-align: center; margin: 120px;margin-top: 155px; line-height: 100%;">深海行动log</h3>-->
+		<!--</div>-->
 
 		<!--这是我要隐藏的  -->
 		<div v-if="isShow">

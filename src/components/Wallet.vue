@@ -24,7 +24,7 @@
             more:more,
             myWallet:[
               {url:'/',title:'我的账单'},
-              {url:'/',title:'收支记录'},
+              {url:'Statement',title:'收支记录'},
               {url:'/',title:'我的钻石'},
               {url:'/',title:'我的能量值'}
             ]

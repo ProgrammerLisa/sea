@@ -7,19 +7,19 @@
 			<x-input id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
 		</div>
 
-		<div style="margin-top: -100px;padding: 30px;margin-left: -19px;">
+		<div style="margin-top: -90px;padding: 30px;margin-left: -19px;">
 			<input id="verification" v-model="verif" placeholder="请输入短信验证码">
 				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
 			</input>
 		</div>
 
-		<div style="margin-top:-50px;padding: 30px;margin-left: -14px;">
+		<div style="margin-top:-40px;padding: 30px;margin-left: -14px;">
 			<x-input :type="types" style="font-size: 1.3rem;border-bottom: 0.1rem solid #F5F5F5;"v-model="passwordModel" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
 			<!--<span>@{{passwordValidate.errorText}}</span>-->
 			<img id="group_input_img" @click="Alt()" :src="imgs"  />
 		</div>
 
-		<div style="margin-top:-50px;padding: 30px;margin-left: -14px;">
+		<div style="margin-top:-40px;padding: 30px;margin-left: -14px;">
 			<x-input :type="typeis" style="font-size: 1.3rem;border-bottom: 0.1rem solid #F5F5F5;" @on-change="password" v-model="passwordcheckModel"  placeholder="请再次输入密码" :min="6" :max="6" is-type="sendcode"calss="btns"></x-input>
 			<!--<span>@{{passwordCheckValidate.errorText}}</span>-->
 			<img id="group_input_imgs" @click="Alte()" :src="imges"  />
@@ -163,6 +163,7 @@
 </script>
 
 <style scoped>
+	
 	span {
 		font-size: 10px;
 	}
@@ -230,6 +231,7 @@
 		line-height: 2;
 		width: 98%;
 		margin-left: -0.0625rem;
+		padding-left: 1.175rem;
 	}
 	
 	#passwordcheckModel_image {
@@ -246,7 +248,7 @@
 		position: fixed;
 		top: 0;
 		width: 100%;
-		height: 3.125rem;
+		height:50px;
 		background-color: white;
 		text-align: center;
 		line-height: 3.125rem;
@@ -278,10 +280,10 @@
 		position: absolute;
 		width: 100px;
 		height: 40px;
-		margin-left: 67%;
+		margin-left: 65%;
 		background-color: #F5F5F5;
 		color: 646464;
-		margin-top: -41px;
+		margin-top: -52px;
 		font-size: 1.3rem;
 		border-radius: 0;
 	}

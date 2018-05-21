@@ -14,18 +14,18 @@
 			</div>
 		</div>
 		<div id="log">
-			<h3>深海行动log</h3>
+			<h3 style="text-align: center; margin: 120px;margin-top: 155px; line-height: 100%;">深海行动log</h3>
 		</div>
 
 		<!--这是我要隐藏的  -->
-		<div class="tow_show" v-if="isShow">
+		<div v-if="isShow">
 			<group class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 				<x-input id="phone_img" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
 			</group>
 
-			<group class="group_input" >
-				<x-input id="ipwd" v-model="inppwd" :type="types" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode"></x-input>
-				<img id="group_input_img" @click="Alt()" :src="imgs"  />
+			<group class="group_input" style="padding: 40px;margin-left: -14px; ">
+				<x-input id="ipwd" v-model="inppwd" type="password" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode"></x-input>
+				<img id="group_input_img" @click="Alt()" src="../assets/images/eyeclick.png"  />
 			</group>
 
 			<div id="hyperlink">
@@ -34,25 +34,25 @@
 			</div>
 
 			<div style="padding:30px;">
-				<x-button @click.native="submitData" type="primary" style=" background-color:#09A2D6;color: white;border-radius: 0;">登 录</x-button>
+				<x-button @click.native="submitData" type="primary" style=" background-color:#09A2D6;color: white;">登 录</x-button>
 			</div>
 
 		</div>
 
 		<!--这是我要隐藏的  -->
-		<div class="tow_show" v-if="isShows">
+		<div v-if="isShows">
 			<group class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 				<x-input id="phone_img" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
 			</group>
 
-			<div id="ipwd" >
+			<div style="margin-top: -50px;padding: 30px;margin-left: -10px;">
 				<input id="verification" v-model="verif" placeholder="请输入短信验证码">
 					<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</x-button>
 				</input>
 			</div>
 
 			<div style="padding:30px;">
-				<x-button @click.native="btnveif" type="primary" style=" background-color:#09A2D6;color: white;border-radius: 0;">登 录</x-button>
+				<x-button @click.native="btnveif" type="primary" style=" background-color:#09A2D6;color: white;">登 录</x-button>
 			</div>
 
 		</div>
@@ -81,9 +81,7 @@
 				verif:"",
 				short_message: '',
 				isShow: true,
-				isShows: false,
-				types:"password",
-				imgs:"../src/assets/images/eyeclick.png"
+				isShows: false
 			}
 		},
 		mounted: function() {
@@ -106,13 +104,8 @@
 				}
 			},
 			Alt(){
-				if(this.types=="password"){
-					this.types="text"
-					this.imgs="../src/assets/images/eye.png"
-				}else{
-					this.types="password"
-					this.imgs="../src/assets/images/eyeclick.png"
-				}
+					console.log('我进来了');
+					$('ipwd').attr('type','text');
 			},
 			timer() {
 				if(this.time > 0) {
@@ -178,46 +171,34 @@
 <style>
 	body {
 		background-color: white;
-		width: auto;
-	}
-
-	h3{
-		text-align: center; 
-		margin: 120px;
-		margin-top: 155px; 
-		line-height: 100%;
-	}
-	.tow_show{
-		margin: 20px;
 	}
 
 	#verification {
 		padding-top: 40px;
-		margin: 10px;
 		width: 100%;
 		border-top: none;
 		border-left: none;
 		border-right: none;
-		border-bottom: 0px solid #F5F5F5;
+		border-bottom: 1px solid #F5F5F5;
 		outline:none;
-		text-indent: 4px;
+		text-indent: 20px;
 		vertical-align: middle;
-		line-height: 1;
+		line-height: 3;
 	}
 
 i.weui-icon.weui_icon_clear.weui-icon-clear{
 		display: none;
 	}
+
 	#verbtn {
 		position: absolute;
 		margin-top: -45px;
-		width: 90px;
+		width: 100px;
 		height: 40px;
-		margin-left: 65%;
+		margin-left: 55%;
 		background-color: #F5F5F5;
 		color: 646464;
 		font-size: 1rem;
-		border-radius: 0;
 	}
 
 	#phone_img {
@@ -238,24 +219,22 @@ i.weui-icon.weui_icon_clear.weui-icon-clear{
 	}
 
 	.group_inputs {
-		/*margin: 20px 10px;*/
-		/*margin-left: 25px;*/
-		width: 100%;
-		/*border-bottom: 1px solid #F5F5F5;*/
+		margin: 10px;
+		margin-left: 25px;
+		width: 85%;
+		border-bottom: 1px solid #F5F5F5;
 	}
     #group_input_img{
     	position: fixed;
     	margin-top: -55px;
     	margin-left: 70%;
+    	z-index: 999;
     }
 	.group_input {
-		/*margin: -40px;*/
-		/*margin: 10px;*/
-		width: 100%;
-		/*padding: 40px;*/
-		/*margin-left: -14px;*/
+		margin: -40px;
+		width: 106%;
+		margin-left: 25px;
 	}
-
 
 	div.weui-cells.vux-no-group-title::before {
 		border-top: 0px !important;
@@ -268,10 +247,6 @@ i.weui-icon.weui_icon_clear.weui-icon-clear{
 
 	a {
 		color: #353535;
-	}
-	
-	a:hover{
-		text-decoration: none;
 	}
 
 	#nav {

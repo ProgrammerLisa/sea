@@ -9,7 +9,7 @@ import Home from '@/components/HelloFromVux'
 import Login from '@/components/Login'
 import BlackDrill from '@/components/BlackDrill'
 import Force from '@/components/Force'
-import Introduce from '@/components/Introduce'
+import Introduce from '@/components/IntroduceCode'
 import GetForce from '@/components/GetForce'
 import GetBlackDrill from '@/components/GetBlackDrill'
 import Shopping from '@/components/Shopping'
@@ -26,6 +26,10 @@ import Setting from '@/components/Setting'
 import RealName from '@/components/RealName'
 import Wallet from '@/components/Wallet'
 import news from '@/components/news'
+import Reward from '@/components/Reward'
+import AddFriends from '@/components/AddFriends'
+import CommodityDetails from '@/components/CommodityDetails'
+import CommodityOrder from '@/components/CommodityOrder'
 
 Vue.use(Router)
 
@@ -75,7 +79,7 @@ export default new Router({
     },
     {
       path:'/Introduce',
-      name:'Introduce',
+      name:'IntroduceCode',
       component:Introduce
     },
     {
@@ -91,14 +95,17 @@ export default new Router({
     },
     {
 			path: '/Register',
+      name:'Register',
 			component: Register
 		},
 		{
 			path:'/Login',
+      name:'Login',
 			component: Login
 		},
 		{
 			path:'/Retrieve',
+      name:'Retrieve',
 			component: Retrieve
 		},
 		{
@@ -111,31 +118,58 @@ export default new Router({
 		},
     {
       path:'/friend',
+      name:'friend',
       component: friend
     },
     {
       path:'/address',
+      name:'address',
       component: address
     },
     {
       path:'/Service',
+      name:'Service',
       component: Service
     },
     {
       path:'/Setting',
+      name:'Setting',
       component: Setting
     },
     {
       path:'/RealName',
+      name:'RealName',
       component: RealName
     },
     {
       path:'/Wallet',
+      name:'Wallet',
       component: Wallet
     },
     {
       path:'/news',
+      name:'news',
       component: news
+    },
+    {
+      path:'/Reward',
+      name:'Reward',
+      component: Reward
+    },
+    {
+      path:'/AddFriends',
+      name:'AddFriends',
+      component: AddFriends
+    },
+    {
+      path:'/CommodityDetails',
+      name:'CommodityDetails',
+      component: CommodityDetails
+    },
+    {
+      path:'/CommodityOrder',
+      name:'CommodityOrder',
+      component: CommodityOrder
     }
 
   ]

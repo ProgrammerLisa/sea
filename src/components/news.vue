@@ -2,7 +2,7 @@
   <div class="content">
     <div class="panel panel-default BlackTitle">
       <div class="panel-body">
-        <router-link to="/Personal" tag="span" class="back"> <img src="../assets/images/back.png"/></router-link>
+        <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
         消息
       </div>
     </div>
@@ -30,6 +30,11 @@
               {img:friend,title:'星海行动',content:'今天任务还没做完，赶紧去做任务领',time:'6小时前'},
               {img:friend,title:'星海行动',content:'今天任务还没做完，赶紧去做任务领',time:'6小时前'}
             ]
+          }
+        },
+        methods:{
+          goBack(){
+            this.$router.go(-1);
           }
         }
     }

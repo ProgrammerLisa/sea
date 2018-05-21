@@ -2,7 +2,7 @@
   <div class="content">
     <div class="panel panel-default BlackTitle">
       <div class="panel-body">
-        <router-link to="/Personal" tag="span" class="back"> <img src="../assets/images/back.png"/></router-link>
+        <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
         设置
       </div>
     </div>
@@ -76,6 +76,9 @@
               that.isOn = true;
             }
 
+          },
+          goBack(){
+            this.$router.go(-1);
           }
         }
     }

@@ -3,28 +3,18 @@
       <div class="panel panel-default BlackTitle">
         <div class="panel-body">
           <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
-          实名信息
-          </div>
+          邀请奖励
+        </div>
       </div>
-      <table class="table">
-        <tr  v-for="r in realName">
-          <td class="text-left">{{r.title}}</td>
-          <td class="text-right">{{r.content}}</td>
-        </tr>
-      </table>
     </div>
 </template>
 
 <script>
     export default {
-        name: "RealName",
+        name: "Reward",
         data(){
           return{
-            realName:[
-              {title:'姓名',content:'**默'},
-              {title:'身份证号',content:'3413*************5676'},
-              {title:'手机号',content:'1366666666666'}
-            ]
+
           }
         },
         methods:{
@@ -64,17 +54,5 @@
   }
   .back img{
     height: 2.5rem;
-  }
-  .table{
-    background: #fff;
-  }
-  .table tr{
-    border-bottom: 0.1rem solid #f5f5f5;
-  }
-  .table td{
-    padding:0.5rem 1rem;
-  }
-  .text-left{
-    color: #555;
   }
 </style>

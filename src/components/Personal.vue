@@ -13,12 +13,13 @@
         <p class="nickName">ZZZ</p>
         <p class="userId">ID：56789668</p>
         <div class="row ">
-          <router-link to="Wallet" tag="div" class="col-xs-5 col-xs-offset-1 wallet">
-            <span class="glyphicon glyphicon-credit-card personalIcon"></span>
-            <span class="personalText">我的钱包</span>
+          <router-link to="Wallet" tag="div" class="col-xs-5 col-xs-offset-1 personalMessageLeft">
+            <img :src="wallet" class="personalIcon">
+            <span class="personalText" id="walletText">我的钱包</span>
+            <span class="wallet"></span>
           </router-link>
           <router-link to="RealName" tag="div" class="col-xs-5">
-            <span class="glyphicon glyphicon-user personalIcon"></span>
+            <img :src="autonym" class="personalIcon">
             <span class="personalText">实名信息</span>
           </router-link>
         </div>
@@ -54,16 +55,20 @@
     import service from '@/assets/images/service.png'
     import setting from '@/assets/images/setting.png'
     import headImg from '@/assets/images/profile.png'
+    import autonym from '@/assets/images/autonym.png'
+    import wallet from '@/assets/images/wallet.png'
 
     export default {
         name: "Personal",
       data(){
           return{
+            autonym:autonym,
+            wallet:wallet,
             Personal:[
               {title:'我的好友',PersonalHref:'friend',imfLeft:friend},
-              {title:'我的邀请者',PersonalHref:'Login',imfLeft:inviter},
-              {title:'邀请奖励',PersonalHref:'Login',imfLeft:award},
-              {title:'商城订单',PersonalHref:'Login',imfLeft:indent},
+              {title:'我的邀请者',PersonalHref:'Introduce',imfLeft:inviter},
+              {title:'邀请奖励',PersonalHref:'Reward',imfLeft:award},
+              {title:'商城订单',PersonalHref:'CommodityOrder',imfLeft:indent},
               {title:'收货地址',PersonalHref:'address',imfLeft:address},
               {title:'客服中心',PersonalHref:'Service',imfLeft:service},
               {title:'账户设置',PersonalHref:'Setting',imfLeft:setting}
@@ -82,7 +87,7 @@
     padding-bottom: 6rem;
   }
   .personal{
-    background: url("../assets/images/banner.png") no-repeat #fff;
+    background: url("../assets/images/blue.png") no-repeat #fff;
     background-size: 100% 75%;
     text-align: right;
     padding-bottom: 0.5rem;
@@ -116,7 +121,20 @@
     text-align: center;
     box-shadow: 0 0.3rem 0.3rem #ddd;
   }
-
+  .personalMessageLeft{
+    padding-right: 0;
+  }
+  .wallet{
+    display: inline-block;
+    float: right;
+    width: 0.1rem;
+    height: 1.8rem;
+    margin-top: 0.6rem;
+    background: #ddd;
+  }
+  #walletText{
+    margin-right: 1rem;
+  }
   .HeadPortrait img{
     width: 5rem;
     height: 5rem;
@@ -127,14 +145,13 @@
     padding-top: 1rem;
     margin: 0;
   }
-  .wallet{
-    border-right: 1px solid #ccc;
-  }
+
   .personalIcon{
-    margin-right:  0.5rem;
+    width: 3.2rem;
   }
   .personalText{
     letter-spacing: 0.1rem;
+
   }
   .media{
     background: #fff;

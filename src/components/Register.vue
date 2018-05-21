@@ -7,7 +7,7 @@
 			<x-input id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
 		</div>
 
-		<div style="margin-top: -100px;padding: 30px;margin-left: -25px;">
+		<div style="margin-top: -100px;padding: 30px;margin-left: -19px;">
 			<input id="verification" v-model="verif" placeholder="请输入短信验证码">
 				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
 			</input>
@@ -225,12 +225,11 @@
 		text-indent: 4px;
 	}*/
 	#verification{
-		margin-top: 45px;
-		border-bottom: 1px solid #F5F5F5;
-		text-indent: 4;
-		line-height: 3;
+		margin-top: 2.8125rem;
+		border-bottom:  0.0625rem solid #F5F5F5;
+		line-height: 2;
 		width: 98%;
-		padding-left: 12px;
+		margin-left: -0.0625rem;
 	}
 	
 	#passwordcheckModel_image {
@@ -240,23 +239,23 @@
 		background-repeat: no-repeat;
 		/*不会重复多个图标*/
 		border-bottom: 0.1rem solid #F5F5F5;
-		margin-top: 20px;
+		margin-top: 1.25rem;
 	}
 
 	#reg {
 		position: fixed;
 		top: 0;
 		width: 100%;
-		height: 50px;
+		height: 3.125rem;
 		background-color: white;
 		text-align: center;
-		line-height: 50px;
-		border-bottom: 1px solid #C8C8CD;
+		line-height: 3.125rem;
+		border-bottom: 0.0625rem solid #C8C8CD;
 		z-index: 99;
 	}
 
 	#pwsbtn {
-		margin-top: -10px;
+		margin-top: -11px;
 		width: 90%;
 		background-color: #09A2D6;
 		border-radius: 0;
@@ -279,10 +278,10 @@
 		position: absolute;
 		width: 100px;
 		height: 40px;
-		margin-left: 65%;
+		margin-left: 67%;
 		background-color: #F5F5F5;
 		color: 646464;
-		margin-top: -54px;
+		margin-top: -41px;
 		font-size: 1.3rem;
 		border-radius: 0;
 	}

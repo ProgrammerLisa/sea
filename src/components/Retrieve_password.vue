@@ -8,13 +8,13 @@
 			<x-input  style="font-size: 1.3rem;" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
 		</group>
 
-		<div style="margin-top: -60px;padding: 20px;margin-left: -14px;">
+		<div style="margin-top: -30px;padding: 20px;margin-left: -14px;">
 			<input style="font-size: 1.3rem;"  id="verification" v-model="verif" placeholder="请输入短信验证码">
 				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
 			</input>
 		</div>
 
-		<group style="margin-top:-40px;padding: 25px;margin-left: -14px;">
+		<group style="margin-top:-50px;padding: 25px;margin-left: -14px;">
 			<x-input id="passwordModel_image" :type="types" style="font-size: 1.3rem;" v-model="passwordModel" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
 			<img id="group_input_img" @click="Alt()" :src="imgs"  />			
 			<!--<span>@{{passwordValidate.errorText}}</span>-->
@@ -134,6 +134,11 @@
 </script>
 
 <style scoped>
+	
+	html{
+		background-color: white;
+	}
+	
 	span {
 		font-size: 10px;
 	}
@@ -180,6 +185,7 @@
 		width: 98%;
 		margin-left: 4px;
 		padding-left: 0.3rem;
+		padding-top: 0;
 	}
 	
 	/*#passwordModel_image{
@@ -188,6 +194,13 @@
 		/*background-repeat:no-repeat ;/*不会重复多个图标*/
 	/*}*/
 	
+	div#phone.vux-x-input.weui-cell{
+		border-top: 1px solid white;
+	}
+	
+	div#passwordModel_image.vux-x-input.weui-cell{
+		border-top: 1px solid white;
+	}
 	
 	#ret {
 		position: fixed;

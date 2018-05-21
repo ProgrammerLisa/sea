@@ -7,7 +7,7 @@
 			<x-input id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
 		</div>
 
-		<div style="margin-top: -90px;padding: 30px;margin-left: -19px;">
+		<div style="margin-top: -80px;padding: 30px;margin-left: -19px;">
 			<input id="verification" v-model="verif" placeholder="请输入短信验证码">
 				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
 			</input>
@@ -125,7 +125,7 @@
 //					} 
 					else {
 						alert("登录成功");
-						this.$router.push('/Invite');
+						this.$router.push('/Ask');
 					}
 				} else {
 					alert("手机号码不能为空 或 输入有误哦~");
@@ -186,10 +186,10 @@
     	position: absolute;
     }
 	
-	#agree{
+	/*#agree{
 		margin-top: 65%;
 		font-size: 1rem;
-	}
+	}*/
 	
 	i.weui-icon.weui_icon_clear.weui-icon-clear {
 		display: none;
@@ -227,7 +227,7 @@
 	}*/
 	#verification{
 		margin-top: 2.8125rem;
-		border-bottom:  0.0625rem solid #F5F5F5;
+		border-bottom:  0.1rem solid #F5F5F5;
 		line-height: 2;
 		width: 98%;
 		margin-left: -0.0625rem;
@@ -251,8 +251,8 @@
 		height:50px;
 		background-color: white;
 		text-align: center;
-		line-height: 3.125rem;
-		border-bottom: 0.0625rem solid #C8C8CD;
+		line-height:  4.525rem;
+		border-bottom: 0.1rem solid #C8C8CD;
 		z-index: 99;
 	}
 

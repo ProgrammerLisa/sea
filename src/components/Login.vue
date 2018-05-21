@@ -52,7 +52,7 @@
 			</div>
 
 			<div style="padding:30px;">
-				<x-button @click.native="btnveif" type="primary" style=" background-color:#09A2D6;color: white;border-radius: 0;">登 录</x-button>
+				<x-button @click.native="btnveif" type="primary" >登 录</x-button>
 			</div>
 
 		</div>
@@ -83,7 +83,7 @@
 				isShow: true,
 				isShows: false,
 				types:"password",
-				imgs:"../src/assets/images/eyeclick.png"
+				imgs:"../src/assets/images/eye.png"
 			}
 		},
 		mounted: function() {
@@ -108,10 +108,10 @@
 			Alt(){
 				if(this.types=="password"){
 					this.types="text"
-					this.imgs="../src/assets/images/eye.png"
+					this.imgs="../src/assets/images/eyeclick.png"
 				}else{
 					this.types="password"
-					this.imgs="../src/assets/images/eyeclick.png"
+					this.imgs="../src/assets/images/eye.png"
 				}
 			},
 			timer() {
@@ -154,7 +154,7 @@
 						return;
 					}else{
 						alert("登录成功");
-						this.$router.push('/GetForce');
+						this.$router.push('/Home');
 					}
 				}else{
 					alert("手机号码不能为空 或 输入有误哦~");
@@ -177,6 +177,14 @@
 
 <style>
 	
+	button.weui-btn.weui-btn_primary{
+		background-color:#09A2D6;
+	}
+	
+	button.weui-btn.weui-btn_primary:active{
+		background-color:blue;
+	}
+	
 	html{
 		background-color: white;
 	}
@@ -185,6 +193,7 @@
 		background-color: white;
 		width: auto;
 	}
+	
 
 	h3{
 		text-align: center; 
@@ -213,6 +222,11 @@
 i.weui-icon.weui_icon_clear.weui-icon-clear{
 		display: none;
 	}
+	
+	div#ipwd.vux-x-input.weui-cell{
+		width: 80%;
+	}
+	
 	#verbtn {
 		position: absolute;
 		margin-top: -45px;
@@ -250,8 +264,9 @@ i.weui-icon.weui_icon_clear.weui-icon-clear{
 	}
     #group_input_img{
     	position: fixed;
+    	width: 54px;
     	margin-top: -55px;
-    	margin-left: 70%;
+    	margin-left: 75%;
     }
 	.group_input {
 		/*margin: -40px;*/
@@ -326,4 +341,6 @@ i.weui-icon.weui_icon_clear.weui-icon-clear{
 		display: none;
 		list-style: none;
 	}
+	
+	
 </style>

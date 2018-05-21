@@ -8,21 +8,22 @@
 			<x-input  style="font-size: 1.3rem;" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
 		</group>
 
-		<div style="margin-top: -60px;padding: 20px;margin-left: -14px;">
+		<div style="margin-top: -30px;padding: 20px;margin-left: -14px;">
 			<input style="font-size: 1.3rem;"  id="verification" v-model="verif" placeholder="请输入短信验证码">
 				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
 			</input>
 		</div>
 
-		<group style="margin-top:-40px;padding: 25px;margin-left: -14px;">
-			<x-input id="passwordModel_image" style="font-size: 1.3rem;" v-model="passwordModel" type="password" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
+		<group style="margin-top:-50px;padding: 25px;margin-left: -14px;">
+			<x-input id="passwordModel_image" :type="types" style="font-size: 1.3rem;" v-model="passwordModel" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
+			<img id="group_input_img" @click="Alt()" :src="imgs"  />			
 			<!--<span>@{{passwordValidate.errorText}}</span>-->
 		</group>
 
 		<div style="padding:15px;">
 			<x-button id="pwsbtn" @click.native="submitData" type="primary">完 成</x-button>
 		</div>
-
+		
 	</div>
 
 </template>
@@ -50,7 +51,9 @@
 				verif: "",
 				check: "",
 				demo1: false,
-				demo2: true
+				demo2: true,
+				types:"password",
+				imgs:"../src/assets/images/eyeclick.png"
 			}
 		},
 		mounted: function() {
@@ -59,9 +62,17 @@
 			})
 		},
 		methods: {
-
 			Trim(str) {
 				return str.replace(/(^\s+)|(s+$)/g, "");
+			},
+			Alt(){
+				if(this.types=="password"){
+					this.types="text"
+					this.imgs="../src/assets/images/eye.png"
+				}else{
+					this.types="password"
+					this.imgs="../src/assets/images/eyeclick.png"
+				}
 			},
 			submitData() {
 				//去获取验证手机号
@@ -123,10 +134,15 @@
 </script>
 
 <style scoped>
+	
+	html{
+		background-color: white;
+	}
+	
 	span {
 		font-size: 10px;
 	}
-
+	
 	#ret_img{
 		width:20px;
 		position: absolute;
@@ -134,24 +150,29 @@
 		margin-top: 17px;
 		text-align: right;
 	}
-
+	
 	i.weui-icon.weui_icon_clear.weui-icon-clear{
 		display: none;
 	}
-
-
+	
+	#group_input_img{
+    	position: fixed;
+    	margin-top: -55px;
+    	margin-left: 70%;
+    }
+	
 	a {
 		color: #09a2d6;
 	}
-
+	
 	body {
 		background-color: white;
 	}
-
+	
 	#phone,#verification{
 		font-size: 1rem;
 	}
-
+	
 	#verification{
 		margin: 10px;
 		border-bottom: 1px solid #F5F5F5;
@@ -160,16 +181,27 @@
 		border-right: none;
 		outline:none;
 		line-height: 3;
-		text-indent: 10px;
+		text-indent: 1rem;
+		width: 98%;
+		margin-left: 4px;
+		padding-left: 0.3rem;
+		padding-top: 0;
 	}
-
+	
 	/*#passwordModel_image{
 		background-image: url(../../static/images/eye.png);
 		background-position:right;/*设置图标位置*/
 		/*background-repeat:no-repeat ;/*不会重复多个图标*/
 	/*}*/
-
-
+	
+	div#phone.vux-x-input.weui-cell{
+		border-top: 1px solid white;
+	}
+	
+	div#passwordModel_image.vux-x-input.weui-cell{
+		border-top: 1px solid white;
+	}
+	
 	#ret {
 		position: fixed;
 		top: 0;
@@ -180,31 +212,31 @@
 		line-height: 50px;
 		border-bottom: 1px solid #C8C8CD;
 	}
-
+	
 	#pwsbtn {
 		margin-top: -10px;
 		background-color: #09A2D6;
 	}
-
+	
 	.btns {
 		color: #7CCD7C;
 		border: 0px;
 	}
-
+	
 	body>.el-container {
 		margin-bottom: 40px;
 	}
-
+	
 	.weui-cells {
 		border: 0px;
 	}
-
+	
 	#verbtn {
 		position: absolute;
 		margin-top: -20px;
 		width: 100px;
 		height: 40px;
-		margin-left: 70%;
+		margin-left: 68%;
 		border: none;
 		background-color: #F5F5F5;
 		color: 646464;

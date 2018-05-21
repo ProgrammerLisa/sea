@@ -18,6 +18,7 @@ import Personal from '@/components/Personal'
 
 import Register from '@/components/Register'
 import Retrieve from '@/components/Retrieve_password'
+import Ask from '@/components/Invite'
 
 import friend from '@/components/friend'
 import address from '@/components/Address'
@@ -113,6 +114,10 @@ export default new Router({
 			path:'/Retrieve',
       name:'Retrieve',
 			component: Retrieve
+		},
+		{
+			path:'/Ask',
+			component: Ask
 		},
 		{
 			path:'/HelloWorld',

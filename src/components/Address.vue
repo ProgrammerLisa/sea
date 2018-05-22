@@ -4,7 +4,7 @@
       <div class="panel-body">
         <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
         收货地址
-        <router-link to="/Personal" tag="span" class="copyreader"> <img src="../assets/images/copyreader.png"/></router-link>
+        <router-link to="ModificationAddress" tag="span" class="copyreader"> <img src="../assets/images/copyreader.png"/></router-link>
       </div>
     </div>
 
@@ -113,7 +113,7 @@
     margin-right: 0.5rem;
     vertical-align: middle;
     text-align: center;
-    line-height: 0.6rem;
+    line-height: 0.8rem;
   }
   .defaultRound{
     display: inline-block;

@@ -1,6 +1,25 @@
 <template>
 
 	<div id="login">
+<<<<<<< HEAD
+		<!--<div id="reg">-->
+			<!--<img id="ret_img" src="../assets/images/back.png" onclick="window.history.go(-1)" /> 注册-->
+		<!--<div id="nav">-->
+			<!--登录-->
+		<!--</div>-->
+		<!--<div id="nav_login">-->
+			<!--<div id="nav_common" @click="sort(1)">-->
+				<!--<a>普通登录</a>-->
+			<!--</div>-->
+
+			<!--<div id="nav_sms" @click="sort(0)">-->
+				<!--<a>短信登录</a>-->
+			<!--</div>-->
+		<!--</div>-->
+		<!--<div id="log">-->
+			<!--<h3 style="text-align: center; margin: 120px;margin-top: 155px; line-height: 100%;">深海行动log</h3>-->
+		<!--</div>-->
+=======
 		<div id="nav">
 			登录
 		</div>
@@ -16,6 +35,7 @@
 		<div id="log">
 			<h3>深海行动log</h3>
 		</div>
+>>>>>>> 86292f423a31547f809dc296481c719385d86941
 
 		<!--这是我要隐藏的  -->
 		<div class="tow_show" v-if="isShow">

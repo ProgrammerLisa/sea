@@ -9,9 +9,22 @@
         <router-link to="/Force" tag="span">原力值 {{imgSum}}</router-link>
       </div>
       <div class="topOption option3">
-        <router-link to="/Introduce" tag="span">星球秘籍 </router-link>
+        <!-- Single button -->
+        <div class="btn-group">
+          <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img class="dropdownImg" src="../assets/images/caidan.png"/>
+          </div>
+          <ul class="dropdown-menu">
+            <li><a href="#">游戏规则</a></li>
+            <li><router-link to="/AddFriends" tag="a">添加好友</router-link></li>
+            <li><a href="#">战绩</a></li>
+          </ul>
+        </div>
       </div>
-
+      <div class="topOption option4">
+        <img src="../assets/images/friends.png"/>
+        <p>邀请好友</p>
+      </div>
       <div id="imgDiv"></div>
     </div>
 
@@ -150,14 +163,15 @@ export default {
   .option3{
     right: 0;
     top: 8rem;
-    border-top: #09a2d6 solid 0.15rem;
-    border-bottom: #09a2d6 solid 0.15rem;
-    border-left: #09a2d6  solid 0.1rem;
-    border-right:none;
-    padding: 0.2rem 1.5rem 0.2rem 2rem;
-    border-radius: 2rem;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+  }
+  .option4{
+    top: 25rem;
+    right: 1rem;
+    color: #fff;
+    text-align: center;
+  }
+  .option4 img{
+    width: 70%;
   }
   .option4-Icon span{
     font-size: 2.5rem;
@@ -183,5 +197,14 @@ export default {
   }
   .bcfff{
     background: #fff;
+  }
+  .dropdown-toggle{
+    background: #112941;
+    width:4.5rem;
+    border-radius: 0.5rem;
+    padding:0 0.5rem;
+  }
+  .dropdownImg{
+    width: 100%;
   }
 </style>

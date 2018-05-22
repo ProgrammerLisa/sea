@@ -11,10 +11,10 @@
        <td class="text-left">账户</td>
        <td class="text-right">136****</td>
      </tr>
-     <tr>
+     <router-link to="ChangePassword" tag="tr" class="arrow" >
        <td class="text-left">修改密码</td>
-       <td class="text-right"></td>
-     </tr>
+       <td class="text-right"><img :src="more" class="more"/></td>
+     </router-link>
      <tr class="spacing"><td></td><td></td></tr>
      <tr class="settingBtn">
        <td class="text-left">消息提醒</td>
@@ -34,14 +34,14 @@
        <td class="text-right" @click="CleanUpCaching">35M <img :src="more" class="more"/></td>
      </tr>
      <tr class="spacing"><td></td><td></td></tr>
-     <tr class="arrow">
+     <router-link to="AboutUs" tag="tr" class="arrow" >
        <td class="text-left">关于我们</td>
        <td class="text-right"><img :src="more" class="more"/></td>
-     </tr>
-     <tr class="arrow">
+     </router-link>
+     <router-link to="UserFeedback" tag="tr" class="arrow" >
        <td class="text-left">用户反馈</td>
        <td class="text-right"><img :src="more" class="more"/></td>
-     </tr>
+     </router-link>
      <tr class="arrow">
        <td class="text-left">版本更新</td>
        <td class="text-right">已是最新版本 <img :src="more" class="more"/></td>
@@ -90,7 +90,7 @@
               shade: true,
               yes: '',
               cancel: '',
-              tips: [3,'#c00'],//支持上右下左四个方向，通过1-4进行方向设定,可以设定tips: [1, '#c00']
+              tips: [3,'#000'],//支持上右下左四个方向，通过1-4进行方向设定,可以设定tips: [1, '#c00']
               tipsMore: false,//是否允许多个tips
               shadeClose: false,
             });
@@ -113,6 +113,7 @@
     color: #777;
     padding-bottom: 6rem;
     background-color: #f5f5f5;
+    width: 100vw;
   }
 
   .panel{

@@ -3,31 +3,20 @@
       <div class="panel panel-default BlackTitle">
         <div class="panel-body">
           <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
-          实名信息
-          </div>
+          提意见
+        </div>
       </div>
-      <table class="table">
-        <tr  v-for="r in realName">
-          <td class="text-left">{{r.title}}</td>
-          <td class="text-right">{{r.content}}</td>
-        </tr>
-      </table>
+      <div class="text">
+        <textarea class="form-control" rows="12" placeholder="请将您的意见或建议留言发给我们，收到后我们会立即处理并给予回复哦~"></textarea>
+        <button class="btn submitBtn">提交</button>
+      </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "RealName",
-        data(){
-          return{
-            realName:[
-              {title:'姓名',content:'**默'},
-              {title:'身份证号',content:'3413*************5676'},
-              {title:'手机号',content:'1366666666666'}
-            ]
-          }
-        },
-        methods:{
+        name: "UserFeedback",
+        methods: {
           goBack(){
             this.$router.go(-1);
           }
@@ -39,7 +28,6 @@
   .content{
     overflow-x: hidden;
     color: #777;
-    padding-bottom: 6rem;
     background-color: #f5f5f5;
     width: 100vw;
   }
@@ -66,16 +54,21 @@
   .back img{
     height: 2.5rem;
   }
-  .table{
-    background: #fff;
+  .text{
+    padding: 1rem;
   }
-  .table tr{
-    border-bottom: 0.1rem solid #f5f5f5;
+  .form-control{
+    outline: none;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
   }
-  .table td{
-    padding:0.5rem 1rem;
-  }
-  .text-left{
-    color: #555;
+  .submitBtn{
+    background: #09a2d6;
+    color: #fff;
+    width: 100%;
+    border-radius: 0;
+    font-size: large;
+    margin-top: 4rem;
   }
 </style>

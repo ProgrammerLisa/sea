@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import layer from 'vue-layer'
 import $ from 'jquery'
 import '@/assets/css/bootstrap.css'
 import '@/assets/js/bootstrap.js'
@@ -31,14 +30,16 @@ import Reward from '@/components/Reward'
 import AddFriends from '@/components/AddFriends'
 import CommodityDetails from '@/components/CommodityDetails'
 import CommodityOrder from '@/components/CommodityOrder'
-import ModificationAddress from '@/components/ModificationAddress'
-import Statement from '@/components/Statement'
 
-Vue.use(Router);
-Vue.prototype.$layer = layer(Vue);
+Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+			path:'/',
+      name:'Login',
+			component: Login
+		},
     {
       path: '/',
       name: 'HelloWorld',
@@ -58,12 +59,10 @@ export default new Router({
         },
         {
           path:'Shopping',
-          meta:{index:0},
           component:Shopping
         },
         {
           path:'Personal',
-          meta:{index:0},
           component:Personal
         }
       ]
@@ -86,7 +85,6 @@ export default new Router({
     {
       path:'/Introduce',
       name:'IntroduceCode',
-      meta:{index:1},
       component:Introduce
     },
     {
@@ -126,80 +124,58 @@ export default new Router({
     {
       path:'/friend',
       name:'friend',
-      meta:{index:1},
       component: friend
     },
     {
       path:'/address',
       name:'address',
-      meta:{index:1},
       component: address
     },
     {
       path:'/Service',
       name:'Service',
-      meta:{index:1},
       component: Service
     },
     {
       path:'/Setting',
       name:'Setting',
-      meta:{index:1},
       component: Setting
     },
     {
       path:'/RealName',
       name:'RealName',
-      meta:{index:1},
       component: RealName
     },
     {
       path:'/Wallet',
       name:'Wallet',
-      meta:{index:1},
       component: Wallet
     },
     {
       path:'/news',
       name:'news',
-      meta:{index:1},
       component: news
     },
     {
       path:'/Reward',
       name:'Reward',
-      meta:{index:1},
       component: Reward
     },
     {
       path:'/AddFriends',
       name:'AddFriends',
-      meta:{index:2},
       component: AddFriends
     },
     {
       path:'/CommodityDetails',
       name:'CommodityDetails',
-      meta:{index:1},
       component: CommodityDetails
     },
     {
       path:'/CommodityOrder',
       name:'CommodityOrder',
-      meta:{index:1},
       component: CommodityOrder
-    },
-    {
-      path:'/ModificationAddress',
-      name:'ModificationAddress',
-      meta:{index:2},
-      component: ModificationAddress
-    },
-    {
-      path:'/Statement',
-      name:'Statement',
-      meta:{index:2},
-      component: Statement
     }
+
   ]
 })

@@ -30,6 +30,8 @@
 
 <script>
 	import { XInput, Group, XButton, CheckIcon } from 'vux'
+	import eye from '@/assets/images/eye.png'
+	import eyeclick from '@/assets/images/eyeclick.png'
 
 	export default {
 		name: "login",
@@ -53,7 +55,7 @@
 				demo1: false,
 				demo2: true,
 				types:"password",
-				imgs:"../src/assets/images/eye.png"
+				imgs:eye
 			}
 		},
 		mounted: function() {
@@ -68,10 +70,10 @@
 			Alt(){
 				if(this.types=="password"){
 					this.types="text"
-					this.imgs="../src/assets/images/eyeclick.png"
+					this.imgs=eyeclick
 				}else{
 					this.types="password"
-					this.imgs="../src/assets/images/eye.png"
+					this.imgs=eye
 				}
 			},
 			submitData() {
@@ -214,6 +216,7 @@
 	}
 	
 	#pwsbtn {
+		width: 80%;
 		margin-top: -10px;
 		background-color: #09A2D6;
 	}

@@ -40,6 +40,9 @@
 
 <script>
 	import { XInput, Group, XButton, CheckIcon } from 'vux'
+	import eye from '@/assets/images/eye.png'
+	import eyeclick from '@/assets/images/eyeclick.png'
+	
 	export default {
 		name: "register",
 		components: {
@@ -63,9 +66,9 @@
 //				demo1: false,
 //				demo2: true,
 				types:"password",
-				imgs:"../src/assets/images/eye.png",
+				imgs:eye,
 				typeis:"password",
-				imges:"../src/assets/images/eye.png"
+				imges:eye
 			}
 		},
 		mounted: function() {
@@ -80,19 +83,19 @@
 			Alt(){
 				if(this.types=="password"){
 					this.types="text"
-					this.imgs="../src/assets/images/eyeclick.png"
+					this.imgs=eyeclick
 				}else{
 					this.types="password"
-					this.imgs="../src/assets/images/eye.png"
+					this.imgs=eye
 				}
 			},
 			Alte(){
 				if(this.typeis=="password"){
 					this.typeis="text"
-					this.imges="../src/assets/images/eyeclick.png"
+					this.imges=eyeclick
 				}else{
 					this.typeis="password"
-					this.imges="../src/assets/images/eye.png"
+					this.imges=eye
 				}
 			},
 			submitData() {

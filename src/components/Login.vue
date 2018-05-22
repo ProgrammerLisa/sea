@@ -1,41 +1,22 @@
 <template>
 
 	<div id="login">
-<<<<<<< HEAD
-		<!--<div id="reg">-->
-			<!--<img id="ret_img" src="../assets/images/back.png" onclick="window.history.go(-1)" /> 注册-->
-		<!--<div id="nav">-->
-			<!--登录-->
-		<!--</div>-->
-		<!--<div id="nav_login">-->
-			<!--<div id="nav_common" @click="sort(1)">-->
-				<!--<a>普通登录</a>-->
-			<!--</div>-->
-
-			<!--<div id="nav_sms" @click="sort(0)">-->
-				<!--<a>短信登录</a>-->
-			<!--</div>-->
-		<!--</div>-->
-		<!--<div id="log">-->
-			<!--<h3 style="text-align: center; margin: 120px;margin-top: 155px; line-height: 100%;">深海行动log</h3>-->
-		<!--</div>-->
-=======
 		<div id="nav">
 			登录
 		</div>
 		<div id="nav_login">
 			<div id="nav_common" @click="sort(1)">
-				<a>普通登录</a>
+				<a :style="{color:color1}">普通登录</a>
 			</div>
 
 			<div id="nav_sms" @click="sort(0)">
-				<a>短信登录</a>
+				<a :style="{color:color2}">短信登录</a>
 			</div>
 		</div>
 		<div id="log">
 			<h3>深海行动log</h3>
 		</div>
->>>>>>> 86292f423a31547f809dc296481c719385d86941
+
 
 		<!--这是我要隐藏的  -->
 		<div class="tow_show" v-if="isShow">
@@ -67,7 +48,7 @@
 
 			<div id="ipwd" >
 				<input id="verification" v-model="verif" placeholder="请输入短信验证码">
-					<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</x-button>
+				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</x-button>
 				</input>
 			</div>
 
@@ -83,6 +64,8 @@
 
 <script>
 	import { XInput, Group, XButton } from 'vux'
+	import eye from '@/assets/images/eye.png'
+	import eyeclick from '@/assets/images/eyeclick.png'
 
 	export default {
 		name: "login",
@@ -103,7 +86,9 @@
 				isShow: true,
 				isShows: false,
 				types:"password",
-				imgs:"@/assets/images/eye.png"
+				imgs:eye,
+				color1:"blue",
+				color2:"black"
 			}
 		},
 		mounted: function() {
@@ -120,22 +105,26 @@
 				if (index == 1) {
 					this.isShow = true;
 					this.isShows = false;
-				} else if(index == 0){
+					this.color1="blue";
+					this.color2="black";
+				} else if (index == 0) {
 					this.isShows = true;
 					this.isShow = false;
+					this.color1="black";
+					this.color2="blue";
 				}
 			},
 			Alt(){
-				if(this.types=="password"){
-					this.types="text"
-					this.imgs="@/assets/images/eyeclick.png"
-				}else{
-					this.types="password"
-					this.imgs="@/assets/images/eye.png"
+				if (this.types == "password") {
+					this.types = "text"
+					this.imgs = eyeclick
+				} else {
+					this.types = "password"
+					this.imgs = eye
 				}
 			},
 			timer() {
-				if(this.time > 0) {
+				if (this.time > 0) {
 					this.time--;
 					this.btntxt = this.time + "s";
 					setTimeout(this.timer, 1000);
@@ -150,8 +139,8 @@
 
 				var reg = /^1[3|4|5|7|8]\d{9}$/;
 				//				alert("result:" + this.$refs.mobile.valid);
-				if(reg.test(this.mobile)) {
-					if(this.inppwd != this.pwd) {
+				if (reg.test(this.mobile)) {
+					if (this.inppwd != this.pwd) {
 						alert("密码错误");
 						return;
 					} else {
@@ -164,19 +153,19 @@
 			},
 			btnveif(){
 				var reg = /^1[3|4|5|7|8]\d{9}$/;
-				if(reg.test(this.mobile)){
-					if(this.verif == ""){
+				if (reg.test(this.mobile)) {
+					if (this.verif == "") {
 						alert("验证码不能为空");
 						return;
 					}
-					if(this.verif != this.verification) {
+					if (this.verif != this.verification) {
 						alert("验证码错误");
 						return;
-					}else{
+					} else {
 						alert("登录成功");
 						this.$router.push('/Home');
 					}
-				}else{
+				} else {
 					alert("手机号码不能为空 或 输入有误哦~");
 				}
 			},
@@ -196,30 +185,30 @@
 </script>
 
 <style>
-	
+
 	button.weui-btn.weui-btn_primary{
 		background-color:#09A2D6;
 		border-radius: 0;
 	}
-	
+
 	button.weui-btn.weui-btn_primary:active{
 		background-color:blue;
 	}
-	
+
 	html{
 		background-color: white;
 	}
-	
+
 	body {
 		background-color: white;
 		width: auto;
 	}
-	
+
 
 	h3{
-		text-align: center; 
+		text-align: center;
 		margin: 120px;
-		margin-top: 155px; 
+		margin-top: 155px;
 		line-height: 100%;
 	}
 	.tow_show{
@@ -240,14 +229,14 @@
 		line-height: 1;
 	}
 
-i.weui-icon.weui_icon_clear.weui-icon-clear{
+	i.weui-icon.weui_icon_clear.weui-icon-clear{
 		display: none;
 	}
-	
+
 	div#ipwd.vux-x-input.weui-cell{
 		width: 80%;
 	}
-	
+
 	.weui-btn::after{
 		border-radius: 0;
 	}
@@ -263,34 +252,26 @@ i.weui-icon.weui_icon_clear.weui-icon-clear{
 	}
 
 	#phone_img {
-		/*background-image: url(../../static/images/account.png);
-		background-position:left ;/*设置图标位置*/
-		/*background-repeat:no-repeat ;/*不会重复多个图标*/
-		/*padding-left: 60px;*/
 		font-size: 1.3rem;
 	}
 
 	#ipwd {
 		background-position: right;
-		/*设置图标位置*/
 		background-repeat: no-repeat;
-		/*不会重复多个图标*/
 		font-size: 1.3rem;
 		border-bottom: 0.1rem solid #F5F5F5;
 	}
 
 	.group_inputs {
-		/*margin: 20px 10px;*/
-		/*margin-left: 25px;*/
 		width: 100%;
 		/*border-bottom: 1px solid #F5F5F5;*/
 	}
-    #group_input_img{
-    	position: fixed;
-    	width: 54px;
-    	margin-top: -55px;
-    	margin-left: 75%;
-    }
+	#group_input_img{
+		position: fixed;
+		width: 54px;
+		margin-top: -55px;
+		margin-left: 75%;
+	}
 	.group_input {
 		/*margin: -40px;*/
 		/*margin: 10px;*/
@@ -315,7 +296,7 @@ i.weui-icon.weui_icon_clear.weui-icon-clear{
 	a {
 		color: #353535;
 	}
-	
+
 	a:hover{
 		text-decoration: none;
 	}
@@ -350,6 +331,21 @@ i.weui-icon.weui_icon_clear.weui-icon-clear{
 		margin-left: -30%;
 	}
 
+
+	#nav_common_a{
+		color:#09A2D6 ;
+	}
+
+
+
+	/*a:hover{
+		color: #09A2D6;
+	}
+
+	a:active{
+		color: #000000;
+	}*/
+
 	#nav_sms {
 		position: fixed;
 		width: 100%;
@@ -367,6 +363,6 @@ i.weui-icon.weui_icon_clear.weui-icon-clear{
 		display: none;
 		list-style: none;
 	}
-	
-	
+
+
 </style>

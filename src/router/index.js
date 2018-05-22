@@ -5,7 +5,7 @@ import '@/assets/css/bootstrap.css'
 import '@/assets/js/bootstrap.js'
 import '@/assets/js/jq.js'
 import HelloWorld from '@/components/HelloWorld'
-import Home from '@/components/HelloFromVux'
+import Home from '@/components/Home'
 import Login from '@/components/Login'
 import BlackDrill from '@/components/BlackDrill'
 import Force from '@/components/Force'
@@ -13,7 +13,7 @@ import Introduce from '@/components/IntroduceCode'
 import GetForce from '@/components/GetForce'
 import GetBlackDrill from '@/components/GetBlackDrill'
 import Shopping from '@/components/Shopping'
-import Personal from '@/components/Personal'
+import Personal from '@/components/Profile'
 
 import Register from '@/components/Register'
 import Retrieve from '@/components/Retrieve_password'
@@ -30,6 +30,13 @@ import Reward from '@/components/Reward'
 import AddFriends from '@/components/AddFriends'
 import CommodityDetails from '@/components/CommodityDetails'
 import CommodityOrder from '@/components/CommodityOrder'
+
+import ModificationAddress from '@/components/ModificationAddress'
+import Statement from '@/components/Statement'
+import ChangePassword from '@/components/ChangePassword'
+import UserFeedback from '@/components/UserFeedback'
+import AboutUs from '@/components/AboutUs'
+
 
 Vue.use(Router)
 
@@ -50,15 +57,17 @@ export default new Router({
           component:Home
         },
         {
-          path:'Home',
+          path:'/Home',
+          meta:{index:0},
           component:Home
         },
         {
-          path:'GetForce',
+          path:'/GetForce',
           component:GetForce
         },
         {
-          path:'Shopping',
+          path:'/Shopping',
+          meta:{index:0},
           component:Shopping
         },
         {
@@ -66,11 +75,6 @@ export default new Router({
           component:Personal
         }
       ]
-    },
-    {
-    	path:'/Home',
-    	name:'Home',
-    	component:Home
     },
     {
       path:'/BlackDrill',
@@ -175,6 +179,39 @@ export default new Router({
       path:'/CommodityOrder',
       name:'CommodityOrder',
       component: CommodityOrder
+<<<<<<< HEAD
+=======
+    },
+    {
+      path:'/ModificationAddress',
+      name:'ModificationAddress',
+      meta:{index:2},
+      component: ModificationAddress
+    },
+    {
+      path:'/Statement',
+      name:'Statement',
+      meta:{index:2},
+      component: Statement
+    },
+    {
+      path:'/ChangePassword',
+      name:'ChangePassword',
+      meta:{index:2},
+      component: ChangePassword
+    },
+    {
+      path:'/UserFeedback',
+      name:'UserFeedback',
+      meta:{index:2},
+      component: UserFeedback
+    },
+    {
+      path:'/AboutUs',
+      name:'AboutUs',
+      meta:{index:2},
+      component: AboutUs
+>>>>>>> 145b02a88591a6e03c5f2822171c4532cadbb4ae
     }
 
   ]

@@ -3,34 +3,27 @@
     <div class="panel panel-default BlackTitle">
       <div class="panel-body">
         <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
-        我的钱包
+        关于
       </div>
     </div>
-    <table class="table" v-for="m in myWallet">
-      <router-link :to="m.url" tag="tr">
-        <td class="text-left">{{m.title}}</td>
-        <td class="text-right"><img :src="more"/></td>
-      </router-link>
-    </table>
+    <div class="about">
+      <img :src="logo" class="logo"/>
+      <h4>深海夺宝1.11</h4>
+      <p class="agreement">《用户使用协议和隐私条款》</p>
+    </div>
   </div>
 </template>
 
 <script>
-    import more from '@/assets/images/more.png'
+    import logo from '@/assets/images/bg.png'
     export default {
-        name: "Wallet",
+        name: "AboutUs",
         data(){
           return{
-            more:more,
-            myWallet:[
-              {url:'/',title:'我的账单'},
-              {url:'Statement',title:'收支记录'},
-              {url:'/',title:'我的钻石'},
-              {url:'/',title:'我的能量值'}
-            ]
+            logo:logo
           }
         },
-        methods:{
+        methods: {
           goBack(){
             this.$router.go(-1);
           }
@@ -42,9 +35,9 @@
   .content{
     overflow-x: hidden;
     color: #777;
-    padding-bottom: 6rem;
-    background-color: #f5f5f5;
+    background-color: #fff;
     width: 100vw;
+    height: 100vh;
   }
 
   .panel{
@@ -69,21 +62,23 @@
   .back img{
     height: 2.5rem;
   }
-  .table{
-    background: #fff;
-    border-bottom: 0.1rem solid #f5f5f5;
-    margin: 0;
+  .about{
+    text-align: center;
+    color: #444;
+    margin-top: 12rem;
   }
-  .table:nth-child(3){
+  .logo{
+    width: 8rem;
+    height: 8rem;
+    border-radius: 0.6rem;
     margin-bottom: 1rem;
   }
-  .table td{
-    padding:0.5rem 1rem;
-  }
-  .text-left{
-    color: #555;
-  }
-  .text-right img{
-    height: 3rem;
+  .agreement{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-bottom: 2rem;
+    font-size: smaller;
+    color: #09a2d6;
   }
 </style>

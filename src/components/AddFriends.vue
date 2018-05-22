@@ -2,7 +2,7 @@
   <div class="content">
     <div class="panel panel-default BlackTitle">
       <div class="panel-body">
-        <router-link to="/friend" tag="span" class="back"> <img src="../assets/images/back.png"/></router-link>
+        <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
         添加好友
       </div>
     </div>
@@ -22,7 +22,12 @@
 
 <script>
     export default {
-        name: "AddFriends"
+        name: "AddFriends",
+        methods:{
+          goBack(){
+            this.$router.go(-1);
+          }
+        }
     }
 </script>
 

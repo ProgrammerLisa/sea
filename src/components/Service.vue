@@ -9,6 +9,8 @@
 
     <!--对话框-->
     <div class="media" v-for="s in Service">
+
+      <p class="text-center"><span class="DialogDate" v-if="s.isDate">{{s.DialogDate}}</span></p>
       <div class="media-left" v-if="s.isOfficial">
           <img class="media-object" :src="s.img"  alt="...">
       </div>
@@ -21,6 +23,16 @@
         <img class="media-object" :src="s.img"  alt="...">
       </div>
     </div>
+
+    <!--输入框-->
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1"><img src="../assets/images/input.png"/></span>
+      <input type="text" class="form-control" placeholder="请输入你的问题" aria-describedby="basic-addon1">
+      <span class="input-group-addon dispatchAddon">
+        <button class="btn dispatchBtn">发送</button>
+      </span>
+    </div>
+
   </div>
 </template>
 
@@ -31,11 +43,11 @@
         data(){
           return{
             Service:[
-              {img:ServiceHeadImg,DialogStyle:'',Dialog:'Hi~ 啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊有什么问题都可以问我哟~',isOfficial:true,isMyself:false},
-              {img:ServiceHeadImg,DialogStyle:'',Dialog:'好的好的 ',isOfficial:false,isMyself:true},
-              {img:ServiceHeadImg,DialogStyle:'',Dialog:'一定要哦',isOfficial:true,isMyself:false},
-              {img:ServiceHeadImg,DialogStyle:'',Dialog:'。。。 ',isOfficial:false,isMyself:true},
-              {img:ServiceHeadImg,DialogStyle:'',Dialog:'emmm....嗯 ',isOfficial:false,isMyself:true}
+              {img:ServiceHeadImg,DialogStyle:'',DialogDate:'5月20日 10:32',isDate:true,Dialog:'Hi~ 啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊有什么问题都可以问我哟~',isOfficial:true,isMyself:false},
+              {img:ServiceHeadImg,DialogStyle:'',DialogDate:'5月20日 10:32',isDate:true,Dialog:'好的好的 ',isOfficial:false,isMyself:true},
+              {img:ServiceHeadImg,DialogStyle:'',DialogDate:'5月20日 10:32',isDate:false,Dialog:'一定要哦',isOfficial:true,isMyself:false},
+              {img:ServiceHeadImg,DialogStyle:'',DialogDate:'5月20日 10:32',isDate:false,Dialog:'。。。 ',isOfficial:false,isMyself:true},
+              {img:ServiceHeadImg,DialogStyle:'',DialogDate:'5月20日 10:32',isDate:true,Dialog:'emmm....嗯 ',isOfficial:false,isMyself:true}
 
             ]
           }
@@ -44,9 +56,7 @@
           const that = this;
           for (var i=0;i<that.Service.length;i++){
             if( that.Service[i].isMyself){
-              that.Service[i].DialogStyle = 'border-bottom-right-radius:1rem;float:right'
-            }else {
-              that.Service[i].DialogStyle = 'border-bottom-left-radius:1rem;'
+              that.Service[i].DialogStyle = 'float:right;background:#09a2d6;color:#fff'
             }
 
           }
@@ -93,6 +103,11 @@
     padding: 1rem 1rem 0 1rem;
     margin: 0;
   }
+  .DialogDate{
+    background: #ddd;
+    color: #fff;
+    padding: 0.2rem 0.5rem;
+  }
   .media-object{
     background: #fff;
     border-radius: 50%;
@@ -105,9 +120,39 @@
   .serviceContent{
     background: #fff;
     padding: 0.8rem 1.5rem;
-    border-radius: 0.4rem ;
-    border-top-left-radius:0;
+    border-radius: 0;
     display: inline-block;
     max-width: 70%;
+  }
+  .input-group{
+    padding: 1rem;
+    background: #e1e1e1;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  .input-group-addon{
+    background: #fff;
+    border: none;
+    height: 3.5rem;
+    padding: 0;
+  }
+  .input-group-addon img{
+    width:3.5rem;
+  }
+  .form-control{
+    height: 3.5rem;
+    border: none;
+  }
+  .dispatchAddon{
+    background: #e1e1e1;
+  }
+  .dispatchBtn{
+    background: #09a2d6;
+    color: #fff;
+    height: 3.5rem;
+    border: none;
+    border-radius: 0;
+    margin-left: 1rem;
   }
 </style>

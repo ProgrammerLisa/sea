@@ -73,6 +73,9 @@
 		background-color: white;	
 	}
 	
+	div.weui-cells.vux-no-group-title::before {
+		border-top: 0px !important;
+	}
 	
 	
 	#ask_reg{
@@ -102,7 +105,8 @@
 	
 	#ask_invite{
 		padding-left: 50px;
-		font-size: 1.5rem;
+		font-size: 1.3rem;
+		
 	}
 	
 	#agree{

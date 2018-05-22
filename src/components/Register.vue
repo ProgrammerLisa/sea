@@ -63,9 +63,9 @@
 //				demo1: false,
 //				demo2: true,
 				types:"password",
-				imgs:"../src/assets/images/eyeclick.png",
+				imgs:"../src/assets/images/eye.png",
 				typeis:"password",
-				imges:"../src/assets/images/eyeclick.png"
+				imges:"../src/assets/images/eye.png"
 			}
 		},
 		mounted: function() {
@@ -80,19 +80,19 @@
 			Alt(){
 				if(this.types=="password"){
 					this.types="text"
-					this.imgs="../src/assets/images/eye.png"
+					this.imgs="../src/assets/images/eyeclick.png"
 				}else{
 					this.types="password"
-					this.imgs="../src/assets/images/eyeclick.png"
+					this.imgs="../src/assets/images/eye.png"
 				}
 			},
 			Alte(){
 				if(this.typeis=="password"){
 					this.typeis="text"
-					this.imges="../src/assets/images/eye.png"
+					this.imges="../src/assets/images/eyeclick.png"
 				}else{
 					this.typeis="password"
-					this.imges="../src/assets/images/eyeclick.png"
+					this.imges="../src/assets/images/eye.png"
 				}
 			},
 			submitData() {
@@ -178,8 +178,9 @@
 
 	#group_input_imgs{
     	position: absolute;
+    	width: 54px;
     	margin-top: -55px;
-    	margin-left: 70%;
+    	margin-left: 75%;
     }
     
     #group_input_img{
@@ -203,10 +204,6 @@
 		background-color: white;
 	}
 
-	#phone,
-	#verification {
-		font-size: 1.3rem;
-	}
 	#phone{
 		width: 97.5%;
 		border-bottom: 0.1rem solid #F5F5F5;

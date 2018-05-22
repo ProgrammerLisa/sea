@@ -29,8 +29,8 @@
 			</group>
 
 			<div id="hyperlink">
-				<router-link tag='a' :to="'/Retrieve'">找回密码</router-link> &nbsp;&nbsp;|&nbsp;&nbsp;
-				<router-link tag='a' :to="'/Register'">注册账号</router-link>
+				<router-link class="a_hyperlink" tag='a' :to="'/Retrieve'">找回密码</router-link> &nbsp;&nbsp;|&nbsp;&nbsp;
+				<router-link class="a_hyperlink" tag='a' :to="'/Register'">注册账号</router-link>
 			</div>
 
 			<div style="padding:30px;">
@@ -83,7 +83,7 @@
 				isShow: true,
 				isShows: false,
 				types:"password",
-				imgs:"../src/assets/images/eye.png"
+				imgs:"@/assets/images/eye.png"
 			}
 		},
 		mounted: function() {
@@ -108,10 +108,10 @@
 			Alt(){
 				if(this.types=="password"){
 					this.types="text"
-					this.imgs="../src/assets/images/eyeclick.png"
+					this.imgs="@/assets/images/eyeclick.png"
 				}else{
 					this.types="password"
-					this.imgs="../src/assets/images/eye.png"
+					this.imgs="@/assets/images/eye.png"
 				}
 			},
 			timer() {
@@ -179,6 +179,7 @@
 	
 	button.weui-btn.weui-btn_primary{
 		background-color:#09A2D6;
+		border-radius: 0;
 	}
 	
 	button.weui-btn.weui-btn_primary:active{
@@ -227,6 +228,9 @@ i.weui-icon.weui_icon_clear.weui-icon-clear{
 		width: 80%;
 	}
 	
+	.weui-btn::after{
+		border-radius: 0;
+	}
 	#verbtn {
 		position: absolute;
 		margin-top: -45px;
@@ -236,7 +240,6 @@ i.weui-icon.weui_icon_clear.weui-icon-clear{
 		background-color: #F5F5F5;
 		color: 646464;
 		font-size: 1rem;
-		border-radius: 0;
 	}
 
 	#phone_img {
@@ -244,7 +247,7 @@ i.weui-icon.weui_icon_clear.weui-icon-clear{
 		background-position:left ;/*设置图标位置*/
 		/*background-repeat:no-repeat ;/*不会重复多个图标*/
 		/*padding-left: 60px;*/
-		font-size: 1.5rem;
+		font-size: 1.3rem;
 	}
 
 	#ipwd {
@@ -252,7 +255,7 @@ i.weui-icon.weui_icon_clear.weui-icon-clear{
 		/*设置图标位置*/
 		background-repeat: no-repeat;
 		/*不会重复多个图标*/
-		font-size: 1.5rem;
+		font-size: 1.3rem;
 		border-bottom: 0.1rem solid #F5F5F5;
 	}
 
@@ -284,6 +287,9 @@ i.weui-icon.weui_icon_clear.weui-icon-clear{
 	#hyperlink {
 		margin-top: 10px;
 		margin-left: 55%;
+	}
+	.a_hyperlink{
+		color: #8C8C8C;
 	}
 
 	a {

@@ -53,7 +53,7 @@
 				demo1: false,
 				demo2: true,
 				types:"password",
-				imgs:"../src/assets/images/eyeclick.png"
+				imgs:"../src/assets/images/eye.png"
 			}
 		},
 		mounted: function() {
@@ -68,10 +68,10 @@
 			Alt(){
 				if(this.types=="password"){
 					this.types="text"
-					this.imgs="../src/assets/images/eye.png"
+					this.imgs="../src/assets/images/eyeclick.png"
 				}else{
 					this.types="password"
-					this.imgs="../src/assets/images/eyeclick.png"
+					this.imgs="../src/assets/images/eye.png"
 				}
 			},
 			submitData() {
@@ -158,7 +158,7 @@
 	#group_input_img{
     	position: fixed;
     	margin-top: -55px;
-    	margin-left: 70%;
+    	margin-left: 75%;
     }
 	
 	a {

@@ -20,14 +20,14 @@
 
 		<!--这是我要隐藏的  -->
 		<div class="tow_show" v-if="isShow">
-			<group class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
+			<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 				<x-input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
-			</group>
+			</div>
 
-			<group class="group_input" >
+			<div class="group_input" >
 				<x-input id="ipwd" v-model="inppwd" :type="types" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode"></x-input>
 				<img id="group_input_img" @click="Alt" :src="imgs"  />
-			</group>
+			</div>
 
 			<div id="hyperlink">
 				<router-link class="a_hyperlink" tag='a' :to="'/Retrieve'">找回密码</router-link> &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -42,9 +42,9 @@
 
 		<!--这是我要隐藏的  -->
 		<div class="tow_show" v-if="isShows">
-			<group class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
+			<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 				<x-input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
-			</group>
+			</div>
 
 			<div id="ipwd" >
 				<input id="verification" v-model="verif" placeholder="请输入短信验证码">
@@ -272,6 +272,7 @@
 	}
 
 	.group_inputs {
+		border-bottom: 1px solid #F5F5F5;
 		width: 100%;
 		/*border-bottom: 1px solid #F5F5F5;*/
 	}
@@ -284,6 +285,8 @@
 	.group_input {
 		/*margin: -40px;*/
 		/*margin: 10px;*/
+		border-bottom: 1px solid black;
+		padding-top: 10px;
 		width: 100%;
 		/*padding: 40px;*/
 		/*margin-left: -14px;*/

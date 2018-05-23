@@ -9,7 +9,7 @@
 			<input id="ask_invite" v-model="verif" placeholder="请填写邀请码" :max="6" keyboard="number" is-type="china-mobile" required></input>
 		</center>
 		<div style="padding:40px;margin-top: 10px;">
-			<x-button @click.native="accomplish" type="primary" style=" background-color:#09A2D6;color: white;border-radius: 0;width: 80%;">完 成</x-button>
+			<x-button id="finish" @click.native="accomplish" type="primary">完 成</x-button>
 		</div>
 
 		<center>
@@ -48,14 +48,14 @@
          },
 			accomplish() {
 				if(this.verif == '') {
-					alert('邀请码不能为空哦');
+					this.$layer.alert('邀请码不能为空哦',{title:'提示'});
 					return;
 				}
 				if(this.verif != this.ask_invite) {
-					alert('邀请码错误');
+					this.$layer.alert('邀请码错误',{title:'提示'});
 					return;
 				} else if(this.check == this.demo1) {
-					alert('请同意');
+					this.$layer.alert('请同意',{title:'提示'});
 					return;
 				} else {
 					alert('通过了');
@@ -120,5 +120,15 @@
 
 	#agree_a {
 		color: #09A4D7;
+	}
+
+	#finish{
+		 background-color:#09A2D6;
+		 color: white;
+		 border-radius: 0;
+		 width: 80%;
+	}
+	#finish:active{
+		background-color: #2894FF;
 	}
 </style>

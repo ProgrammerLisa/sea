@@ -1,7 +1,7 @@
 <template>
 	<div id="register">
 		<div id="reg">
-			<img id="ret_img" src="../assets/images/back.png" onclick="window.history.go(-1)" /> 注册
+			<img id="ret_img" src="../assets/images/back.png" @click="goBack"/> 注册
 		</div>
 		<div style="margin-top: 50px;padding: 10px;margin-left: 6px;" label-width="5.5em" label-margin-right="2em" label-align="left">
 			<x-input id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
@@ -20,7 +20,7 @@
 		</div>
 
 		<div style="margin-top:-40px;padding: 30px;margin-left: -14px;">
-			<x-input :type="typeis" style="font-size: 1.3rem;border-bottom: 0.1rem solid #F5F5F5;" @on-change="password" v-model="passwordcheckModel"  placeholder="请再次输入密码" :min="6" :max="6" is-type="sendcode"calss="btns"></x-input>
+			<x-input :type="typeis" style="font-size: 1.3rem;border-bottom: 0.1rem solid #F5F5F5;" v-model="passwordcheckModel"  placeholder="请再次输入密码" :min="6" :max="6" is-type="sendcode"calss="btns"></x-input>
 			<!--<span>@{{passwordCheckValidate.errorText}}</span>-->
 			<img id="group_input_imgs" @click="Alte()" :src="imges"  />
 		</div>
@@ -42,7 +42,7 @@
 	import { XInput, Group, XButton, CheckIcon } from 'vux'
 	import eye from '@/assets/images/eye.png'
 	import eyeclick from '@/assets/images/eyeclick.png'
-	
+
 	export default {
 		name: "register",
 		components: {
@@ -77,6 +77,9 @@
 			})
 		},
 		methods: {
+      goBack(){
+        this.$router.go(-1);
+      },
 			Trim(str) {
 				return str.replace(/(^\s+)|(s+$)/g, "");
 			},
@@ -125,7 +128,7 @@
 //					if(this.check == this.demo1) {
 //						alert("请同意");
 //						return;
-//					} 
+//					}
 					else {
 						alert("登录成功");
 						this.$router.push('/Ask');
@@ -166,7 +169,7 @@
 </script>
 
 <style scoped>
-	
+
 	span {
 		font-size: 10px;
 	}
@@ -185,16 +188,16 @@
     	margin-top: -55px;
     	margin-left: 75%;
     }
-    
+
     #group_input_img{
     	position: absolute;
     }
-	
+
 	/*#agree{
 		margin-top: 65%;
 		font-size: 1rem;
 	}*/
-	
+
 	i.weui-icon.weui_icon_clear.weui-icon-clear {
 		display: none;
 	}
@@ -233,7 +236,7 @@
 		margin-left: -0.0625rem;
 		padding-left: 1.175rem;
 	}
-	
+
 	#passwordcheckModel_image {
 		background-image: url(../assets/images/eyeclick.png);
 		background-position: right;

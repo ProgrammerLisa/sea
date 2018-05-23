@@ -26,7 +26,7 @@
 
 			<group class="group_input" >
 				<x-input id="ipwd" v-model="inppwd" :type="types" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode"></x-input>
-				<img id="group_input_img" @click="Alt()" :src="imgs"  />
+				<img id="group_input_img" @click="Alt" :src="imgs"  />
 			</group>
 
 			<div id="hyperlink">
@@ -88,7 +88,8 @@
 				types:"password",
 				imgs:eye,
 				color1:"blue",
-				color2:"black"
+				color2:"black",
+        disabled:false
 			}
 		},
 		mounted: function() {
@@ -141,50 +142,49 @@
 				//				alert("result:" + this.$refs.mobile.valid);
 				if (reg.test(this.mobile)) {
 					if (this.inppwd != this.pwd) {
-						alert("密码错误");
+            this.$layer.msg('密码错误');
 						return;
 					} else {
-						alert("登录成功");
-						this.$router.push('/GetForce');
+            this.$layer.msg('登录成功');
+						this.$router.replace('/Home');
 					}
 				} else {
-					alert("手机号码不能为空 或 输入有误哦~");
+          this.$layer.msg('手机号码不能为空 或 输入有误哦~');
 				}
 			},
 			btnveif(){
 				var reg = /^1[3|4|5|7|8]\d{9}$/;
 				if (reg.test(this.mobile)) {
 					if (this.verif == "") {
-						alert("验证码不能为空");
+            this.$layer.msg('验证码不能为空');
 						return;
 					}
 					if (this.verif != this.verification) {
-						alert("验证码错误");
+            this.$layer.msg('验证码错误');
 						return;
 					} else {
-						alert("登录成功");
-						this.$router.push('/Home');
+            this.$layer.msg('登录成功');
+						this.$router.replace('/Home');
 					}
 				} else {
-					alert("手机号码不能为空 或 输入有误哦~");
+          this.$layer.msg('手机号码不能为空 或 输入有误哦~');
 				}
 			},
 			//短信信息
 			SMS() {
-				alert("短信已发送,本次验证码为：" + this.verification);
+        this.$layer.msg('短信已发送,本次验证码为：'+ this.verification);
 				//				if(this.short_message != this.sho_mess){
 				//					return;
 				//				}
 				this.time = 60;
 				this.disabled = true;
 				this.timer();
-				this.verification = this.randoms();
 			}
 		}
 	}
 </script>
 
-<style>
+<style scoped>
 
 	button.weui-btn.weui-btn_primary{
 		background-color:#09A2D6;
@@ -194,15 +194,11 @@
 	button.weui-btn.weui-btn_primary:active{
 		background-color:blue;
 	}
-
-	html{
-		background-color: white;
-	}
-
-	body {
-		background-color: white;
-		width: auto;
-	}
+#login{
+  height: 100vh;
+  background: #fff;
+  overflow: hidden;
+}
 
 
 	h3{
@@ -329,6 +325,7 @@
 		width: 100%;
 		margin-top: -25px;
 		margin-left: -30%;
+    background: #f5f5f5;
 	}
 
 
@@ -351,6 +348,7 @@
 		width: 100%;
 		margin-left: 30%;
 		margin-top: -25px;
+    background: #f5f5f5;
 	}
 	/*清除输入框感叹号提示*/
 

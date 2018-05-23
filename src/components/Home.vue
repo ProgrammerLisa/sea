@@ -3,10 +3,10 @@
     <div id="main-top">
       <img :src="imgSrc" class="bcImg"/>
       <div class="topOption option1">
-        <router-link to="/BlackDrill" tag="span" replace >黑钻 {{imgSum}}</router-link>
+        <span >黑钻 {{imgSum}}</span>
       </div>
       <div class="topOption option2">
-        <router-link to="/Force" tag="span">原力值 {{imgSum}}</router-link>
+        <span >原力值 {{imgSum}}</span>
       </div>
       <div class="topOption option3">
         <!-- Single button -->
@@ -21,10 +21,10 @@
           </ul>
         </div>
       </div>
-      <div class="topOption option4">
+      <router-link class="topOption option4" to="AddFriends" tag="div">
         <img src="../assets/images/friends.png"/>
         <p>邀请好友</p>
-      </div>
+      </router-link>
       <div id="imgDiv"></div>
     </div>
 
@@ -138,7 +138,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .contentMain{
     width: 100vw;
     overflow-x: hidden;

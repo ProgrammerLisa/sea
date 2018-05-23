@@ -66,7 +66,7 @@
             wallet:wallet,
             Personal:[
               {title:'我的好友',PersonalHref:'friend',imfLeft:friend},
-              {title:'我的邀请者',PersonalHref:'Introduce',imfLeft:inviter},
+              {title:'我的邀请者',PersonalHref:'Ask',imfLeft:inviter},
               {title:'邀请奖励',PersonalHref:'Reward',imfLeft:award},
               {title:'商城订单',PersonalHref:'CommodityOrder',imfLeft:indent},
               {title:'收货地址',PersonalHref:'address',imfLeft:address},

@@ -59,30 +59,30 @@
 					return;
 				} else {
 					alert('通过了');
-					this.$router.push('/Home');
+					this.$router.push('/Personal');
 				}
 			}
 		}
 	}
 </script>
 
-<style>
+<style scoped>
 	html {
 		background-color: white;
 	}
-	
+
 	div.weui-cells.vux-no-group-title::before {
 		border-top: 0px !important;
 	}
-	
+
 	.panel-body {
 		padding: 0 1rem;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
@@ -95,12 +95,12 @@
     height: 4.1rem;
     line-height: 4.1rem;
   }
-	
+
 	#group_ask {
 		margin-top: 10rem;
 		width: 100%;
 	}
-	
+
 	#ask_invite {
 		border-top: 0;
 		border-left: 0;
@@ -112,12 +112,12 @@
 		width: 70%;
 		outline: none;
 	}
-	
+
 	#agree {
 		margin-top: 80%;
 		font-size: 1rem;
 	}
-	
+
 	#agree_a {
 		color: #09A4D7;
 	}

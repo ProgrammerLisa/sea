@@ -4,15 +4,15 @@
       <div class="container">
         <div class="row">
           <div class="col-xs-3 parents" v-for="(item,index) in navItem">
-            <router-link :to="item.navSrc" tag="div" class="nav-item" @click.native="nav(index)">
+            <div class="nav-item" @click="nav(index)">
               <img :src="item.imgSrc1">
               <span class="navTitle" :style="item.titleStyle">{{item.title}}</span>
-            </router-link>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <router-view/>
+    <router-view></router-view>
   </div>
 
 </template>
@@ -55,19 +55,17 @@
           if(c.navSrc==that.$route.path){
             c.imgSrc1 = c.imgSrc2;
             c.titleStyle='color:#09a2d6'
-          }else if(that.$route.path=='/'){
-            that.navItem[0].imgSrc1=that.navItem[0].imgSrc2;
-            that.navItem[0].titleStyle='color:#09a2d6'
           }
-
         })
+
     },
     methods:{
       nav(index){
         const that = this;
         for(var i=0;i<that.navItem.length;i++){
           that.navItem[i].imgSrc1 = that.imgSrcArr[i];
-          that.navItem[i].titleStyle=''
+          that.navItem[i].titleStyle='';
+          that.$router.replace(that.navItem[index].navSrc);
         }
         that.navItem[index].imgSrc1 = that.navItem[index].imgSrc2;
         that.navItem[index].titleStyle='color:#09a2d6'
@@ -77,7 +75,7 @@
 
 </script>
 
-<style scoped>
+<style scoped>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ·······················································································································································································································································································································································································································································································································································································································································································································································································································································································································································································································································································································································
   body {
     background-color: #f5f5f5;
   }

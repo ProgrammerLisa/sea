@@ -67,7 +67,9 @@
     padding: 1rem;
   }
   .searchInput{
+    outline: none;
     border: none;
+    box-shadow: none;
     height:3.5rem;
     background: #fff;
   }

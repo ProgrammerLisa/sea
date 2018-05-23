@@ -1,7 +1,7 @@
 <template>
 	<div id="register">
 		<div id="reg">
-			<img id="ret_img" src="../assets/images/back.png" onclick="window.history.go(-1)" /> 注册
+			<img id="ret_img" src="../assets/images/back.png" onclick="window.history.go(-1)" /> 注 册
 		</div>
 		<div style="margin-top: 50px;padding: 10px;margin-left: 6px;" label-width="5.5em" label-margin-right="2em" label-align="left">
 			<x-input id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
@@ -14,13 +14,13 @@
 		</div>
 
 		<div style="margin-top:-40px;padding: 30px;margin-left: -14px;">
-			<x-input :type="types" style="font-size: 1.3rem;border-bottom: 0.1rem solid #F5F5F5;"v-model="passwordModel" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
+			<x-input :type="types" style="font-size: 1.2rem;border-bottom: 0.1rem solid #F5F5F5;"v-model="passwordModel" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
 			<!--<span>@{{passwordValidate.errorText}}</span>-->
 			<img id="group_input_img" @click="Alt()" :src="imgs"  />
 		</div>
 
 		<div style="margin-top:-40px;padding: 30px;margin-left: -14px;">
-			<x-input :type="typeis" style="font-size: 1.3rem;border-bottom: 0.1rem solid #F5F5F5;" @on-change="password" v-model="passwordcheckModel"  placeholder="请再次输入密码" :min="6" :max="6" is-type="sendcode"calss="btns"></x-input>
+			<x-input :type="typeis" style="font-size: 1.2rem;border-bottom: 0.1rem solid #F5F5F5;" @on-change="password" v-model="passwordcheckModel"  placeholder="请再次输入密码" :min="6" :max="6" is-type="sendcode"calss="btns"></x-input>
 			<!--<span>@{{passwordCheckValidate.errorText}}</span>-->
 			<img id="group_input_imgs" @click="Alte()" :src="imges"  />
 		</div>
@@ -104,11 +104,11 @@
 				//				alert("result:" + this.$refs.mobile.valid);
 				if(reg.test(this.mobile)) {
 					if(this.verif == "") {
-						alert("验证码不能为空");
+						this.$layer.alert("验证码不能为空",{title:'提示'});
 						return;
 					}
 					if(this.verif != this.verification) {
-						alert("验证码错误");
+						this.$layer.alert("验证码错误",{title:'提示'});
 						return;
 					}
 					//					if(this.passwordModel != this.pwd) {
@@ -116,10 +116,10 @@
 					//						return;
 					//					}
 					if(!/^[0-9A-Za-z]{6,15}$/.test(this.passwordcheckModel)) {
-						alert('密码少于6位');
+						this.$layer.alert('密码少于6位',{title:'提示'});
 						return;
 					} else if(this.passwordcheckModel !== this.passwordModel) {
-						alert('两次密码不匹配');
+						this.$layer.alert('两次密码不匹配',{title:'提示'});
 						return;
 					}
 //					if(this.check == this.demo1) {
@@ -127,11 +127,11 @@
 //						return;
 //					} 
 					else {
-						alert("登录成功");
+						this.$layer.alert("登录成功",{title:'提示'});
 						this.$router.push('/Ask');
 					}
 				} else {
-					alert("手机号码不能为空 或 输入有误哦~");
+					this.$layer.alert("手机号码不能为空 或 输入有误哦~",{title:'提示'});
 				}
 			},
 			timer() {
@@ -147,12 +147,12 @@
 			},
 			//验证手机号码部分
 			sendcode() {
-				alert("验证码是：" + this.verification);
+				this.$layer.confirm("验证码是：" + this.verification,{title:'提示'});
 				var reg = /^1[3|4|5|7|8]\d{9}$/;
 				if(this.phone == '') {
-					alert("请输入手机号码");
+					this.$layer.alert("请输入手机号码",{title:'提示'});
 				} else if(reg.test(this.phone)) {
-					alert("手机格式不正确");
+					this.$layer.alert("手机格式不正确",{title:'提示'});
 				} else {
 					this.time = 60;
 					this.disabled = true;
@@ -211,25 +211,15 @@
 		width: 97.5%;
 		border-bottom: 0.1rem solid #F5F5F5;
 		margin-top: 40px;
+		font-size: 1.2rem;
 	}
-	/*input#verification{
-		border-top: none;
-		border-left: none;
-		border-right: none;
-		outline:none;
-		text-indent: 15px;
-		vertical-align: middle;
-		line-height: 3;
-		margin-top: 40px;
-		width: 100%;
-		border-bottom: 0.1rem solid #F5F5F5;
-		text-indent: 4px;
-	}*/
+	
 	#verification{
 		margin-top: 2.8125rem;
 		border-bottom:  0.1rem solid #F5F5F5;
 		line-height: 2;
 		width: 98%;
+		font-size: 1.2rem;
 		margin-left: -0.0625rem;
 		padding-left: 1.175rem;
 	}
@@ -248,12 +238,14 @@
 		position: fixed;
 		top: 0;
 		width: 100%;
-		height:50px;
+		height:4.2rem;
 		background-color: white;
 		text-align: center;
+		font-size: 1.8rem;
 		line-height:  4.525rem;
 		border-bottom: 0.1rem solid #C8C8CD;
 		z-index: 99;
+		-webkit-box-shadow: 0.01rem 0.01rem 0.01rem #646464;
 	}
 
 	#pwsbtn {
@@ -261,6 +253,9 @@
 		width: 90%;
 		background-color: #09A2D6;
 		border-radius: 0;
+	} 
+	#pwsbtn:active{
+		background-color: #2894FF;
 	}
 
 	.btns {
@@ -278,12 +273,12 @@
 
 	#verbtn {
 		position: absolute;
-		width: 100px;
-		height: 40px;
+		width: 8rem;
+		height: 3.2rem;
 		margin-left: 65%;
 		background-color: #F5F5F5;
-		color: 646464;
-		margin-top: -52px;
+		color: #646464;
+		margin-top: -4.3rem;
 		font-size: 1.3rem;
 		border-radius: 0;
 	}

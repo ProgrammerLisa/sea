@@ -179,8 +179,6 @@ export default new Router({
       path:'/CommodityOrder',
       name:'CommodityOrder',
       component: CommodityOrder
-<<<<<<< HEAD
-=======
     },
     {
       path:'/ModificationAddress',
@@ -211,7 +209,6 @@ export default new Router({
       name:'AboutUs',
       meta:{index:2},
       component: AboutUs
->>>>>>> 145b02a88591a6e03c5f2822171c4532cadbb4ae
     }
 
   ]

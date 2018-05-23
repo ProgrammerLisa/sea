@@ -2,7 +2,7 @@
 
 	<div id="login">
 		<div id="nav">
-			登录
+			登 录
 		</div>
 		<div id="nav_login">
 			<div id="nav_common" @click="sort(1)">
@@ -35,7 +35,7 @@
 			</div>
 
 			<div style="padding:30px;">
-				<x-button @click.native="submitData" type="primary" style=" background-color:#09A2D6;color: white;border-radius: 0;">登 录</x-button>
+				<x-button id="btn_login_normal" @click.native="submitData" type="primary">登 录</x-button>
 			</div>
 
 		</div>
@@ -48,12 +48,12 @@
 
 			<div id="ipwd" >
 				<input id="verification" v-model="verif" placeholder="请输入短信验证码">
-				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</x-button>
+				<x-button id="verbtn"  slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</x-button>
 				</input>
 			</div>
 
 			<div style="padding:30px;">
-				<x-button @click.native="btnveif" type="primary" >登 录</x-button>
+				<x-button id="btn_login_sms" @click.native="btnveif" type="primary" >登 录</x-button>
 			</div>
 
 		</div>
@@ -87,8 +87,8 @@
 				isShows: false,
 				types:"password",
 				imgs:eye,
-				color1:"blue",
-				color2:"black"
+				color1:"#09A2D6",
+				color2:"#666666"
 			}
 		},
 		mounted: function() {
@@ -105,13 +105,13 @@
 				if (index == 1) {
 					this.isShow = true;
 					this.isShows = false;
-					this.color1="blue";
-					this.color2="black";
+					this.color1="#09A2D6";
+					this.color2="#666666";
 				} else if (index == 0) {
 					this.isShows = true;
 					this.isShow = false;
-					this.color1="black";
-					this.color2="blue";
+					this.color1="#666666";
+					this.color2="#09A2D6";
 				}
 			},
 			Alt(){
@@ -141,37 +141,37 @@
 				//				alert("result:" + this.$refs.mobile.valid);
 				if (reg.test(this.mobile)) {
 					if (this.inppwd != this.pwd) {
-						alert("密码错误");
+						this.$layer.alert("密码错误",{title:'提示'});
 						return;
 					} else {
-						alert("登录成功");
+						this.$layer.alert("登录成功",{title:'提示'});
 						this.$router.push('/GetForce');
 					}
 				} else {
-					alert("手机号码不能为空 或 输入有误哦~");
+					this.$layer.alert("手机号码不能为空 或 输入有误哦~",{title:'提示'});
 				}
 			},
 			btnveif(){
 				var reg = /^1[3|4|5|7|8]\d{9}$/;
 				if (reg.test(this.mobile)) {
 					if (this.verif == "") {
-						alert("验证码不能为空");
+						this.$layer.alert("验证码不能为空",{title:'提示'});
 						return;
 					}
 					if (this.verif != this.verification) {
-						alert("验证码错误");
+						this.$layer.alert("验证码错误",{title:'提示'});
 						return;
 					} else {
-						alert("登录成功");
+						this.$layer.alert("登录成功",{title:'提示'});
 						this.$router.push('/Home');
 					}
 				} else {
-					alert("手机号码不能为空 或 输入有误哦~");
+				this.$layer.alert("手机号码不能为空 或 输入有误哦~",{title:'提示'});
 				}
 			},
 			//短信信息
 			SMS() {
-				alert("短信已发送,本次验证码为：" + this.verification);
+				this.$layer.confirm("短信已发送,本次验证码为：" + this.verification,{title:'提示',icon:1});
 				//				if(this.short_message != this.sho_mess){
 				//					return;
 				//				}
@@ -186,13 +186,15 @@
 
 <style>
 
+	
+
 	button.weui-btn.weui-btn_primary{
 		background-color:#09A2D6;
 		border-radius: 0;
 	}
 
 	button.weui-btn.weui-btn_primary:active{
-		background-color:blue;
+		background-color:#2894FF;
 	}
 
 	html{
@@ -229,6 +231,10 @@
 		line-height: 1;
 	}
 
+	input#vux-x-input-qnmu3.weui-input{
+		color: #646464;
+	}
+
 	i.weui-icon.weui_icon_clear.weui-icon-clear{
 		display: none;
 	}
@@ -246,19 +252,22 @@
 		width: 90px;
 		height: 40px;
 		margin-left: 65%;
-		background-color: #F5F5F5;
-		color: 646464;
+		background-color: #F8F8F8;
+		color: #646464;
 		font-size: 1rem;
+		border-radius: 0;
 	}
 
 	#phone_img {
-		font-size: 1.3rem;
+		font-size: 1.2rem;
+		color: #646464;
 	}
 
 	#ipwd {
 		background-position: right;
 		background-repeat: no-repeat;
-		font-size: 1.3rem;
+		font-size: 1.2rem;
+		color: #646464;
 		border-bottom: 0.1rem solid #F5F5F5;
 	}
 
@@ -306,6 +315,7 @@
 		top: 0;
 		width: 100%;
 		height: 50px;
+		font-size: 1.8rem;
 		background-color: white;
 		text-align: center;
 		line-height: 50px;
@@ -363,6 +373,9 @@
 		display: none;
 		list-style: none;
 	}
-
-
+	
+	.weui-btn:after, #btn_login_normal:after, #btn_login_sms:after, #verbtn:after {
+		border: none;
+		border-radius: 0;
+	}
 </style>

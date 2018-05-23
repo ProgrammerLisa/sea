@@ -5,17 +5,17 @@
 		找回密码
 		</div>
 		<group style="margin-top: 90px;padding: 20px;margin-left: -7px;" >
-			<x-input  style="font-size: 1.3rem;" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
+			<x-input  style="font-size: 1.2rem;" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
 		</group>
 
 		<div style="margin-top: -30px;padding: 20px;margin-left: -14px;">
-			<input style="font-size: 1.3rem;"  id="verification" v-model="verif" placeholder="请输入短信验证码">
+			<input style="font-size: 1.2rem;"  id="verification" v-model="verif" placeholder="请输入短信验证码">
 				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
 			</input>
 		</div>
 
 		<group style="margin-top:-50px;padding: 25px;margin-left: -14px;">
-			<x-input id="passwordModel_image" :type="types" style="font-size: 1.3rem;" v-model="passwordModel" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
+			<x-input id="passwordModel_image" :type="types" style="font-size: 1.2rem;" v-model="passwordModel" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></x-input>
 			<img id="group_input_img" @click="Alt()" :src="imgs"  />			
 			<!--<span>@{{passwordValidate.errorText}}</span>-->
 		</group>
@@ -82,11 +82,11 @@
 				//				alert("result:" + this.$refs.mobile.valid);
 				if(reg.test(this.mobile)) {
 					if(this.verif == "") {
-						alert("验证码不能为空");
+						this.$layer.alert("验证码不能为空",{title:'提示'});
 						return;
 					}
 					if(this.verif != this.verification) {
-						alert("验证码错误");
+						this.$layer.alert("验证码错误",{title:'提示'});
 						return;
 					}
 					//					if(this.passwordModel != this.pwd) {
@@ -94,14 +94,14 @@
 					//						return;
 					//					}
 					if(!/^[0-9A-Za-z]{6,15}$/.test(this.passwordModel)) {
-						alert('密码少于6位');
+						this.$layer.alert('密码少于6位',{title:'提示'});
 						return;
 					}else {
-						alert("登录成功");
+						this.$layer.alert("登录成功",{title:'提示'});
 						this.$router.push('/Main');
 					}
 				} else {
-					alert("手机号码不能为空 或 输入有误哦~");
+					this.$layer.alert("手机号码不能为空 或 输入有误哦~",{title:'提示'});
 				}
 			},
 			timer() {
@@ -117,12 +117,12 @@
 			},
 			//验证手机号码部分
 			sendcode() {
-				alert("验证码是：" + this.verification);
+				this.$layer.confirm("验证码是：" + this.verification,{title:'提示'});
 				var reg = /^1[3|4|5|7|8]\d{9}$/;
 				if(this.phone == '') {
-					alert("请输入手机号码");
+					this.$layer.alert("请输入手机号码",{title:'提示'});
 				} else if(reg.test(this.phone)) {
-					alert("手机格式不正确");
+					this.$layer.alert("手机格式不正确",{title:'提示'});
 				} else {
 					this.time = 60;
 					this.disabled = true;
@@ -212,13 +212,18 @@
 		background-color: white;
 		text-align: center;
 		line-height: 50px;
+		font-size: 1.8rem;
 		border-bottom: 1px solid #C8C8CD;
+		-webkit-box-shadow: 0.01rem 0.01rem 0.01rem #646464;
 	}
 	
 	#pwsbtn {
 		width: 80%;
 		margin-top: -10px;
 		background-color: #09A2D6;
+	}
+	#pwsbtn:active{
+		background-color: #2894FF;
 	}
 	
 	.btns {

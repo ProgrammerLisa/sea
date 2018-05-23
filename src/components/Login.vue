@@ -21,7 +21,7 @@
 		<!--这是我要隐藏的  -->
 		<div class="tow_show" v-if="isShow">
 			<group class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
-				<x-input id="phone_img" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
+				<x-input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
 			</group>
 
 			<group class="group_input" >
@@ -43,7 +43,7 @@
 		<!--这是我要隐藏的  -->
 		<div class="tow_show" v-if="isShows">
 			<group class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
-				<x-input id="phone_img" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
+				<x-input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
 			</group>
 
 			<div id="ipwd" >
@@ -96,6 +96,9 @@
 			this.$nextTick(() => {
 
 			})
+			$('.weui-cells').attr('id', 'm-weui-cells');
+//			$("#weui-cells").before("border-top","none");
+			$('#weui-cells').CSS({borderTop:"none"});
 		}
 		,
 		Trim(str) {
@@ -255,7 +258,7 @@
 		border-radius: 0;
 	}
 
-	#phone_img {
+	.phone {
 		font-size: 1.2rem;
 		color: #646464;
 	}
@@ -275,7 +278,7 @@
 	#group_input_img{
 		position: fixed;
 		width: 54px;
-		margin-top: -55px;
+		margin-top: -45px;
 		margin-left: 75%;
 	}
 	.group_input {
@@ -287,8 +290,8 @@
 	}
 
 
-	div.weui-cells.vux-no-group-title::before {
-		border-top: 0px !important;
+	.weui-cells:before {
+		border-top: 0px!important;
 	}
 
 	#hyperlink {
@@ -361,10 +364,11 @@
 		margin-top: -25px;
     background: #f5f5f5;
 	}
+
 	/*清除输入框感叹号提示*/
 
 	i.vux-input-icon.weui-icon.weui_icon_warn.weui-icon-warn::before {
-		display: none;
+		border: white; 
 	}
 	/*清除输入款X提示*/
 
@@ -375,6 +379,6 @@
 
 	.weui-btn:after, #btn_login_normal:after, #btn_login_sms:after, #verbtn:after {
 		border: none;
-		border-radius: 0;
 	}
+	
 </style>

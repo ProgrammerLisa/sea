@@ -38,8 +38,8 @@ html{
   background: #f5f5f5;
 }
 .weui-cells{
-		border: 0;
-	}
+	border: 0;
+}
 .slide-right-enter-active,
 .slide-right-leave-active,
 .slide-left-enter-active,

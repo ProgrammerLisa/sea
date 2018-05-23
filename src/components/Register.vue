@@ -1,20 +1,16 @@
 <template>
 	<div id="register">
 		<div id="reg">
-<<<<<<< HEAD
-			<img id="ret_img" src="../assets/images/back.png" @click="goBack"/> 注册
-=======
 			<img id="ret_img" src="../assets/images/back.png" onclick="window.history.go(-1)" /> 注 册
->>>>>>> 0d563cf2e25639f6cdacf09c09fdfb3ed141f4d3
 		</div>
 		<div style="margin-top: 50px;padding: 10px;margin-left: 6px;" label-width="5.5em" label-margin-right="2em" label-align="left">
 			<x-input id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
 		</div>
 
 		<div style="margin-top: -80px;padding: 30px;margin-left: -19px;">
-			<input id="verification" v-model="verif" placeholder="请输入短信验证码">
+			<x-input id="verification" v-model="verif" placeholder="请输入短信验证码">
 				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
-			</input>
+			</x-input>
 		</div>
 
 		<div style="margin-top:-40px;padding: 30px;margin-left: -14px;">
@@ -24,11 +20,7 @@
 		</div>
 
 		<div style="margin-top:-40px;padding: 30px;margin-left: -14px;">
-<<<<<<< HEAD
-			<x-input :type="typeis" style="font-size: 1.3rem;border-bottom: 0.1rem solid #F5F5F5;" v-model="passwordcheckModel"  placeholder="请再次输入密码" :min="6" :max="6" is-type="sendcode"calss="btns"></x-input>
-=======
-			<x-input :type="typeis" style="font-size: 1.2rem;border-bottom: 0.1rem solid #F5F5F5;" @on-change="password" v-model="passwordcheckModel"  placeholder="请再次输入密码" :min="6" :max="6" is-type="sendcode"calss="btns"></x-input>
->>>>>>> 0d563cf2e25639f6cdacf09c09fdfb3ed141f4d3
+			<x-input :type="typeis" style="font-size: 1.2rem;border-bottom: 0.1rem solid #F5F5F5;" v-model="passwordcheckModel"  placeholder="请再次输入密码" :min="6" :max="6" is-type="sendcode"calss="btns"></x-input>
 			<!--<span>@{{passwordCheckValidate.errorText}}</span>-->
 			<img id="group_input_imgs" @click="Alte()" :src="imges"  />
 		</div>
@@ -199,6 +191,9 @@
 
     #group_input_img{
     	position: absolute;
+    	margin-top: -50px;
+    	margin-left: 75%;
+    	width: 54px;
     }
 
 	/*#agree{
@@ -226,12 +221,12 @@
 	}
 	
 	#verification{
-		margin-top: 2.8125rem;
+		margin-top: 4.3125rem;
 		border-bottom:  0.1rem solid #F5F5F5;
-		line-height: 2;
+		line-height: 1;
 		width: 98%;
 		font-size: 1.2rem;
-		margin-left: -0.0625rem;
+		margin-left: 4.5px;
 		padding-left: 1.175rem;
 	}
 
@@ -286,12 +281,12 @@
 		position: absolute;
 		width: 8rem;
 		height: 3.2rem;
-		margin-left: 65%;
 		background-color: #F5F5F5;
 		color: #646464;
-		margin-top: -4.3rem;
+		margin-top: -1.9rem;
 		font-size: 1.3rem;
 		border-radius: 0;
+		margin-left: -5rem;
 	}
 	.weui-btn:after{
 		border-radius: 0px;

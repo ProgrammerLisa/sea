@@ -145,7 +145,6 @@
     padding-top: 1rem;
     margin: 0;
   }
-
   .personalIcon{
     width: 3.2rem;
   }
@@ -157,12 +156,13 @@
     background: #fff;
     border-bottom: 0.1rem solid #f5f5f5;
     margin-top: 0;
+    font-size: 1.6rem;
   }
   .media:nth-child(3), .media:nth-child(5){
     margin-bottom: 1rem;
   }
   .media-object{
-    width: 3.5rem;
+    width: 3.8rem;
     padding: 0.5rem;
   }
 </style>

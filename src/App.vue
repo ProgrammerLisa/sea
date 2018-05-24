@@ -47,6 +47,7 @@ html{
   will-change: transform;
   transition: all 500ms;
   position: absolute;
+  height: 100vh;
 }
 .slide-right-enter {
   opacity: 0;

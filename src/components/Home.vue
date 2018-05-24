@@ -1,7 +1,7 @@
 <template>
   <div class="contentMain">
     <div id="main-top">
-      <img :src="imgSrc" class="bcImg"/>
+      <img src="../assets/images/bg.png" class="bcImg" id="seaBack"  ref="seaBack" />
       <div class="topOption option1">
         <span >黑钻 {{imgSum}}</span>
       </div>
@@ -27,10 +27,10 @@
       </router-link>
       <div id="imgDiv"></div>
     </div>
-
-    <div v-for="(m,index) in imgDiv" class="float-container" @click="accumulative(index)">
+    <div v-for="(m,index) in imgDiv" :class="m.divClass" @click="accumulative(index)" >
       <img v-bind:style="m.style" :src="m.href"/>
     </div>
+
 
     <group title="cell demo" @click.native="rankings">
       <cell v-bind:title="RankingTitle" v-bind:value="RankingSwitch" is-link ></cell>
@@ -59,6 +59,10 @@
 import { Group, Cell } from 'vux'
 import backGround from '@/assets/images/bg.png'
 import Pearl from '@/assets/vux_logo.png'
+import levelImg1 from '@/assets/images/discovery_pressed.png'
+import levelImg2 from '@/assets/images/home_pressed.png'
+import levelImg3 from '@/assets/images/profile.png'
+import levelImg4 from '@/assets/images/store_pressed.png'
 export default {
   components: {
     Group,
@@ -66,16 +70,38 @@ export default {
   },
   data(){
     return{
-      imgCount:1,
       imgSum:0,
       imgSrc:backGround,
-      imgTop:'',
-      imgLeft:'',
       imgDiv:[
-        {xixi:1,style:'width: 100%; padding: 20%;',href:Pearl},
-        {xixi:1,style:'width: 100%; padding: 20%;',href:Pearl},
-        {xixi:1,style:'width: 100%; padding: 20%;',href:Pearl}
+        {imgCount:1,href:Pearl,divClass:''},
+        {imgCount:1,href:Pearl,divClass:''},
+        {imgCount:1,href:Pearl,divClass:''}
       ],
+      PearlLevel1:{
+        imgCount:1,
+        href:levelImg1,
+        divClass:''
+      },
+      PearlLevel2:{
+        imgCount:2,
+        href:levelImg2,
+        divClass:''
+      },
+      PearlLevel3:{
+        imgCount:3,
+        href:levelImg3,
+        divClass:''
+      },
+      PearlLevel4:{
+        imgCount:4,
+        href:levelImg4,
+        divClass:''
+      },
+      PearlLevel5:{
+        imgCount:5,
+        href:backGround,
+        divClass:''
+      },
       isBlack:true,
       RankingListBlack:[
         {level:1,name:'a',count:1000,luckCount:1},
@@ -93,33 +119,73 @@ export default {
   },
   mounted:function () {
     const that = this;
-    that.imgTop=($('#main-top').outerHeight()-50)*Math.random();
-    that.imgLeft=($('#main-top').outerWidth()-50)*Math.random();
-
     this.$nextTick(() => {
-
-      $('.float-container').css({top:that.imgTop,left:that.imgLeft,width: '40px',height: '40px', background: 'rgba(255,255,255,0.2)',borderRadius: '50%', position: 'absolute', boxShadow: '1px 1px 1px #000'});
-
-      const timer = setInterval(function () {
-        that.down();
-        that.up();
-      },100);
-
+      that.imgDiv.push(that.PearlLevel5);
+      that.cookies();
+      for(var i=0;i<that.imgDiv.length;i++){
+        that.imgDiv[i].divClass='float-container float-container'+i
+      }
     })
 
 
   },
   methods:{
-    down(){
-      $('.float-container').animate({top:parseInt(this.imgTop)+20+'px'},1000);
-    },
-    up(){
-      $('.float-container').animate({top:parseInt(this.imgTop)+'px'},1000);
+    cookies(){
+      const that = this;
+      $(function () {
+        $(".float-container").each(function (index, obj) {
+          var ck = "float-container-top-" + index;
+          var cl = "float-container-left-" + index;
+          var cookievalTop =  that.readCookie(ck);
+          var cookievalLeft =  that.readCookie(cl);
+          if (cookievalTop == ""||cookievalLeft == "") {
+            cookievalTop = parseInt(($('#main-top').outerHeight()-100)*Math.random()/12);
+            cookievalLeft = parseInt(($('#main-top').outerWidth()-100)*Math.random()/12);
+            $(this).css({top:cookievalTop+'rem',left:cookievalLeft+'rem'});
+            that.writeCookie(ck, cookievalTop);
+            that.writeCookie(cl, cookievalLeft);
+          } else {
+            $(this).css({top:cookievalTop+'rem',left:cookievalLeft+'rem'});
+          }
+        });
+      });
     },
     accumulative(index){
+      $(".float-container"+index).remove();
       console.log(index);
-      $(".float-container").eq(index).remove();
-      this.imgSum+=this.imgCount
+      this.imgSum+=this.imgDiv[index].imgCount;
+      this.delCookie('float-container-left-' + index);
+      this.delCookie('float-container-top-' + index);
+    },
+    writeCookie(name, value, hours) {
+      var expire = "";
+      hours = hours || 100;
+      if (hours != null) {
+        expire = new Date((new Date()).getTime() + hours * 3600000);
+        expire = "; expires=" + expire.toGMTString();
+      }
+      document.cookie = name + "=" + escape(value) + expire;
+    },
+    readCookie(name) {
+      var cookieValue = "";
+      var search = name + "=";
+      if (document.cookie.length > 0) {
+        var offset = document.cookie.indexOf(search);
+        if (offset != -1) {
+          offset += search.length;
+          var end = document.cookie.indexOf(";", offset);
+          if (end == -1) end = document.cookie.length;
+          cookieValue = unescape(document.cookie.substring(offset, end))
+        }
+      }
+      return cookieValue;
+    },
+    delCookie(name){
+      var exp = new Date();
+      exp.setTime(exp.getTime() - 1);
+      var cval= this.readCookie(name);
+      if(cval!=null)
+        document.cookie= name + "="+cval+";expires="+exp.toGMTString();
     },
     rankings(){
       if(this.isBlack){
@@ -148,6 +214,7 @@ export default {
   #main-top{
     background: #122b40;
     color: white;
+    height: 60vh;
   }
   .topOption{
     position: absolute;
@@ -179,10 +246,30 @@ export default {
   .float-container {
     width: 4rem;
     height: 4rem;
-    background: rgba(255,255,255,0.2);
     border-radius: 50%;
     position: absolute;
-    box-shadow: 0.1rem 0.1rem 0.1rem #000
+    box-shadow: 0.1rem 0.1rem 0.1rem #112941;
+    animation: myfirst 2s infinite;
+    margin-left: 4rem;
+    margin-top: 4rem;
+    background: -webkit-radial-gradient(rgba(255,255,255,0.2),rgba(8,50,144,1)); /* Safari 5.1 - 6.0 */
+    background: -o-radial-gradient(rgba(255,255,255,0.2),rgba(8,50,144,1)); /* Opera 11.6 - 12.0 */
+    background: -moz-radial-gradient(rgba(255,255,255,0.2),rgba(8,50,144,1)); /* Firefox 3.6 - 15 */
+    background: radial-gradient(rgba(255,255,255,0.3),rgba(8,50,144,1)); /* 标准的语法（必须放在最后） */
+  }
+  @keyframes myfirst {
+    0% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(0, -1rem);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
+  }
+  .float-container img{
+    width: 100%; padding: 20%;
   }
   .bcImg{
     width: 100%;

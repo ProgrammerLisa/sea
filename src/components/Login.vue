@@ -13,7 +13,7 @@
 				<a :style="{color:color2}">短信登录</a>
 			</div>
 		</div>
-		<div id="log">
+		<div id="log" >
 			<h3>深海行动log</h3>
 		</div>
 
@@ -21,16 +21,16 @@
 		<!--这是我要隐藏的  -->
 		<div class="tow_show" v-if="isShow">
 			<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
-				<x-input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
+				<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required></input>
 			</div>
 
 			<div class="group_input" >
-				<x-input id="ipwd" v-model="inppwd" :type="types" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode"></x-input>
+				<input id="ipwd" v-model="inppwd" :type="types" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode"></input>
 				<img id="group_input_img" @click="Alt" :src="imgs"  />
 			</div>
 
 			<div id="hyperlink">
-				<router-link class="a_hyperlink" tag='a' :to="'/Retrieve'">找回密码</router-link> &nbsp;&nbsp;|&nbsp;&nbsp;
+				<router-link class="a_hyperlink" tag='a' :to="'/Retrieve'">找回密码</router-link> &nbsp;&nbsp;<span style="color: #8C8C8C;">|</span>&nbsp;&nbsp;
 				<router-link class="a_hyperlink" tag='a' :to="'/Register'">注册账号</router-link>
 			</div>
 
@@ -43,13 +43,18 @@
 		<!--这是我要隐藏的  -->
 		<div class="tow_show" v-if="isShows">
 			<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
-				<x-input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required></x-input>
+				<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required></input>
 			</div>
 
-			<div id="ipwd" >
-				<input id="verification" v-model="verif" placeholder="请输入短信验证码">
+			<div id="div_ipwd" >
+				<input id="verifica" v-model="verif" placeholder="请输入短信验证码">
 				<x-button id="verbtn"  slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</x-button>
 				</input>
+			</div>
+			
+			<div id="hyperlink">
+				<router-link class="a_hyperlink" tag='a' :to="'/Retrieve'">找回密码</router-link> &nbsp;&nbsp;|&nbsp;&nbsp;
+				<router-link class="a_hyperlink" tag='a' :to="'/Register'">注册账号</router-link>
 			</div>
 
 			<div style="padding:30px;">
@@ -87,7 +92,7 @@
 				isShows: false,
 				types:"password",
 				imgs:eye,
-        disabled:false,
+        		disabled:false,
 				color1:"#09A2D6",
 				color2:"#666666"
 			}
@@ -145,32 +150,32 @@
 				//				alert("result:" + this.$refs.mobile.valid);
 				if (reg.test(this.mobile)) {
 					if (this.inppwd != this.pwd) {
-            this.$layer.msg('密码错误');
+            this.$layer.alert('密码错误');
 						return;
 					} else {
-            this.$layer.msg('登录成功');
+            this.$layer.alert('登录成功');
 						this.$router.replace('/Home');
 					}
 				} else {
-          this.$layer.msg('手机号码不能为空 或 输入有误哦~');
+          this.$layer.alert('手机号码不能为空 或 输入有误哦~');
 				}
 			},
 			btnveif(){
 				var reg = /^1[3|4|5|7|8]\d{9}$/;
 				if (reg.test(this.mobile)) {
 					if (this.verif == "") {
-            this.$layer.msg('验证码不能为空');
+            this.$layer.alert('验证码不能为空');
 						return;
 					}
 					if (this.verif != this.verification) {
-            this.$layer.msg('验证码错误');
+            this.$layer.alert('验证码错误');
 						return;
 					} else {
-            this.$layer.msg('登录成功');
+            this.$layer.alert('登录成功');
 						this.$router.replace('/Home');
 					}
 				} else {
-          this.$layer.msg('手机号码不能为空 或 输入有误哦~');
+          this.$layer.alert('手机号码不能为空 或 输入有误哦~');
 
 				}
 			},
@@ -200,11 +205,11 @@
 	button.weui-btn.weui-btn_primary:active{
 		background-color:#2894FF;
 	}
-#login{
-  height: 100vh;
-  background: #fff;
-  overflow: hidden;
-}
+	#login{
+	  height: 100vh;
+	  background: #fff;
+	  overflow: hidden;
+	}
 
 
 	h3{
@@ -217,8 +222,8 @@
 		margin: 20px;
 	}
 
-	#verification {
-		padding-top: 40px;
+	#verifica{
+		padding-top: 20px;
 		margin: 10px;
 		width: 100%;
 		border-top: none;
@@ -229,20 +234,14 @@
 		text-indent: 4px;
 		vertical-align: middle;
 		line-height: 1;
-	}
-
-	input#vux-x-input-qnmu3.weui-input{
-		color: #646464;
-	}
-
-	i.weui-icon.weui_icon_clear.weui-icon-clear{
-		display: none;
+		font-size: 1.3rem;
 	}
 
 	div#ipwd.vux-x-input.weui-cell{
 		width: 80%;
 	}
-
+	
+	
 	.weui-btn::after{
 		border-radius: 0;
 	}
@@ -251,24 +250,43 @@
 		margin-top: -45px;
 		width: 90px;
 		height: 40px;
-		margin-left: 65%;
+		margin-left: 69%;
 		background-color: #F8F8F8;
 		color: #646464;
-		font-size: 1rem;
+		font-size: 1.2rem;
 		border-radius: 0;
 	}
 
 	.phone {
-		font-size: 1.2rem;
-		color: #646464;
+		border-top: 0;
+		border-left: 0;
+		border-right: 0;
+		padding-left: 1rem;
+		font-size: 1.3rem;
+		border-bottom: 0.01px solid #F5F5F5;
+		width: 70%;
+		outline: none;
+		letter-spacing: 0.05rem;
+		padding-bottom: 0.5rem;
 	}
 
 	#ipwd {
-		background-position: right;
-		background-repeat: no-repeat;
-		font-size: 1.2rem;
-		color: #646464;
+		border-top: 0;
+		border-left: 0;
+		border-right: 0;
+		padding-left: 1rem;
+		font-size: 1.3rem;
+		border-bottom: 0.01px solid #F5F5F5;
+		margin-top: 2rem;
+		width: 100%;
+		outline: none;
+		letter-spacing: 0.05rem;
+		padding-bottom: 0.5rem;
+	}
+	
+	#div_ipwd{
 		border-bottom: 0.1rem solid #F5F5F5;
+		margin-left: -0.3rem;
 	}
 
 	.group_inputs {
@@ -277,15 +295,15 @@
 		/*border-bottom: 1px solid #F5F5F5;*/
 	}
 	#group_input_img{
-		position: fixed;
+		position: absolute;
 		width: 54px;
-		margin-top: -45px;
+		margin-top: -4.2rem;
 		margin-left: 75%;
 	}
 	.group_input {
 		/*margin: -40px;*/
 		/*margin: 10px;*/
-		border-bottom: 1px solid black;
+		border-bottom: 1px solid #F5F5F5;
 		padding-top: 10px;
 		width: 100%;
 		/*padding: 40px;*/
@@ -342,7 +360,8 @@
 		width: 100%;
 		margin-top: -25px;
 		margin-left: -30%;
-    background: #f5f5f5;
+   		background: white;
+   		border: 1px solid #C8C8CD;
 	}
 
 
@@ -365,19 +384,9 @@
 		width: 100%;
 		margin-left: 30%;
 		margin-top: -25px;
-    background: #f5f5f5;
-	}
-
-	/*清除输入框感叹号提示*/
-
-	i.vux-input-icon.weui-icon.weui_icon_warn.weui-icon-warn::before {
-		border: white; 
-	}
-	/*清除输入款X提示*/
-
-	i.weui-icon.weui_icon_clear.weui-icon-clear::before {
-		display: none;
-		list-style: none;
+    	background: white;
+    	border: 1px solid #C8C8CD;
+    	border-left: none;
 	}
 
 	.weui-btn:after, #btn_login_normal:after, #btn_login_sms:after, #verbtn:after {

@@ -62,7 +62,7 @@
 					this.$layer.alert('请同意',{title:'提示'});
 					return;
 				} else {
-					alert('通过了');
+					this.$layer.alert('通过了',{title:'提示'});
 					this.$router.push('/Personal');
 				}
 			}

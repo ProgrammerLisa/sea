@@ -28,7 +28,7 @@
     </div>
     <div class="personalItem">
 
-      <div class="media" v-for="m in Personal">
+      <button class="media btn" v-for="m in Personal">
         <router-link :to="m.PersonalHref" tag="div">
           <div class="media-left">
               <img class="media-object" :src="m.imfLeft" alt="...">
@@ -41,7 +41,7 @@
           </div>
         </router-link>
 
-      </div>
+      </button>
     </div>
   </div>
 </template>
@@ -154,9 +154,13 @@
   }
   .media{
     background: #fff;
-    border-bottom: 0.1rem solid #f5f5f5;
     margin-top: 0;
     font-size: 1.6rem;
+    border: none;
+    border-bottom: 0.1rem solid #f5f5f5;
+    text-align: left;
+    padding: 0;
+    padding-left:  1rem;
   }
   .media:nth-child(3), .media:nth-child(5){
     margin-bottom: 1rem;

@@ -3,11 +3,9 @@
     <div id="main-top">
       <img src="../assets/images/bg.png" class="bcImg" id="seaBack"  ref="seaBack" />
       <div class="topOption option1">
-        <span >黑钻 {{imgSum}}</span>
+        <span >珍珠量 {{imgSum}}</span>
       </div>
-      <div class="topOption option2">
-        <span >原力值 {{imgSum}}</span>
-      </div>
+
       <div class="topOption option3">
         <!-- Single button -->
         <div class="btn-group">
@@ -15,14 +13,14 @@
             <img class="dropdownImg" src="../assets/images/caidan.png"/>
           </div>
           <ul class="dropdown-menu">
-            <li><a href="#">游戏规则</a></li>
-            <li><router-link to="/AddFriends" tag="a">添加好友</router-link></li>
-            <li><a href="#">战绩</a></li>
+            <li><a href="#"><img src="../assets/images/youxiguize.png" class="dropdown-menu-img"/>游戏规则</a></li>
+            <li><router-link to="/AddFriends" tag="a"><img src="../assets/images/tianjiahaoyou.png" class="dropdown-menu-img"/>添加好友</router-link></li>
+            <li><a href="#"><img src="../assets/images/zhanji.png" class="dropdown-menu-img"/>战绩</a></li>
           </ul>
         </div>
       </div>
       <router-link class="topOption option4" to="AddFriends" tag="div">
-        <img src="../assets/images/friends.png"/>
+        <img src="../assets/images/yaoqinghaoyou.png"/>
         <p>邀请好友</p>
       </router-link>
       <div id="imgDiv"></div>
@@ -36,12 +34,10 @@
       <cell v-bind:title="RankingTitle" v-bind:value="RankingSwitch" is-link ></cell>
     </group>
     <table v-if="isBlack" class="table">
-      <tr><td>名次</td><td>普通黑钻</td><td>幸运钻</td><td>总黑钻</td></tr>
+      <tr><td class="text-left">得宝数据</td></tr>
       <tr class="bcfff" v-for="list in RankingListBlack">
-        <td><span class="listLevel">{{list.level}}</span><span class="listName">{{list.name}}</span></td>
-        <td>{{list.count}}</td>
-        <td>{{list.luckCount}}</td>
-        <td>{{list.count+list.luckCount}}</td>
+        <td class="text-left">{{list.title}}</td>
+        <td class="text-right">{{list.count}}</td>
       </tr>
     </table>
     <table v-else class="table">
@@ -58,11 +54,8 @@
 <script>
 import { Group, Cell } from 'vux'
 import backGround from '@/assets/images/bg.png'
-import Pearl from '@/assets/vux_logo.png'
-import levelImg1 from '@/assets/images/discovery_pressed.png'
-import levelImg2 from '@/assets/images/home_pressed.png'
-import levelImg3 from '@/assets/images/profile.png'
-import levelImg4 from '@/assets/images/store_pressed.png'
+import Pearl from '@/assets/images/bihe.png'
+import animation from '@/assets/images/animation.gif'
 export default {
   components: {
     Group,
@@ -73,40 +66,45 @@ export default {
       imgSum:0,
       imgSrc:backGround,
       imgDiv:[
-        {imgCount:1,href:Pearl,divClass:''},
-        {imgCount:1,href:Pearl,divClass:''},
-        {imgCount:1,href:Pearl,divClass:''}
+        {imgCount:1,href:Pearl,divClass:'',animation:animation},
+        {imgCount:1,href:Pearl,divClass:'',animation:animation},
+        {imgCount:1,href:Pearl,divClass:'',animation:animation}
       ],
       PearlLevel1:{
         imgCount:1,
-        href:levelImg1,
-        divClass:''
+        href:Pearl,
+        divClass:'',
+        animation:animation
       },
       PearlLevel2:{
         imgCount:2,
-        href:levelImg2,
-        divClass:''
+        href:Pearl,
+        divClass:'',
+        animation:animation
       },
       PearlLevel3:{
         imgCount:3,
-        href:levelImg3,
-        divClass:''
+        href:Pearl,
+        divClass:'',
+        animation:animation
       },
       PearlLevel4:{
         imgCount:4,
-        href:levelImg4,
-        divClass:''
+        href:Pearl,
+        divClass:'',
+        animation:animation
       },
       PearlLevel5:{
         imgCount:5,
-        href:backGround,
-        divClass:''
+        href:Pearl,
+        divClass:'',
+        animation:animation
       },
       isBlack:true,
       RankingListBlack:[
-        {level:1,name:'a',count:1000,luckCount:1},
-        {level:2,name:'b',count:100,luckCount:2},
-        {level:3,name:'c',count:10,luckCount:3}
+        {title:'我的排名',count:66},
+        {title:'今日得宝数',count:75},
+        {title:'全民累计得宝数',count:75}
       ],
       RankingListForce:[
         {level:1,name:'d',count:1000},
@@ -151,11 +149,16 @@ export default {
       });
     },
     accumulative(index){
-      $(".float-container"+index).remove();
-      console.log(index);
-      this.imgSum+=this.imgDiv[index].imgCount;
-      this.delCookie('float-container-left-' + index);
-      this.delCookie('float-container-top-' + index);
+      const that = this;
+      that.imgDiv[index].href = that.imgDiv[index].animation;
+      that.imgSum+=that.imgDiv[index].imgCount;
+      $(".float-container"+index+">img").animate({width:'190%',marginLeft:'-3.5vw',marginTop:'-5vw'});
+      setTimeout(function(){
+        $(".float-container"+index).remove();
+        that.delCookie('float-container-left-' + index);
+        that.delCookie('float-container-top-' + index);
+      },2000);
+
     },
     writeCookie(name, value, hours) {
       var expire = "";
@@ -214,7 +217,7 @@ export default {
   #main-top{
     background: #122b40;
     color: white;
-    height: 60vh;
+    height: 65vh;
   }
   .topOption{
     position: absolute;
@@ -248,14 +251,14 @@ export default {
     height: 4rem;
     border-radius: 50%;
     position: absolute;
-    box-shadow: 0.1rem 0.1rem 0.1rem #112941;
+    /*box-shadow: 0.1rem 0.1rem 0.1rem #112941;*/
     animation: myfirst 2s infinite;
     margin-left: 4rem;
     margin-top: 4rem;
-    background: -webkit-radial-gradient(rgba(255,255,255,0.2),rgba(8,50,144,1)); /* Safari 5.1 - 6.0 */
-    background: -o-radial-gradient(rgba(255,255,255,0.2),rgba(8,50,144,1)); /* Opera 11.6 - 12.0 */
-    background: -moz-radial-gradient(rgba(255,255,255,0.2),rgba(8,50,144,1)); /* Firefox 3.6 - 15 */
-    background: radial-gradient(rgba(255,255,255,0.3),rgba(8,50,144,1)); /* 标准的语法（必须放在最后） */
+    /*background: -webkit-radial-gradient(rgba(255,255,255,0.2),rgba(8,50,144,1)); !* Safari 5.1 - 6.0 *!*/
+    /*background: -o-radial-gradient(rgba(255,255,255,0.2),rgba(8,50,144,1)); !* Opera 11.6 - 12.0 *!*/
+    /*background: -moz-radial-gradient(rgba(255,255,255,0.2),rgba(8,50,144,1)); !* Firefox 3.6 - 15 *!*/
+    /*background: radial-gradient(rgba(255,255,255,0.3),rgba(8,50,144,1)); !* 标准的语法（必须放在最后） *!*/
   }
   @keyframes myfirst {
     0% {
@@ -269,10 +272,11 @@ export default {
     }
   }
   .float-container img{
-    width: 100%; padding: 20%;
+    width: 100%;
   }
   .bcImg{
     width: 100%;
+    height: 100%;
     box-shadow: 0.5rem 0.5rem 0.5rem #ddd;
   }
   .table{
@@ -286,12 +290,16 @@ export default {
     background: #fff;
   }
   .dropdown-toggle{
-    background: #112941;
     width:4.5rem;
     border-radius: 0.5rem;
     padding:0 0.5rem;
   }
   .dropdownImg{
     width: 100%;
+  }
+  .dropdown-menu-img{
+    width: 1rem;
+    margin-right: 1rem;
+    vertical-align: middle;
   }
 </style>

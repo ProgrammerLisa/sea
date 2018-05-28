@@ -51,8 +51,9 @@
 <style scoped>
   .content{
     overflow-x: hidden;
-    color: #777;
+    color: #666;
     background-color: #fff;
+    width: 100vw;
   }
 
   .panel{
@@ -80,6 +81,9 @@
   .form-group{
     padding:0.8rem 1rem;
     border-bottom: 0.1rem solid #eee;
+  }
+  .form-group:last-child{
+    margin-bottom: 0;
   }
   .form-control{
     outline: none;

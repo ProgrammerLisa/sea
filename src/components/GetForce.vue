@@ -103,7 +103,7 @@
   .content{
     padding-bottom: 6rem;
     background-color: #f5f5f5;
-    color: #555;
+    color: #666;
   }
   .panel{
     border:none;

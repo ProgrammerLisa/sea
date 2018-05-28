@@ -29,7 +29,7 @@
 				<img id="group_input_img" @click="Alt" :src="imgs"  />
 			</div>
 
-			<div id="hyperlink">
+			<div class="hyperlink">
 				<router-link class="a_hyperlink" tag='a' :to="'/Retrieve'">找回密码</router-link> &nbsp;&nbsp;<span style="color: #8C8C8C;">|</span>&nbsp;&nbsp;
 				<router-link class="a_hyperlink" tag='a' :to="'/Register'">注册账号</router-link>
 			</div>
@@ -47,12 +47,12 @@
 			</div>
 
 			<div id="div_ipwd" >
-				<input id="verifica" v-model="verif" placeholder="请输入短信验证码">
+				<input id="verifica" v-model="verif" placeholder="请输入短信验证码"/>
 				<x-button id="verbtn"  slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</x-button>
-				</input>
+
 			</div>
-			
-			<div id="hyperlink">
+
+			<div class="hyperlink">
 				<router-link class="a_hyperlink" tag='a' :to="'/Retrieve'">找回密码</router-link> &nbsp;&nbsp;|&nbsp;&nbsp;
 				<router-link class="a_hyperlink" tag='a' :to="'/Register'">注册账号</router-link>
 			</div>
@@ -103,7 +103,7 @@
 			})
 			$('.weui-cells').attr('id', 'm-weui-cells');
 //			$("#weui-cells").before("border-top","none");
-			$('#weui-cells').CSS({borderTop:"none"});
+			$('#weui-cells').css({borderTop:"none"});
 		}
 		,
 		Trim(str) {
@@ -150,32 +150,32 @@
 				//				alert("result:" + this.$refs.mobile.valid);
 				if (reg.test(this.mobile)) {
 					if (this.inppwd != this.pwd) {
-            this.$layer.alert('密码错误');
+            this.$layer.msg('密码错误');
 						return;
 					} else {
-            this.$layer.alert('登录成功');
+            this.$layer.msg('登录成功');
 						this.$router.replace('/Home');
 					}
 				} else {
-          this.$layer.alert('手机号码不能为空 或 输入有误哦~');
+          this.$layer.msg('手机号码不能为空 或 输入有误哦~');
 				}
 			},
 			btnveif(){
 				var reg = /^1[3|4|5|7|8]\d{9}$/;
 				if (reg.test(this.mobile)) {
 					if (this.verif == "") {
-            this.$layer.alert('验证码不能为空');
+            this.$layer.msg('验证码不能为空');
 						return;
 					}
 					if (this.verif != this.verification) {
-            this.$layer.alert('验证码错误');
+            this.$layer.msg('验证码错误');
 						return;
 					} else {
-            this.$layer.alert('登录成功');
+            this.$layer.msg('登录成功');
 						this.$router.replace('/Home');
 					}
 				} else {
-          this.$layer.alert('手机号码不能为空 或 输入有误哦~');
+          this.$layer.msg('手机号码不能为空 或 输入有误哦~');
 
 				}
 			},
@@ -240,8 +240,8 @@
 	div#ipwd.vux-x-input.weui-cell{
 		width: 80%;
 	}
-	
-	
+
+
 	.weui-btn::after{
 		border-radius: 0;
 	}
@@ -283,7 +283,7 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-	
+
 	#div_ipwd{
 		border-bottom: 0.1rem solid #F5F5F5;
 		margin-left: -0.3rem;
@@ -315,7 +315,7 @@
 		border-top: 0px!important;
 	}
 
-	#hyperlink {
+	.hyperlink {
 		margin-top: 10px;
 		margin-left: 55%;
 	}
@@ -340,32 +340,28 @@
 		background-color: white;
 		text-align: center;
 		line-height: 50px;
-		border-bottom: 1px solid #C8C8CD;
 	}
 
 	#nav_login {
 		position: fixed;
 		top: 0;
 		width: 100%;
-		height: 20px;
 		background-color: white;
 		text-align: center;
 		line-height: 50px;
 		border-bottom: 1px solid #C8C8CD;
-		margin-top: 70px;
+		margin-top: 50px;
 	}
 
 	#nav_common {
 		position: fixed;
-		width: 100%;
-		margin-top: -25px;
-		margin-left: -30%;
-   		background: white;
-   		border: 1px solid #C8C8CD;
+		width: 50%;
+    background: #f5f5f5;
+    box-shadow: 0.2rem 0.2rem 0.2rem #ddd;
 	}
 
 
-	#nav_common_a{
+	#nav_common a{
 		color:#09A2D6 ;
 	}
 
@@ -381,16 +377,16 @@
 
 	#nav_sms {
 		position: fixed;
-		width: 100%;
-		margin-left: 30%;
-		margin-top: -25px;
-    	background: white;
-    	border: 1px solid #C8C8CD;
+		width: 50%;
+		margin-left: 50%;
+    	background: #f5f5f5;
     	border-left: none;
+
+    box-shadow: 0.2rem 0.2rem 0.2rem #ddd;
 	}
 
 	.weui-btn:after, #btn_login_normal:after, #btn_login_sms:after, #verbtn:after {
 		border: none;
 	}
-	
+
 </style>

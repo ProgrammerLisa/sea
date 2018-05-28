@@ -83,7 +83,7 @@
   .content{
     overflow-x: hidden;
     background-color: #f5f5f5;
-    color: #777;
+    color: #666;
     padding-bottom: 6rem;
   }
   .personal{
@@ -156,11 +156,13 @@
     background: #fff;
     margin-top: 0;
     font-size: 1.6rem;
+    border-radius: 0;
     border: none;
     border-bottom: 0.1rem solid #f5f5f5;
     text-align: left;
     padding: 0;
     padding-left:  1rem;
+    color: #666;
   }
   .media:nth-child(3), .media:nth-child(5){
     margin-bottom: 1rem;

@@ -99,6 +99,8 @@
     display: flex;
     flex-direction:column;
     text-align: center;
+    font-size: smaller;
+    color: #777;
   }
   .navTitle{
     padding-top: 0;
@@ -106,7 +108,7 @@
   .nav-item img{
     display: block;
     margin: auto;
-    width: 3rem;
+    width: 2.5rem;
   }
 
 </style>

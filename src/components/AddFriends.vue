@@ -34,7 +34,7 @@
 <style scoped>
   .content{
     overflow-x: hidden;
-    color: #777;
+    color: #666;
     padding-bottom: 6rem;
     background-color: #fff;
     height: 100vh;

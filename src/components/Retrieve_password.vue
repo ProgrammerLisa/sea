@@ -138,7 +138,12 @@
 
 <style scoped>
 	
-	#retrieve{background: white;}
+	#retrieve {
+		background: white;
+		height: 100vh;	
+		padding-top: 1rem;
+	}
+	
 	
 	span {
 		font-size: 10px;
@@ -157,7 +162,7 @@
 	}
 	
 	#group_input_img{
-    	position: fixed;
+    	position: absolute;
     	margin-top: -55px;
     	margin-left: 75%;
     }

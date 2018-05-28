@@ -169,6 +169,16 @@
 </script>
 
 <style scoped>
+	
+	#register{
+		height: 100vh;
+		background-color: white;
+	}
+	
+	
+	div#register{
+		padding-top: 1rem;
+	}
 
 	span {
 		font-size: 10px;
@@ -178,7 +188,7 @@
 		width:33px;
 		position: absolute;
 		margin-left: -40% ;
-		margin-top: 10px;
+		margin-top: 8px;
 		text-align: right;
 	}
 

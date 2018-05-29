@@ -13,10 +13,6 @@
 				<a :style="{color:color2}">短信登录</a>
 			</div>
 		</div>
-		<div id="log" >
-			<h3>深海行动log</h3>
-		</div>
-
 
 		<!--这是我要隐藏的  -->
 		<div class="tow_show" v-if="isShow">
@@ -71,6 +67,9 @@
 	import { XInput, Group, XButton } from 'vux'
 	import eye from '@/assets/images/eye.png'
 	import eyeclick from '@/assets/images/eyeclick.png'
+	
+//	sessionStorage.setItem("key","654321");
+//	localStorage.setItem("site","js8.in");
 
 	export default {
 		name: "login",
@@ -92,10 +91,18 @@
 				isShows: false,
 				types:"password",
 				imgs:eye,
+<<<<<<< HEAD
         disabled:false,
 				color1:"#09A2D6",
 				color2:"#666666",
         time:''
+=======
+        		disabled:true,
+				color1:"#09A2D6",
+				color2:"#666666",
+				Stime:null,
+				time:60
+>>>>>>> b40cd0e88a5f2792499c01a156818946512f0036
 			}
 		},
 		mounted: function() {
@@ -103,6 +110,7 @@
 			this.$nextTick(() => {
 
 			})
+<<<<<<< HEAD
 			$('.weui-cells').attr('id', 'm-weui-cells');
 //			$("#weui-cells").before("border-top","none");
 			$('#weui-cells').css({borderTop:"none"});
@@ -127,10 +135,18 @@
       }else {
         that.btntxt = "获取验证码";
       }
+=======
+>>>>>>> b40cd0e88a5f2792499c01a156818946512f0036
 		}
 		,
 		Trim(str) {
 			return str.replace(/(^\s+)|(s+$)/g, "");
+		},
+		created:function(){
+			if(sessionStorage.index){
+				this.time=sessionStorage.index;
+				this.setTime();
+			}
 		},
 		methods: {
 			sort(index) {
@@ -159,12 +175,17 @@
 				if (this.time > 0) {
 					this.time--;
 					this.btntxt = this.time + "s";
-					setTimeout(this.timer, 1000);
+					sessionStorage.index=this.time;
 				} else {
-					this.time = 0;
+					this.time = 60;
 					this.btntxt = "获取验证码";
 					this.disabled = false;
+					sessionStorage.index=0;
+					clearInterval(this.Stime)
 				}
+			},
+			setTime(){
+				this.Stime=setInterval(this.timer, 1000);
 			},
 			submitData() {
 				//去获取验证手机号
@@ -173,6 +194,7 @@
 				//				alert("result:" + this.$refs.mobile.valid);
 				if (reg.test(this.mobile)) {
 					if (this.inppwd != this.pwd) {
+<<<<<<< HEAD
             this.$layer.msg('密码错误');
 						return;
 					} else {
@@ -181,12 +203,23 @@
 					}
 				} else {
           this.$layer.msg('手机号码不能为空 或 输入有误哦~');
+=======
+            	this.$layer.msg('密码错误');
+						return;
+					} else {
+            	this.$layer.msg('登录成功');
+						this.$router.replace('/Home');
+					}
+				} else {
+          			this.$layer.msg('手机号码不能为空 或 输入有误哦~');
+>>>>>>> b40cd0e88a5f2792499c01a156818946512f0036
 				}
 			},
 			btnveif(){
 				var reg = /^1[3|4|5|7|8]\d{9}$/;
 				if (reg.test(this.mobile)) {
 					if (this.verif == "") {
+<<<<<<< HEAD
             this.$layer.msg('验证码不能为空');
 						return;
 					}
@@ -200,10 +233,25 @@
 				} else {
           this.$layer.msg('手机号码不能为空 或 输入有误哦~');
 
+=======
+            			this.$layer.msg('验证码不能为空');
+						return;
+					}
+					if (this.verif != this.verification) {
+            			this.$layer.msg('验证码错误');
+						return;
+					} else {
+            			this.$layer.msg('登录成功');
+						this.$router.replace('/Home');
+					}
+				} else {
+          			this.$layer.msg('手机号码不能为空 或 输入有误哦~');
+>>>>>>> b40cd0e88a5f2792499c01a156818946512f0036
 				}
 			},
 			//短信信息
 			SMS() {
+<<<<<<< HEAD
 			  const that = this;
 				//				if(this.short_message != this.sho_mess){
 				//					return;
@@ -261,6 +309,12 @@
         if(cval!=null)
           document.cookie= name + "="+cval+";expires="+exp.toGMTString();
       }
+=======
+       			this.$layer.msg('短信已发送,本次验证码为：'+ this.verification);
+				this.disabled = true;
+				this.setTime();
+			}
+>>>>>>> b40cd0e88a5f2792499c01a156818946512f0036
 		}
 	}
 </script>
@@ -283,13 +337,6 @@
 	  overflow: hidden;
 	}
 
-
-	h3{
-		text-align: center;
-		margin: 120px;
-		margin-top: 155px;
-		line-height: 100%;
-	}
 	.tow_show{
 		margin: 20px;
 	}
@@ -364,6 +411,7 @@
 	.group_inputs {
 		border-bottom: 1px solid #F5F5F5;
 		width: 100%;
+		margin-top: 15rem;
 		/*border-bottom: 1px solid #F5F5F5;*/
 	}
 	#group_input_img{
@@ -457,8 +505,23 @@
     box-shadow: 0.2rem 0.2rem 0.2rem #ddd;
 	}
 
+
 	.weui-btn:after, #btn_login_normal:after, #btn_login_sms:after, #verbtn:after {
 		border: none;
 	}
+<<<<<<< HEAD
 
+=======
+	
+	button#btn_login_normal.weui-btn.weui-btn_primary{
+		width: 120%;
+		margin-left: -2.5rem;
+	}
+	
+	button#btn_login_sms.weui-btn.weui-btn_primary{
+		width: 120%;
+		margin-left: -2.5rem;
+	}
+	
+>>>>>>> b40cd0e88a5f2792499c01a156818946512f0036
 </style>

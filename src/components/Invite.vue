@@ -52,17 +52,17 @@
          },
 			accomplish() {
 				if(this.verif == '') {
-					this.$layer.alert('邀请码不能为空哦',{title:'提示'});
+					this.$layer.msg('邀请码不能为空哦',{title:'提示'});
 					return;
 				}
 				if(this.verif != this.ask_invite) {
-					this.$layer.alert('邀请码错误',{title:'提示'});
+					this.$layer.msg('邀请码错误',{title:'提示'});
 					return;
 				} else if(this.check == this.demo1) {
-					this.$layer.alert('请同意',{title:'提示'});
+					this.$layer.msg('请同意',{title:'提示'});
 					return;
 				} else {
-					this.$layer.alert('通过了',{title:'提示'});
+					this.$layer.msg('通过了',{title:'提示'});
 					this.$router.push('/Personal');
 				}
 			}
@@ -133,4 +133,10 @@
 	#finish:active{
 		background-color: #2894FF;
 	}
+	
+	button#finish.weui-btn.weui-btn_primary{
+		width: 90%;
+		margin-left: 1.3rem;
+	}
+	
 </style>

@@ -56,7 +56,7 @@
 		},
 		data() {
 			return {
-				disabled: true,
+				disabled: false,
 				time: 0,
 				mobile: '',
 				btntxt: "获取验证码",
@@ -72,14 +72,35 @@
 				imgs:eye,
 				typeis:"password",
 				imges:eye,
-				Stime:null,
-				time:60
+				//Stime:null,
+				time:''
 			}
 		},
 		mounted: function() {
+			const that = this;
 			this.$nextTick(() => {
 
 			})
+			var Verificationtimen = Verificationtimen;
+			that.time = that.readCookie(Verificationtimen);
+			if(that.time != "") {
+				var TimeReduction2 = setInterval(function() {
+					if(that.time > 0) {
+						that.writeCookie(Verificationtimen, that.time);
+						that.time--;
+						that.btntxte = that.time + "s";
+						that.disabled = true;
+					} else {
+						that.time = 0;
+						that.btntxt = "获取验证码";
+						that.disabled = false;
+						that.delCookie(Verificationtimen);
+						clearInterval(TimeReduction2);
+					}
+				}, 1000)
+			} else {
+				that.btntxt = "获取验证码";
+			}
 		},
 		created:function(){
 			if(sessionStorage.index2){
@@ -87,13 +108,13 @@
 				this.setTime();
 			}
 		},
+		Trim(str) {
+				return str.replace(/(^\s+)|(s+$)/g, "");
+			},
 		methods: {
 		    goBack(){
 		        this.$router.go(-1);
 		    },
-			Trim(str) {
-				return str.replace(/(^\s+)|(s+$)/g, "");
-			},
 			Alt(){
 				if(this.types=="password"){
 					this.types="text"
@@ -112,6 +133,7 @@
 					this.imges=eye
 				}
 			},
+			
 			submitData() {
 				sessionStorage.index2=false;
 				//去获取验证手机号
@@ -150,33 +172,78 @@
 				}
 			},
 			timer() {
-				if (this.time > 0) {
+				if(this.time > 0) {
 					this.time--;
 					this.btntxt = this.time + "s";
-					sessionStorage.index2=this.time;
+					//setTimeout(this.timer, 1000);
+					sessionStorage.index2 = this.time;
 				} else {
-					this.time = 60;
+					this.time = 0;
 					this.btntxt = "获取验证码";
 					this.disabled = false;
-					sessionStorage.index2=0;
-					clearInterval(this.Stime)
 				}
 			},
 			setTime(){
-				this.Stime=setInterval(this.timer, 1000);
+				this.Stime = setInterval(this.timer, 1000);
 			},
 			//验证手机号码部分
 			sendcode() {
-				var reg = /^1[3|4|5|7|8]\d{9}$/;
-				if(this.phone == '') {
-					this.$layer.msg("请输入手机号码",{title:'提示'});
-				} else if(reg.test(this.phone)) {
-					this.$layer.msg("手机格式不正确",{title:'提示'});
-				} else {
-					this.$layer.msg("验证码是：" + this.verification,{title:'提示'});
-					this.disabled = true;
-					this.setTime();
+				const that = this;
+				//				if(this.short_message != this.sho_mess){
+				//					return;
+				//				}
+				var Verificationtimen = Verificationtimen;
+				that.time =  that.readCookie(Verificationtimen);
+				if (that.time == "") {
+
+					that.$layer.msg('短信已发送,本次验证码为：'+ that.verification);
+					that.time = 60;
+
+					var TimeReduction1 = setInterval(function () {
+						if(that.time>0){
+							that.writeCookie(Verificationtimen,that.time);
+							that.time--;
+							that.btntxt = that.time + "s";
+							that.disabled = true;
+						}else{
+							that.time = 0;
+							that.btntxt = "获取验证码";
+							that.disabled = false;
+							that.delCookie(Verificationtimen);
+							clearInterval(TimeReduction1);
+						}
+					},1000)
 				}
+			},
+			writeCookie(name, value, hours) {
+				var expire = "";
+				hours = hours || 100;
+				if (hours != null) {
+					expire = new Date((new Date()).getTime() + hours * 1000);
+					expire = "; expires=" + expire.toGMTString();
+				}
+				document.cookie = name + "=" + escape(value) + expire;
+			},
+			readCookie(name) {
+				var cookieValue = "";
+				var search = name + "=";
+				if (document.cookie.length > 0) {
+					var offset = document.cookie.indexOf(search);
+					if (offset != -1) {
+						offset += search.length;
+						var end = document.cookie.indexOf(";", offset);
+						if (end == -1) end = document.cookie.length;
+						cookieValue = unescape(document.cookie.substring(offset, end))
+					}
+				}
+				return cookieValue;
+			},
+			delCookie(name){
+				var exp = new Date();
+				exp.setTime(exp.getTime() - 1);
+				var cval= this.readCookie(name);
+				if(cval!=null)
+					document.cookie= name + "="+cval+";expires="+exp.toGMTString();
 			}
 		}
 	}

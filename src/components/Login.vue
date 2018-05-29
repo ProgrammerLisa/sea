@@ -91,7 +91,7 @@
 				isShows: false,
 				types:"password",
 				imgs:eye,
-        		disabled:false,
+        		disabled:true,
 				color1:"#09A2D6",
 				color2:"#666666",
 				Stime:null,
@@ -394,12 +394,12 @@
 	
 	button#btn_login_normal.weui-btn.weui-btn_primary{
 		width: 120%;
-		margin-left: -2.2rem;
+		margin-left: -2.5rem;
 	}
 	
 	button#btn_login_sms.weui-btn.weui-btn_primary{
 		width: 120%;
-		margin-left: -2.3rem;
+		margin-left: -2.5rem;
 	}
 	
 </style>

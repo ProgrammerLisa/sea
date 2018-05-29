@@ -47,7 +47,7 @@
 		},
 		data() {
 			return {
-				disabled: false,
+				disabled: true,
 				time: 0,
 				mobile: '',
 				btntxt: "获取验证码",

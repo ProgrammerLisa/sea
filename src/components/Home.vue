@@ -41,7 +41,7 @@
       </tr>
     </table>
     <table v-else class="table">
-      <tr><td><h4 class="decorate-title"><div class="decorate"></div>综合排名</h4></td></tr>
+      <tr><td id="ranking"><h4 class="decorate-title"><div class="decorate"></div>综合排名</h4></td></tr>
       <tr class="bcfff"><td>排行榜</td><td>账户</td><td>珍珠值数</td></tr>
       <tr class="bcfff" v-for="list in RankingListForce">
         <td>{{list.level}}</td>
@@ -55,8 +55,12 @@
 <script>
 import { Group, Cell } from 'vux'
 import backGround from '@/assets/images/bg.png'
-import Pearl from '@/assets/images/bihe.png'
-import animation from '@/assets/images/animation.gif'
+import shell from '@/assets/images/bihe.png'
+import animation1 from '@/assets/images/Pearl.gif'
+import animation2 from '@/assets/images/Shadow-opper.gif'
+import animation3 from '@/assets/images/Ganganadi-valuka.gif'
+import animation4 from '@/assets/images/Cat-eye.gif'
+import animation5 from '@/assets/images/ocean.gif'
 export default {
   components: {
     Group,
@@ -67,39 +71,39 @@ export default {
       imgSum:0,
       imgSrc:backGround,
       imgDiv:[
-        {imgCount:1,href:Pearl,divClass:'',animation:animation},
-        {imgCount:1,href:Pearl,divClass:'',animation:animation},
-        {imgCount:1,href:Pearl,divClass:'',animation:animation}
+        {imgCount:1,href:shell,divClass:'',animation:animation1},
+        {imgCount:1,href:shell,divClass:'',animation:animation2},
+        {imgCount:1,href:shell,divClass:'',animation:animation3}
       ],
       PearlLevel1:{
         imgCount:1,
-        href:Pearl,
+        href:shell,
         divClass:'',
-        animation:animation
+        animation:animation1
       },
       PearlLevel2:{
         imgCount:2,
-        href:Pearl,
+        href:shell,
         divClass:'',
-        animation:animation
+        animation:animation2
       },
       PearlLevel3:{
         imgCount:3,
-        href:Pearl,
+        href:shell,
         divClass:'',
-        animation:animation
+        animation:animation3
       },
       PearlLevel4:{
         imgCount:4,
-        href:Pearl,
+        href:shell,
         divClass:'',
-        animation:animation
+        animation:animation4
       },
       PearlLevel5:{
         imgCount:5,
-        href:Pearl,
+        href:shell,
         divClass:'',
-        animation:animation
+        animation:animation5
       },
       isBlack:true,
       RankingListBlack:[
@@ -326,5 +330,8 @@ export default {
   }
   .decorate-title{
     text-align: left;
+  }
+  #ranking{
+    width:30%;
   }
 </style>

@@ -84,7 +84,7 @@
 				mobile: '',
 				pwd: '123456',
 				inppwd: "",
-				btntxt: "获取验证码",
+				btntxt: "",
 				verification: "654321",
 				verif:"",
 				short_message: '',
@@ -92,18 +92,41 @@
 				isShows: false,
 				types:"password",
 				imgs:eye,
-        		disabled:false,
+        disabled:false,
 				color1:"#09A2D6",
-				color2:"#666666"
+				color2:"#666666",
+        time:''
 			}
 		},
 		mounted: function() {
+		  const that = this;
 			this.$nextTick(() => {
 
 			})
 			$('.weui-cells').attr('id', 'm-weui-cells');
 //			$("#weui-cells").before("border-top","none");
 			$('#weui-cells').css({borderTop:"none"});
+
+      var Verificationtime = Verificationtime;
+      that.time =  that.readCookie(Verificationtime);
+      if (that.time != "") {
+        var TimeReduction2 = setInterval(function () {
+          if (that.time > 0) {
+            that.writeCookie(Verificationtime, that.time);
+            that.time--;
+            that.btntxt = that.time + "s";
+            that.disabled = true;
+          } else {
+            that.time = 0;
+            that.btntxt = "获取验证码";
+            that.disabled = false;
+            that.delCookie(Verificationtime);
+            clearInterval(TimeReduction2);
+          }
+        }, 1000)
+      }else {
+        that.btntxt = "获取验证码";
+      }
 		}
 		,
 		Trim(str) {
@@ -181,14 +204,63 @@
 			},
 			//短信信息
 			SMS() {
-        this.$layer.msg('短信已发送,本次验证码为：'+ this.verification);
+			  const that = this;
 				//				if(this.short_message != this.sho_mess){
 				//					return;
 				//				}
-				this.time = 60;
-				this.disabled = true;
-				this.timer();
-			}
+				var Verificationtime = Verificationtime;
+        that.time =  that.readCookie(Verificationtime);
+        if (that.time == "") {
+
+          that.$layer.msg('短信已发送,本次验证码为：'+ that.verification);
+          that.time = 60;
+
+          var TimeReduction1 = setInterval(function () {
+            if(that.time>0){
+              that.writeCookie(Verificationtime,that.time);
+              that.time--;
+              that.btntxt = that.time + "s";
+              that.disabled = true;
+            }else{
+              that.time = 0;
+              that.btntxt = "获取验证码";
+              that.disabled = false;
+              that.delCookie(Verificationtime);
+              clearInterval(TimeReduction1);
+            }
+          },1000)
+        }
+			},
+      writeCookie(name, value, hours) {
+        var expire = "";
+        hours = hours || 100;
+        if (hours != null) {
+          expire = new Date((new Date()).getTime() + hours * 1000);
+          expire = "; expires=" + expire.toGMTString();
+        }
+        document.cookie = name + "=" + escape(value) + expire;
+      },
+      readCookie(name) {
+        var cookieValue = "";
+        var search = name + "=";
+        if (document.cookie.length > 0) {
+          var offset = document.cookie.indexOf(search);
+          if (offset != -1) {
+            offset += search.length;
+            var end = document.cookie.indexOf(";", offset);
+            if (end == -1) end = document.cookie.length;
+            cookieValue = unescape(document.cookie.substring(offset, end))
+          }
+        }
+        return cookieValue;
+      },
+      delCookie(name){
+        var exp = new Date();
+        exp.setTime(exp.getTime() - 1);
+        var cval= this.readCookie(name);
+        if(cval!=null)
+          document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+      }
 		}
 	}
 </script>

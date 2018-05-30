@@ -43,8 +43,8 @@
 	import eye from '@/assets/images/eye.png'
 	import eyeclick from '@/assets/images/eyeclick.png'
 
-	sessionStorage.setItem("key","获取验证码");
-	localStorage.setItem("site","js8.in");
+//	sessionStorage.setItem("key","获取验证码");
+//	localStorage.setItem("site","js8.in");
 
 	export default {
 		name: "register",
@@ -102,12 +102,12 @@
 				that.btntxt = "获取验证码";
 			}
 		},
-		created:function(){
-			if(sessionStorage.index2){
-				this.time=sessionStorage.index2;
-				this.setTime();
-			}
-		},
+//		created:function(){
+//			if(sessionStorage.index2){
+//				this.time=sessionStorage.index2;
+//				this.setTime();
+//			}
+//		},
 		Trim(str) {
 				return str.replace(/(^\s+)|(s+$)/g, "");
 			},
@@ -133,7 +133,17 @@
 					this.imges=eye
 				}
 			},
-			
+			timer() {
+				if (this.time > 0) {
+					this.time--;
+					this.btntxte = this.time + "s";
+					setTimeout(this.timer, 1000);
+				} else {
+					this.time = 0;
+					this.btntxte = "获取验证码";
+					this.disabled = false;
+				}
+			},
 			submitData() {
 				sessionStorage.index2=false;
 				//去获取验证手机号

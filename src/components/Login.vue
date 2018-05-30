@@ -2,18 +2,17 @@
 
 	<div id="login">
 		<div id="nav">
-			<span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>登录
+			<span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>登 录
 		</div>
 		<div id="nav_login">
 			<div id="nav_common" @click="sort(1)">
-				<a id="a_common" :style="{color:color1}">普通登录</a>
+				<a id="a_common" :style="{'color':color1,'border-bottom':border1}">普通登录</a>
 			</div>
 
 			<div id="nav_sms" @click="sort(0)">
-				<a id="a_sms"  :style="{color:color2}">短信登录</a>
+				<a id="a_sms"  :style="{'color':color2,'border-bottom':border2}">短信登录</a>
 			</div>
 		</div>
-
 		<!--这是我要隐藏的  -->
 		<div class="tow_show" v-if="isShow">
 			<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
@@ -37,7 +36,7 @@
 		</div>
 
 		<!--这是我要隐藏的  -->
-		<div class="tow_show" v-if="isShows">
+		<div class="tow_show" v-if="isShows" >
 			<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 				<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required></input>
 			</div>
@@ -45,11 +44,10 @@
 			<div id="div_ipwd">
 				<input id="verifica" v-model="verif" placeholder="请输入短信验证码" />
 				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</x-button>
-
 			</div>
 
 			<div class="hyperlink">
-				<router-link class="a_hyperlink" tag='a' :to="'/Retrieve'">找回密码</router-link> &nbsp;&nbsp;|&nbsp;&nbsp;
+				<router-link class="a_hyperlink" tag='a' :to="'/Retrieve'">找回密码</router-link> &nbsp;&nbsp;<span style="color: #8C8C8C;">|</span>&nbsp;&nbsp;
 				<router-link class="a_hyperlink" tag='a' :to="'/Register'">注册账号</router-link>
 			</div>
 
@@ -91,7 +89,10 @@
 				disabled: false,
 				color1: "#09A2D6",
 				color2: "#666666",
-				time: ''
+				border1:'3px solid #09A2D6',
+				border2:'3px solid white',
+				time: '',
+				
 			}
 		},
 		mounted: function() {
@@ -139,11 +140,16 @@
 					this.isShows = false;
 					this.color1 = "#09A2D6";
 					this.color2 = "#666666";
-				} else if(index == 0) {
+					this.border1 = '3px solid #09A2D6';
+					this.border2 = '3px solid white';
+				} 
+				if(index == 0) {
 					this.isShows = true;
 					this.isShow = false;
 					this.color1 = "#666666";
 					this.color2 = "#09A2D6";
+					this.border1 = '3px solid white';
+					this.border2 = '3px solid #09A2D6';
 				}
 			},
 			Alt() {
@@ -436,16 +442,15 @@
 		border: 1px solid #C8C8CD;
 	}
 	#a_common{
-		text-decoration:none; 
-		border-bottom:3px solid #09A2D6; /* #ccc换成链接的颜色 */
+		/*text-decoration:none;*/ 
+		/*border-bottom:3px solid #09A2D6;  #ccc换成链接的颜色*/ 
 		display: inline-block; 
-		margin-bottom:-3px;  /*这里设置你要空的距离*/
+		/*margin-bottom:-3px;  这里设置你要空的距离*/
 	}
 	#a_sms{
 		text-decoration:none; 
-		border-bottom:3px solid #09A2D6; 
 		display: inline-block; 
-		margin-bottom:-3px;  /*这里设置你要空的距离*/
+		margin-bottom:0.1px;  /*这里设置你要空的距离*/
 	}
 	#nav_common_a {
 		color: #09A2D6;
@@ -476,12 +481,12 @@
 	}
 	
 	button#btn_login_normal.weui-btn.weui-btn_primary {
-		width: 104%;
-		margin-left: -1rem;
+		width: 122%;
+		margin-left: -3rem;
 	}
 	
 	button#btn_login_sms.weui-btn.weui-btn_primary {
-		width: 104%;
-		margin-left: -1rem;
+		width: 122%;
+		margin-left: -3rem;
 	}
 </style>

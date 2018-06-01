@@ -263,6 +263,7 @@
 	
 	#register{
 		height: 100vh;
+		width: 100vw;
 		background-color: white;
 	}
 	

@@ -14,6 +14,7 @@
 			</div>
 		</div>
 		<!--这是我要隐藏的  -->
+	<form >
 		<div class="tow_show" v-if="isShow">
 			<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 				<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required></input>
@@ -32,10 +33,11 @@
 			<div style="padding:30px;">
 				<x-button id="btn_login_normal" @click.native="submitData" type="primary">登 录</x-button>
 			</div>
-
 		</div>
-
+	</form>
+	
 		<!--这是我要隐藏的  -->
+	<form>
 		<div class="tow_show" v-if="isShows" >
 			<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 				<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required></input>
@@ -54,8 +56,8 @@
 			<div style="padding:30px;">
 				<x-button id="btn_login_sms" @click.native="btnveif" type="primary">登 录</x-button>
 			</div>
-
 		</div>
+	</form>
 
 	</div>
 
@@ -174,7 +176,7 @@
 			},
 			submitData() {
 				//去获取验证手机号
-
+				event.preventDefault();
 				var reg = /^1[3|4|5|7|8]\d{9}$/;
 				//				alert("result:" + this.$refs.mobile.valid);
 				if(reg.test(this.mobile)) {
@@ -190,6 +192,7 @@
 				}
 			},
 			btnveif() {
+				event.preventDefault();
 				var reg = /^1[3|4|5|7|8]\d{9}$/;
 				if(reg.test(this.mobile)) {
 					if(this.verif == "") {
@@ -205,11 +208,12 @@
 					}
 				} else {
 					this.$layer.msg('手机号码不能为空 或 输入有误哦~');
-
+					return;
 				}
 			},
 			//短信信息
 			SMS() {
+				event.preventDefault();
 				const that = this;
 				//				if(this.short_message != this.sho_mess){
 				//					return;
@@ -288,6 +292,7 @@
     float: left;
   }	
 	#login {
+		width: 100vw;
 		height: 100vh;
 		background: #fff;
 		overflow: hidden;

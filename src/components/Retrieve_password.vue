@@ -259,6 +259,7 @@
 
 <style scoped>
 	#retrieve {
+		width: 100vw;
 		background: white;
 		height: 100vh;
 		padding-top: 1rem;

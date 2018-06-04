@@ -1,8 +1,7 @@
 <template>
   <div class="contentMain">
     <div id="main-top">
-    	
-      <img src="../assets/images/bg.png" class="bcImg" id="seaBack"  ref="seaBack" />
+
      <div id="notice">
     		<marquee>公告:亲爱的用户，平台momomo即将上线，敬请期待。</marquee>
      </div>
@@ -18,17 +17,20 @@
           </div>
           <ul class="dropdown-menu">
             <li><a href="#"><img src="../assets/images/youxiguize.png" class="dropdown-menu-img"/>游戏规则</a></li>
+            <li role="separator" class="divider"></li>
             <li><router-link to="/AddFriends" tag="a"><img src="../assets/images/tianjiahaoyou.png" class="dropdown-menu-img"/>添加好友</router-link></li>
+            <li role="separator" class="divider"></li>
             <li><a href="#"><img src="../assets/images/zhanji.png" class="dropdown-menu-img"/>战绩</a></li>
           </ul>
         </div>
       </div>
-      <router-link class="topOption option4" to="AddFriends" tag="div">
-          <img src="../assets/images/yaoqinghaoyou.png"  class="invitation-friends"/>
-        <p>邀请好友</p>
-      </router-link>
+
       <div id="imgDiv"></div>
     </div>
+    <router-link class="option4" to="AddFriends" tag="div">
+      <img src="../assets/images/yaoqinghaoyou.png"  class="invitation-friends"/>
+      <p>邀请好友</p>
+    </router-link>
     <div v-for="(m,index) in imgDiv" :class="m.divClass" @click="accumulative(index)" >
       <img v-bind:style="m.style" :src="m.href"/>
     </div>
@@ -218,12 +220,12 @@ export default {
 
 <style scoped>
 	#notice{
-		position: absolute;
-    top: 2rem;
+    margin-top: 2rem;
 		width: 100%;
 		font-family: "微软雅黑";
+    background: rgba(255,255,255,0.1);
+    padding-top: 0.4rem;
 	}
-	
   .contentMain{
     width: 100vw;
     overflow-x: hidden;
@@ -231,9 +233,10 @@ export default {
     color: #666;
   }
   #main-top{
-    background: #122b40;
+    background: url("../assets/images/bg.png") 100% 100%;
     color: white;
     height: 65vh;
+    border-top: 1px solid transparent;
   }
   .topOption{
     position: absolute;
@@ -256,10 +259,13 @@ export default {
     padding: 0.4rem;
   }
   .option4{
-    top: 24rem;
-    right: 1rem;
-    color: #fff;
+    width: 6rem;
+    float: right;
     text-align: center;
+    position: relative;
+    margin-top: -8rem;
+    margin-right: 1rem;
+    color: #fff;
   }
   .option4 img{
     width: 70%;

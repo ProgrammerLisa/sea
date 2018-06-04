@@ -16,8 +16,8 @@
 			</div>
 		</div>
 		<!--这是我要隐藏的  -->
-	<form >
-		<div class="tow_show" v-if="isShow">
+	<form  v-if="isShow">
+		<div class="tow_show">
 			<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 				<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required/>
 			</div>
@@ -39,8 +39,8 @@
 	</form>
 
 		<!--这是我要隐藏的  -->
-	<form>
-		<div class="tow_show" v-if="isShows" >
+	<form v-else>
+		<div class="tow_show" >
 			<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 				<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required></input>
 			</div>
@@ -89,7 +89,6 @@
 				verif: "",
 				short_message: '',
 				isShow: true,
-				isShows: false,
 				types: "password",
 				imgs: eye,
 				disabled: false,
@@ -141,13 +140,16 @@
             this.$router.replace('/Home');
          	},
 			sort(index) {
+			  let that = this;
 				if(index == 1) {
+          that.isShow=true;
 				  $("#a_common").css({color:'#09A2D6'});
           $("#a_sms").css({color:'#666'});
 					$("#a_common_animation").animate({marginLeft:0},500);
           $("#a_sms_animation").animate({marginLeft:'-100%'},500);
 				}
 				if(index == 0) {
+          that.isShow=false;
           $("#a_common").css({color:'#666'});
           $("#a_sms").css({color:'#09A2D6'});
           $("#a_common_animation").animate({marginLeft:'100%'},500);

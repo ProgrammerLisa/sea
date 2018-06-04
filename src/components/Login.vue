@@ -2,62 +2,65 @@
 
 	<div id="login">
 		<div id="nav">
-			<span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>登 录
+			<span @click="goBack" class="back"> </span>登 录
 		</div>
 		<div id="nav_login">
 			<div id="nav_common" @click="sort(1)">
-				<a id="a_common" :style="{'color':color1,'border-bottom':border1}">普通登录</a>
+				<a id="a_common">普通登录</a>
+				<div id="a_common_animation"></div>
 			</div>
 
 			<div id="nav_sms" @click="sort(0)">
-				<a id="a_sms"  :style="{'color':color2,'border-bottom':border2}">短信登录</a>
+				<a id="a_sms">短信登录</a>
+				<div id="a_sms_animation"></div>
 			</div>
 		</div>
 		<!--这是我要隐藏的  -->
-	<form >
-		<div class="tow_show" v-if="isShow">
-			<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
-				<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required></input>
-			</div>
+		<form v-if="isShow">
+			<div class="tow_show">
+				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
+					<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required/>
+				</div>
 
-			<div class="group_input">
-				<input id="ipwd" v-model="inppwd" :type="types" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode"></input>
-				<img id="group_input_img" @click="Alt" :src="imgs" />
-			</div>
+				<div class="group_input">
+					<input id="ipwd" v-model="inppwd" :type="types" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" />
+					<img id="group_input_img" @click="Alt" :src="imgs" />
+				</div>
 
-			<div class="hyperlink">
-				<router-link class="a_hyperlink" tag='a' :to="'/Retrieve'">找回密码</router-link> &nbsp;&nbsp;<span style="color: #8C8C8C;">|</span>&nbsp;&nbsp;
-				<router-link class="a_hyperlink" tag='a' :to="'/Register'">注册账号</router-link>
+				<div class="hyperlink">
+					<router-link class="a_hyperlink" tag='a' :to="'/Retrieve'">找回密码</router-link> &nbsp;&nbsp;<span style="color: #8C8C8C;">|</span>&nbsp;&nbsp;
+					<router-link class="a_hyperlink" tag='a' :to="'/Register'">注册账号</router-link>
+				</div>
+
+				<div align="center" style="padding:30px;">
+					<x-button id="btn_login_normal" @click.native="submitData" type="primary">登 录</x-button>
+				</div>
 			</div>
-			
-			<div style="padding:30px;">
-				<x-button id="btn_login_normal" @click.native="submitData" type="primary">登 录</x-button>
-			</div>
-		</div>
-	</form>
-	
+		</form>
+
 		<!--这是我要隐藏的  -->
-	<form>
-		<div class="tow_show" v-if="isShows" >
-			<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
-				<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required></input>
-			</div>
+		<form v-else>
+			<div class="tow_show">
+				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
+					<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required></input>
+				</div>
 
-			<div id="div_ipwd">
-				<input id="verifica" v-model="verif" placeholder="请输入短信验证码" />
-				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</x-button>
-			</div>
+				<div id="div_ipwd">
+					<input id="verifica" v-model="verif" placeholder="请输入短信验证码" />
+					<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</x-button>
+				</div>
 
-			<div class="hyperlink">
-				<router-link class="a_hyperlink" tag='a' :to="'/Retrieve'">找回密码</router-link> &nbsp;&nbsp;<span style="color: #8C8C8C;">|</span>&nbsp;&nbsp;
-				<router-link class="a_hyperlink" tag='a' :to="'/Register'">注册账号</router-link>
-			</div>
+				<div class="hyperlink">
+					<router-link class="a_hyperlink" tag='a' :to="'/Retrieve'">找回密码</router-link> &nbsp;&nbsp;<span style="color: #8C8C8C;">|</span>&nbsp;&nbsp;
 
-			<div style="padding:30px;">
-				<x-button id="btn_login_sms" @click.native="btnveif" type="primary">登 录</x-button>
+					<router-link class="a_hyperlink" tag='a' :to="'/Register'">注册账号</router-link>
+				</div>
+
+				<div align="center" style="padding:30px;">
+					<x-button id="btn_login_sms" @click.native="btnveif" type="primary">登 录</x-button>
+				</div>
 			</div>
-		</div>
-	</form>
+		</form>
 
 	</div>
 
@@ -85,16 +88,15 @@
 				verif: "",
 				short_message: '',
 				isShow: true,
-				isShows: false,
 				types: "password",
 				imgs: eye,
 				disabled: false,
 				color1: "#09A2D6",
 				color2: "#666666",
-				border1:'3px solid #09A2D6',
-				border2:'3px solid white',
-				time: '',
-				
+				border1: '3px solid #09A2D6',
+				border2: '3px solid white',
+				time: ''
+
 			}
 		},
 		mounted: function() {
@@ -133,25 +135,40 @@
 			return str.replace(/(^\s+)|(s+$)/g, "");
 		},
 		methods: {
-			goBack(){
-            this.$router.replace('/Home');
-         	},
+			goBack() {
+				this.$router.replace('/Home');
+			},
 			sort(index) {
+				let that = this;
 				if(index == 1) {
-					this.isShow = true;
-					this.isShows = false;
-					this.color1 = "#09A2D6";
-					this.color2 = "#666666";
-					this.border1 = '3px solid #09A2D6';
-					this.border2 = '3px solid white';
-				} 
+					that.isShow = true;
+					$("#a_common").css({
+						color: '#09A2D6'
+					});
+					$("#a_sms").css({
+						color: '#666'
+					});
+					$("#a_common_animation").animate({
+						marginLeft: 0
+					}, 500);
+					$("#a_sms_animation").animate({
+						marginLeft: '-100%'
+					}, 500);
+				}
 				if(index == 0) {
-					this.isShows = true;
-					this.isShow = false;
-					this.color1 = "#666666";
-					this.color2 = "#09A2D6";
-					this.border1 = '3px solid white';
-					this.border2 = '3px solid #09A2D6';
+					that.isShow = false;
+					$("#a_common").css({
+						color: '#666'
+					});
+					$("#a_sms").css({
+						color: '#09A2D6'
+					});
+					$("#a_common_animation").animate({
+						marginLeft: '100%'
+					}, 500);
+					$("#a_sms_animation").animate({
+						marginLeft: 0
+					}, 500);
 				}
 			},
 			Alt() {
@@ -179,7 +196,12 @@
 				event.preventDefault();
 				var reg = /^1[3|4|5|7|8]\d{9}$/;
 				//				alert("result:" + this.$refs.mobile.valid);
+
 				if(reg.test(this.mobile)) {
+					if(this.inppwd == ''){
+						this.$layer.msg('密码不能为空');
+						return;
+					}
 					if(this.inppwd != this.pwd) {
 						this.$layer.msg('密码错误');
 						return;
@@ -187,13 +209,18 @@
 						this.$layer.msg('登录成功');
 						this.$router.replace('/Home');
 					}
-				} else {
-					this.$layer.msg('手机号码不能为空 或 输入有误哦~');
+				}else if(this.mobile == ''){
+					this.$layer.msg('手机号码不能为空');
+					return;
+				}
+				else {
+					this.$layer.msg('手机号码格式错误');
 				}
 			},
 			btnveif() {
 				event.preventDefault();
 				var reg = /^1[3|4|5|7|8]\d{9}$/;
+
 				if(reg.test(this.mobile)) {
 					if(this.verif == "") {
 						this.$layer.msg('验证码不能为空');
@@ -206,9 +233,11 @@
 						this.$layer.msg('登录成功');
 						this.$router.replace('/Home');
 					}
-				} else {
-					this.$layer.msg('手机号码不能为空 或 输入有误哦~');
+				}else if(this.mobile == ''){
+					this.$layer.msg('手机号码不能为空');
 					return;
+				}else {
+					this.$layer.msg('手机号码格式错误');
 				}
 			},
 			//短信信息
@@ -219,9 +248,10 @@
 				//					return;
 				//				}
 				var Verificationtime = Verificationtime;
+
+				this.disabled = true;
 				that.time = that.readCookie(Verificationtime);
 				if(that.time == "") {
-
 					that.$layer.msg('短信已发送,本次验证码为：' + that.verification);
 					that.time = 60;
 
@@ -282,15 +312,17 @@
 	}
 	
 	button.weui-btn.weui-btn_primary:active {
-		background-color: #2894FF;
+		background-color: #09A2D6;
 	}
 	
 	.back img {
 		height: 2.5rem;
 	}
- 	.back{
-    float: left;
-  }	
+	
+	.back {
+		float: left;
+	}
+	
 	#login {
 		width: 100vw;
 		height: 100vh;
@@ -314,10 +346,10 @@
 		text-indent: 4px;
 		vertical-align: middle;
 		line-height: 1;
-		font-size: 1.3rem;
+		font-size: 1.5rem;
 	}
 	
-	div#ipwd.vux-x-input.weui-cell {
+	#ipwd .vux-x-input .weui-cell {
 		width: 80%;
 	}
 	
@@ -342,7 +374,7 @@
 		border-left: 0;
 		border-right: 0;
 		padding-left: 1rem;
-		font-size: 1.3rem;
+		font-size: 1.5rem;
 		border-bottom: 0.01px solid #F5F5F5;
 		width: 70%;
 		outline: none;
@@ -355,7 +387,7 @@
 		border-left: 0;
 		border-right: 0;
 		padding-left: 1rem;
-		font-size: 1.3rem;
+		font-size: 1.5rem;
 		border-bottom: 0.01px solid #F5F5F5;
 		margin-top: 2rem;
 		width: 100%;
@@ -397,7 +429,7 @@
 		border-top: 0px!important;
 	}
 	
-	div.hyperlink {
+	.hyperlink {
 		margin-top: 1rem;
 		margin-left: 55%;
 	}
@@ -423,60 +455,71 @@
 		background-color: white;
 		text-align: center;
 		line-height: 50px;
-		border-bottom: 1px solid #C8C8CD;
+		border-bottom: 1px solid #F5F5F5;
 	}
 	
 	#nav_login {
 		position: fixed;
 		top: 0;
 		width: 100%;
-		height: 20px;
 		background-color: white;
 		text-align: center;
 		line-height: 50px;
 		border-bottom: 1px solid #C8C8CD;
-		margin-top: 70px;
+		margin-top: 50px;
 	}
 	
 	#nav_common {
 		position: fixed;
-		width: 100%;
-		margin-top: -25px;
-		margin-left: -30%;
+		width: 50%;
 		background: white;
-		border: 1px solid #C8C8CD;
+		color: #09A2D6;
+		box-shadow: 0.2rem 0.2rem 0.2rem #ddd;
+		overflow: hidden;
 	}
-	#a_common{
-		/*text-decoration:none;*/ 
-		/*border-bottom:3px solid #09A2D6;  #ccc换成链接的颜色*/ 
-		display: inline-block; 
+	
+	#nav_common a {
+		width: 100%;
+		background: white;
+	}
+	
+	#a_common {
+		/*text-decoration:none;*/
+		/*border-bottom:3px solid #09A2D6;  #ccc换成链接的颜色*/
+		display: inline-block;
 		/*margin-bottom:-3px;  这里设置你要空的距离*/
 	}
-	#a_sms{
-		text-decoration:none; 
-		display: inline-block; 
-		margin-bottom:0.1px;  /*这里设置你要空的距离*/
+	
+	#a_sms {
+		width: 100%;
+		text-decoration: none;
+		display: inline-block;
 	}
-	#nav_common_a {
-		color: #09A2D6;
-	}
-	/*a:hover{
-		color: #09A2D6;
-	}
-
-	a:active{
-		color: #000000;
-	}*/
 	
 	#nav_sms {
 		position: fixed;
-		width: 100%;
-		margin-left: 30%;
-		margin-top: -25px;
+		width: 50%;
+		margin-left: 50%;
 		background: white;
-		border: 1px solid #C8C8CD;
 		border-left: none;
+		overflow: hidden;
+		box-shadow: 0.2rem 0.2rem 0.2rem #ddd;
 	}
+	
+	#a_common_animation {
+		width: 100%;
+		background: #09A2D6;
+		height: 0.3rem;
+		margin-left: 0
+	}
+	
+	#a_sms_animation {
+		width: 100%;
+		background: #09A2D6;
+		height: 0.3rem;
+		margin-left: -100%;
+	}
+	
 	
 	.weui-btn:after,
 	#btn_login_normal:after,

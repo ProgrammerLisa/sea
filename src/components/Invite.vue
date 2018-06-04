@@ -73,7 +73,7 @@
 <style scoped>
   .content{
     overflow: hidden;
-    color: #777;
+    color: #666;
     width: 100vw;
     height: 100vh;
   }

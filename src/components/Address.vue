@@ -57,9 +57,10 @@
 <style scoped>
   .content{
     overflow-x: hidden;
-    color: #777;
+    color: #666;
     padding-bottom: 6rem;
     background-color: #f5f5f5;
+    width: 100vw;
   }
 
   .panel{

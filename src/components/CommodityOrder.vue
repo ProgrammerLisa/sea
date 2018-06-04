@@ -97,7 +97,7 @@
 <style scoped>
   .content{
     overflow-x: hidden;
-    color: #777;
+    color: #666;
     background: #f5f5f5;
     padding-bottom: 6rem;
   }

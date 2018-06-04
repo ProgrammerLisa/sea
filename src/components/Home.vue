@@ -1,8 +1,12 @@
 <template>
   <div class="contentMain">
     <div id="main-top">
+    	
       <img src="../assets/images/bg.png" class="bcImg" id="seaBack"  ref="seaBack" />
-      <div class="topOption option1">
+     <div id="notice">
+    		<marquee>公告:亲爱的用户，平台momomo即将上线，敬请期待。</marquee>
+     </div>
+     <div class="topOption option1">
         <span >珍珠量 {{imgSum}}</span>
       </div>
 
@@ -213,6 +217,13 @@ export default {
 </script>
 
 <style scoped>
+	#notice{
+		position: absolute;
+    top: 2rem;
+		width: 100%;
+		font-family: "微软雅黑";
+	}
+	
   .contentMain{
     width: 100vw;
     overflow-x: hidden;

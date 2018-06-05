@@ -7,25 +7,23 @@
 				</div>
 			</div>
 			<div style="margin-top: 90px;padding: 20px;margin-left: -7px;">
-				<input style="font-size: 1.5rem;" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></input>
+				<input style="font-size: 1.5rem;" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
 			</div>
 
 			<div style="margin-top: -30px;padding: 20px;margin-left: -14px;">
-				<input style="font-size: 1.5rem;" id="verification" v-model="verif" placeholder="请输入短信验证码">
+				<input style="font-size: 1.5rem;" id="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
 				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxte}}</x-button>
 				</input>
 			</div>
 
 			<div style="margin-top:-50px;padding: 25px;margin-left: -14px;">
-				<input id="passwordModel_image" :type="types" style="font-size: 1.5rem;" v-model="passwordModel" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></input>
+				<input id="passwordModel_image" :type="types" style="font-size: 1.5rem;" v-model="passwordModel" placeholder="请输入新密码" maxlength="16" is-type="sendcode" calss="btns"></input>
 				<img id="group_input_img" @click="Alt()" :src="imgs" />
 				<!--<span>@{{passwordValidate.errorText}}</span>-->
 			</div>
-
-			<div style="padding:15px;">
-				<x-button id="pwsbtn" @click.native="submitData" type="primary">完 成</x-button>
+			<div align="center" style="padding: 30px;">
+				<x-button :disabled="!mobile || !verif || !passwordModel" id="pwsbtn" @click.native="submitData" type="primary">完 成</x-button>
 			</div>
-
 		</div>
 	</div>
 </template>
@@ -255,6 +253,7 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 		border: 0;
+		margin-right: 2.4rem;
 	}
 	
 	.panel-body {
@@ -335,13 +334,15 @@
 	}
 	
 	#pwsbtn {
-		width: 80%;
-		margin-top: -10px;
 		background-color: #09A2D6;
 	}
 	
+	#pwsbtn:disabled{
+		background:	#C0C0C0 ;
+	}
+	
 	#pwsbtn:active {
-		background-color: #2894FF;
+		background-color: #09A2D6;
 	}
 	
 	.btns {
@@ -362,7 +363,7 @@
 		margin-top: -20px;
 		width: 100px;
 		height: 40px;
-		margin-left: 69%;
+		margin-left: 68%;
 		border: none;
 		background-color: #F5F5F5;
 		color: #646464;
@@ -381,7 +382,7 @@
 	}
 	
 	button#pwsbtn.weui-btn.weui-btn_primary {
-		width: 99%;
-		margin-left: -5px;
+		width: 108%;
+		margin-left: -6%;
 	}
 </style>

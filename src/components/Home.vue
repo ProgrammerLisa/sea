@@ -3,7 +3,7 @@
     <div id="main-top">
 
      <div id="notice">
-    		<marquee height="30rem" bgcolor="#3d85c6" scrollamount="5" scrolldelay="1"><span style="line-height: 2.5rem;">公告:亲爱的用户，平台momomo即将上线，敬请期待。</span></marquee>
+    		<marquee height="30rem" scrollamount="5" scrolldelay="1"><span style="line-height: 2.5rem;">公告:亲爱的用户，平台momomo即将上线，敬请期待。</span></marquee>
      </div>
      <div class="topOption option1">
         <span >珍珠量 {{imgSum}}</span>

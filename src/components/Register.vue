@@ -6,29 +6,29 @@
 			</div>
 		</div>
 		<div style="margin-top: 50px;padding: 10px;margin-left: 6px;" label-width="5.5em" label-margin-right="2em" label-align="left">
-			<input id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></input>
+			<input id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
 		</div>
 
 		<div style="margin-top: -80px;padding: 30px;margin-left: -19px;">
-			<input id="verification" v-model="verif" placeholder="请输入短信验证码">
+			<input id="verification" maxlength="6" v-model="verif" placeholder="请输入短信验证码">
 			<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
 			</input>
 		</div>
 
 		<div style="margin-top:-40px;padding: 30px;margin-left: -14px;">
-			<input :type="types" style="font-size: 1.5rem;border-bottom: 0.1rem solid #F5F5F5;" v-model="passwordModel" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" id="btns"></input>
+			<input :type="types" style="font-size: 1.5rem;border-bottom: 0.1rem solid #F5F5F5;" v-model="passwordModel" placeholder="请输入密码" maxlength="16" is-type="sendcode" id="btns"></input>
 			<!--<span>@{{passwordValidate.errorText}}</span>-->
 			<img id="group_input_img" @click="Alt()" :src="imgs" />
 		</div>
 
 		<div style="margin-top:-40px;padding: 30px;margin-left: -14px;">
-			<input :type="typeis" style="font-size: 1.5rem;border-bottom: 0.1rem solid #F5F5F5;" v-model="passwordcheckModel" placeholder="请再次输入密码" :min="6" :max="6" is-type="sendcode" id="btn"></input>
+			<input :type="typeis" style="font-size: 1.5rem;border-bottom: 0.1rem solid #F5F5F5;" v-model="passwordcheckModel" placeholder="请再次输入密码" maxlength="16" is-type="sendcode" id="btn"></input>
 			<!--<span>@{{passwordCheckValidate.errorText}}</span>-->
 			<img id="group_input_imgs" @click="Alte()" :src="imges" />
 		</div>
 
 		<div style="padding:30px;">
-			<x-button id="pwsbtn" @click.native="submitData" type="primary">下一步</x-button>
+			<x-button :disabled="!mobile || !verif || !passwordModel || !passwordcheckModel" id="pwsbtn" @click.native="submitData" type="primary">下一步</x-button>
 		</div>
 		<!--<center>
 			<div id="agree">
@@ -301,6 +301,7 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 		border: 0;
+		margin-right: 2.4rem;
 	}
 	.back {
 		float: left;
@@ -386,7 +387,11 @@
 	}
 	
 	#pwsbtn:active {
-		background-color: #2894FF;
+		background-color: #09A2D6;
+	}
+	
+	#pwsbtn:disabled{
+		background:	#C0C0C0 ;
 	}
 	
 	#btns {

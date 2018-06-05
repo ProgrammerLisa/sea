@@ -8,7 +8,7 @@
     </div>
     <div class="code">
       <center>
-        <input id="ask_invite" v-model="verif" placeholder="请填写邀请码" :max="6" keyboard="number" is-type="china-mobile" required></input>
+        <input id="ask_invite" v-model="verif" placeholder="请填写邀请码" maxlength="20" keyboard="number" is-type="china-mobile" required></input>
       </center>
       <div style="padding:40px;margin-top: 10px;">
         <x-button id="finish" @click.native="accomplish" type="primary">完 成</x-button>

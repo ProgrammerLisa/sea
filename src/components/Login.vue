@@ -19,11 +19,11 @@
 		<form v-if="isShow">
 			<div class="tow_show">
 				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
-					<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required/>
+					<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" required/>
 				</div>
 
 				<div class="group_input">
-					<input id="ipwd" v-model="inppwd" :type="types" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" />
+					<input id="ipwd" v-model="inppwd" :type="types" placeholder="请输入密码" maxlength="16" is-type="sendcode" />
 					<img id="group_input_img" @click="Alt" :src="imgs" />
 				</div>
 
@@ -33,7 +33,7 @@
 				</div>
 
 				<div align="center" style="padding:30px;">
-					<x-button id="btn_login_normal" @click.native="submitData" type="primary">登 录</x-button>
+					<x-button :disabled="!mobile || !inppwd" id="btn_login_normal" @click.native="submitData" type="primary">登 录</x-button>
 				</div>
 			</div>
 		</form>
@@ -42,11 +42,11 @@
 		<form v-else>
 			<div class="tow_show">
 				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
-					<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" :max="11" keyboard="number" is-type="china-mobile" required></input>
+					<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
 				</div>
 
 				<div id="div_ipwd">
-					<input id="verifica" v-model="verif" placeholder="请输入短信验证码" />
+					<input id="verifica" v-model="verif" maxlength="4" placeholder="请输入短信验证码" />
 					<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</x-button>
 				</div>
 
@@ -57,7 +57,7 @@
 				</div>
 
 				<div align="center" style="padding:30px;">
-					<x-button id="btn_login_sms" @click.native="btnveif" type="primary">登 录</x-button>
+					<x-button :disabled="!mobile || !verif" id="btn_login_sms" @click.native="btnveif" type="primary">登 录</x-button>
 				</div>
 			</div>
 		</form>
@@ -196,7 +196,7 @@
 				event.preventDefault();
 				var reg = /^1[3|4|5|7|8]\d{9}$/;
 				//				alert("result:" + this.$refs.mobile.valid);
-
+			
 				if(reg.test(this.mobile)) {
 					if(this.inppwd == ''){
 						this.$layer.msg('密码不能为空');
@@ -454,6 +454,7 @@
 		font-size: 1.8rem;
 		background-color: white;
 		text-align: center;
+		color: #555;
 		line-height: 50px;
 		border-bottom: 1px solid #F5F5F5;
 	}
@@ -528,13 +529,25 @@
 		border: none;
 	}
 	
+	#btn_login_normal{
+		width: 100%;
+	}
+	
+	#btn_login_normal:disabled{
+		background: #C0C0C0;
+	}
+	
+	#btn_login_sms:disabled{
+		background: #C0C0C0;
+	}
+	
 	button#btn_login_normal.weui-btn.weui-btn_primary {
-		width: 122%;
-		margin-left: -3rem;
+		width: 120%;
+		margin-left:-10%;
 	}
 	
 	button#btn_login_sms.weui-btn.weui-btn_primary {
-		width: 122%;
-		margin-left: -3rem;
+		width: 120%;
+		margin-left: -10%;
 	}
 </style>

@@ -52,17 +52,17 @@
          },
 			accomplish() {
 				if(this.verif == '') {
-					this.$layer.msg('邀请码不能为空哦',{title:'提示'});
+					this.$layer.msg('邀请码不能为空哦');
 					return;
 				}
 				if(this.verif != this.ask_invite) {
-					this.$layer.msg('邀请码错误',{title:'提示'});
+					this.$layer.msg('邀请码错误');
 					return;
 				} else if(this.check == this.demo1) {
-					this.$layer.msg('请同意',{title:'提示'});
+					this.$layer.msg('请同意');
 					return;
 				} else {
-					this.$layer.msg('通过了',{title:'提示'});
+					this.$layer.msg('通过了');
 					this.$router.push('/Personal');
 				}
 			}
@@ -109,7 +109,7 @@
 		border-right: 0;
 		margin-top: 30%;
 		padding-left: 1rem;
-		font-size: 1.3rem;
+		font-size: 1.5rem;
 		border-bottom: 0.1rem solid #F5F5F5;
 		width: 70%;
 		outline: none;

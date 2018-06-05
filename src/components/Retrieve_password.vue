@@ -1,21 +1,23 @@
 <template>
 	<div>
 		<div id="retrieve">
-			<div id="ret">
-				<img id="ret_img" src="../assets/images/back.png" onclick="window.history.go(-1)" /> 找回密码
+			<div class="panel panel-default BlackTitle">
+				<div class="panel-body">
+					<span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span> 找回密码
+				</div>
 			</div>
 			<div style="margin-top: 90px;padding: 20px;margin-left: -7px;">
-				<input style="font-size: 1.2rem;" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></input>
+				<input style="font-size: 1.5rem;" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></input>
 			</div>
 
 			<div style="margin-top: -30px;padding: 20px;margin-left: -14px;">
-				<input style="font-size: 1.2rem;" id="verification" v-model="verif" placeholder="请输入短信验证码">
+				<input style="font-size: 1.5rem;" id="verification" v-model="verif" placeholder="请输入短信验证码">
 				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxte}}</x-button>
 				</input>
 			</div>
 
 			<div style="margin-top:-50px;padding: 25px;margin-left: -14px;">
-				<input id="passwordModel_image" :type="types" style="font-size: 1.2rem;" v-model="passwordModel" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></input>
+				<input id="passwordModel_image" :type="types" style="font-size: 1.5rem;" v-model="passwordModel" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" calss="btns"></input>
 				<img id="group_input_img" @click="Alt()" :src="imgs" />
 				<!--<span>@{{passwordValidate.errorText}}</span>-->
 			</div>
@@ -33,8 +35,8 @@
 	import eye from '@/assets/images/eye.png'
 	import eyeclick from '@/assets/images/eyeclick.png'
 
-//	sessionStorage.setItem("key", "获取验证码");
-//	localStorage.setItem("site", "js8.in");
+	//	sessionStorage.setItem("key", "获取验证码");
+	//	localStorage.setItem("site", "js8.in");
 
 	export default {
 		name: "login",
@@ -96,10 +98,12 @@
 		//			}
 		//		},
 		Trim(str) {
-				return str.replace(/(^\s+)|(s+$)/g, "");
-			},
+			return str.replace(/(^\s+)|(s+$)/g, "");
+		},
 		methods: {
-			
+			goBack() {
+				this.$router.go(-1);
+			},
 			Alt() {
 				if(this.types == "password") {
 					this.types = "text"
@@ -110,7 +114,7 @@
 				}
 			},
 			timer() {
-				if (this.time > 0) {
+				if(this.time > 0) {
 					this.time--;
 					this.btntxte = this.time + "s";
 					setTimeout(this.timer, 1000);
@@ -126,36 +130,33 @@
 				//				alert("result:" + this.$refs.mobile.valid);
 				if(reg.test(this.mobile)) {
 					if(this.verif == "") {
-						this.$layer.msg("验证码不能为空", {
-							title: '提示'
-						});
+						this.$layer.msg("验证码不能为空");
 						return;
 					}
 					if(this.verif != this.verification) {
-						this.$layer.msg("验证码错误", {
-							title: '提示'
-						});
+						this.$layer.msg("验证码错误");
 						return;
 					}
 					//					if(this.passwordModel != this.pwd) {
 					//						alert("密码错误");
 					//						return;
 					//					}
+					if(this.passwordModel == ''){
+						this.$layer.msg("密码不能为空");
+						return;
+					}
 					if(!/^[0-9A-Za-z]{6,15}$/.test(this.passwordModel)) {
-						this.$layer.msg('密码少于6位', {
-							title: '提示'
-						});
+						this.$layer.msg('密码少于6位');
 						return;
 					} else {
-						this.$layer.msg("登录成功", {
-							title: '提示'
-						});
+						this.$layer.msg("登录成功");
 						this.$router.push('/Main');
 					}
+				}else if(this.mobile == ''){
+					this.$layer.msg("手机号码不能为空");
+					return;
 				} else {
-					this.$layer.msg("手机号码不能为空 或 输入有误哦~", {
-						title: '提示'
-					});
+					this.$layer.msg("手机号码格式错误");
 				}
 			},
 			timer() {
@@ -175,84 +176,61 @@
 			},
 			//验证手机号码部分
 			sendcode() {
-//				this.$layer.msg("验证码是：" + this.verification, {
-//					title: '提示'
-//				});
-//				var reg = /^1[3|4|5|7|8]\d{9}$/;
-//				if(this.phone == '') {
-//					this.$layer.msg("请输入手机号码", {
-//						title: '提示'
-//					});
-//				} else if(reg.test(this.phone)) {
-//					this.$layer.msg("手机格式不正确", {
-//						title: '提示'
-//					});
-//				} else {
-//					this.time = 60;
-//					this.disabled = true;
-//					this.timer();
-//					this.verification = this.randoms();
-//					//alert("验证码是："+this.verification);
-//				}
 				
-			//}
-			 const that = this;
-				//				if(this.short_message != this.sho_mess){
-				//					return;
-				//				}
+				const that = this;
 				var Verificationtimen = Verificationtimen;
-        that.time =  that.readCookie(Verificationtimen);
-        if (that.time == "") {
+				that.time = that.readCookie(Verificationtimen);
+				if(that.time == "") {
 
-          that.$layer.msg('短信已发送,本次验证码为：'+ that.verification);
-          that.time = 60;
+					that.$layer.msg('短信已发送,本次验证码为：' + that.verification);
+					that.time = 60;
 
-          var TimeReduction1 = setInterval(function () {
-            if(that.time>0){
-              that.writeCookie(Verificationtimen,that.time);
-              that.time--;
-              that.btntxte = that.time + "s";
-              that.disabled = true;
-            }else{
-              that.time = 0;
-              that.btntxte = "获取验证码";
-              that.disabled = false;
-              that.delCookie(Verificationtimen);
-              clearInterval(TimeReduction1);
-            }
-          },1000)
-        }
+					var TimeReduction1 = setInterval(function() {
+						if(that.time > 0) {
+							that.writeCookie(Verificationtimen, that.time);
+							that.time--;
+							that.btntxte = that.time + "s";
+							that.disabled = true;
+						} else {
+							that.time = 0;
+							that.btntxte = "获取验证码";
+							that.disabled = false;
+							that.delCookie(Verificationtimen);
+							clearInterval(TimeReduction1);
+						}
+					}, 1000)
+				}
 			},
-      writeCookie(name, value, hours) {
-        var expire = "";
-        hours = hours || 100;
-        if (hours != null) {
-          expire = new Date((new Date()).getTime() + hours * 1000);
-          expire = "; expires=" + expire.toGMTString();
-        }
-        document.cookie = name + "=" + escape(value) + expire;
-      },
-      readCookie(name) {
-        var cookieValue = "";
-        var search = name + "=";
-        if (document.cookie.length > 0) {
-          var offset = document.cookie.indexOf(search);
-          if (offset != -1) {
-            offset += search.length;
-            var end = document.cookie.indexOf(";", offset);
-            if (end == -1) end = document.cookie.length;
-            cookieValue = unescape(document.cookie.substring(offset, end))
-          }
-        }
-        return cookieValue;
-      },
-      delCookie(name){
-        var exp = new Date();
-        exp.setTime(exp.getTime() - 1);
-        var cval= this.readCookie(name);
-        if(cval!=null)
-          document.cookie= name + "="+cval+";expires="+exp.toGMTString();
-      }
+			writeCookie(name, value, hours) {
+				var expire = "";
+				hours = hours || 100;
+				if(hours != null) {
+					expire = new Date((new Date()).getTime() + hours * 1000);
+					expire = "; expires=" + expire.toGMTString();
+				}
+				document.cookie = name + "=" + escape(value) + expire;
+			},
+			readCookie(name) {
+				var cookieValue = "";
+				var search = name + "=";
+				if(document.cookie.length > 0) {
+					var offset = document.cookie.indexOf(search);
+					if(offset != -1) {
+						offset += search.length;
+						var end = document.cookie.indexOf(";", offset);
+						if(end == -1) end = document.cookie.length;
+						cookieValue = unescape(document.cookie.substring(offset, end))
+					}
+				}
+				return cookieValue;
+			},
+			delCookie(name) {
+				var exp = new Date();
+				exp.setTime(exp.getTime() - 1);
+				var cval = this.readCookie(name);
+				if(cval != null)
+					document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+			}
 		}
 	}
 </script>
@@ -262,21 +240,34 @@
 		width: 100vw;
 		background: white;
 		height: 100vh;
-		padding-top: 1rem;
 	}
 	
 	span {
 		font-size: 10px;
 	}
 	
-	#ret_img {
-		width: 33px;
-		position: absolute;
-		margin-left: -40%;
-		margin-top: 10px;
-		text-align: right;
+	.BlackTitle {
+		text-align: center;
+		letter-spacing: 0.05rem;
+		color: #555;
+		font-size: 1.8rem;
+		margin-bottom: 0.5rem;
+		height: 4.1rem;
+		line-height: 4.1rem;
+		border: 0;
 	}
 	
+	.panel-body {
+		padding: 0 10px;
+	}
+	
+	.back {
+		float: left;
+	}
+	
+	.back img {
+		height: 2.5rem;
+	}
 	i.weui-icon.weui_icon_clear.weui-icon-clear {
 		display: none;
 	}
@@ -341,19 +332,6 @@
 		letter-spacing: 0.1rem;
 		padding-bottom: 0.5rem;
 		padding-top: 2rem;
-	}
-	
-	#ret {
-		position: fixed;
-		top: 0;
-		width: 100%;
-		height: 50px;
-		background-color: white;
-		text-align: center;
-		line-height: 50px;
-		font-size: 1.8rem;
-		border-bottom: 1px solid #C8C8CD;
-		-webkit-box-shadow: 0.01px 0.01px 0.01px #F5F5F5;
 	}
 	
 	#pwsbtn {

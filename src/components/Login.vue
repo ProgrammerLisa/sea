@@ -137,7 +137,7 @@
 		},
 		methods: {
 			goBack(){
-            this.$router.replace('/Home');
+            this.$router.replace('/Personal');
          	},
 			sort(index) {
 			  let that = this;

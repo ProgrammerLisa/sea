@@ -60,7 +60,7 @@
     text-align: center;
     letter-spacing: 0.05rem;
     color: #555;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     margin-bottom: 0.5rem;
     height: 4.1rem;
     line-height: 4.1rem;
@@ -86,6 +86,7 @@
   .media-heading {
     margin-top: 0.3rem;
     margin-bottom: 5px;
+    font-size: 1.6rem;
   }
   .media-left img{
     border: 0.1rem solid #09a2d6;

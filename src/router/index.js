@@ -27,6 +27,8 @@ import Reward from '@/components/Reward'
 import AddFriends from '@/components/AddFriends'
 import CommodityDetails from '@/components/CommodityDetails'
 import CommodityOrder from '@/components/CommodityOrder'
+import Compile from '@/components/Compile'
+import InviteCode from '@/components/InviteCode'
 
 import ModificationAddress from '@/components/ModificationAddress'
 import Statement from '@/components/Statement'
@@ -41,16 +43,11 @@ Vue.prototype.$layer = layer(Vue);
 
 export default new Router({
   routes: [
+
     {
-			path:'/',
-      name:'Login',
-      meta:{index:0},
-			component: Login
-		},
-    {
-      path: '/HelloWorld',
+      path: '/',
       name: 'HelloWorld',
-      meta:{index:1},
+      meta:{index:0},
       component: HelloWorld,
       children:[
         {
@@ -94,7 +91,7 @@ export default new Router({
 		{
 			path:'/Login',
       name:'Login',
-      meta:{index:1},
+      meta:{index:2},
 			component: Login
 		},
 		{
@@ -206,6 +203,18 @@ export default new Router({
       name:'AboutUs',
       meta:{index:3},
       component: AboutUs
+    },
+    {
+      path:'/Compile',
+      name:'Compile',
+      meta:{index:2},
+      component: Compile
+    },
+    {
+      path:'/InviteCode',
+      name:'InviteCode',
+      meta:{index:2},
+      component: InviteCode
     }
 
   ]

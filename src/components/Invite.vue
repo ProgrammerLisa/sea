@@ -89,7 +89,7 @@
     text-align: center;
     letter-spacing: 0.05rem;
     color: #555;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     margin-bottom: 0.5rem;
     height: 4.1rem;
     line-height: 4.1rem;
@@ -133,10 +133,10 @@
 	#finish:active{
 		background-color: #2894FF;
 	}
-	
+
 	button#finish.weui-btn.weui-btn_primary{
 		width: 90%;
 		margin-left: 1.3rem;
 	}
-	
+
 </style>

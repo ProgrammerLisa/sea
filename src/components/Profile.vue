@@ -7,11 +7,19 @@
         </router-link>
       </div>
       <div class="container personalMessage">
-        <div class="HeadPortrait">
-          <img :src="headPortrait"/>
-        </div>
-        <p class="nickName">ZZZ</p>
-        <p class="userId">ID：56789668</p>
+        <router-link tag="div" v-if="isLogin" to="/Compile">
+          <div class="HeadPortrait">
+            <img :src="headPortrait"/>
+          </div>
+          <p class="nickName">ZZZ</p>
+          <p class="userId">ID：56789668</p>
+        </router-link>
+        <router-link tag="div" v-else to="/Login">
+          <div class="HeadPortrait">
+            <img :src="headPortrait"/>
+          </div>
+          <p class="nickName">点击登录</p>
+        </router-link>
         <div class="row ">
           <router-link to="Wallet" tag="div" class="col-xs-5 col-xs-offset-1 personalMessageLeft">
             <img :src="wallet" class="personalIcon">
@@ -27,21 +35,23 @@
 
     </div>
     <div class="personalItem">
+      <div v-for="(m) in Personal" class="mediaDad">
+        <div class="media" >
+          <router-link :to="m.PersonalHref" tag="div">
+            <div class="media-left">
+              <img class="media-object" :src="m.imfLeft" >
+            </div>
+            <div class="media-body" style="vertical-align: middle">
+              {{m.title}}
+            </div>
+            <div class="media-right">
+              <img class="media-object" src="../assets/images/more.png"/>
+            </div>
+          </router-link>
 
-      <button class="media btn" v-for="m in Personal">
-        <router-link :to="m.PersonalHref" tag="div">
-          <div class="media-left">
-              <img class="media-object" :src="m.imfLeft" alt="...">
-          </div>
-          <div class="media-body" style="vertical-align: middle">
-            {{m.title}}
-          </div>
-          <div class="media-right">
-            <img class="media-object" src="../assets/images/more.png"/>
-          </div>
-        </router-link>
+        </div>
+      </div>
 
-      </button>
     </div>
   </div>
 </template>
@@ -57,6 +67,7 @@
     import headImg from '@/assets/images/profile.png'
     import autonym from '@/assets/images/autonym.png'
     import wallet from '@/assets/images/wallet.png'
+    import invite from '@/assets/images/invite.png'
 
     export default {
         name: "Personal",
@@ -68,12 +79,23 @@
               {title:'我的好友',PersonalHref:'friend',imfLeft:friend},
               {title:'我的邀请者',PersonalHref:'Ask',imfLeft:inviter},
               {title:'邀请奖励',PersonalHref:'Reward',imfLeft:award},
+              {title:'邀请码',PersonalHref:'InviteCode',imfLeft:invite},
               {title:'商城订单',PersonalHref:'CommodityOrder',imfLeft:indent},
               {title:'收货地址',PersonalHref:'address',imfLeft:address},
               {title:'客服中心',PersonalHref:'Service',imfLeft:service},
               {title:'账户设置',PersonalHref:'Setting',imfLeft:setting}
             ],
-            headPortrait:headImg
+            headPortrait:headImg,
+            isLogin:true
+          }
+      },
+      mounted(){
+
+      },
+      methods:{
+          changeBack(index){
+            // $(".media").css({background:'#fff'});
+
           }
       }
     }
@@ -164,7 +186,10 @@
     padding-left:  1rem;
     color: #666;
   }
-  .media:nth-child(3), .media:nth-child(5){
+  .media:active {
+    background: #f1f1f1
+  }
+  .mediaDad:nth-child(4), .mediaDad:nth-child(6){
     margin-bottom: 1rem;
   }
   .media-object{

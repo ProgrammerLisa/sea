@@ -121,7 +121,7 @@
     padding: 4rem 0;
   }
   .TitleImg-Title{
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
   .task{
     margin-bottom: 0;

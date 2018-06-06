@@ -84,7 +84,7 @@
 				pwd: '123456',
 				inppwd: "",
 				btntxt: "",
-				verification: "654321",
+				verification: "6543",
 				verif: "",
 				short_message: '',
 				isShow: true,
@@ -135,6 +135,9 @@
 			return str.replace(/(^\s+)|(s+$)/g, "");
 		},
 		methods: {
+//			goBack(){
+//          this.$router.replace('/Personal');
+//       	},
 			goBack() {
 				this.$router.replace('/Home');
 			},

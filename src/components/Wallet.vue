@@ -25,7 +25,7 @@
             myWallet:[
               {url:'/',title:'我的账单'},
               {url:'Statement',title:'收支记录'},
-              {url:'/',title:'我的钻石'},
+              {url:'Login',title:'我的钻石'},
               {url:'/',title:'我的能量值'}
             ]
           }
@@ -58,7 +58,7 @@
     text-align: center;
     letter-spacing: 0.05rem;
     color: #555;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     margin-bottom: 0.5rem;
     height: 4.1rem;
     line-height: 4.1rem;

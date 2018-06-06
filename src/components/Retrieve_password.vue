@@ -50,7 +50,7 @@
 				time: 0,
 				mobile: '',
 				btntxte: "获取验证码",
-				verification: "654321",
+				verification: "6543",
 				//				pwd: '123456',
 				passwordModel: "",
 				verif: "",
@@ -179,7 +179,6 @@
 				var Verificationtimen = Verificationtimen;
 				that.time = that.readCookie(Verificationtimen);
 				if(that.time == "") {
-
 					that.$layer.msg('短信已发送,本次验证码为：' + that.verification);
 					that.time = 60;
 
@@ -253,7 +252,6 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 		border: 0;
-		margin-right: 2.4rem;
 	}
 	
 	.panel-body {

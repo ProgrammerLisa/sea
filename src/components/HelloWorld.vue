@@ -36,7 +36,7 @@
           {navSrc:'/Home',title:'首页',imgSrc1:home,imgSrc2:home1,titleStyle:''},
           {navSrc:'/GetForce',title:'发现',imgSrc1:discovery,imgSrc2:discovery1,titleStyle:''},
           {navSrc:'/Shopping',title:'商城',imgSrc1:store,imgSrc2:store1,titleStyle:''},
-          {navSrc:'',title:'我的',imgSrc1:mine,imgSrc2:mine1,titleStyle:''}
+          {navSrc:'/Personal',title:'我的',imgSrc1:mine,imgSrc2:mine1,titleStyle:''}
         ],
         imgSrcArr:[
           home,discovery,store,mine
@@ -46,15 +46,14 @@
     },
     mounted:function(){
         const that = this;
-        if(that.isLogin){
-          that.navItem[3].navSrc='/Personal'
-        }else {
-          that.navItem[3].navSrc='/Login'
-        }
+
         that.navItem.forEach(function (c) {
           if(c.navSrc==that.$route.path){
             c.imgSrc1 = c.imgSrc2;
             c.titleStyle='color:#09a2d6'
+          }else if(that.$route.path=='/'){
+            that.navItem[0].imgSrc1=that.navItem[0].imgSrc2;
+            that.navItem[0].titleStyle='color:#09a2d6';
           }
         })
 

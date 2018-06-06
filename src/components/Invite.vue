@@ -11,7 +11,7 @@
         <input id="ask_invite" v-model="verif" placeholder="请填写邀请码" maxlength="20" keyboard="number" is-type="china-mobile" required></input>
       </center>
       <div style="padding:40px;margin-top: 10px;">
-        <x-button id="finish" @click.native="accomplish" type="primary">完 成</x-button>
+        <x-button :disabled="!verif" id="finish" @click.native="accomplish" type="primary">完 成</x-button>
       </div>
 
       <center>
@@ -89,7 +89,7 @@
     text-align: center;
     letter-spacing: 0.05rem;
     color: #555;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     margin-bottom: 0.5rem;
     height: 4.1rem;
     line-height: 4.1rem;
@@ -131,12 +131,15 @@
 		 width: 80%;
 	}
 	#finish:active{
-		background-color: #2894FF;
+		background-color: #09A2D6ss;
 	}
-	
+	#finish:disabled{
+		background:	#C0C0C0 ;
+	}
+
 	button#finish.weui-btn.weui-btn_primary{
 		width: 90%;
 		margin-left: 1.3rem;
 	}
-	
+
 </style>

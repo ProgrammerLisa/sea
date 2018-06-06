@@ -2,7 +2,7 @@
 	<div id="register">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-				<span @click="goBack" class="back"> <img src="../assets/images/back.png" onclick="window.history.go(-1)"/></span> 注 册
+				<span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span> 注 册
 			</div>
 		</div>
 		<div style="margin-top: 50px;padding: 10px;margin-left: 6px;" label-width="5.5em" label-margin-right="2em" label-align="left">
@@ -10,7 +10,7 @@
 		</div>
 
 		<div style="margin-top: -80px;padding: 30px;margin-left: -19px;">
-			<input id="verification" maxlength="6" v-model="verif" placeholder="请输入短信验证码">
+			<input id="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
 			<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
 			</input>
 		</div>
@@ -62,7 +62,7 @@
 				time: 0,
 				mobile: '',
 				btntxt: "获取验证码",
-				verification: "654321",
+				verification: "6543",
 				//				pwd: '123456',
 				passwordModel: "",
 				passwordcheckModel: "",
@@ -301,7 +301,6 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 		border: 0;
-		margin-right: 2.4rem;
 	}
 	.back {
 		float: left;

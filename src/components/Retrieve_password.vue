@@ -1,28 +1,31 @@
 <template>
-	<div>
-		<div id="retrieve">
+	<div id="retrieve">
+		<div>
 			<div class="panel panel-default BlackTitle">
 				<div class="panel-body">
-					<span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span> 找回密码
+					<span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span> 
+					<span style="margin-left: -37px; position: absolute; left: 50%; font-size: 1.8rem;">找回密码</span>
 				</div>
 			</div>
-			<div style="margin-top: 90px;padding: 20px;margin-left: -7px;">
-				<input style="font-size: 1.5rem;" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
-			</div>
-
-			<div style="margin-top: -30px;padding: 20px;margin-left: -14px;">
-				<input style="font-size: 1.5rem;" id="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
-				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxte}}</x-button>
-				</input>
-			</div>
-
-			<div style="margin-top:-50px;padding: 25px;margin-left: -14px;">
-				<input id="passwordModel_image" :type="types" style="font-size: 1.5rem;" v-model="passwordModel" placeholder="请输入新密码" maxlength="16" is-type="sendcode" calss="btns"></input>
-				<img id="group_input_img" @click="Alt()" :src="imgs" />
-				<!--<span>@{{passwordValidate.errorText}}</span>-->
-			</div>
-			<div align="center" style="padding: 30px;">
-				<x-button :disabled="!mobile || !verif || !passwordModel" id="pwsbtn" @click.native="submitData" type="primary">完 成</x-button>
+			<div style="padding: 45px 30px">
+				<div style="padding-top: 30px;">
+					<input style="font-size: 1.5rem;" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
+				</div>
+	
+				<div style="padding-top: 30px;display: inline-table; width: 100%;">
+					<input style="font-size: 1.5rem;" id="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
+					<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxte}}</x-button>
+					</input>
+				</div>
+	
+				<div style="padding-top: 30px;">
+					<input id="passwordModel_image" :type="types" style="font-size: 1.5rem;" v-model="passwordModel" placeholder="请输入新密码" maxlength="16" is-type="sendcode" calss="btns"></input>
+					<img id="group_input_img" @click="Alt()" :src="imgs" />
+					<!--<span>@{{passwordValidate.errorText}}</span>-->
+				</div>
+				<div align="center" style="margin-top: 50px;">
+					<x-button :disabled="!mobile || !verif || !passwordModel" id="pwsbtn" @click.native="submitData" type="primary">完 成</x-button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -270,9 +273,9 @@
 	}
 	
 	#group_input_img {
-		position: absolute;
+		position: relative;
 		margin-top: -55px;
-		margin-left: 75%;
+		float: right;
 	}
 	
 	a {
@@ -287,13 +290,13 @@
 		border-top: 0;
 		border-left: 0;
 		border-right: 0;
-		padding-left: 1rem;
-		font-size: 1.3rem;
+		/*padding-left: 1.2rem;*/
+		font-size: 1.5rem;
 		border-bottom: 1px solid #F5F5F5;
 		width: 100%;
 		outline: none;
-		letter-spacing: 0.1rem;
-		padding-bottom: 0.5rem;
+		letter-spacing: 0.05rem;
+		padding-bottom: 0.5rem; 
 	}
 	
 	#phone,
@@ -302,33 +305,29 @@
 	}
 	
 	#verification {
-		margin: 10px;
-		border-bottom: 1px solid #F5F5F5;
-		border-top: none;
-		border-left: none;
-		border-right: none;
+		border-top: 0;
+		border-left: 0;
+		border-right: 0;
+		/*margin-top: 6rem;*/
+		border-bottom: 0.1rem solid #F5F5F5;
+		line-height: 2.5;
+		width: 100%;
+		font-size: 1.5rem;
 		outline: none;
-		line-height: 3;
-		text-indent: 1rem;
-		width: 98%;
-		margin-left: 4px;
-		padding-left: 0.3rem;
-		padding-top: 0;
-		letter-spacing: 0.1rem;
+		letter-spacing: 0.05rem;
 	}
 	
 	#passwordModel_image {
 		border-top: 0;
 		border-left: 0;
 		border-right: 0;
-		padding-left: 1.2rem;
-		font-size: 1.3rem;
-		border-bottom: 1px solid #F5F5F5;
+		/*margin-top: 6rem;*/
+		border-bottom: 0.1rem solid #F5F5F5;
+		line-height: 2.5;
 		width: 100%;
+		font-size: 1.5rem;
 		outline: none;
-		letter-spacing: 0.1rem;
-		padding-bottom: 0.5rem;
-		padding-top: 2rem;
+		letter-spacing: 0.05rem;
 	}
 	
 	#pwsbtn {
@@ -357,18 +356,18 @@
 	}
 	
 	#verbtn {
-		position: absolute;
-		margin-top: -20px;
-		width: 100px;
+		position: relative;
+		margin-top: -47px;
+		margin-bottom: 2px;
+		width: 25%;
+		min-width: 90px;
 		height: 40px;
-		margin-left: 68%;
-		border: none;
-		background-color: #F5F5F5;
+		float: right;
+		background-color: #F8F8F8;
 		color: #646464;
-		color: 646464;
-		margin-top: -53px;
 		font-size: 1.2rem;
-		border-radius: none;
+		border-radius: 0;
+		border: none;
 	}
 	
 	.weui-btn {
@@ -379,8 +378,11 @@
 		border: none
 	}
 	
+	#pwsbtn{
+		width: 100%;
+	}
+	
 	button#pwsbtn.weui-btn.weui-btn_primary {
-		width: 108%;
-		margin-left: -6%;
+		width: 100%;
 	}
 </style>

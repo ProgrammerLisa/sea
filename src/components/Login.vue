@@ -17,7 +17,7 @@
 		</div>
 		<!--这是我要隐藏的  -->
 		<form v-if="isShow">
-			<div class="tow_show">
+			<div style="padding: 45px 30px;">
 				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 					<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" required/>
 				</div>
@@ -27,12 +27,13 @@
 					<img id="group_input_img" @click="Alt" :src="imgs" />
 				</div>
 
-				<div class="hyperlink">
+				<div class="hyperlink" style="float: right;">
 					<router-link class="a_hyperlink" tag='a' :to="'/Retrieve'">找回密码</router-link> &nbsp;&nbsp;<span style="color: #8C8C8C;">|</span>&nbsp;&nbsp;
+					
 					<router-link class="a_hyperlink" tag='a' :to="'/Register'">注册账号</router-link>
 				</div>
 
-				<div align="center" style="padding:30px;">
+				<div align="center" style="padding-top:30px;">
 					<x-button :disabled="!mobile || !inppwd" id="btn_login_normal" @click.native="submitData" type="primary">登 录</x-button>
 				</div>
 			</div>
@@ -40,7 +41,7 @@
 
 		<!--这是我要隐藏的  -->
 		<form v-else>
-			<div class="tow_show">
+			<div style="padding: 45px 30px;">
 				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 					<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
 				</div>
@@ -56,7 +57,7 @@
 					<router-link class="a_hyperlink" tag='a' :to="'/Register'">注册账号</router-link>
 				</div>
 
-				<div align="center" style="padding:30px;">
+				<div align="center" style="padding-top:30px;">
 					<x-button :disabled="!mobile || !verif" id="btn_login_sms" @click.native="btnveif" type="primary">登 录</x-button>
 				</div>
 			</div>
@@ -333,23 +334,18 @@
 		overflow: hidden;
 	}
 	
-	.tow_show {
-		margin: 20px;
-	}
 	
 	#verifica {
-		padding-top: 20px;
-		margin: 10px;
-		width: 100%;
-		border-top: none;
-		border-left: none;
-		border-right: none;
-		border-bottom: 0px solid #F5F5F5;
-		outline: none;
-		text-indent: 4px;
-		vertical-align: middle;
-		line-height: 1;
+		border-top: 0;
+		border-left: 0;
+		border-right: 0;
 		font-size: 1.5rem;
+		border-bottom: 1px solid #F5F5F5;
+		margin-top: 3rem;
+		width: 100%;
+		outline: none;
+		letter-spacing: 0.05rem;
+		padding-bottom: 0.5rem;
 	}
 	
 	#ipwd .vux-x-input .weui-cell {
@@ -361,37 +357,39 @@
 	}
 	
 	#verbtn {
-		position: absolute;
-		margin-top: -45px;
-		width: 90px;
+		position: relative;
+		margin-top: -44px;
+		margin-bottom: 1px;
+		width: 25%;
+		min-width: 100px;
 		height: 40px;
-		margin-left: 69%;
+		float: right;
 		background-color: #F8F8F8;
 		color: #646464;
 		font-size: 1.2rem;
 		border-radius: 0;
+		border: none;
 	}
 	
 	.phone {
 		border-top: 0;
 		border-left: 0;
 		border-right: 0;
-		padding-left: 1rem;
+		/*padding-left: 1.2rem;*/
 		font-size: 1.5rem;
-		border-bottom: 0.01px solid #F5F5F5;
-		width: 70%;
+		border-bottom: 1px solid #F5F5F5;
+		width: 100%;
 		outline: none;
 		letter-spacing: 0.05rem;
-		padding-bottom: 0.5rem;
+		padding-bottom: 0.5rem; 
 	}
 	
 	#ipwd {
 		border-top: 0;
 		border-left: 0;
 		border-right: 0;
-		padding-left: 1rem;
 		font-size: 1.5rem;
-		border-bottom: 0.01px solid #F5F5F5;
+		border-bottom: 1px solid #F5F5F5;
 		margin-top: 2rem;
 		width: 100%;
 		outline: none;
@@ -399,29 +397,23 @@
 		padding-bottom: 0.5rem;
 	}
 	
-	#div_ipwd {
-		border-bottom: 0.1rem solid #F5F5F5;
-		margin-left: -0.3rem;
-	}
 	
 	.group_inputs {
-		border-bottom: 1px solid #F5F5F5;
 		width: 100%;
-		margin-top: 16rem;
-		/*border-bottom: 1px solid #F5F5F5;*/
+		padding-top: 14rem;
 	}
 	
 	#group_input_img {
-		position: absolute;
-		width: 54px;
-		margin-top: -4.2rem;
-		margin-left: 75%;
+		position: relative;
+		margin-top: -55px;
+		float: right;
+		font-size: 1.2rem;
+		height: 55px;
 	}
 	
 	.group_input {
 		/*margin: -40px;*/
 		/*margin: 10px;*/
-		border-bottom: 1px solid #F5F5F5;
 		padding-top: 10px;
 		width: 100%;
 		/*padding: 40px;*/
@@ -433,8 +425,8 @@
 	}
 	
 	.hyperlink {
-		margin-top: 1rem;
-		margin-left: 55%;
+		float:right;
+		margin-top: 2rem;
 	}
 	
 	.a_hyperlink {
@@ -532,8 +524,9 @@
 		border: none;
 	}
 	
-	#btn_login_normal{
+	#btn_login_normal,#btn_login_sms{
 		width: 100%;
+		margin-top: 30px;		
 	}
 	
 	#btn_login_normal:disabled{
@@ -545,12 +538,10 @@
 	}
 	
 	button#btn_login_normal.weui-btn.weui-btn_primary {
-		width: 120%;
-		margin-left:-10%;
+		width: 100%;
 	}
 	
 	button#btn_login_sms.weui-btn.weui-btn_primary {
-		width: 120%;
-		margin-left: -10%;
+		width: 100%;
 	}
 </style>

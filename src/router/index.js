@@ -5,7 +5,7 @@ import $ from 'jquery'
 import '@/assets/css/bootstrap.css'
 import '@/assets/js/bootstrap.js'
 import '@/assets/js/jq.js'
-import HelloWorld from '@/components/HelloWorld'
+import nav from '@/components/Nav'
 import Home from '@/components/Home'
 import Login from '@/components/Login'
 import GetForce from '@/components/GetForce'
@@ -43,12 +43,15 @@ Vue.prototype.$layer = layer(Vue);
 
 export default new Router({
   routes: [
-
     {
       path: '/',
-      name: 'HelloWorld',
       meta:{index:0},
-      component: HelloWorld,
+      component: Login,
+    },
+    {
+      path: '/nav',
+      meta:{index:0},
+      component: nav,
       children:[
         {
           path:'/',
@@ -56,57 +59,53 @@ export default new Router({
           component:Home
         },
         {
-          path:'/Home',
+          path:'/home',
           meta:{index:1},
           component:Home
         },
         {
-          path:'/GetForce',
+          path:'/getforce',
           meta:{index:1},
           component:GetForce
         },
         {
-          path:'/Shopping',
+          path:'/shopping',
           meta:{index:1},
           component:Shopping
         },
         {
-          path:'/Personal',
+          path:'/personal',
           meta:{index:1},
           component:Personal
         }
       ]
     },
     {
-      path:'/GetForce',
+      path:'/getforce',
       name:'GetForce',
       component:GetForce
     },
     {
-			path: '/Register',
+			path: '/register',
       name:'Register',
       meta:{index:2},
 			component: Register
 		},
 		{
-			path:'/Login',
+			path:'/login',
       name:'Login',
       meta:{index:2},
 			component: Login
 		},
 		{
-			path:'/Retrieve',
+			path:'/retrieve',
       name:'Retrieve',
 			component: Retrieve
 		},
 		{
-			path:'/Ask',
+			path:'/ask',
       meta:{index:2},
 			component: Ask
-		},
-		{
-			path:'/HelloWorld',
-			component: HelloWorld
 		},
     {
       path:'/friend',
@@ -121,25 +120,25 @@ export default new Router({
       component: address
     },
     {
-      path:'/Service',
+      path:'/service',
       name:'Service',
       meta:{index:2},
       component: Service
     },
     {
-      path:'/Setting',
+      path:'/setting',
       name:'Setting',
       meta:{index:2},
       component: Setting
     },
     {
-      path:'/RealName',
+      path:'/realname',
       name:'RealName',
       meta:{index:2},
       component: RealName
     },
     {
-      path:'/Wallet',
+      path:'/wallet',
       name:'Wallet',
       meta:{index:2},
       component: Wallet
@@ -151,67 +150,67 @@ export default new Router({
       component: news
     },
     {
-      path:'/Reward',
+      path:'/reward',
       name:'Reward',
       meta:{index:2},
       component: Reward
     },
     {
-      path:'/AddFriends',
+      path:'/addfriends',
       name:'AddFriends',
       meta:{index:3},
       component: AddFriends
     },
     {
-      path:'/CommodityDetails',
+      path:'/commoditydetails',
       name:'CommodityDetails',
       meta:{index:2},
       component: CommodityDetails
     },
     {
-      path:'/CommodityOrder',
+      path:'/commodityorder',
       name:'CommodityOrder',
       meta:{index:2},
       component: CommodityOrder
     },
     {
-      path:'/ModificationAddress',
+      path:'/modificationaddress',
       name:'ModificationAddress',
       meta:{index:3},
       component: ModificationAddress
     },
     {
-      path:'/Statement',
+      path:'/statement',
       name:'Statement',
       meta:{index:3},
       component: Statement
     },
     {
-      path:'/ChangePassword',
+      path:'/changepassword',
       name:'ChangePassword',
       meta:{index:3},
       component: ChangePassword
     },
     {
-      path:'/UserFeedback',
+      path:'/userfeedback',
       name:'UserFeedback',
       meta:{index:3},
       component: UserFeedback
     },
     {
-      path:'/AboutUs',
+      path:'/aboutus',
       name:'AboutUs',
       meta:{index:3},
       component: AboutUs
     },
     {
-      path:'/Compile',
+      path:'/compile',
       name:'Compile',
       meta:{index:2},
       component: Compile
     },
     {
-      path:'/InviteCode',
+      path:'/invitecode',
       name:'InviteCode',
       meta:{index:2},
       component: InviteCode

@@ -4,7 +4,7 @@
         <div class="panel-body">
           <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
           我的好友
-          <router-link to="/AddFriends" tag="span" class="addTo"> <img src="../assets/images/award.png"/></router-link>
+          <router-link to="/addfriends" tag="span" class="addTo"> <img src="../assets/images/award.png"/></router-link>
         </div>
       </div>
       <div class="media friends" v-for="f in friends">

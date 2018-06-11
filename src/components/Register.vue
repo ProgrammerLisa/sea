@@ -2,34 +2,38 @@
 	<div id="register">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-				<span @click="goBack" class="back"> <img src="../assets/images/back.png" onclick="window.history.go(-1)"/></span> 注 册
+				<span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
+				<span style="margin-left: -20px; position: absolute; left: 50%; font-size: 1.8rem;">注 册</span>
 			</div>
 		</div>
-		<div style="margin-top: 50px;padding: 10px;margin-left: 6px;" label-width="5.5em" label-margin-right="2em" label-align="left">
-			<input id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max="11" keyboard="number" is-type="china-mobile" required></input>
+		<div style="padding: 45px 30px">
+			<div style="padding-top: 3.5rem;">
+				<input id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
+			</div>
+	
+			<div style="padding-top: 30px; display: inline-table; width: 100%;">
+				<input id="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
+				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
+				</input>
+			</div>
+	
+			<div style="padding-top: 30px;">
+				<input :type="types" style="font-size: 1.5rem;border-bottom: 0.1rem solid #F5F5F5;" v-model="passwordModel" placeholder="请输入密码" maxlength="16" is-type="sendcode" id="btns"></input>
+				<!--<span>@{{passwordValidate.errorText}}</span>-->
+				<img id="group_input_img" @click="Alt()" :src="imgs" />
+			</div>
+	
+			<div style="padding-top: 30px;">
+				<input :type="typeis" style="font-size: 1.5rem;border-bottom: 0.1rem solid #F5F5F5;" v-model="passwordcheckModel" placeholder="请再次输入密码" maxlength="16" is-type="sendcode" id="btn"></input>
+				<!--<span>@{{passwordCheckValidate.errorText}}</span>-->
+				<img id="group_input_imgs" @click="Alte()" :src="imges" />
+			</div>
+	
+			<div style="padding-top:30px;">
+				<x-button :disabled="!mobile || !verif || !passwordModel || !passwordcheckModel" id="pwsbtn" @click.native="submitData" type="primary">下一步</x-button>
+			</div>
 		</div>
-
-		<div style="margin-top: -80px;padding: 30px;margin-left: -19px;">
-			<input id="verification" v-model="verif" placeholder="请输入短信验证码">
-			<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
-			</input>
-		</div>
-
-		<div style="margin-top:-40px;padding: 30px;margin-left: -14px;">
-			<input :type="types" style="font-size: 1.5rem;border-bottom: 0.1rem solid #F5F5F5;" v-model="passwordModel" placeholder="请输入密码" :min="6" :max="6" is-type="sendcode" id="btns"></input>
-			<!--<span>@{{passwordValidate.errorText}}</span>-->
-			<img id="group_input_img" @click="Alt()" :src="imgs" />
-		</div>
-
-		<div style="margin-top:-40px;padding: 30px;margin-left: -14px;">
-			<input :type="typeis" style="font-size: 1.5rem;border-bottom: 0.1rem solid #F5F5F5;" v-model="passwordcheckModel" placeholder="请再次输入密码" :min="6" :max="6" is-type="sendcode" id="btn"></input>
-			<!--<span>@{{passwordCheckValidate.errorText}}</span>-->
-			<img id="group_input_imgs" @click="Alte()" :src="imges" />
-		</div>
-
-		<div style="padding:30px;">
-			<x-button id="pwsbtn" @click.native="submitData" type="primary">下一步</x-button>
-		</div>
+		
 		<!--<center>
 			<div id="agree">
 				<check-icon :value.sync="demo1"><span>我同意</span></check-icon>
@@ -62,7 +66,7 @@
 				time: 0,
 				mobile: '',
 				btntxt: "获取验证码",
-				verification: "654321",
+				verification: "6543",
 				//				pwd: '123456',
 				passwordModel: "",
 				passwordcheckModel: "",
@@ -276,17 +280,18 @@
 	}
 	
 	#group_input_imgs {
-		position: absolute;
+		position: relative;
 		width: 54px;
+		float:right;
 		margin-top: -50px;
-		margin-left: 75%;
+		/*margin-left: 75%;*/
 	}
 	
 	#group_input_img {
-		position: absolute;
+		position: relative;
 		margin-top: -50px;
-		margin-left: 75%;
 		width: 54px;
+		float: right;
 	}
 	
 	.panel-body {
@@ -330,37 +335,38 @@
 		border-top: 0;
 		border-left: 0;
 		border-right: 0;
-		padding-left: 1.2rem;
+		/*padding-left: 1.2rem;*/
 		font-size: 1.5rem;
 		border-bottom: 1px solid #F5F5F5;
-		width: 97%;
+		width: 100%;
 		outline: none;
 		letter-spacing: 0.05rem;
-		padding-bottom: 0.5rem;
-		padding-top: 3.5rem;
+		padding-bottom: 0.5rem; 
 	}
 	
 	#verification {
 		border-top: 0;
 		border-left: 0;
 		border-right: 0;
-		margin-top: 6rem;
-		border-bottom: 0.1rem solid #F5F5F5;
+		/*margin-top: 6rem;*/
+		border-bottom: 1px solid #F5F5F5;
 		line-height: 2.5;
 		width: 100%;
 		font-size: 1.5rem;
 		outline: none;
 		letter-spacing: 0.05rem;
-		margin-left: 4.5px;
-		padding-left: 1.175rem;
+		/*margin-left: 4.5px;
+		padding-left: 1.175rem;*/
 	}
 	
 	#verbtn {
-		position: absolute;
-		margin-top: -45px;
-		width: 90px;
+		position: relative;
+		margin-top: -47px;
+		margin-bottom: 2px;
+		width: 25%;
+		min-width: 90px;
 		height: 40px;
-		margin-left: 69%;
+		float: right;
 		background-color: #F8F8F8;
 		color: #646464;
 		font-size: 1.2rem;
@@ -374,19 +380,23 @@
 		/*设置图标位置*/
 		background-repeat: no-repeat;
 		/*不会重复多个图标*/
-		border-bottom: 0.1rem solid #F5F5F5;
+		border-bottom: 1px solid #F5F5F5;
 		margin-top: 1.25rem;
 	}
 	
 	#pwsbtn {
 		margin-top: -11px;
-		width: 90%;
+		width: 100%;
 		background-color: #09A2D6;
 		border-radius: 0;
 	}
 	
 	#pwsbtn:active {
-		background-color: #2894FF;
+		background-color: #09A2D6;
+	}
+	
+	#pwsbtn:disabled{
+		background:	#C0C0C0 ;
 	}
 	
 	#btns {
@@ -394,13 +404,13 @@
 		border-left: 0;
 		border-right: 0;
 		font-size: 1.2rem;
-		border-bottom: 0.1rem solid #F5F5F5;
+		border-bottom: 1px solid #F5F5F5;
 		line-height: 2.5;
 		width: 100%;
 		font-size: 1.2rem;
 		outline: none;
 		letter-spacing: 0.05rem;
-		padding-left: 1.2rem;
+		/*padding-left: 1.2rem;*/
 	}
 	
 	#btn {
@@ -408,13 +418,13 @@
 		border-left: 0;
 		border-right: 0;
 		font-size: 1.2rem;
-		border-bottom: 0.1rem solid #F5F5F5;
+		border-bottom: 1px solid #F5F5F5;
 		line-height: 2.5;
 		width: 100%;
 		font-size: 1.2rem;
 		outline: none;
 		letter-spacing: 0.05rem;
-		padding-left: 1.2rem;
+		/*padding-left: 1.2rem;*/
 	}
 	
 	body>.el-container {
@@ -431,7 +441,8 @@
 	}
 	
 	button#pwsbtn.weui-btn.weui-btn_primary {
-		width: 104%;
-		margin-left: -1rem;
+		width: 100%;
+		margin-top: 20px;
+		/*margin-left: -1rem;*/
 	}
 </style>

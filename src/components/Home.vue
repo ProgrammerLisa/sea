@@ -3,7 +3,7 @@
     <div id="main-top">
 
      <div id="notice">
-    		<marquee height="30rem" bgcolor="#3d85c6" scrollamount="5" scrolldelay="1"><span style="line-height: 2.5rem;">公告:亲爱的用户，平台momomo即将上线，敬请期待。</span></marquee>
+    		<marquee height="30rem" scrollamount="5" scrolldelay="1"><span style="line-height: 2.5rem;">公告:亲爱的用户，平台momomo即将上线，敬请期待。</span></marquee>
      </div>
      <div class="topOption option1">
         <span >珍珠量 {{imgSum}}</span>
@@ -18,7 +18,7 @@
           <ul class="dropdown-menu">
             <li><a href="#"><img src="../assets/images/youxiguize.png" class="dropdown-menu-img"/>游戏规则</a></li>
             <li role="separator" class="divider"></li>
-            <li><router-link to="/AddFriends" tag="a"><img src="../assets/images/tianjiahaoyou.png" class="dropdown-menu-img"/>添加好友</router-link></li>
+            <li><router-link to="/addfriends" tag="a"><img src="../assets/images/tianjiahaoyou.png" class="dropdown-menu-img"/>添加好友</router-link></li>
             <li role="separator" class="divider"></li>
             <li><a href="#"><img src="../assets/images/zhanji.png" class="dropdown-menu-img"/>战绩</a></li>
           </ul>
@@ -27,7 +27,7 @@
 
       <div id="imgDiv"></div>
     </div>
-    <router-link class="option4" to="AddFriends" tag="div">
+    <router-link class="option4" to="addfriends" tag="div">
       <img src="../assets/images/yaoqinghaoyou.png"  class="invitation-friends"/>
       <p>邀请好友</p>
     </router-link>

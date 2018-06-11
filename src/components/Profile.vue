@@ -7,26 +7,26 @@
         </router-link>
       </div>
       <div class="container personalMessage">
-        <router-link tag="div" v-if="isLogin" to="/Compile">
+        <router-link tag="div" v-if="isLogin" to="/compile">
           <div class="HeadPortrait">
             <img :src="headPortrait"/>
           </div>
           <p class="nickName">ZZZ</p>
           <p class="userId">ID：56789668</p>
         </router-link>
-        <router-link tag="div" v-else to="/Login">
+        <router-link tag="div" v-else to="/login">
           <div class="HeadPortrait">
             <img :src="headPortrait"/>
           </div>
           <p class="nickName">点击登录</p>
         </router-link>
         <div class="row ">
-          <router-link to="Wallet" tag="div" class="col-xs-5 col-xs-offset-1 personalMessageLeft">
+          <router-link to="wallet" tag="div" class="col-xs-5 col-xs-offset-1 personalMessageLeft">
             <img :src="wallet" class="personalIcon">
             <span class="personalText" id="walletText">我的钱包</span>
             <span class="wallet"></span>
           </router-link>
-          <router-link to="RealName" tag="div" class="col-xs-5">
+          <router-link to="realname" tag="div" class="col-xs-5">
             <img :src="autonym" class="personalIcon">
             <span class="personalText">实名信息</span>
           </router-link>
@@ -77,13 +77,13 @@
             wallet:wallet,
             Personal:[
               {title:'我的好友',PersonalHref:'friend',imfLeft:friend},
-              {title:'我的邀请者',PersonalHref:'Ask',imfLeft:inviter},
-              {title:'邀请奖励',PersonalHref:'Reward',imfLeft:award},
-              {title:'邀请码',PersonalHref:'InviteCode',imfLeft:invite},
-              {title:'商城订单',PersonalHref:'CommodityOrder',imfLeft:indent},
+              {title:'我的邀请者',PersonalHref:'ask',imfLeft:inviter},
+              {title:'邀请奖励',PersonalHref:'reward',imfLeft:award},
+              {title:'邀请码',PersonalHref:'ask',imfLeft:invite},
+              {title:'商城订单',PersonalHref:'commodityorder',imfLeft:indent},
               {title:'收货地址',PersonalHref:'address',imfLeft:address},
-              {title:'客服中心',PersonalHref:'Service',imfLeft:service},
-              {title:'账户设置',PersonalHref:'Setting',imfLeft:setting}
+              {title:'客服中心',PersonalHref:'service',imfLeft:service},
+              {title:'账户设置',PersonalHref:'setting',imfLeft:setting}
             ],
             headPortrait:headImg,
             isLogin:true

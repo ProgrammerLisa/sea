@@ -1,17 +1,15 @@
 <template>
-	<div class="content">
+<div class="content">
     <div class="panel panel-default BlackTitle">
       <div class="panel-body">
         <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
-        邀请码
+        <span style="margin-left: -30px; position: absolute; left: 50%; font-size: 1.8rem;">邀请码</span>
       </div>
     </div>
     <div class="code">
-      <center>
-        <input id="ask_invite" v-model="verif" placeholder="请填写邀请码" :max="6" keyboard="number" is-type="china-mobile" required></input>
-      </center>
-      <div style="padding:40px;margin-top: 10px;">
-        <x-button id="finish" @click.native="accomplish" type="primary">完 成</x-button>
+        <input id="ask_invite" v-model="verif" placeholder="请填写邀请码" maxlength="20" keyboard="number" is-type="china-mobile" required></input>
+      <div style="padding-top:40px;">
+        <x-button :disabled="!verif" id="finish" @click.native="accomplish" type="primary">完 成</x-button>
       </div>
 
       <center>
@@ -23,7 +21,7 @@
 
     </div>
 
-	</div>
+</div>
 </template>
 
 <script>
@@ -101,18 +99,20 @@
     height: 2.5rem;
   }
   .code{
+  	padding: 80px 30px;
     background: #fff;
   }
 	#ask_invite {
 		border-top: 0;
 		border-left: 0;
 		border-right: 0;
-		margin-top: 30%;
-		padding-left: 1rem;
+		/*padding-left: 1.2rem;*/
 		font-size: 1.5rem;
-		border-bottom: 0.1rem solid #F5F5F5;
-		width: 70%;
+		border-bottom: 1px solid #F5F5F5;
+		width: 100%;
 		outline: none;
+		letter-spacing: 0.05rem;
+		padding-bottom: 0.5rem; 
 	}
 
 	#agree {
@@ -128,15 +128,17 @@
 		 background-color:#09A2D6;
 		 color: white;
 		 border-radius: 0;
-		 width: 80%;
+		 width: 100%;
 	}
 	#finish:active{
-		background-color: #2894FF;
+		background-color: #09A2D6ss;
+	}
+	#finish:disabled{
+		background:	#C0C0C0 ;
 	}
 
 	button#finish.weui-btn.weui-btn_primary{
-		width: 90%;
-		margin-left: 1.3rem;
+		width: 100%;
 	}
 
 </style>

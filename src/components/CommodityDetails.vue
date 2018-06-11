@@ -55,6 +55,8 @@
           }
         },
         mounted(){
+
+          console.log(this.$route.params);
           let routerParams=this.$route.params.dataObj;
           this.commodityImg = routerParams.commodityImg;
           this.commodityTitle = routerParams.commodityTitle;

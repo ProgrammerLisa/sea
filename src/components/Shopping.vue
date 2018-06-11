@@ -116,7 +116,7 @@
             $(".notify-btn-primary").css({background:'#09a2d6',borderRadius:0,padding:'0.2rem 1.5rem',margin:'0 1rem'});
           }else {
             that.$router.push({
-              path: '/CommodityDetails',
+              path: '/commoditydetails',
               name: 'CommodityDetails',
               params: {
                 name:'name',

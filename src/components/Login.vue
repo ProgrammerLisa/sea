@@ -135,15 +135,10 @@
 			return str.replace(/(^\s+)|(s+$)/g, "");
 		},
 		methods: {
-<<<<<<< HEAD
-			goBack(){
-            this.$router.replace('/Personal');
-         	},
-=======
+
 			goBack() {
 				this.$router.replace('/Home');
 			},
->>>>>>> acdf278141a81cbc0db4170b0a255517b3d6cc74
 			sort(index) {
 				let that = this;
 				if(index == 1) {
@@ -316,30 +311,30 @@
 		background-color: #09A2D6;
 		border-radius: 0;
 	}
-	
+
 	button.weui-btn.weui-btn_primary:active {
 		background-color: #09A2D6;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	#login {
 		width: 100vw;
 		height: 100vh;
 		background: #fff;
 		overflow: hidden;
 	}
-	
+
 	.tow_show {
 		margin: 20px;
 	}
-	
+
 	#verifica {
 		padding-top: 20px;
 		margin: 10px;
@@ -354,15 +349,15 @@
 		line-height: 1;
 		font-size: 1.5rem;
 	}
-	
+
 	#ipwd .vux-x-input .weui-cell {
 		width: 80%;
 	}
-	
+
 	.weui-btn::after {
 		border-radius: 0;
 	}
-	
+
 	#verbtn {
 		position: absolute;
 		margin-top: -45px;
@@ -374,7 +369,7 @@
 		font-size: 1.2rem;
 		border-radius: 0;
 	}
-	
+
 	.phone {
 		border-top: 0;
 		border-left: 0;
@@ -387,7 +382,7 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-	
+
 	#ipwd {
 		border-top: 0;
 		border-left: 0;
@@ -401,26 +396,26 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-	
+
 	#div_ipwd {
 		border-bottom: 0.1rem solid #F5F5F5;
 		margin-left: -0.3rem;
 	}
-	
+
 	.group_inputs {
 		border-bottom: 1px solid #F5F5F5;
 		width: 100%;
 		margin-top: 16rem;
 		/*border-bottom: 1px solid #F5F5F5;*/
 	}
-	
+
 	#group_input_img {
 		position: absolute;
 		width: 54px;
 		margin-top: -4.2rem;
 		margin-left: 75%;
 	}
-	
+
 	.group_input {
 		/*margin: -40px;*/
 		/*margin: 10px;*/
@@ -430,28 +425,28 @@
 		/*padding: 40px;*/
 		/*margin-left: -14px;*/
 	}
-	
+
 	.weui-cells:before {
 		border-top: 0px!important;
 	}
-	
+
 	.hyperlink {
 		margin-top: 1rem;
 		margin-left: 55%;
 	}
-	
+
 	.a_hyperlink {
 		color: #8C8C8C;
 	}
-	
+
 	a {
 		color: #353535;
 	}
-	
+
 	a:hover {
 		text-decoration: none;
 	}
-	
+
 	#nav {
 		position: fixed;
 		top: 0;
@@ -463,7 +458,7 @@
 		line-height: 50px;
 		border-bottom: 1px solid #F5F5F5;
 	}
-	
+
 	#nav_login {
 		position: fixed;
 		top: 0;
@@ -474,7 +469,7 @@
 		border-bottom: 1px solid #C8C8CD;
 		margin-top: 50px;
 	}
-	
+
 	#nav_common {
 		position: fixed;
 		width: 50%;
@@ -483,25 +478,25 @@
 		box-shadow: 0.2rem 0.2rem 0.2rem #ddd;
 		overflow: hidden;
 	}
-	
+
 	#nav_common a {
 		width: 100%;
 		background: white;
 	}
-	
+
 	#a_common {
 		/*text-decoration:none;*/
 		/*border-bottom:3px solid #09A2D6;  #ccc换成链接的颜色*/
 		display: inline-block;
 		/*margin-bottom:-3px;  这里设置你要空的距离*/
 	}
-	
+
 	#a_sms {
 		width: 100%;
 		text-decoration: none;
 		display: inline-block;
 	}
-	
+
 	#nav_sms {
 		position: fixed;
 		width: 50%;
@@ -511,34 +506,34 @@
 		overflow: hidden;
 		box-shadow: 0.2rem 0.2rem 0.2rem #ddd;
 	}
-	
+
 	#a_common_animation {
 		width: 100%;
 		background: #09A2D6;
 		height: 0.3rem;
 		margin-left: 0
 	}
-	
+
 	#a_sms_animation {
 		width: 100%;
 		background: #09A2D6;
 		height: 0.3rem;
 		margin-left: -100%;
 	}
-	
-	
+
+
 	.weui-btn:after,
 	#btn_login_normal:after,
 	#btn_login_sms:after,
 	#verbtn:after {
 		border: none;
 	}
-	
+
 	button#btn_login_normal.weui-btn.weui-btn_primary {
 		width: 122%;
 		margin-left: -3rem;
 	}
-	
+
 	button#btn_login_sms.weui-btn.weui-btn_primary {
 		width: 122%;
 		margin-left: -3rem;

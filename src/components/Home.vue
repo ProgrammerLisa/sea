@@ -217,7 +217,6 @@ export default {
 
 }
 </script>
-
 <style scoped>
 	#notice{
     margin-top: 2rem;

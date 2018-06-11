@@ -3,7 +3,7 @@
     <div id="main-top">
 
      <div id="notice">
-    		<marquee height="30rem" scrollamount="5" scrolldelay="1"><span style="line-height: 2.5rem;">公告:亲爱的用户，平台momomo即将上线，敬请期待。</span></marquee>
+    		<marquee style="vertical-align: middle; line-height: 3rem;" height="30rem" scrollamount="5" scrolldelay="1"><span>公告:亲爱的用户，平台momomo即将上线，敬请期待。</span></marquee>
      </div>
      <div class="topOption option1">
         <span >珍珠量 {{imgSum}}</span>
@@ -223,7 +223,8 @@ export default {
 		width: 100%;
 		font-family: "微软雅黑";
     background: rgba(255,255,255,0.1);
-    padding-top: 0.4rem;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
 	}
   .contentMain{
     width: 100vw;

@@ -39,13 +39,13 @@
           <div class="modal-body">
              <span class="headImgChoose fileinput-button">
                 <span>从相册选择</span>
-                <input type="file" accept="image/*">
+                <input type="file" accept="image/*" id="fileBtn" @change="chooseImg('#fileBtn')">
             </span>
             <span class="headImgChoose fileinput-button">
                 <span>拍照上传</span>
                 <input type="file" accept="image/*" capture="camera">
             </span>
-            <div class="headImgChoose" data-dismiss="modal">取消</div>
+            <div class="headImgChoose closeBtn" data-dismiss="modal">取消</div>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -80,12 +80,27 @@
             return{
               headImg:headImg,
               nickName:'duobao9591',
-              IDcode:'5678966'
+              IDcode:'5678966',
+              chooseFile:''
           }
         },
         methods:{
           goBack(){
             this.$router.go(-1);
+          },
+          chooseImg(c){
+          	let that = this;
+          	let $c = document.querySelector(c);
+		        that.chooseFile = $c.files[0];
+		        $(".modal-backdrop").hide();
+		        that.$router.push({
+              path: '/uploadheadImg',
+              name: 'UploadHeadImg',
+              params: {
+                name:'name',
+                dataObj:that.chooseFile
+              }
+            })
           }
         }
     }
@@ -199,6 +214,9 @@
     opacity: 0;
     -ms-filter: 'alpha(opacity=0)';
     font-size: 100%;
+  }
+  .closeBtn{
+  	border-bottom: none;
   }
   .nickInput{
     border: none;

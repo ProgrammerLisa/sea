@@ -29,6 +29,8 @@ import CommodityDetails from '@/components/CommodityDetails'
 import CommodityOrder from '@/components/CommodityOrder'
 import Compile from '@/components/Compile'
 import InviteCode from '@/components/InviteCode'
+import UploadHeadImg from '@/components/UploadHeadImg'
+
 
 import ModificationAddress from '@/components/ModificationAddress'
 import Statement from '@/components/Statement'
@@ -214,6 +216,12 @@ export default new Router({
       name:'InviteCode',
       meta:{index:2},
       component: InviteCode
+    },
+    {
+      path:'/uploadheadImg',
+      name:'UploadHeadImg',
+      meta:{index:3},
+      component: UploadHeadImg
     }
 
   ]

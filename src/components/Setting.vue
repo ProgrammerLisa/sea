@@ -111,9 +111,9 @@
   .content{
     overflow-x: hidden;
     color: #666;
-    padding-bottom: 6rem;
     background-color: #f5f5f5;
     width: 100vw;
+    height: 100vh;
   }
 
   .panel{

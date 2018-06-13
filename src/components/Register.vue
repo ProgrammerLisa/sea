@@ -66,12 +66,12 @@
 			return {
 				disabled: false,
 				time: 0,
-				phone: '',
-				password: '',
-				repeat_password: '',
-				intive_code: '',
+				phone: "",
+				password: "",
+				repeat_password: "",
+				intive_code: "",
+				verify_code: "",
 				btntxt: "获取验证码",
-				verification: "6543",
 				//				pwd: '123456',
 				passwordModel: "",
 				passwordcheckModel: "",
@@ -86,9 +86,10 @@
 				//Stime:null,
 				time: '',
 				form: {
-					phone: '',
-					password: '',
-					intive_code: ''
+					phone: "",
+					passwordModel: "",
+					intive_code: "",
+					passwordcheckModel: ""
 				}
 			}
 		},
@@ -160,25 +161,29 @@
 					this.disabled = false;
 				}
 			},
-		
 			userTrue(){
-				//console.log(this.form);
+				alert("获取验证码")
+				//console.log(this.form.phone+"``"+this.form.passwordModel);
+				//console.log(this.phone+' ----diyici');
 				$.ajax({
 					type: "post",
-					url: "http://192.168.10.11/users/register",
+					url: "http://192.168.10.11/users/register1",
 					//async:true
 					data: {
-						phone: this.form.phone,
-						password: this.form.password,
-						repeat_password: this.form.password,
-						invite_code: this.form.invite_code
+						phone: this.phone,
+						verify_code: this.verify_code,
+						password: this.password
+						//password: this.passwordModel,
+						//repeat_password: this.passwordcheckModel,
+						//verify_code: this.verif,
+						//invite_code: this.invite_code
 					},
 					success: function(data){
 						console.log(data);
 					},
-					error: function(){
-						console.log(phone + '```' + password + '```' + invite_code);
-						console.log("error");
+					error: function(e){
+						
+						console.log(e);
 					}
 				});
 			},
@@ -249,7 +254,21 @@
 				that.time = that.readCookie(Verificationtimen);
 				if(that.time == "") {
 
-					that.$layer.msg('短信已发送,本次验证码为：' + that.verification);
+					$.ajax({
+						type: "post",
+						url: "http://192.168.10.110/users/register1",
+						data: {
+							phone: this.phone
+						},
+						success: function(data){
+							console.log(data);
+						},
+						error: function(e){
+							
+							console.log("失败");
+						},
+						dataType:"json"
+					});
 					that.time = 60;
 
 					var TimeReduction1 = setInterval(function() {

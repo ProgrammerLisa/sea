@@ -1,9 +1,12 @@
 <template>
     <div class="content">
-
+      <div class="panel panel-default BlackTitle">
+        <div class="panel-body shoppingPanel">
+          发现
+        </div>
+      </div>
       <div class="TitleImg">
-        <p class="TitleImg-Title">平台 mo0 即将上线</p>
-        <p class="TitleImg-Title">任务越多，能量越多</p>
+        <img src="../assets/images/banner.png"/>
       </div>
       <div class="panel panel-default task">
         <div class="panel-body">
@@ -112,16 +115,20 @@
   .panel-body {
     padding: 1rem;
   }
-  .TitleImg{
-    text-align: center;
-    background-image:url("../assets/images/banner.png");
-    background-size: 100% 100%;
-    border-top: 0.1rem solid transparent;
-    color: #fff;
-    padding: 4rem 0;
+  .shoppingPanel{
+    padding:0 1rem;
   }
-  .TitleImg-Title{
+  .BlackTitle{
+    text-align: center;
+    letter-spacing: 0.05rem;
+    color: #555;
     font-size: 1.6rem;
+    margin-bottom: 0;
+    height: 4.1rem;
+    line-height: 4.1rem;
+  }
+  .TitleImg img{
+    width: 100%;
   }
   .task{
     margin-bottom: 0;

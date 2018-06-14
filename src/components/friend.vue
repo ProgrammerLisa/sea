@@ -61,7 +61,7 @@
     letter-spacing: 0.05rem;
     color: #555;
     font-size: 1.6rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     height: 4.1rem;
     line-height: 4.1rem;
   }

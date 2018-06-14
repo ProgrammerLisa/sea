@@ -31,7 +31,7 @@
       <img src="../assets/images/yaoqinghaoyou.png"  class="invitation-friends"/>
       <p>邀请好友</p>
     </router-link>
-    <div v-for="(m,index) in imgDiv" :class="m.divClass" @click="accumulative(index)" >
+    <div v-for="(m,index) in imgDiv" :class="m.divClass" @click.once="accumulative(index)">
       <img v-bind:style="m.style" :src="m.href"/>
     </div>
 
@@ -62,11 +62,15 @@
 import { Group, Cell } from 'vux'
 import backGround from '@/assets/images/bg.png'
 import shell from '@/assets/images/bihe.png'
-import animation1 from '@/assets/images/Pearl.gif'
-import animation2 from '@/assets/images/Shadow-opper.gif'
-import animation3 from '@/assets/images/Ganganadi-valuka.gif'
-import animation4 from '@/assets/images/Cat-eye.gif'
-import animation5 from '@/assets/images/ocean.gif'
+import henghesha1 from '@/assets/images/henghesha/1.png'
+import henghesha2 from '@/assets/images/henghesha/2.png'
+import henghesha3 from '@/assets/images/henghesha/3.png'
+import henghesha4 from '@/assets/images/henghesha/4.png'
+import henghesha5 from '@/assets/images/henghesha/5.png'
+import henghesha6 from '@/assets/images/henghesha/6.png'
+import henghesha7 from '@/assets/images/henghesha/7.png'
+import henghesha8 from '@/assets/images/henghesha/8.png'
+import henghesha9 from '@/assets/images/henghesha/9.png'
 export default {
   components: {
     Group,
@@ -76,40 +80,46 @@ export default {
     return{
       imgSum:0,
       imgSrc:backGround,
+      hengshesha:[henghesha1,henghesha2,henghesha3,henghesha4,henghesha5,henghesha6,henghesha7,henghesha8,henghesha9],
       imgDiv:[
-        {imgCount:1,href:shell,divClass:'',animation:animation1},
-        {imgCount:1,href:shell,divClass:'',animation:animation2},
-        {imgCount:1,href:shell,divClass:'',animation:animation3}
+        {imgCount:1,href:shell,divClass:'',animation:'',level:1},
+        {imgCount:1,href:shell,divClass:'',animation:'',level:2},
+        {imgCount:1,href:shell,divClass:'',animation:'',level:3}
       ],
       PearlLevel1:{
         imgCount:1,
         href:shell,
         divClass:'',
-        animation:animation1
+        animation:'',
+        level:1
       },
       PearlLevel2:{
         imgCount:2,
         href:shell,
         divClass:'',
-        animation:animation2
+        animation:'',
+        level:2
       },
       PearlLevel3:{
         imgCount:3,
         href:shell,
         divClass:'',
-        animation:animation3
+        animation:'',
+        level:3
       },
       PearlLevel4:{
         imgCount:4,
         href:shell,
         divClass:'',
-        animation:animation4
+        animation:'',
+        level:4
       },
       PearlLevel5:{
         imgCount:5,
         href:shell,
         divClass:'',
-        animation:animation5
+        animation:'',
+        level:5
       },
       isBlack:true,
       RankingListBlack:[
@@ -161,14 +171,41 @@ export default {
     },
     accumulative(index){
       const that = this;
-      that.imgDiv[index].href = that.imgDiv[index].animation;
+      switch (that.imgDiv[index].level)
+      {
+        case 1:
+          that.imgDiv[index].animation=that.hengshesha;
+          break;
+        case 2:
+          that.imgDiv[index].animation=that.hengshesha;
+          break;
+        case 3:
+          that.imgDiv[index].animation=that.hengshesha;
+          break;
+        case 4:
+          that.imgDiv[index].animation=that.hengshesha;
+          break;
+        case 5:
+          that.imgDiv[index].animation=that.hengshesha;
+          break;
+      }
+      $(".float-container"+index+">img").remove();
+      $(".float-container"+index).css({padding:0,background:'transparent'});
+      for(let i=0;i<that.imgDiv[index].animation.length;i++){
+        $(".float-container"+index).append('<img class="flash flash'+i+'" src="'+that.imgDiv[index].animation[i]+'"/>');
+        $(".flash"+i).css({display:'none',width:'100%'});
+        (function(i){
+          setTimeout(function(){
+            $(".flash"+i).show().siblings().hide();
+          },i*200);
+        })(i);
+      }
       that.imgSum+=that.imgDiv[index].imgCount;
-      $(".float-container"+index+">img").animate({width:'190%',marginLeft:'-4vw',marginTop:'-6vw'});
       setTimeout(function(){
         $(".float-container"+index).remove();
         that.delCookie('float-container-left-' + index);
         that.delCookie('float-container-top-' + index);
-      },2000);
+      },2500);
 
     },
     writeCookie(name, value, hours) {
@@ -233,7 +270,9 @@ export default {
     color: #666;
   }
   #main-top{
-    background: url("../assets/images/bg.png") 100% 100%;
+    width:100%;
+    background: url("../assets/images/bg.png") 100% 100% no-repeat;
+    background-size: 100% 100%;
     color: white;
     height: 65vh;
     border-top: 1px solid transparent;
@@ -273,17 +312,18 @@ export default {
   .option4-Icon span{
     font-size: 2.5rem;
   }
-  .float-container {
-    width: 4rem;
-    height: 4rem;
+  .float-container0, .float-container1, .float-container2, .float-container3 {
+    width: 4.2rem;
+    height: 4.2rem;
     border-radius: 50%;
     position: absolute;
+    padding:0.1rem 0.3rem 0.5rem;
     /*box-shadow: 0.1rem 0.1rem 0.1rem #112941;*/
     animation: myfirst 2s infinite;
-    /*background: -webkit-radial-gradient(rgba(255,255,255,0.2),rgba(8,50,144,1)); !* Safari 5.1 - 6.0 *!*/
-    /*background: -o-radial-gradient(rgba(255,255,255,0.2),rgba(8,50,144,1)); !* Opera 11.6 - 12.0 *!*/
-    /*background: -moz-radial-gradient(rgba(255,255,255,0.2),rgba(8,50,144,1)); !* Firefox 3.6 - 15 *!*/
-    /*background: radial-gradient(rgba(255,255,255,0.3),rgba(8,50,144,1)); !* 标准的语法（必须放在最后） *!*/
+    background: -webkit-radial-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.2),rgba(255,255,255,0.7)); /* Safari 5.1 - 6.0 */
+    background: -o-radial-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.2),rgba(255,255,255,0.7)); /* Opera 11.6 - 12.0 */
+    background: -moz-radial-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.2),rgba(255,255,255,0.7)); /* Firefox 3.6 - 15 */
+    background: radial-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.2),rgba(255,255,255,0.7)); /* 标准的语法（必须放在最后） */
   }
   @keyframes myfirst {
     0% {

@@ -13,14 +13,22 @@
       <tr><td class="text-left">联系电话</td><td class="text-right">{{a.phoneNumber}}</td></tr>
       <tr><td class="text-left">收货地址</td><td class="text-right">{{a.address}}</td></tr>
       <tr>
-        <td class="text-left"></td>
-        <td class="text-right">
+
+        <td class="col-xs-6">
           <div @click="choose(index)">
             <div class="round">
               <span class="defaultRound" v-if="a.isdefault"></span>
             </div>
-            默认地址
+            <span class="default">默认地址</span>
           </div>
+        </td>
+        <td class="col-xs-6 text-right">
+          <span class="del" @click="editor(index)">
+            <img src="../assets/images/editor.png"/> 编辑
+          </span>
+          <span class="del" @click="del(index)">
+            <img src="../assets/images/del.png"/> 删除
+          </span>
         </td>
       </tr>
     </table>
@@ -39,13 +47,31 @@
           ]
         }
       },
+      created(){
+        const that = this;
+        this.$nextTick(() => {
+          for (let i = 0; i < that.myAddress.length; i++) {
+            if (that.myAddress[i].isdefault) {
+              $(".default").eq(i).css({color: "#09A2D6"}).text("已设为默认地址")
+            }
+          }
+        })
+      },
       methods:{
         choose(index){
           const that = this;
           for (var i=0;i<that.myAddress.length;i++){
             that.myAddress[i].isdefault = false;
+            $(".default").css({color:"#555"}).text("默认地址")
           }
           that.myAddress[index].isdefault = true;
+          $(".default").eq(index).css({color:"#09A2D6"}).text("已设为默认地址")
+        },
+        editor(index){
+
+        },
+        del(index){
+
         },
         goBack(){
           this.$router.go(-1);
@@ -75,7 +101,7 @@
     letter-spacing: 0.05rem;
     color: #555;
     font-size: 1.6rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     height: 4.1rem;
     line-height: 4.1rem;
   }
@@ -84,6 +110,9 @@
   }
   .back img{
     height: 2.5rem;
+  }
+  .table{
+    margin-bottom: 1rem;
   }
   .copyreader{
     float: right;
@@ -121,6 +150,12 @@
     width: 0.6rem;
     height: 0.6rem;
     border-radius: 50%;
-    background: #4cae4c;
+    background: #09A2D6;
+  }
+  .del:first-child{
+    margin-right: 1rem;
+  }
+  .del img{
+    width: 2rem;
   }
 </style>

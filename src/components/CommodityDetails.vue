@@ -26,7 +26,7 @@
       </ul>
     </div>
     <div class="exchange">
-      <button class="btn exchangeBtn">立即兑换</button>
+      <button class="btn exchangeBtn" @click="preOrder">立即兑换</button>
     </div>
     {{msg}}
   </div>
@@ -67,6 +67,22 @@
         methods:{
           goBack(){
             this.$router.go(-1);
+          },
+          preOrder(){
+            this.$router.push({
+              path: '/preorder',
+              name: 'PreOrder',
+              params: {
+                name:'name',
+                dataObj:{
+                  commodityImg:this.commodityImg,
+                  commodityTitle:this.commodityTitle,
+                  commodityPrice:this.commodityPrice
+                }
+
+              }
+
+            })
           }
         }
     }
@@ -91,7 +107,7 @@
     letter-spacing: 0.05rem;
     color: #555;
     font-size: 1.6rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
     height: 4.1rem;
     line-height: 4.1rem;
   }

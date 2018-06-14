@@ -8,7 +8,7 @@
     </div>
    <table class="table">
      <tr>
-       <td class="text-left">账户</td>
+       <td class="text-left"><span class="high">账户</span></td>
        <td class="text-right">136****</td>
      </tr>
      <router-link to="ChangePassword" tag="tr" class="arrow" >
@@ -17,7 +17,7 @@
      </router-link>
      <tr class="spacing"><td></td><td></td></tr>
      <tr class="settingBtn">
-       <td class="text-left">消息提醒</td>
+       <td class="text-left"><span class="high">消息提醒</span></td>
        <td class="text-right">
          <div class="blueBtn" @click="switchBtn">
            <div class="cap">
@@ -155,6 +155,9 @@
   .more{
     height: 3rem;
   }
+  .arrow:active{
+    background: #f1f1f1;
+  }
   .arrow td{
     padding-top:0.5rem;
     padding-bottom:0.5rem;
@@ -162,12 +165,17 @@
   .arrow td:nth-child(2){
     padding-right: 0;
   }
+  .high{
+    height: 3rem;
+    line-height: 3rem;
+
+  }
   .loginOut{
     background: #fff;
     text-align: center;
     height: 4rem;
     line-height: 4rem;
-    color: #09a2d6;
+    color:  #f44336;
     letter-spacing: 0.1rem;
     position: fixed;
     bottom: 0;
@@ -178,8 +186,8 @@
   .blueBtn{
     background: #09a2d6;
     border-radius: 2rem;
-    width: 3rem;
-    height: 1.5rem;
+    width: 3.5rem;
+    height: 2rem;
     margin-bottom: -0.3rem;
     display: inline-block;
     overflow: hidden;
@@ -195,8 +203,8 @@
   .whiteBtn{
     border-radius:50%;
     background: #fff;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2rem;
+    height: 2rem;
     position: relative;
     border:0.1rem solid #09a2d6;
   }

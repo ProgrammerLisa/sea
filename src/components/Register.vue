@@ -10,30 +10,30 @@
 			<div style="padding-top: 3.5rem;">
 				<input id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
 			</div>
-	
+
 			<div style="padding-top: 30px; display: inline-table; width: 100%;">
 				<input id="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
 				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
 				</input>
 			</div>
-	
+
 			<div style="padding-top: 30px;">
 				<input :type="types" style="font-size: 1.5rem;border-bottom: 0.1rem solid #F5F5F5;" v-model="passwordModel" placeholder="请输入密码" maxlength="16" is-type="sendcode" id="btns"></input>
 				<!--<span>@{{passwordValidate.errorText}}</span>-->
 				<img id="group_input_img" @click="Alt()" :src="imgs" />
 			</div>
-	
+
 			<div style="padding-top: 30px;">
 				<input :type="typeis" style="font-size: 1.5rem;border-bottom: 0.1rem solid #F5F5F5;" v-model="passwordcheckModel" placeholder="请再次输入密码" maxlength="16" is-type="sendcode" id="btn"></input>
 				<!--<span>@{{passwordCheckValidate.errorText}}</span>-->
 				<img id="group_input_imgs" @click="Alte()" :src="imges" />
 			</div>
-	
+
 			<div style="padding-top:30px;">
 				<x-button :disabled="!mobile || !verif || !passwordModel || !passwordcheckModel" id="pwsbtn" @click.native="submitData" type="primary">下一步</x-button>
 			</div>
 		</div>
-		
+
 		<!--<center>
 			<div id="agree">
 				<check-icon :value.sync="demo1"><span>我同意</span></check-icon>
@@ -181,7 +181,7 @@
 					//					}
 					else {
 						this.$layer.msg("登录成功");
-						this.$router.push('/Ask');
+						this.$router.replace('/home');
 					}
 				} else if(this.mobile == ''){
 					this.$layer.msg("手机号码不能为空");
@@ -274,11 +274,11 @@
 		width: 100vw;
 		background-color: white;
 	}
-	
+
 	span {
 		font-size: 10px;
 	}
-	
+
 	#group_input_imgs {
 		position: relative;
 		width: 54px;
@@ -286,14 +286,14 @@
 		margin-top: -50px;
 		/*margin-left: 75%;*/
 	}
-	
+
 	#group_input_img {
 		position: relative;
 		margin-top: -50px;
 		width: 54px;
 		float: right;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
@@ -310,7 +310,7 @@
 	.back {
 		float: left;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
@@ -318,19 +318,19 @@
 		margin-top: 65%;
 		font-size: 1rem;
 	}*/
-	
+
 	i.weui-icon.weui_icon_clear.weui-icon-clear {
 		display: none;
 	}
-	
+
 	a {
 		color: #09a2d6;
 	}
-	
+
 	body {
 		background-color: white;
 	}
-	
+
 	#phone {
 		border-top: 0;
 		border-left: 0;
@@ -341,9 +341,9 @@
 		width: 100%;
 		outline: none;
 		letter-spacing: 0.05rem;
-		padding-bottom: 0.5rem; 
+		padding-bottom: 0.5rem;
 	}
-	
+
 	#verification {
 		border-top: 0;
 		border-left: 0;
@@ -358,7 +358,7 @@
 		/*margin-left: 4.5px;
 		padding-left: 1.175rem;*/
 	}
-	
+
 	#verbtn {
 		position: relative;
 		margin-top: -47px;
@@ -373,7 +373,7 @@
 		border-radius: 0;
 		border: none;
 	}
-	
+
 	#passwordcheckModel_image {
 		background-image: url(../assets/images/eyeclick.png);
 		background-position: right;
@@ -383,22 +383,22 @@
 		border-bottom: 1px solid #F5F5F5;
 		margin-top: 1.25rem;
 	}
-	
+
 	#pwsbtn {
 		margin-top: -11px;
 		width: 100%;
 		background-color: #09A2D6;
 		border-radius: 0;
 	}
-	
+
 	#pwsbtn:active {
 		background-color: #09A2D6;
 	}
-	
+
 	#pwsbtn:disabled{
 		background:	#C0C0C0 ;
 	}
-	
+
 	#btns {
 		border-top: 0;
 		border-left: 0;
@@ -412,7 +412,7 @@
 		letter-spacing: 0.05rem;
 		/*padding-left: 1.2rem;*/
 	}
-	
+
 	#btn {
 		border-top: 0;
 		border-left: 0;
@@ -426,20 +426,20 @@
 		letter-spacing: 0.05rem;
 		/*padding-left: 1.2rem;*/
 	}
-	
+
 	body>.el-container {
 		margin-bottom: 40px;
 	}
-	
+
 	.weui-cells {
 		border: 0px;
 	}
-	
+
 	.weui-btn:after {
 		border-radius: 0px;
 		border: none;
 	}
-	
+
 	button#pwsbtn.weui-btn.weui-btn_primary {
 		width: 100%;
 		margin-top: 20px;

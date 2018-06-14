@@ -8,7 +8,7 @@ import '@/assets/js/jq.js'
 import nav from '@/components/Nav'
 import Home from '@/components/Home'
 import Login from '@/components/Login'
-import GetForce from '@/components/GetForce'
+import Find from '@/components/Find'
 import Shopping from '@/components/Shopping'
 import Personal from '@/components/Profile'
 
@@ -34,9 +34,12 @@ import UploadHeadImg from '@/components/UploadHeadImg'
 
 import ModificationAddress from '@/components/ModificationAddress'
 import Statement from '@/components/Statement'
+import MyPearl from '@/components/MyPearl'
 import ChangePassword from '@/components/ChangePassword'
 import UserFeedback from '@/components/UserFeedback'
 import AboutUs from '@/components/AboutUs'
+
+import PreOrder from '@/components/PreOrder'
 
 
 Vue.use(Router)
@@ -66,9 +69,9 @@ export default new Router({
           component:Home
         },
         {
-          path:'/getforce',
+          path:'/find',
           meta:{index:1},
-          component:GetForce
+          component:Find
         },
         {
           path:'/shopping',
@@ -83,9 +86,9 @@ export default new Router({
       ]
     },
     {
-      path:'/getforce',
-      name:'GetForce',
-      component:GetForce
+      path:'/find',
+      meta:{index:1},
+      component:Find
     },
     {
 			path: '/register',
@@ -222,6 +225,18 @@ export default new Router({
       name:'UploadHeadImg',
       meta:{index:3},
       component: UploadHeadImg
+    },
+    {
+      path:'/mypearl',
+      name:'MyPearl',
+      meta:{index:3},
+      component: MyPearl
+    },
+    {
+      path:'/preorder',
+      name:'PreOrder',
+      meta:{index:3},
+      component: PreOrder
     }
 
   ]

@@ -23,10 +23,8 @@
           return{
             more:more,
             myWallet:[
-              {url:'/',title:'我的账单'},
-              {url:'Statement',title:'收支记录'},
-              {url:'Login',title:'我的钻石'},
-              {url:'/',title:'我的能量值'}
+              {url:'/statement',title:'我的账单'},
+              {url:'/mypearl',title:'我的珍珠'}
             ]
           }
         },
@@ -59,7 +57,7 @@
     letter-spacing: 0.05rem;
     color: #555;
     font-size: 1.6rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     height: 4.1rem;
     line-height: 4.1rem;
   }

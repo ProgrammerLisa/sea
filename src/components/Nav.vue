@@ -34,7 +34,7 @@
       return{
         navItem:[
           {navSrc:'/home',title:'首页',imgSrc1:home,imgSrc2:home1,titleStyle:''},
-          {navSrc:'/getforce',title:'发现',imgSrc1:discovery,imgSrc2:discovery1,titleStyle:''},
+          {navSrc:'/find',title:'发现',imgSrc1:discovery,imgSrc2:discovery1,titleStyle:''},
           {navSrc:'/shopping',title:'商城',imgSrc1:store,imgSrc2:store1,titleStyle:''},
           {navSrc:'/personal',title:'我的',imgSrc1:mine,imgSrc2:mine1,titleStyle:''}
         ],

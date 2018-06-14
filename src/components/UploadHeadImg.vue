@@ -1,16 +1,16 @@
 <template>
 	<div class="content">
-		
+
 		<div class="imgContainer">
 			<img :src="headImg" id="img"/>
 			<div>
 				<div class="btn btn-default">上传</div>
 				<div class="btn btn-default">取消</div>
 			</div>
-		
+
 		</div>
 		<canvas id="template" class="drag" :style="templateStyle"  @mousedown="down" @touchstart="down" @mousemove="move" @touchmove="move" @mouseup="end" @touchend="end">
-			
+
 		</canvas>
 	</div>
 </template>
@@ -33,29 +33,29 @@
         },
         mounted(){
         	let that = this;
-		    $(".modal-backdrop").hide();
-            let routerParams=this.$route.params.dataObj;
-            let reader = new FileReader();
-		    reader.readAsDataURL(routerParams);
-		    reader.onload = function(e){
-		        that.headImg=e.target.result;
-		    };
+          $(".modal-backdrop").hide();
+              let routerParams=this.$route.params.dataObj;
+              let reader = new FileReader();
+          reader.readAsDataURL(routerParams);
+          reader.onload = function(e){
+              that.headImg=e.target.result;
+          };
         },
         updated(){
         	 if($('#img').width()>$('#img').height()){
-		    	this.templateStyle = 'width:'+$('#img').height()+'px;height:'+$('#img').height()+'px;top:'+$('#img').offset().top+'px;left:'+($('#img').width()-$('#img').height())/2+'px'
-		    $('#img').css({'width':'100%'});
-		    this.isTransverse=true;
-        	 }else{
-		    	this.templateStyle = 'width:'+$('#img').width()+'px;height:'+$('#img').width()+'px;top:'+($('#img').height()-$('#img').width())/2+'px;left:'+$('#img').offset().left+'px'
-//		    	 this.isTransverse=false;
-		    }
-        	
+                  this.templateStyle = 'width:'+$('#img').height()+'px;height:'+$('#img').height()+'px;top:'+$('#img').offset().top+'px;left:'+($('#img').width()-$('#img').height())/2+'px'
+                  $('#img').css({'width':'100%'});
+                  this.isTransverse=true;
+               }else{
+              this.templateStyle = 'width:'+$('#img').width()+'px;height:'+$('#img').width()+'px;top:'+($('#img').height()-$('#img').width())/2+'px;left:'+$('#img').offset().left+'px'
+    //		    	 this.isTransverse=false;
+            }
+
         },
         methods:{
     	 	// 实现移动端拖拽
 		  down(){
-		 
+
 		    this.flags = true;
 		    var touch ;
 		    if(event.touches){
@@ -101,8 +101,8 @@
 			      		$('#template').css({'top':that.yPum+'px'})
 			      }
 		      }
-		     
-		      
+
+
 //		      阻止页面的滑动默认事件
 		      document.addEventListener("touchmove",function(){
 		          event.preventDefault();
@@ -114,10 +114,10 @@
 		    this.flags = false;
 		  }
         },
-        
+
     }
 </script>
-	
+
 <style>
 	.imgContainer{
 		width: 100vw;

@@ -10,7 +10,7 @@
         <img src="../assets/images/invitebg.png" class="invitebg"/>
       </div>
       <div class="invitePlay">
-        <div class="btn btn-default">面对面邀请</div>
+        <div class="btn btn-default" data-toggle="modal" data-target="#ImgModal">面对面邀请</div>
         <div class="btn btn-info">立即邀请</div>
       </div>
       <p class="inviteTitle">我的邀请</p>
@@ -31,15 +31,31 @@
         <div> *邀请的用户必须是新用户，奖励红包会在邀请成功后24小时内发放至您的账户，可在我的钱包中查看 </div>
         <div> *如有疑问请联系客服</div>
       </div>
+
+      <!-- 面对面邀请模态框（Modal） -->
+      <div class="modal fade" id="ImgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="modal-title">扫一扫可下载</div>
+              <div class="modal-text">邀请成功可获得5元红包哦</div>
+              <img :src="erweima"/>
+
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+      </div>
     </div>
 </template>
 
 <script>
     import inviteImg from '@/assets/images/bg.png'
+    import erweima from '@/assets/images/erweima.png'
     export default {
         name: "Reward",
         data(){
           return{
+            erweima:erweima,
             myInvite:[
               {inviteImg:inviteImg,invitePhone:'138***9591',inviteDate:'2018-3-6 10:38:36'},
               {inviteImg:inviteImg,invitePhone:'138***9591',inviteDate:'2018-3-6 10:38:36'},
@@ -137,5 +153,25 @@
   }
   .inviteRow{
     padding: 1rem 1rem 4rem;
+  }
+  .modal-dialog {
+    margin: 30vh 10vw;
+  }
+  #ImgModal{
+    text-align: center;
+  }
+  #ImgModal .modal-content{
+    height: 40vh;
+    width: 80vw;
+    border-radius: 0;
+  }
+  #ImgModal img{
+    width: 23vh;
+    height: 23vh;
+    margin: 10%;
+  }
+  .modal-title{
+    color: #444;
+    font-size: 1.6rem;
   }
 </style>

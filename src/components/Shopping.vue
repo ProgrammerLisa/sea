@@ -158,7 +158,6 @@
   }
   .carousel img{
     width: 100%;
-    height: 20vh;
   }
   .media{
     padding: 1.5rem 1rem;

@@ -35,7 +35,7 @@
 
     </div>
     <div class="personalItem">
-      <div v-for="(m) in Personal" class="mediaDad">
+      <div v-for="(m,index) in Personal" class="mediaDad">
         <div class="media" >
           <router-link :to="m.PersonalHref" tag="div">
             <div class="media-left">
@@ -77,7 +77,7 @@
             wallet:wallet,
             Personal:[
               {title:'我的好友',PersonalHref:'friend',imfLeft:friend},
-              {title:'我的邀请者',PersonalHref:'ask',imfLeft:inviter},
+              {title:'我的邀请者',PersonalHref:'',imfLeft:inviter,noRouter:true,myInvite:651478},
               {title:'邀请奖励',PersonalHref:'reward',imfLeft:award},
               {title:'邀请码',PersonalHref:'ask',imfLeft:invite},
               {title:'商城订单',PersonalHref:'commodityorder',imfLeft:indent},
@@ -90,7 +90,7 @@
           }
       },
       mounted(){
-
+          $('.media-right').eq(1).html(this.Personal[1].myInvite).css({'verticalAlign':'middle','paddingRight':'1rem','color':'#999'})
       },
       methods:{
           changeBack(index){
@@ -126,7 +126,7 @@
     background-size: 60% 100%;
   }
   .badge{
-    background: #FF0404;
+    background: #f44336;
     font-weight: normal;
     padding: 0.1rem 0.3rem;
     vertical-align: text-top;

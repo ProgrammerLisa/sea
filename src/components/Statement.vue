@@ -8,8 +8,8 @@
     </div>
     <div class="media" v-for="s in Statement">
       <div class="media-body">
-        <h4 class="media-heading">{{s.title}}</h4>
-        <span>{{s.date}}</span>
+        <div class="media-heading">{{s.title}}</div>
+        <span class="data">{{s.date}}</span>
       </div>
       <div class="media-right">
         {{s.symbol}}{{s.count}}
@@ -88,6 +88,10 @@
   }
   .media-heading{
     color: #444;
+    font-size: 1.6rem;
+  }
+  .data{
+    font-size: small;
   }
   .media-right{
     color: #09a2d6;

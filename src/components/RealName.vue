@@ -56,7 +56,7 @@
     letter-spacing: 0.05rem;
     color: #555;
     font-size: 1.6rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     height: 4.1rem;
     line-height: 4.1rem;
   }
@@ -73,7 +73,7 @@
     border-bottom: 0.1rem solid #f5f5f5;
   }
   .table td{
-    padding:0.5rem 1rem;
+    padding:1rem;
   }
   .text-left{
     color: #555;

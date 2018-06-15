@@ -207,8 +207,18 @@
 						this.$layer.msg('密码错误');
 						return;
 					} else {
-						this.$layer.msg('登录成功');
-						this.$router.replace('/home');
+              this.$http.post('http://192.168.10.110/auth/login',{phone:15073719360,password:123456}, {emulateJSON: true})
+                .then(
+                  (response)=>{
+                  console.log(response)
+                  },
+                  (error)=>{
+                    console.log(error);
+                  }
+                )
+
+						// this.$layer.msg('登录成功');
+						// this.$router.replace('/home');
 					}
 				}else if(this.mobile == ''){
 					this.$layer.msg('手机号码不能为空');

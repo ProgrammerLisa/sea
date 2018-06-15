@@ -6,13 +6,15 @@
 				<span style="margin-left: -20px; position: absolute; left: 50%; font-size: 1.8rem;">注 册</span>
 			</div>
 		</div>
+
+	<form>
 		<div style="padding: 45px 30px">
 			<div style="padding-top: 3.5rem;">
-				<input id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
+				<input id="phone" ref="phone" name="phone" v-model="phone" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
 			</div>
 
 			<div style="padding-top: 30px; display: inline-table; width: 100%;">
-				<input id="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
+				<input id="verification" name="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
 				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
 				</input>
 			</div>
@@ -30,10 +32,11 @@
 			</div>
 
 			<div style="padding-top:30px;">
-				<x-button :disabled="!mobile || !verif || !passwordModel || !passwordcheckModel" id="pwsbtn" @click.native="submitData" type="primary">下一步</x-button>
+				<x-button :disabled="!phone || !verif || !passwordModel || !passwordcheckModel" id="pwsbtn" @click.native="submitData" type="primary">下一步</x-button>
 			</div>
 		</div>
 
+	</form>
 		<!--<center>
 			<div id="agree">
 				<check-icon :value.sync="demo1"><span>我同意</span></check-icon>
@@ -64,9 +67,12 @@
 			return {
 				disabled: false,
 				time: 0,
-				mobile: '',
+				phone: "",
+				password: "",
+				repeat_password: "",
+				intive_code: "",
+				verify_code: "",
 				btntxt: "获取验证码",
-				verification: "6543",
 				//				pwd: '123456',
 				passwordModel: "",
 				passwordcheckModel: "",
@@ -79,7 +85,13 @@
 				typeis: "password",
 				imges: eye,
 				//Stime:null,
-				time: ''
+				time: '',
+				form: {
+					phone: "",
+					passwordModel: "",
+					intive_code: "",
+					passwordcheckModel: ""
+				}
 			}
 		},
 		mounted: function() {
@@ -150,12 +162,40 @@
 					this.disabled = false;
 				}
 			},
+			userTrue(){
+				alert("获取验证码")
+				//console.log(this.form.phone+"``"+this.form.passwordModel);
+				//console.log(this.phone+' ----diyici');
+				$.ajax({
+					type: "post",
+					url: "http://192.168.10.11/users/register1",
+					//async:true
+					data: {
+						phone: this.phone,
+						verify_code: this.verify_code,
+						password: this.password
+						//password: this.passwordModel,
+						//repeat_password: this.passwordcheckModel,
+						//verify_code: this.verif,
+						//invite_code: this.invite_code
+					},
+					success: function(data){
+						console.log(data);
+					},
+					error: function(e){
+
+						console.log(e);
+					}
+				});
+			},
+
 			submitData() {
+				event.preventDefault();
 				sessionStorage.index2 = false;
 				//去获取验证手机号
 				var reg = /^1[3|4|5|7|8]\d{9}$/;
 				//				msg("result:" + this.$refs.mobile.valid);
-				if(reg.test(this.mobile)) {
+				if (reg.test(this.phone)) {
 					if(this.verif == "") {
 						this.$layer.msg("验证码不能为空");
 						return;
@@ -164,7 +204,7 @@
 						this.$layer.msg("验证码错误");
 						return;
 					}
-					if(this.passwordModel == ''){
+					if (this.passwordModel == '') {
 						this.$layer.msg("密码不能为空");
 						return;
 					}
@@ -180,10 +220,10 @@
 					//						return;
 					//					}
 					else {
-						this.$layer.msg("登录成功");
-						this.$router.replace('/home');
+						this.userTrue();
+						this.$router.push('/Ask');
 					}
-				} else if(this.mobile == ''){
+				} else if(this.phone == ''){
 					this.$layer.msg("手机号码不能为空");
 					return;
 				} else {
@@ -215,7 +255,21 @@
 				that.time = that.readCookie(Verificationtimen);
 				if(that.time == "") {
 
-					that.$layer.msg('短信已发送,本次验证码为：' + that.verification);
+					$.ajax({
+						type: "post",
+						url: "http://192.168.10.110/users/register1",
+						data: {
+							phone: this.phone
+						},
+						success: function(data){
+							console.log(data);
+						},
+						error: function(e){
+
+							console.log("失败");
+						},
+						dataType:"json"
+					});
 					that.time = 60;
 
 					var TimeReduction1 = setInterval(function() {

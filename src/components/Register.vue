@@ -7,7 +7,8 @@
 			</div>
 		</div>
 
-	<form>
+
+	<form id="form_register">
 		<div style="padding: 45px 30px">
 			<div style="padding-top: 3.5rem;">
 				<input id="phone" ref="phone" name="phone" v-model="phone" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
@@ -16,7 +17,7 @@
 			<div style="padding-top: 30px; display: inline-table; width: 100%;">
 				<input id="verification" name="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
 				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
-				</input>
+				
 			</div>
 
 			<div style="padding-top: 30px;">
@@ -229,6 +230,7 @@
 				} else {
 					this.$layer.msg("手机号码格式错误");
 				}
+				return false;
 			},
 			timer() {
 				if(this.time > 0) {
@@ -247,6 +249,7 @@
 			},
 			//验证手机号码部分
 			sendcode() {
+				event.preventDefault();
 				const that = this;
 				//				if(this.short_message != this.sho_mess){
 				//					return;
@@ -257,9 +260,11 @@
 
 					$.ajax({
 						type: "post",
+						dataType:"json",
+						contentType: "application/json",
 						url: "http://192.168.10.110/users/register1",
 						data: {
-							phone: this.phone
+							"phone": this.phone
 						},
 						success: function(data){
 							console.log(data);
@@ -267,10 +272,10 @@
 						error: function(e){
 
 							console.log("失败");
-						},
-						dataType:"json"
+						}
+
 					});
-					that.time = 60;
+					that.time = 5;
 
 					var TimeReduction1 = setInterval(function() {
 						if(that.time > 0) {
@@ -320,6 +325,10 @@
 			}
 		}
 	}
+
+	$("#form_register").submit(function() {
+		return false;
+	});
 </script>
 
 <style scoped>

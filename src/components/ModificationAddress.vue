@@ -68,7 +68,7 @@
     letter-spacing: 0.05rem;
     color: #555;
     font-size: 1.6rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
     height: 4.1rem;
     line-height: 4.1rem;
   }
@@ -78,9 +78,13 @@
   .back img{
     height: 2.5rem;
   }
+  .form-horizontal{
+    border-top: 0.5rem solid #f5f5f5;
+  }
   .form-group{
-    padding:0.8rem 1rem;
+    padding:1rem 3rem;
     border-bottom: 0.1rem solid #eee;
+    margin-bottom: 0;
   }
   .form-group:last-child{
     margin-bottom: 0;
@@ -93,6 +97,8 @@
   .control-label{
     font-size: 1.6rem;
     color: #555;
+    margin-bottom: 0;
+    padding: 0.4rem 0;
   }
   .keepSubmit{
     float: right;

@@ -83,9 +83,7 @@
         headers:{"device":"android","uid":that.uid,"Access-Control-Allow-Origin":"*"},
         data: {}
       }).then(function(res){
-        console.log(res.data)
         if(res.data.code==0){
-         console.log(res.data.data)
 
         }else {
           this.$layer.msg(res.data.msg);

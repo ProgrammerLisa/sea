@@ -31,6 +31,25 @@
             ]
           }
         },
+        mounted(){
+          this.$http({
+            method: "get",
+            url: "/api/users/friends/index",
+            headers:{"device":"android","uid":this.uid,"Access-Control-Allow-Origin":"*"},
+            data: {}
+          }).then(function(res){
+            if(res.data.code==0){
+              console.log("好友列表===>>>42行"+res.data.data);
+              console.log(res.data.data);
+
+            }else {
+              this.$layer.msg(res.data.msg);
+            }
+          }.bind(this))
+            .catch(function(err){
+              console.log(err)
+            }.bind(this))
+        },
         methods:{
           goBack(){
             this.$router.go(-1);

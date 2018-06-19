@@ -24,12 +24,9 @@ import RealName from '@/components/RealName'
 import Wallet from '@/components/Wallet'
 import news from '@/components/news'
 import Reward from '@/components/Reward'
-import AddFriends from '@/components/AddFriends'
 import CommodityDetails from '@/components/CommodityDetails'
 import CommodityOrder from '@/components/CommodityOrder'
-import Compile from '@/components/Compile'
 import InviteCode from '@/components/InviteCode'
-import UploadHeadImg from '@/components/UploadHeadImg'
 
 
 import ModificationAddress from '@/components/ModificationAddress'
@@ -41,6 +38,12 @@ import AboutUs from '@/components/AboutUs'
 
 import PreOrder from '@/components/PreOrder'
 
+import AddFriends from '@/components/AddFriends'
+import NewAddress from '@/components/NewAddress'
+import Compile from '@/components/Compile'
+import UploadHeadImg from '@/components/UploadHeadImg'
+
+
 
 Vue.use(Router)
 
@@ -49,6 +52,7 @@ Vue.prototype.$layer = layer(Vue);
 let defaultRouter;
 if(readCookie('uid')!=null&&readCookie('uid')!=undefined&&readCookie('uid')!=''){
   console.log(readCookie('uid'));
+  Vue.prototype.uid = readCookie('uid');
   defaultRouter = {
     path: '/nav',
     meta:{index:0},
@@ -209,6 +213,12 @@ export default new Router({
       name:'ModificationAddress',
       meta:{index:3},
       component: ModificationAddress
+    },
+    {
+      path:'/newaddress',
+      name:'NewAddress',
+      meta:{index:3},
+      component: NewAddress
     },
     {
       path:'/statement',

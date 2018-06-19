@@ -11,8 +11,8 @@
           <div class="HeadPortrait">
             <img :src="headPortrait"/>
           </div>
-          <p class="nickName">ZZZ</p>
-          <p class="userId">ID：56789668</p>
+          <p class="nickName">{{nickName}}</p>
+          <p class="userId">ID：{{phone}}</p>
         </router-link>
         <router-link tag="div" v-else to="/login">
           <div class="HeadPortrait">
@@ -75,6 +75,8 @@
           return{
             autonym:autonym,
             wallet:wallet,
+            nickName:'',
+            phone:'',
             Personal:[
               {title:'我的好友',PersonalHref:'friend',imfLeft:friend},
               {title:'我的邀请者',PersonalHref:'',imfLeft:inviter,noRouter:true,myInvite:651478},
@@ -90,7 +92,25 @@
           }
       },
       mounted(){
-          $('.media-right').eq(1).html(this.Personal[1].myInvite).css({'verticalAlign':'middle','paddingRight':'1rem','color':'#999'})
+          $('.media-right').eq(1).html(this.Personal[1].myInvite).css({'verticalAlign':'middle','paddingRight':'1rem','color':'#999'});
+          this.$http({
+            method: "get",
+            url: "/api/users/profile",
+            headers:{"device":"android","uid":this.uid,"Access-Control-Allow-Origin":"*"},
+            data: {}
+          }).then(function(res){
+            if(res.data.code==0){
+              console.log("个人信息===>>>103行"+res.data.data);
+              console.log(res.data.data);
+              this.nickName = res.data.data.nickName;
+              this.phone = res.data.data.phone;
+            }else {
+              this.$layer.msg(res.data.msg);
+            }
+          }.bind(this))
+            .catch(function(err){
+              console.log(err)
+            }.bind(this))
       },
       methods:{
           changeBack(index){

@@ -4,20 +4,26 @@
       <div class="panel-body">
         <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
         收货地址
-        <router-link to="ModificationAddress" tag="span" class="copyreader"> <img src="../assets/images/copyreader.png"/></router-link>
+        <router-link to="/modificationaddress" tag="span" class="copyreader"> <img src="../assets/images/copyreader.png"/></router-link>
       </div>
     </div>
-
-    <table class="table address" v-for="(a,index) in myAddress">
-      <tr><td class="text-left">收货人</td><td class="text-right">{{a.name}}</td></tr>
-      <tr><td class="text-left">联系电话</td><td class="text-right">{{a.phoneNumber}}</td></tr>
+    <div v-if="noAddress" class="addressNone">
+      <img :src="addressNone"/>
+      <p>一个地址都没有哦</p>
+      <div class="newAddress">
+        <router-link to="/newaddress" tag="div" class="newAddressBtn"><span class="glyphicon glyphicon-plus"></span> <span class="large">新建地址</span></router-link>
+      </div>
+    </div>
+    <table v-else class="table address" v-for="(a,index) in myAddress">
+      <tr><td class="text-left">收货人</td><td class="text-right">{{a.consignee}}</td></tr>
+      <tr><td class="text-left">联系电话</td><td class="text-right">{{a.phone}}</td></tr>
       <tr><td class="text-left">收货地址</td><td class="text-right">{{a.address}}</td></tr>
       <tr>
 
         <td class="col-xs-6">
           <div @click="choose(index)">
             <div class="round">
-              <span class="defaultRound" v-if="a.isdefault"></span>
+              <span class="defaultRound" v-if="a.is_default"></span>
             </div>
             <span class="default">默认地址</span>
           </div>
@@ -32,19 +38,26 @@
         </td>
       </tr>
     </table>
+
+
   </div>
 </template>
 
 <script>
+  import addressNone from '@/assets/images/addressNone.png'
     export default {
       name: "Address",
       data(){
         return{
-          myAddress:[
-            {name:'莫雨',phoneNumber:'13566666666',address:'广东省广州市天河区XXX街道555号',isdefault:true},
-            {name:'莫雨',phoneNumber:'13566666666',address:'广东省广州市天河区XXX街道555号',isdefault:false},
-            {name:'莫雨',phoneNumber:'13566666666',address:'广东省广州市天河区XXX街道555号',isdefault:false}
-          ]
+          noAddress:'',
+          addressNone:addressNone,
+          myAddress:[],
+          mobile:{
+            name:'',
+            phoneNumber:'',
+            address:'',
+            isdefault:''
+          }
         }
       },
       created(){
@@ -56,6 +69,35 @@
             }
           }
         })
+      },
+      mounted(){
+        this.$http({
+          method: "get",
+          url: "/api/users/delivery_address",
+          headers:{"device":"android","uid":this.uid,"Access-Control-Allow-Origin":"*"},
+          data: {}
+        }).then(function(res){
+          if(res.data.code==0){
+            if(JSON.stringify(res.data.data) == "{}"){
+              this.noAddress = true
+            }else {
+              this.noAddress =  false;
+              // this.myAddress.push(
+              //   {name:res.data.data.consignee,phoneNumber:res.data.data.phone,address:res.data.data.address,isdefault:res.data.data.isdefault},
+              // )
+              let myJson = res.data.data;
+              for(var p in myJson){//遍历json对象的每个key/value对,p为key
+                console.log(myJson[p]);
+                this.myAddress.push(myJson[p])
+              }
+            }
+          }else {
+            this.$layer.msg(res.data.msg);
+          }
+        }.bind(this))
+          .catch(function(err){
+            console.log(err)
+          }.bind(this))
       },
       methods:{
         choose(index){
@@ -157,5 +199,32 @@
   }
   .del img{
     width: 2rem;
+  }
+  .addressNone{
+    text-align: center;
+    padding-top: 18vh;
+    color: #999;
+  }
+  .addressNone img{
+    width: 40%;
+    margin-bottom: 1rem;
+  }
+  .newAddress{
+    position: fixed;
+    bottom: 0;
+    background: #f5f5f5;
+    width: 100%;
+    padding: 1rem;
+  }
+  .newAddressBtn{
+    width: 90%;
+    background: #09a2d6;
+    color: #f5f5f5;
+    padding: 0.5rem;
+    border: none;
+    margin: auto;
+  }
+  .large{
+    font-size: larger;
   }
 </style>

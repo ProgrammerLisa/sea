@@ -46,13 +46,39 @@ Vue.use(Router)
 
 Vue.prototype.$layer = layer(Vue);
 
+let defaultRouter;
+if(readCookie('uid')!=null&&readCookie('uid')!=undefined&&readCookie('uid')!=''){
+  console.log(readCookie('uid'));
+  defaultRouter = {
+    path: '/nav',
+    meta:{index:0},
+    component: nav
+  }
+}else {
+  defaultRouter = {
+    path: '/',
+    meta:{index:0},
+    component: Login
+  }
+}
+function readCookie(name) {
+  let cookieValue = "";
+  let search = name + "=";
+  if(document.cookie.length > 0) {
+    let offset = document.cookie.indexOf(search);
+    if(offset != -1) {
+      offset += search.length;
+      let end = document.cookie.indexOf(";", offset);
+      if(end == -1) end = document.cookie.length;
+      cookieValue = unescape(document.cookie.substring(offset, end))
+    }
+  }
+  return cookieValue;
+}
+
 export default new Router({
   routes: [
-    {
-      path: '/',
-      meta:{index:0},
-      component: Login,
-    },
+    defaultRouter,
     {
       path: '/nav',
       meta:{index:0},
@@ -99,7 +125,7 @@ export default new Router({
 		{
 			path:'/login',
       name:'Login',
-      meta:{index:2},
+      meta:{index:1},
 			component: Login
 		},
 		{

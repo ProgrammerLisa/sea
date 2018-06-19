@@ -32,6 +32,7 @@
     name: "HelloWorld",
     data(){
       return{
+        uid:'',
         navItem:[
           {navSrc:'/home',title:'首页',imgSrc1:home,imgSrc2:home1,titleStyle:''},
           {navSrc:'/find',title:'发现',imgSrc1:discovery,imgSrc2:discovery1,titleStyle:''},
@@ -41,7 +42,8 @@
         imgSrcArr:[
           home,discovery,store,mine
         ],
-        isLogin:true
+        isLogin:true,
+        phoneType:''
       }
     },
     mounted:function(){
@@ -57,6 +59,42 @@
           }
         })
 
+        that.uid = that.readCookie('uid');
+      //判断手机类型
+      let ua = navigator.userAgent.toLowerCase();
+      //android终端
+      let isAndroid = ua.indexOf('Android') > -1 || ua.indexOf('Adr') > -1;
+  　　//ios终端
+      let isiOS = !!ua.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+
+      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        //ios
+        that.phoneType= "ios"
+      } else if (/(Android)/i.test(navigator.userAgent)) {
+        //android
+        that.phoneType= "android"
+      }else {
+        that.phoneType= "web"
+      }
+
+      this.$http({
+        method: 'get',
+        url: '/api/users/profile',
+        headers:{"device":"android","uid":that.uid,"Access-Control-Allow-Origin":"*"},
+        data: {}
+      }).then(function(res){
+        console.log(res.data)
+        if(res.data.code==0){
+         console.log(res.data.data)
+
+        }else {
+          this.$layer.msg(res.data.msg);
+        }
+      }.bind(this))
+        .catch(function(err){
+          console.log(err)
+        }.bind(this))
+
     },
     methods:{
       nav(index){
@@ -68,7 +106,21 @@
         }
         that.navItem[index].imgSrc1 = that.navItem[index].imgSrc2;
         that.navItem[index].titleStyle='color:#09a2d6'
-      }
+      },
+      readCookie(name) {
+        var cookieValue = "";
+        var search = name + "=";
+        if(document.cookie.length > 0) {
+          var offset = document.cookie.indexOf(search);
+          if(offset != -1) {
+            offset += search.length;
+            var end = document.cookie.indexOf(";", offset);
+            if(end == -1) end = document.cookie.length;
+            cookieValue = unescape(document.cookie.substring(offset, end))
+          }
+        }
+        return cookieValue;
+      },
     }
   }
 

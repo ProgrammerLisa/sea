@@ -15,13 +15,13 @@
 			</div>
 
 			<div style="padding-top: 30px; display: inline-table; width: 100%;">
-				<input id="verification" name="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
+				<input id="verification" name="verification" maxlength="4" v-model="verify_code" placeholder="请输入短信验证码">
 				<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
-				
+
 			</div>
 
 			<div style="padding-top: 30px;">
-				<input :type="types" style="font-size: 1.5rem;border-bottom: 0.1rem solid #F5F5F5;" v-model="passwordModel" placeholder="请输入密码" maxlength="16" is-type="sendcode" id="btns"></input>
+				<input :type="types" style="font-size: 1.5rem;border-bottom: 0.1rem solid #F5F5F5;" v-model="password" placeholder="请输入密码" maxlength="16" is-type="sendcode" id="btns"></input>
 				<!--<span>@{{passwordValidate.errorText}}</span>-->
 				<img id="group_input_img" @click="Alt()" :src="imgs" />
 			</div>
@@ -33,7 +33,7 @@
 			</div>
 
 			<div style="padding-top:30px;">
-				<x-button :disabled="!phone || !verif || !passwordModel || !passwordcheckModel" id="pwsbtn" @click.native="submitData" type="primary">下一步</x-button>
+				<x-button :disabled="!phone || !verify_code || !password || !passwordcheckModel" id="pwsbtn" @click.native="submitData" type="primary">下一步</x-button>
 			</div>
 		</div>
 
@@ -71,13 +71,11 @@
 				phone: "",
 				password: "",
 				repeat_password: "",
-				intive_code: "",
+        invite_code: "",
 				verify_code: "",
 				btntxt: "获取验证码",
 				//				pwd: '123456',
-				passwordModel: "",
 				passwordcheckModel: "",
-				verif: "",
 				check: "",
 				//				demo1: false,
 				//				demo2: true,
@@ -89,8 +87,7 @@
 				time: '',
 				form: {
 					phone: "",
-					passwordModel: "",
-					intive_code: "",
+          invite_code: "",
 					passwordcheckModel: ""
 				}
 			}
@@ -164,30 +161,49 @@
 				}
 			},
 			userTrue(){
-				alert("获取验证码")
-				//console.log(this.form.phone+"``"+this.form.passwordModel);
-				//console.log(this.phone+' ----diyici');
-				$.ajax({
-					type: "post",
-					url: "http://192.168.10.11/users/register1",
-					//async:true
+			  //注册
+
+        this.$http({
+          method: "post",
+					url: "/api/users/register2",
+          headers:{"device":"android","Access-Control-Allow-Origin":"*"},
 					data: {
 						phone: this.phone,
-						verify_code: this.verify_code,
-						password: this.password
-						//password: this.passwordModel,
-						//repeat_password: this.passwordcheckModel,
-						//verify_code: this.verif,
-						//invite_code: this.invite_code
-					},
-					success: function(data){
-						console.log(data);
-					},
-					error: function(e){
+						password: this.password,
+            verify_code: this.verify_code
 
-						console.log(e);
 					}
-				});
+				}).then(function(res){
+				  console.log(res)
+          if(res.data.code==0){
+            this.$http({
+              method: "post",
+              url: "/api/users/register3",
+              headers:{"device":"android","Access-Control-Allow-Origin":"*"},
+              data: {
+                phone: this.phone,
+                password: this.password,
+                //invite_code: this.invite_code//邀请人ID 测试阶段 暂时不传
+
+              }
+            }).then(function(res){
+              if(res.data.code==0){
+                this.$layer.msg('注册成功');
+                this.$router.replace('/login');
+              }else {
+                this.$layer.msg(res.data.msg);
+              }
+            }.bind(this))
+              .catch(function(err){
+                console.log(err)
+              }.bind(this))
+          }else {
+            this.$layer.msg(res.data.msg);
+          }
+        }.bind(this))
+          .catch(function(err){
+            console.log(err)
+          }.bind(this))
 			},
 
 			submitData() {
@@ -197,22 +213,18 @@
 				var reg = /^1[3|4|5|7|8]\d{9}$/;
 				//				msg("result:" + this.$refs.mobile.valid);
 				if (reg.test(this.phone)) {
-					if(this.verif == "") {
+					if(this.verify_code == "") {
 						this.$layer.msg("验证码不能为空");
 						return;
 					}
-					if(this.verif != this.verification) {
-						this.$layer.msg("验证码错误");
-						return;
-					}
-					if (this.passwordModel == '') {
+					if (this.password == '') {
 						this.$layer.msg("密码不能为空");
 						return;
 					}
 					if(!/^[0-9A-Za-z]{6,15}$/.test(this.passwordcheckModel)) {
 						this.$layer.msg('密码少于6位');
 						return;
-					} else if(this.passwordcheckModel !== this.passwordModel) {
+					} else if(this.passwordcheckModel !== this.password) {
 						this.$layer.msg('两次密码不匹配');
 						return;
 					}
@@ -222,7 +234,6 @@
 					//					}
 					else {
 						this.userTrue();
-						this.$router.push('/Ask');
 					}
 				} else if(this.phone == ''){
 					this.$layer.msg("手机号码不能为空");
@@ -258,23 +269,23 @@
 				that.time = that.readCookie(Verificationtimen);
 				if(that.time == "") {
 
-					$.ajax({
-						type: "post",
-						dataType:"json",
-						contentType: "application/json",
-						url: "http://192.168.10.110/users/register1",
-						data: {
-							"phone": this.phone
-						},
-						success: function(data){
-							console.log(data);
-						},
-						error: function(e){
-
-							console.log("失败");
-						}
-
-					});
+          this.$http({
+            method: 'post',
+            url: '/api/users/register1',
+            headers:{"device":"android","Access-Control-Allow-Origin":"*"},
+            data: {
+              phone: this.phone
+            }
+          }).then(function(res){
+            if(res.data.code==0){
+              this.$layer.msg(res.data.msg);
+            }else {
+              this.$layer.msg(res.data.msg);
+            }
+          }.bind(this))
+            .catch(function(err){
+              console.log(err)
+            }.bind(this))
 					that.time = 5;
 
 					var TimeReduction1 = setInterval(function() {

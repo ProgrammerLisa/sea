@@ -3,30 +3,34 @@
 		<div>
 			<div class="panel panel-default BlackTitle">
 				<div class="panel-body">
-					<span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span> 
+					<span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
 					<span style="margin-left: -37px; position: absolute; left: 50%; font-size: 1.8rem;">找回密码</span>
 				</div>
 			</div>
-			<div style="padding: 45px 30px">
-				<div style="padding-top: 30px;">
-					<input style="font-size: 1.5rem;" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
+
+			<form id="form_password">
+				<div style="padding: 45px 30px">
+					<div style="padding-top: 30px;">
+						<input style="font-size: 1.5rem;" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
+					</div>
+
+					<div style="padding-top: 30px;display: inline-table; width: 100%;">
+						<input style="font-size: 1.5rem;" id="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
+						<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxte}}</x-button>
+						</input>
+					</div>
+
+					<div style="padding-top: 30px;">
+						<input id="passwordModel_image" :type="types" style="font-size: 1.5rem;" v-model="passwordModel" placeholder="请输入新密码" maxlength="16" is-type="sendcode" calss="btns"></input>
+						<img id="group_input_img" @click="Alt()" :src="imgs" />
+						<!--<span>@{{passwordValidate.errorText}}</span>-->
+					</div>
+					<div align="center" style="margin-top: 50px;">
+						<x-button :disabled="!mobile || !verif || !passwordModel" id="pwsbtn" @click.native="submitData" type="primary">完 成</x-button>
+					</div>
 				</div>
-	
-				<div style="padding-top: 30px;display: inline-table; width: 100%;">
-					<input style="font-size: 1.5rem;" id="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
-					<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxte}}</x-button>
-					</input>
-				</div>
-	
-				<div style="padding-top: 30px;">
-					<input id="passwordModel_image" :type="types" style="font-size: 1.5rem;" v-model="passwordModel" placeholder="请输入新密码" maxlength="16" is-type="sendcode" calss="btns"></input>
-					<img id="group_input_img" @click="Alt()" :src="imgs" />
-					<!--<span>@{{passwordValidate.errorText}}</span>-->
-				</div>
-				<div align="center" style="margin-top: 50px;">
-					<x-button :disabled="!mobile || !verif || !passwordModel" id="pwsbtn" @click.native="submitData" type="primary">完 成</x-button>
-				</div>
-			</div>
+			</form>
+
 		</div>
 	</div>
 </template>
@@ -53,7 +57,6 @@
 				time: 0,
 				mobile: '',
 				btntxte: "获取验证码",
-				verification: "6543",
 				//				pwd: '123456',
 				passwordModel: "",
 				verif: "",
@@ -125,7 +128,32 @@
 					this.disabled = false;
 				}
 			},
+			userTrue() {
+				//注册
+
+				this.$http({
+						method: "post",
+						url: "/api/users/password_forget2",
+						data: {
+							phone: this.mobile,
+							new_password: this.passwordModel,
+							verify_code: this.verif
+
+						}
+					}).then(function(res) {
+						if(res.data.code == 0) {
+							this.$layer.msg('重设密码成功');
+							this.$router.replace('/login');
+						} else {
+							this.$layer.msg(res.data.msg);
+						}
+					}.bind(this))
+					.catch(function(err) {
+						console.log(err)
+					}.bind(this))
+			},
 			submitData() {
+				event.preventDefault();
 				//去获取验证手机号
 				var reg = /^1[3|4|5|7|8]\d{9}$/;
 				//				alert("result:" + this.$refs.mobile.valid);
@@ -134,15 +162,7 @@
 						this.$layer.msg("验证码不能为空");
 						return;
 					}
-					if(this.verif != this.verification) {
-						this.$layer.msg("验证码错误");
-						return;
-					}
-					//					if(this.passwordModel != this.pwd) {
-					//						alert("密码错误");
-					//						return;
-					//					}
-					if(this.passwordModel == ''){
+					if(this.passwordModel == '') {
 						this.$layer.msg("密码不能为空");
 						return;
 					}
@@ -150,10 +170,9 @@
 						this.$layer.msg('密码少于6位');
 						return;
 					} else {
-						this.$layer.msg("登录成功");
-						this.$router.push('/Main');
+						this.userTrue();
 					}
-				}else if(this.mobile == ''){
+				} else if(this.mobile == '') {
 					this.$layer.msg("手机号码不能为空");
 					return;
 				} else {
@@ -177,13 +196,28 @@
 			},
 			//验证手机号码部分
 			sendcode() {
-				
+				event.preventDefault();
 				const that = this;
 				var Verificationtimen = Verificationtimen;
 				that.time = that.readCookie(Verificationtimen);
 				if(that.time == "") {
-					that.$layer.msg('短信已发送,本次验证码为：' + that.verification);
-					that.time = 60;
+					this.$http({
+							method: 'post',
+							url: '/api/users/password_forget1',
+							data: {
+								phone: this.mobile
+							}
+						}).then(function(res) {
+							if(res.data.code == 0) {
+								this.$layer.msg(res.data.msg);
+							} else {
+								this.$layer.msg(res.data.msg);
+							}
+						}.bind(this))
+						.catch(function(err) {
+							console.log(err)
+						}.bind(this))
+					that.time = 10;
 
 					var TimeReduction1 = setInterval(function() {
 						if(that.time > 0) {
@@ -233,6 +267,10 @@
 			}
 		}
 	}
+
+	$("#form_password").submit(function() {
+		return false;
+	});
 </script>
 
 <style scoped>
@@ -268,6 +306,7 @@
 	.back img {
 		height: 2.5rem;
 	}
+	
 	i.weui-icon.weui_icon_clear.weui-icon-clear {
 		display: none;
 	}
@@ -296,7 +335,7 @@
 		width: 100%;
 		outline: none;
 		letter-spacing: 0.05rem;
-		padding-bottom: 0.5rem; 
+		padding-bottom: 0.5rem;
 	}
 	
 	#phone,
@@ -334,8 +373,8 @@
 		background-color: #09A2D6;
 	}
 	
-	#pwsbtn:disabled{
-		background:	#C0C0C0 ;
+	#pwsbtn:disabled {
+		background: #C0C0C0;
 	}
 	
 	#pwsbtn:active {
@@ -378,7 +417,7 @@
 		border: none
 	}
 	
-	#pwsbtn{
+	#pwsbtn {
 		width: 100%;
 	}
 	

@@ -51,7 +51,6 @@ Vue.prototype.$layer = layer(Vue);
 
 let defaultRouter;
 if(readCookie('uid')!=null&&readCookie('uid')!=undefined&&readCookie('uid')!=''){
-  console.log(readCookie('uid'));
   Vue.prototype.uid = readCookie('uid');
   defaultRouter = {
     path: '/nav',

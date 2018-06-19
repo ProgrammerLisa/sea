@@ -19,15 +19,19 @@
 		<form v-if="isShow">
 			<div style="padding: 45px 30px;">
 				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
-					<button @click="bnn" type="button" class="close" data-dismiss="modal" aria-hidden="true" style="position: relative;top: 20px;">
-                   		 ×
-        			</button>
-					<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" required/>
+					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: 20px;">
+           			 ×
+          			</button>
+					<input class="phone" ref="mobile" v-on:change="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" required/>
+
 				</div>
 
 				<div class="group_input">
-					<input id="ipwd" v-model="inppwd" :type="types" placeholder="请输入密码" maxlength="16" is-type="sendcode" />
+					<input id="ipwd" v-model="inppwd" v-on:change="ipwdshow()" :type="types" placeholder="请输入密码" maxlength="16" is-type="sendcode" />
 					<img id="group_input_img" @click="Alt" :src="imgs" />
+					<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 55px;">
+          			  ×
+          			</button>
 				</div>
 
 				<div class="hyperlink" style="float: right;">
@@ -47,11 +51,17 @@
 			<div style="padding: 45px 30px;">
 				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 					<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
+					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: -30px;">
+            			×
+         			 </button>
 				</div>
 
 				<div id="div_ipwd">
-					<input id="verifica" v-model="verif" maxlength="4" placeholder="请输入短信验证码" />
+					<input id="verifica" v-on:change="verifshow()" v-model="verif" maxlength="4" placeholder="请输入短信验证码" />
 					<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</x-button>
+					<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 110px;">
+            		×
+          			</button>
 				</div>
 
 				<div class="hyperlink">
@@ -88,7 +98,6 @@
 				pwd: '123456',
 				inppwd: "",
 				btntxt: "",
-				verification: "6543",
 				verif: "",
 				short_message: '',
 				isShow: true,
@@ -99,8 +108,10 @@
 				color2: "#666666",
 				border1: '3px solid #09A2D6',
 				border2: '3px solid white',
-				time: ''
-
+				time: '',
+				btnShow: false,
+				btnShow1: false,
+				btnverShow: false
 			}
 		},
 		mounted: function() {
@@ -139,6 +150,27 @@
 			return str.replace(/(^\s+)|(s+$)/g, "");
 		},
 		methods: {
+			show() {
+				if(this.mobile != '') {
+					this.btnShow = true;
+				}else{
+					this.btnShow = false;
+				}
+			},
+			ipwdshow() {
+				if(this.inppwd != '') {
+					this.btnShow1 = true;
+				} else {
+					this.btnShow1 = false;
+				}
+			},
+			verifshow() {
+				if(this.verif != '') {
+					this.btnverShow = true;
+				} else {
+					this.btnverShow = false;
+				}
+			},
 			goBack() {
 				this.$router.replace('/home');
 			},
@@ -176,7 +208,21 @@
 				}
 			},
 			bnn() {
-				this.phone = '';
+				if(this.mobile == '') {
+
+				} else {
+					this.mobile = ''
+				}
+			},
+			bnn1() {
+				if(this.inppwd == '') {} else {
+					this.inppwd = ''
+				}
+			},
+			ver() {
+				if(this.verif == '') {} else {
+					this.verif = ''
+				}
 			},
 			Alt() {
 				if(this.types == "password") {
@@ -210,30 +256,33 @@
 						return;
 					} else {
 
-            //axios post 请求
-              this.$http({
-                method: 'post',
-                url: '/api/auth/login',
-                headers:{"device":"android","Access-Control-Allow-Origin":"*"},
-                data: {
 
-                  phone: this.mobile,
-                  password:this.inppwd
-                }
-              }).then(function(res){
-                console.log(res.data)
-                if(res.data.code==0){
-                  this.$layer.msg('登录成功');
-                  this.writeCookie('uid',res.data.data.uid,10000000);
-                  this.$router.replace('/home');
-                }else {
-                  this.$layer.msg(res.data.msg);
-                }
-              }.bind(this))
-                .catch(function(err){
-                  console.log(err)
-                }.bind(this))
+						//axios post 请求
+						this.$http({
+								method: 'post',
+								url: '/api/auth/login',
+								headers: {
+									"device": "android",
+									"Access-Control-Allow-Origin": "*"
+								},
+								data: {
 
+									phone: this.mobile,
+									password: this.inppwd
+								}
+							}).then(function(res) {
+								console.log(res.data)
+								if(res.data.code == 0) {
+									this.$layer.msg('登录成功');
+									this.writeCookie('uid', res.data.data.uid, 10000000);
+									this.$router.replace('/home');
+								} else {
+									this.$layer.msg(res.data.msg);
+								}
+							}.bind(this))
+							.catch(function(err) {
+								console.log(err)
+							}.bind(this))
 
 					}
 				} else if(this.mobile == '') {
@@ -251,11 +300,38 @@
 					if(this.verif == "") {
 						this.$layer.msg('验证码不能为空');
 						return;
+					}else{
+						this.$http({
+								method: 'post',
+								url: '/api/auth/login',
+								headers: {
+									"device": "android",
+									"Access-Control-Allow-Origin": "*"
+								},
+								data: {
+
+									phone: this.mobile,
+									password: this.inppwd
+								}
+							}).then(function(res) {
+								console.log(res.data)
+								if(res.data.code == 0) {
+									this.$layer.msg('登录成功');
+									this.writeCookie('uid', res.data.data.uid, 10000000);
+									this.$router.replace('/home');
+								} else {
+									this.$layer.msg(res.data.msg);
+								}
+							}.bind(this))
+							.catch(function(err) {
+								console.log(err)
+							}.bind(this))
 					}
 					if(this.verif != this.verification) {
 						this.$layer.msg('验证码错误');
 						return;
 					} else {
+						this.SMS();
 						this.$layer.msg('登录成功');
 						this.$router.replace('/Home');
 					}
@@ -278,8 +354,27 @@
 				this.disabled = true;
 				that.time = that.readCookie(Verificationtime);
 				if(that.time == "") {
-					that.$layer.msg('短信已发送,本次验证码为：' + that.verification);
-					that.time = 60;
+					this.$http({
+							method: 'post',
+							url: '/api/auth/login',
+							headers: {
+								"device": "android",
+								"Access-Control-Allow-Origin": "*"
+							},
+							data: {
+								phone: this.mobile
+							}
+						}).then(function(res) {
+							if(res.data.code == 0) {
+								this.$layer.msg(res.data.msg);
+							} else {
+								this.$layer.msg(res.data.msg);
+							}
+						}.bind(this))
+						.catch(function(err) {
+							console.log(err)
+						}.bind(this))
+					that.time = 10;
 
 					var TimeReduction1 = setInterval(function() {
 						if(that.time > 0) {

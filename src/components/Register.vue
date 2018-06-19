@@ -7,6 +7,7 @@
 			</div>
 		</div>
 
+<<<<<<< HEAD
 
 	<form id="form_register">
 		<div style="padding: 45px 30px">
@@ -34,16 +35,39 @@
 
 			<div style="padding-top:30px;">
 				<x-button :disabled="!phone || !verify_code || !password || !passwordcheckModel" id="pwsbtn" @click.native="submitData" type="primary">下一步</x-button>
-			</div>
-		</div>
+=======
+		<form id="form_register">
+			<div style="padding: 45px 30px">
+				<div style="padding-top: 3.5rem;">
+					<input id="phone" ref="phone" name="phone" v-model="phone" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
+				</div>
 
-	</form>
-		<!--<center>
-			<div id="agree">
-				<check-icon :value.sync="demo1"><span>我同意</span></check-icon>
-				<a href="#"><span>《星海行动使用协议》</span></a>
+				<div style="padding-top: 30px; display: inline-table; width: 100%;">
+					<input id="verification" name="verification" maxlength="4" v-model="verify_code" placeholder="请输入短信验证码">
+					<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
+
+				</div>
+
+				<div style="padding-top: 30px;">
+					<input :type="types" style="font-size: 1.5rem;border-bottom: 0.1rem solid #F5F5F5;" v-model="password" placeholder="请输入密码" maxlength="16" is-type="sendcode" id="btns"></input>
+					<!--<span>@{{passwordValidate.errorText}}</span>-->
+					<img id="group_input_img" @click="Alt()" :src="imgs" />
+				</div>
+
+				<div style="padding-top: 30px;">
+					<input :type="typeis" style="font-size: 1.5rem;border-bottom: 0.1rem solid #F5F5F5;" v-model="passwordcheckModel" placeholder="请再次输入密码" maxlength="16" is-type="sendcode" id="btn"></input>
+					<!--<span>@{{passwordCheckValidate.errorText}}</span>-->
+					<img id="group_input_imgs" @click="Alte()" :src="imges" />
+				</div>
+
+				<div style="padding-top:30px;">
+					<x-button :disabled="!phone || !verify_code || !password || !passwordcheckModel" id="pwsbtn" @click.native="submitData" type="primary">下一步</x-button>
+				</div>
+>>>>>>> bd582ca0f119e731c6cfc6cf249f3a31877b1aae
 			</div>
-		</center>-->
+
+		</form>
+		
 	</div>
 
 </template>
@@ -71,7 +95,11 @@
 				phone: "",
 				password: "",
 				repeat_password: "",
+<<<<<<< HEAD
         invite_code: "",
+=======
+				invite_code: "",
+>>>>>>> bd582ca0f119e731c6cfc6cf249f3a31877b1aae
 				verify_code: "",
 				btntxt: "获取验证码",
 				//				pwd: '123456',
@@ -87,7 +115,11 @@
 				time: '',
 				form: {
 					phone: "",
+<<<<<<< HEAD
           invite_code: "",
+=======
+					invite_code: "",
+>>>>>>> bd582ca0f119e731c6cfc6cf249f3a31877b1aae
 					passwordcheckModel: ""
 				}
 			}
@@ -160,6 +192,7 @@
 					this.disabled = false;
 				}
 			},
+<<<<<<< HEAD
 			userTrue(){
 			  //注册
 
@@ -204,6 +237,58 @@
           .catch(function(err){
             console.log(err)
           }.bind(this))
+=======
+			userTrue() {
+				//注册
+
+				this.$http({
+						method: "post",
+						url: "/api/users/register2",
+						headers: {
+							"device": "android",
+							"Access-Control-Allow-Origin": "*"
+						},
+						data: {
+							phone: this.phone,
+							password: this.password,
+							verify_code: this.verify_code
+
+						}
+					}).then(function(res) {
+						console.log(res)
+						if(res.data.code == 0) {
+							this.$http({
+									method: "post",
+									url: "/api/users/register3",
+									headers: {
+										"device": "android",
+										"Access-Control-Allow-Origin": "*"
+									},
+									data: {
+										phone: this.phone,
+										password: this.password,
+										//invite_code: this.invite_code//邀请人ID 测试阶段 暂时不传
+
+									}
+								}).then(function(res) {
+									if(res.data.code == 0) {
+										this.$layer.msg('注册成功');
+										this.$router.replace('/Invite');
+									} else {
+										this.$layer.msg(res.data.msg);
+									}
+								}.bind(this))
+								.catch(function(err) {
+									console.log(err)
+								}.bind(this))
+						} else {
+							this.$layer.msg(res.data.msg);
+						}
+					}.bind(this))
+					.catch(function(err) {
+						console.log(err)
+					}.bind(this))
+>>>>>>> bd582ca0f119e731c6cfc6cf249f3a31877b1aae
 			},
 
 			submitData() {
@@ -212,12 +297,20 @@
 				//去获取验证手机号
 				var reg = /^1[3|4|5|7|8]\d{9}$/;
 				//				msg("result:" + this.$refs.mobile.valid);
+<<<<<<< HEAD
 				if (reg.test(this.phone)) {
+=======
+				if(reg.test(this.phone)) {
+>>>>>>> bd582ca0f119e731c6cfc6cf249f3a31877b1aae
 					if(this.verify_code == "") {
 						this.$layer.msg("验证码不能为空");
 						return;
 					}
+<<<<<<< HEAD
 					if (this.password == '') {
+=======
+					if(this.password == '') {
+>>>>>>> bd582ca0f119e731c6cfc6cf249f3a31877b1aae
 						this.$layer.msg("密码不能为空");
 						return;
 					}
@@ -227,15 +320,10 @@
 					} else if(this.passwordcheckModel !== this.password) {
 						this.$layer.msg('两次密码不匹配');
 						return;
-					}
-					//					if(this.check == this.demo1) {
-					//						msg("请同意");
-					//						return;
-					//					}
-					else {
+					}else {
 						this.userTrue();
 					}
-				} else if(this.phone == ''){
+				} else if(this.phone == '') {
 					this.$layer.msg("手机号码不能为空");
 					return;
 				} else {
@@ -269,6 +357,7 @@
 				that.time = that.readCookie(Verificationtimen);
 				if(that.time == "") {
 
+<<<<<<< HEAD
           this.$http({
             method: 'post',
             url: '/api/users/register1',
@@ -286,6 +375,28 @@
             .catch(function(err){
               console.log(err)
             }.bind(this))
+=======
+					this.$http({
+							method: 'post',
+							url: '/api/users/register1',
+							headers: {
+								"device": "android",
+								"Access-Control-Allow-Origin": "*"
+							},
+							data: {
+								phone: this.phone
+							}
+						}).then(function(res) {
+							if(res.data.code == 0) {
+								this.$layer.msg(res.data.msg);
+							} else {
+								this.$layer.msg(res.data.msg);
+							}
+						}.bind(this))
+						.catch(function(err) {
+							console.log(err)
+						}.bind(this))
+>>>>>>> bd582ca0f119e731c6cfc6cf249f3a31877b1aae
 					that.time = 5;
 
 					var TimeReduction1 = setInterval(function() {
@@ -348,29 +459,30 @@
 		width: 100vw;
 		background-color: white;
 	}
-
+	
 	span {
 		font-size: 10px;
 	}
-
+	
 	#group_input_imgs {
 		position: relative;
 		width: 54px;
-		float:right;
+		float: right;
 		margin-top: -50px;
 		/*margin-left: 75%;*/
 	}
-
+	
 	#group_input_img {
 		position: relative;
 		margin-top: -50px;
 		width: 54px;
 		float: right;
 	}
-
+	
 	.panel-body {
 		padding: 0 10px;
 	}
+	
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -381,10 +493,11 @@
 		line-height: 4.1rem;
 		border: 0;
 	}
+	
 	.back {
 		float: left;
 	}
-
+	
 	.back img {
 		height: 2.5rem;
 	}
@@ -392,19 +505,19 @@
 		margin-top: 65%;
 		font-size: 1rem;
 	}*/
-
+	
 	i.weui-icon.weui_icon_clear.weui-icon-clear {
 		display: none;
 	}
-
+	
 	a {
 		color: #09a2d6;
 	}
-
+	
 	body {
 		background-color: white;
 	}
-
+	
 	#phone {
 		border-top: 0;
 		border-left: 0;
@@ -417,7 +530,7 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-
+	
 	#verification {
 		border-top: 0;
 		border-left: 0;
@@ -432,7 +545,7 @@
 		/*margin-left: 4.5px;
 		padding-left: 1.175rem;*/
 	}
-
+	
 	#verbtn {
 		position: relative;
 		margin-top: -47px;
@@ -447,7 +560,7 @@
 		border-radius: 0;
 		border: none;
 	}
-
+	
 	#passwordcheckModel_image {
 		background-image: url(../assets/images/eyeclick.png);
 		background-position: right;
@@ -457,22 +570,22 @@
 		border-bottom: 1px solid #F5F5F5;
 		margin-top: 1.25rem;
 	}
-
+	
 	#pwsbtn {
 		margin-top: -11px;
 		width: 100%;
 		background-color: #09A2D6;
 		border-radius: 0;
 	}
-
+	
 	#pwsbtn:active {
 		background-color: #09A2D6;
 	}
-
-	#pwsbtn:disabled{
-		background:	#C0C0C0 ;
+	
+	#pwsbtn:disabled {
+		background: #C0C0C0;
 	}
-
+	
 	#btns {
 		border-top: 0;
 		border-left: 0;
@@ -486,7 +599,7 @@
 		letter-spacing: 0.05rem;
 		/*padding-left: 1.2rem;*/
 	}
-
+	
 	#btn {
 		border-top: 0;
 		border-left: 0;
@@ -500,20 +613,20 @@
 		letter-spacing: 0.05rem;
 		/*padding-left: 1.2rem;*/
 	}
-
+	
 	body>.el-container {
 		margin-bottom: 40px;
 	}
-
+	
 	.weui-cells {
 		border: 0px;
 	}
-
+	
 	.weui-btn:after {
 		border-radius: 0px;
 		border: none;
 	}
-
+	
 	button#pwsbtn.weui-btn.weui-btn_primary {
 		width: 100%;
 		margin-top: 20px;

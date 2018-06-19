@@ -19,8 +19,8 @@
 		<form v-if="isShow">
 			<div style="padding: 45px 30px;">
 				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
-					<button @click="bnn" type="button" class="close" data-dismiss="modal" aria-hidden="true" style="position: relative;top: 20px;">  
-                   		 ×  
+					<button @click="bnn" type="button" class="close" data-dismiss="modal" aria-hidden="true" style="position: relative;top: 20px;">
+                   		 ×
         			</button>
 					<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" required/>
 				</div>
@@ -208,23 +208,33 @@
 					if(this.inppwd == '') {
 						this.$layer.msg('密码不能为空');
 						return;
-					}
-					if(this.inppwd != this.pwd) {
-						this.$layer.msg('密码错误');
-						return;
 					} else {
-              this.$http.post('http://192.168.10.110/auth/login',{phone:15073719360,password:123456}, {emulateJSON: true})
-                .then(
-                  (response)=>{
-                  console.log(response)
-                  },
-                  (error)=>{
-                    console.log(error);
-                  }
-                )
 
-						// this.$layer.msg('登录成功');
-						// this.$router.replace('/home');
+            //axios post 请求
+              this.$http({
+                method: 'post',
+                url: '/api/auth/login',
+                headers:{"device":"android","Access-Control-Allow-Origin":"*"},
+                data: {
+
+                  phone: this.mobile,
+                  password:this.inppwd
+                }
+              }).then(function(res){
+                console.log(res.data)
+                if(res.data.code==0){
+                  this.$layer.msg('登录成功');
+                  this.writeCookie('uid',res.data.data.uid,10000000);
+                  this.$router.replace('/home');
+                }else {
+                  this.$layer.msg(res.data.msg);
+                }
+              }.bind(this))
+                .catch(function(err){
+                  console.log(err)
+                }.bind(this))
+
+
 					}
 				} else if(this.mobile == '') {
 					this.$layer.msg('手机号码不能为空');
@@ -326,26 +336,26 @@
 		background-color: #09A2D6;
 		border-radius: 0;
 	}
-	
+
 	button.weui-btn.weui-btn_primary:active {
 		background-color: #09A2D6;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	#login {
 		width: 100vw;
 		height: 100vh;
 		background: #fff;
 		overflow: hidden;
 	}
-	
+
 	#verifica {
 		border-top: 0;
 		border-left: 0;
@@ -358,15 +368,15 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-	
+
 	#ipwd .vux-x-input .weui-cell {
 		width: 80%;
 	}
-	
+
 	.weui-btn::after {
 		border-radius: 0;
 	}
-	
+
 	#verbtn {
 		position: relative;
 		margin-top: -44px;
@@ -381,7 +391,7 @@
 		border-radius: 0;
 		border: none;
 	}
-	
+
 	.phone {
 		border-top: 0;
 		border-left: 0;
@@ -394,7 +404,7 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-	
+
 	#ipwd {
 		border-top: 0;
 		border-left: 0;
@@ -407,12 +417,12 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-	
+
 	.group_inputs {
 		width: 100%;
 		padding-top: 14rem;
 	}
-	
+
 	#group_input_img {
 		position: relative;
 		margin-top: -55px;
@@ -420,7 +430,7 @@
 		font-size: 1.2rem;
 		height: 55px;
 	}
-	
+
 	.group_input {
 		/*margin: -40px;*/
 		/*margin: 10px;*/
@@ -429,28 +439,28 @@
 		/*padding: 40px;*/
 		/*margin-left: -14px;*/
 	}
-	
+
 	.weui-cells:before {
 		border-top: 0px!important;
 	}
-	
+
 	.hyperlink {
 		float: right;
 		margin-top: 2rem;
 	}
-	
+
 	.a_hyperlink {
 		color: #8C8C8C;
 	}
-	
+
 	a {
 		color: #353535;
 	}
-	
+
 	a:hover {
 		text-decoration: none;
 	}
-	
+
 	#nav {
 		position: fixed;
 		top: 0;
@@ -463,7 +473,7 @@
 		line-height: 50px;
 		border-bottom: 1px solid #F5F5F5;
 	}
-	
+
 	#nav_login {
 		position: fixed;
 		top: 0;
@@ -474,7 +484,7 @@
 		border-bottom: 1px solid #C8C8CD;
 		margin-top: 50px;
 	}
-	
+
 	#nav_common {
 		position: fixed;
 		width: 50%;
@@ -483,25 +493,25 @@
 		box-shadow: 0.2rem 0.2rem 0.2rem #ddd;
 		overflow: hidden;
 	}
-	
+
 	#nav_common a {
 		width: 100%;
 		background: white;
 	}
-	
+
 	#a_common {
 		/*text-decoration:none;*/
 		/*border-bottom:3px solid #09A2D6;  #ccc换成链接的颜色*/
 		display: inline-block;
 		/*margin-bottom:-3px;  这里设置你要空的距离*/
 	}
-	
+
 	#a_sms {
 		width: 100%;
 		text-decoration: none;
 		display: inline-block;
 	}
-	
+
 	#nav_sms {
 		position: fixed;
 		width: 50%;
@@ -511,46 +521,46 @@
 		overflow: hidden;
 		box-shadow: 0.2rem 0.2rem 0.2rem #ddd;
 	}
-	
+
 	#a_common_animation {
 		width: 100%;
 		background: #09A2D6;
 		height: 0.3rem;
 		margin-left: 0
 	}
-	
+
 	#a_sms_animation {
 		width: 100%;
 		background: #09A2D6;
 		height: 0.3rem;
 		margin-left: -100%;
 	}
-	
+
 	.weui-btn:after,
 	#btn_login_normal:after,
 	#btn_login_sms:after,
 	#verbtn:after {
 		border: none;
 	}
-	
+
 	#btn_login_normal,
 	#btn_login_sms {
 		width: 100%;
 		margin-top: 30px;
 	}
-	
+
 	#btn_login_normal:disabled {
 		background: #C0C0C0;
 	}
-	
+
 	#btn_login_sms:disabled {
 		background: #C0C0C0;
 	}
-	
+
 	button#btn_login_normal.weui-btn.weui-btn_primary {
 		width: 100%;
 	}
-	
+
 	button#btn_login_sms.weui-btn.weui-btn_primary {
 		width: 100%;
 	}

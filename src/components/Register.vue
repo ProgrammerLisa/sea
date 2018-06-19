@@ -37,12 +37,7 @@
 			</div>
 
 		</form>
-		<!--<center>
-			<div id="agree">
-				<check-icon :value.sync="demo1"><span>我同意</span></check-icon>
-				<a href="#"><span>《星海行动使用协议》</span></a>
-			</div>
-		</center>-->
+		
 	</div>
 
 </template>
@@ -194,7 +189,7 @@
 								}).then(function(res) {
 									if(res.data.code == 0) {
 										this.$layer.msg('注册成功');
-										this.$router.replace('/login');
+										this.$router.replace('/Invite');
 									} else {
 										this.$layer.msg(res.data.msg);
 									}
@@ -232,12 +227,7 @@
 					} else if(this.passwordcheckModel !== this.password) {
 						this.$layer.msg('两次密码不匹配');
 						return;
-					}
-					//					if(this.check == this.demo1) {
-					//						msg("请同意");
-					//						return;
-					//					}
-					else {
+					}else {
 						this.userTrue();
 					}
 				} else if(this.phone == '') {
@@ -276,7 +266,7 @@
 
 					this.$http({
 							method: 'post',
-							url: 'http://192.168.10.110/users/register1',
+							url: '/api/users/register1',
 							headers: {
 								"device": "android",
 								"Access-Control-Allow-Origin": "*"

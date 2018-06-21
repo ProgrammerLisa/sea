@@ -4,32 +4,32 @@
       <div class="panel-body">
         <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
         修改地址
-        <div class="keepSubmit">保存</div>
+        <div class="keepSubmit" @click="keepSubmit">保存</div>
       </div>
     </div>
     <form class="form-horizontal">
       <div class="form-group">
-        <label for="inputEmail3" class="col-xs-3 control-label">收货人</label>
+        <label for="name" class="col-xs-3 control-label">收货人</label>
         <div class="col-xs-9">
-          <input type="email" class="form-control" id="inputEmail3" placeholder="请填写收货人姓名">
+          <input type="text" class="form-control" id="name" placeholder="请填写收货人姓名">
         </div>
       </div>
       <div class="form-group">
-        <label for="inputNumber3" class="col-xs-3 control-label">联系电话</label>
+        <label for="phone" class="col-xs-3 control-label">联系电话</label>
         <div class="col-xs-9">
-          <input type="number" class="form-control" id="inputNumber3" placeholder="请填写收货手机号码">
+          <input type="text" class="form-control" id="phone" placeholder="请填写收货手机号码">
         </div>
       </div>
       <div class="form-group">
-        <label for="inputAddress3" class="col-xs-3 control-label">收货地址</label>
+        <label for="address" class="col-xs-3 control-label">收货地址</label>
         <div class="col-xs-9">
-          <input type="number" class="form-control" id="inputAddress3" placeholder="请选择地区">
+          <input type="text" class="form-control" id="address" placeholder="请选择地区">
         </div>
       </div>
       <div class="form-group">
-        <label for="inputPhone3" class="col-xs-3 control-label">补充说明</label>
+        <label for="home" class="col-xs-3 control-label">补充说明</label>
         <div class="col-xs-9">
-          <input type="number" class="form-control" id="inputPhone3" placeholder="详细地址(如门牌号等)">
+          <input type="text" class="form-control" id="home" placeholder="详细地址(如门牌号等)">
         </div>
       </div>
     </form>
@@ -40,9 +40,64 @@
 <script>
     export default {
         name: "ModificationAddress",
+        data(){
+          return{
+            addressTd:''
+          }
+        },
+        mounted(){
+          this.addressTd=this.$route.params.dataObj;
+        },
         methods:{
           goBack(){
             this.$router.go(-1);
+          },
+          keepSubmit(){
+            if($("#name").val()==''||$("#name").val()==null||$("#name").val()==undefined){
+              this.$layer.msg('请填写收货人');
+            }else if($("#phone").val()==''||$("#phone").val()==null||$("#phone").val()==undefined){
+              this.$layer.msg('请填写联系电话');
+            }else if($("#address").val()==''||$("#address").val()==null||$("#address").val()==undefined){
+              this.$layer.msg('请填写收货地址');
+            }else if($("#home").val()==''||$("#home").val()==null||$("#home").val()==undefined){
+              this.$layer.msg('请填写具体地址');
+            }else {
+              this.$http({
+                method: "post",
+                url: "/api/users/delivery_address/edit",
+                headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
+                data: {
+                  id:this.addressTd,
+                  consignee:$("#name").val(),
+                  phone:$("#phone").val(),
+                  address:$("#address").val()+$("#home").val()
+                }
+              }).then(function(res){
+                if(res.data.code==0){
+                  this.$layer.msg(res.data.msg);
+                  this.$router.go(-1);
+                }else {
+                  this.$layer.msg(res.data.msg);
+                }
+              }.bind(this))
+                .catch(function(err){
+                  console.log(err)
+                }.bind(this))
+            }
+          },
+          readCookie(name) {
+            let cookieValue = "";
+            let search = name + "=";
+            if(document.cookie.length > 0) {
+              let offset = document.cookie.indexOf(search);
+              if(offset != -1) {
+                offset += search.length;
+                let end = document.cookie.indexOf(";", offset);
+                if(end == -1) end = document.cookie.length;
+                cookieValue = unescape(document.cookie.substring(offset, end))
+              }
+            }
+            return cookieValue;
           }
         }
     }

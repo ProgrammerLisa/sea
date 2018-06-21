@@ -20,7 +20,7 @@
 			<div style="padding: 45px 30px;">
 				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: 20px;">
-           			 ×
+           			  <img src="../assets/images/x.png" />
           			</button>
 					<input class="phone" ref="mobile" v-on:change="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" required/>
 
@@ -30,7 +30,7 @@
 					<input id="ipwd" v-model="inppwd" v-on:change="ipwdshow()" :type="types" placeholder="请输入密码" maxlength="16" is-type="sendcode" />
 					<img id="group_input_img" @click="Alt" :src="imgs" />
 					<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 55px;">
-          			  ×
+          			  <img src="../assets/images/x.png" />
           			</button>
 				</div>
 
@@ -52,7 +52,7 @@
 				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 					<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
 					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: -30px;">
-            			×
+            			<img src="../assets/images/x.png" />
          			 </button>
 				</div>
 
@@ -60,7 +60,7 @@
 					<input id="verifica" v-on:change="verifshow()" v-model="verif" maxlength="4" placeholder="请输入短信验证码" />
 					<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</x-button>
 					<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 110px;">
-            		×
+            			<img src="../assets/images/x.png" />
           			</button>
 				</div>
 
@@ -311,7 +311,7 @@
 								data: {
 
 									phone: this.mobile,
-									password: this.inppwd
+									verify_code: this.verif
 								}
 							}).then(function(res) {
 								console.log(res.data)
@@ -326,14 +326,6 @@
 							.catch(function(err) {
 								console.log(err)
 							}.bind(this))
-					}
-					if(this.verif != this.verification) {
-						this.$layer.msg('验证码错误');
-						return;
-					} else {
-						this.SMS();
-						this.$layer.msg('登录成功');
-						this.$router.replace('/Home');
 					}
 				} else if(this.mobile == '') {
 					this.$layer.msg('手机号码不能为空');

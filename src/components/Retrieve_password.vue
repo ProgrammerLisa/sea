@@ -11,18 +11,27 @@
 			<form id="form_password">
 				<div style="padding: 45px 30px">
 					<div style="padding-top: 30px;">
-						<input style="font-size: 1.5rem;" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
+						<input style="font-size: 1.5rem;" v-on:change="show()" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
+						<button v-if="btnShow" @click="bnns" type="button" class="close" data-dismiss="modal" style="position: relative;top: -30px;">
+            				<img src="../assets/images/x.png" />
+         			 	</button>
 					</div>
 
 					<div style="padding-top: 30px;display: inline-table; width: 100%;">
-						<input style="font-size: 1.5rem;" id="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
+						<input style="font-size: 1.5rem;" v-on:change="verifshow()" id="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
 						<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxte}}</x-button>
 						</input>
+						<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 110px;">
+            				<img src="../assets/images/x.png" />
+         			 	</button>
 					</div>
 
 					<div style="padding-top: 30px;">
-						<input id="passwordModel_image" :type="types" style="font-size: 1.5rem;" v-model="passwordModel" placeholder="请输入新密码" maxlength="16" is-type="sendcode" calss="btns"></input>
+						<input id="passwordModel_image" v-on:change="ipwdshow()" :type="types" style="font-size: 1.5rem;" v-model="passwordModel" placeholder="请输入新密码" maxlength="16" is-type="sendcode" calss="btns"></input>
 						<img id="group_input_img" @click="Alt()" :src="imgs" />
+						<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;">
+          			  		<img src="../assets/images/x.png" />
+          				</button>
 						<!--<span>@{{passwordValidate.errorText}}</span>-->
 					</div>
 					<div align="center" style="margin-top: 50px;">
@@ -66,7 +75,10 @@
 				types: "password",
 				imgs: eye,
 				//Stime:null,
-				time: ''
+				time: '',
+				btnShow: false,
+				btnverShow: false,
+				btnShow1: false
 			}
 		},
 		mounted: function() {
@@ -105,6 +117,44 @@
 			return str.replace(/(^\s+)|(s+$)/g, "");
 		},
 		methods: {
+			show() {
+				if(this.mobile != '') {
+					this.btnShow = true;
+				} else {
+					this.btnShow = false;
+				}
+			},
+			bnns() {
+				if(this.mobile == '') {
+
+				} else {
+					this.mobile = ''
+				}
+			},
+			verifshow() {
+				if(this.verif != '') {
+					this.btnverShow = true;
+				} else {
+					this.btnverShow = false;
+				}
+			},
+			ver() {
+				if(this.verif == '') {} else {
+					this.verif = ''
+				}
+			},
+			ipwdshow() {
+				if(this.inppwd != '') {
+					this.btnShow1 = true;
+				} else {
+					this.btnShow1 = false;
+				}
+			},
+			bnn1() {
+				if(this.passwordModel == '') {} else {
+					this.passwordModel = ''
+				}
+			},
 			goBack() {
 				this.$router.go(-1);
 			},
@@ -136,8 +186,8 @@
 						url: "/api/users/password_forget2",
 						data: {
 							phone: this.mobile,
-							new_password: this.passwordModel,
-							verify_code: this.verif
+							verify_code: this.verif,
+							new_password: this.passwordModel
 
 						}
 					}).then(function(res) {

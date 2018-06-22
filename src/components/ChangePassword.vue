@@ -8,34 +8,34 @@
       </div>
       <form class="form-horizontal">
         <div class="form-group">
-          <label for="inputEmail3" class="col-xs-3 control-label">账户</label>
+          <label for="phone" class="col-xs-3 control-label">手机号</label>
           <div class="col-xs-9">
-            <input type="email" class="form-control" id="inputEmail3" placeholder="请输入账号">
+            <input type="text" class="form-control" id="phone" placeholder="请输入账号">
           </div>
         </div>
         <div class="form-group">
-          <label for="inputNumber3" class="col-xs-3 control-label">原密码</label>
+          <label for="oldPsw" class="col-xs-3 control-label">原密码</label>
           <div class="col-xs-9">
-            <input type="password" class="form-control" id="inputNumber3" placeholder="请填写原密码">
+            <input type="password" class="form-control" id="oldPsw" placeholder="请填写原密码">
           </div>
         </div>
         <div class="form-group">
-          <label for="inputAddress3" class="col-xs-3 control-label">新密码</label>
+          <label for="newPsw" class="col-xs-3 control-label">新密码</label>
           <div class="col-xs-9">
-            <input type="password" class="form-control" id="inputAddress3" placeholder="请填写新密码">
+            <input type="password" class="form-control" id="newPsw" placeholder="请填写新密码">
           </div>
         </div>
         <div class="form-group">
-          <label for="inputPhone3" class="col-xs-3 control-label">确认密码</label>
+          <label for="newPsw2" class="col-xs-3 control-label">确认密码</label>
           <div class="col-xs-9">
-            <input type="password" class="form-control" id="inputPhone3" placeholder="请再次填写确认密码">
+            <input type="password" class="form-control" id="newPsw2" placeholder="请再次填写确认密码">
           </div>
         </div>
         <div class="prompt">
           <span>密码必须是8-16位，至少含数字、字母、字符2种组合</span>
         </div>
         <div class="form-group submit">
-          <button class="btn submitBtn">确 定</button>
+          <button class="btn submitBtn" @click="submitBtn">确 定</button>
         </div>
       </form>
     </div>
@@ -47,6 +47,15 @@
         methods:{
           goBack(){
             this.$router.go(-1);
+          },
+          submitBtn(){
+            if(!(/^1[3|4|5|8][0-9]\d{8}$/.test($('#phone').val()))){
+              this.$layer.msg("请输入正确的手机号");
+              $('#phone').focus();
+              return false;
+            }else if($('oldPsw'=='')){
+
+            }
           }
         }
     }

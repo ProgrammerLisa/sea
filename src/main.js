@@ -8,11 +8,14 @@ import layer from 'vue-layer'
 import VueClipboard from 'vue-clipboard2'
 // import  VueResource  from 'vue-resource'
 import axios from 'axios'
+import Croppa from 'vue-croppa'
+import 'vue-croppa/dist/vue-croppa.css'
 
 import router from './router'
 
 Vue.use(VueRouter)
 Vue.use(VueClipboard)
+Vue.use(Croppa)
 // Vue.use(VueResource)
 
 FastClick.attach(document.body)

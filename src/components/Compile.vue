@@ -81,7 +81,8 @@
               headImg:headImg,
               nickName:'duobao9591',
               IDcode:'5678966',
-              chooseFile:''
+              chooseFile:'',
+              houzhuiming:''
           }
         },
         methods:{
@@ -91,16 +92,24 @@
           chooseImg(c){
           	let that = this;
           	let $c = document.querySelector(c);
-		        that.chooseFile = $c.files[0];
-		        $(".modal-backdrop").hide();
-		        that.$router.push({
-              path: '/uploadheadImg',
-              name: 'UploadHeadImg',
-              params: {
-                name:'name',
-                dataObj:that.chooseFile
-              }
-            })
+		        let file = $c.files[0];
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            that.houzhuiming = file.name.split(".")[1];
+            reader.onload = function (e) {
+              that.chooseFile = e.target.result;
+              $(".modal-backdrop").hide();
+              that.$router.push({
+                path: '/uploadheadImg',
+                name: 'UploadHeadImg',
+                params: {
+                  name:'name',
+                  dataObj:that.chooseFile,
+                  houzhuiming:that.houzhuiming
+                }
+              })
+            }
+
           }
         }
     }

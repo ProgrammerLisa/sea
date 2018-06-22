@@ -366,7 +366,6 @@
 							console.log(err)
 						}.bind(this))
 					that.time = 10;
-
 					var TimeReduction1 = setInterval(function() {
 						if(that.time > 0) {
 							that.writeCookie(Verificationtime, that.time);

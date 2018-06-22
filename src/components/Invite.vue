@@ -13,9 +13,6 @@
         <p class="msg">每邀请一位好友下载并注册，你和好友都将获得同等奖励</p>
         <x-button id="finish"  v-clipboard:copy="ask_invite" v-clipboard:success="onCopy" v-clipboard:error="onError" type="primary">复制邀请码</x-button>
       </div>
-
-
-
     </div>
 
 </div>
@@ -34,12 +31,29 @@
 		},
 		data() {
 			return {
-				ask_invite: '60KYCL6',
+				ask_invite: '',
 				check: '',
 				demo1: false,
 				demo2: true
 			}
 		},
+    mounted(){
+      this.$http({
+        method: "post",
+        url: "/api/users/my-invite-code",
+        headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
+        data: {}
+      }).then(function(res){
+        if(res.data.code==0){
+          this.ask_invite = res.data.my_invite_code
+        }else {
+          this.$layer.msg(res.data.msg);
+        }
+      }.bind(this))
+        .catch(function(err){
+          console.log(err)
+        }.bind(this))
+    },
 		methods: {
 			goBack(){
             this.$router.go(-1);
@@ -51,6 +65,20 @@
 			},
       onError(){
         this.$layer.msg('复制失败');
+      },
+      readCookie(name) {
+        let cookieValue = "";
+        let search = name + "=";
+        if(document.cookie.length > 0) {
+          let offset = document.cookie.indexOf(search);
+          if(offset != -1) {
+            offset += search.length;
+            let end = document.cookie.indexOf(";", offset);
+            if(end == -1) end = document.cookie.length;
+            cookieValue = unescape(document.cookie.substring(offset, end))
+          }
+        }
+        return cookieValue;
       }
 		}
 	}

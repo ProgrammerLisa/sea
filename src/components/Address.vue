@@ -4,26 +4,22 @@
       <div class="panel-body">
         <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
         收货地址
-        <router-link to="/modificationaddress" tag="span" class="copyreader"> <img src="../assets/images/copyreader.png"/></router-link>
       </div>
     </div>
     <div v-if="noAddress" class="addressNone">
       <img :src="addressNone"/>
       <p>一个地址都没有哦</p>
-      <div class="newAddress">
-        <router-link to="/newaddress" tag="div" class="newAddressBtn"><span class="glyphicon glyphicon-plus"></span> <span class="large">新建地址</span></router-link>
-      </div>
     </div>
     <table v-else class="table address" v-for="(a,index) in myAddress">
-      <tr><td class="text-left">收货人</td><td class="text-right">{{a.consignee}}</td></tr>
-      <tr><td class="text-left">联系电话</td><td class="text-right">{{a.phone}}</td></tr>
-      <tr><td class="text-left">收货地址</td><td class="text-right">{{a.address}}</td></tr>
+      <tr><td class="text-left">收货人</td><td class="text-right">{{a.msg.consignee}}</td></tr>
+      <tr><td class="text-left">联系电话</td><td class="text-right">{{a.msg.phone}}</td></tr>
+      <tr><td class="text-left">收货地址</td><td class="text-right">{{a.msg.address}}</td></tr>
       <tr>
 
         <td class="col-xs-6">
           <div @click="choose(index)">
             <div class="round">
-              <span class="defaultRound" v-if="a.is_default"></span>
+              <span class="defaultRound" v-if="a.msg.is_default"></span>
             </div>
             <span class="default">默认地址</span>
           </div>
@@ -38,7 +34,9 @@
         </td>
       </tr>
     </table>
-
+    <div class="newAddress">
+      <router-link to="/newaddress" tag="div" class="newAddressBtn"><span class="glyphicon glyphicon-plus"></span> <span class="large">新建地址</span></router-link>
+    </div>
 
   </div>
 </template>
@@ -47,16 +45,21 @@
   import addressNone from '@/assets/images/addressNone.png'
     export default {
       name: "Address",
+      inject:['reload'],
       data(){
         return{
           noAddress:'',
           addressNone:addressNone,
           myAddress:[],
           mobile:{
-            name:'',
-            phoneNumber:'',
-            address:'',
-            isdefault:''
+              id:'',
+              msg:{
+                name:'',
+                  phoneNumber:'',
+                address:'',
+                is_default:''
+              }
+
           }
         }
       },
@@ -74,7 +77,7 @@
         this.$http({
           method: "get",
           url: "/api/users/delivery_address",
-          headers:{"device":"android","uid":this.uid,"Access-Control-Allow-Origin":"*"},
+          headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
           data: {}
         }).then(function(res){
           if(res.data.code==0){
@@ -82,13 +85,24 @@
               this.noAddress = true
             }else {
               this.noAddress =  false;
-              // this.myAddress.push(
-              //   {name:res.data.data.consignee,phoneNumber:res.data.data.phone,address:res.data.data.address,isdefault:res.data.data.isdefault},
-              // )
+
               let myJson = res.data.data;
-              for(var p in myJson){//遍历json对象的每个key/value对,p为key
-                console.log(myJson[p]);
-                this.myAddress.push(myJson[p])
+              for(let p in myJson){//遍历json对象的每个key/value对,p为key
+
+                this.mobile.id = p;
+                this.mobile.msg = myJson[p];
+                this.myAddress.push(this.mobile);
+                this.mobile = {
+                    id:'',
+                      msg:{
+                      name:'',
+                        phoneNumber:'',
+                        address:'',
+                        is_default:''
+                    }
+
+                };
+
               }
             }
           }else {
@@ -110,13 +124,54 @@
           $(".default").eq(index).css({color:"#09A2D6"}).text("已设为默认地址")
         },
         editor(index){
+          let addressId = this.myAddress[index].id;
+          this.$router.push({
+            path: '/modificationaddress',
+            name: 'ModificationAddress',
+            params: {
+              name:'name',
+              dataObj:addressId
 
+            }
+
+          })
         },
         del(index){
-
+          this.$http({
+            method: "post",
+            url: "/api/users/delivery_address/delete",
+            headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
+            data: {
+              id:this.myAddress[index].id
+            }
+          }).then(function(res){
+            if(res.data.code==0){
+              this.$layer.msg(res.data.msg);
+              this.reload();
+            }else {
+              this.$layer.msg(res.data.msg);
+            }
+          }.bind(this))
+            .catch(function(err){
+              console.log(err)
+            }.bind(this))
         },
         goBack(){
           this.$router.go(-1);
+        },
+        readCookie(name) {
+          let cookieValue = "";
+          let search = name + "=";
+          if(document.cookie.length > 0) {
+            let offset = document.cookie.indexOf(search);
+            if(offset != -1) {
+              offset += search.length;
+              let end = document.cookie.indexOf(";", offset);
+              if(end == -1) end = document.cookie.length;
+              cookieValue = unescape(document.cookie.substring(offset, end))
+            }
+          }
+          return cookieValue;
         }
       }
     }
@@ -215,6 +270,7 @@
     background: #f5f5f5;
     width: 100%;
     padding: 1rem;
+    text-align: center;
   }
   .newAddressBtn{
     width: 90%;

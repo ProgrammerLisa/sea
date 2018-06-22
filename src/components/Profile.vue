@@ -96,12 +96,11 @@
           this.$http({
             method: "get",
             url: "/api/users/profile",
-            headers:{"device":"android","uid":this.uid,"Access-Control-Allow-Origin":"*"},
+            headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
             data: {}
           }).then(function(res){
             if(res.data.code==0){
-              console.log("个人信息===>>>103行"+res.data.data);
-              console.log(res.data.data);
+
               this.nickName = res.data.data.nickName;
               this.phone = res.data.data.phone;
             }else {
@@ -111,11 +110,26 @@
             .catch(function(err){
               console.log(err)
             }.bind(this))
+
       },
       methods:{
           changeBack(index){
             // $(".media").css({background:'#fff'});
 
+          },
+          readCookie(name) {
+            let cookieValue = "";
+            let search = name + "=";
+            if(document.cookie.length > 0) {
+              let offset = document.cookie.indexOf(search);
+              if(offset != -1) {
+                offset += search.length;
+                let end = document.cookie.indexOf(";", offset);
+                if(end == -1) end = document.cookie.length;
+                cookieValue = unescape(document.cookie.substring(offset, end))
+              }
+            }
+            return cookieValue;
           }
       }
     }

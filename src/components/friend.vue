@@ -7,7 +7,11 @@
           <router-link to="/addfriends" tag="span" class="addTo"> <img src="../assets/images/award.png"/></router-link>
         </div>
       </div>
-      <div class="media friends" v-for="f in friends">
+      <div v-if="noFriend" class="addressNone">
+        <img :src="noFriendImg"/>
+        <p>您还没有好友，去添加好友吧</p>
+      </div>
+      <div class="media friends" v-for="f in friends" v-else>
         <div class="media-left">
             <img class="media-object" :src="f.headPortrait"  alt="...">
         </div>
@@ -21,10 +25,13 @@
 
 <script>
     import headImg from '@/assets/images/friend.png'
+    import noFriendImg from '@/assets/images/myfriend.png'
     export default {
         name: "friend",
         data(){
           return{
+            noFriend:true,
+            noFriendImg:noFriendImg,
             friends:[
               {headPortrait:headImg,friendName:'小红花',friendId:'123456789',sex:'♀',bcColor:'background: #FC8484;'},
               {headPortrait:headImg,friendName:'小红花',friendId:'123456789',sex:'♂',bcColor:'background: #5CB3FC;'}
@@ -35,14 +42,10 @@
           this.$http({
             method: "get",
             url: "/api/users/friends/index",
-            headers:{"device":"android","uid":this.uid,"Access-Control-Allow-Origin":"*"},
+            headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
             data: {}
           }).then(function(res){
-            if(res.data.code==0){
-              console.log("好友列表===>>>42行"+res.data.data);
-              console.log(res.data.data);
-
-            }else {
+            if(res.data.code!=0){
               this.$layer.msg(res.data.msg);
             }
           }.bind(this))
@@ -53,6 +56,20 @@
         methods:{
           goBack(){
             this.$router.go(-1);
+          },
+          readCookie(name) {
+            let cookieValue = "";
+            let search = name + "=";
+            if(document.cookie.length > 0) {
+              let offset = document.cookie.indexOf(search);
+              if(offset != -1) {
+                offset += search.length;
+                let end = document.cookie.indexOf(";", offset);
+                if(end == -1) end = document.cookie.length;
+                cookieValue = unescape(document.cookie.substring(offset, end))
+              }
+            }
+            return cookieValue;
           }
         }
     }
@@ -123,5 +140,14 @@
     text-align: center;
     margin: 0 1rem ;
     vertical-align: top;
+  }
+  .addressNone{
+    text-align: center;
+    padding-top: 18vh;
+    color: #999;
+  }
+  .addressNone img{
+    width: 40%;
+    margin-bottom: 1rem;
   }
 </style>

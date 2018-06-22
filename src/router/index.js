@@ -26,7 +26,6 @@ import news from '@/components/news'
 import Reward from '@/components/Reward'
 import CommodityDetails from '@/components/CommodityDetails'
 import CommodityOrder from '@/components/CommodityOrder'
-import InviteCode from '@/components/InviteCode'
 
 
 import ModificationAddress from '@/components/ModificationAddress'
@@ -53,9 +52,16 @@ let defaultRouter;
 if(readCookie('uid')!=null&&readCookie('uid')!=undefined&&readCookie('uid')!=''){
   Vue.prototype.uid = readCookie('uid');
   defaultRouter = {
-    path: '/nav',
+    path: '/',
     meta:{index:0},
-    component: nav
+    component: nav,
+    children: [
+      {
+        path: '/',
+        meta:{index:1},
+        component: Home
+      }
+    ]
   }
 }else {
   defaultRouter = {
@@ -82,6 +88,7 @@ function readCookie(name) {
 export default new Router({
   routes: [
     defaultRouter,
+
     {
       path: '/nav',
       meta:{index:0},
@@ -248,12 +255,6 @@ export default new Router({
       name:'Compile',
       meta:{index:2},
       component: Compile
-    },
-    {
-      path:'/invitecode',
-      name:'InviteCode',
-      meta:{index:2},
-      component: InviteCode
     },
     {
       path:'/uploadheadImg',

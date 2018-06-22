@@ -12,7 +12,7 @@
 				<div style="padding: 45px 30px">
 					<div style="padding-top: 30px;">
 						<input style="font-size: 1.5rem;" v-on:change="show()" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
-						<button v-if="btnShow" @click="bnns" type="button" class="close" data-dismiss="modal" style="position: relative;top: -30px;">
+						<button v-if="btnShow" @click="bnns" type="button" class="close" data-dismiss="modal" style="position: absolute;top: 130px;right: 40px;">
             				<img src="../assets/images/x.png" />
          			 	</button>
 					</div>
@@ -21,7 +21,7 @@
 						<input style="font-size: 1.5rem;" v-on:change="verifshow()" id="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
 						<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxte}}</x-button>
 						</input>
-						<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 110px;">
+						<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="position: absolute;top: 195px;right: 130px;">
             				<img src="../assets/images/x.png" />
          			 	</button>
 					</div>
@@ -324,6 +324,19 @@
 </script>
 
 <style scoped>
+	input:-webkit-autofill,
+	textarea:-webkit-autofill,
+	select:-webkit-autofill {
+		-webkit-box-shadow: 0 0 0px 1000px #fff inset;
+	}
+	/*焦点时也加上，不加会出现黄色背景闪动一下*/
+	input[type=text]:focus,
+	input[type=password]:focus,
+	textarea:focus {
+		-webkit-box-shadow: 0 0 0 1000px white inset;
+	}	
+	
+	
 	#retrieve {
 		width: 100vw;
 		background: white;

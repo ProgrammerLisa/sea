@@ -6,9 +6,6 @@
 				<span style="margin-left: -20px; position: absolute; left: 50%; font-size: 1.8rem;">注 册</span>
 			</div>
 		</div>
-
-
-
 		<form id="form_register">
 			<div style="padding: 45px 30px">
 				<div style="padding-top: 3.5rem;">
@@ -26,7 +23,6 @@
 					<!--<span>@{{passwordValidate.errorText}}</span>-->
 					<img id="group_input_img" @click="Alt()" :src="imgs" />
 				</div>
-
 				<div style="padding-top: 30px;">
 					<input :type="typeis" style="font-size: 1.5rem;border-bottom: 0.1rem solid #F5F5F5;" v-model="passwordcheckModel" placeholder="请再次输入密码" maxlength="16" is-type="sendcode" id="btn"></input>
 					<!--<span>@{{passwordCheckValidate.errorText}}</span>-->
@@ -83,7 +79,7 @@
 				time: '',
 				form: {
 					phone: "",
-          invite_code: "",
+					invite_code: "",
 					passwordcheckModel: ""
 				}
 			}
@@ -158,7 +154,6 @@
 			},
 			userTrue() {
 				//注册
-
 				this.$http({
 						method: "post",
 						url: "/api/users/register/veryfy-sms-code",
@@ -184,8 +179,7 @@
 									data: {
 										phone: this.phone,
 										password: this.password,
-										//invite_code: this.invite_code//邀请人ID 测试阶段 暂时不传
-                    invite_code:'10000' //测试邀请码
+										invite_code: "10004"//邀请人ID 测试阶段 暂时不传
 									}
 								}).then(function(res) {
 									if(res.data.code == 0) {
@@ -214,13 +208,11 @@
 				//去获取验证手机号
 				var reg = /^1[3|4|5|7|8]\d{9}$/;
 				//				msg("result:" + this.$refs.mobile.valid);
-
 				if(reg.test(this.phone)) {
 					if(this.verify_code == "") {
 						this.$layer.msg("验证码不能为空");
 						return;
 					}
-
 					if(this.password == '') {
 						this.$layer.msg("密码不能为空");
 						return;
@@ -231,7 +223,7 @@
 					} else if(this.passwordcheckModel !== this.password) {
 						this.$layer.msg('两次密码不匹配');
 						return;
-					}else {
+					} else {
 						this.userTrue();
 					}
 				} else if(this.phone == '') {
@@ -344,6 +336,19 @@
 </script>
 
 <style scoped>
+	input:-webkit-autofill,
+	textarea:-webkit-autofill,
+	select:-webkit-autofill {
+		-webkit-box-shadow: 0 0 0px 1000px #fff inset;
+	}
+	/*焦点时也加上，不加会出现黄色背景闪动一下*/
+	input[type=text]:focus,
+	input[type=password]:focus,
+	textarea:focus {
+		-webkit-box-shadow: 0 0 0 1000px white inset;
+	}
+
+
 	#register {
 		height: 100vh;
 		width: 100vw;

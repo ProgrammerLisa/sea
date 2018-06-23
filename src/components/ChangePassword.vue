@@ -34,10 +34,11 @@
         <div class="prompt">
           <span>密码必须是8-16位，至少含数字、字母、字符2种组合</span>
         </div>
-        <div class="form-group submit">
-          <button class="btn submitBtn" @click="submitBtn">确 定</button>
-        </div>
+
       </form>
+      <div class="changePsw">
+        <button class="btn submitBtn" @click="changePsw">确 定</button>
+      </div>
     </div>
 </template>
 
@@ -48,14 +49,68 @@
           goBack(){
             this.$router.go(-1);
           },
-          submitBtn(){
+          changePsw(){
             if(!(/^1[3|4|5|8][0-9]\d{8}$/.test($('#phone').val()))){
               this.$layer.msg("请输入正确的手机号");
               $('#phone').focus();
-              return false;
-            }else if($('oldPsw'=='')){
+            }else if($('#oldPsw').val()==""||$('#oldPsw').val()==undefined||$('#oldPsw').val()==null){
+              this.$layer.msg("请输入原密码");
+              $('#oldPsw').focus();
+            }else if($('#newPsw').val()==""||$('#newPsw').val()==undefined||$('#newPsw').val()==null){
+              this.$layer.msg("请输入新密码");
+              $('#newPsw').focus();
+            }else if($('#oldPsw').val()==$('#newPsw2').val()){
+              this.$layer.msg("密码不能重复");
+              $('#newPsw2').focus();
+            }else if($('#newPsw2').val()==""||$('#newPsw2').val()==undefined||$('#newPsw2').val()==null){
+              this.$layer.msg("请输入新密码");
+              $('#newPsw2').focus();
+            }else if($('#newPsw').val()!=$('#newPsw2').val()){
+              this.$layer.msg("两次密码不一致，请重新输入");
+              $(" #newPsw").val("");
+              $('#newPsw2').val("");
+              $('#newPsw').focus();
+            }else {
+              this.$http({
+                method: 'post',
+                url: '/api/users/password_reset',
+                headers: {
+                  "device": "android",
+                  "uid":this.readCookie('uid')
+                },
+                data: {
+                  phone: $('#phone').val(),
+                  old_password: $('#oldPsw').val(),
+                  new_password:$('#newPsw').val()
+                }
+              }).then(function(res) {
+                if(res.data.code==0){
+                  this.$layer.msg(res.data.msg);
+                  this.$router.go(-1);
+                }else {
+                  this.$layer.msg(res.data.msg);
+                }
 
+
+              }.bind(this))
+                .catch(function(err) {
+                  console.log(err)
+                }.bind(this))
             }
+          },
+          readCookie(name) {
+            let cookieValue = "";
+            let search = name + "=";
+            if(document.cookie.length > 0) {
+              let offset = document.cookie.indexOf(search);
+              if(offset != -1) {
+                offset += search.length;
+                let end = document.cookie.indexOf(";", offset);
+                if(end == -1) end = document.cookie.length;
+                cookieValue = unescape(document.cookie.substring(offset, end))
+              }
+            }
+            return cookieValue;
           }
         }
     }
@@ -102,6 +157,9 @@
     border: none;
     box-shadow: none;
   }
+  input{
+    background: #fff;
+  }
   .control-label{
     font-size: 1.6rem;
     color: #555;
@@ -112,7 +170,7 @@
     padding: 1rem;
     background: #fff;
   }
-  .submit{
+  .changePsw{
     background: #f5f5f5;
     border: none;
     text-align: center;

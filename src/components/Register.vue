@@ -156,7 +156,7 @@
 				//注册
 				this.$http({
 						method: "post",
-						url: "/api/users/register/veryfy-sms-code",
+						url: "/api/users/register/verify-sms-code",
 						headers: {
 							"device": "android",
 							"Access-Control-Allow-Origin": "*"
@@ -179,7 +179,8 @@
 									data: {
 										phone: this.phone,
 										password: this.password,
-										invite_code: "10004"//邀请人ID 测试阶段 暂时不传
+                    verify_code:this.verify_code,
+										invite_code: "10000"//邀请人ID 测试阶段 暂时不传
 									}
 								}).then(function(res) {
 									if(res.data.code == 0) {

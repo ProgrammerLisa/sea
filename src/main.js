@@ -13,16 +13,16 @@ import 'vue-croppa/dist/vue-croppa.css'
 
 import router from './router'
 
-Vue.use(VueRouter)
-Vue.use(VueClipboard)
-Vue.use(Croppa)
+Vue.use(VueRouter);
+Vue.use(VueClipboard);
+Vue.use(Croppa);
 // Vue.use(VueResource)
 
-FastClick.attach(document.body)
+FastClick.attach(document.body);
 
 Vue.config.productionTip = false
 Vue.prototype.$layer = layer(Vue);
-Vue.prototype.$http= axios
+Vue.prototype.$http= axios;
 
 /* eslint-disable no-new */
 new Vue({

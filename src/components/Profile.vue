@@ -100,7 +100,7 @@
             data: {}
           }).then(function(res){
             if(res.data.code==0){
-
+              console.log(res.data.data)
               this.nickName = res.data.data.nickName;
               this.phone = res.data.data.phone;
             }else {

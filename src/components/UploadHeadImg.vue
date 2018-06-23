@@ -8,7 +8,7 @@
       <div class=" col-xs-6"><div class="mybtn" @click="submit">上传</div></div>
       <div class=" col-xs-6"><div class="mybtn" @click="goBack">取消</div></div>
     </div>
-
+<img src="" id="aaa">
   </div>
 
 </template>
@@ -26,7 +26,6 @@
     mounted(){
       this.imageSrc=this.$route.params.dataObj;
       this.houzhuiming=this.$route.params.houzhuiming;
-      console.log(this.houzhuiming)
     },
     methods:{
       goBack(){
@@ -37,6 +36,7 @@
           this.$layer.msg('请选择一张图片');
           return
         }else {
+
           this.myCroppa.generateBlob((blob) => {
 
 
@@ -48,14 +48,26 @@
                       "uid":this.readCookie('uid')
                   },
                   data:{
-                    imagedata: this.myCroppa.generateDataUrl(),
+                    imagedata:this.myCroppa.generateDataUrl().split(",")[1],
                     imagetype:this.houzhuiming
                   },
                   method: 'post',
                   processData: false,
                   contentType: false
               }).then(function(res){
-                if(res.data.code!=0){
+                if(res.data.code==0){
+                  this.$layer.msg(res.data.msg);
+                  $("#aaa").attr("src",res.data.avatar)
+
+                  // this.$router.push({
+                  //   path: '/compile',
+                  //   name: 'Compile',
+                  //   params: {
+                  //     name:'name',
+                  //     imgUrl:res.data.avatar
+                  //   }
+                  // })
+                }else {
                   this.$layer.msg(res.data.msg);
                 }
               }.bind(this))

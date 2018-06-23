@@ -6,6 +6,7 @@
           实名信息
           </div>
       </div>
+
       <table class="table">
         <tr  v-for="r in realName">
           <td class="text-left">{{r.title}}</td>
@@ -16,6 +17,7 @@
 </template>
 
 <script>
+
     export default {
         name: "RealName",
         data(){
@@ -73,9 +75,10 @@
     border-bottom: 0.1rem solid #f5f5f5;
   }
   .table td{
-    padding:1rem;
+    padding:1.5rem 1rem;
   }
   .text-left{
     color: #555;
   }
+
 </style>

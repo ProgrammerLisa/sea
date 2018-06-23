@@ -11,10 +11,10 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api':{
-        target:'http://192.168.10.110',//源地址
+        target:'http://47.104.161.100',//源地址
         changeOrigin:true,//是否跨域
         pathRewrite:{
-          '^/api':'http://192.168.10.110'//路径重写
+          '^/api':'http://47.104.161.100'//路径重写
         }
       }
     },

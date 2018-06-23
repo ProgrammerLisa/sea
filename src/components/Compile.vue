@@ -85,6 +85,9 @@
               houzhuiming:''
           }
         },
+        mounted(){
+          this.headImg=this.$route.params.imgUrl;
+        },
         methods:{
           goBack(){
             this.$router.go(-1);

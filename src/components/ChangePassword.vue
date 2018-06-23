@@ -117,6 +117,18 @@
 </script>
 
 <style scoped>
+	input:-webkit-autofill,
+	textarea:-webkit-autofill,
+	select:-webkit-autofill {
+		-webkit-box-shadow: 0 0 0px 1000px #fff inset;
+	}
+	/*焦点时也加上，不加会出现黄色背景闪动一下*/
+	input[type=text]:focus,
+	input[type=password]:focus,
+	textarea:focus {
+		-webkit-box-shadow: 0 0 0 1000px white inset;
+	}
+	
   .content{
     overflow-x: hidden;
     color: #666;

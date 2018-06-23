@@ -179,13 +179,13 @@
 									data: {
 										phone: this.phone,
 										password: this.password,
-                    verify_code:this.verify_code,
-										invite_code: "10000"//邀请人ID 测试阶段 暂时不传
+										invite_code: "10000",//邀请人ID 测试阶段 暂时不传
+										verify_code: this.verify_code
 									}
 								}).then(function(res) {
 									if(res.data.code == 0) {
 										this.$layer.msg('注册成功');
-										this.$router.replace('/Invite');
+										this.$router.replace('/ask');
 									} else {
 										this.$layer.msg(res.data.msg);
 									}

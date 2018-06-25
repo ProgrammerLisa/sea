@@ -3,7 +3,7 @@
       <div class="panel panel-default BlackTitle">
         <div class="panel-body">
           <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
-          重置密码
+         <span  style="margin-left: -36px; position: absolute; left: 50%; font-size: 1.8rem;">重置密码</span>
         </div>
       </div>
       <form class="form-horizontal">
@@ -173,7 +173,8 @@
     background: #fff;
   }
   .control-label{
-    font-size: 1.6rem;
+    font-size: 1.5rem;
+    top: 5.5px;
     color: #555;
   }
   .prompt{

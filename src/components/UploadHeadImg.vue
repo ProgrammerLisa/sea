@@ -49,7 +49,7 @@
                   },
                   data:{
                     imagedata:this.myCroppa.generateDataUrl().split(",")[1],
-                    imagetype:this.houzhuiming
+                    imagetype:"jpg"
                   },
                   method: 'post',
                   processData: false,

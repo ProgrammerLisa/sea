@@ -3,7 +3,7 @@
     <div class="panel panel-default BlackTitle">
       <div class="panel-body">
         <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
-        关于
+        <span style="margin-left: -20px; position: absolute; left: 50%; font-size: 1.8rem;">关 于</span>
       </div>
     </div>
     <div class="about">

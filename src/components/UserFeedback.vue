@@ -3,7 +3,7 @@
       <div class="panel panel-default BlackTitle">
         <div class="panel-body">
           <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
-          提意见
+          <span style="margin-left: -30px; position: absolute; left: 50%; font-size: 1.8rem;">提意见</span>
         </div>
       </div>
       <div class="text">

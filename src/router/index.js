@@ -13,7 +13,7 @@ import Shopping from '@/components/Shopping'
 import Personal from '@/components/Profile'
 
 import Register from '@/components/Register'
-import Retrieve from '@/components/Retrieve_password'
+import Retrieve from '@/components/RetrievePassword'
 import Ask from '@/components/Invite'
 
 import friend from '@/components/friend'

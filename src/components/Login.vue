@@ -291,48 +291,6 @@
 					this.$layer.msg('手机号码格式错误');
 				}
 			},
-			btnveif() {
-				event.preventDefault();
-				var reg = /^1[3|4|5|7|8]\d{9}$/;
-
-				if(reg.test(this.mobile)) {
-					if(this.verif == "") {
-						this.$layer.msg('验证码不能为空');
-						return;
-					} else {
-						this.$http({
-								method: 'post',
-								url: '/api/auth/login',
-								headers: {
-									"device": "android",
-									"Access-Control-Allow-Origin": "*"
-								},
-								data: {
-
-									phone: this.mobile,
-									verify_code: this.verif
-								}
-							}).then(function(res) {
-								console.log(res.data)
-								if(res.data.code == 0) {
-									this.$layer.msg('登录成功');
-									this.writeCookie('uid', res.data.data.uid, 10000000);
-									this.$router.replace('/home');
-								} else {
-									this.$layer.msg(res.data.msg);
-								}
-							}.bind(this))
-							.catch(function(err) {
-								console.log(err)
-							}.bind(this))
-					}
-				} else if(this.mobile == '') {
-					this.$layer.msg('手机号码不能为空');
-					return;
-				} else {
-					this.$layer.msg('手机号码格式错误');
-				}
-			},
 			//短信信息
 			SMS() {
 				event.preventDefault();
@@ -347,12 +305,13 @@
 				if(that.time == "") {
 					this.$http({
 							method: 'post',
-							url: '/api/auth/login',
+							url: '/api/auth/login/send-sms-code',
 							headers: {
 								"device": "android",
 								"Access-Control-Allow-Origin": "*"
 							},
 							data: {
+								by: "sms",
 								phone: this.mobile
 							}
 						}).then(function(res) {
@@ -380,6 +339,48 @@
 							clearInterval(TimeReduction1);
 						}
 					}, 1000)
+				}
+			},
+			btnveif() {
+				event.preventDefault();
+				var reg = /^1[3|4|5|7|8]\d{9}$/;
+
+				if(reg.test(this.mobile)) {
+					if(this.verif == "") {
+						this.$layer.msg('验证码不能为空');
+						return;
+					} else {
+						this.$http({
+								method: 'post',
+								url: '/api/auth/login',
+								headers: {
+									"device": "android",
+									"Access-Control-Allow-Origin": "*"
+								},
+								data: {
+									by: "sms",
+									phone: this.mobile,
+									verify_code: this.verif
+								}
+							}).then(function(res) {
+								console.log(res.data)
+								if(res.data.code == 0) {
+									this.$layer.msg('登录成功');
+									this.writeCookie('uid', res.data.data.uid, 10000000);
+									this.$router.replace('/home');
+								} else {
+									this.$layer.msg(res.data.msg);
+								}
+							}.bind(this))
+							.catch(function(err) {
+								console.log(err)
+							}.bind(this))
+					}
+				} else if(this.mobile == '') {
+					this.$layer.msg('手机号码不能为空');
+					return;
+				} else {
+					this.$layer.msg('手机号码格式错误');
 				}
 			},
 			writeCookie(name, value, hours) {

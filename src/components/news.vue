@@ -6,7 +6,12 @@
         消息
       </div>
     </div>
-    <div class="media" v-for="n in news">
+    <div v-if="newsNone" class="newsNone">
+      <img :src="newsNoneImg"/>
+      <p>暂时还没有消息哦</p>
+    </div>
+
+    <div class="media" v-for="n in news" v-else>
       <div class="media-left">
           <img class="media-object" :src="n.img">
       </div>
@@ -21,10 +26,13 @@
 
 <script>
     import friend from '@/assets/images/friend.png'
+    import newsNoneImg from '@/assets/images/nomessage.png'
     export default {
         name: "news",
         data(){
           return{
+            newsNone:true,
+            newsNoneImg:newsNoneImg,
             news:[
               {img:friend,title:'星海行动',content:'今天任务还没做完，赶紧去做任务领',time:'6小时前'},
               {img:friend,title:'星海行动',content:'今天任务还没做完，赶紧去做任务领',time:'6小时前'},
@@ -46,6 +54,7 @@
     color: #666;
     padding-bottom: 6rem;
     background-color: #f5f5f5;
+    width: 100vw;
   }
 
   .panel{
@@ -94,5 +103,14 @@
     font-size: xx-small;
     margin-right: 1rem;
     color: #777;
+  }
+  .newsNone{
+    text-align: center;
+    padding-top: 18vh;
+    color: #999;
+  }
+  .newsNone img{
+    width: 40%;
+    margin-bottom: 1rem;
   }
 </style>

@@ -31,7 +31,7 @@
       <img src="../assets/images/yaoqinghaoyou.png"  class="invitation-friends"/>
       <p>邀请好友</p>
     </router-link>
-    <div v-for="(m,index) in imgDiv" :class="m.divClass" @click.once="accumulative(index)">
+    <div v-for="(m,index) in imgDiv" :class="m.divClass" @click.once="flag && accumulative($event)">
       <img v-bind:style="m.style" :src="m.href"/>
     </div>
 
@@ -80,6 +80,7 @@ export default {
     return{
       imgSum:0,
       imgSrc:backGround,
+      flag:true,
       hengshesha:[henghesha1,henghesha2,henghesha3,henghesha4,henghesha5,henghesha6,henghesha7,henghesha8,henghesha9],
       imgDiv:[
         {imgCount:1,href:shell,divClass:'',animation:'',level:1},
@@ -169,44 +170,49 @@ export default {
         });
       });
     },
-    accumulative(index){
-      const that = this;
-      switch (that.imgDiv[index].level)
-      {
-        case 1:
-          that.imgDiv[index].animation=that.hengshesha;
-          break;
-        case 2:
-          that.imgDiv[index].animation=that.hengshesha;
-          break;
-        case 3:
-          that.imgDiv[index].animation=that.hengshesha;
-          break;
-        case 4:
-          that.imgDiv[index].animation=that.hengshesha;
-          break;
-        case 5:
-          that.imgDiv[index].animation=that.hengshesha;
-          break;
-      }
-      $(".float-container"+index+">img").remove();
-      $(".float-container"+index).css({padding:0,background:'transparent'});
-      for(let i=0;i<that.imgDiv[index].animation.length;i++){
-        $(".float-container"+index).append('<img class="flash flash'+i+'" src="'+that.imgDiv[index].animation[i]+'"/>');
-        $(".flash"+i).css({display:'none',width:'100%'});
-        (function(i){
-          setTimeout(function(){
-            $(".flash"+i).show().siblings().hide();
-          },i*200);
-        })(i);
-      }
-      that.imgSum+=that.imgDiv[index].imgCount;
-      setTimeout(function(){
-        $(".float-container"+index).remove();
-        that.delCookie('float-container-left-' + index);
-        that.delCookie('float-container-top-' + index);
-      },2500);
-
+    accumulative(e){
+      console.log(e.target)
+      // const that = this;
+      // if($(".float-container"+index+">img").hasClass('flash')){
+      //   console.log(111)
+      // }else {
+      //   console.log(222)
+      // }
+      // switch (that.imgDiv[index].level)
+      // {
+      //   case 1:
+      //     that.imgDiv[index].animation=that.hengshesha;
+      //     break;
+      //   case 2:
+      //     that.imgDiv[index].animation=that.hengshesha;
+      //     break;
+      //   case 3:
+      //     that.imgDiv[index].animation=that.hengshesha;
+      //     break;
+      //   case 4:
+      //     that.imgDiv[index].animation=that.hengshesha;
+      //     break;
+      //   case 5:
+      //     that.imgDiv[index].animation=that.hengshesha;
+      //     break;
+      // }
+      // $(".float-container"+index+">img").remove();
+      // $(".float-container"+index).css({padding:0,background:'transparent'});
+      // for(let i=0;i<that.imgDiv[index].animation.length;i++){
+      //     $(".float-container"+index).append('<img class="flash flash'+i+'" src="'+that.imgDiv[index].animation[i]+'"/>');
+      //     $(".flash"+i).css({display:'none',width:'100%'});
+      //     (function(i){
+      //       setTimeout(function(){
+      //         $(".flash"+i).show().siblings().hide();
+      //       },i*200);
+      //     })(i);
+      // }
+      // that.imgSum+=that.imgDiv[index].imgCount;
+      // setTimeout(function(){
+      //   $(".float-container"+index).remove();
+      //   that.delCookie('float-container-left-' + index);
+      //   that.delCookie('float-container-top-' + index);
+      // },2500);
     },
     writeCookie(name, value, hours) {
       var expire = "";

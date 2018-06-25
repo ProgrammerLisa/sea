@@ -6,7 +6,13 @@
        我的订单
      </div>
    </div>
-   <div class="media" v-for="(goods,index) in commodity">
+   <div v-if="OrderNone" class="OrderNone">
+     <img :src="OrderNoneImg"/>
+     <p>还没有订单哦</p>
+     <router-link to="/shopping" tag="span" class="goShopping">去逛逛</router-link>
+   </div>
+
+   <div v-else class="media" v-for="(goods,index) in commodity">
      <div>
        <div class="media-left">
          <img class="media-object" :src="goods.commodityImg" alt="...">
@@ -33,10 +39,14 @@
 
 <script>
     import commodityImg from '@/assets/images/bg.png'
+    import OrderNoneImg from '@/assets/images/noorder.png'
+
     export default {
         name: "CommodityOrder",
         data(){
           return{
+            OrderNone:true,
+            OrderNoneImg:OrderNoneImg,
             commodity:[
               {
                 commodityImg:commodityImg,
@@ -100,6 +110,7 @@
     color: #666;
     background: #f5f5f5;
     padding-bottom: 6rem;
+    width: 100vw;
   }
 
   .panel{
@@ -160,5 +171,22 @@
     border-radius: 0;
     background: #09a2d6;
     color: #fff;
+  }
+  .OrderNone{
+    text-align: center;
+    padding-top: 18vh;
+    color: #999;
+  }
+  .OrderNone img{
+    width: 40%;
+    margin-bottom: 1rem;
+  }
+  .goShopping{
+    text-align: center;
+    background: #09a2d6;
+    color: #fff;
+    padding: 0.5rem 3rem;
+    display: inline-block;
+    margin-top: 1.5rem;
   }
 </style>

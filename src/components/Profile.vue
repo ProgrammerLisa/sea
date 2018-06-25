@@ -79,12 +79,12 @@
             phone:'',
             Personal:[
               {title:'我的好友',PersonalHref:'friend',imfLeft:friend},
-              {title:'我的邀请者',PersonalHref:'',imfLeft:inviter,noRouter:true,myInvite:651478},
+              {title:'我的邀请者',PersonalHref:'',imfLeft:inviter,noRouter:true,myInvite:''},
               {title:'邀请奖励',PersonalHref:'reward',imfLeft:award},
               {title:'邀请码',PersonalHref:'ask',imfLeft:invite},
               {title:'商城订单',PersonalHref:'commodityorder',imfLeft:indent},
               {title:'收货地址',PersonalHref:'address',imfLeft:address},
-              {title:'客服中心',PersonalHref:'service',imfLeft:service},
+              {title:'客服中心',PersonalHref:'wechatservice',imfLeft:service},
               {title:'账户设置',PersonalHref:'setting',imfLeft:setting}
             ],
             headPortrait:headImg,
@@ -92,7 +92,6 @@
           }
       },
       mounted(){
-          $('.media-right').eq(1).html(this.Personal[1].myInvite).css({'verticalAlign':'middle','paddingRight':'1rem','color':'#999'});
           this.$http({
             method: "get",
             url: "/api/users/profile",
@@ -100,17 +99,35 @@
             data: {}
           }).then(function(res){
             if(res.data.code==0){
-              console.log(res.data.data)
+              console.log(res.data.data);
               this.nickName = res.data.data.nickName;
               this.phone = res.data.data.phone;
+              this.headPortrait = res.data.data.avatar
             }else {
               this.$layer.msg(res.data.msg);
             }
           }.bind(this))
             .catch(function(err){
               console.log(err)
-            }.bind(this))
+            }.bind(this));
 
+        this.$http({
+          method: "post",
+          url: "/api/users/my-invite-code",
+          headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
+          data: {}
+        }).then(function(res){
+          if(res.data.code==0){
+            this.Personal[1].myInvite = res.data.my_invite_code;
+            $('.media-right').eq(1).html(this.Personal[1].myInvite).css({'verticalAlign':'middle','paddingRight':'1rem','color':'#999'});
+
+          }else {
+            this.$layer.msg(res.data.msg);
+          }
+        }.bind(this))
+          .catch(function(err){
+            console.log(err)
+          }.bind(this))
       },
       methods:{
           changeBack(index){

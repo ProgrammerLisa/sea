@@ -41,6 +41,7 @@ import AddFriends from '@/components/AddFriends'
 import NewAddress from '@/components/NewAddress'
 import Compile from '@/components/Compile'
 import UploadHeadImg from '@/components/UploadHeadImg'
+import WechatService from '@/components/WechatService'
 
 
 
@@ -166,6 +167,13 @@ export default new Router({
       meta:{index:2},
       component: Service
     },
+    {
+      path:'/wechatservice',
+      name:'WechatService',
+      meta:{index:2},
+      component: WechatService
+    },
+
     {
       path:'/setting',
       name:'Setting',

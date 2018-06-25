@@ -6,8 +6,31 @@
           实名信息
           </div>
       </div>
+      <div v-if="inputbox">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label for="number" class="col-xs-3 control-label">身份证号</label>
+            <div class="col-xs-9">
+              <input type="text" class="form-control" id="number" placeholder="请输入本人身份证号">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="name" class="col-xs-3 control-label">真实姓名</label>
+            <div class="col-xs-9">
+              <input type="text" class="form-control" id="name" placeholder="请输入真实姓名">
+            </div>
+          </div>
 
-      <table class="table">
+          <div class="prompt">
+            <span>请填写正确信息以确保交易无误</span>
+          </div>
+
+        </form>
+        <div class="changePsw">
+          <button class="btn submitBtn" @click="submit">确 定</button>
+        </div>
+      </div>
+      <table v-else class="table">
         <tr  v-for="r in realName">
           <td class="text-left">{{r.title}}</td>
           <td class="text-right">{{r.content}}</td>
@@ -22,16 +45,87 @@
         name: "RealName",
         data(){
           return{
+            inputbox:false,
             realName:[
               {title:'姓名',content:'**默'},
               {title:'身份证号',content:'3413*************5676'},
-              {title:'手机号',content:'1366666666666'}
+              {title:'手机号',content:''}
             ]
           }
+        },
+        mounted(){
+          this.$http({
+            method: "get",
+            url: "/api/users/profile",
+            headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
+            data: {}
+          }).then(function(res){
+            if(res.data.code==0){
+              console.log(res.data.data);
+              if(!res.data.data.is_idverification){
+                this.inputbox = true
+              }else {
+                this.realName[2].content = res.data.data.phone
+              }
+            }else {
+              this.$layer.msg(res.data.msg);
+            }
+          }.bind(this))
+            .catch(function(err){
+              console.log(err)
+            }.bind(this));
+
         },
         methods:{
           goBack(){
             this.$router.go(-1);
+          },
+          submit(){
+            let regIdNo = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+            let regName =/^[\u4e00-\u9fa5]{2,4}$/;
+            if(!regIdNo.test($("#number").val())){
+              this.$layer.msg("身份证号填写有误");
+              return false;
+            }else if(!regName.test($("#name").val())){
+              this.$layer.msg("真实姓名填写有误");
+              return false;
+            }else {
+              this.$http({
+                method: "post",
+                url: "/api/users/identity-verification",
+                headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
+                data: {
+                  card_num:$("#number").val(),
+                  real_name:$("#name").val()
+                }
+              }).then(function(res){
+                if(res.data.code==0){
+                  this.$layer.msg(res.data.msg);
+                  this.inputbox=false;
+                  this.$router.go(-1);
+                }else {
+                  this.$layer.msg(res.data.msg);
+                }
+              }.bind(this))
+                .catch(function(err){
+                  console.log(err)
+                }.bind(this));
+
+            }
+          },
+          readCookie(name) {
+            let cookieValue = "";
+            let search = name + "=";
+            if(document.cookie.length > 0) {
+              let offset = document.cookie.indexOf(search);
+              if(offset != -1) {
+                offset += search.length;
+                let end = document.cookie.indexOf(";", offset);
+                if(end == -1) end = document.cookie.length;
+                cookieValue = unescape(document.cookie.substring(offset, end))
+              }
+            }
+            return cookieValue;
           }
         }
     }
@@ -80,5 +174,41 @@
   .text-left{
     color: #555;
   }
-
+  .form-group{
+    padding:0.8rem 1rem;
+    border-bottom: 0.1rem solid #eee;
+    background: #fff;
+    margin-bottom: 0;
+  }
+  .form-control{
+    outline: none;
+    border: none;
+    box-shadow: none;
+  }
+  input{
+    background: #fff;
+  }
+  .control-label{
+    font-size: 1.6rem;
+    color: #555;
+  }
+  .prompt{
+    font-size: smaller;
+    color: #09a2d6;
+    padding: 1rem;
+    background: #fff;
+  }
+  .changePsw{
+    background: #f5f5f5;
+    border: none;
+    text-align: center;
+  }
+  .submitBtn{
+    background: #09a2d6;
+    color: #fff;
+    width: 92%;
+    font-size: large;
+    margin-top: 2.5rem;
+    border-radius: 0;
+  }
 </style>

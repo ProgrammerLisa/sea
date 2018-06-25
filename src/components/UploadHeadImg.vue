@@ -57,16 +57,8 @@
               }).then(function(res){
                 if(res.data.code==0){
                   this.$layer.msg(res.data.msg);
-                  $("#aaa").attr("src",res.data.avatar)
+                  this.$router.go(-1);
 
-                  // this.$router.push({
-                  //   path: '/compile',
-                  //   name: 'Compile',
-                  //   params: {
-                  //     name:'name',
-                  //     imgUrl:res.data.avatar
-                  //   }
-                  // })
                 }else {
                   this.$layer.msg(res.data.msg);
                 }

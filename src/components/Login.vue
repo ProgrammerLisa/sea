@@ -307,7 +307,7 @@
 									"Access-Control-Allow-Origin": "*"
 								},
 								data: {
-
+                  by:'sms',
 									phone: this.mobile,
 									verify_code: this.verif
 								}
@@ -346,13 +346,14 @@
 				if(that.time == "") {
 					this.$http({
 							method: 'post',
-							url: '/api/auth/login',
+							url: '/api/auth/login/send-sms-code',
 							headers: {
 								"device": "android",
 								"Access-Control-Allow-Origin": "*"
 							},
 							data: {
-								phone: this.mobile
+								phone: this.mobile,
+                by:'sms'
 							}
 						}).then(function(res) {
 							if(res.data.code == 0) {

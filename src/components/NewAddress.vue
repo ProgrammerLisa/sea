@@ -59,7 +59,7 @@
         }else {
           this.$http({
             method: "post",
-            url: "/api/users/delivery_address/add",
+            url: "/users/delivery_address/add",
             headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
             data: {
               consignee:$("#name").val(),

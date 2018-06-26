@@ -62,7 +62,7 @@
         mounted(){
           this.$http({
             method: "get",
-            url: "/api/users/profile",
+            url: "/users/profile",
             headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
             data: {}
           }).then(function(res){
@@ -98,7 +98,7 @@
             }else {
               this.$http({
                 method: "post",
-                url: "/api/users/identity-verification",
+                url: "/users/identity-verification",
                 headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
                 data: {
                   card_num:$("#number").val(),

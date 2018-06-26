@@ -183,7 +183,7 @@
 
 				this.$http({
 						method: "post",
-						url: "/api/users/password_forget2",
+						url: "/users/password_forget2",
 						data: {
 							phone: this.mobile,
 							verify_code: this.verif,
@@ -253,7 +253,7 @@
 				if(that.time == "") {
 					this.$http({
 							method: 'post',
-							url: '/api/users/password_forget1',
+							url: '/users/password_forget1',
 							data: {
 								phone: this.mobile
 							}

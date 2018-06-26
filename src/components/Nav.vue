@@ -79,7 +79,7 @@
 
       this.$http({
         method: 'get',
-        url: '/api/users/profile',
+        url: '/users/profile',
         headers:{"device":"android","uid":that.uid,"Access-Control-Allow-Origin":"*"},
         data: {}
       }).then(function(res){

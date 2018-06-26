@@ -41,7 +41,7 @@
 
 
               this.$http({
-                url: '/api/users/avatar-upload',
+                url: '/users/avatar-upload',
                   headers: {
                     "device": "android",
                       "Access-Control-Allow-Origin": "*",

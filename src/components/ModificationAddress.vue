@@ -64,7 +64,7 @@
             }else {
               this.$http({
                 method: "post",
-                url: "/api/users/delivery_address/edit",
+                url: "/users/delivery_address/edit",
                 headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
                 data: {
                   id:this.addressTd,

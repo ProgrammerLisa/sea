@@ -94,7 +94,7 @@
       mounted(){
           this.$http({
             method: "get",
-            url: "/api/users/profile",
+            url: "/users/profile",
             headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
             data: {}
           }).then(function(res){
@@ -113,7 +113,7 @@
 
         this.$http({
           method: "post",
-          url: "/api/users/my-invite-code",
+          url: "/users/my-invite-code",
           headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
           data: {}
         }).then(function(res){

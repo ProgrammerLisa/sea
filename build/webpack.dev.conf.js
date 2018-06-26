@@ -76,3 +76,13 @@ module.exports = new Promise((resolve, reject) => {
     }
   })
 })
+
+//build/webpack.dev.conf.js
+new webpack.DefinePlugin({
+  'process.env': config.dev.env
+})
+
+//build/webpack.prod.conf.js
+new webpack.DefinePlugin({
+  'process.env': config.build.env
+})

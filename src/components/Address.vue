@@ -76,7 +76,7 @@
       mounted(){
         this.$http({
           method: "get",
-          url: "/api/users/delivery_address",
+          url: "/users/delivery_address",
           headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
           data: {}
         }).then(function(res){
@@ -161,24 +161,6 @@
 
           });
 
-          // this.$http({
-          //   method: "post",
-          //   url: "/api/users/delivery_address/delete",
-          //   headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
-          //   data: {
-          //     id:this.myAddress[index].id
-          //   }
-          // }).then(function(res){
-          //   if(res.data.code==0){
-          //     this.$layer.msg(res.data.msg);
-          //     this.reload();
-          //   }else {
-          //     this.$layer.msg(res.data.msg);
-          //   }
-          // }.bind(this))
-          //   .catch(function(err){
-          //     console.log(err)
-          //   }.bind(this))
         },
         goBack(){
           this.$router.go(-1);

@@ -41,7 +41,7 @@
         mounted(){
           this.$http({
             method: "get",
-            url: "/api/users/friends/index",
+            url: "/users/friends/index",
             headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
             data: {}
           }).then(function(res){

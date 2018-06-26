@@ -3,7 +3,7 @@
     <div class="panel panel-default BlackTitle">
       <div class="panel-body">
         <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
-        客服中心
+        <span style="margin-left: -37px; position: absolute; left: 50%; font-size: 1.8rem;">客服中心</span>
       </div>
     </div>
 
@@ -74,12 +74,18 @@
     height: 2.5rem;
   }
   .netNone{
+  	top: 7rem;
+  	padding-bottom: 6vh;
     text-align: center;
-    padding-top: 18vh;
-    color: #999;
+    padding-top: 6vh;
+    position: relative;
+    width: 60%;
+    height: 50%;
+    background-color: #FFFFFF;
+    left: 20%;
   }
   .netNone img{
-    width: 40%;
+    width: 50%;
     margin-bottom: 1rem;
   }
   .service{

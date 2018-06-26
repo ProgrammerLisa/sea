@@ -19,9 +19,9 @@
 		<form v-if="isShow">
 			<div style="padding: 45px 30px;">
 				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
-					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: absolute;top: 210px;right: 40px;">
+					<!--<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: absolute;top: 210px;right: 40px;">
            			  <img src="../assets/images/x.png" />
-          			</button>
+          			</button>-->
 					<input class="phone" ref="mobile" v-on:change="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" required/>
 
 				</div>
@@ -51,9 +51,9 @@
 			<div style="padding: 45px 30px;">
 				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 					<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
-					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: absolute;top: 210px;right: 40px;">
+					<!--<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: absolute;top: 210px;right: 40px;">
             			<img src="../assets/images/x.png" />
-         			 </button>
+         			 </button>-->
 				</div>
 
 				<div id="div_ipwd">
@@ -259,7 +259,7 @@
 						//axios post 请求
 						this.$http({
 								method: 'post',
-								url: '/api/auth/login',
+								url: '/auth/login',
 								headers: {
                   "device": "android"
 								},
@@ -304,7 +304,7 @@
 				if(that.time == "") {
 					this.$http({
 							method: 'post',
-							url: '/api/auth/login/send-sms-code',
+							url: '/auth/login/send-sms-code',
 							headers: {
 								"device": "android",
 								"Access-Control-Allow-Origin": "*"
@@ -351,7 +351,7 @@
 					} else {
 						this.$http({
 								method: 'post',
-								url: '/api/auth/login',
+								url: '/auth/login',
 								headers: {
 									"device": "android",
 									"Access-Control-Allow-Origin": "*"

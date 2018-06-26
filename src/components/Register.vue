@@ -156,7 +156,7 @@
 				//注册
 				this.$http({
 						method: "post",
-						url: "/api/users/register/verify-sms-code",
+						url: "/users/register/verify-sms-code",
 						headers: {
 							"device": "android",
 							"Access-Control-Allow-Origin": "*"
@@ -171,7 +171,7 @@
 						if(res.data.code == 0) {
 							this.$http({
 									method: "post",
-									url: "/api/users/register",
+									url: "/users/register",
 									headers: {
 										"device": "android",
 										"Access-Control-Allow-Origin": "*"
@@ -262,7 +262,7 @@
 				if(that.time == "") {
 					this.$http({
 							method: 'post',
-							url: '/api/users/register/send-sms-code',
+							url: '/users/register/send-sms-code',
 							headers: {
 								"device": "android",
 								"Access-Control-Allow-Origin": "*"

@@ -73,7 +73,7 @@
             }else {
               this.$http({
                 method: 'post',
-                url: '/api/users/password_reset',
+                url: '/users/password_reset',
                 headers: {
                   "device": "android",
                   "uid":this.readCookie('uid')

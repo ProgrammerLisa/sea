@@ -93,7 +93,7 @@
     mounted: function(){
       this.$http({
         method: "get",
-        url: "/api/users/profile",
+        url: "/users/profile",
         headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
         data: {}
       }).then(function(res){
@@ -152,7 +152,7 @@
           this.isDisabled = true;
           this.$http({
             method: "post",
-            url: "/api/users/profile/edit",
+            url: "/users/profile/edit",
             headers: {
               "device": "android",
               "uid":this.readCookie('uid'),

@@ -259,7 +259,7 @@
 						//axios post 请求
 						this.$http({
 								method: 'post',
-								url: '/api/auth/login',
+								url: '/auth/login',
 								headers: {
                   "device": "android"
 								},
@@ -304,7 +304,7 @@
 				if(that.time == "") {
 					this.$http({
 							method: 'post',
-							url: '/api/auth/login/send-sms-code',
+							url: '/auth/login/send-sms-code',
 							headers: {
 								"device": "android",
 								"Access-Control-Allow-Origin": "*"
@@ -351,7 +351,7 @@
 					} else {
 						this.$http({
 								method: 'post',
-								url: '/api/auth/login',
+								url: '/auth/login',
 								headers: {
 									"device": "android",
 									"Access-Control-Allow-Origin": "*"

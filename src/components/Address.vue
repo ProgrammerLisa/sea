@@ -76,7 +76,7 @@
       mounted(){
         this.$http({
           method: "get",
-          url: "/api/users/delivery_address",
+          url: "/users/delivery_address",
           headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
           data: {}
         }).then(function(res){
@@ -139,7 +139,7 @@
         del(index){
           this.$http({
             method: "post",
-            url: "/api/users/delivery_address/delete",
+            url: "/users/delivery_address/delete",
             headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
             data: {
               id:this.myAddress[index].id

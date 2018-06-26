@@ -6,23 +6,30 @@
         <span style="margin-left: -37px; position: absolute; left: 50%; font-size: 1.8rem;">客服中心</span>
       </div>
     </div>
-	    <div v-if="netNone" class="netNone">
-	    	<p class="back2">客服时间</p>
-	    	<p class="back3">工作日 9:00-21:00</p>
-	    	<p class="back4">如有问题请长按识别联系客服</p>
-	      <img :src="netNoneImg"/>
-	    </div>
+
+    <div v-if="netNone" class="netNone">
+      <img :src="netNoneImg"/>
+      <p>暂时还没有消息哦</p>
+    </div>
+    <div v-else class="service">
+      <h4 class="serviceTitle">客服时间</h4>
+      <p class="serviceTime">工作日 9:00-21:00</p>
+      <p class="servicePrompt">如有问题请长按识别联系客服</p>
+      <img :src="wechatservice"/>
+    </div>
   </div>
 </template>
 
 <script>
-    import netNoneImg from '@/assets/images/erweima.png'
+    import netNoneImg from '@/assets/images/network.png'
+    import wechatservice from '@/assets/images/wechatservice.png'
     export default {
         name: "WechatService",
         data(){
           return{
-            netNone:true,
-            netNoneImg:netNoneImg
+            netNone:false,
+            netNoneImg:netNoneImg,
+            wechatservice:wechatservice
           }
         },
         mounted(){
@@ -44,7 +51,6 @@
     background-color: #f5f5f5;
     width: 100%;
   }
-
   .panel{
     border:none;
     border-radius: 0;
@@ -82,15 +88,22 @@
     width: 50%;
     margin-bottom: 1rem;
   }
-  .back2{
-  	color: #323232;
-  	font-size: 1.5rem;
+  .service{
+    background: #fff;
+    width: 70%;
+    padding: 2rem;
+    text-align: center;
+    margin: auto;
+    margin-top:15vh;
   }
-  .back3{
-  	color: #09A2D6;
-  	font-size: 1.5rem;
+  .service img{
+    width: 70%;
   }
-  .back4{
-  	color: #323232;
+  .serviceTitle{
+    color: #333;
+  }
+  .serviceTime{
+    color: #09a2d6;
+    font-size: larger;
   }
 </style>

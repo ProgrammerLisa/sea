@@ -12,26 +12,26 @@
 				<div style="padding: 45px 30px">
 					<div style="padding-top: 30px;">
 						<input style="font-size: 1.5rem;" v-on:change="show()" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
-						<button v-if="btnShow" @click="bnns" type="button" class="close" data-dismiss="modal" style="position: absolute;top: 130px;right: 40px;">
+						<!--<button v-if="btnShow" @click="bnns" type="button" class="close" data-dismiss="modal" style="position: absolute;top: 130px;right: 40px;">
             				<img src="../assets/images/x.png" />
-         			 	</button>
+         			 	</button>-->
 					</div>
 
 					<div style="padding-top: 30px;display: inline-table; width: 100%;">
 						<input style="font-size: 1.5rem;" v-on:change="verifshow()" id="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
 						<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxte}}</x-button>
 						</input>
-						<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="position: absolute;top: 195px;right: 130px;">
+						<!--<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="position: absolute;top: 195px;right: 130px;">
             				<img src="../assets/images/x.png" />
-         			 	</button>
+         			 	</button>-->
 					</div>
 
 					<div style="padding-top: 30px;">
 						<input id="passwordModel_image" v-on:change="ipwdshow()" :type="types" style="font-size: 1.5rem;" v-model="passwordModel" placeholder="请输入新密码" maxlength="16" is-type="sendcode" calss="btns"></input>
 						<img id="group_input_img" @click="Alt()" :src="imgs" />
-						<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;">
+						<!--<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;">
           			  		<img src="../assets/images/x.png" />
-          				</button>
+          				</button>-->
 						<!--<span>@{{passwordValidate.errorText}}</span>-->
 					</div>
 					<div align="center" style="margin-top: 50px;">

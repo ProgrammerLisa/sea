@@ -19,9 +19,9 @@
 		<form v-if="isShow">
 			<div style="padding: 45px 30px;">
 				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
-					<!--<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: absolute;top: 210px;right: 40px;">
-           			  <img src="../assets/images/x.png" />
-          			</button>-->
+					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: -5px;right: 7%;">
+           			  <img src="../assets/images/x.png" style="position:absolute;"/>
+          			</button>
 					<input class="phone" ref="mobile" v-on:change="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" required/>
 
 				</div>
@@ -51,17 +51,17 @@
 			<div style="padding: 45px 30px;">
 				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 					<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
-					<!--<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: absolute;top: 210px;right: 40px;">
-            			<img src="../assets/images/x.png" />
-         			 </button>-->
+					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 7%;">
+            			<img src="../assets/images/x.png" style="position: absolute;"/>
+         			 </button>
 				</div>
 
 				<div id="div_ipwd">
 					<input id="verifica" v-on:change="verifshow()" v-model="verif" maxlength="4" placeholder="请输入短信验证码" />
 					<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</x-button>
-					<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 110px;">
-            			<img src="../assets/images/x.png" />
-          			</button>
+					<!--<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 120px;">
+            			<img src="../assets/images/x.png" style="position: relative;"/>
+          			</button>-->
 				</div>
 
 				<div class="hyperlink">
@@ -366,7 +366,7 @@
 								if(res.data.code == 0) {
 									this.$layer.msg('登录成功');
 									this.writeCookie('uid', res.data.data.uid, 10000000);
-									this.$router.replace('/home');
+									this.$router.replace('/AskCode');
 								} else {
 									this.$layer.msg(res.data.msg);
 								}

@@ -3,7 +3,7 @@
       <div class="panel panel-default BlackTitle">
         <div class="panel-body">
           <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
-          实名信息
+          <span style="margin-left: -32px; position: absolute; left: 50%; font-size: 1.6rem;">实名信息</span>
         </div>
       </div>
       <div class="attestation">
@@ -226,7 +226,7 @@
   .img-back{
   	position: absolute;
   	margin-top: 13rem;
-  	right: 11.5rem;
+  	right: 40%;
   	color: #646464;
   }
 </style>

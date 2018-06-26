@@ -15,6 +15,7 @@ import Personal from '@/components/Profile'
 import Register from '@/components/Register'
 import Retrieve from '@/components/RetrievePassword'
 import Ask from '@/components/Invite'
+import AskCode from '@/components/RegisterInviteCode'
 
 import friend from '@/components/friend'
 import address from '@/components/Address'
@@ -281,6 +282,11 @@ export default new Router({
       name:'PreOrder',
       meta:{index:3},
       component: PreOrder
+    },{
+    	path:'/AskCode',
+    	name:'AskCode',
+    	meta:{index:3},
+    	component: AskCode
     }
 
   ]

@@ -137,24 +137,48 @@
           })
         },
         del(index){
-          this.$http({
-            method: "post",
-            url: "/api/users/delivery_address/delete",
-            headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
-            data: {
-              id:this.myAddress[index].id
-            }
-          }).then(function(res){
-            if(res.data.code==0){
-              this.$layer.msg(res.data.msg);
-              this.reload();
-            }else {
-              this.$layer.msg(res.data.msg);
-            }
-          }.bind(this))
-            .catch(function(err){
-              console.log(err)
-            }.bind(this))
+            let that = this;
+            this.$layer.confirm("确认要删除吗，删除后不能恢复", { title: "删除确认" }, function (c) {
+              $(".vl-notify").remove();
+              that.$http({
+                method: "post",
+                url: "/api/users/delivery_address/delete",
+                headers: {"device": "android", "uid": that.readCookie('uid'), "Access-Control-Allow-Origin": "*"},
+                data: {
+                  id: that.myAddress[index].id
+                }
+              }).then(function(res){
+                if(res.data.code==0){
+                  that.$layer.msg(res.data.msg);
+                  that.reload();
+                }else {
+                  that.$layer.msg(res.data.msg);
+                }
+              }.bind(this))
+                .catch(function(err){
+                  console.log(err)
+                }.bind(this))
+
+          });
+
+          // this.$http({
+          //   method: "post",
+          //   url: "/api/users/delivery_address/delete",
+          //   headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
+          //   data: {
+          //     id:this.myAddress[index].id
+          //   }
+          // }).then(function(res){
+          //   if(res.data.code==0){
+          //     this.$layer.msg(res.data.msg);
+          //     this.reload();
+          //   }else {
+          //     this.$layer.msg(res.data.msg);
+          //   }
+          // }.bind(this))
+          //   .catch(function(err){
+          //     console.log(err)
+          //   }.bind(this))
         },
         goBack(){
           this.$router.go(-1);

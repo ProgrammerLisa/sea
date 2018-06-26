@@ -11,17 +11,25 @@
       <img :src="netNoneImg"/>
       <p>暂时还没有消息哦</p>
     </div>
+    <div v-else class="service">
+      <h4 class="serviceTitle">客服时间</h4>
+      <p class="serviceTime">工作日 9:00-21:00</p>
+      <p class="servicePrompt">如有问题请长按识别联系客服</p>
+      <img :src="wechatservice"/>
+    </div>
   </div>
 </template>
 
 <script>
     import netNoneImg from '@/assets/images/network.png'
+    import wechatservice from '@/assets/images/wechatservice.png'
     export default {
         name: "WechatService",
         data(){
           return{
-            netNone:true,
-            netNoneImg:netNoneImg
+            netNone:false,
+            netNoneImg:netNoneImg,
+            wechatservice:wechatservice
           }
         },
         mounted(){
@@ -43,7 +51,6 @@
     background-color: #f5f5f5;
     width: 100%;
   }
-
   .panel{
     border:none;
     border-radius: 0;
@@ -74,5 +81,23 @@
   .netNone img{
     width: 40%;
     margin-bottom: 1rem;
+  }
+  .service{
+    background: #fff;
+    width: 70%;
+    padding: 2rem;
+    text-align: center;
+    margin: auto;
+    margin-top:15vh;
+  }
+  .service img{
+    width: 70%;
+  }
+  .serviceTitle{
+    color: #333;
+  }
+  .serviceTime{
+    color: #09a2d6;
+    font-size: larger;
   }
 </style>

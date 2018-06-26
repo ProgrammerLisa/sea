@@ -22,7 +22,14 @@ FastClick.attach(document.body);
 
 Vue.config.productionTip = false
 Vue.prototype.$layer = layer(Vue);
-Vue.prototype.$http= axios;
+// Vue.prototype.$http= axios;
+const host = process.env.NODE_ENV === 'development' ? 'dev api host' : 'prod api host' // 根据 process.env.NODE_ENV 的值判断当前是什么环境
+const instance = axios.create({
+  baseURL: host
+})
+
+Vue.prototype.$http = instance
+
 
 /* eslint-disable no-new */
 new Vue({

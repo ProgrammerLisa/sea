@@ -31,8 +31,8 @@
       <img src="../assets/images/yaoqinghaoyou.png"  class="invitation-friends"/>
       <p>邀请好友</p>
     </router-link>
-    <div v-for="(m,index) in imgDiv" :class="m.divClass" @click.once="flag && accumulative($event)">
-      <img v-bind:style="m.style" :src="m.href"/>
+    <div v-for="(m,index) in imgDiv" :class="m.divClass" :data-level="m.level" @click.once="flag && accumulative($event,index)">
+      <img v-bind:style="m.style" :src="m.href" />
     </div>
 
 
@@ -170,49 +170,52 @@ export default {
         });
       });
     },
-    accumulative(e){
-      console.log(e.target)
-      // const that = this;
-      // if($(".float-container"+index+">img").hasClass('flash')){
-      //   console.log(111)
-      // }else {
-      //   console.log(222)
-      // }
-      // switch (that.imgDiv[index].level)
-      // {
-      //   case 1:
-      //     that.imgDiv[index].animation=that.hengshesha;
-      //     break;
-      //   case 2:
-      //     that.imgDiv[index].animation=that.hengshesha;
-      //     break;
-      //   case 3:
-      //     that.imgDiv[index].animation=that.hengshesha;
-      //     break;
-      //   case 4:
-      //     that.imgDiv[index].animation=that.hengshesha;
-      //     break;
-      //   case 5:
-      //     that.imgDiv[index].animation=that.hengshesha;
-      //     break;
-      // }
-      // $(".float-container"+index+">img").remove();
-      // $(".float-container"+index).css({padding:0,background:'transparent'});
-      // for(let i=0;i<that.imgDiv[index].animation.length;i++){
-      //     $(".float-container"+index).append('<img class="flash flash'+i+'" src="'+that.imgDiv[index].animation[i]+'"/>');
-      //     $(".flash"+i).css({display:'none',width:'100%'});
-      //     (function(i){
-      //       setTimeout(function(){
-      //         $(".flash"+i).show().siblings().hide();
-      //       },i*200);
-      //     })(i);
-      // }
-      // that.imgSum+=that.imgDiv[index].imgCount;
-      // setTimeout(function(){
-      //   $(".float-container"+index).remove();
-      //   that.delCookie('float-container-left-' + index);
-      //   that.delCookie('float-container-top-' + index);
-      // },2500);
+    animation(e,arr){
+      e.currentTarget.style.background = "transparent";
+      e.currentTarget.style.padding = "0";
+      for(let i in arr){
+        (function(i){
+          setTimeout(function(){
+            e.target.src = arr[i];
+          },i*200);
+        })(i);
+      }
+    },
+    accumulative(e,index){
+      let that = this;
+      let imgArr=[];
+      switch (parseInt(e.currentTarget.dataset.level))
+      {
+        case 1:
+          imgArr=this.hengshesha;
+          this.animation(e,imgArr);
+
+          break;
+        case 2:
+          imgArr=this.hengshesha;
+          this.animation(e,imgArr)
+          break;
+        case 3:
+          imgArr=this.hengshesha;
+          this.animation(e,imgArr)
+          break;
+        case 4:
+          imgArr=this.hengshesha;
+          this.animation(e,imgArr)
+          break;
+        case 5:
+          imgArr=this.hengshesha;
+          this.animation(e,imgArr)
+          break;
+      }
+
+      this.imgSum+=this.imgDiv[index].imgCount;
+      let divSelf = e.currentTarget;
+      setTimeout(function(){
+        divSelf.remove();
+        that.delCookie('float-container-left-' + index);
+        that.delCookie('float-container-top-' + index);
+      },2500);
     },
     writeCookie(name, value, hours) {
       var expire = "";
@@ -317,7 +320,7 @@ export default {
   .option4-Icon span{
     font-size: 2.5rem;
   }
-  .float-container0, .float-container1, .float-container2, .float-container3 {
+  .float-container {
     width: 4.2rem;
     height: 4.2rem;
     border-radius: 50%;

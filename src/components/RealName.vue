@@ -4,7 +4,13 @@
         <div class="panel-body">
           <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
           实名信息
-          </div>
+        </div>
+      </div>
+      <div class="attestation">
+      	<div class="panel-img">
+      		<img src="../assets/images/renzheng.png" />
+      		<span class="img-back">已认证成功</span>
+      	</div>
       </div>
       <div v-if="inputbox">
         <form class="form-horizontal">
@@ -152,9 +158,10 @@
     letter-spacing: 0.05rem;
     color: #555;
     font-size: 1.6rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0rem;
     height: 4.1rem;
     line-height: 4.1rem;
+    border-bottom: 1px solid #f5f5f5;
   }
   .back{
     float: left;
@@ -210,5 +217,16 @@
     font-size: large;
     margin-top: 2.5rem;
     border-radius: 0;
+  }
+  .panel-img{
+  	background: #fff;
+  	text-align: center;
+  	padding-bottom:4rem;
+  }
+  .img-back{
+  	position: absolute;
+  	margin-top: 13rem;
+  	right: 11.5rem;
+  	color: #646464;
   }
 </style>

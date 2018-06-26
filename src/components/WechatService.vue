@@ -3,19 +3,20 @@
     <div class="panel panel-default BlackTitle">
       <div class="panel-body">
         <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
-        客服中心
+        <span style="margin-left: -37px; position: absolute; left: 50%; font-size: 1.8rem;">客服中心</span>
       </div>
     </div>
-
-    <div v-if="netNone" class="netNone">
-      <img :src="netNoneImg"/>
-      <p>暂时还没有消息哦</p>
-    </div>
+	    <div v-if="netNone" class="netNone">
+	    	<p class="back2">客服时间</p>
+	    	<p class="back3">工作日 9:00-21:00</p>
+	    	<p class="back4">如有问题请长按识别联系客服</p>
+	      <img :src="netNoneImg"/>
+	    </div>
   </div>
 </template>
 
 <script>
-    import netNoneImg from '@/assets/images/network.png'
+    import netNoneImg from '@/assets/images/erweima.png'
     export default {
         name: "WechatService",
         data(){
@@ -67,12 +68,29 @@
     height: 2.5rem;
   }
   .netNone{
+  	top: 7rem;
+  	padding-bottom: 6vh;
     text-align: center;
-    padding-top: 18vh;
-    color: #999;
+    padding-top: 6vh;
+    position: relative;
+    width: 60%;
+    height: 50%;
+    background-color: #FFFFFF;
+    left: 20%;
   }
   .netNone img{
-    width: 40%;
+    width: 50%;
     margin-bottom: 1rem;
+  }
+  .back2{
+  	color: #323232;
+  	font-size: 1.5rem;
+  }
+  .back3{
+  	color: #09A2D6;
+  	font-size: 1.5rem;
+  }
+  .back4{
+  	color: #323232;
   }
 </style>

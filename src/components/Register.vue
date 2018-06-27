@@ -15,7 +15,6 @@
 				<div style="padding-top: 30px; display: inline-table; width: 100%;">
 					<input id="verification" name="verification" maxlength="4" v-model="verify_code" placeholder="请输入短信验证码">
 					<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
-
 				</div>
 
 				<div style="padding-top: 30px;">
@@ -47,6 +46,10 @@
 
 	//	sessionStorage.setItem("key","获取验证码");
 	//	localStorage.setItem("site","js8.in");
+
+	sessionStorage.setItem("phone", this.phone);
+	sessionStorage.setItem("password", this.password);
+	sessionStorage.setItem("verify_code", this.verify_code);
 
 	export default {
 		name: "register",
@@ -154,6 +157,10 @@
 			},
 			userTrue() {
 				//注册
+				sessionStorage.setItem('phone', this.phone);
+				sessionStorage.setItem("password", this.password);
+				sessionStorage.setItem("verify_code", this.verify_code);
+				//alert(sessionStorage.phone+" , "+sessionStorage.password+" , "+sessionStorage.verify_code);
 				this.$http({
 						method: "post",
 						url: "/users/register/verify-sms-code",
@@ -169,37 +176,22 @@
 						}
 					}).then(function(res) {
 						if(res.data.code == 0) {
-							this.$http({
-									method: "post",
-									url: "/users/register",
-									headers: {
-										"device": "android",
-										"Access-Control-Allow-Origin": "*"
-									},
-									data: {
-										phone: this.phone,
-										password: this.password,
-										invite_code: "10000",//邀请人ID 测试阶段 暂时不传
-										verify_code: this.verify_code
-									}
-								}).then(function(res) {
-									if(res.data.code == 0) {
-										this.$layer.msg('注册成功');
-										this.$router.replace('/ask');
-									} else {
-										this.$layer.msg(res.data.msg);
-									}
-								}.bind(this))
-								.catch(function(err) {
-									console.log(err)
-								}.bind(this))
+							//this.$layer.msg('注册成功');
+							this.$router.replace('/AskCode');
 						} else {
 							this.$layer.msg(res.data.msg);
 						}
+						//								}.bind(this))
+						//								.catch(function(err) {
+						//									console.log(err)
+						//								}.bind(this))
+						//						} else {
+						//							this.$layer.msg(res.data.msg);
+						//						}
 					}.bind(this))
 					.catch(function(err) {
 						console.log(err);
-            this.$layer.msg('验证码错误');
+						this.$layer.msg('验证码错误');
 					}.bind(this))
 			},
 
@@ -218,8 +210,12 @@
 						this.$layer.msg("密码不能为空");
 						return;
 					}
-					if(!/^[0-9A-Za-z]{6,15}$/.test(this.passwordcheckModel)) {
-						this.$layer.msg('密码少于6位');
+					if(this.passwordcheckModel == '') {
+						this.$layer.msg("确认密码不能为空");
+						return;
+					}
+					if(!/^[0-9A-Za-z]{6,15}$/.test(this.password)) {
+						this.$layer.msg('密码至少6-16位');
 						return;
 					} else if(this.passwordcheckModel !== this.password) {
 						this.$layer.msg('两次密码不匹配');
@@ -296,9 +292,11 @@
 						.catch(function(err) {
 							console.log(err)
 						}.bind(this))
-
 				}
 			}
+
+
+
 		}
 	}
 
@@ -314,12 +312,12 @@
 		-webkit-box-shadow: 0 0 0px 1000px #fff inset;
 	}
 	/*焦点时也加上，不加会出现黄色背景闪动一下*/
+
 	input[type=text]:focus,
 	input[type=password]:focus,
 	textarea:focus {
 		-webkit-box-shadow: 0 0 0 1000px white inset;
 	}
-
 
 	#register {
 		height: 100vh;

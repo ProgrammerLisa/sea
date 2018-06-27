@@ -2,8 +2,8 @@
   <div class="contentMain">
     <div id="main-top">
 
-     <div id="notice" style="height: 2rem;">
-    		<marquee style="vertical-align: middle; line-height: 2rem;" scrollamount="5" scrolldelay="1"><span>公告:亲爱的用户，平台momomo即将上线，敬请期待。</span></marquee>
+     <div id="notice" style="height: 2.5rem;">
+    		<marquee style="vertical-align: middle; line-height: 2.5rem;" scrollamount="5" scrolldelay="1"><span style="font-size: 1.5rem;">公告:亲爱的用户，平台momomo即将上线，敬请期待。</span></marquee>
      </div>
      <div class="topOption option1">
         <span >珍珠量 {{imgSum}}</span>
@@ -273,7 +273,7 @@ export default {
     background-size: 100% 100%;
     color: white;
     height: 65vh;
-    border-top: 1px solid transparent;
+    border-top: 1px solid #68b4f6;
   }
   .topOption{
     position: absolute;

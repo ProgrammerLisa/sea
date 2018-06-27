@@ -12,26 +12,26 @@
 				<div style="padding: 45px 30px">
 					<div style="padding-top: 30px;">
 						<input style="font-size: 1.5rem;" v-on:change="show()" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
-						<button v-if="btnShow" @click="bnns" type="button" class="close" data-dismiss="modal" style="position: absolute;top: 130px;right: 40px;">
+						<!--<button v-if="btnShow" @click="bnns" type="button" class="close" data-dismiss="modal" style="position: absolute;top: 130px;right: 40px;">
             				<img src="../assets/images/x.png" />
-         			 	</button>
+         			 	</button>-->
 					</div>
 
 					<div style="padding-top: 30px;display: inline-table; width: 100%;">
 						<input style="font-size: 1.5rem;" v-on:change="verifshow()" id="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
 						<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxte}}</x-button>
 						</input>
-						<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="position: absolute;top: 195px;right: 130px;">
+						<!--<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="position: absolute;top: 195px;right: 130px;">
             				<img src="../assets/images/x.png" />
-         			 	</button>
+         			 	</button>-->
 					</div>
 
 					<div style="padding-top: 30px;">
 						<input id="passwordModel_image" v-on:change="ipwdshow()" :type="types" style="font-size: 1.5rem;" v-model="passwordModel" placeholder="请输入新密码" maxlength="16" is-type="sendcode" calss="btns"></input>
 						<img id="group_input_img" @click="Alt()" :src="imgs" />
-						<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;">
+						<!--<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;">
           			  		<img src="../assets/images/x.png" />
-          				</button>
+          				</button>-->
 						<!--<span>@{{passwordValidate.errorText}}</span>-->
 					</div>
 					<div align="center" style="margin-top: 50px;">
@@ -260,6 +260,22 @@
 						}).then(function(res) {
 							if(res.data.code == 0) {
 								this.$layer.msg(res.data.msg);
+								that.time = 10;
+
+								var TimeReduction1 = setInterval(function() {
+									if(that.time > 0) {
+                    localStorage.setItem(Verificationtimen, that.time);
+										that.time--;
+										that.btntxte = that.time + "s";
+										that.disabled = true;
+									} else {
+										that.time = 0;
+										that.btntxte = "获取验证码";
+										that.disabled = false;
+                    localStorage.removeItem(Verificationtimen);
+										clearInterval(TimeReduction1);
+									}
+								}, 1000)
 							} else {
 								this.$layer.msg(res.data.msg);
 							}
@@ -267,22 +283,6 @@
 						.catch(function(err) {
 							console.log(err)
 						}.bind(this))
-					that.time = 10;
-
-					var TimeReduction1 = setInterval(function() {
-						if(that.time > 0) {
-							localStorage.setItem(Verificationtimen, that.time);
-							that.time--;
-							that.btntxte = that.time + "s";
-							that.disabled = true;
-						} else {
-							that.time = 0;
-							that.btntxte = "获取验证码";
-							that.disabled = false;
-							localStorage.removeItem(Verificationtimen);
-							clearInterval(TimeReduction1);
-						}
-					}, 1000)
 				}
 			}
 		}
@@ -300,13 +300,12 @@
 		-webkit-box-shadow: 0 0 0px 1000px #fff inset;
 	}
 	/*焦点时也加上，不加会出现黄色背景闪动一下*/
+
 	input[type=text]:focus,
 	input[type=password]:focus,
 	textarea:focus {
 		-webkit-box-shadow: 0 0 0 1000px white inset;
 	}
-
-
 	#retrieve {
 		width: 100vw;
 		background: white;

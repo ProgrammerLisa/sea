@@ -3,14 +3,12 @@
       <div class="panel panel-default BlackTitle">
         <div class="panel-body">
           <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
-          实名信息
+          <span style="margin-left: -32px; position: absolute; left: 50%; font-size: 1.6rem;">实名信息</span>
         </div>
       </div>
-      <div class="attestation">
-      	<div class="panel-img">
-      		<img src="../assets/images/renzheng.png" />
-      		<span class="img-back">已认证成功</span>
-      	</div>
+      <div v-if="succeed " class="addressNone">
+        <img :src="succeedImg"/>
+        <p>已认证成功</p>
       </div>
       <div v-if="inputbox">
         <form class="form-horizontal">
@@ -46,12 +44,14 @@
 </template>
 
 <script>
-
+import succeedImg from '@/assets/images/renzheng.png'
     export default {
         name: "RealName",
         data(){
           return{
             inputbox:false,
+            succeed :true,
+            succeedImg:succeedImg,
             realName:[
               {title:'姓名',content:'**默'},
               {title:'身份证号',content:'3413*************5676'},
@@ -207,14 +207,15 @@
     margin-top: 2.5rem;
     border-radius: 0;
   }
-  .panel-img{
-  	background: #fff;
-  	text-align: center;
-
+   .addressNone{
+    text-align: center;
+    padding: 5vh;
+    color: #999;
+    background-color: #FFFFFF;
   }
-  .img-back{
-    display: block;
-  	color: #999;
-    padding: 2rem;
+
+  .addressNone img{
+    width: 40%;
+    margin-bottom:1rem;
   }
 </style>

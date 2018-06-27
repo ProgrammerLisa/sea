@@ -75,7 +75,6 @@
 				</div>
 			</div>
 		</form>
-
 	</div>
 
 </template>
@@ -126,11 +125,11 @@
 			});
 
 			var Verificationtime = Verificationtime;
-			that.time = that.readCookie(Verificationtime);
+			that.time = localStorage.getItem(Verificationtime);
 			if(that.time != "") {
 				var TimeReduction2 = setInterval(function() {
 					if(that.time > 0) {
-						that.writeCookie(Verificationtime, that.time);
+            localStorage.setItem(Verificationtime, that.time);
 						that.time--;
 						that.btntxt = that.time + "s";
 						that.disabled = true;
@@ -138,7 +137,7 @@
 						that.time = 0;
 						that.btntxt = "获取验证码";
 						that.disabled = false;
-						that.delCookie(Verificationtime);
+            localStorage.removeItem(Verificationtime);
 						clearInterval(TimeReduction2);
 					}
 				}, 1000)
@@ -244,6 +243,7 @@
 					this.disabled = false;
 				}
 			},
+
 			submitData() {
 				//去获取验证手机号
 				event.preventDefault();
@@ -269,10 +269,9 @@
 									password: this.inppwd
 								}
 							}).then(function(res) {
-								console.log(res.data)
 								if(res.data.code == 0) {
 									this.$layer.msg('登录成功');
-									this.writeCookie('uid', res.data.data.uid, 10000000);
+                  localStorage.setItem("uid", res.data.data.uid);
 									this.$router.replace('/home');
 								} else {
 									this.$layer.msg(res.data.msg);
@@ -300,7 +299,7 @@
 				var Verificationtime = Verificationtime;
 
 				this.disabled = true;
-				that.time = that.readCookie(Verificationtime);
+				that.time =  localStorage.getItem(Verificationtime);
 				if(that.time == "") {
 					this.$http({
 							method: 'post',
@@ -316,6 +315,21 @@
 						}).then(function(res) {
 							if(res.data.code == 0) {
 								this.$layer.msg(res.data.msg);
+                that.time = 60;
+                var TimeReduction1 = setInterval(function() {
+                  if(that.time > 0) {
+                    localStorage.setItem(Verificationtime, that.time);
+                    that.time--;
+                    that.btntxt = that.time + "s";
+                    that.disabled = true;
+                  } else {
+                    that.time = 0;
+                    that.btntxt = "获取验证码";
+                    that.disabled = false;
+                    localStorage.removeItem(Verificationtime);
+                    clearInterval(TimeReduction1);
+                  }
+                }, 1000)
 							} else {
 								this.$layer.msg(res.data.msg);
 							}
@@ -323,21 +337,7 @@
 						.catch(function(err) {
 							console.log(err)
 						}.bind(this))
-					that.time = 10;
-					var TimeReduction1 = setInterval(function() {
-						if(that.time > 0) {
-							that.writeCookie(Verificationtime, that.time);
-							that.time--;
-							that.btntxt = that.time + "s";
-							that.disabled = true;
-						} else {
-							that.time = 0;
-							that.btntxt = "获取验证码";
-							that.disabled = false;
-							that.delCookie(Verificationtime);
-							clearInterval(TimeReduction1);
-						}
-					}, 1000)
+
 				}
 			},
 			btnveif() {
@@ -365,7 +365,7 @@
 								console.log(res.data)
 								if(res.data.code == 0) {
 									this.$layer.msg('登录成功');
-									this.writeCookie('uid', res.data.data.uid, 10000000);
+                  localStorage.setItem("uid", res.data.data.uid);
 									this.$router.replace('/home');
 								} else {
 									this.$layer.msg(res.data.msg);
@@ -381,37 +381,8 @@
 				} else {
 					this.$layer.msg('手机号码格式错误');
 				}
-			},
-			writeCookie(name, value, hours) {
-				var expire = "";
-				hours = hours || 100;
-				if(hours != null) {
-					expire = new Date((new Date()).getTime() + hours * 1000);
-					expire = "; expires=" + expire.toGMTString();
-				}
-				document.cookie = name + "=" + escape(value) + expire;
-			},
-			readCookie(name) {
-				var cookieValue = "";
-				var search = name + "=";
-				if(document.cookie.length > 0) {
-					var offset = document.cookie.indexOf(search);
-					if(offset != -1) {
-						offset += search.length;
-						var end = document.cookie.indexOf(";", offset);
-						if(end == -1) end = document.cookie.length;
-						cookieValue = unescape(document.cookie.substring(offset, end))
-					}
-				}
-				return cookieValue;
-			},
-			delCookie(name) {
-				var exp = new Date();
-				exp.setTime(exp.getTime() - 1);
-				var cval = this.readCookie(name);
-				if(cval != null)
-					document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 			}
+
 		}
 	}
 </script>

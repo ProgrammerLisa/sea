@@ -87,11 +87,11 @@
 
 			})
 			var Verificationtimen = Verificationtimen;
-			that.time = that.readCookie(Verificationtimen);
+			that.time = localStorage.getItem(Verificationtimen);
 			if(that.time != "") {
 				var TimeReduction2 = setInterval(function() {
 					if(that.time > 0) {
-						that.writeCookie(Verificationtimen, that.time);
+						localStorage.setItem(Verificationtimen, that.time);
 						that.time--;
 						that.btntxte = that.time + "s";
 						that.disabled = true;
@@ -99,7 +99,7 @@
 						that.time = 0;
 						that.btntxte = "获取验证码";
 						that.disabled = false;
-						that.delCookie(Verificationtimen);
+						localStorage.removeItem(Verificationtimen);
 						clearInterval(TimeReduction2);
 					}
 				}, 1000)
@@ -183,7 +183,7 @@
 
 				this.$http({
 						method: "post",
-						url: "/api/users/password_forget2",
+						url: "/users/password_forget2",
 						data: {
 							phone: this.mobile,
 							verify_code: this.verif,
@@ -249,11 +249,11 @@
 				event.preventDefault();
 				const that = this;
 				var Verificationtimen = Verificationtimen;
-				that.time = that.readCookie(Verificationtimen);
+				that.time = localStorage.getItem(Verificationtimen);
 				if(that.time == "") {
 					this.$http({
 							method: 'post',
-							url: '/api/users/password_forget1',
+							url: '/users/password_forget1',
 							data: {
 								phone: this.mobile
 							}
@@ -271,7 +271,7 @@
 
 					var TimeReduction1 = setInterval(function() {
 						if(that.time > 0) {
-							that.writeCookie(Verificationtimen, that.time);
+							localStorage.setItem(Verificationtimen, that.time);
 							that.time--;
 							that.btntxte = that.time + "s";
 							that.disabled = true;
@@ -279,41 +279,11 @@
 							that.time = 0;
 							that.btntxte = "获取验证码";
 							that.disabled = false;
-							that.delCookie(Verificationtimen);
+							localStorage.removeItem(Verificationtimen);
 							clearInterval(TimeReduction1);
 						}
 					}, 1000)
 				}
-			},
-			writeCookie(name, value, hours) {
-				var expire = "";
-				hours = hours || 100;
-				if(hours != null) {
-					expire = new Date((new Date()).getTime() + hours * 1000);
-					expire = "; expires=" + expire.toGMTString();
-				}
-				document.cookie = name + "=" + escape(value) + expire;
-			},
-			readCookie(name) {
-				var cookieValue = "";
-				var search = name + "=";
-				if(document.cookie.length > 0) {
-					var offset = document.cookie.indexOf(search);
-					if(offset != -1) {
-						offset += search.length;
-						var end = document.cookie.indexOf(";", offset);
-						if(end == -1) end = document.cookie.length;
-						cookieValue = unescape(document.cookie.substring(offset, end))
-					}
-				}
-				return cookieValue;
-			},
-			delCookie(name) {
-				var exp = new Date();
-				exp.setTime(exp.getTime() - 1);
-				var cval = this.readCookie(name);
-				if(cval != null)
-					document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 			}
 		}
 	}
@@ -334,19 +304,19 @@
 	input[type=password]:focus,
 	textarea:focus {
 		-webkit-box-shadow: 0 0 0 1000px white inset;
-	}	
-	
-	
+	}
+
+
 	#retrieve {
 		width: 100vw;
 		background: white;
 		height: 100vh;
 	}
-	
+
 	span {
 		font-size: 10px;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -357,37 +327,37 @@
 		line-height: 4.1rem;
 		border: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
-	
+
 	i.weui-icon.weui_icon_clear.weui-icon-clear {
 		display: none;
 	}
-	
+
 	#group_input_img {
 		position: relative;
 		margin-top: -55px;
 		float: right;
 	}
-	
+
 	a {
 		color: #09a2d6;
 	}
-	
+
 	body {
 		background-color: white;
 	}
-	
+
 	#phone {
 		border-top: 0;
 		border-left: 0;
@@ -400,12 +370,12 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-	
+
 	#phone,
 	#verification {
 		font-size: 1rem;
 	}
-	
+
 	#verification {
 		border-top: 0;
 		border-left: 0;
@@ -418,7 +388,7 @@
 		outline: none;
 		letter-spacing: 0.05rem;
 	}
-	
+
 	#passwordModel_image {
 		border-top: 0;
 		border-left: 0;
@@ -431,32 +401,32 @@
 		outline: none;
 		letter-spacing: 0.05rem;
 	}
-	
+
 	#pwsbtn {
 		background-color: #09A2D6;
 	}
-	
+
 	#pwsbtn:disabled {
 		background: #C0C0C0;
 	}
-	
+
 	#pwsbtn:active {
 		background-color: #09A2D6;
 	}
-	
+
 	.btns {
 		color: #7CCD7C;
 		border: 0px;
 	}
-	
+
 	body>.el-container {
 		margin-bottom: 40px;
 	}
-	
+
 	.weui-cells {
 		border: 0px;
 	}
-	
+
 	#verbtn {
 		position: relative;
 		margin-top: -47px;
@@ -471,19 +441,19 @@
 		border-radius: 0;
 		border: none;
 	}
-	
+
 	.weui-btn {
 		border-radius: 0;
 	}
-	
+
 	.weui-btn:after {
 		border: none
 	}
-	
+
 	#pwsbtn {
 		width: 100%;
 	}
-	
+
 	button#pwsbtn.weui-btn.weui-btn_primary {
 		width: 100%;
 	}

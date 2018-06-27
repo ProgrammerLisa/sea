@@ -57,9 +57,8 @@
             that.navItem[0].imgSrc1=that.navItem[0].imgSrc2;
             that.navItem[0].titleStyle='color:#09a2d6';
           }
-        })
+        });
 
-        that.uid = that.readCookie('uid');
       //判断手机类型
       let ua = navigator.userAgent.toLowerCase();
       //android终端
@@ -79,8 +78,8 @@
 
       this.$http({
         method: 'get',
-        url: '/api/users/profile',
-        headers:{"device":"android","uid":that.uid,"Access-Control-Allow-Origin":"*"},
+        url: '/users/profile',
+        headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
         data: {}
       }).then(function(res){
         if(res.data.code==0){
@@ -104,21 +103,7 @@
         }
         that.navItem[index].imgSrc1 = that.navItem[index].imgSrc2;
         that.navItem[index].titleStyle='color:#09a2d6'
-      },
-      readCookie(name) {
-        var cookieValue = "";
-        var search = name + "=";
-        if(document.cookie.length > 0) {
-          var offset = document.cookie.indexOf(search);
-          if(offset != -1) {
-            offset += search.length;
-            var end = document.cookie.indexOf(";", offset);
-            if(end == -1) end = document.cookie.length;
-            cookieValue = unescape(document.cookie.substring(offset, end))
-          }
-        }
-        return cookieValue;
-      },
+      }
     }
   }
 

@@ -27,7 +27,7 @@
 
       <div id="imgDiv"></div>
     </div>
-    <router-link class="option4" to="addfriends" tag="div">
+    <router-link class="option4" to="/ask" tag="div">
       <img src="../assets/images/yaoqinghaoyou.png"  class="invitation-friends"/>
       <p>邀请好友</p>
     </router-link>
@@ -141,10 +141,13 @@ export default {
     const that = this;
     this.$nextTick(() => {
       that.imgDiv.push(that.PearlLevel5);
-      that.cookies();
+
       for(var i=0;i<that.imgDiv.length;i++){
-        that.imgDiv[i].divClass='float-container float-container'+i
+        that.imgDiv[i].divClass='float-container float-container'+i;
       }
+
+      that.cookies();
+
     })
 
 
@@ -153,22 +156,39 @@ export default {
     cookies(){
       const that = this;
       $(function () {
-        $(".float-container").each(function (index, obj) {
+        for (var index = 0; index < that.imgDiv.length; index++) {
           var ck = "float-container-top-" + index;
           var cl = "float-container-left-" + index;
-          var cookievalTop =  that.readCookie(ck);
-          var cookievalLeft =  that.readCookie(cl);
-          if (cookievalTop == ""||cookievalLeft == "") {
-            cookievalTop = parseInt((($('#main-top').outerHeight()-100)*0.7*Math.random()+$('#main-top').outerHeight()*0.3)/12);
-            cookievalLeft = parseInt(($('#main-top').outerWidth()-100)*0.8*Math.random()/12);
-            $(this).css({top:cookievalTop+'rem',left:cookievalLeft+'rem'});
-            that.writeCookie(ck, cookievalTop);
-            that.writeCookie(cl, cookievalLeft);
+          var cookievalTop = localStorage.getItem(ck);
+          var cookievalLeft = localStorage.getItem(cl);
+          if (cookievalTop == "" || cookievalLeft == "" || cookievalTop == null || cookievalLeft == null || cookievalTop == undefined || cookievalLeft == undefined) {
+            cookievalTop = parseInt((($('#main-top').outerHeight() - 100) * 0.7 * Math.random() + $('#main-top').outerHeight() * 0.3) / 12);
+            cookievalLeft = parseInt(($('#main-top').outerWidth() - 100) * 0.8 * Math.random() / 12);
+            $(".float-container" + index).css({top: cookievalTop + 'rem', left: cookievalLeft + 'rem'});
+            localStorage.setItem(ck, cookievalTop);
+            localStorage.setItem(cl, cookievalLeft);
           } else {
-            $(this).css({top:cookievalTop+'rem',left:cookievalLeft+'rem'});
+            $(".float-container" + index).css({top: cookievalTop + 'rem', left: cookievalLeft + 'rem'});
           }
-        });
-      });
+        }
+      })
+
+       // this.imgDiv.foreach(function (index, obj) {
+       //
+       //    var ck = "float-container-top-" + index;
+       //    var cl = "float-container-left-" + index;
+       //    var cookievalTop =  localStorage.getItem(ck);
+       //    var cookievalLeft =localStorage.getItem(cl);
+       //    if (cookievalTop == ""||cookievalLeft == "") {
+       //      cookievalTop = parseInt((($('#main-top').outerHeight()-100)*0.7*Math.random()+$('#main-top').outerHeight()*0.3)/12);
+       //      cookievalLeft = parseInt(($('#main-top').outerWidth()-100)*0.8*Math.random()/12);
+       //      $(this).css({top:cookievalTop+'rem',left:cookievalLeft+'rem'});
+       //      localStorage.setItem(ck, cookievalTop);
+       //      localStorage.setItem(cl, cookievalLeft);
+       //    } else {
+       //      $(this).css({top:cookievalTop+'rem',left:cookievalLeft+'rem'});
+       //    }
+       //  });
     },
     animation(e,arr){
       e.currentTarget.style.background = "transparent";
@@ -213,39 +233,9 @@ export default {
       let divSelf = e.currentTarget;
       setTimeout(function(){
         divSelf.remove();
-        that.delCookie('float-container-left-' + index);
-        that.delCookie('float-container-top-' + index);
+        localStorage.removeItem("float-container-left-" + index);
+        localStorage.removeItem("float-container-top-" + index);
       },2500);
-    },
-    writeCookie(name, value, hours) {
-      var expire = "";
-      hours = hours || 100;
-      if (hours != null) {
-        expire = new Date((new Date()).getTime() + hours * 3600000);
-        expire = "; expires=" + expire.toGMTString();
-      }
-      document.cookie = name + "=" + escape(value) + expire;
-    },
-    readCookie(name) {
-      var cookieValue = "";
-      var search = name + "=";
-      if (document.cookie.length > 0) {
-        var offset = document.cookie.indexOf(search);
-        if (offset != -1) {
-          offset += search.length;
-          var end = document.cookie.indexOf(";", offset);
-          if (end == -1) end = document.cookie.length;
-          cookieValue = unescape(document.cookie.substring(offset, end))
-        }
-      }
-      return cookieValue;
-    },
-    delCookie(name){
-      var exp = new Date();
-      exp.setTime(exp.getTime() - 1);
-      var cval= this.readCookie(name);
-      if(cval!=null)
-        document.cookie= name + "="+cval+";expires="+exp.toGMTString();
     },
     rankings(){
       if(this.isBlack){

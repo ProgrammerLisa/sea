@@ -76,7 +76,7 @@
                 url: '/users/password_reset',
                 headers: {
                   "device": "android",
-                  "uid":this.readCookie('uid')
+                  "uid":localStorage.getItem("uid")
                 },
                 data: {
                   phone: $('#phone').val(),
@@ -98,20 +98,7 @@
                 }.bind(this))
             }
           },
-          readCookie(name) {
-            let cookieValue = "";
-            let search = name + "=";
-            if(document.cookie.length > 0) {
-              let offset = document.cookie.indexOf(search);
-              if(offset != -1) {
-                offset += search.length;
-                let end = document.cookie.indexOf(";", offset);
-                if(end == -1) end = document.cookie.length;
-                cookieValue = unescape(document.cookie.substring(offset, end))
-              }
-            }
-            return cookieValue;
-          }
+
         }
     }
 </script>
@@ -128,7 +115,7 @@
 	textarea:focus {
 		-webkit-box-shadow: 0 0 0 1000px white inset;
 	}
-	
+
   .content{
     overflow-x: hidden;
     color: #666;

@@ -94,7 +94,7 @@
       this.$http({
         method: "get",
         url: "/users/profile",
-        headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
+        headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
         data: {}
       }).then(function(res){
         if(res.data.code==0){
@@ -155,7 +155,7 @@
             url: "/users/profile/edit",
             headers: {
               "device": "android",
-              "uid":this.readCookie('uid'),
+              "uid":localStorage.getItem("uid"),
               "Access-Control-Allow-Origin": "*"
             },
             data: {
@@ -179,31 +179,12 @@
 
       },
       loginOut(){
-        this.delCookie('uid');
+        localStorage.removeItem("uid");
         this.$router.replace('/');
         this.$router.go(0);
-      },
-      readCookie(name) {
-        let cookieValue = "";
-        let search = name + "=";
-        if(document.cookie.length > 0) {
-          let offset = document.cookie.indexOf(search);
-          if(offset != -1) {
-            offset += search.length;
-            let end = document.cookie.indexOf(";", offset);
-            if(end == -1) end = document.cookie.length;
-            cookieValue = unescape(document.cookie.substring(offset, end))
-          }
-        }
-        return cookieValue;
-      },
-      delCookie(name) {
-        var exp = new Date();
-        exp.setTime(exp.getTime() - 1);
-        var cval = this.readCookie(name);
-        if(cval != null)
-          document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
       }
+
+
     }
   }
 </script>
@@ -336,6 +317,13 @@
     font-size: 100%;
   }
 
+  #form_control{
+    width: 80%;
+    margin:0 10%;
+    outline: none;
+    box-shadow: none;
+  }
+
   .closeBtn {
     border-bottom: none;
   }
@@ -351,7 +339,7 @@
   .nickText {
     margin-bottom: 0;
     text-align: left;
-    padding: 0.5rem 0 0 1rem;
+    padding: 0.5rem 0 0 10%;
     color: #FF2424;
     font-size: smaller;
   }

@@ -40,8 +40,8 @@
     mounted(){
       this.$http({
         method: "post",
-        url: "/api/users/my-invite-code",
-        headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
+        url: "/users/my-invite-code",
+        headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
         data: {}
       }).then(function(res){
         if(res.data.code==0){
@@ -65,21 +65,8 @@
 			},
       onError(){
         this.$layer.msg('复制失败');
-      },
-      readCookie(name) {
-        let cookieValue = "";
-        let search = name + "=";
-        if(document.cookie.length > 0) {
-          let offset = document.cookie.indexOf(search);
-          if(offset != -1) {
-            offset += search.length;
-            let end = document.cookie.indexOf(";", offset);
-            if(end == -1) end = document.cookie.length;
-            cookieValue = unescape(document.cookie.substring(offset, end))
-          }
-        }
-        return cookieValue;
       }
+
 		}
 	}
 </script>
@@ -90,6 +77,7 @@
     color: #666;
     width: 100vw;
     height: 100vh;
+    background: #fff;
   }
 
   .panel{
@@ -104,7 +92,7 @@
     letter-spacing: 0.05rem;
     color: #555;
     font-size: 1.6rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
     height: 4.1rem;
     line-height: 4.1rem;
   }
@@ -116,7 +104,6 @@
   }
   .code{
   	padding: 2rem;
-    background: #fff;
     text-align: center;
   }
   .title{
@@ -131,7 +118,7 @@
 		border-right: 0;
 		/*padding-left: 1.2rem;*/
 		font-size: 1.5rem;
-		border-bottom: 1px solid #F5F5F5;
+		border-bottom: 1px solid #eee;
 		width: 100%;
 		outline: none;
 		letter-spacing: 0.05rem;

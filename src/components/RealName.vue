@@ -62,8 +62,8 @@
         mounted(){
           this.$http({
             method: "get",
-            url: "/api/users/profile",
-            headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
+            url: "/users/profile",
+            headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
             data: {}
           }).then(function(res){
             if(res.data.code==0){
@@ -71,6 +71,8 @@
               if(!res.data.data.is_idverification){
                 this.inputbox = true
               }else {
+                this.realName[0].content = res.data.data.real_name
+                this.realName[1].content = res.data.data.card_num
                 this.realName[2].content = res.data.data.phone
               }
             }else {
@@ -98,8 +100,8 @@
             }else {
               this.$http({
                 method: "post",
-                url: "/api/users/identity-verification",
-                headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
+                url: "/users/identity-verification",
+                headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
                 data: {
                   card_num:$("#number").val(),
                   real_name:$("#name").val()
@@ -119,20 +121,7 @@
 
             }
           },
-          readCookie(name) {
-            let cookieValue = "";
-            let search = name + "=";
-            if(document.cookie.length > 0) {
-              let offset = document.cookie.indexOf(search);
-              if(offset != -1) {
-                offset += search.length;
-                let end = document.cookie.indexOf(";", offset);
-                if(end == -1) end = document.cookie.length;
-                cookieValue = unescape(document.cookie.substring(offset, end))
-              }
-            }
-            return cookieValue;
-          }
+
         }
     }
 </script>
@@ -158,7 +147,7 @@
     letter-spacing: 0.05rem;
     color: #555;
     font-size: 1.6rem;
-    margin-bottom: 0rem;
+    margin-bottom:0.5rem;
     height: 4.1rem;
     line-height: 4.1rem;
     border-bottom: 1px solid #f5f5f5;
@@ -221,12 +210,11 @@
   .panel-img{
   	background: #fff;
   	text-align: center;
-  	padding-bottom:4rem;
+
   }
   .img-back{
-  	position: absolute;
-  	margin-top: 13rem;
-  	right: 11.5rem;
-  	color: #646464;
+    display: block;
+  	color: #999;
+    padding: 2rem;
   }
 </style>

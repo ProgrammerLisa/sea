@@ -41,11 +41,11 @@
 
 
               this.$http({
-                url: '/api/users/avatar-upload',
+                url: '/users/avatar-upload',
                   headers: {
                     "device": "android",
                       "Access-Control-Allow-Origin": "*",
-                      "uid":this.readCookie('uid')
+                      "uid":localStorage.getItem("uid")
                   },
                   data:{
                     imagedata:this.myCroppa.generateDataUrl().split(",")[1],
@@ -68,20 +68,6 @@
                 }.bind(this))
           },this.imageSrc,0.8)
         }
-      },
-      readCookie(name) {
-        let cookieValue = "";
-        let search = name + "=";
-        if(document.cookie.length > 0) {
-          let offset = document.cookie.indexOf(search);
-          if(offset != -1) {
-            offset += search.length;
-            let end = document.cookie.indexOf(";", offset);
-            if(end == -1) end = document.cookie.length;
-            cookieValue = unescape(document.cookie.substring(offset, end))
-          }
-        }
-        return cookieValue;
       }
     }
 

@@ -94,27 +94,27 @@
       mounted(){
           this.$http({
             method: "get",
-            url: "/api/users/profile",
-            headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
+            url: "/users/profile",
+            headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
             data: {}
           }).then(function(res){
             if(res.data.code==0){
-              console.log(res.data.data);
+              this.$layer.alert(res.data.data);
               this.nickName = res.data.data.nickName;
               this.phone = res.data.data.phone;
               this.headPortrait = res.data.data.avatar
             }else {
-              this.$layer.msg(res.data.msg);
+              this.$layer.alert(res.data.msg);
             }
           }.bind(this))
             .catch(function(err){
-              console.log(err)
+              alert(err)
             }.bind(this));
 
         this.$http({
           method: "post",
-          url: "/api/users/my-invite-code",
-          headers:{"device":"android","uid":this.readCookie('uid'),"Access-Control-Allow-Origin":"*"},
+          url: "/users/my-invite-code",
+          headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
           data: {}
         }).then(function(res){
           if(res.data.code==0){
@@ -133,21 +133,8 @@
           changeBack(index){
             // $(".media").css({background:'#fff'});
 
-          },
-          readCookie(name) {
-            let cookieValue = "";
-            let search = name + "=";
-            if(document.cookie.length > 0) {
-              let offset = document.cookie.indexOf(search);
-              if(offset != -1) {
-                offset += search.length;
-                let end = document.cookie.indexOf(";", offset);
-                if(end == -1) end = document.cookie.length;
-                cookieValue = unescape(document.cookie.substring(offset, end))
-              }
-            }
-            return cookieValue;
           }
+
       }
     }
 </script>

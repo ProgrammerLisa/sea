@@ -15,6 +15,7 @@ import Personal from '@/components/Profile'
 import Register from '@/components/Register'
 import Retrieve from '@/components/RetrievePassword'
 import Ask from '@/components/Invite'
+// import AskCode from '@/components/RegisterInviteCode'
 
 import friend from '@/components/friend'
 import address from '@/components/Address'
@@ -50,8 +51,8 @@ Vue.use(Router)
 Vue.prototype.$layer = layer(Vue);
 
 let defaultRouter;
-if(readCookie('uid')!=null&&readCookie('uid')!=undefined&&readCookie('uid')!=''){
-  Vue.prototype.uid = readCookie('uid');
+let uid = localStorage.getItem('uid');
+if(uid!=null&&uid!=undefined&&uid!=''){
   defaultRouter = {
     path: '/',
     meta:{index:0},
@@ -70,20 +71,6 @@ if(readCookie('uid')!=null&&readCookie('uid')!=undefined&&readCookie('uid')!='')
     meta:{index:0},
     component: Login
   }
-}
-function readCookie(name) {
-  let cookieValue = "";
-  let search = name + "=";
-  if(document.cookie.length > 0) {
-    let offset = document.cookie.indexOf(search);
-    if(offset != -1) {
-      offset += search.length;
-      let end = document.cookie.indexOf(";", offset);
-      if(end == -1) end = document.cookie.length;
-      cookieValue = unescape(document.cookie.substring(offset, end))
-    }
-  }
-  return cookieValue;
 }
 
 export default new Router({
@@ -128,27 +115,27 @@ export default new Router({
       component:Find
     },
     {
-			path: '/register',
+      path: '/register',
       name:'Register',
       meta:{index:2},
-			component: Register
-		},
-		{
-			path:'/login',
+      component: Register
+    },
+    {
+      path:'/login',
       name:'Login',
       meta:{index:1},
-			component: Login
-		},
-		{
-			path:'/retrieve',
+      component: Login
+    },
+    {
+      path:'/retrieve',
       name:'Retrieve',
-			component: Retrieve
-		},
-		{
-			path:'/ask',
+      component: Retrieve
+    },
+    {
+      path:'/ask',
       meta:{index:2},
-			component: Ask
-		},
+      component: Ask
+    },
     {
       path:'/friend',
       name:'friend',
@@ -282,6 +269,12 @@ export default new Router({
       meta:{index:3},
       component: PreOrder
     }
+    // ,{
+    //   path:'/AskCode',
+    //   name:'AskCode',
+    //   meta:{index:3},
+    //   component: AskCode
+    // }
 
   ]
 })

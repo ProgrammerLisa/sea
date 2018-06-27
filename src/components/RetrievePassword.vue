@@ -260,6 +260,22 @@
 						}).then(function(res) {
 							if(res.data.code == 0) {
 								this.$layer.msg(res.data.msg);
+								that.time = 10;
+
+								var TimeReduction1 = setInterval(function() {
+									if(that.time > 0) {
+										that.writeCookie(Verificationtimen, that.time);
+										that.time--;
+										that.btntxte = that.time + "s";
+										that.disabled = true;
+									} else {
+										that.time = 0;
+										that.btntxte = "获取验证码";
+										that.disabled = false;
+										that.delCookie(Verificationtimen);
+										clearInterval(TimeReduction1);
+									}
+								}, 1000)
 							} else {
 								this.$layer.msg(res.data.msg);
 							}
@@ -267,22 +283,6 @@
 						.catch(function(err) {
 							console.log(err)
 						}.bind(this))
-					that.time = 10;
-
-					var TimeReduction1 = setInterval(function() {
-						if(that.time > 0) {
-							that.writeCookie(Verificationtimen, that.time);
-							that.time--;
-							that.btntxte = that.time + "s";
-							that.disabled = true;
-						} else {
-							that.time = 0;
-							that.btntxte = "获取验证码";
-							that.disabled = false;
-							that.delCookie(Verificationtimen);
-							clearInterval(TimeReduction1);
-						}
-					}, 1000)
 				}
 			},
 			writeCookie(name, value, hours) {
@@ -330,12 +330,12 @@
 		-webkit-box-shadow: 0 0 0px 1000px #fff inset;
 	}
 	/*焦点时也加上，不加会出现黄色背景闪动一下*/
+	
 	input[type=text]:focus,
 	input[type=password]:focus,
 	textarea:focus {
 		-webkit-box-shadow: 0 0 0 1000px white inset;
-	}	
-	
+	}
 	
 	#retrieve {
 		width: 100vw;

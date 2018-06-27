@@ -15,7 +15,6 @@
 				<div style="padding-top: 30px; display: inline-table; width: 100%;">
 					<input id="verification" name="verification" maxlength="4" v-model="verify_code" placeholder="请输入短信验证码">
 					<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
-
 				</div>
 
 				<div style="padding-top: 30px;">
@@ -47,6 +46,10 @@
 
 	//	sessionStorage.setItem("key","获取验证码");
 	//	localStorage.setItem("site","js8.in");
+
+	sessionStorage.setItem("phone", this.phone);
+	sessionStorage.setItem("password", this.password);
+	sessionStorage.setItem("verify_code", this.verify_code);
 
 	export default {
 		name: "register",
@@ -154,6 +157,10 @@
 			},
 			userTrue() {
 				//注册
+				sessionStorage.setItem('phone', this.phone);
+				sessionStorage.setItem("password", this.password);
+				sessionStorage.setItem("verify_code", this.verify_code);
+				//alert(sessionStorage.phone+" , "+sessionStorage.password+" , "+sessionStorage.verify_code);
 				this.$http({
 						method: "post",
 						url: "/users/register/verify-sms-code",
@@ -168,19 +175,19 @@
 
 						}
 					}).then(function(res) {
-									if(res.data.code == 0) {
-										//this.$layer.msg('注册成功');
-										this.$router.replace('/AskCode');
-									} else {
-										this.$layer.msg(res.data.msg);
-									}
-//								}.bind(this))
-//								.catch(function(err) {
-//									console.log(err)
-//								}.bind(this))
-//						} else {
-//							this.$layer.msg(res.data.msg);
-//						}
+						if(res.data.code == 0) {
+							//this.$layer.msg('注册成功');
+							this.$router.replace('/AskCode');
+						} else {
+							this.$layer.msg(res.data.msg);
+						}
+						//								}.bind(this))
+						//								.catch(function(err) {
+						//									console.log(err)
+						//								}.bind(this))
+						//						} else {
+						//							this.$layer.msg(res.data.msg);
+						//						}
 					}.bind(this))
 					.catch(function(err) {
 						console.log(err);
@@ -262,6 +269,22 @@
 						}).then(function(res) {
 							if(res.data.code == 0) {
 								this.$layer.msg(res.data.msg);
+								that.time = 5;
+
+								var TimeReduction1 = setInterval(function() {
+									if(that.time > 0) {
+										that.writeCookie(Verificationtimen, that.time);
+										that.time--;
+										that.btntxt = that.time + "s";
+										that.disabled = true;
+									} else {
+										that.time = 0;
+										that.btntxt = "获取验证码";
+										that.disabled = false;
+										that.delCookie(Verificationtimen);
+										clearInterval(TimeReduction1);
+									}
+								}, 1000)
 							} else {
 								this.$layer.msg(res.data.msg);
 							}
@@ -269,22 +292,6 @@
 						.catch(function(err) {
 							console.log(err)
 						}.bind(this))
-					that.time = 5;
-
-					var TimeReduction1 = setInterval(function() {
-						if(that.time > 0) {
-							that.writeCookie(Verificationtimen, that.time);
-							that.time--;
-							that.btntxt = that.time + "s";
-							that.disabled = true;
-						} else {
-							that.time = 0;
-							that.btntxt = "获取验证码";
-							that.disabled = false;
-							that.delCookie(Verificationtimen);
-							clearInterval(TimeReduction1);
-						}
-					}, 1000)
 				}
 			},
 			writeCookie(name, value, hours) {

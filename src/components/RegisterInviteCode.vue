@@ -17,7 +17,7 @@
 			<center>
 				<div id="agree">
 					<check-icon :value.sync="demo1"></check-icon><span>我同意</span>
-					<a id="agree_a" href="#"><span>《星海行动使用协议》</span></a>
+					<a id="agree_a" href="#"><span>《夺宝行动使用协议》</span></a>
 				</div>
 			</center>
 
@@ -55,7 +55,7 @@
 					this.$layer.msg('邀请码不能为空哦');
 					return;
 				} else if(this.check == this.demo1) {
-					this.$layer.msg('请同意');
+					this.$layer.msg('请同意协议');
 					return;
 				} else {
 					//注册
@@ -64,16 +64,18 @@
 							url: "/users/register",
 							headers: {
 								"device": "android",
-								"Access-Control-Allow-Origin": "*",
-								"uid":this.readCookie('uid')
+								"Access-Control-Allow-Origin": "*"
 							},
 							data: {
-								
+								phone: sessionStorage['phone'],
+								password: sessionStorage['password'],
+								verify_code: sessionStorage['verify_code'],
+								invite_code: this.verif
 							}
 						}).then(function(res) {
 							if(res.data.code == 0) {
 								
-								this.$router.replace('/home');
+								this.$router.replace('/Login');
 							} else {
 								this.$layer.msg(res.data.msg);
 							}
@@ -85,6 +87,8 @@
 			}
 		}
 	}
+	
+	
 </script>
 
 <style scoped>

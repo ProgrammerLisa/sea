@@ -52,6 +52,9 @@
           this.$layer.msg('请填写收货人');
         }else if($("#phone").val()==''||$("#phone").val()==null||$("#phone").val()==undefined){
           this.$layer.msg('请填写联系电话');
+        }else if(!(/^1[3|4|5|8][0-9]\d{8}$/.test($('#phone').val()))){
+              this.$layer.msg("请输入正确的手机号");
+              $('#phone').focus();
         }else if($("#address").val()==''||$("#address").val()==null||$("#address").val()==undefined){
           this.$layer.msg('请填写收货地址');
         }else if($("#home").val()==''||$("#home").val()==null||$("#home").val()==undefined){
@@ -148,5 +151,8 @@
     text-align: center;
     font-size: larger;
     padding: 0.5rem;
+  }
+  .keepSubmit:active{
+  	background: #009ACD;
   }
 </style>

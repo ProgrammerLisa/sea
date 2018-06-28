@@ -50,7 +50,7 @@ import succeedImg from '@/assets/images/renzheng.png'
         data(){
           return{
             inputbox:false,
-            succeed :true,
+            succeed:true,
             succeedImg:succeedImg,
             realName:[
               {title:'姓名',content:'**默'},
@@ -69,7 +69,8 @@ import succeedImg from '@/assets/images/renzheng.png'
             if(res.data.code==0){
               console.log(res.data.data);
               if(!res.data.data.is_idverification){
-                this.inputbox = true
+                this.inputbox = true,
+                this.succeed = false
               }else {
                 this.realName[0].content = res.data.data.real_name
                 this.realName[1].content = res.data.data.card_num
@@ -206,6 +207,9 @@ import succeedImg from '@/assets/images/renzheng.png'
     font-size: large;
     margin-top: 2.5rem;
     border-radius: 0;
+  }
+  .submitBtn:active {
+  	background: #009ACD;
   }
    .addressNone{
     text-align: center;

@@ -271,8 +271,12 @@
     padding: 0.5rem;
     border: none;
     margin: auto;
+    margin-bottom: 5%;
   }
   .large{
     font-size: larger;
+  }
+  .newAddressBtn:active{
+  	background: #009ACD;
   }
 </style>

@@ -64,6 +64,7 @@
   .back{
     float: left;
   }
+  
   .back img{
     height: 2.5rem;
   }

@@ -79,7 +79,7 @@
             phone:'',
             Personal:[
               {title:'我的好友',PersonalHref:'friend',imfLeft:friend},
-              {title:'我的邀请者',PersonalHref:'',imfLeft:inviter,noRouter:true,myInvite:''},
+              {title:'我的邀请者',PersonalHref:'',imfLeft:inviter,myInvite:''},
               {title:'邀请奖励',PersonalHref:'reward',imfLeft:award},
               {title:'邀请码',PersonalHref:'ask',imfLeft:invite},
               {title:'商城订单',PersonalHref:'commodityorder',imfLeft:indent},
@@ -98,12 +98,17 @@
             headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
             data: {}
           }).then(function(res){
+          	if(res.data.code==401){
+          		this.$router.replace('/Login');
+          	}
             if(res.data.code==0){
-              this.$layer.alert(res.data.data);
+              //this.$layer.alert(res.data.data);
               this.nickName = res.data.data.nickName;
               this.phone = res.data.data.phone;
               this.headPortrait = res.data.data.avatar
-            }else {
+            }else if(res.data.code==401){
+            	this.$router.replace('/Login');
+            } else {
               this.$layer.alert(res.data.msg);
             }
           }.bind(this))
@@ -117,6 +122,9 @@
           headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
           data: {}
         }).then(function(res){
+        	if(res.data.code=401){
+          		this.$router.replace('/Login');
+          	}
           if(res.data.code==0){
             this.Personal[1].myInvite = res.data.my_invite_code;
             $('.media-right').eq(1).html(this.Personal[1].myInvite).css({'verticalAlign':'middle','paddingRight':'1rem','color':'#999'});

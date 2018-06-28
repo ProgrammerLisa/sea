@@ -189,4 +189,8 @@
     display: inline-block;
     margin-top: 1.5rem;
   }
+  .goShopping:active {
+		background: #009ACD;
+	}
+
 </style>

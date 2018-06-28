@@ -57,6 +57,7 @@
               }).then(function(res){
                 if(res.data.code==0){
                   this.$layer.msg(res.data.msg);
+                  console.log(res.data);
                   this.$router.go(-1);
 
                 }else {

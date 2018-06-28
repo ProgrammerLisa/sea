@@ -71,6 +71,47 @@ import henghesha6 from '@/assets/images/henghesha/6.png'
 import henghesha7 from '@/assets/images/henghesha/7.png'
 import henghesha8 from '@/assets/images/henghesha/8.png'
 import henghesha9 from '@/assets/images/henghesha/9.png'
+
+import ocean1 from '@/assets/images/ocean/1.png'
+import ocean2 from '@/assets/images/ocean/2.png'
+import ocean3 from '@/assets/images/ocean/3.png'
+import ocean4 from '@/assets/images/ocean/4.png'
+import ocean5 from '@/assets/images/ocean/5.png'
+import ocean6 from '@/assets/images/ocean/6.png'
+import ocean7 from '@/assets/images/ocean/7.png'
+import ocean8 from '@/assets/images/ocean/8.png'
+import ocean9 from '@/assets/images/ocean/9.png'
+
+import opal1 from '@/assets/images/opal/1.png'
+import opal2 from '@/assets/images/opal/2.png'
+import opal3 from '@/assets/images/opal/3.png'
+import opal4 from '@/assets/images/opal/4.png'
+import opal5 from '@/assets/images/opal/5.png'
+import opal6 from '@/assets/images/opal/6.png'
+import opal7 from '@/assets/images/opal/7.png'
+import opal8 from '@/assets/images/opal/8.png'
+import opal9 from '@/assets/images/opal/9.png'
+
+import opper1 from '@/assets/images/opper/1.png'
+import opper2 from '@/assets/images/opper/2.png'
+import opper3 from '@/assets/images/opper/3.png'
+import opper4 from '@/assets/images/opper/4.png'
+import opper5 from '@/assets/images/opper/5.png'
+import opper6 from '@/assets/images/opper/6.png'
+import opper7 from '@/assets/images/opper/7.png'
+import opper8 from '@/assets/images/opper/8.png'
+import opper9 from '@/assets/images/opper/9.png'
+
+import pearl1 from '@/assets/images/pearl/1.png'
+import pearl2 from '@/assets/images/pearl/2.png'
+import pearl3 from '@/assets/images/pearl/3.png'
+import pearl4 from '@/assets/images/pearl/4.png'
+import pearl5 from '@/assets/images/pearl/5.png'
+import pearl6 from '@/assets/images/pearl/6.png'
+import pearl7 from '@/assets/images/pearl/7.png'
+import pearl8 from '@/assets/images/pearl/8.png'
+import pearl9 from '@/assets/images/pearl/9.png'
+
 export default {
   components: {
     Group,
@@ -81,7 +122,11 @@ export default {
       imgSum:0,
       imgSrc:backGround,
       flag:true,
+      pearl:[pearl1,pearl2,pearl3,pearl4,pearl5,pearl6,pearl7,pearl8,pearl9],
+      opal:[opal1,opal2,opal3,opal4,opal5,opal6,opal7,opal8,opal9],
+      opper:[opper1,opper2,opper3,opper4,opper5,opper6,opper7,opper8,opper9],
       hengshesha:[henghesha1,henghesha2,henghesha3,henghesha4,henghesha5,henghesha6,henghesha7,henghesha8,henghesha9],
+      ocean:[ocean1,ocean2,ocean3,ocean4,ocean5,ocean6,ocean7,ocean8,ocean9],
       imgDiv:[
         {imgCount:1,href:shell,divClass:'',animation:'',level:1},
         {imgCount:1,href:shell,divClass:'',animation:'',level:2},
@@ -172,27 +217,12 @@ export default {
           }
         }
       })
-
-       // this.imgDiv.foreach(function (index, obj) {
-       //
-       //    var ck = "float-container-top-" + index;
-       //    var cl = "float-container-left-" + index;
-       //    var cookievalTop =  localStorage.getItem(ck);
-       //    var cookievalLeft =localStorage.getItem(cl);
-       //    if (cookievalTop == ""||cookievalLeft == "") {
-       //      cookievalTop = parseInt((($('#main-top').outerHeight()-100)*0.7*Math.random()+$('#main-top').outerHeight()*0.3)/12);
-       //      cookievalLeft = parseInt(($('#main-top').outerWidth()-100)*0.8*Math.random()/12);
-       //      $(this).css({top:cookievalTop+'rem',left:cookievalLeft+'rem'});
-       //      localStorage.setItem(ck, cookievalTop);
-       //      localStorage.setItem(cl, cookievalLeft);
-       //    } else {
-       //      $(this).css({top:cookievalTop+'rem',left:cookievalLeft+'rem'});
-       //    }
-       //  });
     },
     animation(e,arr){
       e.currentTarget.style.background = "transparent";
       e.currentTarget.style.padding = "0";
+      e.target.style.width = '200%';
+      e.target.style.height = '200%';
       for(let i in arr){
         (function(i){
           setTimeout(function(){
@@ -207,25 +237,29 @@ export default {
       switch (parseInt(e.currentTarget.dataset.level))
       {
         case 1:
-          imgArr=this.hengshesha;
+          imgArr=this.pearl;
           this.animation(e,imgArr);
-
+          this.$layer.msg("普通珍珠");
           break;
         case 2:
-          imgArr=this.hengshesha;
-          this.animation(e,imgArr)
+          imgArr=this.opal;
+          this.animation(e,imgArr);
+          this.$layer.msg("稀有物品 猫眼");
           break;
         case 3:
-          imgArr=this.hengshesha;
-          this.animation(e,imgArr)
+          imgArr=this.opper;
+          this.animation(e,imgArr);
+          this.$layer.msg("珍宝 - 影欧珀");
           break;
         case 4:
           imgArr=this.hengshesha;
-          this.animation(e,imgArr)
+          this.animation(e,imgArr);
+          this.$layer.msg("极品 --- 恒河沙");
           break;
         case 5:
-          imgArr=this.hengshesha;
-          this.animation(e,imgArr)
+          imgArr=this.ocean;
+          this.animation(e,imgArr);
+          this.$layer.msg("恭喜获得 海洋之心");
           break;
       }
 

@@ -57,6 +57,7 @@
 			退出登录
 		</div>
 	</div>
+	
 </template>
 
 <script>
@@ -89,7 +90,6 @@
 					}, 300);
 					that.isOn = true;
 				}
-
 			},
 			CleanUpCaching() {
 				this.$layer.confirm('确定清理缓存数据吗', {
@@ -159,6 +159,8 @@
 			}
 		}
 	}
+
+	
 </script>
 
 <style scoped>
@@ -249,25 +251,27 @@
 		width: 100%;
 		border-top: 0.1rem solid #eee;
 	}
-	.btn{
+	
+	.btn {
 		display: inline-block;
-	    padding: 12px 12px;
-	    margin-bottom: 0;
-	    font-size: 14px;
-	    font-weight: normal;
-	    line-height: 1.42857143;
-	    text-align: center;
-	    white-space: nowrap;
-	    vertical-align: middle;
-	    touch-action: manipulation;
-	    cursor: pointer;
-	    -webkit-user-select: none;
-	    user-select: none;
-	    background-image: none;
-	    border: 1px solid transparent;
-	    border-radius: 4px;
+		padding: 12px 12px;
+		margin-bottom: 0;
+		font-size: 14px;
+		font-weight: normal;
+		line-height: 1.42857143;
+		text-align: center;
+		white-space: nowrap;
+		vertical-align: middle;
+		touch-action: manipulation;
+		cursor: pointer;
+		-webkit-user-select: none;
+		user-select: none;
+		background-image: none;
+		border: 1px solid transparent;
+		border-radius: 4px;
 	}
-	.loginOut:active{
+	
+	.loginOut:active {
 		background: #BABABA;
 	}
 	

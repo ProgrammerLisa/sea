@@ -47,7 +47,7 @@
        <td class="text-right">已是最新版本 <img :src="more" class="more"/></td>
      </tr>
    </table>
-    <div class="loginOut">
+    <div class="loginOut" @click="loginOut">
       退出登录
     </div>
   </div>
@@ -102,6 +102,11 @@
           },
           goBack(){
             this.$router.go(-1);
+          },
+          loginOut(){
+            localStorage.removeItem("uid");
+            this.$router.replace('/');
+            this.$router.go(0);
           }
         }
     }

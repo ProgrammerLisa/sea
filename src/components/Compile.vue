@@ -11,15 +11,15 @@
         头像
       </div>
       <div class="media-right" data-toggle="modal" data-target="#ImgModal">
-        <img class="media-object headImg" :src="headImg" />
+        <img class="media-object headImg" :src="`${headImg+'?'+now}`" />
 
       </div>
     </div>
     <div class="media" data-toggle="modal" data-target="#NickModal">
-      <div class="media-body">
+      <div class="media-body nickNameLeft">
         昵称
       </div>
-      <div class="media-right">
+      <div class="media-right nickNameRight">
         <span id="nickname">{{nickname}}</span><span class="glyphicon glyphicon-menu-right more"></span>
       </div>
     </div>
@@ -31,7 +31,6 @@
         {{IDcode}}
       </div>
     </div>
-    <div class="btn btn-default loginOut" @click="loginOut">退出登录</div>
     <!-- 头像选择模态框（Modal） -->
     <div class="modal fade" id="ImgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -80,6 +79,11 @@
   import headImg from '@/assets/images/profile.png'
   export default {
     name: "Compile",
+    computed:{
+      now(){
+        return Date.now();
+      }
+    },
     data() {
       return {
         headImg: headImg,
@@ -97,6 +101,7 @@
         headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
         data: {}
       }).then(function(res){
+        console.log(res.data)
         if(res.data.code==0){
           this.IDcode = res.data.data.phone;
           this.nickname = res.data.data.nickname;
@@ -136,19 +141,8 @@
       },
       submit() {
         $("#NickModal").show();
-        if($("#form_control").val() == '' || $("#form_control").val() == null || $("#form_control").val() == undefined) {
-          $(".modal-backdrop").hide();
-          $("#NickModal").hide();
-          this.$layer.msg('请确认你的昵称');
-        } else if($("#form_control").val().length<4){
-          $(".modal-backdrop").hide();
-          $("#NickModal").hide();
-          this.$layer.msg('昵称不符合要求');
-        } else if($("#form_control").val().length>10){
-          $(".modal-backdrop").hide();
-          $("#NickModal").hide();
-          this.$layer.msg('昵称不符合要求');
-        }else {
+        var val = /^[A-Za-z0-9\u4e00-\u9fa5]{4,10}$/;
+        if(val.test($("#form_control").val())) {
           this.isDisabled = true;
           this.$http({
             method: "post",
@@ -175,16 +169,14 @@
             .catch(function(err) {
               console.log(err)
             }.bind(this))
+
+        } else {
+          $(".modal-backdrop").hide();
+          $("#NickModal").hide();
+          this.$layer.msg('昵称不符合要求');
         }
 
-      },
-      loginOut(){
-        localStorage.removeItem("uid");
-        this.$router.replace('/');
-        this.$router.go(0);
       }
-
-
     }
   }
 </script>
@@ -211,7 +203,7 @@
     letter-spacing: 0.05rem;
     color: #555;
     font-size: 1.6rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     height: 4.1rem;
     line-height: 4.1rem;
   }
@@ -242,6 +234,7 @@
     width: 4rem;
     height: 4rem;
     border-radius: 50%;
+    border: 0.1rem solid #ddd;
   }
 
   .media-right {
@@ -251,19 +244,6 @@
 
   .more {
     margin-left: 0.5rem;
-  }
-
-  .loginOut {
-    width: 100%;
-    border: 0;
-    border-radius: 0;
-    border-top: 0.1rem solid #e1e1e1;
-    position: fixed;
-    bottom: 0;
-    line-height: 3rem;
-    color: #FF2424;
-    letter-spacing: 0.1rem;
-    font-size: large;
   }
 
   .modal-content {
@@ -362,5 +342,9 @@
   .nickYes {
     background: #09a2d6;
     border-color: #2aabd2;
+  }
+  .nickNameRight{
+    width: 80%;
+    text-align: right;
   }
 </style>

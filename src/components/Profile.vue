@@ -3,30 +3,25 @@
     <div class="personal">
       <div class="news">
         <router-link to="/news" tag="div" class="badgePosition">
-          <span class="badge">1</span>
+          <span class="badge msg">·</span>
         </router-link>
       </div>
       <div class="container personalMessage">
-        <router-link tag="div" v-if="isLogin" to="/compile">
+        <router-link tag="div" to="/compile">
           <div class="HeadPortrait">
-            <img :src="headPortrait"/>
+            <img :src="`${headPortrait+'?'+now}`"/>
           </div>
           <p class="nickName">{{nickName}}</p>
-          <p class="userId">ID：{{phone}}</p>
+          <!--<p class="userId">ID：{{phone}}</p>-->
         </router-link>
-        <router-link tag="div" v-else to="/login">
-          <div class="HeadPortrait">
-            <img :src="headPortrait"/>
-          </div>
-          <p class="nickName">点击登录</p>
-        </router-link>
+
         <div class="row ">
-          <router-link to="wallet" tag="div" class="col-xs-5 col-xs-offset-1 personalMessageLeft">
+          <router-link to="wallet" tag="div" class="col-xs-6  personalMessageLeft">
             <img :src="wallet" class="personalIcon">
             <span class="personalText" id="walletText">我的钱包</span>
             <span class="wallet"></span>
           </router-link>
-          <router-link to="realname" tag="div" class="col-xs-5">
+          <router-link to="realname" tag="div" class="col-xs-6">
             <img :src="autonym" class="personalIcon">
             <span class="personalText">实名信息</span>
           </router-link>
@@ -71,6 +66,11 @@
 
     export default {
         name: "Personal",
+      computed:{
+        now(){
+          return Date.now();
+        }
+      },
       data(){
           return{
             autonym:autonym,
@@ -99,16 +99,16 @@
             data: {}
           }).then(function(res){
             if(res.data.code==0){
-              this.$layer.alert(res.data.data);
-              this.nickName = res.data.data.nickName;
+              this.nickName = res.data.data.nickname;
               this.phone = res.data.data.phone;
               this.headPortrait = res.data.data.avatar
+
             }else {
-              this.$layer.alert(res.data.msg);
+              this.$layer.msg(res.data.msg);
             }
           }.bind(this))
             .catch(function(err){
-              alert(err)
+              this.$layer.msg(err)
             }.bind(this));
 
         this.$http({
@@ -198,7 +198,7 @@
   .HeadPortrait img{
     width: 5rem;
     height: 5rem;
-    border: 0.1rem solid #09a2d6;
+    border: 0.1rem solid #ddd;
     border-radius: 50%;
   }
   .nickName{
@@ -233,5 +233,12 @@
   .media-object{
     width: 3.8rem;
     padding: 0.5rem;
+  }
+  .msg{
+    color: #ff2424;
+    background: transparent;
+    font-size: xx-large;
+    padding: 0.5rem ;
+    line-height: 0;
   }
 </style>

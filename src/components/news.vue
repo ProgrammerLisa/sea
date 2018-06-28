@@ -13,11 +13,11 @@
 
     <div class="media" v-for="n in news" v-else>
       <div class="media-left">
-          <img class="media-object" :src="n.img">
+        <span class="badge msg" v-show="!n.msg.is_read">·</span><img class="media-object" :src="n.msg.img">
       </div>
       <div class="media-body">
-        <h4 class="media-heading">{{n.title}} <span class="time">{{n.time}}</span></h4>
-       {{n.content}}
+        <h4 class="media-heading">{{n.msg.title}} <span class="time">{{n.msg.created_at}}</span></h4>
+       {{n.msg.content}}
 
       </div>
     </div>
@@ -33,12 +33,61 @@
           return{
             newsNone:true,
             newsNoneImg:newsNoneImg,
-            news:[
-              {img:friend,title:'星海行动',content:'今天任务还没做完，赶紧去做任务领',time:'6小时前'},
-              {img:friend,title:'星海行动',content:'今天任务还没做完，赶紧去做任务领',time:'6小时前'},
-              {img:friend,title:'星海行动',content:'今天任务还没做完，赶紧去做任务领',time:'6小时前'}
-            ]
+            newsId:'',
+            news:[],
+            mobile :{
+              id:'',
+              msg:{
+                img:'',
+                title:'',
+                content:'',
+                create_at:'',
+                is_read:''
+              }
+            }
           }
+        },
+        mounted(){
+          this.$http({
+            method: "post",
+            url: "/messages/box",
+            headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
+            data: {}
+          }).then(function(res){
+            if(res.data.code==0){
+              if(res.data.count==0){
+                this.newsNone = true;
+              }else {
+                this.newsNone = false;
+                for(let n in res.data.data){
+                  this.newsId = n;
+                  console.log(res.data.data[n])
+                  this.mobile.msg = res.data.data[n];
+                  this.mobile.msg.img=friend;
+                  this.news.push(this.mobile);
+                  this.mobile = {
+                    id:'',
+                    msg:{
+                      img:'',
+                      title:'',
+                      content:'',
+                      create_at:'',
+                      is_read:''
+                    }
+                  };
+                }
+                console.log (res.data)
+              }
+
+            }else {
+              this.newsNone = true;
+              this.$layer.msg(res.data.msg);
+            }
+          }.bind(this))
+            .catch(function(err){
+              this.newsNone = true;
+              this.$layer.msg(err)
+            }.bind(this));
         },
         methods:{
           goBack(){
@@ -112,5 +161,14 @@
   .newsNone img{
     width: 40%;
     margin-bottom: 1rem;
+  }
+  .msg{
+    position: absolute;
+    left: 0;
+    color: #ff2424;
+    background: transparent;
+    font-size: xx-large;
+    padding: 0;
+    line-height: 0;
   }
 </style>

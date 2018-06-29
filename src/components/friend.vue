@@ -2,7 +2,7 @@
     <div class="content">
       <div class="panel panel-default BlackTitle">
         <div class="panel-body">
-          <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
+          <span @click="goBack" class="back"> <!--<img src="../assets/images/back.png"/>-->〈</span>
           我的好友
           <router-link to="/addfriends" tag="span" class="addTo"> <img src="../assets/images/award.png"/></router-link>
         </div>
@@ -90,6 +90,11 @@
   }
   .back{
     float: left;
+    font-size: 1.8rem;
+    color: #C7C7C7;
+  }
+  .back:active{
+  	color: #555;
   }
   .back img{
     height: 2.5rem;

@@ -149,6 +149,7 @@
 						if(res.data.code == 0) {
 							this.$layer.msg(res.data.msg);
 							this.$router.replace('/Login');
+							document.localStorage = "crmuser" + "=; expire=" + new Date(0).toGMTString() + "; path=/Login";
 						} else {
 							this.$layer.msg(res.data.msg);
 						}

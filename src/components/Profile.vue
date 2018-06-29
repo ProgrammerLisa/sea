@@ -134,23 +134,18 @@
 					},
 					data: {}
 				}).then(function(res) {
-					if(res.data.code == 401) {
-						this.$router.replace('/Login');
-					}
 					if(res.data.code == 0) { 
 						//this.$layer.alert(res.data.data);
 						this.nickName = res.data.data.nickName;
 						this.phone = res.data.data.phone;
 						this.headPortrait = res.data.data.avatar
-					} else if(res.data.code == 401) {
-						this.$router.replace('/Login');
 					} else {
 						this.$layer.alert(res.data.msg);
-
 					}
 				}.bind(this))
 				.catch(function(err) {
-					this.$layer.msg(err)
+					console.log(err)
+					this.$router.replace('/Login');
 				}.bind(this));
 
 			this.$http({
@@ -163,9 +158,6 @@
 					},
 					data: {}
 				}).then(function(res) {
-					if(res.data.code == 401) {
-						this.$router.replace('/Login');
-					}
 					if(res.data.code == 0) {
 						this.Personal[1].myInvite = res.data.my_invite_code;
 						$('.media-right').eq(1).html(this.Personal[1].myInvite).css({
@@ -173,7 +165,6 @@
 							'paddingRight': '1rem',
 							'color': '#999'
 						});
-
 					} else {
 						this.$layer.msg(res.data.msg);
 					}
@@ -189,6 +180,7 @@
 			}
 
 		}
+		
 	}
 </script>
 

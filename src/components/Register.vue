@@ -9,11 +9,11 @@
 		<form id="form_register">
 			<div style="padding: 45px 30px">
 				<div style="padding-top: 3.5rem;">
-					<input id="phone" ref="phone" name="phone" v-model="phone" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
+					<input id="phone" type="number" ref="phone" name="phone" v-model="phone" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
 				</div>
 
 				<div style="padding-top: 30px; display: inline-table; width: 100%;">
-					<input id="verification" name="verification" maxlength="4" v-model="verify_code" placeholder="请输入短信验证码">
+					<input id="verification" type="number" name="verification" maxlength="4" v-model="verify_code" placeholder="请输入短信验证码">
 					<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
 				</div>
 

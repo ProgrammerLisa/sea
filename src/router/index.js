@@ -52,7 +52,7 @@ Vue.prototype.$layer = layer(Vue);
 
 let defaultRouter;
 let uid = localStorage.getItem('uid');
-if(uid!=null&&uid!=undefined&&uid!=''){
+if(uid==null&&uid==undefined&&uid==''){
   defaultRouter = {
     path: '/',
     meta:{index:0},
@@ -60,7 +60,7 @@ if(uid!=null&&uid!=undefined&&uid!=''){
     children: [
       {
         path: '/',
-        meta:{index:1},
+        meta:{index:0},
         component: Home
       }
     ]
@@ -68,7 +68,7 @@ if(uid!=null&&uid!=undefined&&uid!=''){
 }else {
   defaultRouter = {
     path: '/',
-    meta:{index:0},
+    meta:{index:1},
     component: Login
   }
 }
@@ -104,7 +104,7 @@ export default new Router({
         },
         {
           path:'/personal',
-          meta:{index:1},
+          meta:{ index: 1},
           component:Personal
         }
       ]
@@ -277,3 +277,6 @@ export default new Router({
 
   ]
 })
+
+
+

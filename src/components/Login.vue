@@ -22,7 +22,7 @@
 					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: -5px;right: 7%;">
            			  <img src="../assets/images/x.png" style="position:absolute;"/>
           			</button>
-					<input class="phone" ref="mobile" v-on:change="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" required/>
+					<input class="phone" type="number" ref="mobile" v-on:change="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" required/>
 
 				</div>
 
@@ -50,7 +50,7 @@
 		<form v-else>
 			<div style="padding: 45px 30px;">
 				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
-					<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
+					<input class="phone" type="number" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
 					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 7%;">
             			<img src="../assets/images/x.png" style="position: absolute;"/>
          			 </button>

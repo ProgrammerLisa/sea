@@ -2,7 +2,7 @@
   <div class="content">
     <div class="panel panel-default BlackTitle">
       <div class="panel-body">
-        <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
+        <span @click="goBack" class="back"><span>ㄑ</span></span>
         添加好友
       </div>
     </div>
@@ -60,9 +60,14 @@
   .back{
     float: left;
   }
-  .back img{
-    height: 2.5rem;
-  }
+  .back span {
+		height: 2.5rem;
+		font-size: 2.5rem;
+		color: #DBDBDB;
+	}
+	.back span:active{
+		color: #555;
+	}
   .search{
     background: #f5f5f5;
     padding: 1rem;

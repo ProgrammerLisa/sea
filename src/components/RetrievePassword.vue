@@ -3,7 +3,7 @@
 		<div>
 			<div class="panel panel-default BlackTitle">
 				<div class="panel-body">
-					<span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
+					<span @mousedown="goBack"  class="back"><span>ㄑ</span></span>
 					<span style="margin-left: -37px; position: absolute; left: 50%; font-size: 1.8rem;">找回密码</span>
 				</div>
 			</div>
@@ -11,7 +11,7 @@
 			<form id="form_password">
 				<div style="padding: 45px 30px">
 					<div style="padding-top: 30px;">
-						<input style="font-size: 1.5rem;" type="number" v-on:change="show()" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
+						<input style="font-size: 1.5rem;" type="number" v-on:change="show()" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" oninput="if(value.length>11)value=value.slice(0,11)" keyboard="number" is-type="china-mobile" required></input>
 						<!--<button v-if="btnShow" @click="bnns" type="button" class="close" data-dismiss="modal" style="position: absolute;top: 130px;right: 40px;">
             				<img src="../assets/images/x.png" />
          			 	</button>-->
@@ -315,6 +315,8 @@
 	span {
 		font-size: 10px;
 	}
+	
+	
 
 	.BlackTitle {
 		text-align: center;
@@ -334,9 +336,15 @@
 	.back {
 		float: left;
 	}
-
-	.back img {
+	
+	.back span {
 		height: 2.5rem;
+		font-size: 2.5rem;
+		color: #DBDBDB;
+	}
+	
+	.back span:active{
+		color: black;
 	}
 
 	i.weui-icon.weui_icon_clear.weui-icon-clear {

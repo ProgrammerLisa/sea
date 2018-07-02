@@ -2,7 +2,7 @@
 	<div class="content">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-				<span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
+				<span @click="goBack" class="back"><span>ㄑ</span></span>
 				<span style="margin-left: -36px; position: absolute; left: 50%; font-size: 1.8rem;">重置密码</span>
 			</div>
 		</div>
@@ -149,8 +149,14 @@
 		float: left;
 	}
 	
-	.back img {
+	.back span {
 		height: 2.5rem;
+		font-size: 2.5rem;
+		color: #DBDBDB;
+	}
+	
+	.back span:active{
+		color: #555;
 	}
 	
 	.form-group {

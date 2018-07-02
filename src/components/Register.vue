@@ -2,14 +2,14 @@
 	<div id="register">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-				<span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
+				<span @click="goBack" class="back"><span>ㄑ</span></span>
 				<span style="margin-left: -20px; position: absolute; left: 50%; font-size: 1.8rem;">注 册</span>
 			</div>
 		</div>
 		<form id="form_register">
 			<div style="padding: 45px 30px">
 				<div style="padding-top: 3.5rem;">
-					<input id="phone" type="number" ref="phone" name="phone" v-model="phone" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
+					<input id="phone" type="number" ref="phone" name="phone" v-model="phone" placeholder="请输入11位有效手机号" oninput="if(value.length>11)value=value.slice(0,11)" keyboard="number" is-type="china-mobile" required></input>
 				</div>
 
 				<div style="padding-top: 30px; display: inline-table; width: 100%;">
@@ -363,8 +363,13 @@
 		float: left;
 	}
 
-	.back img {
+	.back span {
 		height: 2.5rem;
+		font-size: 2.5rem;
+		color: #DBDBDB;
+	}
+	.back span:active{
+		color: black;
 	}
 	/*#agree{
 		margin-top: 65%;

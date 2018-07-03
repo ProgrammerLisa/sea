@@ -2,7 +2,7 @@
   <div class="content">
     <div class="panel panel-default BlackTitle">
       <div class="panel-body">
-        <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
+        <span @click="goBack" class="back"><span>ㄑ</span></span>
         <span style="margin-left: -37px; position: absolute; left: 50%; font-size: 1.8rem;">客服中心</span>
       </div>
     </div>
@@ -70,9 +70,14 @@
   .back{
     float: left;
   }
-  .back img{
-    height: 2.5rem;
-  }
+  .back span {
+		height: 2.5rem;
+		font-size: 2.5rem;
+		color: #DBDBDB;
+	}
+	.back span:active{
+		color: black;
+	}
   .netNone{
   	top: 7rem;
   	padding-bottom: 6vh;

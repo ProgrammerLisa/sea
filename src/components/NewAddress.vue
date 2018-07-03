@@ -1,9 +1,9 @@
 <template>
-  <div class="content">
-    <div class="panel panel-default BlackTitle">
-      <div class="panel-body">
-        <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
-        新建地址
+	<div class="content">
+		<div class="panel panel-default BlackTitle">
+			<div class="panel-body">
+				<span @click="goBack" class="back"><span>ㄑ</span></span>
+				新建地址
 
       </div>
     </div>
@@ -190,8 +190,8 @@
         }
       }
 
-    }
-  }
+		}
+	}
 </script>
 
 <style scoped>

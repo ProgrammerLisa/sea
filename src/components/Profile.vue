@@ -15,54 +15,54 @@
           <!--<p class="userId">ID：{{phone}}</p>-->
         </router-link>
 
-        <div class="row ">
-          <router-link to="wallet" tag="div" class="col-xs-6  personalMessageLeft">
-            <img :src="wallet" class="personalIcon">
-            <span class="personalText" id="walletText">我的钱包</span>
-            <span class="wallet"></span>
-          </router-link>
-          <router-link to="realname" tag="div" class="col-xs-6">
-            <img :src="autonym" class="personalIcon">
-            <span class="personalText">实名信息</span>
-          </router-link>
-        </div>
-    </div>
+				<div class="row ">
+					<router-link to="wallet" tag="div" class="col-xs-6  personalMessageLeft">
+						<img :src="wallet" class="personalIcon">
+						<span class="personalText" id="walletText">我的钱包</span>
+						<span class="wallet"></span>
+					</router-link>
+					<router-link to="realname" tag="div" class="col-xs-6">
+						<img :src="autonym" class="personalIcon">
+						<span class="personalText">实名信息</span>
+					</router-link>
+				</div>
+			</div>
 
-    </div>
-    <div class="personalItem">
-      <div v-for="(m,index) in Personal" class="mediaDad">
-        <div class="media" >
-          <router-link :to="m.PersonalHref" tag="div">
-            <div class="media-left">
-              <img class="media-object" :src="m.imfLeft" >
-            </div>
-            <div class="media-body" style="vertical-align: middle">
-              {{m.title}}
-            </div>
-            <div class="media-right">
-              <img class="media-object" src="../assets/images/more.png"/>
-            </div>
-          </router-link>
+		</div>
+		<div class="personalItem">
+			<div v-for="(m,index) in Personal" class="mediaDad">
+				<div class="media">
+					<router-link :to="m.PersonalHref" tag="div">
+						<div class="media-left">
+							<img class="media-object" :src="m.imfLeft">
+						</div>
+						<div class="media-body" style="vertical-align: middle">
+							{{m.title}}
+						</div>
+						<div class="media-right">
+							<img class="media-object" src="../assets/images/more.png" />
+						</div>
+					</router-link>
 
-        </div>
-      </div>
+				</div>
+			</div>
 
-    </div>
-  </div>
+		</div>
+	</div>
 </template>
 
 <script>
-    import friend from '@/assets/images/friend.png'
-    import inviter from '@/assets/images/inviter.png'
-    import award from '@/assets/images/award.png'
-    import indent from '@/assets/images/indent.png'
-    import address from '@/assets/images/address.png'
-    import service from '@/assets/images/service.png'
-    import setting from '@/assets/images/setting.png'
-    import headImg from '@/assets/images/profile.png'
-    import autonym from '@/assets/images/autonym.png'
-    import wallet from '@/assets/images/wallet.png'
-    import invite from '@/assets/images/invite.png'
+	import friend from '@/assets/images/friend.png'
+	import inviter from '@/assets/images/inviter.png'
+	import award from '@/assets/images/award.png'
+	import indent from '@/assets/images/indent.png'
+	import address from '@/assets/images/address.png'
+	import service from '@/assets/images/service.png'
+	import setting from '@/assets/images/setting.png'
+	import headImg from '@/assets/images/profile.png'
+	import autonym from '@/assets/images/autonym.png'
+	import wallet from '@/assets/images/wallet.png'
+	import invite from '@/assets/images/invite.png'
 
     export default {
         name: "Personal",
@@ -111,24 +111,6 @@
           .catch(function(err){
             this.$layer.msg(err)
           }.bind(this));
-
-        this.$http({
-          method: "post",
-          url: "/users/my-invite-code",
-          headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
-          data: {}
-        }).then(function(res){
-          if(res.data.code==0){
-            this.Personal[1].myInvite = res.data.my_invite_code;
-            $('.media-right').eq(1).html(this.Personal[1].myInvite).css({'verticalAlign':'middle','paddingRight':'1rem','color':'#999'});
-
-          }else {
-            this.$layer.msg(res.data.msg);
-          }
-        }.bind(this))
-          .catch(function(err){
-            console.log(err)
-          }.bind(this))
 
         this.$http({
           method: "post",

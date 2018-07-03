@@ -1,20 +1,29 @@
 <template>
-  <div class="content">
-    <div class="panel panel-default BlackTitle">
-      <div class="panel-body">
-        <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
-        收货地址
-      </div>
-    </div>
-    <div v-if="noAddress" class="addressNone">
-      <img :src="addressNone"/>
-      <p>一个地址都没有哦</p>
-    </div>
-    <table v-else class="table address" v-for="(a,index) in myAddress">
-      <tr><td class="text-left">收货人</td><td class="text-right">{{a.msg.consignee}}</td></tr>
-      <tr><td class="text-left">联系电话</td><td class="text-right">{{a.msg.phone}}</td></tr>
-      <tr><td class="text-left">收货地址</td><td class="text-right">{{a.msg.address}}</td></tr>
-      <tr>
+	<div class="content">
+		<div class="panel panel-default BlackTitle">
+			<div class="panel-body">
+				<span @click="goBack" class="back"><span>ㄑ</span></span>
+				收货地址
+			</div>
+		</div>
+		<div v-if="noAddress" class="addressNone">
+			<img :src="addressNone" />
+			<p>一个地址都没有哦</p>
+		</div>
+		<table v-else class="table address" v-for="(a,index) in myAddress">
+			<tr>
+				<td class="text-left">收货人</td>
+				<td class="text-right">{{a.msg.consignee}}</td>
+			</tr>
+			<tr>
+				<td class="text-left">联系电话</td>
+				<td class="text-right">{{a.msg.phone}}</td>
+			</tr>
+			<tr>
+				<td class="text-left">收货地址</td>
+				<td class="text-right">{{a.msg.address}}</td>
+			</tr>
+			<tr>
 
         <td class="col-xs-6">
             <div v-if="a.msg.is_default">
@@ -34,37 +43,37 @@
           <span class="del" @click="editor(index)">
             <img src="../assets/images/editor.png"/> 编辑
           </span>
-          <span class="del" @click="del(index)">
+					<span class="del" @click="del(index)">
             <img src="../assets/images/del.png"/> 删除
           </span>
-        </td>
-      </tr>
-    </table>
-    <div class="newAddress">
-      <router-link to="/newaddress" tag="div" class="newAddressBtn"><span class="glyphicon glyphicon-plus"></span> <span class="large">新建地址</span></router-link>
-    </div>
+				</td>
+			</tr>
+		</table>
+		<div class="newAddress">
+			<router-link to="/newaddress" tag="div" class="newAddressBtn"><span class="glyphicon glyphicon-plus"></span> <span class="large">新建地址</span></router-link>
+		</div>
 
-  </div>
+	</div>
 </template>
 
 <script>
-  import addressNone from '@/assets/images/addressNone.png'
-    export default {
-      name: "Address",
-      inject:['reload'],
-      data(){
-        return{
-          noAddress:'',
-          addressNone:addressNone,
-          myAddress:[],
-          mobile:{
-              id:'',
-              msg:{
-                name:'',
-                  phoneNumber:'',
-                address:'',
-                is_default:''
-              }
+	import addressNone from '@/assets/images/addressNone.png'
+	export default {
+		name: "Address",
+		inject: ['reload'],
+		data() {
+			return {
+				noAddress: '',
+				addressNone: addressNone,
+				myAddress: [],
+				mobile: {
+					id: '',
+					msg: {
+						name: '',
+						phoneNumber: '',
+						address: '',
+						is_default: ''
+					}
 
           }
         }
@@ -84,23 +93,22 @@
             }else {
               this.noAddress =  false;
 
-              let myJson = res.data.data;
-              for(let p in myJson){//遍历json对象的每个key/value对,p为key
+							let myJson = res.data.data;
+							for(let p in myJson) { //遍历json对象的每个key/value对,p为key
 
-                this.mobile.id = p;
-                this.mobile.msg = myJson[p];
-                this.myAddress.push(this.mobile);
-                this.mobile = {
-                    id:'',
-                      msg:{
-                      name:'',
-                        phoneNumber:'',
-                        address:'',
-                        is_default:''
-                    }
+								this.mobile.id = p;
+								this.mobile.msg = myJson[p];
+								this.myAddress.push(this.mobile);
+								this.mobile = {
+									id: '',
+									msg: {
+										name: '',
+										phoneNumber: '',
+										address: '',
+										is_default: ''
+									}
 
-                };
-
+								};
               }
             }
           }else {
@@ -142,41 +150,47 @@
               name:'name',
               dataObj:addressId
 
-            }
+					}
 
-          })
-        },
-        del(index){
-            let that = this;
-            this.$layer.confirm("确认要删除吗，删除后不能恢复", { title: "删除确认" }, function (c) {
-              $(".vl-notify").remove();
-              that.$http({
-                method: "post",
-                url: "/users/delivery_address/delete",
-                headers: {"device": "android", "uid":  localStorage.getItem("uid"), "Access-Control-Allow-Origin": "*"},
-                data: {
-                  id: that.myAddress[index].id
-                }
-              }).then(function(res){
-                if(res.data.code==0){
-                  that.$layer.msg(res.data.msg);
-                  that.reload();
-                }else {
-                  that.$layer.msg(res.data.msg);
-                }
-              }.bind(this))
-                .catch(function(err){
-                  console.log(err)
-                }.bind(this))
+				})
+			},
+			del(index) {
+				let that = this;
+				this.$layer.confirm("确认要删除吗，删除后不能恢复", {
+					title: "删除确认"
+				}, function(c) {
+					$(".vl-notify").remove();
+					that.$http({
+							method: "post",
+							url: "/users/delivery_address/delete",
+							headers: {
+								"device": "android",
+								"uid": localStorage.getItem("uid"),
+								"Access-Control-Allow-Origin": "*"
+							},
+							data: {
+								id: that.myAddress[index].id
+							}
+						}).then(function(res) {
+							if(res.data.code == 0) {
+								that.$layer.msg(res.data.msg);
+								that.reload();
+							} else {
+								that.$layer.msg(res.data.msg);
+							}
+						}.bind(this))
+						.catch(function(err) {
+							console.log(err)
+						}.bind(this))
 
-          });
+				});
 
-        },
-        goBack(){
-          this.$router.go(-1);
-        }
-      }
-    }
+			},
+			goBack() {
+				this.$router.go(-1);
+			}
+		}
+	}
 </script>
 
 <style scoped>

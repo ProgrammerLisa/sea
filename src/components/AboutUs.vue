@@ -2,7 +2,7 @@
   <div class="content">
     <div class="panel panel-default BlackTitle">
       <div class="panel-body">
-        <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
+        <span @click="goBack" class="back"><span>ㄑ</span></span>
         <span style="margin-left: -20px; position: absolute; left: 50%; font-size: 1.8rem;">关 于</span>
       </div>
     </div>
@@ -59,9 +59,14 @@
   .back{
     float: left;
   }
-  .back img{
-    height: 2.5rem;
-  }
+  .back span {
+		height: 2.5rem;
+		font-size: 2.5rem;
+		color: #DBDBDB;
+	}
+	.back span:active{
+		color: #555;
+	}
   .about{
     text-align: center;
     color: #444;

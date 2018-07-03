@@ -17,12 +17,18 @@
       <tr>
 
         <td class="col-xs-6">
-          <div @click="choose(index)">
-            <div class="round">
-              <span class="defaultRound" v-if="a.msg.is_default"></span>
+            <div v-if="a.msg.is_default">
+              <div class="round">
+              <span class="defaultRound" ></span>
             </div>
-            <span class="default">默认地址</span>
-          </div>
+            <span class="defaultChoose">已设为默认地址</span>
+            </div>
+
+            <div @click="choose(index)"  v-else>
+              <div class="round"></div>
+            <span class="default" v-if="">默认地址</span>
+            </div>
+
         </td>
         <td class="col-xs-6 text-right">
           <span class="del" @click="editor(index)">
@@ -63,16 +69,7 @@
           }
         }
       },
-      created(){
-        const that = this;
-        this.$nextTick(() => {
-          for (let i = 0; i < that.myAddress.length; i++) {
-            if (that.myAddress[i].isdefault) {
-              $(".default").eq(i).css({color: "#09A2D6"}).text("已设为默认地址")
-            }
-          }
-        })
-      },
+
       mounted(){
         this.$http({
           method: "get",
@@ -81,6 +78,7 @@
           data: {}
         }).then(function(res){
           if(res.data.code==0){
+
             if(JSON.stringify(res.data.data) == "{}"){
               this.noAddress = true
             }else {
@@ -115,13 +113,25 @@
       },
       methods:{
         choose(index){
-          const that = this;
-          for (var i=0;i<that.myAddress.length;i++){
-            that.myAddress[i].isdefault = false;
-            $(".default").css({color:"#555"}).text("默认地址")
-          }
-          that.myAddress[index].isdefault = true;
-          $(".default").eq(index).css({color:"#09A2D6"}).text("已设为默认地址")
+          this.$http({
+            method: "post",
+            url: "/users/delivery_address/set-default",
+            headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
+            data: {
+              id:this.myAddress[index].id
+            }
+          }).then(function(res){
+            if(res.data.code==0){
+              this.$layer.msg(res.data.msg);
+              this.reload();
+            }else {
+              this.$layer.msg(res.data.msg);
+            }
+          }.bind(this))
+            .catch(function(err){
+              console.log(err)
+            }.bind(this))
+
         },
         editor(index){
           let addressId = this.myAddress[index].id;
@@ -232,12 +242,12 @@
     margin-right: 0.5rem;
     vertical-align: middle;
     text-align: center;
-    line-height: 0.8rem;
+    line-height: 0.6rem;
   }
   .defaultRound{
     display: inline-block;
-    width: 0.6rem;
-    height: 0.6rem;
+    width: 50%;
+    height:50%;
     border-radius: 50%;
     background: #09A2D6;
   }
@@ -268,11 +278,14 @@
     width: 90%;
     background: #09a2d6;
     color: #f5f5f5;
-    padding: 0.5rem;
+    padding: 1rem;
     border: none;
     margin: auto;
   }
   .large{
     font-size: larger;
+  }
+  .defaultChoose{
+    color: #09a2d6;
   }
 </style>

@@ -15,7 +15,7 @@
 
       </div>
     </div>
-    <div class="media" data-toggle="modal" data-target="#NickModal">
+    <div class="media setHeight" data-toggle="modal" data-target="#NickModal">
       <div class="media-body nickNameLeft">
         昵称
       </div>
@@ -23,7 +23,7 @@
         <span id="nickname">{{nickname}}</span><span class="glyphicon glyphicon-menu-right more"></span>
       </div>
     </div>
-    <div class="media noTop">
+    <div class="media noTop setHeight">
       <div class="media-body">
         ID号
       </div>
@@ -346,5 +346,10 @@
   .nickNameRight{
     width: 80%;
     text-align: right;
+  }
+  .setHeight{
+    height: 8vh;
+    line-height: 8vh;
+    padding: 0 1rem;
   }
 </style>

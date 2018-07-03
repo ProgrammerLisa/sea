@@ -1,9 +1,8 @@
 <template>
   <div class="contentMain">
     <div id="main-top">
-
-     <div id="notice" style="height: 2.5rem;">
-    		<marquee style="vertical-align: middle; line-height: 2.5rem;" scrollamount="5" scrolldelay="1"><span style="font-size: 1.5rem;">公告:亲爱的用户，平台momomo即将上线，敬请期待。</span></marquee>
+     <div id="notice" style="margin-top: 2rem;height: 2.5rem;">
+    		<marquee style="height: 2.5rem;" scrollamount="5" scrolldelay="1"><span style="font-size: 1.6rem;">公告:亲爱的用户，平台momomo即将上线，敬请期待。</span></marquee>
      </div>
      <div class="topOption option1">
         <span >珍珠量 {{imgSum}}</span>
@@ -18,8 +17,6 @@
           <ul class="dropdown-menu">
             <li><a href="#"><img src="../assets/images/youxiguize.png" class="dropdown-menu-img"/>游戏规则</a></li>
             <li role="separator" class="divider"></li>
-            <li><router-link to="/addfriends" tag="a"><img src="../assets/images/tianjiahaoyou.png" class="dropdown-menu-img"/>添加好友</router-link></li>
-            <li role="separator" class="divider"></li>
             <li><a href="#"><img src="../assets/images/zhanji.png" class="dropdown-menu-img"/>战绩</a></li>
           </ul>
         </div>
@@ -27,7 +24,7 @@
 
       <div id="imgDiv"></div>
     </div>
-    <router-link class="option4" to="/ask" tag="div">
+    <router-link class="option4" to="/shareinvite" tag="div">
       <img src="../assets/images/yaoqinghaoyou.png"  class="invitation-friends"/>
       <p>邀请好友</p>
     </router-link>
@@ -289,7 +286,6 @@ export default {
 </script>
 <style scoped>
 	#notice{
-    margin-top: 2rem;
 		width: 100%;
 		font-family: "微软雅黑";
 		font-size: 1.01rem;
@@ -307,7 +303,7 @@ export default {
     background-size: 100% 100%;
     color: white;
     height: 65vh;
-    border-top: 1px solid #68b4f6;
+    padding-top: 1px;
   }
   .topOption{
     position: absolute;

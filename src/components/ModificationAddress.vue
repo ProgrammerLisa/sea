@@ -33,6 +33,7 @@
         </div>
       </div>
     </form>
+
   </div>
 
 </template>
@@ -51,6 +52,9 @@
         methods:{
           goBack(){
             this.$router.go(-1);
+          },
+          districts(){
+
           },
           keepSubmit(){
             if($("#name").val()==''||$("#name").val()==null||$("#name").val()==undefined){

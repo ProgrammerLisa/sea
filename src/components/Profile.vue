@@ -3,7 +3,7 @@
     <div class="personal">
       <div class="news">
         <router-link to="/news" tag="div" class="badgePosition">
-          <span class="badge msg">·</span>
+          <span v-show="newsCount" class="badge msg">·</span>
         </router-link>
       </div>
       <div class="container personalMessage">
@@ -88,28 +88,29 @@
               {title:'账户设置',PersonalHref:'setting',imfLeft:setting}
             ],
             headPortrait:headImg,
-            isLogin:true
+            isLogin:true,
+            newsCount:false
           }
       },
       mounted(){
-          this.$http({
-            method: "get",
-            url: "/users/profile",
-            headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
-            data: {}
-          }).then(function(res){
-            if(res.data.code==0){
-              this.nickName = res.data.data.nickname;
-              this.phone = res.data.data.phone;
-              this.headPortrait = res.data.data.avatar
+        this.$http({
+          method: "get",
+          url: "/users/profile",
+          headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
+          data: {}
+        }).then(function(res){
+          if(res.data.code==0){
+            this.nickName = res.data.data.nickname;
+            this.phone = res.data.data.phone;
+            this.headPortrait = res.data.data.avatar
 
-            }else {
-              this.$layer.msg(res.data.msg);
-            }
-          }.bind(this))
-            .catch(function(err){
-              this.$layer.msg(err)
-            }.bind(this));
+          }else {
+            this.$layer.msg(res.data.msg);
+          }
+        }.bind(this))
+          .catch(function(err){
+            this.$layer.msg(err)
+          }.bind(this));
 
         this.$http({
           method: "post",
@@ -128,6 +129,26 @@
           .catch(function(err){
             console.log(err)
           }.bind(this))
+
+        this.$http({
+          method: "post",
+          url: "/messages/box",
+          headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
+          data: {}
+        }).then(function(res){
+          if(res.data.code==0) {
+            if(res.data.count>0){
+              this.newsCount = true
+            }else {
+              this.newsCount = false
+            }
+          }else {
+            this.$layer.msg(res.data.msg);
+          }
+        }.bind(this))
+          .catch(function(err){
+            this.$layer.msg(err)
+          }.bind(this));
       },
       methods:{
           changeBack(index){
@@ -227,12 +248,35 @@
   .media:active {
     background: #f1f1f1
   }
+  .media-left{
+    padding-bottom: 0;
+  }
   .mediaDad:nth-child(4), .mediaDad:nth-child(6){
     margin-bottom: 1rem;
   }
+
   .media-object{
-    width: 3.8rem;
-    padding: 0.5rem;
+    padding: 0.8rem;
+  }
+  @media screen and (min-height: 560px) and (max-height: 700px) {
+    .media-object {
+      width:8vh
+    }
+  }
+  @media screen and (min-height: 700px) and (max-height: 850px) {
+    .media-object {
+      width:7vh
+    }
+  }
+  @media screen and (min-height: 850px) and (max-height: 1024px) {
+    .media-object {
+      width:6vh
+    }
+  }
+  @media screen and (min-height:1025px) and (max-height: 2000px) {
+    .media-object {
+      width:5vh
+    }
   }
   .msg{
     color: #ff2424;

@@ -104,9 +104,37 @@
             this.$router.go(-1);
           },
           loginOut(){
-            localStorage.removeItem("uid");
-            this.$router.replace('/');
-            this.$router.go(0);
+
+            const that = this;
+            this.$layer.confirm("确认要退出登录吗", { title: "退出登录" }, function (c) {
+
+              $(".vl-notify").remove();
+              // that.$http({
+              //   method: "post",
+              //   url: "/auth/logout",
+              //   headers: {"device": "android", "uid": localStorage.getItem("uid"), "Access-Control-Allow-Origin": "*"},
+              //   data: {}
+              // }).then(function (res) {
+              //   if (res.data.code == 0) {
+              //     this.$layer.msg(res.data.msg);
+              //     localStorage.removeItem("uid");
+              //     this.$router.replace('/');
+              //     this.$router.go(0);
+              //   } else {
+              //     that.$layer.msg(res.data.msg);
+              //   }
+              // }.bind(this))
+              //   .catch(function (err) {
+              //     console.log(err)
+              //   }.bind(this))
+            })
+
+            $(".vl-notice-title").css({display:"none"});
+            $(".vl-notify-btns").css({textAlign:"center"});
+            $(".vl-notify-content").css({textAlign:"center"});
+            $(".notify-btn").css({borderRadius:"0"
+            });
+
           }
         }
     }
@@ -148,9 +176,13 @@
   }
   .table tr{
     border-bottom: 0.1rem solid #f5f5f5;
+    height: 8vh;
   }
   .table td{
     padding:0.5rem 1.5rem;
+  }
+  .table .spacing{
+    height: 1rem;
   }
   .spacing td{
     padding: 0;
@@ -187,7 +219,10 @@
     width: 100%;
     border-top: 0.1rem solid #eee;
   }
-
+  .loginOut:active{
+    background: #f5f5f5;
+    color: #09a2d6;
+  }
   .blueBtn{
     background: #09a2d6;
     border-radius: 2rem;
@@ -213,5 +248,7 @@
     position: relative;
     border:0.1rem solid #09a2d6;
   }
-
+  .notify-btn{
+    border-radius: 0;
+  }
 </style>

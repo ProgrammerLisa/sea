@@ -5,6 +5,7 @@
         <div class="row">
           <div class="col-xs-3 parents" v-for="(item,index) in navItem">
             <div class="nav-item" @click="nav(index)">
+              <span v-show="item.newsCount" class="badge msg">·</span>
               <img :src="item.imgSrc1">
               <span class="navTitle" :style="item.titleStyle">{{item.title}}</span>
             </div>
@@ -34,10 +35,10 @@
       return{
         uid:'',
         navItem:[
-          {navSrc:'/home',title:'首页',imgSrc1:home,imgSrc2:home1,titleStyle:''},
-          {navSrc:'/find',title:'发现',imgSrc1:discovery,imgSrc2:discovery1,titleStyle:''},
-          {navSrc:'/shopping',title:'商城',imgSrc1:store,imgSrc2:store1,titleStyle:''},
-          {navSrc:'/personal',title:'我的',imgSrc1:mine,imgSrc2:mine1,titleStyle:''}
+          {navSrc:'/home',title:'首页',imgSrc1:home,imgSrc2:home1,titleStyle:'',newsCount:false},
+          {navSrc:'/find',title:'发现',imgSrc1:discovery,imgSrc2:discovery1,titleStyle:'',newsCount:false},
+          {navSrc:'/shopping',title:'商城',imgSrc1:store,imgSrc2:store1,titleStyle:'',newsCount:false},
+          {navSrc:'/personal',title:'我的',imgSrc1:mine,imgSrc2:mine1,titleStyle:'',newsCount:false}
         ],
         imgSrcArr:[
           home,discovery,store,mine
@@ -92,6 +93,26 @@
           console.log(err)
         }.bind(this))
 
+      this.$http({
+        method: "post",
+        url: "/messages/box",
+        headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
+        data: {}
+      }).then(function(res){
+        if(res.data.code==0) {
+          if(res.data.count>0){
+            this.navItem[3].newsCount = true
+          }else {
+            this.navItem[3].newsCount = false
+          }
+        }else {
+          this.$layer.msg(res.data.msg);
+        }
+      }.bind(this))
+        .catch(function(err){
+          this.$layer.msg(err)
+        }.bind(this));
+
     },
     methods:{
       nav(index){
@@ -109,13 +130,7 @@
 
 </script>
 
-<style scoped>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ·······················································································································································································································································································································································································································································································································································································································································································································································································································································································································································································································································································································································
-  body {
-    background-color: #f5f5f5;
-  }
-  html{
-    font-size:62.5%;
-  }
+<style scoped>
   .content{
     margin-bottom: 60px;
     color: #555;
@@ -144,6 +159,14 @@
     margin: auto;
     width: 2.5rem;
   }
-
+.msg{
+  color: #ff2424;
+  background: transparent;
+  font-size: xx-large;
+  padding: 0.5rem ;
+  line-height: 0;
+  position: absolute;
+  right: 1.2rem;
+}
 </style>
 

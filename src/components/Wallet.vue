@@ -75,6 +75,9 @@
   .table:nth-child(3){
     margin-bottom: 1rem;
   }
+  .table tr{
+    height: 8vh;
+  }
   .table td{
     padding:0.5rem 1rem;
   }

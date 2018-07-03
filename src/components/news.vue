@@ -11,7 +11,7 @@
       <p>暂时还没有消息哦</p>
     </div>
 
-    <div class="media" v-for="n in news" v-else>
+    <div class="media" v-for="(n,index) in news" v-else @click="delShow(index)"  @touchstart='touchStart' @touchmove='touchMove($event,index)' @touchend='touchEnd'>
       <div class="media-left">
         <span class="badge msg" v-show="!n.msg.is_read">·</span><img class="media-object" :src="n.msg.img">
       </div>
@@ -20,6 +20,9 @@
        {{n.msg.content}}
 
       </div>
+      <transition name="slide-fade">
+        <p v-if="n.show" class="del" :id="n.id" @click="del($event,index)">删除</p>
+      </transition>
     </div>
   </div>
 </template>
@@ -33,9 +36,10 @@
           return{
             newsNone:true,
             newsNoneImg:newsNoneImg,
-            newsId:'',
             news:[],
             mobile :{
+              show:false,
+              mobileId:'',
               id:'',
               msg:{
                 img:'',
@@ -44,7 +48,11 @@
                 create_at:'',
                 is_read:''
               }
-            }
+            },
+            isShow:false,
+            startX:0,//开始触摸的位置
+            moveX:0,//滑动时的位置
+            disX:0//移动距离
           }
         },
         mounted(){
@@ -55,17 +63,18 @@
             data: {}
           }).then(function(res){
             if(res.data.code==0){
-              if(res.data.count==0){
-                this.newsNone = true;
-              }else {
+                console.log(res.data)
                 this.newsNone = false;
+                let i = 1;
                 for(let n in res.data.data){
-                  this.newsId = n;
-                  console.log(res.data.data[n])
+
+                  this.mobile.mobileId = n;
+                  this.mobile.id = 'myId'+i;
                   this.mobile.msg = res.data.data[n];
                   this.mobile.msg.img=friend;
                   this.news.push(this.mobile);
                   this.mobile = {
+                    show:false,
                     id:'',
                     msg:{
                       img:'',
@@ -75,9 +84,9 @@
                       is_read:''
                     }
                   };
+                  i++
                 }
-                console.log (res.data)
-              }
+
 
             }else {
               this.newsNone = true;
@@ -88,11 +97,58 @@
               this.newsNone = true;
               this.$layer.msg(err)
             }.bind(this));
+
         },
-        methods:{
-          goBack(){
+        methods: {
+          goBack() {
             this.$router.go(-1);
+          },
+          delShow(i){
+            this.$router.push({
+              path: '/newsdetails',
+              name: 'NewsDetails',
+              params: {
+                name: 'name',
+                dataObj: this.news[i].mobileId
+
+              }
+            })
+          },
+          touchStart:function(ev) {
+            ev = ev || event;
+            ev.preventDefault();
+//                      console.log(ev.targetTouches);
+//                      console.log(ev.changedTouches);
+            if(ev.touches.length == 1) {    //tounches类数组，等于1时表示此时有只有一只手指在触摸屏幕
+              this.startX = ev.touches[0].clientX; // 记录开始位置
+            }
+          },
+          touchMove:function(ev,i) {
+            ev = ev || event;
+            ev.preventDefault();
+            const that = this;
+            if(ev.touches.length == 1) {
+              //滑动时距离浏览器左侧的距离
+              that.moveX = ev.touches[0].clientX;
+
+              //实时的滑动的距离-起始位置=实时移动的位置
+              that.disX = that.moveX-that.startX;
+              if(that.disX<0){
+                that.news[i].show = true
+              }else {
+                that.news[i].show = false
+              }
+            }
+          },
+          touchEnd:function(ev){
+            ev = ev || event;
+            ev.preventDefault();
+          },
+          del(e,index){
+            e.stopPropagation();
+            this.news.splice(index,1)
           }
+
         }
     }
 </script>
@@ -104,6 +160,7 @@
     padding-bottom: 6rem;
     background-color: #f5f5f5;
     width: 100vw;
+    overflow: hidden;
   }
 
   .panel{
@@ -170,5 +227,29 @@
     font-size: xx-large;
     padding: 0;
     line-height: 0;
+  }
+  .del{
+    background: #ff2424;
+    color: #fcf8e3;
+    width: 6rem;
+    height: 6rem;
+    line-height: 6rem;
+    text-align: center;
+    position: absolute;
+    right: 0rem;
+    margin-top: -5rem;
+  }
+  /* 可以设置不同的进入和离开动画 */
+  /* 设置持续时间和动画函数 */
+  .slide-fade-enter-active {
+    transition: all .3s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active for below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
   }
 </style>

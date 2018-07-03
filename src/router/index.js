@@ -17,6 +17,8 @@ import Retrieve from '@/components/RetrievePassword'
 import Ask from '@/components/Invite'
 import AskCode from '@/components/RegisterInviteCode'
 
+import ShareInvite from '@/components/ShareInvite'
+
 import friend from '@/components/friend'
 import address from '@/components/Address'
 import Service from '@/components/Service'
@@ -43,6 +45,7 @@ import NewAddress from '@/components/NewAddress'
 import Compile from '@/components/Compile'
 import UploadHeadImg from '@/components/UploadHeadImg'
 import WechatService from '@/components/WechatService'
+import NewsDetails from '@/components/NewsDetails'
 
 
 
@@ -273,6 +276,16 @@ export default new Router({
     	name:'AskCode',
     	meta:{index:3},
     	component: AskCode
+    },{
+      path:'/newsdetails',
+      name:'NewsDetails',
+      meta:{index:3},
+      component: NewsDetails
+    },{
+      path:'/shareinvite',
+      name:'ShareInvite',
+      meta:{index:3},
+      component: ShareInvite
     }
 
   ]

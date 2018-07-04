@@ -22,7 +22,7 @@
 					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: -5px;right: 7%;">
            			  <img src="../assets/images/x.png" style="position:absolute;"/>
           			</button>
-					<input class="phone" type="number" ref="mobile" v-on:change="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" oninput="if(value.length>11)value=value.slice(0,11)"  keyboard="number" is-type="china-mobile" required/>
+					<input required="required" class="phone" ref="mobile" v-on:change="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" />
 
 				</div>
 
@@ -50,7 +50,7 @@
 		<form v-else>
 			<div style="padding: 45px 30px;">
 				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
-					<input class="phone" type="number" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" oninput="if(value.length>11)value=value.slice(0,11)" keyboard="number" is-type="china-mobile" required></input>
+					<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
 					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 7%;">
             			<img src="../assets/images/x.png" style="position: absolute;"/>
          			 </button>
@@ -59,9 +59,9 @@
 				<div id="div_ipwd">
 					<input id="verifica" v-on:change="verifshow()" v-model="verif" maxlength="4" placeholder="请输入短信验证码" />
 					<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</x-button>
-					<!--<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 120px;">
+					<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 120px;">
             			<img src="../assets/images/x.png" style="position: relative;"/>
-          			</button>-->
+          			</button>
 				</div>
 
 				<div class="hyperlink">
@@ -75,6 +75,7 @@
 				</div>
 			</div>
 		</form>
+
 	</div>
 
 </template>
@@ -83,7 +84,6 @@
 	import { XInput, Group, XButton } from 'vux'
 	import eye from '@/assets/images/eye.png'
 	import eyeclick from '@/assets/images/eyeclick.png'
-
 
 	export default {
 		name: "login",
@@ -126,11 +126,11 @@
 			});
 
 			var Verificationtime = Verificationtime;
-			that.time = localStorage.getItem(Verificationtime);
+			that.time = that.readCookie(Verificationtime);
 			if(that.time != "") {
 				var TimeReduction2 = setInterval(function() {
 					if(that.time > 0) {
-            localStorage.setItem(Verificationtime, that.time);
+						that.writeCookie(Verificationtime, that.time);
 						that.time--;
 						that.btntxt = that.time + "s";
 						that.disabled = true;
@@ -138,7 +138,7 @@
 						that.time = 0;
 						that.btntxt = "获取验证码";
 						that.disabled = false;
-            localStorage.removeItem(Verificationtime);
+						that.delCookie(Verificationtime);
 						clearInterval(TimeReduction2);
 					}
 				}, 1000)
@@ -151,24 +151,21 @@
 		},
 		methods: {
 			show() {
-				if(this.mobile != '') {
-					this.btnShow = true;
+				if(this.mobile == '') {
 				} else {
-					this.btnShow = false;
+					this.btnShow = true;
 				}
 			},
 			ipwdshow() {
-				if(this.inppwd != '') {
-					this.btnShow1 = true;
+				if(this.inppwd == '') {
 				} else {
-					this.btnShow1 = false;
+					this.btnShow1 = true;
 				}
 			},
 			verifshow() {
-				if(this.verif != '') {
-					this.btnverShow = true;
+				if(this.verif == '') {
 				} else {
-					this.btnverShow = false;
+					this.btnverShow = true;
 				}
 			},
 			goBack() {
@@ -209,19 +206,26 @@
 			},
 			bnn() {
 				if(this.mobile == '') {
-
+					
 				} else {
 					this.mobile = ''
+					this.btnShow = false;
 				}
 			},
 			bnn1() {
-				if(this.inppwd == '') {} else {
+				if(this.inppwd == '') {
+					
+				} else {
 					this.inppwd = ''
+					this.btnShow1 = false;
 				}
 			},
 			ver() {
-				if(this.verif == '') {} else {
+				if(this.verif == '') {
+					
+				} else {
 					this.verif = ''
+					this.btnverShow = false;
 				}
 			},
 			Alt() {
@@ -244,7 +248,6 @@
 					this.disabled = false;
 				}
 			},
-
 			submitData() {
 				//去获取验证手机号
 				event.preventDefault();
@@ -270,9 +273,10 @@
 									password: this.inppwd
 								}
 							}).then(function(res) {
+								console.log(res.data)
 								if(res.data.code == 0) {
 									this.$layer.msg('登录成功');
-                  localStorage.setItem("uid", res.data.data.uid);
+									this.writeCookie('uid', res.data.data.uid, 10000000);
 									this.$router.replace('/home');
 								} else {
 									this.$layer.msg(res.data.msg);
@@ -300,7 +304,7 @@
 				var Verificationtime = Verificationtime;
 
 				this.disabled = true;
-				that.time =  localStorage.getItem(Verificationtime);
+				that.time = that.readCookie(Verificationtime);
 				if(that.time == "") {
 					this.$http({
 							method: 'post',
@@ -316,38 +320,29 @@
 						}).then(function(res) {
 							if(res.data.code == 0) {
 								this.$layer.msg(res.data.msg);
-                that.time = 60;
-                var TimeReduction1 = setInterval(function() {
-                  if(that.time > 0) {
-                    localStorage.setItem(Verificationtime, that.time);
-                    that.time--;
-                    that.btntxt = that.time + "s";
-                    that.disabled = true;
-                  } else {
-                    that.time = 0;
-                    that.btntxt = "获取验证码";
-                    that.disabled = false;
-                    localStorage.removeItem(Verificationtime);
-                    clearInterval(TimeReduction1);
-                  }
-                }, 1000)
-							} else {
-								this.$layer.msg(res.data.msg);
+								that.time = 10;
 								var TimeReduction1 = setInterval(function() {
 									if(that.time > 0) {
 										that.writeCookie(Verificationtime, that.time);
+										that.time--;
+										that.btntxt = that.time + "s";
+										that.disabled = true;
 									} else {
+										that.time = 0;
 										that.btntxt = "获取验证码";
 										that.disabled = false;
 										that.delCookie(Verificationtime);
 										clearInterval(TimeReduction1);
 									}
 								}, 1000)
+							} else {
+								this.$layer.msg(res.data.msg);
 							}
 						}.bind(this))
 						.catch(function(err) {
 							console.log(err)
 						}.bind(this))
+
 				}
 			},
 			btnveif() {
@@ -375,8 +370,8 @@
 								console.log(res.data)
 								if(res.data.code == 0) {
 									this.$layer.msg('登录成功');
-                  localStorage.setItem("uid", res.data.data.uid);
-									this.$router.replace('/home');
+									this.writeCookie('uid', res.data.data.uid, 10000000);
+									this.$router.replace('/AskCode');
 								} else {
 									this.$layer.msg(res.data.msg);
 								}
@@ -391,8 +386,37 @@
 				} else {
 					this.$layer.msg('手机号码格式错误');
 				}
+			},
+			writeCookie(name, value, hours) {
+				var expire = "";
+				hours = hours || 100;
+				if(hours != null) {
+					expire = new Date((new Date()).getTime() + hours * 1000);
+					expire = "; expires=" + expire.toGMTString();
+				}
+				document.cookie = name + "=" + escape(value) + expire;
+			},
+			readCookie(name) {
+				var cookieValue = "";
+				var search = name + "=";
+				if(document.cookie.length > 0) {
+					var offset = document.cookie.indexOf(search);
+					if(offset != -1) {
+						offset += search.length;
+						var end = document.cookie.indexOf(";", offset);
+						if(end == -1) end = document.cookie.length;
+						cookieValue = unescape(document.cookie.substring(offset, end))
+					}
+				}
+				return cookieValue;
+			},
+			delCookie(name) {
+				var exp = new Date();
+				exp.setTime(exp.getTime() - 1);
+				var cval = this.readCookie(name);
+				if(cval != null)
+					document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 			}
-
 		}
 	}
 </script>
@@ -404,37 +428,37 @@
 		-webkit-box-shadow: 0 0 0px 1000px #fff inset;
 	}
 	/*焦点时也加上，不加会出现黄色背景闪动一下*/
-
+	
 	input[type=text]:focus,
 	input[type=password]:focus,
 	textarea:focus {
 		-webkit-box-shadow: 0 0 0 1000px white inset;
 	}
-
+	
 	button.weui-btn.weui-btn_primary {
 		background-color: #09A2D6;
 		border-radius: 0;
 	}
-
+	
 	button.weui-btn.weui-btn_primary:active {
 		background-color: #09A2D6;
 	}
-
+	
 	.back img {
 		height: 2.5rem;
 	}
-
+	
 	.back {
 		float: left;
 	}
-
+	
 	#login {
 		width: 100vw;
 		height: 100vh;
 		background: #fff;
 		overflow: hidden;
 	}
-
+	
 	#verifica {
 		border-top: 0;
 		border-left: 0;
@@ -447,15 +471,15 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-
+	
 	#ipwd .vux-x-input .weui-cell {
 		width: 80%;
 	}
-
+	
 	.weui-btn::after {
 		border-radius: 0;
 	}
-
+	
 	#verbtn {
 		position: relative;
 		margin-top: -44px;
@@ -470,7 +494,7 @@
 		border-radius: 0;
 		border: none;
 	}
-
+	
 	.phone {
 		border-top: 0;
 		border-left: 0;
@@ -483,7 +507,13 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-
+	
+	input::-ms-clear{display: none;}
+	.phone:valid + .close{
+		display: inline;
+	}
+	
+	
 	#ipwd {
 		border-top: 0;
 		border-left: 0;
@@ -496,12 +526,12 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-
+	
 	.group_inputs {
 		width: 100%;
 		padding-top: 14rem;
 	}
-
+	
 	#group_input_img {
 		position: relative;
 		margin-top: -55px;
@@ -509,7 +539,7 @@
 		font-size: 1.2rem;
 		height: 55px;
 	}
-
+	
 	.group_input {
 		/*margin: -40px;*/
 		/*margin: 10px;*/
@@ -518,28 +548,28 @@
 		/*padding: 40px;*/
 		/*margin-left: -14px;*/
 	}
-
+	
 	.weui-cells:before {
 		border-top: 0px!important;
 	}
-
+	
 	.hyperlink {
 		float: right;
 		margin-top: 2rem;
 	}
-
+	
 	.a_hyperlink {
 		color: #8C8C8C;
 	}
-
+	
 	a {
 		color: #353535;
 	}
-
+	
 	a:hover {
 		text-decoration: none;
 	}
-
+	
 	#nav {
 		position: fixed;
 		top: 0;
@@ -552,7 +582,7 @@
 		line-height: 50px;
 		border-bottom: 1px solid #F5F5F5;
 	}
-
+	
 	#nav_login {
 		position: fixed;
 		top: 0;
@@ -563,7 +593,7 @@
 		border-bottom: 1px solid #C8C8CD;
 		margin-top: 50px;
 	}
-
+	
 	#nav_common {
 		position: fixed;
 		width: 50%;
@@ -572,25 +602,25 @@
 		box-shadow: 0.2rem 0.2rem 0.2rem #ddd;
 		overflow: hidden;
 	}
-
+	
 	#nav_common a {
 		width: 100%;
 		background: white;
 	}
-
+	
 	#a_common {
 		/*text-decoration:none;*/
 		/*border-bottom:3px solid #09A2D6;  #ccc换成链接的颜色*/
 		display: inline-block;
 		/*margin-bottom:-3px;  这里设置你要空的距离*/
 	}
-
+	
 	#a_sms {
 		width: 100%;
 		text-decoration: none;
 		display: inline-block;
 	}
-
+	
 	#nav_sms {
 		position: fixed;
 		width: 50%;
@@ -600,46 +630,46 @@
 		overflow: hidden;
 		box-shadow: 0.2rem 0.2rem 0.2rem #ddd;
 	}
-
+	
 	#a_common_animation {
 		width: 100%;
 		background: #09A2D6;
 		height: 0.3rem;
 		margin-left: 0
 	}
-
+	
 	#a_sms_animation {
 		width: 100%;
 		background: #09A2D6;
 		height: 0.3rem;
 		margin-left: -100%;
 	}
-
+	
 	.weui-btn:after,
 	#btn_login_normal:after,
 	#btn_login_sms:after,
 	#verbtn:after {
 		border: none;
 	}
-
+	
 	#btn_login_normal,
 	#btn_login_sms {
 		width: 100%;
 		margin-top: 30px;
 	}
-
+	
 	#btn_login_normal:disabled {
 		background: #C0C0C0;
 	}
-
+	
 	#btn_login_sms:disabled {
 		background: #C0C0C0;
 	}
-
+	
 	button#btn_login_normal.weui-btn.weui-btn_primary {
 		width: 100%;
 	}
-
+	
 	button#btn_login_sms.weui-btn.weui-btn_primary {
 		width: 100%;
 	}

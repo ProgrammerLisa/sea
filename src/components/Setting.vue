@@ -2,7 +2,7 @@
 	<div class="content">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-				<span @click="goBack" class="back"><span>ㄑ</span></span>
+				<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
 				<span style="margin-left: -20px; position: absolute; left: 50%; font-size: 1.8rem;">设 置</span>
 			</div>
 		</div>
@@ -62,10 +62,14 @@
 
 <script>
 	import more from '@/assets/images/more.png'
+	import back from '@/assets/images/back.png'
+	import backs from '@/assets/images/backs.png'
+	
 	export default {
 		name: "Setting",
 		data() {
 			return {
+				masrc: back,
 				more: more,
 				isOn: true
 			}
@@ -128,6 +132,14 @@
 					borderRadius: 0,
 					padding: '0.2rem 1.5rem'
 				});
+			},
+			evers() {
+				console.log(1)
+				this.masrc = backs;
+			},
+			lat() {
+				console.log(2)
+				this.masrc = back;
 			},
 			goBack() {
 				this.$router.go(-1);
@@ -196,14 +208,9 @@
 		float: left;
 	}
 	
-	.back span {
+	.back img {
 		height: 2.5rem;
 		font-size: 2.5rem;
-		color: #DBDBDB;
-	}
-	
-	.back span:active{
-		color: #555;
 	}
 	
 	.table {

@@ -2,7 +2,7 @@
 	<div class="content">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
+				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"><img :src="masrc"/></span>
 				<span style="margin-left: -30px; position: absolute; left: 50%; font-size: 1.8rem;">邀请码</span>
 			</div>
 		</div>
@@ -63,11 +63,9 @@
 		},
 		methods: {
 			evers() {
-				console.log(1)
 				this.masrc = backs;
 			},
 			lat() {
-				console.log(2)
 				this.masrc = back;
 			},
 			goBack() {
@@ -118,13 +116,13 @@
 		float: left;
 	}
 
-	
 	.back img {
 		height: 2.5rem;
 		font-size: 2.5rem;
+		color: #DBDBDB;
+	}
 
-
-	.code{
+	.code {
 		padding: 2rem;
 		text-align: center;
 	}

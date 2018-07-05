@@ -40,7 +40,8 @@
 							{{m.title}}
 						</div>
 						<div class="media-right">
-							<img class="media-object" src="../assets/images/more.png" />
+							<img class="media-object" src="../assets/images/more.png" v-if="!m.noRouter" />
+              <span class="inviteCode" v-else>{{m.myInvite}}</span>
 						</div>
 					</router-link>
 
@@ -63,6 +64,7 @@
 	import autonym from '@/assets/images/autonym.png'
 	import wallet from '@/assets/images/wallet.png'
 	import invite from '@/assets/images/invite.png'
+
 
     export default {
         name: "Personal",
@@ -93,6 +95,7 @@
           }
       },
       mounted(){
+          //个人信息
         this.$http({
           method: "get",
           url: "/users/profile",
@@ -100,9 +103,18 @@
           data: {}
         }).then(function(res){
           if(res.data.code==0){
-            this.nickName = res.data.data.nickname;
-            this.phone = res.data.data.phone;
-            this.headPortrait = res.data.data.avatar
+            var nikename = res.data.data.nickname;
+            var headimg = res.data.data.avatar;
+            if(nikename==""){
+              this.nickName = localStorage.getItem("uid");
+            }else {
+              this.nickName =nikename;
+            }
+            if(headimg==""){
+              this.headPortrait = headImg;
+            }else {
+              this.headPortrait = res.data.data.avatar;
+            }
 
           }else {
             this.$layer.msg(res.data.msg);
@@ -112,6 +124,7 @@
             this.$layer.msg(err)
           }.bind(this));
 
+        //消息
         this.$http({
           method: "post",
           url: "/messages/box",
@@ -131,6 +144,24 @@
           .catch(function(err){
             this.$layer.msg(err)
           }.bind(this));
+
+        //邀请人id
+        this.$http({
+          method: "post",
+          url: "/users/my-invite-code",
+          headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
+          data: {}
+        }).then(function(res){
+          if(res.data.code==0) {
+            this.Personal[1].myInvite = res.data.my_invite_code
+          }else {
+            this.$layer.msg(res.data.msg);
+          }
+        }.bind(this))
+          .catch(function(err){
+            this.$layer.msg(err)
+          }.bind(this));
+
       },
       methods:{
           changeBack(index){
@@ -244,20 +275,32 @@
     .media-object {
       width:8vh
     }
+    .media-right{
+      line-height: 8vh;
+    }
   }
   @media screen and (min-height: 700px) and (max-height: 850px) {
     .media-object {
       width:7vh
+    }
+    .media-right{
+      line-height: 7vh;
     }
   }
   @media screen and (min-height: 850px) and (max-height: 1024px) {
     .media-object {
       width:6vh
     }
+    .media-right{
+      line-height: 6vh;
+    }
   }
   @media screen and (min-height:1025px) and (max-height: 2000px) {
     .media-object {
       width:5vh
+    }
+    .media-right{
+      line-height: 5vh;
     }
   }
   .msg{
@@ -266,5 +309,8 @@
     font-size: xx-large;
     padding: 0.5rem ;
     line-height: 0;
+  }
+  .inviteCode{
+    padding-right: 2rem;
   }
 </style>

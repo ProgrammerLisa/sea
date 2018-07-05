@@ -2,7 +2,7 @@
     <div class="content">
       <div class="panel panel-default BlackTitle">
         <div class="panel-body">
-          <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
+          <span @click="goBack" class="back"><span>ㄑ</span></span>
           {{from_user}}
         </div>
       </div>
@@ -105,9 +105,16 @@
     line-height: 4.1rem;
   }
   .back{
-    float: left;
+    position: absolute;
+    left: 1rem;
   }
-  .back img{
+  .back span {
     height: 2.5rem;
+    font-size: 2.5rem;
+    color: #DBDBDB;
+  }
+
+  .back span:active {
+    color: #555;
   }
 </style>

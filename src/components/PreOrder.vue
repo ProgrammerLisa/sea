@@ -86,10 +86,17 @@
     line-height: 4.1rem;
   }
   .back{
-    float: left;
+    position: absolute;
+    left: 1rem;
   }
-  .back img{
+  .back span {
     height: 2.5rem;
+    font-size: 2.5rem;
+    color: #DBDBDB;
+  }
+
+  .back span:active {
+    color: #555;
   }
   .chooseAdd{
     line-height: 4rem;

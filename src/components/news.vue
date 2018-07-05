@@ -2,7 +2,7 @@
   <div class="content">
     <div class="panel panel-default BlackTitle">
       <div class="panel-body">
-        <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
+        <span @click="goBack" class="back"><span>ㄑ</span></span>
         消息
       </div>
     </div>
@@ -13,7 +13,7 @@
 
     <div class="media" v-for="(n,index) in news" v-else @click="delShow(index)"  @touchstart='touchStart' @touchmove='touchMove($event,index)' @touchend='touchEnd'>
       <div class="media-left">
-        <span class="badge msg" v-show="!n.msg.is_read">·</span><img class="media-object" :src="n.msg.img">
+        <span class="badge msg" v-show="!n.msg.is_read">·</span>
       </div>
       <div class="media-body">
         <h4 class="media-heading">{{n.msg.title}} <span class="time">{{n.msg.created_at}}</span></h4>
@@ -63,15 +63,20 @@
             data: {}
           }).then(function(res){
             if(res.data.code==0){
-                console.log(res.data)
+              if(JSON.stringify(res.data.data) == "{}"){
+                this.newsNone = true;
+              }else {
                 this.newsNone = false;
                 let i = 1;
                 for(let n in res.data.data){
-
                   this.mobile.mobileId = n;
                   this.mobile.id = 'myId'+i;
                   this.mobile.msg = res.data.data[n];
                   this.mobile.msg.img=friend;
+                  if(res.data.data[n].content.length>10){
+                    this.mobile.msg.content = res.data.data[n].content.slice(0,10)+"..."
+                  }
+
                   this.news.push(this.mobile);
                   this.mobile = {
                     show:false,
@@ -86,6 +91,8 @@
                   };
                   i++
                 }
+              }
+
 
 
             }else {
@@ -146,7 +153,25 @@
           },
           del(e,index){
             e.stopPropagation();
-            this.news.splice(index,1)
+            //刪除选中的消息
+            this.$http({
+              method: "post",
+              url: "/messages/delete",
+              headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
+              data: {
+                mid:this.news[index].mobileId
+              }
+            }).then(function(res){
+              if(res.data.code==0){
+                this.news.splice(index,1);
+                this.$layer.msg(res.data.msg);
+              }else {
+                this.$layer.msg(res.data.msg);
+              }
+            }.bind(this))
+              .catch(function(err){
+                console.log(err)
+              }.bind(this));
           }
 
         }
@@ -180,10 +205,17 @@
     line-height: 4.1rem;
   }
   .back{
-    float: left;
+    position: absolute;
+    left: 1rem;
   }
-  .back img{
+  .back span {
     height: 2.5rem;
+    font-size: 2.5rem;
+    color: #DBDBDB;
+  }
+
+  .back span:active {
+    color: #555;
   }
   .media{
     background: #fff;
@@ -231,7 +263,7 @@
   .del{
     background: #ff2424;
     color: #fcf8e3;
-    width: 6rem;
+    width: 7rem;
     height: 6rem;
     line-height: 6rem;
     text-align: center;

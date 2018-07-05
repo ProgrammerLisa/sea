@@ -133,36 +133,35 @@
 				this.$router.go(-1);
 			},
 			loginOut() {
-				
+
             const that = this;
             this.$layer.confirm("确认要退出登录吗", { title: "退出登录" }, function (c) {
 
               $(".vl-notify").remove();
-              // that.$http({
-              //   method: "post",
-              //   url: "/auth/logout",
-              //   headers: {"device": "android", "uid": localStorage.getItem("uid"), "Access-Control-Allow-Origin": "*"},
-              //   data: {}
-              // }).then(function (res) {
-              //   if (res.data.code == 0) {
-              //     this.$layer.msg(res.data.msg);
-              //     localStorage.removeItem("uid");
-              //     this.$router.replace('/');
-              //     this.$router.go(0);
-              //   } else {
-              //     that.$layer.msg(res.data.msg);
-              //   }
-              // }.bind(this))
-              //   .catch(function (err) {
-              //     console.log(err)
-              //   }.bind(this))
+              that.$http({
+                method: "post",
+                url: "/auth/logout",
+                headers: {"device": "android", "uid": localStorage.getItem("uid"), "Access-Control-Allow-Origin": "*"},
+                data: {}
+              }).then(function (res) {
+                if (res.data.code == 0) {
+                  that.$layer.msg(res.data.msg);
+                  localStorage.removeItem("uid");
+                  that.$router.replace('/');
+                  that.$router.go(0);
+                } else {
+                  that.$layer.msg(res.data.msg);
+                }
+              }.bind(this))
+                .catch(function (err) {
+                  console.log(err)
+                }.bind(this))
             })
 
             $(".vl-notice-title").css({display:"none"});
             $(".vl-notify-btns").css({textAlign:"center"});
             $(".vl-notify-content").css({textAlign:"center"});
-            $(".notify-btn").css({borderRadius:"0"
-            });
+            $(".notify-btn").css({borderRadius:"0"});
 
           }
         }
@@ -195,10 +194,17 @@
     line-height: 4.1rem;
   }
   .back{
-    float: left;
+    position: absolute;
+    left: 1rem;
   }
-  .back img{
+  .back span {
     height: 2.5rem;
+    font-size: 2.5rem;
+    color: #DBDBDB;
+  }
+
+  .back span:active {
+    color: #555;
   }
   .table{
     background: #fff;
@@ -239,18 +245,20 @@
   .loginOut{
     background: #fff;
     text-align: center;
-    height: 4rem;
-    line-height: 4rem;
-    color:  #f44336;
+    line-height: 3rem;
+    color:  #09a2d6;
     letter-spacing: 0.1rem;
     position: fixed;
     bottom: 0;
     width: 100%;
+    border: none;
     border-top: 0.1rem solid #eee;
+    border-radius: 0;
   }
   .loginOut:active{
     background: #f5f5f5;
     color: #09a2d6;
+    border: none;
   }
   .blueBtn{
     background: #09a2d6;

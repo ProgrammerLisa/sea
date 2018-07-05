@@ -10,7 +10,7 @@
 			<div class="form-group">
 				<label for="phone" class="col-xs-3 control-label">手机号</label>
 				<div class="col-xs-9">
-					<input type="text" class="form-control" id="phone" placeholder="请输入账号">
+					<input type="number" class="form-control" id="phone" placeholder="请输入手机号">
 				</div>
 			</div>
 			<div class="form-group">
@@ -111,13 +111,13 @@
 		-webkit-box-shadow: 0 0 0px 1000px #fff inset;
 	}
 	/*焦点时也加上，不加会出现黄色背景闪动一下*/
-	
+
 	input[type=text]:focus,
 	input[type=password]:focus,
 	textarea:focus {
 		-webkit-box-shadow: 0 0 0 1000px white inset;
 	}
-	
+
 	.content {
 		overflow-x: hidden;
 		color: #666;
@@ -125,16 +125,16 @@
 		background-color: #f5f5f5;
 		width: 100vw;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -144,57 +144,57 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	.back span {
 		height: 2.5rem;
 		font-size: 2.5rem;
 		color: #DBDBDB;
 	}
-	
+
 	.back span:active{
 		color: #555;
 	}
-	
+
 	.form-group {
 		padding: 0.8rem 1rem;
 		border-bottom: 0.1rem solid #eee;
 		background: #fff;
 		margin-bottom: 0;
 	}
-	
+
 	.form-control {
 		outline: none;
 		border: none;
 		box-shadow: none;
 	}
-	
+
 	input {
 		background: #fff;
 	}
-	
+
 	.control-label {
 		font-size: 1.5rem;
 		top: 5.5px;
 		color: #555;
 	}
-	
+
 	.prompt {
 		font-size: smaller;
 		color: #09a2d6;
 		padding: 1rem;
 		background: #fff;
 	}
-	
+
 	.changePsw {
 		background: #f5f5f5;
 		border: none;
 		text-align: center;
 	}
-	
+
 	.submitBtn {
 		background: #09a2d6;
 		color: #fff;

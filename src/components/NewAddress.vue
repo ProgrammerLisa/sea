@@ -9,28 +9,16 @@
     </div>
     <form class="form-horizontal">
       <div class="form-group">
-        <label for="name" class="col-xs-3 control-label">收货人</label>
-        <div class="col-xs-9">
           <input type="text" class="form-control" id="name" placeholder="请填写收货人姓名">
-        </div>
       </div>
       <div class="form-group">
-        <label for="phone" class="col-xs-3 control-label">联系电话</label>
-        <div class="col-xs-9">
-          <input type="text" class="form-control" id="phone" placeholder="请填写收货手机号码">
-        </div>
+          <input type="number" class="form-control" id="phone" placeholder="请填写收货手机号码">
       </div>
       <div class="form-group"  data-toggle="modal" data-target="#myModal">
-        <label for="address" class="col-xs-3 control-label">收货地址</label>
-        <div class="col-xs-9">
           <input type="text" class="form-control" id="address" :value="address" placeholder="请选择地区">
-        </div>
       </div>
       <div class="form-group">
-        <label for="home" class="col-xs-3 control-label">补充说明</label>
-        <div class="col-xs-9">
           <input type="text" class="form-control" id="home" placeholder="详细地址(如门牌号等)">
-        </div>
       </div>
       <div class="keep">
         <div class="keepSubmit" @click="submit">保 存</div>
@@ -70,20 +58,6 @@
               </div>
             </div>
 
-            <!--<select class="form-control" @change="provinceChoose" id="province">-->
-              <!--<option value="" disabled selected hidden>省</option>-->
-              <!--<option v-for="p in provinceName" :value="p.code">{{p.name}}</option>-->
-            <!--</select>-->
-
-            <!--<select class="form-control" @change="cityChoose" id="city" :disabled="isDisabled1">-->
-              <!--<option value="" disabled selected hidden>市</option>-->
-              <!--<option v-for="p in cityName" :value="p.code">{{p.name}}</option>-->
-            <!--</select>-->
-
-            <!--<select class="form-control" @change="districtsChoose" id="districts" :disabled="isDisabled2">-->
-              <!--<option value="" disabled selected hidden>区</option>-->
-              <!--<option v-for="p in districtsName" :value="p.code">{{p.name}}</option>-->
-            <!--</select>-->
 
           </div>
         </div><!-- /.modal-content -->
@@ -158,10 +132,13 @@
        this.address= $("#provinceName").text()+" "+$("#cityName").text()+" "+$("#districtsName").text()
       },
       submit(){
+        var reg = /^1[3|4|5|7|8]\d{9}$/;
         if($("#name").val()==''||$("#name").val()==null||$("#name").val()==undefined){
           this.$layer.msg('请填写收货人');
         }else if($("#phone").val()==''||$("#phone").val()==null||$("#phone").val()==undefined){
-          this.$layer.msg('请填写联系电话');
+          this.$layer.msg('请填写手机号码');
+        }else if(!reg.test($("#phone").val())){
+          this.$layer.msg('请填写正确的手机号码');
         }else if($("#address").val()==''||$("#address").val()==null||$("#address").val()==undefined){
           this.$layer.msg('请填写收货地址');
         }else if($("#home").val()==''||$("#home").val()==null||$("#home").val()==undefined){
@@ -219,10 +196,17 @@
     line-height: 4.1rem;
   }
   .back{
-    float: left;
+    position: absolute;
+    left: 1rem;
   }
-  .back img{
+  .back span {
     height: 2.5rem;
+    font-size: 2.5rem;
+    color: #DBDBDB;
+  }
+
+  .back span:active {
+    color: #555;
   }
   .form-horizontal{
     border-top: 0.5rem solid #f5f5f5;
@@ -245,6 +229,7 @@
     color: #555;
     margin-bottom: 0;
     padding: 0.4rem 0;
+    font-weight: normal;
   }
   .keep{
     background: #f5f5f5;

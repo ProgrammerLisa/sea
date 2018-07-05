@@ -68,11 +68,18 @@
     line-height: 4.1rem;
   }
   .back{
-    float: left;
+    position: absolute;
+    left: 1rem;
   }
-  .back img{
-    height: 2.5rem;
-  }
+.back span {
+  height: 2.5rem;
+  font-size: 2.5rem;
+  color: #DBDBDB;
+}
+
+.back span:active {
+  color: #555;
+}
   .table{
     background: #fff;
     border-bottom: 0.1rem solid #f5f5f5;
@@ -102,16 +109,16 @@
 		background-color: #f5f5f5;
 		width: 100vw;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -121,39 +128,39 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	.back span {
 		height: 2.5rem;
 		font-size: 2.5rem;
 		color: #DBDBDB;
 	}
-	
+
 	.back span:active {
 		color: black;
 	}
-	
+
 	.table {
 		background: #fff;
 		border-bottom: 0.1rem solid #f5f5f5;
 		margin: 0;
 	}
-	
+
 	.table:nth-child(3) {
 		margin-bottom: 1rem;
 	}
-	
+
 	.table td {
 		padding: 0.5rem 1rem;
 	}
-	
+
 	.text-left {
 		color: #555;
 	}
-	
+
 	.text-right img {
 		height: 3rem;
 	}

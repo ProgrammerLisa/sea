@@ -2,7 +2,7 @@
 	<div class="content">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-				<span @click="goBack" class="back"><span>ㄑ</span></span>
+        <span @click="goBack" class="back"><span>ㄑ</span></span>
 				收货地址
 			</div>
 		</div>
@@ -40,7 +40,7 @@
 
         </td>
         <td class="col-xs-6 text-right">
-          <span class="del" @click="editor(index)">
+          <span class="del" @click="editor(index)" >
             <img src="../assets/images/editor.png"/> 编辑
           </span>
 					<span class="del" @click="del(index)">
@@ -219,11 +219,19 @@
     line-height: 4.1rem;
   }
   .back{
-    float: left;
+    position: absolute;
+    left: 1rem;
   }
-  .back img{
+  .back span {
     height: 2.5rem;
+    font-size: 2.5rem;
+    color: #DBDBDB;
   }
+
+  .back span:active {
+    color: #555;
+  }
+
   .table{
     margin-bottom: 1rem;
   }
@@ -292,7 +300,7 @@
     width: 90%;
     background: #09a2d6;
     color: #f5f5f5;
-    padding: 1rem;
+    padding: 0.8rem;
     border: none;
     margin: auto;
   }

@@ -15,7 +15,7 @@
 				<div class="form-group">
 					<label for="number" class="col-xs-3 control-label">身份证号</label>
 					<div class="col-xs-9">
-						<input type="text" class="form-control" id="number" placeholder="请输入本人身份证号">
+						<input type="number" class="form-control" id="number" placeholder="请输入本人身份证号">
 					</div>
 				</div>
 				<div class="form-group">
@@ -151,16 +151,16 @@
 		background-color: #f5f5f5;
 		width: 100vw;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -171,72 +171,72 @@
 		line-height: 4.1rem;
 		border-bottom: 1px solid #f5f5f5;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	.back span {
 		height: 2.5rem;
 		font-size: 2.5rem;
 		color: #DBDBDB;
 	}
-	
+
 	.back span:active {
 		color: black;
 	}
-	
+
 	.table {
 		background: #fff;
 	}
-	
+
 	.table tr {
 		border-bottom: 0.1rem solid #f5f5f5;
 	}
-	
+
 	.table td {
 		padding: 1.5rem 1rem;
 	}
-	
+
 	.text-left {
 		color: #555;
 	}
-	
+
 	.form-group {
 		padding: 0.8rem 1rem;
 		border-bottom: 0.1rem solid #eee;
 		background: #fff;
 		margin-bottom: 0;
 	}
-	
+
 	.form-control {
 		outline: none;
 		border: none;
 		box-shadow: none;
 	}
-	
+
 	input {
 		background: #fff;
 	}
-	
+
 	.control-label {
 		font-size: 1.6rem;
 		color: #555;
 	}
-	
+
 	.prompt {
 		font-size: smaller;
 		color: #09a2d6;
 		padding: 1rem;
 		background: #fff;
 	}
-	
+
 	.changePsw {
 		background: #f5f5f5;
 		border: none;
 		text-align: center;
 	}
-	
+
 	.submitBtn {
 		background: #09a2d6;
 		color: #fff;
@@ -245,18 +245,18 @@
 		margin-top: 2.5rem;
 		border-radius: 0;
 	}
-	
+
 	.submitBtn:active {
 		background: #009ACD;
 	}
-	
+
 	.addressNone {
 		text-align: center;
 		padding: 5vh;
 		color: #999;
 		background-color: #FFFFFF;
 	}
-	
+
 	.addressNone img {
 		width: 40%;
 		margin-bottom: 1rem;

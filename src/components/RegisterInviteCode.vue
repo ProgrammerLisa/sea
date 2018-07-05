@@ -2,7 +2,7 @@
 	<div class="content">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-				<span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span> 邀请码
+				<span @click="goBack" class="back"><span>ㄑ</span></span> 邀请码
 			</div>
 		</div>
 		<form>
@@ -74,7 +74,7 @@
 							}
 						}).then(function(res) {
 							if(res.data.code == 0) {
-								
+
 								this.$router.replace('/Login');
 							} else {
 								this.$layer.msg(res.data.msg);
@@ -87,8 +87,8 @@
 			}
 		}
 	}
-	
-	
+
+
 </script>
 
 <style scoped>
@@ -98,16 +98,16 @@
 		width: 100vw;
 		height: 100vh;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -117,19 +117,19 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
-	
+
 	.code {
 		background: #fff;
 	}
-	
+
 	#ask_invite {
 		border-top: 0;
 		border-left: 0;
@@ -141,27 +141,27 @@
 		width: 70%;
 		outline: none;
 	}
-	
+
 	#agree {
 		margin-top: 80%;
 		font-size: 1rem;
 	}
-	
+
 	#agree_a {
 		color: #09A4D7;
 	}
-	
+
 	#finish {
 		background-color: #09A2D6;
 		color: white;
 		border-radius: 0;
 		width: 80%;
 	}
-	
+
 	#finish:active {
 		background-color: #2894FF;
 	}
-	
+
 	button#finish.weui-btn.weui-btn_primary {
 		width: 90%;
 		margin-left: 1.3rem;

@@ -58,7 +58,8 @@
     line-height: 4.1rem;
   }
   .back{
-    float: left;
+    position: absolute;
+    left: 1rem;
   }
   .back span {
 		height: 2.5rem;

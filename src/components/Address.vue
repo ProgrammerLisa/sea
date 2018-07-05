@@ -25,16 +25,22 @@
 			</tr>
 			<tr>
 
-				<td class="col-xs-6">
-					<div @click="choose(index)">
-						<div class="round">
-							<span class="defaultRound" v-if="a.msg.is_default"></span>
-						</div>
-						<span class="default">默认地址</span>
-					</div>
-				</td>
-				<td class="col-xs-6 text-right">
-					<span class="del" @click="editor(index)">
+        <td class="col-xs-6">
+            <div v-if="a.msg.is_default">
+              <div class="round">
+              <span class="defaultRound" ></span>
+            </div>
+            <span class="defaultChoose">已设为默认地址</span>
+            </div>
+
+            <div @click="choose(index)"  v-else>
+              <div class="round"></div>
+            <span class="default" v-if="">默认地址</span>
+            </div>
+
+        </td>
+        <td class="col-xs-6 text-right">
+          <span class="del" @click="editor(index)">
             <img src="../assets/images/editor.png"/> 编辑
           </span>
 					<span class="del" @click="del(index)">
@@ -73,37 +79,23 @@
 						is_default: ''
 					}
 
-				}
-			}
-		},
-		created() {
-			const that = this;
-			this.$nextTick(() => {
-				for(let i = 0; i < that.myAddress.length; i++) {
-					if(that.myAddress[i].isdefault) {
-						$(".default").eq(i).css({
-							color: "#09A2D6"
-						}).text("已设为默认地址")
-					}
-				}
-			})
-		},
-		mounted() {
-			this.$http({
-					method: "get",
-					url: "/users/delivery_address",
-					headers: {
-						"device": "android",
-						"uid": localStorage.getItem("uid"),
-						"Access-Control-Allow-Origin": "*"
-					},
-					data: {}
-				}).then(function(res) {
-					if(res.data.code == 0) {
-						if(JSON.stringify(res.data.data) == "{}") {
-							this.noAddress = true
-						} else {
-							this.noAddress = false;
+          }
+        }
+      },
+
+      mounted(){
+        this.$http({
+          method: "get",
+          url: "/users/delivery_address",
+          headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
+          data: {}
+        }).then(function(res){
+          if(res.data.code==0){
+
+            if(JSON.stringify(res.data.data) == "{}"){
+              this.noAddress = true
+            }else {
+              this.noAddress =  false;
 
 							let myJson = res.data.data;
 							for(let p in myJson) { //遍历json对象的每个key/value对,p为key
@@ -121,39 +113,46 @@
 									}
 
 								};
+              }
+            }
+          }else {
+            this.$layer.msg(res.data.msg);
+          }
+        }.bind(this))
+          .catch(function(err){
+            console.log(err)
+          }.bind(this))
+      },
+      methods:{
+        choose(index){
+          this.$http({
+            method: "post",
+            url: "/users/delivery_address/set-default",
+            headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
+            data: {
+              id:this.myAddress[index].id
+            }
+          }).then(function(res){
+            if(res.data.code==0){
+              this.$layer.msg(res.data.msg);
+              this.reload();
+            }else {
+              this.$layer.msg(res.data.msg);
+            }
+          }.bind(this))
+            .catch(function(err){
+              console.log(err)
+            }.bind(this))
 
-							}
-						}
-					} else {
-						this.$layer.msg(res.data.msg);
-					}
-				}.bind(this))
-				.catch(function(err) {
-					console.log(err)
-				}.bind(this))
-		},
-		methods: {
-			choose(index) {
-				const that = this;
-				for(var i = 0; i < that.myAddress.length; i++) {
-					that.myAddress[i].isdefault = false;
-					$(".default").css({
-						color: "#555"
-					}).text("默认地址")
-				}
-				that.myAddress[index].isdefault = true;
-				$(".default").eq(index).css({
-					color: "#09A2D6"
-				}).text("已设为默认地址")
-			},
-			editor(index) {
-				let addressId = this.myAddress[index].id;
-				this.$router.push({
-					path: '/modificationaddress',
-					name: 'ModificationAddress',
-					params: {
-						name: 'name',
-						dataObj: addressId
+        },
+        editor(index){
+          let addressId = this.myAddress[index].id;
+          this.$router.push({
+            path: '/modificationaddress',
+            name: 'ModificationAddress',
+            params: {
+              name:'name',
+              dataObj:addressId
 
 					}
 
@@ -340,3 +339,4 @@
 		background: #009ACD;
 	}
 </style>
+

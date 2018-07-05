@@ -94,16 +94,16 @@
 		height: 100vh;
 		background: #fff;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -113,55 +113,50 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		float: left;
 	}
+
 	
 	.back img {
 		height: 2.5rem;
 		font-size: 2.5rem;
-	}
-	
-	.code {
+
+
+	.code{
 		padding: 2rem;
 		text-align: center;
 	}
-	
+
 	.title {
 		color: #444;
 		margin-bottom: 2rem;
 	}
-	
+
 	#ask_invite {
-		text-align: center;
-		color: #666;
+    text-align: center;
+    color: #09A2D6;
 		border-top: 0;
 		border-left: 0;
 		border-right: 0;
 		/*padding-left: 1.2rem;*/
-		font-size: 1.5rem;
+		font-size: 5rem;
 		border-bottom: 1px solid #eee;
 		width: 100%;
 		outline: none;
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-	
-	.msg {
-		color: #f44336;
-		font-size: smaller;
-		text-align: center;
-	}
-	
-	#finish {
-		background-color: #09A2D6;
-		color: white;
-		border-radius: 0;
-		width: 100%;
-	}
-	
-	#finish:active {
-		background: #009ACD;
+  .msg{
+    color: #777;
+    font-size: smaller;
+    text-align: center;
+  }
+	#finish{
+		 background-color:#09A2D6;
+		 color: white;
+		 border-radius: 0;
+		 width: 100%;
 	}
 </style>

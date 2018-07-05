@@ -1,5 +1,6 @@
 <template>
 
+
 	<div class="content">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
@@ -230,16 +231,16 @@
 		background-color: #f5f5f5;
 		width: 100vw;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 1rem;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -249,40 +250,40 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
-	
+
 	.media {
 		background: #fff;
 		padding: 1rem;
 		border-bottom: 0.1rem solid #f5f5f5;
 	}
-	
+
 	.noTop {
 		margin-top: 0;
 	}
-	
+
 	.media-body {
 		vertical-align: middle;
 	}
-	
+
 	.headImg {
 		width: 4rem;
 		height: 4rem;
 		border-radius: 50%;
 	}
-	
+
 	.media-right {
 		color: #888;
 		font-size: small;
 	}
-	
+
 	.more {
 		margin-left: 0.5rem;
 	}
@@ -298,197 +299,32 @@
 		letter-spacing: 0.1rem;
 		font-size: large;
 	}*/
-	
-	.modal-content {
-		margin: 0 2rem;
-		border-radius: 0;
-		border: none;
-		text-align: center;
-	}
-	
-	.modal-dialog {
-		margin: 35vh auto;
-	}
-	
-	.modal-header {
-		padding: 1rem;
-		border-bottom: none;
-		color: #444;
-	}
-	
-	.modal-body {
-		padding: 0;
-	}
-	
-	#ImgModal .modal-content {
-		height: 21vh;
-	}
-	
-	.headImgChoose {
-		position: relative;
-		display: inline-block;
-		overflow: hidden;
-		width: 100%;
-		height: 6.5vh;
-		border: none;
-		border-bottom: 0.1rem solid #e1e1e1;
-		padding: 0;
-		margin: 0;
-		line-height: 6.5vh;
-		font-size: 1.6rem;
-		text-align: center;
-		border-radius: 0;
-		outline: none;
-	}
-	
-	.headImgChoose input {
-		position: absolute;
-		right: 0;
-		top: 0;
-		opacity: 0;
-		-ms-filter: 'alpha(opacity=0)';
-		font-size: 100%;
-	}
-	
-	#form_control {
-		width: 80%;
-		margin: 0 10%;
-		outline: none;
-		box-shadow: none;
-	}
-	
-	.closeBtn {
-		border-bottom: none;
-	}
-	
-	.nickInput {
-		border: none;
-		border-radius: 0;
-		outline: none;
-		border-bottom: 0.1rem solid #f1f1f1;
-		padding: 1.5rem 1rem;
-	}
-	
-	.nickText {
-		margin-bottom: 0;
-		text-align: left;
-		padding: 0.5rem 0 0 10%;
-		color: #FF2424;
-		font-size: smaller;
-	}
-	
-	#NickModal .modal-footer {
-		border-top: none;
-	}
-	
-	.nickNo,
-	.nickYes {
-		border-radius: 0;
-		padding: 0.4rem 1.5rem;
-	}
-	
-	.nickNo {
-		margin-right: 1rem;
-		background: #f1f1f1;
-	}
-	
-	.nickYes {
-		background: #09a2d6;
-		border-color: #2aabd2;
-	}
-</style>
-</script>
 
-<style scoped>
-	.content {
-		overflow-x: hidden;
-		color: #666;
-		background-color: #f5f5f5;
-		width: 100vw;
-	}
-	
-	.panel {
-		border: none;
-		border-radius: 0;
-	}
-	
-	.panel-body {
-		padding: 0 1rem;
-	}
-	
-	.BlackTitle {
-		text-align: center;
-		letter-spacing: 0.05rem;
-		color: #555;
-		font-size: 1.6rem;
-		margin-bottom: 1rem;
-		height: 4.1rem;
-		line-height: 4.1rem;
-	}
-	
-	.back {
-		float: left;
-	}
-	
-	.back img {
-		height: 2.5rem;
-	}
-	
-	.media {
-		background: #fff;
-		padding: 1rem;
-		border-bottom: 0.1rem solid #f5f5f5;
-	}
-	
-	.noTop {
-		margin-top: 0;
-	}
-	
-	.media-body {
-		vertical-align: middle;
-	}
-	
-	.headImg {
-		width: 4rem;
-		height: 4rem;
-		border-radius: 50%;
-		border: 0.1rem solid #ddd;
-	}
-	
-	.media-right {
-		color: #888;
-		font-size: small;
-	}
-	
-	.more {
-		margin-left: 0.5rem;
-	}
-	
 	.modal-content {
 		margin: 0 2rem;
 		border-radius: 0;
 		border: none;
 		text-align: center;
 	}
-	
+
 	.modal-dialog {
 		margin: 35vh auto;
 	}
-	
+
 	.modal-header {
 		padding: 1rem;
 		border-bottom: none;
 		color: #444;
 	}
-	
+
 	.modal-body {
 		padding: 0;
 	}
-	
+
 	#ImgModal .modal-content {
 		height: 21vh;
 	}
-	
+
 	.headImgChoose {
 		position: relative;
 		display: inline-block;
@@ -505,7 +341,7 @@
 		border-radius: 0;
 		outline: none;
 	}
-	
+
 	.headImgChoose input {
 		position: absolute;
 		right: 0;
@@ -514,18 +350,18 @@
 		-ms-filter: 'alpha(opacity=0)';
 		font-size: 100%;
 	}
-	
+
 	#form_control {
 		width: 80%;
 		margin: 0 10%;
 		outline: none;
 		box-shadow: none;
 	}
-	
+
 	.closeBtn {
 		border-bottom: none;
 	}
-	
+
 	.nickInput {
 		border: none;
 		border-radius: 0;
@@ -533,7 +369,7 @@
 		border-bottom: 0.1rem solid #f1f1f1;
 		padding: 1.5rem 1rem;
 	}
-	
+
 	.nickText {
 		margin-bottom: 0;
 		text-align: left;
@@ -541,30 +377,29 @@
 		color: #FF2424;
 		font-size: smaller;
 	}
-	
+
 	#NickModal .modal-footer {
 		border-top: none;
 	}
-	
+
 	.nickNo,
 	.nickYes {
 		border-radius: 0;
 		padding: 0.4rem 1.5rem;
 	}
-	
+
 	.nickNo {
 		margin-right: 1rem;
 		background: #f1f1f1;
 	}
-	
+
 	.nickYes {
 		background: #09a2d6;
 		border-color: #2aabd2;
 	}
-	
-	.nickNameRight {
-		width: 80%;
-		text-align: right;
-	}
+
+  .nickNameRight {
+    width: 80%;
+    text-align: right;
+  }
 </style>
->>>>>>> 02e7d9547e1c60cb8dddf09f879b31535bc70ea9

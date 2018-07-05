@@ -57,7 +57,7 @@
 			退出登录
 		</div>
 	</div>
-	
+
 </template>
 
 <script>
@@ -145,35 +145,40 @@
 				this.$router.go(-1);
 			},
 			loginOut() {
-				//      localStorage.removeItem("uid");
-				//      this.$router.replace('/');
-				//      this.$router.go(0);
-				this.$http({
-						method: "post",
-						url: "/auth/logout",
-						headers: {
-							"device": "android",
-							"uid": localStorage.getItem("uid"),
-							"Access-Control-Allow-Origin": "*"
-						},
-						data: {}
-					}).then(function(res) {
-						if(res.data.code == 0) {
-							this.$layer.msg(res.data.msg);
-							this.$router.replace('/Login');
-							document.localStorage = "crmuser" + "=; expire=" + new Date(0).toGMTString() + "; path=/Login";
-						} else {
-							this.$layer.msg(res.data.msg);
-						}
-					}.bind(this))
-					.catch(function(err) {
-						console.log(err)
-					}.bind(this))
-			}
-		}
-	}
+				
+            const that = this;
+            this.$layer.confirm("确认要退出登录吗", { title: "退出登录" }, function (c) {
 
-	
+              $(".vl-notify").remove();
+              // that.$http({
+              //   method: "post",
+              //   url: "/auth/logout",
+              //   headers: {"device": "android", "uid": localStorage.getItem("uid"), "Access-Control-Allow-Origin": "*"},
+              //   data: {}
+              // }).then(function (res) {
+              //   if (res.data.code == 0) {
+              //     this.$layer.msg(res.data.msg);
+              //     localStorage.removeItem("uid");
+              //     this.$router.replace('/');
+              //     this.$router.go(0);
+              //   } else {
+              //     that.$layer.msg(res.data.msg);
+              //   }
+              // }.bind(this))
+              //   .catch(function (err) {
+              //     console.log(err)
+              //   }.bind(this))
+            })
+
+            $(".vl-notice-title").css({display:"none"});
+            $(".vl-notify-btns").css({textAlign:"center"});
+            $(".vl-notify-content").css({textAlign:"center"});
+            $(".notify-btn").css({borderRadius:"0"
+            });
+
+          }
+        }
+    }
 </script>
 
 <style scoped>

@@ -2,7 +2,7 @@
 	<div class="content">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-				<span @click="goBack" class="back"> <span>ㄑ</span></span>
+				<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"> <img :src="masrc"/></span>
 				我的钱包
 			</div>
 		</div>
@@ -17,10 +17,13 @@
 
 <script>
 	import more from '@/assets/images/more.png'
+	import back from '@/assets/images/back.png'
+	import backs from '@/assets/images/backs.png'
 	export default {
 		name: "Wallet",
 		data() {
 			return {
+				masrc: back,
 				more: more,
 				myWallet: [{
 						url: '/statement',
@@ -34,6 +37,14 @@
 			}
 		},
 		methods: {
+			evers() {
+				console.log(1)
+				this.masrc = backs;
+			},
+			lat() {
+				console.log(2)
+				this.masrc = back;
+			},
 			goBack() {
 				this.$router.go(-1);
 			}
@@ -42,66 +53,7 @@
 </script>
 
 <style scoped>
-<<<<<<< HEAD
-  .content{
-    overflow-x: hidden;
-    color: #666;
-    padding-bottom: 6rem;
-    background-color: #f5f5f5;
-    width: 100vw;
-  }
 
-  .panel{
-    border:none;
-    border-radius: 0;
-  }
-  .panel-body {
-    padding:0 10px;
-  }
-  .BlackTitle{
-    text-align: center;
-    letter-spacing: 0.05rem;
-    color: #555;
-    font-size: 1.6rem;
-    margin-bottom: 1rem;
-    height: 4.1rem;
-    line-height: 4.1rem;
-  }
-  .back{
-    position: absolute;
-    left: 1rem;
-  }
-.back span {
-  height: 2.5rem;
-  font-size: 2.5rem;
-  color: #DBDBDB;
-}
-
-.back span:active {
-  color: #555;
-}
-  .table{
-    background: #fff;
-    border-bottom: 0.1rem solid #f5f5f5;
-    margin: 0;
-  }
-  .table:nth-child(3){
-    margin-bottom: 1rem;
-  }
-  .table tr{
-    height: 8vh;
-  }
-  .table td{
-    padding:0.5rem 1rem;
-  }
-  .text-left{
-    color: #555;
-  }
-  .text-right img{
-    height: 3rem;
-  }
-</style>
-=======
 	.content {
 		overflow-x: hidden;
 		color: #666;
@@ -132,15 +84,9 @@
 	.back {
 		float: left;
 	}
-
-	.back span {
+	.back img {
 		height: 2.5rem;
 		font-size: 2.5rem;
-		color: #DBDBDB;
-	}
-
-	.back span:active {
-		color: black;
 	}
 
 	.table {
@@ -165,4 +111,3 @@
 		height: 3rem;
 	}
 </style>
->>>>>>> 00871cd75dc8b486be7c52bb1b6a27552e92d417

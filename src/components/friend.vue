@@ -2,7 +2,7 @@
 	<div class="content">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-				<span @click="goBack" class="back"><span>ㄑ</span></span>
+				<span @click="goBack"  @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
 				我的好友
 				<router-link to="/addfriends" tag="span" class="addTo"> <img src="../assets/images/award.png" /></router-link>
 			</div>
@@ -25,10 +25,14 @@
 <script>
 	import headImg from '@/assets/images/friend.png'
 	import noFriendImg from '@/assets/images/myfriend.png'
+	import back from '@/assets/images/back.png'
+	import backs from '@/assets/images/backs.png'
+	
 	export default {
 		name: "friend",
 		data() {
 			return {
+				masrc: back,
 				noFriend: true,
 				noFriendImg: noFriendImg,
 				friends: [{
@@ -68,6 +72,14 @@
 				}.bind(this))
 		},
 		methods: {
+			evers() {
+				console.log(1)
+				this.masrc = backs;
+			},
+			lat() {
+				console.log(2)
+				this.masrc = back;
+			},
 			goBack() {
 				this.$router.go(-1);
 			},
@@ -110,14 +122,9 @@
 		color: #C7C7C7;
 	}
 	
-	.back span {
+	.back img {
 		height: 2.5rem;
 		font-size: 2.5rem;
-		color: #DBDBDB;
-	}
-	
-	.back span:active {
-		color: #555;
 	}
 	
 	.addTo {

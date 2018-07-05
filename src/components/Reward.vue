@@ -2,7 +2,7 @@
 	<div class="content">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-				<span @click="goBack" class="back"><span>ㄑ</span></span>
+				<span @click="goBack"  @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
 				邀请奖励
 			</div>
 		</div>
@@ -53,10 +53,14 @@
 <script>
 	import inviteImg from '@/assets/images/bg.png'
 	import erweima from '@/assets/images/erweima.png'
+	import back from '@/assets/images/back.png'
+	import backs from '@/assets/images/backs.png'
+	
 	export default {
 		name: "Reward",
 		data() {
 			return {
+				masrc: back,
 				erweima: erweima,
 				myInvite: [{
 						inviteImg: inviteImg,
@@ -82,6 +86,14 @@
 			}
 		},
 		methods: {
+			evers() {
+				console.log(1)
+				this.masrc = backs;
+			},
+			lat() {
+				console.log(2)
+				this.masrc = back;
+			},
 			goBack() {
 				this.$router.go(-1);
 			}
@@ -120,14 +132,9 @@
 		float: left;
 	}
 	
-	.back span {
+	.back img {
 		height: 2.5rem;
 		font-size: 2.5rem;
-		color: #DBDBDB;
-	}
-	
-	.back span:active {
-		color: black;
 	}
 	
 	.invitebg {

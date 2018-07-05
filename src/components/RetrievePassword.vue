@@ -3,7 +3,7 @@
 		<div>
 			<div class="panel panel-default BlackTitle">
 				<div class="panel-body">
-					<span @mousedown="goBack"  class="back"><span>ㄑ</span></span>
+					<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"> <img :src="masrc"/></span>
 					<span style="margin-left: -37px; position: absolute; left: 50%; font-size: 1.8rem;">找回密码</span>
 				</div>
 			</div>
@@ -11,27 +11,27 @@
 			<form id="form_password">
 				<div style="padding: 45px 30px">
 					<div style="padding-top: 30px;">
-						<input style="font-size: 1.5rem;" type="number" v-on:change="show()" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" oninput="if(value.length>11)value=value.slice(0,11)" keyboard="number" is-type="china-mobile" required></input>
-						<!--<button v-if="btnShow" @click="bnns" type="button" class="close" data-dismiss="modal" style="position: absolute;top: 130px;right: 40px;">
-            				<img src="../assets/images/x.png" />
-         			 	</button>-->
+						<input style="font-size: 1.5rem;" v-on:change="show()" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
+						<button v-if="btnShow" @click="bnns" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right: 15%;">
+            				<img src="../assets/images/x.png" style="position: absolute;" />
+         			 	</button>
 					</div>
 
 					<div style="padding-top: 30px;display: inline-table; width: 100%;">
 						<input style="font-size: 1.5rem;" v-on:change="verifshow()" id="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
 						<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxte}}</x-button>
 						</input>
-						<!--<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="position: absolute;top: 195px;right: 130px;">
-            				<img src="../assets/images/x.png" />
-         			 	</button>-->
+						<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right:45%;">
+            				<img src="../assets/images/x.png" style="position: absolute;" />
+         			 	</button>
 					</div>
 
 					<div style="padding-top: 30px;">
 						<input id="passwordModel_image" v-on:change="ipwdshow()" :type="types" style="font-size: 1.5rem;" v-model="passwordModel" placeholder="请输入新密码" maxlength="16" is-type="sendcode" calss="btns"></input>
 						<img id="group_input_img" @click="Alt()" :src="imgs" />
-						<!--<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;">
-          			  		<img src="../assets/images/x.png" />
-          				</button>-->
+						<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right: 5%;">
+          			  		<img src="../assets/images/x.png" style="position: absolute;" />
+          				</button>
 						<!--<span>@{{passwordValidate.errorText}}</span>-->
 					</div>
 					<div align="center" style="margin-top: 50px;">
@@ -48,6 +48,8 @@
 	import { XInput, Group, XButton, CheckIcon } from 'vux'
 	import eye from '@/assets/images/eye.png'
 	import eyeclick from '@/assets/images/eyeclick.png'
+	import back from '@/assets/images/back.png'
+	import backs from '@/assets/images/backs.png'
 
 	//	sessionStorage.setItem("key", "获取验证码");
 	//	localStorage.setItem("site", "js8.in");
@@ -62,6 +64,7 @@
 		},
 		data() {
 			return {
+				masrc: back,
 				disabled: false,
 				time: 0,
 				mobile: '',
@@ -87,11 +90,11 @@
 
 			})
 			var Verificationtimen = Verificationtimen;
-			that.time = localStorage.getItem(Verificationtimen);
+			that.time = that.readCookie(Verificationtimen);
 			if(that.time != "") {
 				var TimeReduction2 = setInterval(function() {
 					if(that.time > 0) {
-						localStorage.setItem(Verificationtimen, that.time);
+						that.writeCookie(Verificationtimen, that.time);
 						that.time--;
 						that.btntxte = that.time + "s";
 						that.disabled = true;
@@ -99,7 +102,7 @@
 						that.time = 0;
 						that.btntxte = "获取验证码";
 						that.disabled = false;
-						localStorage.removeItem(Verificationtimen);
+						that.delCookie(Verificationtimen);
 						clearInterval(TimeReduction2);
 					}
 				}, 1000)
@@ -118,42 +121,53 @@
 		},
 		methods: {
 			show() {
-				if(this.mobile != '') {
-					this.btnShow = true;
+				if(this.mobile == '') {
 				} else {
-					this.btnShow = false;
+					this.btnShow = true;
 				}
 			},
 			bnns() {
 				if(this.mobile == '') {
-
+					
 				} else {
 					this.mobile = ''
+					this.btnShow = false;
 				}
 			},
 			verifshow() {
-				if(this.verif != '') {
-					this.btnverShow = true;
+				if(this.verif == '') {
 				} else {
-					this.btnverShow = false;
+					this.btnverShow = true;
 				}
 			},
 			ver() {
-				if(this.verif == '') {} else {
+				if(this.verif == '') {
+				} else {
 					this.verif = ''
+					this.btnverShow = false
 				}
 			},
 			ipwdshow() {
-				if(this.inppwd != '') {
-					this.btnShow1 = true;
+				if(this.inppwd == '') {
 				} else {
-					this.btnShow1 = false;
+					this.btnShow1 = true;
 				}
 			},
 			bnn1() {
-				if(this.passwordModel == '') {} else {
+				if(this.passwordModel == '') {
+					
+				} else {
 					this.passwordModel = ''
+					this.btnShow1 = false
 				}
+			},
+			evers() {
+				console.log(1)
+				this.masrc = backs;
+			},
+			lat() {
+				console.log(2)
+				this.masrc = back;
 			},
 			goBack() {
 				this.$router.go(-1);
@@ -249,7 +263,7 @@
 				event.preventDefault();
 				const that = this;
 				var Verificationtimen = Verificationtimen;
-				that.time = localStorage.getItem(Verificationtimen);
+				that.time = that.readCookie(Verificationtimen);
 				if(that.time == "") {
 					this.$http({
 							method: 'post',
@@ -260,19 +274,17 @@
 						}).then(function(res) {
 							if(res.data.code == 0) {
 								this.$layer.msg(res.data.msg);
-								that.time = 10;
-
 								var TimeReduction1 = setInterval(function() {
 									if(that.time > 0) {
-                    localStorage.setItem(Verificationtimen, that.time);
+										that.writeCookie(Verificationtime, that.time);
 										that.time--;
-										that.btntxte = that.time + "s";
+										that.btntxt = that.time + "s";
 										that.disabled = true;
 									} else {
 										that.time = 0;
-										that.btntxte = "获取验证码";
+										that.btntxt = "获取验证码";
 										that.disabled = false;
-                    localStorage.removeItem(Verificationtimen);
+										that.delCookie(Verificationtime);
 										clearInterval(TimeReduction1);
 									}
 								}, 1000)
@@ -283,7 +295,39 @@
 						.catch(function(err) {
 							console.log(err)
 						}.bind(this))
+					that.time = 10;
+
 				}
+			},
+			writeCookie(name, value, hours) {
+				var expire = "";
+				hours = hours || 100;
+				if(hours != null) {
+					expire = new Date((new Date()).getTime() + hours * 1000);
+					expire = "; expires=" + expire.toGMTString();
+				}
+				document.cookie = name + "=" + escape(value) + expire;
+			},
+			readCookie(name) {
+				var cookieValue = "";
+				var search = name + "=";
+				if(document.cookie.length > 0) {
+					var offset = document.cookie.indexOf(search);
+					if(offset != -1) {
+						offset += search.length;
+						var end = document.cookie.indexOf(";", offset);
+						if(end == -1) end = document.cookie.length;
+						cookieValue = unescape(document.cookie.substring(offset, end))
+					}
+				}
+				return cookieValue;
+			},
+			delCookie(name) {
+				var exp = new Date();
+				exp.setTime(exp.getTime() - 1);
+				var cval = this.readCookie(name);
+				if(cval != null)
+					document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 			}
 		}
 	}
@@ -300,24 +344,23 @@
 		-webkit-box-shadow: 0 0 0px 1000px #fff inset;
 	}
 	/*焦点时也加上，不加会出现黄色背景闪动一下*/
-
+	
 	input[type=text]:focus,
 	input[type=password]:focus,
 	textarea:focus {
 		-webkit-box-shadow: 0 0 0 1000px white inset;
 	}
+	
 	#retrieve {
 		width: 100vw;
 		background: white;
 		height: 100vh;
 	}
-
+	
 	span {
 		font-size: 10px;
 	}
 	
-	
-
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -328,43 +371,37 @@
 		line-height: 4.1rem;
 		border: 0;
 	}
-
+	
 	.panel-body {
 		padding: 0 10px;
 	}
-
+	
 	.back {
 		float: left;
 	}
 	
-	.back span {
+	.back img {
 		height: 2.5rem;
-		font-size: 2.5rem;
-		color: #DBDBDB;
 	}
 	
-	.back span:active{
-		color: black;
-	}
-
 	i.weui-icon.weui_icon_clear.weui-icon-clear {
 		display: none;
 	}
-
+	
 	#group_input_img {
 		position: relative;
 		margin-top: -55px;
 		float: right;
 	}
-
+	
 	a {
 		color: #09a2d6;
 	}
-
+	
 	body {
 		background-color: white;
 	}
-
+	
 	#phone {
 		border-top: 0;
 		border-left: 0;
@@ -377,12 +414,12 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-
+	
 	#phone,
 	#verification {
 		font-size: 1rem;
 	}
-
+	
 	#verification {
 		border-top: 0;
 		border-left: 0;
@@ -395,7 +432,7 @@
 		outline: none;
 		letter-spacing: 0.05rem;
 	}
-
+	
 	#passwordModel_image {
 		border-top: 0;
 		border-left: 0;
@@ -408,32 +445,32 @@
 		outline: none;
 		letter-spacing: 0.05rem;
 	}
-
+	
 	#pwsbtn {
 		background-color: #09A2D6;
 	}
-
+	
 	#pwsbtn:disabled {
 		background: #C0C0C0;
 	}
-
+	
 	#pwsbtn:active {
 		background-color: #09A2D6;
 	}
-
+	
 	.btns {
 		color: #7CCD7C;
 		border: 0px;
 	}
-
+	
 	body>.el-container {
 		margin-bottom: 40px;
 	}
-
+	
 	.weui-cells {
 		border: 0px;
 	}
-
+	
 	#verbtn {
 		position: relative;
 		margin-top: -47px;
@@ -448,19 +485,19 @@
 		border-radius: 0;
 		border: none;
 	}
-
+	
 	.weui-btn {
 		border-radius: 0;
 	}
-
+	
 	.weui-btn:after {
 		border: none
 	}
-
+	
 	#pwsbtn {
 		width: 100%;
 	}
-
+	
 	button#pwsbtn.weui-btn.weui-btn_primary {
 		width: 100%;
 	}

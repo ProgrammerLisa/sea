@@ -2,7 +2,7 @@
 	<div class="content">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-        <span @click="goBack" class="back"><span>ㄑ</span></span>
+				<span @click="goBack" @touchstart="evers"  @touchend="lat"  class="back"><img :src="masrc"/></span>
 				收货地址
 			</div>
 		</div>
@@ -58,11 +58,15 @@
 
 <script>
 	import addressNone from '@/assets/images/addressNone.png'
+	import back from '@/assets/images/back.png'
+	import backs from '@/assets/images/backs.png'
+
 	export default {
 		name: "Address",
 		inject: ['reload'],
 		data() {
 			return {
+				masrc: back,
 				noAddress: '',
 				addressNone: addressNone,
 				myAddress: [],
@@ -186,6 +190,14 @@
 				});
 
 			},
+			evers() {
+				console.log(1)
+				this.masrc = backs;
+			},
+			lat() {
+				console.log(2)
+				this.masrc = back;
+			},
 			goBack() {
 				this.$router.go(-1);
 			}
@@ -194,120 +206,137 @@
 </script>
 
 <style scoped>
-  .content{
-    overflow-x: hidden;
-    color: #666;
-    padding-bottom: 6rem;
-    background-color: #f5f5f5;
-    width: 100vw;
-  }
+	.content {
+		overflow-x: hidden;
+		color: #666;
+		padding-bottom: 6rem;
+		background-color: #f5f5f5;
+		width: 100vw;
+	}
 
-  .panel{
-    border:none;
-    border-radius: 0;
-  }
-  .panel-body {
-    padding:0 10px;
-  }
-  .BlackTitle{
-    text-align: center;
-    letter-spacing: 0.05rem;
-    color: #555;
-    font-size: 1.6rem;
-    margin-bottom: 1rem;
-    height: 4.1rem;
-    line-height: 4.1rem;
-  }
-  .back{
-    position: absolute;
-    left: 1rem;
-  }
-  .back span {
-    height: 2.5rem;
-    font-size: 2.5rem;
-    color: #DBDBDB;
-  }
+	.panel {
+		border: none;
+		border-radius: 0;
+	}
 
-  .back span:active {
-    color: #555;
-  }
+	.panel-body {
+		padding: 0 10px;
+	}
 
-  .table{
-    margin-bottom: 1rem;
-  }
-  .copyreader{
-    float: right;
-  }
-  .copyreader img{
-    height: 2.5rem;
-   }
-  .address{
-    background: #fff;
-  }
-  .address tr{
-    line-height: 40px;
-    border-bottom: 1px solid #f5f5f5;
-  }
-  .address td{
-    padding: 0 1.5rem;
-  }
-  .text-left{
-    color: #555;
-    font-size: 1.6rem;
-  }
-  .round{
-    display: inline-block;
-    width: 1.2rem;
-    height: 1.2rem;
-    border-radius: 50%;
-    border: 0.1rem solid #aaa;
-    margin-right: 0.5rem;
-    vertical-align: middle;
-    text-align: center;
-    line-height: 0.6rem;
-  }
-  .defaultRound{
-    display: inline-block;
-    width: 50%;
-    height:50%;
-    border-radius: 50%;
-    background: #09A2D6;
-  }
-  .del:first-child{
-    margin-right: 1rem;
-  }
-  .del img{
-    width: 2rem;
-  }
-  .addressNone{
-    text-align: center;
-    padding-top: 18vh;
-    color: #999;
-  }
-  .addressNone img{
-    width: 40%;
-    margin-bottom: 1rem;
-  }
-  .newAddress{
-    position: fixed;
-    bottom: 0;
-    background: #f5f5f5;
-    width: 100%;
-    padding: 1rem;
-    text-align: center;
-  }
-  .newAddressBtn{
-    width: 90%;
-    background: #09a2d6;
-    color: #f5f5f5;
-    padding: 0.8rem;
-    border: none;
-    margin: auto;
-  }
-  .large{
-    font-size: larger;
-  }
-  .defaultChoose{
-    color: #09a2d6;
-  }
+	.BlackTitle {
+		text-align: center;
+		letter-spacing: 0.05rem;
+		color: #555;
+		font-size: 1.6rem;
+		margin-bottom: 1rem;
+		height: 4.1rem;
+		line-height: 4.1rem;
+	}
+
+	.back {
+		float: left;
+	}
+
+	.back img {
+		height: 2.5rem;
+		font-size: 2.5rem;
+	}
+
+
+	.table {
+		margin-bottom: 1rem;
+	}
+
+	.copyreader {
+		float: right;
+	}
+
+	.copyreader img {
+		height: 2.5rem;
+	}
+
+	.address {
+		background: #fff;
+	}
+
+	.address tr {
+		line-height: 40px;
+		border-bottom: 1px solid #f5f5f5;
+	}
+
+	.address td {
+		padding: 0 1.5rem;
+	}
+
+	.text-left {
+		color: #555;
+		font-size: 1.6rem;
+	}
+
+	.round {
+		display: inline-block;
+		width: 1.2rem;
+		height: 1.2rem;
+		border-radius: 50%;
+		border: 0.1rem solid #aaa;
+		margin-right: 0.5rem;
+		vertical-align: middle;
+		text-align: center;
+		line-height: 0.8rem;
+	}
+
+	.defaultRound {
+		display: inline-block;
+		width: 0.6rem;
+		height: 0.6rem;
+		border-radius: 50%;
+		background: #09A2D6;
+	}
+
+	.del:first-child {
+		margin-right: 1rem;
+	}
+
+	.del img {
+		width: 2rem;
+	}
+
+	.addressNone {
+		text-align: center;
+		padding-top: 18vh;
+		color: #999;
+	}
+
+	.addressNone img {
+		width: 40%;
+		margin-bottom: 1rem;
+	}
+
+	.newAddress {
+		position: fixed;
+		bottom: 0;
+		background: #f5f5f5;
+		width: 100%;
+		padding: 1rem;
+		text-align: center;
+	}
+
+	.newAddressBtn {
+		width: 90%;
+		background: #09a2d6;
+		color: #f5f5f5;
+		padding: 0.5rem;
+		border: none;
+		margin: auto;
+		margin-bottom: 5%;
+	}
+
+	.large {
+		font-size: larger;
+	}
+
+	.newAddressBtn:active {
+		background: #009ACD;
+	}
 </style>
+

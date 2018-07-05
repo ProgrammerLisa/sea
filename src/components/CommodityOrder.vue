@@ -2,7 +2,7 @@
 	<div class="content">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-				<span @click="goBack" class="back"><span>ㄑ</span></span>
+				<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
 				我的订单
 			</div>
 		</div>
@@ -40,11 +40,14 @@
 <script>
 	import commodityImg from '@/assets/images/bg.png'
 	import OrderNoneImg from '@/assets/images/noorder.png'
+	import back from '@/assets/images/back.png'
+	import backs from '@/assets/images/backs.png'
 
 	export default {
 		name: "CommodityOrder",
 		data() {
 			return {
+				masrc: back,
 				OrderNone: true,
 				OrderNoneImg: OrderNoneImg,
 				commodity: [{
@@ -96,6 +99,14 @@
 			}
 		},
 		methods: {
+			evers() {
+				console.log(1)
+				this.masrc = backs;
+			},
+			lat() {
+				console.log(2)
+				this.masrc = back;
+			},
 			goBack() {
 				this.$router.go(-1);
 			}
@@ -135,14 +146,9 @@
 		float: left;
 	}
 	
-	.back span {
+	.back img {
 		height: 2.5rem;
 		font-size: 2.5rem;
-		color: #DBDBDB;
-	}
-	
-	.back span:active {
-		color: #555;
 	}
 	
 	.media {

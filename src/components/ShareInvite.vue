@@ -92,14 +92,8 @@
     position: absolute;
     left: 1rem;
   }
-  .back span {
+  .back img {
     height: 2.5rem;
-    font-size: 2.5rem;
-    color: #DBDBDB;
-  }
-
-  .back span:active {
-    color: #555;
   }
   .code{
     padding: 2rem;

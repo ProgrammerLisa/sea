@@ -4,7 +4,7 @@
 	<div class="content">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-				<span @click="goBack" class="back"><span>ㄑ</span></span> 编辑资料
+				<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back">  <img :src="masrc"/></span> 编辑资料
 			</div>
 		</div>
 		<div class="media noTop">
@@ -78,6 +78,9 @@
 
 <script>
 	import headImg from '@/assets/images/profile.png'
+	import back from '@/assets/images/back.png'
+	import backs from '@/assets/images/backs.png'
+
 	export default {
 		name: "Compile",
     computed:{
@@ -87,6 +90,7 @@
     },
 		data() {
 			return {
+				masrc: back,
 				headImg: headImg,
 				nickname: '',
 				IDcode: '',
@@ -131,6 +135,14 @@
 
 		},
 		methods: {
+			evers() {
+				console.log(1)
+				this.masrc = backs;
+			},
+			lat() {
+				console.log(2)
+				this.masrc = back;
+			},
 			goBack() {
 				this.$router.go(-1);
 			},

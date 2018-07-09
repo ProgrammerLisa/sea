@@ -1,14 +1,15 @@
 <template>
-	<div class="content">
-		<div class="panel panel-default BlackTitle">
-			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"> <img :src="masrc"/></span> 消息
-			</div>
-		</div>
-		<div v-if="newsNone" class="newsNone">
-			<img :src="newsNoneImg" />
-			<p>暂时还没有消息哦</p>
-		</div>
+  <div class="content">
+    <div class="panel panel-default BlackTitle">
+      <div class="panel-body">
+        <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
+        消息
+      </div>
+    </div>
+    <div v-if="newsNone" class="newsNone">
+      <img :src="newsNoneImg"/>
+      <p>暂时还没有消息哦</p>
+    </div>
 
 		<div class="media" v-for="(n,index) in news" v-else @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd" :data-curid="n.id">
 
@@ -99,7 +100,6 @@
               }
             }
 
-
 					} else {
 						this.newsNone = true;
 						this.$layer.msg(res.data.msg);
@@ -109,16 +109,15 @@
 					this.newsNone = true;
 					this.$layer.msg(err)
 				}.bind(this));
-		},
-		methods: {
-      newsDetails(index){
-        this.$router.push({
-          path: '/newsdetails',
-          name: 'NewsDetails',
-          params: {
-            name: 'name',
-            dataObj: this.news[index].id
-
+        },
+        methods: {
+          NewsDetails(index){
+            this.$router.push({
+              path: '/newsdetails',
+              name: 'NewsDetails',
+              params: {
+                name: 'name',
+                dataObj: this.news[index].id
           }
         })
       },
@@ -168,8 +167,8 @@
         }).then(function(res){
           if(res.data.code==0){
             this.$layer.msg(res.data.msg)
-            $(".media").eq(index).css({display:"none"})
-            if($(".media").length==0){
+            this.news.splice(index,1)
+            if(this.news.length==0){
               this.newsNone=true;
             }
           }
@@ -184,6 +183,7 @@
 
       },
 			evers() {
+
 				this.masrc = backs;
 			},
 			lat() {
@@ -192,10 +192,9 @@
 			goBack() {
 				this.$router.go(-1);
 			}
-		}
-	}
+        }
+    }
 </script>
-
 
 <style scoped>
   .content{
@@ -224,10 +223,9 @@
     line-height: 4.1rem;
   }
   .back{
-    position: absolute;
-    left: 1rem;
+    float: left;
   }
-  .back img {
+  .back img{
     height: 2.5rem;
   }
   .media{
@@ -296,9 +294,6 @@
     /* .slide-fade-leave-active for below version 2.1.8 */ {
     transform: translateX(10px);
     opacity: 0;
-  }
-  .msgContent{
-
   }
   .msgContent {
     position:relative;

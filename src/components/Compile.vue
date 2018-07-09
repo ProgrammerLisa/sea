@@ -242,9 +242,13 @@
 		line-height: 4.1rem;
 	}
 
-	.back {
-		float: left;
-	}
+	.back{
+    position: absolute;
+    left: 1rem;
+  }
+  .back img {
+    height: 2.5rem;
+  }
 
   .back span {
     height: 2.5rem;

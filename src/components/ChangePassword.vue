@@ -103,8 +103,6 @@
 							if(res.data.code == 0) {
 								this.$layer.msg(res.data.msg);
 								this.$router.go(-1);
-							} else if(res.data.code == 401) {
-								this.$router.replace('/Login');
 							} else {
 								this.$layer.msg(res.data.msg);
 							}

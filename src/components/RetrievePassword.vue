@@ -3,7 +3,7 @@
 		<div>
 			<div class="panel panel-default BlackTitle">
 				<div class="panel-body">
-					<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"> <img :src="masrc"/></span>
+					<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"> <img :src="masrc"/></span>
 					<span style="margin-left: -37px; position: absolute; left: 50%; font-size: 1.8rem;">找回密码</span>
 				</div>
 			</div>
@@ -121,8 +121,7 @@
 		},
 		methods: {
 			show() {
-				if(this.mobile == '') {
-				} else {
+				if(this.mobile == '') {} else {
 					this.btnShow = true;
 				}
 			},
@@ -135,21 +134,18 @@
 				}
 			},
 			verifshow() {
-				if(this.verif == '') {
-				} else {
+				if(this.verif == '') {} else {
 					this.btnverShow = true;
 				}
 			},
 			ver() {
-				if(this.verif == '') {
-				} else {
+				if(this.verif == '') {} else {
 					this.verif = ''
 					this.btnverShow = false
 				}
 			},
 			ipwdshow() {
-				if(this.inppwd == '') {
-				} else {
+				if(this.inppwd == '') {} else {
 					this.btnShow1 = true;
 				}
 			},
@@ -258,12 +254,54 @@
 			setTime() {
 				this.Stime = setInterval(this.timer, 1000);
 			},
+			submitData() {
+				event.preventDefault();
+				//去获取验证手机号
+				var reg = /^1[3|4|5|7|8]\d{9}$/;
+				//				alert("result:" + this.$refs.mobile.valid);
+				if(reg.test(this.mobile)) {
+					if(this.verif == "") {
+						this.$layer.msg("验证码不能为空");
+						return;
+					}
+					if(this.passwordModel == '') {
+						this.$layer.msg("密码不能为空");
+						return;
+					}
+					if(!/^[0-9A-Za-z]{6,15}$/.test(this.passwordModel)) {
+						this.$layer.msg('密码少于6位');
+						return;
+					} else {
+						this.userTrue();
+					}
+				} else if(this.mobile == '') {
+					this.$layer.msg("手机号码不能为空");
+					return;
+				} else {
+					this.$layer.msg("手机号码格式错误");
+				}
+			},
+			timer() {
+				if(this.time > 0) {
+					this.time--;
+					this.btntxte = this.time + "s";
+					//setTimeout(this.timer, 1000);
+					sessionStorage.index2 = this.time;
+				} else {
+					this.time = 0;
+					this.btntxte = "获取验证码";
+					this.disabled = false;
+				}
+			},
+			setTime() {
+				this.Stime = setInterval(this.timer, 1000);
+			},
 			//验证手机号码部分
 			sendcode() {
 				event.preventDefault();
 				const that = this;
 				var Verificationtimen = Verificationtimen;
-				that.time = localStorage.getItem(Verificationtimen);
+				that.time = that.readCookie(Verificationtimen);
 				if(that.time == "") {
 					this.$http({
 							method: 'post',
@@ -276,15 +314,15 @@
 								this.$layer.msg(res.data.msg);
 								var TimeReduction1 = setInterval(function() {
 									if(that.time > 0) {
-										localStorage.setItem(Verificationtime, that.time);
+										that.writeCookie(Verificationtimen, that.time);
 										that.time--;
-										that.btntxt = that.time + "s";
+										that.btntxte = that.time + "s";
 										that.disabled = true;
 									} else {
 										that.time = 0;
-										that.btntxt = "获取验证码";
+										that.btntxte = "获取验证码";
 										that.disabled = false;
-										localStorage.removeItem(Verificationtime);
+										that.delCookie(Verificationtimen);
 										clearInterval(TimeReduction1);
 									}
 								}, 1000)
@@ -296,7 +334,6 @@
 							console.log(err)
 						}.bind(this))
 					that.time = 10;
-
 				}
 			},
 			writeCookie(name, value, hours) {
@@ -325,7 +362,7 @@
 			delCookie(name) {
 				var exp = new Date();
 				exp.setTime(exp.getTime() - 1);
-				var cval = localStorage.getItem(name);
+				var cval = this.readCookie(name);
 				if(cval != null)
 					document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 			}
@@ -344,23 +381,23 @@
 		-webkit-box-shadow: 0 0 0px 1000px #fff inset;
 	}
 	/*焦点时也加上，不加会出现黄色背景闪动一下*/
-
+	
 	input[type=text]:focus,
 	input[type=password]:focus,
 	textarea:focus {
 		-webkit-box-shadow: 0 0 0 1000px white inset;
 	}
-
+	
 	#retrieve {
 		width: 100vw;
 		background: white;
 		height: 100vh;
 	}
-
+	
 	span {
 		font-size: 10px;
 	}
-
+	
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -371,37 +408,37 @@
 		line-height: 4.1rem;
 		border: 0;
 	}
-
+	
 	.panel-body {
 		padding: 0 10px;
 	}
-
+	
 	.back {
 		float: left;
 	}
-
+	
 	.back img {
 		height: 2.5rem;
 	}
-
+	
 	i.weui-icon.weui_icon_clear.weui-icon-clear {
 		display: none;
 	}
-
+	
 	#group_input_img {
 		position: relative;
 		margin-top: -55px;
 		float: right;
 	}
-
+	
 	a {
 		color: #09a2d6;
 	}
-
+	
 	body {
 		background-color: white;
 	}
-
+	
 	#phone {
 		border-top: 0;
 		border-left: 0;
@@ -414,12 +451,12 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-
+	
 	#phone,
 	#verification {
 		font-size: 1rem;
 	}
-
+	
 	#verification {
 		border-top: 0;
 		border-left: 0;
@@ -432,7 +469,7 @@
 		outline: none;
 		letter-spacing: 0.05rem;
 	}
-
+	
 	#passwordModel_image {
 		border-top: 0;
 		border-left: 0;
@@ -445,32 +482,32 @@
 		outline: none;
 		letter-spacing: 0.05rem;
 	}
-
+	
 	#pwsbtn {
 		background-color: #09A2D6;
 	}
-
+	
 	#pwsbtn:disabled {
 		background: #C0C0C0;
 	}
-
+	
 	#pwsbtn:active {
 		background-color: #09A2D6;
 	}
-
+	
 	.btns {
 		color: #7CCD7C;
 		border: 0px;
 	}
-
+	
 	body>.el-container {
 		margin-bottom: 40px;
 	}
-
+	
 	.weui-cells {
 		border: 0px;
 	}
-
+	
 	#verbtn {
 		position: relative;
 		margin-top: -47px;
@@ -485,19 +522,19 @@
 		border-radius: 0;
 		border: none;
 	}
-
+	
 	.weui-btn {
 		border-radius: 0;
 	}
-
+	
 	.weui-btn:after {
 		border: none
 	}
-
+	
 	#pwsbtn {
 		width: 100%;
 	}
-
+	
 	button#pwsbtn.weui-btn.weui-btn_primary {
 		width: 100%;
 	}

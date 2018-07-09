@@ -151,20 +151,17 @@
 		},
 		methods: {
 			show() {
-				if(this.mobile == '') {
-				} else {
+				if(this.mobile == '') {} else {
 					this.btnShow = true;
 				}
 			},
 			ipwdshow() {
-				if(this.inppwd == '') {
-				} else {
+				if(this.inppwd == '') {} else {
 					this.btnShow1 = true;
 				}
 			},
 			verifshow() {
-				if(this.verif == '') {
-				} else {
+				if(this.verif == '') {} else {
 					this.btnverShow = true;
 				}
 			},
@@ -206,7 +203,7 @@
 			},
 			bnn() {
 				if(this.mobile == '') {
-					
+
 				} else {
 					this.mobile = ''
 					this.btnShow = false;
@@ -214,7 +211,7 @@
 			},
 			bnn1() {
 				if(this.inppwd == '') {
-					
+
 				} else {
 					this.inppwd = ''
 					this.btnShow1 = false;
@@ -222,7 +219,7 @@
 			},
 			ver() {
 				if(this.verif == '') {
-					
+
 				} else {
 					this.verif = ''
 					this.btnverShow = false;
@@ -276,7 +273,7 @@
 								console.log(res.data)
 								if(res.data.code == 0) {
 									this.$layer.msg('登录成功');
-									this.writeCookie('uid', res.data.data.uid, 10000000);
+									localStorage.setItem("uid", res.data.data.uid);
 									this.$router.replace('/home');
 								} else {
 									this.$layer.msg(res.data.msg);
@@ -370,8 +367,8 @@
 								console.log(res.data)
 								if(res.data.code == 0) {
 									this.$layer.msg('登录成功');
-									this.writeCookie('uid', res.data.data.uid, 10000000);
-									this.$router.replace('/AskCode');
+									localStorage.setItem("uid", res.data.data.uid);
+									this.$router.replace('/Home');
 								} else {
 									this.$layer.msg(res.data.msg);
 								}
@@ -419,6 +416,7 @@
 			}
 		}
 	}
+	
 </script>
 
 <style scoped>
@@ -508,11 +506,13 @@
 		padding-bottom: 0.5rem;
 	}
 	
-	input::-ms-clear{display: none;}
-	.phone:valid + .close{
-		display: inline;
+	input::-ms-clear {
+		display: none;
 	}
 	
+	.phone:valid+.close {
+		display: inline;
+	}
 	
 	#ipwd {
 		border-top: 0;

@@ -145,36 +145,35 @@
 				this.$router.go(-1);
 			},
 			loginOut() {
-				
+
             const that = this;
             this.$layer.confirm("确认要退出登录吗", { title: "退出登录" }, function (c) {
 
               $(".vl-notify").remove();
-              // that.$http({
-              //   method: "post",
-              //   url: "/auth/logout",
-              //   headers: {"device": "android", "uid": localStorage.getItem("uid"), "Access-Control-Allow-Origin": "*"},
-              //   data: {}
-              // }).then(function (res) {
-              //   if (res.data.code == 0) {
-              //     this.$layer.msg(res.data.msg);
-              //     localStorage.removeItem("uid");
-              //     this.$router.replace('/');
-              //     this.$router.go(0);
-              //   } else {
-              //     that.$layer.msg(res.data.msg);
-              //   }
-              // }.bind(this))
-              //   .catch(function (err) {
-              //     console.log(err)
-              //   }.bind(this))
+              that.$http({
+                method: "post",
+                url: "/auth/logout",
+                headers: {"device": "android", "uid": localStorage.getItem("uid"), "Access-Control-Allow-Origin": "*"},
+                data: {}
+              }).then(function (res) {
+                if (res.data.code == 0) {
+                  that.$layer.msg(res.data.msg);
+                  localStorage.removeItem("uid");
+                  that.$router.replace('/Login');
+//                that.$router.go(0);
+                } else {
+                  that.$layer.msg(res.data.msg);
+                }
+              }.bind(this))
+                .catch(function (err) {
+                  console.log(err)
+                }.bind(this))
             })
 
             $(".vl-notice-title").css({display:"none"});
             $(".vl-notify-btns").css({textAlign:"center"});
             $(".vl-notify-content").css({textAlign:"center"});
-            $(".notify-btn").css({borderRadius:"0"
-            });
+            $(".notify-btn").css({borderRadius:"0"});
 
           }
         }
@@ -182,143 +181,117 @@
 </script>
 
 <style scoped>
-	.content {
-		overflow-x: hidden;
-		color: #666;
-		background-color: #f5f5f5;
-		width: 100vw;
-		height: 100vh;
-	}
-	
-	.panel {
-		border: none;
-		border-radius: 0;
-	}
-	
-	.panel-body {
-		padding: 0 10px;
-	}
-	
-	.BlackTitle {
-		text-align: center;
-		letter-spacing: 0.05rem;
-		color: #555;
-		font-size: 1.6rem;
-		margin-bottom: 0.5rem;
-		height: 4.1rem;
-		line-height: 4.1rem;
-	}
-	
-	.back {
-		float: left;
-	}
-	
-	.back img {
-		height: 2.5rem;
-		font-size: 2.5rem;
-	}
-	
-	.table {
-		background: #fff;
-	}
-	
-	.table tr {
-		border-bottom: 0.1rem solid #f5f5f5;
-	}
-	
-	.table td {
-		padding: 0.5rem 1.5rem;
-	}
-	
-	.spacing td {
-		padding: 0;
-		height: 1rem;
-		background: #f5f5f5;
-	}
-	
-	.more {
-		height: 3rem;
-	}
-	
-	.arrow:active {
-		background: #f1f1f1;
-	}
-	
-	.arrow td {
-		padding-top: 0.5rem;
-		padding-bottom: 0.5rem;
-	}
-	
-	.arrow td:nth-child(2) {
-		padding-right: 0;
-	}
-	
-	.high {
-		height: 3rem;
-		line-height: 3rem;
-	}
-	
-	.loginOut {
-		background: #fff;
-		text-align: center;
-		height: 4rem;
-		line-height: 4rem;
-		color: #f44336;
-		letter-spacing: 0.1rem;
-		position: fixed;
-		bottom: 0;
-		width: 100%;
-		border-top: 0.1rem solid #eee;
-	}
-	
-	.btn {
-		display: inline-block;
-		padding: 12px 12px;
-		margin-bottom: 0;
-		font-size: 14px;
-		font-weight: normal;
-		line-height: 1.42857143;
-		text-align: center;
-		white-space: nowrap;
-		vertical-align: middle;
-		touch-action: manipulation;
-		cursor: pointer;
-		-webkit-user-select: none;
-		user-select: none;
-		background-image: none;
-		border: 1px solid transparent;
-		border-radius: 4px;
-	}
-	
-	.loginOut:active {
-		background: #BABABA;
-	}
-	
-	.blueBtn {
-		background: #09a2d6;
-		border-radius: 2rem;
-		width: 3.5rem;
-		height: 2rem;
-		margin-bottom: -0.3rem;
-		display: inline-block;
-		overflow: hidden;
-	}
-	
-	.cap {
-		border-radius: 2rem;
-		background: #ccc;
-		width: 100%;
-		height: 100%;
-		position: relative;
-		left: 1.5rem;
-	}
-	
-	.whiteBtn {
-		border-radius: 50%;
-		background: #fff;
-		width: 2rem;
-		height: 2rem;
-		position: relative;
-		border: 0.1rem solid #09a2d6;
-	}
+  .content{
+    overflow-x: hidden;
+    color: #666;
+    background-color: #f5f5f5;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .panel{
+    border:none;
+    border-radius: 0;
+  }
+  .panel-body {
+    padding:0 10px;
+  }
+  .BlackTitle{
+    text-align: center;
+    letter-spacing: 0.05rem;
+    color: #555;
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+    height: 4.1rem;
+    line-height: 4.1rem;
+  }
+  .back{
+    position: absolute;
+    left: 1rem;
+  }
+  .back img {
+    height: 2.5rem;
+  }
+  .table{
+    background: #fff;
+  }
+  .table tr{
+    border-bottom: 0.1rem solid #f5f5f5;
+    height: 8vh;
+  }
+  .table td{
+    padding:0.5rem 1.5rem;
+  }
+  .table .spacing{
+    height: 1rem;
+  }
+  .spacing td{
+    padding: 0;
+    height: 1rem;
+    background: #f5f5f5;
+  }
+  .more{
+    height: 3rem;
+  }
+  .arrow:active{
+    background: #f1f1f1;
+  }
+  .arrow td{
+    padding-top:0.5rem;
+    padding-bottom:0.5rem;
+  }
+  .arrow td:nth-child(2){
+    padding-right: 0;
+  }
+  .high{
+    height: 3rem;
+    line-height: 3rem;
+
+  }
+  .loginOut{
+    background: #fff;
+    text-align: center;
+    line-height: 3rem;
+    color:  #09a2d6;
+    letter-spacing: 0.1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border: none;
+    border-top: 0.1rem solid #eee;
+    border-radius: 0;
+  }
+  .loginOut:active{
+    background: #f5f5f5;
+    color: #09a2d6;
+    border: none;
+  }
+  .blueBtn{
+    background: #09a2d6;
+    border-radius: 2rem;
+    width: 3.5rem;
+    height: 2rem;
+    margin-bottom: -0.3rem;
+    display: inline-block;
+    overflow: hidden;
+  }
+  .cap{
+    border-radius: 2rem;
+    background: #ccc;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    left: 1.5rem;
+  }
+  .whiteBtn{
+    border-radius:50%;
+    background: #fff;
+    width: 2rem;
+    height: 2rem;
+    position: relative;
+    border:0.1rem solid #09a2d6;
+  }
+  .notify-btn{
+    border-radius: 0;
+  }
 </style>

@@ -10,13 +10,13 @@
 			<p>暂时还没有消息哦</p>
 		</div>
 
-		<div class="media" v-for="n in news" v-else>
+		<div class="media" v-for="(n,index) in news" v-else @click="newsDetails(index)">
 			<div class="media-left">
 				<span class="badge msg" v-show="!n.msg.is_read">·</span><img class="media-object" :src="n.msg.img">
 			</div>
 			<div class="media-body">
-				<h4 class="media-heading">{{n.msg.title}} <span class="time">{{n.msg.created_at}}</span></h4> {{n.msg.content}}
-
+				<h4 class="media-heading">{{n.msg.title}} <span class="time">{{n.msg.created_at}}</span></h4>
+        <div class="msgContent">{{n.msg.content}}</div>
 			</div>
 		</div>
 	</div>
@@ -35,7 +35,6 @@
 				masrc: back,
 				newsNone: true,
 				newsNoneImg: newsNoneImg,
-				newsId: '',
 				news: [],
 				mobile: {
 					id: '',
@@ -66,8 +65,7 @@
 						} else {
 							this.newsNone = false;
 							for(let n in res.data.data) {
-								this.newsId = n;
-								console.log(res.data.data[n])
+								this.mobile.id = n;
 								this.mobile.msg = res.data.data[n];
 								this.mobile.msg.img = friend;
 								this.news.push(this.mobile);
@@ -82,7 +80,6 @@
 									}
 								};
 							}
-							console.log(res.data)
 						}
 
 					} else {
@@ -96,6 +93,17 @@
 				}.bind(this));
 		},
 		methods: {
+      newsDetails(index){
+        this.$router.push({
+          path: '/newsdetails',
+          name: 'NewsDetails',
+          params: {
+            name: 'name',
+            dataObj: this.news[index].id
+
+          }
+        })
+      },
 			evers() {
 				console.log(1)
 				this.masrc = backs;
@@ -211,5 +219,19 @@
     /* .slide-fade-leave-active for below version 2.1.8 */ {
     transform: translateX(10px);
     opacity: 0;
+  }
+  .msgContent{
+
+  }
+  .msgContent {
+    position:relative;
+    line-height:2em;
+    /* 3 times the line-height to show 3 lines */
+    height:2em;
+    overflow:hidden;
+  }
+  .msgContent::after {
+    content:"...";
+    font-weight:bold;
   }
 </style>

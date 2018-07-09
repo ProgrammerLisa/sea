@@ -56,7 +56,7 @@ Vue.prototype.$layer = layer(Vue);
 
 let defaultRouter;
 let uid = localStorage.getItem('uid');
-if(uid==null&&uid==undefined&&uid==''){
+if(uid!=null&&uid!=undefined&&uid!=''){
   defaultRouter = {
     path: '/',
     meta:{index:0},

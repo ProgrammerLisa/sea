@@ -6,16 +6,14 @@
           {{from_user}}
         </div>
       </div>
-      <div class="media" v-for="s in msg">
+      <div class="media">
 
-        <p class="text-center"><span class="DialogDate">{{s.create_at}}</span></p>
-        <div class="media-left">
-          <img class="media-object" :src="s.img"  alt="...">
-        </div>
+        <p class="text-center"><span class="DialogDate">{{created_at}}</span></p>
+
         <div class="media-body">
-        <span class="serviceContent">
-           {{s.content}}
-        </span>
+          <span class="serviceContent">
+             {{content}}
+          </span>
         </div>
 
       </div>
@@ -28,12 +26,9 @@
         data(){
           return{
             from_user:'',
-            msg:[],
-            mobile:{
-              title:'',
-              created_at:'',
-              content:'',
-            }
+            title:'',
+            created_at:'',
+            content:''
           }
         },
         mounted(){
@@ -49,19 +44,10 @@
           }).then(function(res){
             if(res.data.code==0){
               this.from_user = res.data.data.from_user;
-              console.log(res.data.data)
-              for(let i in res.data.data){
-                // this.mobile.title = res.data.data[i].title;
-                // this.mobile.created_at = res.data.data[i].created_at;
-                // this.mobile.content = res.data.data[i].content;
-                // this.msg.push(this.mobile);
-                // console.log(this.msg)
-                // this.mobile = {
-                //   title:'',
-                //   created_at:'',
-                //   content:'',
-                // }
-              }
+              this.title = res.data.data.title;
+              this.created_at = res.data.data.created_at;
+              this.content = res.data.data.content;
+
             }else {
               this.$layer.msg(res.data.msg);
             }
@@ -110,5 +96,17 @@
   }
   .back img {
     height: 2.5rem;
+  }
+  .media-body{
+    text-align: center;
+  }
+  .serviceContent{
+    background: #fff;
+    display: inline-block;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0.2rem 0.2rem 0.2rem #ddd;
+    text-align: left;
   }
 </style>

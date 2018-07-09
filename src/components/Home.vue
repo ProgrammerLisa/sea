@@ -15,7 +15,7 @@
             <img class="dropdownImg" src="../assets/images/caidan.png"/>
           </div>
           <ul class="dropdown-menu">
-            <li><a href="#"><img src="../assets/images/youxiguize.png" class="dropdown-menu-img"/>游戏规则</a></li>
+            <router-link tag="li" to="/gamerules"><img src="../assets/images/youxiguize.png" class="dropdown-menu-img"/>游戏规则</router-link>
             <li role="separator" class="divider"></li>
             <li><a href="#"><img src="../assets/images/zhanji.png" class="dropdown-menu-img"/>战绩</a></li>
           </ul>

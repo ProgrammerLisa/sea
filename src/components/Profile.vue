@@ -2,9 +2,8 @@
   <div class="content">
     <div class="personal">
       <div class="news">
-        <router-link to="/news" tag="div" class="badgePosition">
-          <span v-show="newsCount" class="badge msg">·</span>
-        </router-link>
+        <router-link to="/news" v-if="newsCount" tag="div" class="badgePositionRed"></router-link>
+        <router-link to="/news" v-else tag="div" class="badgePosition"></router-link>
       </div>
       <div class="container personalMessage">
         <router-link tag="div" to="/compile">
@@ -195,20 +194,19 @@
     flex-direction: row-reverse;
     padding: 0.4rem 0;
   }
+  .badgePositionRed{
+    width: 5rem;
+    height: 3rem;
+    background:url("../assets/images/new.png") no-repeat;
+    background-size: 60% 100%;
+  }
   .badgePosition{
     width: 5rem;
     height: 3rem;
     background:url("../assets/images/news.png") no-repeat;
     background-size: 60% 100%;
   }
-  .badge{
-    background: #f44336;
-    font-weight: normal;
-    padding: 0.1rem 0.3rem;
-    vertical-align: text-top;
-    margin-right: 1.7rem;
-    float: right;
-  }
+
   .personalMessage{
     background: #fff;
     margin:0  1rem;

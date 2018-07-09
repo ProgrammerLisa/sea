@@ -126,11 +126,11 @@
 			});
 
 			var Verificationtime = Verificationtime;
-			that.time = that.readCookie(Verificationtime);
+			that.time = localStorage.getItem(Verificationtime);
 			if(that.time != "") {
 				var TimeReduction2 = setInterval(function() {
 					if(that.time > 0) {
-						that.writeCookie(Verificationtime, that.time);
+						localStorage.setItem(Verificationtime, that.time);
 						that.time--;
 						that.btntxt = that.time + "s";
 						that.disabled = true;
@@ -138,7 +138,7 @@
 						that.time = 0;
 						that.btntxt = "获取验证码";
 						that.disabled = false;
-						that.delCookie(Verificationtime);
+						localStorage.removeItem(Verificationtime);
 						clearInterval(TimeReduction2);
 					}
 				}, 1000)
@@ -301,7 +301,7 @@
 				var Verificationtime = Verificationtime;
 
 				this.disabled = true;
-				that.time = that.readCookie(Verificationtime);
+				that.time = localStorage.getItem(Verificationtime);
 				if(that.time == "") {
 					this.$http({
 							method: 'post',
@@ -320,7 +320,7 @@
 								that.time = 10;
 								var TimeReduction1 = setInterval(function() {
 									if(that.time > 0) {
-										that.writeCookie(Verificationtime, that.time);
+                    localStorage.setItem(Verificationtime, that.time);
 										that.time--;
 										that.btntxt = that.time + "s";
 										that.disabled = true;
@@ -328,7 +328,7 @@
 										that.time = 0;
 										that.btntxt = "获取验证码";
 										that.disabled = false;
-										that.delCookie(Verificationtime);
+                    localStorage.removeItem(Verificationtime);
 										clearInterval(TimeReduction1);
 									}
 								}, 1000)
@@ -383,36 +383,6 @@
 				} else {
 					this.$layer.msg('手机号码格式错误');
 				}
-			},
-			writeCookie(name, value, hours) {
-				var expire = "";
-				hours = hours || 100;
-				if(hours != null) {
-					expire = new Date((new Date()).getTime() + hours * 1000);
-					expire = "; expires=" + expire.toGMTString();
-				}
-				document.cookie = name + "=" + escape(value) + expire;
-			},
-			readCookie(name) {
-				var cookieValue = "";
-				var search = name + "=";
-				if(document.cookie.length > 0) {
-					var offset = document.cookie.indexOf(search);
-					if(offset != -1) {
-						offset += search.length;
-						var end = document.cookie.indexOf(";", offset);
-						if(end == -1) end = document.cookie.length;
-						cookieValue = unescape(document.cookie.substring(offset, end))
-					}
-				}
-				return cookieValue;
-			},
-			delCookie(name) {
-				var exp = new Date();
-				exp.setTime(exp.getTime() - 1);
-				var cval = this.readCookie(name);
-				if(cval != null)
-					document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 			}
 		}
 	}
@@ -426,37 +396,37 @@
 		-webkit-box-shadow: 0 0 0px 1000px #fff inset;
 	}
 	/*焦点时也加上，不加会出现黄色背景闪动一下*/
-	
+
 	input[type=text]:focus,
 	input[type=password]:focus,
 	textarea:focus {
 		-webkit-box-shadow: 0 0 0 1000px white inset;
 	}
-	
+
 	button.weui-btn.weui-btn_primary {
 		background-color: #09A2D6;
 		border-radius: 0;
 	}
-	
+
 	button.weui-btn.weui-btn_primary:active {
 		background-color: #09A2D6;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	#login {
 		width: 100vw;
 		height: 100vh;
 		background: #fff;
 		overflow: hidden;
 	}
-	
+
 	#verifica {
 		border-top: 0;
 		border-left: 0;
@@ -469,15 +439,15 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-	
+
 	#ipwd .vux-x-input .weui-cell {
 		width: 80%;
 	}
-	
+
 	.weui-btn::after {
 		border-radius: 0;
 	}
-	
+
 	#verbtn {
 		position: relative;
 		margin-top: -44px;
@@ -492,7 +462,7 @@
 		border-radius: 0;
 		border: none;
 	}
-	
+
 	.phone {
 		border-top: 0;
 		border-left: 0;
@@ -505,15 +475,14 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-	
-	input::-ms-clear {
-		display: none;
-	}
-	
-	.phone:valid+.close {
+
+
+	input::-ms-clear{display: none;}
+	.phone:valid + .close{
 		display: inline;
 	}
-	
+
+
 	#ipwd {
 		border-top: 0;
 		border-left: 0;
@@ -526,12 +495,12 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-	
+
 	.group_inputs {
 		width: 100%;
 		padding-top: 14rem;
 	}
-	
+
 	#group_input_img {
 		position: relative;
 		margin-top: -55px;
@@ -539,7 +508,7 @@
 		font-size: 1.2rem;
 		height: 55px;
 	}
-	
+
 	.group_input {
 		/*margin: -40px;*/
 		/*margin: 10px;*/
@@ -548,28 +517,28 @@
 		/*padding: 40px;*/
 		/*margin-left: -14px;*/
 	}
-	
+
 	.weui-cells:before {
 		border-top: 0px!important;
 	}
-	
+
 	.hyperlink {
 		float: right;
 		margin-top: 2rem;
 	}
-	
+
 	.a_hyperlink {
 		color: #8C8C8C;
 	}
-	
+
 	a {
 		color: #353535;
 	}
-	
+
 	a:hover {
 		text-decoration: none;
 	}
-	
+
 	#nav {
 		position: fixed;
 		top: 0;
@@ -582,7 +551,7 @@
 		line-height: 50px;
 		border-bottom: 1px solid #F5F5F5;
 	}
-	
+
 	#nav_login {
 		position: fixed;
 		top: 0;
@@ -593,7 +562,7 @@
 		border-bottom: 1px solid #C8C8CD;
 		margin-top: 50px;
 	}
-	
+
 	#nav_common {
 		position: fixed;
 		width: 50%;
@@ -602,25 +571,25 @@
 		box-shadow: 0.2rem 0.2rem 0.2rem #ddd;
 		overflow: hidden;
 	}
-	
+
 	#nav_common a {
 		width: 100%;
 		background: white;
 	}
-	
+
 	#a_common {
 		/*text-decoration:none;*/
 		/*border-bottom:3px solid #09A2D6;  #ccc换成链接的颜色*/
 		display: inline-block;
 		/*margin-bottom:-3px;  这里设置你要空的距离*/
 	}
-	
+
 	#a_sms {
 		width: 100%;
 		text-decoration: none;
 		display: inline-block;
 	}
-	
+
 	#nav_sms {
 		position: fixed;
 		width: 50%;
@@ -630,46 +599,46 @@
 		overflow: hidden;
 		box-shadow: 0.2rem 0.2rem 0.2rem #ddd;
 	}
-	
+
 	#a_common_animation {
 		width: 100%;
 		background: #09A2D6;
 		height: 0.3rem;
 		margin-left: 0
 	}
-	
+
 	#a_sms_animation {
 		width: 100%;
 		background: #09A2D6;
 		height: 0.3rem;
 		margin-left: -100%;
 	}
-	
+
 	.weui-btn:after,
 	#btn_login_normal:after,
 	#btn_login_sms:after,
 	#verbtn:after {
 		border: none;
 	}
-	
+
 	#btn_login_normal,
 	#btn_login_sms {
 		width: 100%;
 		margin-top: 30px;
 	}
-	
+
 	#btn_login_normal:disabled {
 		background: #C0C0C0;
 	}
-	
+
 	#btn_login_sms:disabled {
 		background: #C0C0C0;
 	}
-	
+
 	button#btn_login_normal.weui-btn.weui-btn_primary {
 		width: 100%;
 	}
-	
+
 	button#btn_login_sms.weui-btn.weui-btn_primary {
 		width: 100%;
 	}

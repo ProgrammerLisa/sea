@@ -18,7 +18,7 @@
 	import logo from '@/assets/images/bg.png'
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
-	
+
 	export default {
 		name: "AboutUs",
 		data() {
@@ -49,16 +49,16 @@
 		width: 100vw;
 		height: 100vh;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -68,29 +68,29 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 		font-size: 2.5rem;
 	}
-	
+
 	.about {
 		text-align: center;
 		color: #444;
 		margin-top: 12rem;
 	}
-	
+
 	.logo {
 		width: 8rem;
 		height: 8rem;
 		border-radius: 0.6rem;
 		margin-bottom: 1rem;
 	}
-	
+
 	.agreement {
 		position: absolute;
 		bottom: 0;

@@ -56,6 +56,7 @@
 </script>
 
 <style scoped>
+
 	.content {
 		overflow-x: hidden;
 		color: #666;
@@ -63,16 +64,16 @@
 		background-color: #f5f5f5;
 		width: 100%;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -82,16 +83,16 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 		font-size: 2.5rem;
 	}
-	
+
 	.netNone {
 		top: 7rem;
 		padding-bottom: 6vh;
@@ -103,12 +104,12 @@
 		background-color: #FFFFFF;
 		left: 20%;
 	}
-	
+
 	.netNone img {
 		width: 50%;
 		margin-bottom: 1rem;
 	}
-	
+
 	.service {
 		background: #fff;
 		width: 70%;
@@ -117,15 +118,15 @@
 		margin: auto;
 		margin-top: 15vh;
 	}
-	
+
 	.service img {
 		width: 70%;
 	}
-	
+
 	.serviceTitle {
 		color: #333;
 	}
-	
+
 	.serviceTime {
 		color: #09a2d6;
 		font-size: larger;

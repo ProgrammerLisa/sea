@@ -40,7 +40,7 @@
 
         </td>
         <td class="col-xs-6 text-right">
-          <span class="del" @click="editor(index)">
+          <span class="del" @click="editor(index)" >
             <img src="../assets/images/editor.png"/> 编辑
           </span>
 					<span class="del" @click="del(index)">
@@ -60,7 +60,7 @@
 	import addressNone from '@/assets/images/addressNone.png'
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
-	
+
 	export default {
 		name: "Address",
 		inject: ['reload'],
@@ -213,16 +213,16 @@
 		background-color: #f5f5f5;
 		width: 100vw;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -232,47 +232,47 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 		font-size: 2.5rem;
 	}
-	
-	
+
+
 	.table {
 		margin-bottom: 1rem;
 	}
-	
+
 	.copyreader {
 		float: right;
 	}
-	
+
 	.copyreader img {
 		height: 2.5rem;
 	}
-	
+
 	.address {
 		background: #fff;
 	}
-	
+
 	.address tr {
 		line-height: 40px;
 		border-bottom: 1px solid #f5f5f5;
 	}
-	
+
 	.address td {
 		padding: 0 1.5rem;
 	}
-	
+
 	.text-left {
 		color: #555;
 		font-size: 1.6rem;
 	}
-	
+
 	.round {
 		display: inline-block;
 		width: 1.2rem;
@@ -284,7 +284,7 @@
 		text-align: center;
 		line-height: 0.8rem;
 	}
-	
+
 	.defaultRound {
 		display: inline-block;
 		width: 0.6rem;
@@ -292,26 +292,26 @@
 		border-radius: 50%;
 		background: #09A2D6;
 	}
-	
+
 	.del:first-child {
 		margin-right: 1rem;
 	}
-	
+
 	.del img {
 		width: 2rem;
 	}
-	
+
 	.addressNone {
 		text-align: center;
 		padding-top: 18vh;
 		color: #999;
 	}
-	
+
 	.addressNone img {
 		width: 40%;
 		margin-bottom: 1rem;
 	}
-	
+
 	.newAddress {
 		position: fixed;
 		bottom: 0;
@@ -320,7 +320,7 @@
 		padding: 1rem;
 		text-align: center;
 	}
-	
+
 	.newAddressBtn {
 		width: 90%;
 		background: #09a2d6;
@@ -330,11 +330,11 @@
 		margin: auto;
 		margin-bottom: 5%;
 	}
-	
+
 	.large {
 		font-size: larger;
 	}
-	
+
 	.newAddressBtn:active {
 		background: #009ACD;
 	}

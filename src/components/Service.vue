@@ -2,7 +2,7 @@
   <div class="content">
     <div class="panel panel-default BlackTitle">
       <div class="panel-body">
-        <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
+        <span @click="goBack" class="back"><span>ㄑ</span></span>
         客服中心
        </div>
     </div>
@@ -94,9 +94,10 @@
     line-height: 4.1rem;
   }
   .back{
-    float: left;
+    position: absolute;
+    left: 1rem;
   }
-  .back img{
+  .back img {
     height: 2.5rem;
   }
   .media{

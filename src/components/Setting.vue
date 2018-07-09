@@ -64,7 +64,7 @@
 	import more from '@/assets/images/more.png'
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
-	
+
 	export default {
 		name: "Setting",
 		data() {
@@ -159,8 +159,8 @@
                 if (res.data.code == 0) {
                   that.$layer.msg(res.data.msg);
                   localStorage.removeItem("uid");
-                  that.$router.replace('/Login');
-//                that.$router.go(0);
+                  that.$router.replace('/');
+                  that.$router.go(0);
                 } else {
                   that.$layer.msg(res.data.msg);
                 }

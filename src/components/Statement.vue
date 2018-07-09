@@ -1,20 +1,21 @@
 <template>
-	<div class="content">
-		<div class="panel panel-default BlackTitle">
-			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"> <img :src="masrc"/></span> 收支记录
-			</div>
-		</div>
-		<div class="media" v-for="s in Statement">
-			<div class="media-body">
-				<div class="media-heading">{{s.title}}</div>
-				<span class="data">{{s.date}}</span>
-			</div>
-			<div class="media-right">
-				{{s.symbol}}{{s.count}}
-			</div>
-		</div>
-	</div>
+  <div class="content">
+    <div class="panel panel-default BlackTitle">
+      <div class="panel-body">
+        <span @click="goBack" class="back"><span>ㄑ</span></span>
+        收支记录
+      </div>
+    </div>
+    <div class="media" v-for="s in Statement">
+      <div class="media-body">
+        <div class="media-heading">{{s.title}}</div>
+        <span class="data">{{s.date}}</span>
+      </div>
+      <div class="media-right">
+        {{s.symbol}}{{s.count}}
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -97,16 +98,16 @@
 		background-color: #f5f5f5;
 		width: 100vw;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -116,31 +117,31 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
-	
+
 	.media {
 		background: #fff;
 		margin-top: 0;
 		padding: 1rem;
 		border-bottom: 0.1rem #F5F5F5 solid;
 	}
-	
+
 	.media-heading {
 		color: #444;
 		font-size: 1.6rem;
 	}
-	
+
 	.data {
 		font-size: small;
 	}
-	
+
 	.media-right {
 		color: #09a2d6;
 		vertical-align: middle;

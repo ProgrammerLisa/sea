@@ -53,59 +53,7 @@
 </script>
 
 <style scoped>
-<<<<<<< HEAD
-  .content{
-    overflow-x: hidden;
-    color: #666;
-    padding-bottom: 6rem;
-    background-color: #f5f5f5;
-    width: 100vw;
-  }
 
-  .panel{
-    border:none;
-    border-radius: 0;
-  }
-  .panel-body {
-    padding:0 10px;
-  }
-  .BlackTitle{
-    text-align: center;
-    letter-spacing: 0.05rem;
-    color: #555;
-    font-size: 1.6rem;
-    margin-bottom: 1rem;
-    height: 4.1rem;
-    line-height: 4.1rem;
-  }
-  .back{
-    float: left;
-  }
-  .back img{
-    height: 2.5rem;
-  }
-  .table{
-    background: #fff;
-    border-bottom: 0.1rem solid #f5f5f5;
-    margin: 0;
-  }
-  .table:nth-child(3){
-    margin-bottom: 1rem;
-  }
-  .table tr{
-    height: 8vh;
-  }
-  .table td{
-    padding:0.5rem 1rem;
-  }
-  .text-left{
-    color: #555;
-  }
-  .text-right img{
-    height: 3rem;
-  }
-</style>
-=======
 	.content {
 		overflow-x: hidden;
 		color: #666;
@@ -113,16 +61,16 @@
 		background-color: #f5f5f5;
 		width: 100vw;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -132,36 +80,34 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
 	.back img {
 		height: 2.5rem;
 		font-size: 2.5rem;
 	}
-	
+
 	.table {
 		background: #fff;
 		border-bottom: 0.1rem solid #f5f5f5;
 		margin: 0;
 	}
-	
+
 	.table:nth-child(3) {
 		margin-bottom: 1rem;
 	}
-	
+
 	.table td {
 		padding: 0.5rem 1rem;
 	}
-	
+
 	.text-left {
 		color: #555;
 	}
-	
+
 	.text-right img {
 		height: 3rem;
 	}
 </style>
->>>>>>> 00871cd75dc8b486be7c52bb1b6a27552e92d417

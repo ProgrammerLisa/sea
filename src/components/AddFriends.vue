@@ -55,16 +55,16 @@
 		height: 100vh;
 		width: 100vw;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -74,21 +74,21 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 		font-size: 2.5rem;
 	}
-	
+
 	.search {
 		background: #f5f5f5;
 		padding: 1rem;
 	}
-	
+
 	.searchInput {
 		outline: none;
 		border: none;
@@ -96,11 +96,11 @@
 		height: 3.5rem;
 		background: #fff;
 	}
-	
+
 	.glyphicon-search {
 		color: #999;
 	}
-	
+
 	.myID {
 		text-align: center;
 	}

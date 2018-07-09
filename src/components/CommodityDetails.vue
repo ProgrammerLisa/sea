@@ -116,16 +116,16 @@
 		color: #666;
 		padding-bottom: 6rem;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 1rem;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -135,76 +135,76 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
-	
+
 	.commodityImg {
 		background: #f5f5f5;
 		text-align: center;
 		height: 29vh;
 	}
-	
+
 	.commodityImg img {
 		height: 24vh;
 		margin-top: 2.5vh;
 	}
-	
+
 	.commodityTitle {
 		padding: 0 1rem;
 		border-bottom: 0.1rem solid #f5f5f5;
 		color: #555;
 	}
-	
+
 	.commodityPropaganda {
 		color: #777;
 		font-size: small;
 	}
-	
+
 	.commodityPrice {
 		padding: 1rem;
 		border-bottom: 0.5rem solid #f5f5f5;
 	}
-	
+
 	.nowPrice {
 		color: #09a2d6;
 	}
-	
+
 	.priceNumber {
 		font-size: 1.8rem;
 	}
-	
+
 	.commodityCount {
 		float: right;
 		color: #555;
 	}
-	
+
 	.commodityNumber {
 		margin-left: 0.5rem;
 	}
-	
+
 	.considerationsTitle {
 		color: #555;
 		padding: 1rem;
 		margin: 0;
 		border-bottom: 0.1rem solid #f5f5f5;
 	}
-	
+
 	.commodityConsiderations {
 		padding: 1rem;
 		font-size: smaller;
 	}
-	
+
 	.commodityConsiderations li {
 		list-style: none;
 		margin-bottom: 0.5rem;
 	}
-	
+
 	.exchange {
 		border-top: 0.1rem solid #f5f5f5;
 		text-align: center;
@@ -214,7 +214,7 @@
 		width: 100%;
 		background: #fff;
 	}
-	
+
 	.exchangeBtn {
 		background: #09a2d6;
 		border-radius: 0;

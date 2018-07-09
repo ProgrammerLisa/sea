@@ -18,6 +18,7 @@ import Ask from '@/components/Invite'
 import AskCode from '@/components/RegisterInviteCode'
 
 import ShareInvite from '@/components/ShareInvite'
+import GameRules from '@/components/GameRules'
 
 import friend from '@/components/friend'
 import address from '@/components/Address'
@@ -55,7 +56,7 @@ Vue.prototype.$layer = layer(Vue);
 
 let defaultRouter;
 let uid = localStorage.getItem('uid');
-if(uid==null&&uid==undefined&&uid==''){
+if(uid!=null&&uid!=undefined&&uid!=''){
   defaultRouter = {
     path: '/',
     meta:{index:0},
@@ -284,8 +285,13 @@ export default new Router({
     },{
       path:'/shareinvite',
       name:'ShareInvite',
-      meta:{index:3},
+      meta:{index:2},
       component: ShareInvite
+    },{
+      path:'/gamerules',
+      name:'GameRules',
+      meta:{index:2},
+      component: GameRules
     }
 
   ]

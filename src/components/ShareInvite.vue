@@ -2,8 +2,8 @@
   <div class="content">
     <div class="panel panel-default BlackTitle">
       <div class="panel-body">
-        <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
-        <span style="margin-left: -30px; position: absolute; left: 50%; font-size: 1.8rem;">邀请码</span>
+        <span @click="goBack" class="back"><span>ㄑ</span></span>
+        <div class="contentTitle">邀请码</div>
       </div>
     </div>
     <div class="code">
@@ -89,9 +89,10 @@
     line-height: 4.1rem;
   }
   .back{
-    float: left;
+    position: absolute;
+    left: 1rem;
   }
-  .back img{
+  .back img {
     height: 2.5rem;
   }
   .code{
@@ -127,4 +128,5 @@
     border-radius: 0;
     width: 100%;
   }
+
 </style>

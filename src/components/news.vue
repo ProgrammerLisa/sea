@@ -10,14 +10,22 @@
 			<p>暂时还没有消息哦</p>
 		</div>
 
-		<div class="media" v-for="(n,index) in news" v-else @click="newsDetails(index)">
-			<div class="media-left">
+		<div class="media" v-for="(n,index) in news" v-else @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd" :data-curid="n.id">
+
+      <div class="media-left" @click="newsDetails(index)"  >
 				<span class="badge msg" v-show="!n.msg.is_read">·</span><img class="media-object" :src="n.msg.img">
 			</div>
-			<div class="media-body">
+			<div class="media-body" @click="newsDetails(index)"  >
 				<h4 class="media-heading">{{n.msg.title}} <span class="time">{{n.msg.created_at}}</span></h4>
         <div class="msgContent">{{n.msg.content}}</div>
+
 			</div>
+      <transition name="slide-fade">
+        <div class="del" v-if="n.show" @click="del(index)">
+          删除
+        </div>
+      </transition>
+
 		</div>
 	</div>
 </template>
@@ -44,8 +52,14 @@
 						content: '',
 						create_at: '',
 						is_read: ''
-					}
-				}
+					},
+          show:false,
+				},
+
+        startX:0,//开始触摸的位置
+        moveX:0,//滑动时的位置
+        endX:0,//结束触摸的位置
+        disX:0,//移动距离
 			}
 		},
 		mounted() {
@@ -59,28 +73,32 @@
 					},
 					data: {}
 				}).then(function(res) {
+				  console.log(res.data)
 					if(res.data.code == 0) {
-						if(res.data.count == 0) {
-							this.newsNone = true;
-						} else {
-							this.newsNone = false;
-							for(let n in res.data.data) {
-								this.mobile.id = n;
-								this.mobile.msg = res.data.data[n];
-								this.mobile.msg.img = friend;
-								this.news.push(this.mobile);
-								this.mobile = {
-									id: '',
-									msg: {
-										img: '',
-										title: '',
-										content: '',
-										create_at: '',
-										is_read: ''
-									}
-								};
-							}
-						}
+				    if(JSON.stringify(res.data.data) == "{}"){
+              this.newsNone = true;
+            }else {
+              this.newsNone = false;
+              for(let n in res.data.data) {
+                this.mobile.id = n;
+                this.mobile.msg = res.data.data[n];
+                this.mobile.msg.img = friend;
+                this.news.push(this.mobile);
+                this.mobile = {
+                  id: '',
+                  msg: {
+                    img: '',
+                    title: '',
+                    content: '',
+                    create_at: '',
+                    is_read: ''
+                  },
+                  show:false,
+                };
+
+              }
+            }
+
 
 					} else {
 						this.newsNone = true;
@@ -104,12 +122,71 @@
           }
         })
       },
+      touchStart(ev) {
+        ev = ev || event;
+        ev.preventDefault();
+//                      console.log(ev.targetTouches);
+//                      console.log(ev.changedTouches);
+        if(ev.touches.length == 1) {    //tounches类数组，等于1时表示此时有只有一只手指在触摸屏幕
+          this.startX = ev.touches[0].clientX; // 记录开始位置
+        }
+      },
+      touchMove(ev,index) {
+        ev = ev || event;
+        ev.preventDefault();
+        if(ev.touches.length == 1) {
+          //滑动时距离浏览器左侧的距离
+          this.moveX = ev.touches[0].clientX;
+
+          //实时的滑动的距离-起始位置=实时移动的位置
+          this.disX = this.moveX-this.startX;
+          if(this.disX<0 || this.disX == 0) {
+            for (var i in this.news){
+              if(ev.currentTarget.dataset.curid==this.news[i].id){
+                this.news[i].show=true
+              }else {
+                this.news[i].show=false
+              }
+            }
+          }else if(this.disX>0){
+            for (var i in this.news){
+              if(ev.currentTarget.dataset.curid==this.news[i].id){
+                this.news[i].show=false
+              }
+            }
+          }
+        }
+      },
+      del(index){
+        this.$http({
+          method: "post",
+          url: "/messages/delete",
+          headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
+          data: {
+            mid:this.news[index].id
+          }
+        }).then(function(res){
+          if(res.data.code==0){
+            this.$layer.msg(res.data.msg)
+            $(".media").eq(index).css({display:"none"})
+            if($(".media").length==0){
+              this.newsNone=true;
+            }
+          }
+        }.bind(this))
+          .catch(function(err){
+            this.$layer.msg(err)
+          }.bind(this));
+      },
+      touchEnd(ev){
+        ev = ev || event;
+        ev.preventDefault();
+
+      },
 			evers() {
-				console.log(1)
 				this.masrc = backs;
 			},
 			lat() {
-				console.log(2)
 				this.masrc = back;
 			},
 			goBack() {
@@ -199,7 +276,7 @@
   .del{
     background: #ff2424;
     color: #fcf8e3;
-    width: 7rem;
+    width: 8rem;
     height: 6rem;
     line-height: 6rem;
     text-align: center;
@@ -225,9 +302,9 @@
   }
   .msgContent {
     position:relative;
-    line-height:2em;
+    line-height:1.4em;
     /* 3 times the line-height to show 3 lines */
-    height:2em;
+    height:1.4em;
     overflow:hidden;
   }
   .msgContent::after {

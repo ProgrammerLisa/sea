@@ -62,25 +62,29 @@ html{
 .slide-left-enter-active,
 .slide-left-leave-active {
   will-change: transform;
-  transition: all 500ms;
+  transition: all .3s;
   position: absolute;
-  height: 100vh;
+  width:100%;
+  left:0;
 }
 .slide-right-enter {
-  opacity: 0;
-  transform: translate3d(-100%, 0, 0);
+  transform: scale3d(0,0,0);
+  transform-origin: 50% 50% 0
 }
 .slide-right-leave-active {
-  opacity: 0;
-  transform: translate3d(100%, 0, 0);
+  transform: scale3d(0,0,0);
+  transform-origin: 50% 50% 0;
+  -webkit-transform-origin:50% 50% 0;
 }
 .slide-left-enter {
-  opacity: 0;
-  transform: translate3d(100%, 0, 0);
+  transform: scale3d(0,0,0);
+  transform-origin: 50% 50% 0;
+  -webkit-transform-origin:50% 50% 0;
 }
 .slide-left-leave-active {
-  opacity: 0;
-  transform: translate3d(-100%, 0, 0);
+  transform: scale3d(0,0,0);
+  transform-origin: 50% 50% 0;
+  -webkit-transform-origin:50% 50% 0;
 }
 
 </style>

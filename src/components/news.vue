@@ -62,58 +62,62 @@
             headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
             data: {}
           }).then(function(res){
-            if(res.data.code==0){
-                console.log(res.data)
-                this.newsNone = false;
-                let i = 1;
-                for(let n in res.data.data){
+           if(res.data.code == 0) {
+						if(res.data.count == 0) {
+							this.newsNone = true;
+						} else {
+							this.newsNone = false;
+							for(let n in res.data.data) {
+								this.mobile.id = n;
+								this.mobile.msg = res.data.data[n];
+								this.mobile.msg.img = friend;
+								this.news.push(this.mobile);
+								this.mobile = {
+									id: '',
+									msg: {
+										img: '',
+										title: '',
+										content: '',
+										create_at: '',
+										is_read: ''
+									}
+								};
+							}
+						}
 
-                  this.mobile.mobileId = n;
-                  this.mobile.id = 'myId'+i;
-                  this.mobile.msg = res.data.data[n];
-                  this.mobile.msg.img=friend;
-                  this.news.push(this.mobile);
-                  this.mobile = {
-                    show:false,
-                    id:'',
-                    msg:{
-                      img:'',
-                      title:'',
-                      content:'',
-                      create_at:'',
-                      is_read:''
-                    }
-                  };
-                  i++
-                }
-
-
-            }else {
-              this.newsNone = true;
-              this.$layer.msg(res.data.msg);
-            }
-          }.bind(this))
-            .catch(function(err){
-              this.newsNone = true;
-              this.$layer.msg(err)
-            }.bind(this));
-
+					} else {
+						this.newsNone = true;
+						this.$layer.msg(res.data.msg);
+					}
+				}.bind(this))
+				.catch(function(err) {
+					this.newsNone = true;
+					this.$layer.msg(err)
+				}.bind(this));
         },
         methods: {
-          goBack() {
-            this.$router.go(-1);
-          },
-          delShow(i){
+          NewsDetails(index){
             this.$router.push({
               path: '/newsdetails',
               name: 'NewsDetails',
               params: {
                 name: 'name',
-                dataObj: this.news[i].mobileId
+                dataObj: this.news[index].id
 
               }
             })
           },
+          evers() {
+				console.log(1)
+				this.masrc = backs;
+			},
+			lat() {
+				console.log(2)
+				this.masrc = back;
+			},
+			goBack() {
+				this.$router.go(-1);
+			},
           touchStart:function(ev) {
             ev = ev || event;
             ev.preventDefault();

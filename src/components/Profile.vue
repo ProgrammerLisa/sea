@@ -151,10 +151,10 @@
           headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
           data: {}
         }).then(function(res){
-        	if(res.data.code === 401){
-//      		this.$layer.alert('登录操作  请登录');
-        		this.$router.replace('/Login');
-        	}
+//      	if(res.data.code === 401){
+////      		this.$layer.alert('登录操作  请登录');
+//      		this.$router.replace('/Login');
+//      	}
           if(res.data.code==0) {
             this.Personal[1].myInvite = res.data.my_invite_code
           }else {

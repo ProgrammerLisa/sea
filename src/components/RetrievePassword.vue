@@ -11,15 +11,15 @@
 			<form id="form_password">
 				<div style="padding: 45px 30px">
 					<div style="padding-top: 30px;">
-						<input style="font-size: 1.5rem;" v-on:change="show()" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
+						<input style="font-size: 1.5rem;" v-on:input="show()" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
 						<button v-if="btnShow" @click="bnns" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right: 15%;">
             				<img src="../assets/images/x.png" style="position: absolute;" />
          			 	</button>
 					</div>
 
 					<div style="padding-top: 30px;display: inline-table; width: 100%;">
-						<input style="font-size: 1.5rem;" v-on:change="verifshow()" id="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
-						<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxte}}</x-button>
+						<input style="font-size: 1.5rem;" v-on:input="verifshow()" id="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
+						<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxtes}}</x-button>
 						</input>
 						<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right:45%;">
             				<img src="../assets/images/x.png" style="position: absolute;" />
@@ -27,7 +27,7 @@
 					</div>
 
 					<div style="padding-top: 30px;">
-						<input id="passwordModel_image" v-on:change="ipwdshow()" :type="types" style="font-size: 1.5rem;" v-model="passwordModel" placeholder="请输入新密码" maxlength="16" is-type="sendcode" calss="btns"></input>
+						<input id="passwordModel_image" v-on:input="ipwdshow()" :type="types" style="font-size: 1.5rem;" v-model="passwordModel" placeholder="请输入新密码" maxlength="16" is-type="sendcode" calss="btns"></input>
 						<img id="group_input_img" @click="Alt()" :src="imgs" />
 						<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right: 5%;">
           			  		<img src="../assets/images/x.png" style="position: absolute;" />
@@ -68,7 +68,7 @@
 				disabled: false,
 				time: 0,
 				mobile: '',
-				btntxte: "获取验证码",
+				btntxtes: "获取验证码",
 				//				pwd: '123456',
 				passwordModel: "",
 				verif: "",
@@ -96,18 +96,18 @@
 					if(that.time > 0) {
 						localStorage.setItem(Verificationtimen, that.time);
 						that.time--;
-						that.btntxte = that.time + "s";
+						that.btntxtes = that.time + "s";
 						that.disabled = true;
 					} else {
 						that.time = 0;
-						that.btntxte = "获取验证码";
+						that.btntxtes = "获取验证码";
 						that.disabled = false;
 						localStorage.removeItem(Verificationtimen);
 						clearInterval(TimeReduction2);
 					}
 				}, 1000)
 			} else {
-				that.btntxte = "获取验证码";
+				that.btntxtes = "获取验证码";
 			}
 		},
 		//		created:function(){
@@ -158,11 +158,9 @@
 				}
 			},
 			evers() {
-				console.log(1)
 				this.masrc = backs;
 			},
 			lat() {
-				console.log(2)
 				this.masrc = back;
 			},
 			goBack() {
@@ -180,11 +178,11 @@
 			timer() {
 				if(this.time > 0) {
 					this.time--;
-					this.btntxte = this.time + "s";
+					this.btntxtes = this.time + "s";
 					setTimeout(this.timer, 1000);
 				} else {
 					this.time = 0;
-					this.btntxte = "获取验证码";
+					this.btntxtes = "获取验证码";
 					this.disabled = false;
 				}
 			},
@@ -242,12 +240,12 @@
 			timer() {
 				if(this.time > 0) {
 					this.time--;
-					this.btntxte = this.time + "s";
+					this.btntxtes = this.time + "s";
 					//setTimeout(this.timer, 1000);
 					sessionStorage.index2 = this.time;
 				} else {
 					this.time = 0;
-					this.btntxte = "获取验证码";
+					this.btntxtes = "获取验证码";
 					this.disabled = false;
 				}
 			},
@@ -284,12 +282,12 @@
 			timer() {
 				if(this.time > 0) {
 					this.time--;
-					this.btntxte = this.time + "s";
+					this.btntxtes = this.time + "s";
 					//setTimeout(this.timer, 1000);
 					sessionStorage.index2 = this.time;
 				} else {
 					this.time = 0;
-					this.btntxte = "获取验证码";
+					this.btntxtes = "获取验证码";
 					this.disabled = false;
 				}
 			},
@@ -316,11 +314,11 @@
 									if(that.time > 0) {
 										localStorage.setItem(Verificationtimen, that.time);
 										that.time--;
-										that.btntxte = that.time + "s";
+										that.btntxtes = that.time + "s";
 										that.disabled = true;
 									} else {
 										that.time = 0;
-										that.btntxte = "获取验证码";
+										that.btntxtes = "获取验证码";
 										that.disabled = false;
 										localStorage.removeItem(Verificationtimen);
 										clearInterval(TimeReduction1);

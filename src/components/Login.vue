@@ -22,12 +22,12 @@
 					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: -5px;right: 7%;">
            			  <img src="../assets/images/x.png" style="position:absolute;"/>
           			</button>
-					<input required="required" class="phone" ref="mobile" v-on:change="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" />
+					<input required="required" class="phone" ref="mobile" v-on:input="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" />
 
 				</div>
 
 				<div class="group_input">
-					<input id="ipwd" v-model="inppwd" v-on:change="ipwdshow()" :type="types" placeholder="请输入密码" maxlength="16" is-type="sendcode" />
+					<input id="ipwd" v-model="inppwd" v-on:input="ipwdshow()" :type="types" placeholder="请输入密码" maxlength="16" is-type="sendcode" />
 					<img id="group_input_img" @click="Alt" :src="imgs" />
 					<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 55px;">
           			  <img src="../assets/images/x.png" />
@@ -57,7 +57,7 @@
 				</div>
 
 				<div id="div_ipwd">
-					<input id="verifica" v-on:change="verifshow()" v-model="verif" maxlength="4" placeholder="请输入短信验证码" />
+					<input id="verifica" v-on:input="verifshow()" v-model="verif" maxlength="4" placeholder="请输入短信验证码" />
 					<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</x-button>
 					<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 120px;">
             			<img src="../assets/images/x.png" style="position: relative;"/>
@@ -81,6 +81,19 @@
 </template>
 
 <script>
+	//设备返回键
+	document.addEventListener("backbutton", onBackKeyDown, false);
+
+	function onBackKeyDown() {
+		// 获取当前view
+		var currentView = myApp.getCurrentView();
+		if(currentView.history.length > 1) {
+			currentView.router.back({}); //非首页返回上一级
+		} else {
+			navigator.app.exitApp(); //首页点返回键退出应用
+		}
+	}
+
 	import { XInput, Group, XButton } from 'vux'
 	import eye from '@/assets/images/eye.png'
 	import eyeclick from '@/assets/images/eyeclick.png'
@@ -151,12 +164,12 @@
 		},
 		methods: {
 			show() {
-				if(this.mobile == '') {} else {
+				if(this.mobile === '') {} else {
 					this.btnShow = true;
 				}
 			},
 			ipwdshow() {
-				if(this.inppwd == '') {} else {
+				if(this.inppwd === '') {} else {
 					this.btnShow1 = true;
 				}
 			},
@@ -306,7 +319,7 @@
 								"Access-Control-Allow-Origin": "*"
 							},
 							data: {
-								by:"sms",
+								by: "sms",
 								phone: this.mobile
 							}
 						}).then(function(res) {

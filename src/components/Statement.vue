@@ -2,7 +2,7 @@
   <div class="content">
     <div class="panel panel-default BlackTitle">
       <div class="panel-body">
-        <span @click="goBack" class="back"><span>ㄑ</span></span>
+        <span @click="goBack" @touchstart="evers" @touchend="lat" class="back"><img :src="masrc"/></span>
         收支记录
       </div>
     </div>
@@ -76,11 +76,9 @@
 		},
 		methods: {
 			evers() {
-				console.log(1)
 				this.masrc = backs;
 			},
 			lat() {
-				console.log(2)
 				this.masrc = back;
 			},
 			goBack() {

@@ -11,14 +11,14 @@
 			<form id="form_password">
 				<div style="padding: 45px 30px">
 					<div style="padding-top: 30px;">
-						<input style="font-size: 1.5rem;" v-on:change="show()" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
+						<input style="font-size: 1.5rem;" v-on:input="show()" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
 						<button v-if="btnShow" @click="bnns" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right: 15%;">
             				<img src="../assets/images/x.png" style="position: absolute;" />
          			 	</button>
 					</div>
 
 					<div style="padding-top: 30px;display: inline-table; width: 100%;">
-						<input style="font-size: 1.5rem;" v-on:change="verifshow()" id="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
+						<input style="font-size: 1.5rem;" v-on:input="verifshow()" id="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
 						<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxtes}}</x-button>
 						</input>
 						<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right:45%;">
@@ -27,7 +27,7 @@
 					</div>
 
 					<div style="padding-top: 30px;">
-						<input id="passwordModel_image" v-on:change="ipwdshow()" :type="types" style="font-size: 1.5rem;" v-model="passwordModel" placeholder="请输入新密码" maxlength="16" is-type="sendcode" calss="btns"></input>
+						<input id="passwordModel_image" v-on:input="ipwdshow()" :type="types" style="font-size: 1.5rem;" v-model="passwordModel" placeholder="请输入新密码" maxlength="16" is-type="sendcode" calss="btns"></input>
 						<img id="group_input_img" @click="Alt()" :src="imgs" />
 						<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right: 5%;">
           			  		<img src="../assets/images/x.png" style="position: absolute;" />
@@ -158,11 +158,9 @@
 				}
 			},
 			evers() {
-				console.log(1)
 				this.masrc = backs;
 			},
 			lat() {
-				console.log(2)
 				this.masrc = back;
 			},
 			goBack() {

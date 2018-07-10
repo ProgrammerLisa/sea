@@ -71,7 +71,6 @@
 	import code from "@/assets/json/districts.json"
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
-	
 	export default {
 		name: "ModificationAddress",
 		data() {
@@ -102,12 +101,12 @@
 
 		},
 		methods: {
-			evers() {
-				this.masrc = backs;
-			},
-			lat() {
-				this.masrc = back;
-			},
+      evers() {
+        this.masrc = backs;
+      },
+      lat() {
+        this.masrc = back;
+      },
 			goBack() {
 				this.$router.go(-1);
 			},
@@ -227,29 +226,29 @@
 		-webkit-box-shadow: 0 0 0px 1000px #fff inset;
 	}
 	/*焦点时也加上，不加会出现黄色背景闪动一下*/
-	
+
 	input[type=text]:focus,
 	input[type=password]:focus,
 	textarea:focus {
 		-webkit-box-shadow: 0 0 0 1000px white inset;
 	}
-	
+
 	.content {
 		overflow-x: hidden;
 		color: #666;
 		background-color: #fff;
 		width: 100vw;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -259,36 +258,36 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		position: absolute;
 		left: 1rem;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
-	
+
 	.form-horizontal {
 		border-top: 0.5rem solid #f5f5f5;
 	}
-	
+
 	.form-group {
 		padding: 1rem 3rem;
 		border-bottom: 0.1rem solid #eee;
 		margin-bottom: 0;
 	}
-	
+
 	.form-group:last-child {
 		margin-bottom: 0;
 	}
-	
+
 	.form-control {
 		outline: none;
 		border: none;
 		box-shadow: none;
 	}
-	
+
 	.control-label {
 		font-size: 1.6rem;
 		color: #555;
@@ -296,12 +295,12 @@
 		padding: 0.4rem 0;
 		font-weight: normal;
 	}
-	
+
 	.keep {
 		background: #f5f5f5;
 		padding: 2rem 0;
 	}
-	
+
 	.keepSubmit {
 		width: 90%;
 		margin: auto;
@@ -311,11 +310,11 @@
 		font-size: larger;
 		padding: 0.5rem;
 	}
-	
+
 	.modal-dialog {
 		margin: 0;
 	}
-	
+
 	.modal-content {
 		height: 70vh;
 		margin-top: 30vh;
@@ -323,20 +322,20 @@
 		border-radius: 0;
 		overflow: hidden;
 	}
-	
+
 	#myModalLabel {
 		text-align: center;
 	}
-	
+
 	.auto {
 		height: 50vh;
 		overflow: auto;
 	}
-	
+
 	.auto::-webkit-scrollbar {
 		display: none;
 	}
-	
+
 	li {
 		list-style: none;
 		margin-bottom: 1rem;

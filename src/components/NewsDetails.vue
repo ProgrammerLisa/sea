@@ -2,7 +2,7 @@
     <div class="content">
       <div class="panel panel-default BlackTitle">
         <div class="panel-body">
-          <span @click="goBack" class="back"><span>ㄑ</span></span>
+          <span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
           {{from_user}}
         </div>
       </div>
@@ -21,10 +21,13 @@
 </template>
 
 <script>
+  import back from '@/assets/images/back.png'
+  import backs from '@/assets/images/backs.png'
     export default {
         name: "NewsDetails",
         data(){
           return{
+            masrc: back,
             from_user:'',
             title:'',
             created_at:'',
@@ -33,7 +36,6 @@
         },
         mounted(){
           let routerParams=this.$route.params.dataObj;
-          console.log(routerParams)
           this.$http({
             method: "post",
             url: "/messages/detail",
@@ -60,6 +62,12 @@
           goBack() {
             this.$router.go(-1);
           },
+          evers() {
+            this.masrc = backs;
+          },
+          lat() {
+            this.masrc = back;
+          }
         }
     }
 </script>

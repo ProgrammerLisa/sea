@@ -17,7 +17,7 @@
 
 				<div style="padding-top: 30px; display: inline-table; width: 100%;">
 					<input id="verification" v-on:change="verifshow()" name="verification" maxlength="4" v-model="verify_code" placeholder="请输入短信验证码" />
-					<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxt}}</x-button>
+					<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxts}}</x-button>
 					<button v-if="btnVer" @click="ver" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right:45%;">
             			<img src="../assets/images/x.png" style="position: absolute;" />
          			</button>
@@ -83,7 +83,7 @@
 				repeat_password: "",
 				invite_code: "",
 				verify_code: "",
-				btntxt: "获取验证码",
+				btntxts: "获取验证码",
 				//				pwd: '123456',
 				passwordcheckModel: "",
 				check: "",
@@ -118,18 +118,18 @@
 					if(that.time > 0) {
 						localStorage.setItem(Verificationtimen, that.time);
 						that.time--;
-						that.btntxte = that.time + "s";
+						that.btntxts = that.time + "s";
 						that.disabled = true;
 					} else {
 						that.time = 0;
-						that.btntxt = "获取验证码";
+						that.btntxts = "获取验证码";
 						that.disabled = false;
 						localStorage.removeItem(Verificationtimen);
 						clearInterval(TimeReduction2);
 					}
 				}, 1000)
 			} else {
-				that.btntxt = "获取验证码";
+				that.btntxts = "获取验证码";
 			}
 		},
 		//		created:function(){
@@ -222,11 +222,11 @@
 			timer() {
 				if(this.time > 0) {
 					this.time--;
-					this.btntxte = this.time + "s";
+					this.btntxts = this.time + "s";
 					setTimeout(this.timer, 1000);
 				} else {
 					this.time = 0;
-					this.btntxte = "获取验证码";
+					this.btntxts = "获取验证码";
 					this.disabled = false;
 				}
 			},
@@ -316,12 +316,12 @@
 			timer() {
 				if(this.time > 0) {
 					this.time--;
-					this.btntxt = this.time + "s";
+					this.btntxts = this.time + "s";
 					//setTimeout(this.timer, 1000);
 					sessionStorage.index2 = this.time;
 				} else {
 					this.time = 0;
-					this.btntxt = "获取验证码";
+					this.btntxts = "获取验证码";
 					this.disabled = false;
 				}
 			},
@@ -332,9 +332,6 @@
 			sendcode() {
 				event.preventDefault();
 				const that = this;
-				//				if(this.short_message != this.sho_mess){
-				//					return;
-				//				}
 				var Verificationtimen = Verificationtimen;
 				that.time = that.readCookie(Verificationtimen);
 				if(that.time == "") {
@@ -356,10 +353,10 @@
 									if(that.time > 0) {
 										that.writeCookie(Verificationtimen, that.time);
 										that.time--;
-										that.btntxt = that.time + "s";
+										that.btntxts = that.time + "s";
 									} else {
 										that.time = 0;
-										that.btntxt = "获取验证码";
+										that.btntxts = "获取验证码";
 										that.disabled = false;
 										that.delCookie(Verificationtimen);
 										clearInterval(TimeReduction1);

@@ -273,7 +273,7 @@
 								console.log(res.data)
 								if(res.data.code == 0) {
 									this.$layer.msg('登录成功');
-									this.writeCookie('uid', res.data.data.uid, 10000000);
+									 localStorage.setItem('uid', res.data.data.uid);
 									this.$router.replace('/home');
 								} else {
 									this.$layer.msg(res.data.msg);
@@ -361,7 +361,7 @@
 								console.log(res.data)
 								if(res.data.code == 0) {
 									this.$layer.msg('登录成功');
-									this.writeCookie('uid', res.data.data.uid, 10000000);
+									 localStorage.setItem('uid', res.data.data.uid);
 									this.$router.replace('/home');
 								} else {
 									this.$layer.msg(res.data.msg);

@@ -2,7 +2,7 @@
   <div class="content">
     <div class="panel panel-default BlackTitle">
       <div class="panel-body">
-        <span @click="goBack" class="back"> <img src="../assets/images/back.png"/></span>
+        <span @click="goBack" class="back" @touchstart="evers"  @touchend="lat"> <img :src="masrc"/></span>
         消息
       </div>
     </div>
@@ -288,7 +288,7 @@
     transition: all .3s ease;
   }
   .slide-fade-leave-active {
-    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
   }
   .slide-fade-enter, .slide-fade-leave-to
     /* .slide-fade-leave-active for below version 2.1.8 */ {

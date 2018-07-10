@@ -71,10 +71,13 @@
 
 <script>
 	import code from "@/assets/json/districts.json"
+  import back from '@/assets/images/back.png'
+  import backs from '@/assets/images/backs.png'
 	export default {
 		name: "ModificationAddress",
 		data() {
 			return {
+        masrc: back,
 				code: code,
 				codeArr: [],
 				province: '',
@@ -100,6 +103,12 @@
 
 		},
 		methods: {
+      evers() {
+        this.masrc = backs;
+      },
+      lat() {
+        this.masrc = back;
+      },
 			goBack() {
 				this.$router.go(-1);
 			},

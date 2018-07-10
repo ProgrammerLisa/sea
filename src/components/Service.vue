@@ -2,7 +2,7 @@
   <div class="content">
     <div class="panel panel-default BlackTitle">
       <div class="panel-body">
-        <span @click="goBack" class="back"><span>ㄑ</span></span>
+        <span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
         客服中心
        </div>
     </div>
@@ -38,10 +38,13 @@
 
 <script>
     import ServiceHeadImg from '@/assets/images/friend.png'
+    import back from '@/assets/images/back.png'
+    import backs from '@/assets/images/backs.png'
     export default {
         name: "Service",
         data(){
           return{
+            masrc: back,
             Service:[
               {img:ServiceHeadImg,DialogStyle:'',DialogDate:'5月20日 10:32',isDate:true,Dialog:'Hi~ 啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊有什么问题都可以问我哟~',isOfficial:true,isMyself:false},
               {img:ServiceHeadImg,DialogStyle:'',DialogDate:'5月20日 10:32',isDate:true,Dialog:'好的好的 ',isOfficial:false,isMyself:true},
@@ -63,6 +66,12 @@
         },
         methods:{
           goBack(){
+            this.$router.go(-1);
+          },
+          lat() {
+            this.masrc = back;
+          },
+          goBack() {
             this.$router.go(-1);
           }
         }

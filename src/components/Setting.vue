@@ -19,27 +19,27 @@
 				<td></td>
 				<td></td>
 			</tr>
-			<tr class="settingBtn">
-				<td class="text-left"><span class="high">消息提醒</span></td>
-				<td class="text-right">
-					<div class="blueBtn" @click="switchBtn">
-						<div class="cap">
-							<div class="whiteBtn">
+			<!--<tr class="settingBtn">-->
+				<!--<td class="text-left"><span class="high">消息提醒</span></td>-->
+				<!--<td class="text-right">-->
+					<!--<div class="blueBtn" @click="switchBtn">-->
+						<!--<div class="cap">-->
+							<!--<div class="whiteBtn">-->
 
-							</div>
-						</div>
+							<!--</div>-->
+						<!--</div>-->
 
-					</div>
-				</td>
-			</tr>
-			<tr class="arrow">
-				<td class="text-left">空间清理</td>
-				<td class="text-right" @click="CleanUpCaching">35M <img :src="more" class="more" /></td>
-			</tr>
-			<tr class="spacing">
-				<td></td>
-				<td></td>
-			</tr>
+					<!--</div>-->
+				<!--</td>-->
+			<!--</tr>-->
+			<!--<tr class="arrow">-->
+				<!--<td class="text-left">空间清理</td>-->
+				<!--<td class="text-right" @click="CleanUpCaching">35M <img :src="more" class="more" /></td>-->
+			<!--</tr>-->
+			<!--<tr class="spacing">-->
+				<!--<td></td>-->
+				<!--<td></td>-->
+			<!--</tr>-->
 			<router-link to="AboutUs" tag="tr" class="arrow">
 				<td class="text-left">关于我们</td>
 				<td class="text-right"><img :src="more" class="more" /></td>

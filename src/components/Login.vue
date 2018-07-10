@@ -81,18 +81,6 @@
 </template>
 
 <script>
-	//设备返回键
-	document.addEventListener("backbutton", onBackKeyDown, false);
-
-	function onBackKeyDown() {
-		// 获取当前view
-		var currentView = myApp.getCurrentView();
-		if(currentView.history.length > 1) {
-			currentView.router.back({}); //非首页返回上一级
-		} else {
-			navigator.app.exitApp(); //首页点返回键退出应用
-		}
-	}
 
 	import { XInput, Group, XButton } from 'vux'
 	import eye from '@/assets/images/eye.png'

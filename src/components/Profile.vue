@@ -6,12 +6,18 @@
         <router-link to="/news" v-else tag="div" class="badgePosition"></router-link>
       </div>
       <div class="container personalMessage">
-        <router-link tag="div" to="/compile">
+        <router-link tag="div" to="/compile" v-if="headDefault">
           <div class="HeadPortrait">
-            <img :src="`${headPortrait+'?'+now}`"/>
+            <img  :src="`${headPortrait+'?'+now}`"/>
           </div>
           <p class="nickName">{{nickName}}</p>
           <!--<p class="userId">ID：{{phone}}</p>-->
+        </router-link>
+        <router-link  v-else tag="div" to="/login">
+          <div class="HeadPortrait">
+            <img :src="headPortrait"/>
+          </div>
+          <p class="nickName">点击登录</p>
         </router-link>
 
 				<div class="row ">
@@ -59,7 +65,7 @@
 	import address from '@/assets/images/address.png'
 	import service from '@/assets/images/service.png'
 	import setting from '@/assets/images/setting.png'
-	import headImg from '@/assets/images/profile.png'
+	import headImg from '@/assets/images/chushi.png'
 	import autonym from '@/assets/images/autonym.png'
 	import wallet from '@/assets/images/wallet.png'
 	import invite from '@/assets/images/invite.png'
@@ -81,7 +87,6 @@
             Personal:[
               {title:'我的好友',PersonalHref:'friend',imfLeft:friend},
               {title:'我的邀请者',PersonalHref:'',imfLeft:inviter,noRouter:true,myInvite:''},
-              {title:'邀请奖励',PersonalHref:'reward',imfLeft:award},
               {title:'邀请码',PersonalHref:'ask',imfLeft:invite},
               {title:'商城订单',PersonalHref:'commodityorder',imfLeft:indent},
               {title:'收货地址',PersonalHref:'address',imfLeft:address},
@@ -89,6 +94,7 @@
               {title:'账户设置',PersonalHref:'setting',imfLeft:setting}
             ],
             headPortrait:headImg,
+            headDefault:true,
             isLogin:true,
             newsCount:false
           }
@@ -111,11 +117,15 @@
             }
             if(headimg==""){
               this.headPortrait = headImg;
+              this.headDefault=false;
             }else {
               this.headPortrait = res.data.data.avatar;
+              this.headDefault=true;
             }
 
           }else {
+            this.headPortrait = headImg;
+            this.headDefault=false;
             this.$layer.msg(res.data.msg);
           }
         }.bind(this))
@@ -266,7 +276,7 @@
   .media-left{
     padding-bottom: 0;
   }
-  .mediaDad:nth-child(4), .mediaDad:nth-child(6){
+  .mediaDad:nth-child(3), .mediaDad:nth-child(6){
     margin-bottom: 1rem;
   }
 

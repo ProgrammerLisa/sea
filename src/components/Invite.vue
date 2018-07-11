@@ -9,12 +9,16 @@
 		<div class="code">
 			<h4 class="title">我的专属邀请码</h4>
 			<div id="ask_invite" v-model="ask_invite">{{ask_invite}}</div>
-			<div style="padding-top:40px;">
+			<div style="padding-top:2.5rem;">
 				<p class="msg">每邀请一位好友下载并注册，你和好友都将获得同等奖励</p>
 				<x-button id="finish" v-clipboard:copy="ask_invite" v-clipboard:success="onCopy" v-clipboard:error="onError" type="primary">复制邀请码</x-button>
 			</div>
 		</div>
-
+    <div class="inviteCodeImg">
+      <img :src="erweima"/>
+      <p style="margin:1rem 0 0.5rem 0">扫码下载夺宝行动</p>
+      <p style="color: #09a2d6">更多惊喜等你来探索</p>
+    </div>
 	</div>
 </template>
 
@@ -22,6 +26,7 @@
 	import { XInput, Group, XButton, CheckIcon } from 'vux'
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
+  import erweima from '@/assets/images/erweima.png'
 
 	export default {
 		name: 'ask',
@@ -37,7 +42,8 @@
 				ask_invite: '',
 				check: '',
 				demo1: false,
-				demo2: true
+				demo2: true,
+        erweima:erweima
 			}
 		},
 		mounted() {
@@ -139,12 +145,11 @@
 		border-left: 0;
 		border-right: 0;
 		/*padding-left: 1.2rem;*/
-		font-size: 5rem;
+		font-size: 4.5rem;
 		border-bottom: 1px solid #eee;
 		width: 100%;
 		outline: none;
 		letter-spacing: 0.05rem;
-		padding-bottom: 0.5rem;
 	}
   .msg{
     color: #777;
@@ -157,4 +162,14 @@
 		 border-radius: 0;
 		 width: 100%;
 	}
+  .inviteCodeImg{
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 1rem;
+  }
+  .inviteCodeImg img{
+    width: 40%;
+  }
 </style>

@@ -2,7 +2,7 @@
 	<div class="content">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-				<span @click="goBack" class="back"><span>ㄑ</span></span> 邀请码
+				<span @click="goBack"  @touchstart="evers" @touchend="lat"  class="back"><img :src="masrc"/></span> 邀请码
 			</div>
 		</div>
 		<form>
@@ -28,6 +28,8 @@
 
 <script>
 	import { XInput, Group, XButton, CheckIcon } from 'vux'
+	import back from '@/assets/images/back.png'
+	import backs from '@/assets/images/backs.png'
 
 	export default {
 		name: 'ask',
@@ -39,6 +41,7 @@
 		},
 		data() {
 			return {
+				masrc: back,
 				verif: '',
 				check: '',
 				demo1: false,
@@ -46,6 +49,12 @@
 			}
 		},
 		methods: {
+			evers() {
+				this.masrc = backs;
+			},
+			lat() {
+				this.masrc = back;
+			},
 			goBack() {
 				this.$router.go(-1);
 			},

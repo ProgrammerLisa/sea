@@ -8,22 +8,12 @@
         <span >珍珠量 {{imgSum}}</span>
       </div>
 
-      <div class="topOption option3">
-        <!-- Single button -->
-        <div class="btn-group">
-          <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img class="dropdownImg" src="../assets/images/caidan.png"/>
-          </div>
-          <ul class="dropdown-menu">
-            <router-link tag="li" to="/gamerules"><img src="../assets/images/youxiguize.png" class="dropdown-menu-img"/>游戏规则</router-link>
-            <li role="separator" class="divider"></li>
-            <li><a href="#"><img src="../assets/images/zhanji.png" class="dropdown-menu-img"/>战绩</a></li>
-          </ul>
-        </div>
-      </div>
-
       <div id="imgDiv"></div>
     </div>
+    <router-link class="option3" to="/gamerules" tag="div">
+      <img src="../assets/images/youxiguize.png"  class="invitation-friends"/>
+      <p>游戏规则</p>
+    </router-link>
     <router-link class="option4" to="/shareinvite" tag="div">
       <img src="../assets/images/yaoqinghaoyou.png"  class="invitation-friends"/>
       <p>邀请好友</p>
@@ -311,20 +301,12 @@ export default {
     left: 1.5rem;
     top: 7rem;
   }
-  .option2{
-    left: 1.5rem;
-    top: 10rem;
-  }
-  .option3{
-    right: 0;
-    top: 8rem;
-  }
+
   .invitation-friends{
-    background: #F0BD00;
     border-radius: 50%;
     padding: 0.4rem;
   }
-  .option4{
+  .option3,.option4{
     width: 6rem;
     float: right;
     text-align: center;
@@ -333,7 +315,10 @@ export default {
     margin-right: 1rem;
     color: #fff;
   }
-  .option4 img{
+  .option3{
+    margin-top: -16rem;
+  }
+  .option3 img,.option4 img{
     width: 70%;
   }
   .option4-Icon span{

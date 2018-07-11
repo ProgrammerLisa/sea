@@ -18,22 +18,52 @@
           <div class="col-xs-4 taskList">
             <span class="glyphicon glyphicon-link taskIcon"></span>
             <div class="taskTitle">邀请10名好友</div>
-            <div class="taskBody">邀请好友+10原力</div>
-            <div class="taskBtn">+100原力</div>
+            <div class="taskBody">邀请好友+10能量</div>
+            <div class="taskBtn">+100能量</div>
           </div>
           <div class="col-xs-4 taskList">
             <span class="glyphicon glyphicon-map-marker taskIcon"></span>
             <div class="taskTitle">关注微信公众号</div>
-            <div class="taskBody">关注获取原力</div>
-            <div class="taskBtn">+2原力</div>
+            <div class="taskBody">关注获取能量</div>
+            <div class="taskBtn">+2能量</div>
           </div>
           <div class="col-xs-4 taskListLast">
             <span class="glyphicon glyphicon-calendar taskIcon"></span>
             <div class="taskTitle">每日登录</div>
-            <div class="taskBody">登录获取原力值</div>
+            <div class="taskBody">登录获取能量值</div>
+            <div class="taskSuccess" v-if="signIn"><span class="glyphicon glyphicon-ok"></span> 已完成</div>
+            <div class="taskBtn" v-else @click="signInFc">+2能量</div>
+          </div>
+        </div>
+      </div>
+      <div id="time" style="display: none">{{time | formatDate}}</div>
+      <div class="panel panel-default task">
+        <div class="panel-body">
+          <span class="glyphicon glyphicon-minus decorate"></span>独家任务
+        </div>
+      </div>
+      <div class="container">
+        <div class="row task1">
+          <div class="col-xs-4 taskList">
+            <span class="glyphicon glyphicon-globe taskIcon"></span>
+            <div class="taskTitle">资讯</div>
+            <div class="taskBody">邀请好友+10能量</div>
+            <div class="taskBtn">+100能量</div>
+          </div>
+          <div class="col-xs-4 taskList">
+            <span class="glyphicon glyphicon-music taskIcon"></span>
+            <div class="taskTitle">网易云音乐</div>
+            <div class="taskBody">关注获取能量</div>
+            <div class="taskBtn">+2能量</div>
+          </div>
+          <div class="col-xs-4 taskListLast">
+            <span class="glyphicon glyphicon-book taskIcon"></span>
+            <div class="taskTitle">网易云课堂</div>
+            <div class="taskBody">登录获取能量</div>
             <div class="taskSuccess"><span class="glyphicon glyphicon-ok"></span> 已完成</div>
           </div>
         </div>
+
       </div>
 
       <div class="panel panel-default task">
@@ -46,48 +76,19 @@
           <div class="col-xs-4 taskList">
             <span class="glyphicon glyphicon-globe taskIcon"></span>
             <div class="taskTitle">资讯</div>
-            <div class="taskBody">邀请好友+10原力</div>
-            <div class="taskBtn">+100原力</div>
+            <div class="taskBody">邀请好友+10能量</div>
+            <div class="taskBtn">+100能量</div>
           </div>
           <div class="col-xs-4 taskList">
             <span class="glyphicon glyphicon-music taskIcon"></span>
             <div class="taskTitle">网易云音乐</div>
-            <div class="taskBody">关注获取原力</div>
-            <div class="taskBtn">+2原力</div>
+            <div class="taskBody">关注获取能量</div>
+            <div class="taskBtn">+2能量</div>
           </div>
           <div class="col-xs-4 taskListLast">
             <span class="glyphicon glyphicon-book taskIcon"></span>
             <div class="taskTitle">网易云课堂</div>
-            <div class="taskBody">登录获取原力值</div>
-            <div class="taskSuccess"><span class="glyphicon glyphicon-ok"></span> 已完成</div>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="panel panel-default task">
-        <div class="panel-body">
-          <span class="glyphicon glyphicon-minus decorate"></span>独家任务
-        </div>
-      </div>
-      <div class="container">
-        <div class="row task1">
-          <div class="col-xs-4 taskList">
-            <span class="glyphicon glyphicon-globe taskIcon"></span>
-            <div class="taskTitle">资讯</div>
-            <div class="taskBody">邀请好友+10原力</div>
-            <div class="taskBtn">+100原力</div>
-          </div>
-          <div class="col-xs-4 taskList">
-            <span class="glyphicon glyphicon-music taskIcon"></span>
-            <div class="taskTitle">网易云音乐</div>
-            <div class="taskBody">关注获取原力</div>
-            <div class="taskBtn">+2原力</div>
-          </div>
-          <div class="col-xs-4 taskListLast">
-            <span class="glyphicon glyphicon-book taskIcon"></span>
-            <div class="taskTitle">网易云课堂</div>
-            <div class="taskBody">登录获取原力值</div>
+            <div class="taskBody">登录获取能量值</div>
             <div class="taskSuccess"><span class="glyphicon glyphicon-ok"></span> 已完成</div>
           </div>
         </div>
@@ -97,8 +98,44 @@
 </template>
 
 <script>
-    export default {
-        name: "GetForce"
+  import {formatDate} from "../assets/js/date";
+
+  export default {
+        name: "GetForce",
+        filters:{
+          formatDate(time){
+            let data = new Date(time)
+            return formatDate(data,'yyyy-MM-dd hh:mm:ss')
+          }
+        },
+        data(){
+            return{
+              time:Date.now(),
+              signIn:false
+            }
+        },
+        mounted(){
+        },
+        methods:{
+          signInFc(){
+            this.$http({
+              method: "post",
+              url: "/tasks/login-everyday",
+              headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
+              data: {
+                signin_at:$("#time").text()
+              }
+            }).then(function(res){
+                this.$layer.msg(res.data.msg);
+                if(res.data.code==0){
+                  this.signIn=true
+                }
+            }.bind(this))
+              .catch(function(err){
+                this.$layer.msg(err)
+              }.bind(this));
+          }
+        }
     }
 </script>
 

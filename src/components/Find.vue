@@ -104,7 +104,7 @@
         name: "GetForce",
         filters:{
           formatDate(time){
-            let data = new Date(time)
+            let data = new Date(time);
             return formatDate(data,'yyyy-MM-dd hh:mm:ss')
           }
         },
@@ -144,6 +144,9 @@
     padding-bottom: 6rem;
     background-color: #f5f5f5;
     color: #666;
+    width: 100vw;
+    position: fixed;
+    top: 0;
   }
   .panel{
     border:none;

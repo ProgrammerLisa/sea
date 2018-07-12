@@ -27,7 +27,7 @@
 	import noFriendImg from '@/assets/images/myfriend.png'
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
-	
+
 	export default {
 		name: "friend",
 		data() {
@@ -94,18 +94,20 @@
 		color: #666;
 		padding-bottom: 6rem;
 		background-color: #f5f5f5;
-		width: 100vw;
+    width: 100vw;
+    position: fixed;
+    top: 0;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -115,46 +117,46 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		float: left;
 		font-size: 1.8rem;
 		color: #C7C7C7;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 		font-size: 2.5rem;
 	}
-	
+
 	.addTo {
 		float: right;
 	}
-	
+
 	.addTo img {
 		height: 2.5rem;
 	}
-	
+
 	.friends {
 		background: #fff;
 		margin-top: 0;
 		border-bottom: 0.1rem solid #f5f5f5;
 		padding: 1rem;
 	}
-	
+
 	.media-heading {
 		margin-top: 0.3rem;
 		margin-bottom: 5px;
 		font-size: 1.6rem;
 	}
-	
+
 	.media-left img {
 		border: 0.1rem solid #09a2d6;
 		border-radius: 50%;
 		width: 4rem;
 		margin-right: 0.5rem;
 	}
-	
+
 	.sex {
 		color: #fff;
 		border-radius: 50%;
@@ -166,13 +168,13 @@
 		margin: 0 1rem;
 		vertical-align: top;
 	}
-	
+
 	.addressNone {
 		text-align: center;
 		padding-top: 18vh;
 		color: #999;
 	}
-	
+
 	.addressNone img {
 		width: 40%;
 		margin-bottom: 1rem;

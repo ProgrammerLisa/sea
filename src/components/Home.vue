@@ -23,8 +23,8 @@
     </div>
 
 
-    <group  @click.native="rankings">
-      <cell v-bind:title="RankingTitle" v-bind:value="RankingSwitch" is-link ></cell>
+    <group  @click.native="rankings" >
+      <cell v-bind:title="RankingTitle" v-bind:value="RankingSwitch" is-link></cell>
     </group>
     <table v-if="isBlack" class="table">
       <tr><td><h4 class="decorate-title"><div class="decorate"></div>得宝数据</h4></td></tr>
@@ -402,5 +402,8 @@ export default {
   }
   #ranking{
     width:30%;
+  }
+  p{
+    margin-bottom: 0;
   }
 </style>

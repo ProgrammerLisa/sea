@@ -66,6 +66,8 @@
     overflow-x: hidden;
     color: #666;
     width: 100vw;
+    position: fixed;
+    top: 0;
     background: #f5f5f5;
   }
 

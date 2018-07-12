@@ -62,7 +62,9 @@
 		overflow-x: hidden;
 		color: #666;
 		background-color: #f5f5f5;
-		width: 100vw;
+    width: 100vw;
+    position: fixed;
+    top: 0;
 	}
 
 	.panel {

@@ -115,6 +115,9 @@
 		overflow-x: hidden;
 		color: #666;
 		padding-bottom: 6rem;
+    width: 100vw;
+    position: fixed;
+    top: 0;
 	}
 
 	.panel {

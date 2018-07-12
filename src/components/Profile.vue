@@ -8,7 +8,8 @@
       <div class="container personalMessage">
         <router-link tag="div" to="/compile" v-if="headDefault">
           <div class="HeadPortrait">
-            <img  :src="`${headPortrait+'?'+now}`"/>
+            <img  :src="`${headPortrait+'?'+now}`" v-if="haveHeadImg"/>
+            <img :src="headPortrait" v-else/>
           </div>
           <p class="nickName">{{nickName}}</p>
           <!--<p class="userId">ID：{{phone}}</p>-->
@@ -20,7 +21,7 @@
           <p class="nickName">点击登录</p>
         </router-link>
 
-				<div class="row ">
+				<div class="row msgBox">
 					<router-link to="wallet" tag="div" class="col-xs-6  personalMessageLeft">
 						<img :src="wallet" class="personalIcon">
 						<span class="personalText" id="walletText">我的钱包</span>
@@ -96,7 +97,8 @@
             headPortrait:headImg,
             headDefault:true,
             isLogin:true,
-            newsCount:false
+            newsCount:false,
+            haveHeadImg:false
           }
       },
       mounted(){
@@ -117,10 +119,10 @@
             }
             if(headimg==""){
               this.headPortrait = headImg;
-              this.headDefault=false;
+              this.haveHeadImg=false;
             }else {
               this.headPortrait = res.data.data.avatar;
-              this.headDefault=true;
+              this.haveHeadImg=true;
             }
 
           }else {
@@ -241,6 +243,9 @@
   #walletText{
     margin-right: 1rem;
   }
+  .msgBox{
+    margin-top: 1rem;
+  }
   .HeadPortrait img{
     width: 5rem;
     height: 5rem;
@@ -275,6 +280,7 @@
   }
   .media-left{
     padding-bottom: 0;
+    padding-right: 0;
   }
   .mediaDad:nth-child(3), .mediaDad:nth-child(6){
     margin-bottom: 1rem;

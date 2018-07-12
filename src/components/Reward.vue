@@ -55,7 +55,7 @@
 	import erweima from '@/assets/images/erweima.png'
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
-	
+
 	export default {
 		name: "Reward",
 		data() {
@@ -106,18 +106,20 @@
 		overflow-x: hidden;
 		color: #666;
 		background-color: #fff;
-		width: 100vw;
+    width: 100vw;
+    position: fixed;
+    top: 0;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -127,24 +129,24 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 		font-size: 2.5rem;
 	}
-	
+
 	.invitebg {
 		width: 100%;
 	}
-	
+
 	.invitePlay {
 		padding: 1rem 2rem;
 	}
-	
+
 	.btn {
 		width: 100%;
 		border-radius: 0;
@@ -152,16 +154,16 @@
 		padding: 0.8rem;
 		font-size: large;
 	}
-	
+
 	.btn-default {
 		color: #09a2d6;
 		margin-bottom: 1rem;
 	}
-	
+
 	.btn-info {
 		background: #09a2d6;
 	}
-	
+
 	.inviteTitle {
 		border-bottom: 0.1rem solid #f1f1f1;
 		padding: 0.5rem 1rem;
@@ -169,58 +171,58 @@
 		font-size: 1.6rem;
 		margin-bottom: 0;
 	}
-	
+
 	.inviteList {
 		padding: 0 1rem;
 		border-bottom: 0.8rem solid #f1f1f1;
 	}
-	
+
 	.myInvite {
 		padding: 1rem 0;
 		border-bottom: 0.1rem solid #f1f1f1;
 		margin-top: 0;
 	}
-	
+
 	.inviteImg {
 		width: 4rem;
 		height: 4rem;
 		border-radius: 50%;
 		margin-right: 1rem;
 	}
-	
+
 	.invitePhone {
 		font-size: 1.6rem;
 	}
-	
+
 	.inviteDate {
 		font-size: small;
 		color: #888;
 	}
-	
+
 	.inviteRow {
 		padding: 1rem 1rem 4rem;
 	}
-	
+
 	.modal-dialog {
 		margin: 30vh 10vw;
 	}
-	
+
 	#ImgModal {
 		text-align: center;
 	}
-	
+
 	#ImgModal .modal-content {
 		height: 40vh;
 		width: 80vw;
 		border-radius: 0;
 	}
-	
+
 	#ImgModal img {
 		width: 23vh;
 		height: 23vh;
 		margin: 10%;
 	}
-	
+
 	.modal-title {
 		color: #444;
 		font-size: 1.6rem;

@@ -223,18 +223,20 @@
 		overflow-x: hidden;
 		color: #666;
 		background-color: #fff;
-		width: 100vw;
+    width: 100vw;
+    position: fixed;
+    top: 0;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -244,50 +246,50 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		position: absolute;
 		left: 1rem;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
-	
+
 	.backsize{
 		margin-left: 10%;
 	}
-	
+
 	.form-horizontal {
 		border-top: 0.5rem solid #f5f5f5;
 	}
-	
+
 	.form-group {
 		padding: 1rem 3rem;
 		border-bottom: 0.1rem solid #eee;
 		margin-bottom: 0;
 	}
-	
+
 	.form-group:last-child {
 		margin-bottom: 0;
 	}
-	
+
 	.form-control {
 		outline: none;
 		border: none;
 		box-shadow: none;
 	}
-	
+
 	.keepSubmit {
 		float: right;
 		font-size: 1.5rem;
 		padding: 0 1rem;
 	}
-	
+
 	.modal-dialog {
 		margin: 0;
 	}
-	
+
 	.modal-content {
 		height: 70vh;
 		margin-top: 30vh;
@@ -295,20 +297,20 @@
 		border-radius: 0;
 		overflow: hidden;
 	}
-	
+
 	#myModalLabel {
 		text-align: center;
 	}
-	
+
 	.auto {
 		height: 50vh;
 		overflow: auto;
 	}
-	
+
 	.auto::-webkit-scrollbar {
 		display: none;
 	}
-	
+
 	li {
 		list-style: none;
 		margin-bottom: 1rem;

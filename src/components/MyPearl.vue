@@ -81,18 +81,20 @@
 		color: #666;
 		padding-bottom: 6rem;
 		background-color: #f5f5f5;
-		width: 100vw;
+    width: 100vw;
+    position: fixed;
+    top: 0;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -102,30 +104,30 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
-	
+
 	.allPearl {
 		background: #fff;
 	}
-	
+
 	.pearl {
 		border-bottom: 0.1rem solid #f5f5f5;
-		padding: 1rem;
-		height: 8vh;
-		line-height: 8vh;
+		padding:0 1rem;
+    height: 8vh;
+    line-height: 8vh;
 	}
-	
+
 	img {
 		height: 2rem;
 	}
-	
+
 	.text-right {
 		float: right;
 	}

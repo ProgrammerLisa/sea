@@ -38,18 +38,20 @@
 		overflow-x: hidden;
 		color: #666;
 		background-color: #f5f5f5;
-		width: 100vw;
+    width: 100vw;
+    position: fixed;
+    top: 0;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 1rem;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -59,11 +61,11 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}

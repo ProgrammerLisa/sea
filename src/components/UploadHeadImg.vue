@@ -81,6 +81,9 @@
     text-align: center;
     padding: 5rem;
     height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
   }
   #myCroppa{
     display: inline-block;

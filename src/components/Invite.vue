@@ -94,7 +94,9 @@
 	.content {
 		overflow: hidden;
 		color: #666;
-		width: 100vw;
+    width: 100vw;
+    position: fixed;
+    top: 0;
 		height: 100vh;
 		background: #fff;
 	}

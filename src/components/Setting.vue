@@ -65,7 +65,7 @@
 	import more from '@/assets/images/more.png'
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
-	
+
 	export default {
 		name: "Setting",
 		data() {
@@ -179,15 +179,30 @@
 					display: "none"
 				});
 				$(".vl-notify-btns").css({
-					textAlign: "center"
+          textAlign: "center",
+          borderTop:"1px solid #ddd",
+          padding:"0"
 				});
 				$(".vl-notify-content").css({
 					textAlign: "center"
 				});
 				$(".notify-btn").css({
-					borderRadius: "0"
+					borderRadius: "0",
+          width:"49%",
+          margin:"0",
+          border:"none",
+          background:"#fff",
+          color:"#555"
 				});
-
+        $(".notify-btn-default").css({
+          borderLeft:"1px solid #ddd"
+        });
+        $(".vl-notify").css({
+          paddingBottom:"0"
+        });
+        $(".vl-notify-mask").css({
+          background:"#111"
+        });
 			}
 		}
 	}
@@ -200,86 +215,88 @@
 		background-color: #f5f5f5;
 		width: 100vw;
 		height: 100vh;
+    position: fixed;
+    top: 0;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
 		color: #555;
 		font-size: 1.6rem;
-		margin-bottom: 0.5rem;
+		margin-bottom: 1rem;
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		position: absolute;
 		left: 1rem;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
-	
+
 	.table {
 		background: #fff;
 	}
-	
+
 	.table tr {
 		border-bottom: 0.1rem solid #f5f5f5;
 		height: 8vh;
 	}
-	
+
 	.table td {
 		padding: 0.5rem 1.5rem;
 	}
-	
+
 	.table .spacing {
-		height: 0.5rem;
+		height: 1rem;
 	}
-	
+
 	.spacing td {
 		padding: 0;
-		height: 0rem;
+		height: 1rem;
 		background: #f5f5f5;
 	}
-	
+
 	.more {
 		height: 3rem;
 	}
-	
+
 	.arrow:active {
 		background: #f1f1f1;
 	}
-	
+
 	.arrow td {
 		padding-top: 0.5rem;
 		padding-bottom: 0.5rem;
 	}
-	
+
 	.arrow td:nth-child(2) {
 		padding-right: 0;
 	}
-	
+
 	.high {
 		height: 3rem;
 		line-height: 3rem;
 	}
-	
+
 	.loginOut {
 		background: #fff;
 		text-align: center;
 		line-height: 3rem;
-		color: red;
+		color: #ff2424;
 		letter-spacing: 0.1rem;
 		position: fixed;
 		bottom: 0;
@@ -288,13 +305,13 @@
 		border-top: 0.1rem solid #eee;
 		border-radius: 0;
 	}
-	
+
 	.loginOut:active {
 		background: #f5f5f5;
-		color: red;
+		color: #09a2d6;
 		border: none;
 	}
-	
+
 	.blueBtn {
 		background: #09a2d6;
 		border-radius: 2rem;
@@ -304,7 +321,7 @@
 		display: inline-block;
 		overflow: hidden;
 	}
-	
+
 	.cap {
 		border-radius: 2rem;
 		background: #ccc;
@@ -313,17 +330,5 @@
 		position: relative;
 		left: 1.5rem;
 	}
-	
-	.whiteBtn {
-		border-radius: 50%;
-		background: #fff;
-		width: 2rem;
-		height: 2rem;
-		position: relative;
-		border: 0.1rem solid #09a2d6;
-	}
-	 
-	.notify-btn {
-		border-radius: 0;
-	}
+
 </style>

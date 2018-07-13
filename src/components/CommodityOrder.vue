@@ -120,18 +120,20 @@
 		color: #666;
 		background: #f5f5f5;
 		padding-bottom: 6rem;
-		width: 100vw;
+    width: 100vw;
+    position: fixed;
+    top: 0;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 1rem;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -141,44 +143,44 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 		font-size: 2.5rem;
 	}
-	
+
 	.media {
 		padding: 1.5rem 1rem;
 		margin: 0;
 		border-bottom: 0.1rem solid #f5f5f5;
 		background: #fff;
 	}
-	
+
 	.media-left img {
 		width: 8rem;
 		height: 8rem;
 		margin-right: 1rem;
 	}
-	
+
 	.media-heading {
 		color: #555;
 		margin-bottom: 1rem;
 		font-size: 1.5rem;
 	}
-	
+
 	.commodityPrice {
 		font-size: 1.6rem;
 		color: #09a2d6;
 	}
-	
+
 	.goodsMessage {
 		font-size: smaller;
 	}
-	
+
 	.enchangeBtn {
 		float: right;
 		border-radius: 0;
@@ -187,25 +189,25 @@
 		color: #09a2d6;
 		padding: 0.5rem;
 	}
-	
+
 	.enchangeBtnEnd {
 		float: right;
 		border-radius: 0;
 		background: #09a2d6;
 		color: #fff;
 	}
-	
+
 	.OrderNone {
 		text-align: center;
 		padding-top: 18vh;
 		color: #999;
 	}
-	
+
 	.OrderNone img {
 		width: 40%;
 		margin-bottom: 1rem;
 	}
-	
+
 	.goShopping {
 		text-align: center;
 		background: #09a2d6;
@@ -214,7 +216,7 @@
 		display: inline-block;
 		margin-top: 1.5rem;
 	}
-	
+
 	.goShopping:active {
 		background: #009ACD;
 	}

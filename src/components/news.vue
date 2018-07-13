@@ -73,7 +73,6 @@
 					},
 					data: {}
 				}).then(function(res) {
-				  console.log(res.data)
 					if(res.data.code == 0) {
 				    if(JSON.stringify(res.data.data) == "{}"){
               this.newsNone = true;
@@ -204,6 +203,8 @@
     padding-bottom: 6rem;
     background-color: #f5f5f5;
     width: 100vw;
+    position: fixed;
+    top: 0;
     overflow: hidden;
   }
 
@@ -266,7 +267,7 @@
   }
   .msg{
     position: absolute;
-    left: 0;
+    right: 0.5rem;
     color: #ff2424;
     background: transparent;
     font-size: xx-large;
@@ -290,7 +291,7 @@
     transition: all .3s ease;
   }
   .slide-fade-leave-active {
-    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
   }
   .slide-fade-enter, .slide-fade-leave-to
     /* .slide-fade-leave-active for below version 2.1.8 */ {

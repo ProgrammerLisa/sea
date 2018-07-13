@@ -53,7 +53,9 @@
 		padding-bottom: 6rem;
 		background-color: #fff;
 		height: 100vh;
-		width: 100vw;
+    width: 100vw;
+    position: fixed;
+    top: 0;
 	}
 
 	.panel {

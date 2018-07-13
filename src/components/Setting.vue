@@ -322,7 +322,7 @@
 		position: relative;
 		border: 0.1rem solid #09a2d6;
 	}
-	
+	 
 	.notify-btn {
 		border-radius: 0;
 	}

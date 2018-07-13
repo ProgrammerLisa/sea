@@ -253,7 +253,7 @@
     border-radius: 50%;
   }
   .nickName{
-    padding: 0.5rem;
+    padding-top: 1rem;
     margin: 0;
   }
   .personalIcon{

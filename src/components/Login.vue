@@ -2,7 +2,7 @@
 
 	<div id="login">
 		<div id="nav">
-			<span @click="goBack" class="back"> </span>登 录
+			<span @click="goBack" class="back"></span>登 录
 		</div>
 		<div id="nav_login">
 			<div id="nav_common" @click="sort(1)">

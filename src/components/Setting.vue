@@ -244,12 +244,12 @@
 	}
 	
 	.table .spacing {
-		height: 1rem;
+		height: 0.5rem;
 	}
 	
 	.spacing td {
 		padding: 0;
-		height: 1rem;
+		height: 0rem;
 		background: #f5f5f5;
 	}
 	
@@ -279,7 +279,7 @@
 		background: #fff;
 		text-align: center;
 		line-height: 3rem;
-		color: #09a2d6;
+		color: red;
 		letter-spacing: 0.1rem;
 		position: fixed;
 		bottom: 0;
@@ -291,7 +291,7 @@
 	
 	.loginOut:active {
 		background: #f5f5f5;
-		color: #09a2d6;
+		color: red;
 		border: none;
 	}
 	

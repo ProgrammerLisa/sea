@@ -13,7 +13,7 @@
 		<div class="media" v-for="(n,index) in news" v-else @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd" :data-curid="n.id">
 
       <div class="media-left" @click="newsDetails(index)"  >
-				<span class="badge msg" v-show="!n.msg.is_read">·</span><img class="media-object" :src="n.msg.img">
+				<span class="badge msg" v-show="!n.msg.is_read">·</span>
 			</div>
 			<div class="media-body" @click="newsDetails(index)"  >
 				<h4 class="media-heading">{{n.msg.title}} <span class="time">{{n.msg.created_at}}</span></h4>

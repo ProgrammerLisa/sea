@@ -1,26 +1,28 @@
 <template>
-  <div class="content">
-    <div style="height:600px;">
-      <v-scroll :on-infinite="infinite" ref="myscroller">
-        <div class="panel panel-default BlackTitle">
-          <div class="panel-body">
-            <span @click="goBack" @touchstart="evers" @touchend="lat" class="back"><img :src="masrc"/></span>
-            收支记录
+    <div class="content" id="myList">
+      <div  style="height:600px;">
+        <v-scroll :on-infinite="infinite" ref="myscroller">
+          <div class="panel panel-default BlackTitle">
+            <div class="panel-body">
+              <span @click="goBack" @touchstart="evers" @touchend="lat" class="back"><img :src="masrc"/></span>
+              收支记录
+            </div>
           </div>
-        </div>
-        <div class="media" v-for="s in Statement">
-          <div class="media-body">
-            <div class="media-heading">{{s.title}}</div>
-            <span class="data">{{s.date}}</span>
+          <div class="media" v-for="s in Statement">
+            <div class="media-body">
+              <div class="media-heading">{{s.title}}</div>
+              <span class="data">{{s.date}}</span>
+            </div>
+            <div class="media-right">
+              {{s.symbol}}{{s.count}}
+            </div>
           </div>
-          <div class="media-right">
-            {{s.symbol}}{{s.count}}
-          </div>
-        </div>
-      </v-scroll>
+        </v-scroll>
+      </div>
+
+      <canvas id="myCanvas"></canvas>
     </div>
-    <canvas id="myCanvas"></canvas>
-  </div>
+
 </template>
 
 <script>
@@ -108,13 +110,12 @@
 						count: 25,
 						symbol: ''
 					}
-				],
-        Ox:0,
-        Oy:0
+				]
+
 			}
 		},
 		mounted() {
-      this.loading()
+      this.loading();
 		},
 		methods: {
 			evers() {
@@ -127,68 +128,51 @@
 				this.$router.go(-1);
 			},
       infinite(done) {
-
+			  $("#myCanvas").css({display:"block"});
+        $("#myList").css({marginBottom:"25vw"});
+        var c = window.document.body.scrollHeight;
+        window.scroll(0,c);
+			  setTimeout(function () {
+          $("#myCanvas").css({display:"none"});
+          $("#myList").css({marginBottom:"0"});
+        },3000)
         done()
       },
-      loading(){
-        var c = document.getElementById('myCanvas');
-        var ctx = c.getContext('2d');
-        var mW = c.width = $(window).innerWidth();
-        var mH = c.height = $(window).innerHeight();
-        var lineWidth = 5;
-        var r = mW / 2; //中间位置
-        var cR = r/3 - 4 * lineWidth; //圆半径
-        var startAngle = -(1 / 2 * Math.PI); //开始角度
-        var endAngle = startAngle + 2 * Math.PI; //结束角度
-        var xAngle = 10 * (Math.PI / 180); //偏移角度量
-        var cArr = []; //圆坐标数组
+      loading() {
+        var canvas = document.getElementById("myCanvas"),
+          ctx = canvas.getContext("2d"),
+          w = canvas.width,
+          h = canvas.height,
+          x = w/2,
+          y = h/4,
+          radius = 30;
+        ctx.fillStyle = "#f5f5f5";
+        ctx.fillRect(0,0,w,h);
 
-        //初始化圆坐标数组
-        for(var i = startAngle; i <= endAngle; i += xAngle){
-          //通过sin()和cos()获取每个角度对应的坐标
-          var x = r + cR * Math.cos(i);
-          var y = mH/2 + cR * Math.sin(i);
+        var r = [3,4,4.5,5,6,7];//串串球大小排序
+        var angle = [10,25,45,65,90,120];//串串球旋转角度
+        var alpha = [0.25,0.35,0.45,0.65,0.8,1];//串串球透明度
+        var x1=[],y1=[];
 
-          cArr.push([x, y]);
-        }
-        var flag={
-          t:false,
-          color:"#ddd"
-        };
-        if(flag.t){
-          flag.color="red"
-        }else {
-          flag.color="#ddd"
-        }
-        //移动到开始点
-        var startPoint = cArr.shift();
-        // setInterval(function () {
-        //   ctx.beginPath();
-        //   ctx.moveTo(startPoint[0], startPoint[1]);
-        //   ctx.closePath();
-        //   flag.t=!flag.t;
-        // },1000)
-
-        //渲染函数
-        var rander = function(){
-          //画圈
-          if(cArr.length){
-            ctx.lineWidth = lineWidth;
-            ctx.strokeStyle = flag.color;
-
-            var tmpPoint = cArr.shift();
-            ctx.lineTo(tmpPoint[0], tmpPoint[1]);
-
-            ctx.stroke();
-          }else{
-            cArr = null;
-            return;
+        setInterval(function(){
+          ctx.fillStyle = "#f5f5f5";
+          ctx.fillRect(0,0,w,h);
+          x1 = [];
+          y1 = [];
+          for(var i = 0; i < r.length; i ++){
+            if(angle[i] >= 360) angle[i] = 0;
+            ctx.beginPath();
+            ctx.font = "1rem sans-serif";
+            ctx.fillStyle = "rgba(156,236,255,"+alpha[i]+")";
+            x1.push( x + radius*Math.cos(angle[i]*Math.PI/180));
+            y1.push( y + radius*Math.sin(angle[i]*Math.PI/180));
+            ctx.arc(x1[i],y1[i],r[i],0,2*Math.PI, true);
+            ctx.closePath();
+            ctx.fill();
+            angle[i] += 5;
           }
+        },25);
 
-          requestAnimationFrame(rander);
-        };
-
-        rander();
       }
 		}
 	}
@@ -258,13 +242,13 @@
 		font-size: large;
 	}
   #myCanvas{
-    margin: 0 auto;
-    display: block;
+    margin: 0;
     width: 100vw;
-    height: 100vh;
-    position: absolute;
-    top: 0;
+    height: 50vw;
+    position: fixed;
     left: 0;
-    background: rgba(0,0,0,0.3);
+    bottom:-25vw;
+    display: none;
   }
+
 </style>

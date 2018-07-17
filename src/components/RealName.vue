@@ -228,9 +228,9 @@
 	}
 
 	.control-label {
-		font-size: 1.6rem;
+		font-size: 1.5rem;
 		color: #555;
-		margin-top: 0.4rem;
+		top: 5.5px;
 	}
 
 	.prompt {

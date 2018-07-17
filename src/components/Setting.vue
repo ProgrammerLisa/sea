@@ -308,7 +308,7 @@
 
 	.loginOut:active {
 		background: #f5f5f5;
-		color: #09a2d6;
+		color: red;
 		border: none;
 	}
 

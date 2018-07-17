@@ -354,6 +354,7 @@
 										that.writeCookie(Verificationtimen, that.time);
 										that.time--;
 										that.btntxts = that.time + "s";
+										that.disabled = true;
 									} else {
 										that.time = 0;
 										that.btntxts = "获取验证码";

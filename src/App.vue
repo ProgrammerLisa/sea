@@ -8,7 +8,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'app',
   provide(){
@@ -43,6 +42,9 @@ export default {
         this.transitionName = 'slide-right';
       }
     }
+  },
+  created() {
+    $('#Loading').remove()
   }
 }
 </script>

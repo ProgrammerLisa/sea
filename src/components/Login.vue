@@ -297,8 +297,8 @@
 				event.preventDefault();
 				const that = this;
 				var Verificationtimen = Verificationtimen;
-				that.time = that.readCookie(Verificationtimen);
-				if(that.time == "") {
+				that.time = localStorage.getItem(Verificationtimen);
+				if(that.time == ""||that.time == null||that.time == undefined) {
 					this.$http({
 							method: 'post',
 							url: '/auth/login/send-sms-code',

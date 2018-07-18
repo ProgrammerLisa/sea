@@ -89,7 +89,7 @@
 				} else {
 					this.$http({
 							method: 'post',
-							url: '/users/password_reset',
+							url: '/users/reset-password',
 							headers: {
 								"device": "android",
 								"uid": localStorage.getItem("uid")
@@ -109,7 +109,7 @@
 
 						}.bind(this))
 						.catch(function(err) {
-							console.log(err)
+              this.$layer.msg("系统异常，请稍后再试");
 						}.bind(this))
 				}
 			},

@@ -203,7 +203,7 @@
 							}
 						}.bind(this))
 						.catch(function(err) {
-							console.log(err)
+              this.$layer.msg("系统异常，请稍后再试");
 						}.bind(this))
 				}
 

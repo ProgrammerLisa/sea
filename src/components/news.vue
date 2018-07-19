@@ -72,8 +72,8 @@
 						"Access-Control-Allow-Origin": "*"
 					},
 					data: {
-						"page": 1
-					}
+					  "page":1
+          }
 				}).then(function(res) {
 					if(res.data.code == 0) {
 						if(JSON.stringify(res.data.data) == "{}") {
@@ -107,7 +107,7 @@
 				}.bind(this))
 				.catch(function(err) {
 					this.newsNone = true;
-					this.$layer.msg("系统异常，请稍后再试");
+          this.$layer.msg("系统异常，请稍后再试");
 				}.bind(this));
 		},
 		methods: {
@@ -181,7 +181,7 @@
 						}
 					}.bind(this))
 					.catch(function(err) {
-						this.$layer.msg("系统异常，请稍后再试");
+            this.$layer.msg("系统异常，请稍后再试");
 					}.bind(this));
 			},
 			touchEnd(ev) {
@@ -212,16 +212,16 @@
 		top: 0;
 		overflow: hidden;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -231,56 +231,56 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		position: absolute;
 		left: 1rem;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
-	
+
 	.media {
 		background: #fff;
 		margin-top: 0;
 		padding: 1rem;
 		border-bottom: 0.1rem solid #f5f5f5;
 	}
-	
+
 	.media-left img {
 		border: 0.1rem solid #09a2d6;
 		border-radius: 50%;
 		width: 4rem;
 		margin-right: 0.5rem;
 	}
-	
+
 	.media-body {
 		vertical-align: middle;
 	}
-	
+
 	.media-heading {
 		color: #555;
 	}
-	
+
 	.time {
 		float: right;
 		font-size: xx-small;
 		margin-right: 1rem;
 		color: #777;
 	}
-	
+
 	.newsNone {
 		text-align: center;
 		padding-top: 18vh;
 		color: #999;
 	}
-	
+
 	.newsNone img {
 		width: 40%;
 		margin-bottom: 1rem;
 	}
-	
+
 	.msg {
 		position: absolute;
 		right: 0.5rem;
@@ -290,7 +290,7 @@
 		padding: 0;
 		line-height: 0;
 	}
-	
+
 	.del {
 		background: #ff2424;
 		color: #fcf8e3;
@@ -304,26 +304,26 @@
 	}
 	/* 可以设置不同的进入和离开动画 */
 	/* 设置持续时间和动画函数 */
-	
+
 	.slide-fade-enter-active {
 		transition: all .3s ease;
 	}
-	
+
 	.slide-fade-leave-active {
 		transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 	}
-	
+
 	.slide-fade-enter,
 	.slide-fade-leave-to
 	/* .slide-fade-leave-active for below version 2.1.8 */
-	
+
 	{
 		transform: translateX(10px);
 		opacity: 0;
 	}
-	
+
 	.msgContent {}
-	
+
 	.msgContent {
 		position: relative;
 		line-height: 1.4em;
@@ -331,7 +331,7 @@
 		height: 1.4em;
 		overflow: hidden;
 	}
-	
+
 	.msgContent::after {
 		content: "...";
 		font-weight: bold;

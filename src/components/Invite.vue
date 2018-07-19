@@ -64,7 +64,7 @@
 					}
 				}.bind(this))
 				.catch(function(err) {
-				this.$layer.msg("系统异常，请稍后再试");
+          this.$layer.msg("系统异常，请稍后再试");
 				}.bind(this))
 		},
 		methods: {
@@ -164,6 +164,9 @@
 		 border-radius: 0;
 		 width: 100%;
 	}
+  #finish:active{
+    background: #009ACD;
+  }
   .inviteCodeImg{
     text-align: center;
     position: fixed;

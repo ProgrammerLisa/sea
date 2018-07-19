@@ -297,7 +297,9 @@
 				const that = this;
 				var Verificationtimen = Verificationtimen;
 				that.time = localStorage.getItem(Verificationtimen);
+
 				if(that.time == "" || that.time == null || that.time == undefined) {
+
 					this.$http({
 							method: 'post',
 							url: '/auth/login/send-sms-code',
@@ -314,7 +316,9 @@
 								this.$layer.msg(res.data.msg);
 								var TimeReduction1 = setInterval(function() {
 									if(that.time > 0) {
+
 										localStorage.setItem(Verificationtimen, that.time);
+
 										that.time--;
 										that.btntxt = that.time + "s";
 										that.disabled = true;

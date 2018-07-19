@@ -20,25 +20,25 @@
 				<td></td>
 			</tr>
 			<!--<tr class="settingBtn">-->
-			<!--<td class="text-left"><span class="high">消息提醒</span></td>-->
-			<!--<td class="text-right">-->
-			<!--<div class="blueBtn" @click="switchBtn">-->
-			<!--<div class="cap">-->
-			<!--<div class="whiteBtn">-->
+				<!--<td class="text-left"><span class="high">消息提醒</span></td>-->
+				<!--<td class="text-right">-->
+					<!--<div class="blueBtn" @click="switchBtn">-->
+						<!--<div class="cap">-->
+							<!--<div class="whiteBtn">-->
 
-			<!--</div>-->
-			<!--</div>-->
+							<!--</div>-->
+						<!--</div>-->
 
-			<!--</div>-->
-			<!--</td>-->
+					<!--</div>-->
+				<!--</td>-->
 			<!--</tr>-->
 			<!--<tr class="arrow">-->
-			<!--<td class="text-left">空间清理</td>-->
-			<!--<td class="text-right" @click="CleanUpCaching">35M <img :src="more" class="more" /></td>-->
+				<!--<td class="text-left">空间清理</td>-->
+				<!--<td class="text-right" @click="CleanUpCaching">35M <img :src="more" class="more" /></td>-->
 			<!--</tr>-->
 			<!--<tr class="spacing">-->
-			<!--<td></td>-->
-			<!--<td></td>-->
+				<!--<td></td>-->
+				<!--<td></td>-->
 			<!--</tr>-->
 			<router-link to="AboutUs" tag="tr" class="arrow">
 				<td class="text-left">关于我们</td>
@@ -61,6 +61,7 @@
 </template>
 
 <script>
+
 	import more from '@/assets/images/more.png'
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
@@ -71,8 +72,7 @@
 			return {
 				masrc: back,
 				more: more,
-				isOn: true,
-				IDcode: ''
+				isOn: true
 			}
 		},
 		methods: {
@@ -171,7 +171,7 @@
 							}
 						}.bind(this))
 						.catch(function(err) {
-							console.log(err)
+              this.$layer.msg("系统异常，请稍后再试");
 						}.bind(this))
 				})
 
@@ -179,30 +179,30 @@
 					display: "none"
 				});
 				$(".vl-notify-btns").css({
-					textAlign: "center",
-					borderTop: "1px solid #ddd",
-					padding: "0"
+          textAlign: "center",
+          borderTop:"1px solid #ddd",
+          padding:"0"
 				});
 				$(".vl-notify-content").css({
 					textAlign: "center"
 				});
 				$(".notify-btn").css({
 					borderRadius: "0",
-					width: "49%",
-					margin: "0",
-					border: "none",
-					background: "#fff",
-					color: "#555"
+          width:"49%",
+          margin:"0",
+          border:"none",
+          background:"#fff",
+          color:"#555"
 				});
-				$(".notify-btn-default").css({
-					borderLeft: "1px solid #ddd"
-				});
-				$(".vl-notify").css({
-					paddingBottom: "0"
-				});
-				$(".vl-notify-mask").css({
-					background: "#111"
-				});
+        $(".notify-btn-default").css({
+          borderLeft:"1px solid #ddd"
+        });
+        $(".vl-notify").css({
+          paddingBottom:"0"
+        });
+        $(".vl-notify-mask").css({
+          background:"#111"
+        });
 			}
 		}
 	}
@@ -215,19 +215,19 @@
 		background-color: #f5f5f5;
 		width: 100vw;
 		height: 100vh;
-		position: fixed;
-		top: 0;
+    position: fixed;
+    top: 0;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -237,61 +237,61 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		position: absolute;
 		left: 1rem;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
-	
+
 	.table {
 		background: #fff;
 	}
-	
+
 	.table tr {
 		border-bottom: 0.1rem solid #f5f5f5;
 		height: 8vh;
 	}
-	
+
 	.table td {
 		padding: 0.5rem 1.5rem;
 	}
-	
+
 	.table .spacing {
 		height: 1rem;
 	}
-	
+
 	.spacing td {
 		padding: 0;
 		height: 1rem;
 		background: #f5f5f5;
 	}
-	
+
 	.more {
 		height: 3rem;
 	}
-	
+
 	.arrow:active {
 		background: #f1f1f1;
 	}
-	
+
 	.arrow td {
 		padding-top: 0.5rem;
 		padding-bottom: 0.5rem;
 	}
-	
+
 	.arrow td:nth-child(2) {
 		padding-right: 0;
 	}
-	
+
 	.high {
 		height: 3rem;
 		line-height: 3rem;
 	}
-	
+
 	.loginOut {
 		background: #fff;
 		text-align: center;
@@ -305,13 +305,13 @@
 		border-top: 0.1rem solid #eee;
 		border-radius: 0;
 	}
-	
+
 	.loginOut:active {
 		background: #f5f5f5;
 		color: red;
 		border: none;
 	}
-	
+
 	.blueBtn {
 		background: #09a2d6;
 		border-radius: 2rem;
@@ -321,7 +321,7 @@
 		display: inline-block;
 		overflow: hidden;
 	}
-	
+
 	.cap {
 		border-radius: 2rem;
 		background: #ccc;
@@ -330,4 +330,5 @@
 		position: relative;
 		left: 1.5rem;
 	}
+
 </style>

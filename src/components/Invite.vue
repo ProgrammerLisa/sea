@@ -164,6 +164,9 @@
 		 border-radius: 0;
 		 width: 100%;
 	}
+  #finish:active{
+    background: #057EA5;
+  }
   .inviteCodeImg{
     text-align: center;
     position: fixed;

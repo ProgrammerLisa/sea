@@ -103,7 +103,7 @@
 		position: relative;
 		width: 60%;
 		height: 50%;
-		background-color: #FFFFFF;
+		background-color: #f5f5f5;
 		left: 20%;
 	}
 
@@ -113,7 +113,7 @@
 	}
 
 	.service {
-		background: #fff;
+		background: #f5f5f5;
 		width: 70%;
 		padding: 2rem;
 		text-align: center;
@@ -123,6 +123,7 @@
 
 	.service img {
 		width: 70%;
+    max-width: 20rem;
 	}
 
 	.serviceTitle {

@@ -13,8 +13,8 @@
 			<div class="form-group">
 				<input type="number" class="form-control" id="phone" placeholder="请填写收货手机号码">
 			</div>
-			<div class="form-group" data-toggle="modal" data-target="#myModal">
-				<input type="text" class="form-control" id="address" :value="address" placeholder="请选择地区">
+			<div class="form-group">
+				<input type="text" data-toggle="modal" data-target="#addressModal" class="form-control" id="address" :value="address" placeholder="请选择地区">
 			</div>
 			<div class="form-group">
 				<input type="text" class="form-control" id="home" placeholder="详细地址(如门牌号等)">
@@ -24,7 +24,7 @@
 			</div>
 		</form>
 
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal fade" style="z-index: 999" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -61,8 +61,8 @@
 				</div>
 				<!-- /.modal-content -->
 			</div>
-			<!-- /.modal -->
 		</div>
+
 	</div>
 
 </template>
@@ -71,6 +71,7 @@
 	import code from "@/assets/json/districts.json"
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
+
 	export default {
 		name: "ModificationAddress",
 		data() {
@@ -87,6 +88,7 @@
 				address: ''
 			}
 		},
+
 		mounted() {
 			for(var item in this.code) {
 				this.codeArr.push(this.code[item]);
@@ -236,10 +238,7 @@
 	.content {
 		overflow-x: hidden;
 		color: #666;
-		background-color: #fff;
     width: 100vw;
-    position: fixed;
-    top: 0;
 	}
 
 	.panel {
@@ -342,4 +341,5 @@
 		list-style: none;
 		margin-bottom: 1rem;
 	}
+
 </style>

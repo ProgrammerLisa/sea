@@ -8,28 +8,28 @@
       <div class="carousel">
         <img :src="carousel"/>
       </div>
-      <div class="media" v-for="(goods,index) in commodity">
-        <div @click="sendParams(index)">
-          <div class="media-left">
-            <img class="media-object" :src="goods.commodityImg" alt="...">
-          </div>
-          <div class="media-body">
-            <p class="media-heading">{{goods.commodityTitle}}</p>
-            <div class="commodityPrice">{{goods.commodityPrice}}</div>
-            <div class="goodsMessage">成交价 ( 钻石量 )</div>
-            <div>
-              <span class="goodsMessage">兑换次数：{{goods.commodityNumber}} </span>
-              <button class="btn enchangeBtnEnd" v-if="goods.isEnd">
-                已结束
-              </button>
-              <button class="btn enchangeBtn" v-else>
-                立即兑换
-              </button>
-            </div>
-          </div>
-        </div>
+      <!--<div class="media" v-for="(goods,index) in commodity">-->
+        <!--<div @click="sendParams(index)">-->
+          <!--<div class="media-left">-->
+            <!--<img class="media-object" :src="goods.commodityImg" alt="...">-->
+          <!--</div>-->
+          <!--<div class="media-body">-->
+            <!--<p class="media-heading">{{goods.commodityTitle}}</p>-->
+            <!--<div class="commodityPrice">{{goods.commodityPrice}}</div>-->
+            <!--<div class="goodsMessage">成交价 ( 钻石量 )</div>-->
+            <!--<div>-->
+              <!--<span class="goodsMessage">兑换次数：{{goods.commodityNumber}} </span>-->
+              <!--<button class="btn enchangeBtnEnd" v-if="goods.isEnd">-->
+                <!--已结束-->
+              <!--</button>-->
+              <!--<button class="btn enchangeBtn" v-else>-->
+                <!--立即兑换-->
+              <!--</button>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
 
-      </div>
+      <!--</div>-->
     </div>
 </template>
 
@@ -90,6 +90,10 @@
             ]
           }
         },
+      mounted(){
+          let that = this;
+
+      },
       methods:{
         sendParams (index) {
           const that = this;

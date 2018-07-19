@@ -55,7 +55,7 @@
             }
           }.bind(this))
             .catch(function(err){
-              this.$layer.msg(err)
+              this.$layer.msg("系统异常，请稍后再试");
             }.bind(this));
         },
         methods:{

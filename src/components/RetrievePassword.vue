@@ -191,7 +191,7 @@
 
 				this.$http({
 						method: "post",
-						url: "/users/password_forget2",
+						url: "/users/find-password",
 						data: {
 							phone: this.mobile,
 							verify_code: this.verif,
@@ -303,7 +303,7 @@
 				if(that.time == "") {
 					this.$http({
 							method: 'post',
-							url: '/users/password_forget1',
+							url: '/users/forget-password/send-sms-code',
 							data: {
 								phone: this.mobile
 							}

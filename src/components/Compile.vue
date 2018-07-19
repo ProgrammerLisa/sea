@@ -12,8 +12,8 @@
 				头像
 			</div>
 			<div class="media-right" data-toggle="modal" data-target="#ImgModal">
-				<img class="media-object headImg" :src="`${headImg+'?'+now}`" />
-
+        <img  class="media-object headImg" :src="`${headImg+'?'+now}`" v-if="haveHeadImg"/>
+        <img class="media-object headImg" :src="headImg" v-else/>
 			</div>
 		</div>
 		<div class="media" data-toggle="modal" data-target="#NickModal">
@@ -77,7 +77,7 @@
 </template>
 
 <script>
-	import headImg from '@/assets/images/profile.png'
+	import headImg from '@/assets/images/chushi.png'
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
 
@@ -95,7 +95,8 @@
 				nickname: '',
 				IDcode: '',
 				chooseFile: '',
-				houzhuiming: ''
+				houzhuiming: '',
+        haveHeadImg:''
 			}
 		},
 		inject: ['reload'],
@@ -112,24 +113,25 @@
 				}).then(function(res) {
 					if(res.data.code == 0) {
 						this.IDcode = res.data.data.phone;
-						this.headImg = res.data.data.avatar;
-            var nikename = res.data.data.nickname;
-            var headimg = res.data.data.avatar;
-            if(nikename==""){
+            if(res.data.data.nickname==""){
               this.nickname = localStorage.getItem("uid");
             }else {
-              this.nickname =nikename;
+              this.nickname =res.data.data.nickname;
             }
-            if(headimg==""){
-              this.headPortrait = headImg;
+            if(res.data.data.avatar==""){
+              this.headImg = headImg;
+              this.haveHeadImg=false
             }else {
-              this.headPortrait = res.data.data.avatar;
+              this.headImg = res.data.data.avatar;
+              this.haveHeadImg=true
             }
 					} else {
+            this.haveHeadImg=false
 						this.$layer.msg(res.data.msg);
 					}
 				}.bind(this))
 				.catch(function(err) {
+          this.haveHeadImg=false
 					console.log(err)
 				}.bind(this))
 
@@ -203,7 +205,7 @@
 							}
 						}.bind(this))
 						.catch(function(err) {
-							console.log(err)
+              this.$layer.msg("系统异常，请稍后再试");
 						}.bind(this))
 				}
 
@@ -219,8 +221,6 @@
 		color: #666;
 		background-color: #f5f5f5;
     width: 100vw;
-    position: fixed;
-    top: 0;
 	}
 
 	.panel {

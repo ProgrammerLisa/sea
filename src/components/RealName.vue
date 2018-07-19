@@ -2,7 +2,7 @@
 	<div class="content">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
+				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"><img :src="masrc"/></span>
 				<span style="margin-left: -32px; position: absolute; left: 50%; font-size: 1.6rem;">实名信息</span>
 			</div>
 		</div>
@@ -97,7 +97,7 @@
 					}
 				}.bind(this))
 				.catch(function(err) {
-					console.log(err)
+					this.$layer.msg("系统异常，请稍后再试");
 				}.bind(this));
 
 		},
@@ -145,7 +145,7 @@
 							}
 						}.bind(this))
 						.catch(function(err) {
-							console.log(err)
+							this.$layer.msg("系统异常，请稍后再试");
 						}.bind(this));
 
 				}
@@ -161,20 +161,20 @@
 		color: #666;
 		padding-bottom: 6rem;
 		background-color: #f5f5f5;
-    width: 100vw;
-    position: fixed;
-    top: 0;
+		width: 100vw;
+		position: fixed;
+		top: 0;
 	}
-
+	
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-
+	
 	.panel-body {
 		padding: 0 10px;
 	}
-
+	
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -185,67 +185,68 @@
 		line-height: 4.1rem;
 		border-bottom: 1px solid #f5f5f5;
 	}
-
+	
 	.back {
 		float: left;
 	}
+	
 	.back img {
 		height: 2.5rem;
 		font-size: 2.5rem;
 	}
-
+	
 	.table {
 		background: #fff;
 	}
-
+	
 	.table tr {
 		border-bottom: 0.1rem solid #f5f5f5;
 	}
-
+	
 	.table td {
 		padding: 1.5rem 1rem;
 	}
-
+	
 	.text-left {
 		color: #555;
 	}
-
+	
 	.form-group {
 		padding: 0.8rem 1rem;
 		border-bottom: 0.1rem solid #eee;
 		background: #fff;
 		margin-bottom: 0;
 	}
-
+	
 	.form-control {
 		outline: none;
 		border: none;
 		box-shadow: none;
 	}
-
+	
 	input {
 		background: #fff;
 	}
-
+	
 	.control-label {
 		font-size: 1.5rem;
 		color: #555;
 		top: 5.5px;
 	}
-
+	
 	.prompt {
 		font-size: smaller;
 		color: #09a2d6;
 		padding: 1rem;
 		background: #fff;
 	}
-
+	
 	.changePsw {
 		background: #f5f5f5;
 		border: none;
 		text-align: center;
 	}
-
+	
 	.submitBtn {
 		background: #09a2d6;
 		color: #fff;
@@ -254,18 +255,22 @@
 		margin-top: 2.5rem;
 		border-radius: 0;
 	}
-
+	
 	.submitBtn:active {
 		background: #009ACD;
 	}
-
+	
+	.submitBtn:focus{
+		outline: 0;
+	}
+	
 	.addressNone {
 		text-align: center;
 		padding: 5vh;
 		color: #999;
 		background-color: #FFFFFF;
 	}
-
+	
 	.addressNone img {
 		width: 40%;
 		margin-bottom: 1rem;

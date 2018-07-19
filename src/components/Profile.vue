@@ -132,7 +132,7 @@
           }
         }.bind(this))
           .catch(function(err){
-            this.$layer.msg(err)
+            this.$layer.msg("系统异常，请稍后再试");
           }.bind(this));
 
         //消息
@@ -140,7 +140,9 @@
           method: "post",
           url: "/messages/box",
           headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
-          data: {}
+          data: {
+            "page":1
+          }
         }).then(function(res){
           if(res.data.code==0) {
             if(res.data.count>0){
@@ -153,7 +155,7 @@
           }
         }.bind(this))
           .catch(function(err){
-            this.$layer.msg(err)
+            this.$layer.msg("系统异常，请稍后再试");
           }.bind(this));
 
         //邀请人id
@@ -174,7 +176,7 @@
           }
         }.bind(this))
           .catch(function(err){
-            this.$layer.msg(err)
+            this.$layer.msg("系统异常，请稍后再试");
           }.bind(this));
 
       },

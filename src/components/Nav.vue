@@ -35,7 +35,7 @@
       return{
         uid:'',
         navItem:[
-          {navSrc:'/home',title:'首页',imgSrc1:home,imgSrc2:home1,titleStyle:'',newsCount:false},
+          {navSrc:'/Home',title:'首页',imgSrc1:home,imgSrc2:home1,titleStyle:'',newsCount:false},
           {navSrc:'/find',title:'发现',imgSrc1:discovery,imgSrc2:discovery1,titleStyle:'',newsCount:false},
           {navSrc:'/shopping',title:'商城',imgSrc1:store,imgSrc2:store1,titleStyle:'',newsCount:false},
           {navSrc:'/personal',title:'我的',imgSrc1:mine,imgSrc2:mine1,titleStyle:'',newsCount:false}
@@ -54,12 +54,15 @@
           if(c.navSrc==that.$route.path){
             c.imgSrc1 = c.imgSrc2;
             c.titleStyle='color:#09a2d6'
-          }else if(that.$route.path=='/'){
-            that.navItem[0].imgSrc1=that.navItem[0].imgSrc2;
-            that.navItem[0].titleStyle='color:#09a2d6';
           }
         });
-
+       if(that.$route.path=='/'){
+          that.navItem[0].imgSrc1=that.navItem[0].imgSrc2;
+          that.navItem[0].titleStyle='color:#09a2d6';
+        }else if(that.$route.path=='/shopping'){
+          that.config();
+          $(".vl-notify-mask").css({zIndex:"999"})
+        }
       //判断手机类型
       let ua = navigator.userAgent.toLowerCase();
       //android终端
@@ -90,14 +93,16 @@
         }
       }.bind(this))
         .catch(function(err){
-          console.log(err)
+          this.$layer.msg("系统异常，请稍后再试");
         }.bind(this))
 
       this.$http({
         method: "post",
         url: "/messages/box",
         headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
-        data: {}
+        data: {
+          "page":1
+        }
       }).then(function(res){
         if(res.data.code==0) {
           if(res.data.count>0){
@@ -110,20 +115,81 @@
         }
       }.bind(this))
         .catch(function(err){
-          this.$layer.msg(err)
+          this.$layer.msg("系统异常，请稍后再试");
         }.bind(this));
 
     },
     methods:{
       nav(index){
         const that = this;
+        if(index===2){
+          this.config();
+          $(".vl-notify-mask").css({zIndex:"999"})
+        }
         for(var i=0;i<that.navItem.length;i++){
           that.navItem[i].imgSrc1 = that.imgSrcArr[i];
           that.navItem[i].titleStyle='';
           that.$router.replace(that.navItem[index].navSrc);
         }
+
         that.navItem[index].imgSrc1 = that.navItem[index].imgSrc2;
         that.navItem[index].titleStyle='color:#09a2d6'
+      },
+      config(){
+        const that = this;
+        this.$layer.alert("商场即将上线", {
+          type: 0, //0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+          title: '温馨提示',
+          content: '',
+          area: 'auto',
+          offset: 'auto',
+          icon: -1,
+          btn: '确定',
+          time: 0,
+          shade: true,
+          yes: '',
+          cancel: '',
+          tips: [3,'#c00'],//支持上右下左四个方向，通过1-4进行方向设定,可以设定tips: [1, '#c00']
+          tipsMore: false,//是否允许多个tips
+          shadeClose: false,
+        },function () {
+          $(".vl-notify-mask").remove();
+          $(".vl-notify").remove();
+          that.navItem[2].imgSrc1 = that.imgSrcArr[2];
+          that.navItem[2].titleStyle='';
+          that.navItem[0].imgSrc1 = that.navItem[0].imgSrc2;
+          that.navItem[0].titleStyle='color:#09a2d6'
+          that.$router.replace('/Home')
+        })
+
+        $(".vl-notice-title").css({
+          display: "none"
+        });
+        $(".vl-notify-btns").css({
+          textAlign: "center",
+          borderTop:"1px solid #ddd",
+          padding:"0"
+        });
+        $(".vl-notify-content").css({
+          textAlign: "center"
+        });
+        $(".notify-btn").css({
+          borderRadius: "0",
+          width:"49%",
+          margin:"0",
+          border:"none",
+          background:"#fff",
+          color:"#555"
+        });
+        $(".notify-btn-default").css({
+          borderLeft:"1px solid #ddd"
+        });
+        $(".vl-notify").css({
+          paddingBottom:"0"
+        });
+        $(".vl-notify-mask").css({
+          background:"#111"
+        });
       }
     }
   }

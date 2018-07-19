@@ -5,7 +5,7 @@
           <div class="panel panel-default BlackTitle">
             <div class="panel-body">
               <span @click="goBack" @touchstart="evers" @touchend="lat" class="back"><img :src="masrc"/></span>
-              收支记录
+              <span style="margin-left: -32px; position: absolute; left: 50%; font-size: 1.6rem;">收支记录</span>
             </div>
           </div>
           <div class="media" v-for="s in Statement">

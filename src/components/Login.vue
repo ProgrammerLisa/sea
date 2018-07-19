@@ -81,7 +81,6 @@
 </template>
 
 <script>
-
 	import { XInput, Group, XButton } from 'vux'
 	import eye from '@/assets/images/eye.png'
 	import eyeclick from '@/assets/images/eyeclick.png'
@@ -297,8 +296,8 @@
 				event.preventDefault();
 				const that = this;
 				var Verificationtimen = Verificationtimen;
-				that.time = that.readCookie(Verificationtimen);
-				if(that.time == "") {
+				that.time = localStorage.getItem(Verificationtimen);
+				if(that.time == "" || that.time == null || that.time == undefined) {
 					this.$http({
 							method: 'post',
 							url: '/auth/login/send-sms-code',
@@ -315,7 +314,7 @@
 								this.$layer.msg(res.data.msg);
 								var TimeReduction1 = setInterval(function() {
 									if(that.time > 0) {
-										that.writeCookie(Verificationtimen, that.time);
+										localStorage.setItem(Verificationtimen, that.time);
 										that.time--;
 										that.btntxt = that.time + "s";
 										that.disabled = true;
@@ -323,7 +322,7 @@
 										that.time = 0;
 										that.btntxt = "获取验证码";
 										that.disabled = false;
-										that.delCookie(Verificationtimen);
+										localStorage.removeItem(Verificationtimen);
 										clearInterval(TimeReduction1);
 									}
 								}, 1000)
@@ -378,36 +377,6 @@
 				} else {
 					this.$layer.msg('手机号码格式错误');
 				}
-			},
-			writeCookie(name, value, hours) {
-				var expire = "";
-				hours = hours || 100;
-				if(hours != null) {
-					expire = new Date((new Date()).getTime() + hours * 1000);
-					expire = "; expires=" + expire.toGMTString();
-				}
-				document.cookie = name + "=" + escape(value) + expire;
-			},
-			readCookie(name) {
-				var cookieValue = "";
-				var search = name + "=";
-				if(document.cookie.length > 0) {
-					var offset = document.cookie.indexOf(search);
-					if(offset != -1) {
-						offset += search.length;
-						var end = document.cookie.indexOf(";", offset);
-						if(end == -1) end = document.cookie.length;
-						cookieValue = unescape(document.cookie.substring(offset, end))
-					}
-				}
-				return cookieValue;
-			},
-			delCookie(name) {
-				var exp = new Date();
-				exp.setTime(exp.getTime() - 1);
-				var cval = this.readCookie(name);
-				if(cval != null)
-					document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 			}
 		}
 	}
@@ -478,7 +447,7 @@
 		margin-bottom: 1px;
 		width: 25%;
 		min-width: 100px;
-		height: 40px;    
+		height: 40px;
 		float: right;
 		background-color: #F8F8F8;
 		color: #646464;

@@ -193,9 +193,15 @@
     color: #09a2d6;
     padding: 0.5rem;
   }
+  .enchangeBtn:focus{
+  	outline: 0;
+  }
   .enchangeBtnEnd{
     float: right;
     border-radius: 0;
     background: #f5f5f5;
+  }
+  .enchangeBtnEnd:focus{
+  	outline: 0;
   }
 </style>

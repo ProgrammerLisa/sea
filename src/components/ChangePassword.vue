@@ -2,7 +2,7 @@
 	<div class="content">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
+				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"><img :src="masrc"/></span>
 				<span style="margin-left: -36px; position: absolute; left: 50%; font-size: 1.8rem;">重置密码</span>
 			</div>
 		</div>
@@ -48,7 +48,7 @@
 
 	export default {
 		name: "ChangePassword",
-		data(){
+		data() {
 			return {
 				masrc: back
 			}
@@ -89,7 +89,7 @@
 				} else {
 					this.$http({
 							method: 'post',
-							url: '/users/password_reset',
+							url: '/users/reset-password',
 							headers: {
 								"device": "android",
 								"uid": localStorage.getItem("uid")
@@ -109,7 +109,7 @@
 
 						}.bind(this))
 						.catch(function(err) {
-							console.log(err)
+							this.$layer.msg("系统异常，请稍后再试");
 						}.bind(this))
 				}
 			},
@@ -125,32 +125,32 @@
 		-webkit-box-shadow: 0 0 0px 1000px #fff inset;
 	}
 	/*焦点时也加上，不加会出现黄色背景闪动一下*/
-
+	
 	input[type=text]:focus,
 	input[type=password]:focus,
 	textarea:focus {
 		-webkit-box-shadow: 0 0 0 1000px white inset;
 	}
-
+	
 	.content {
 		overflow-x: hidden;
 		color: #666;
 		padding-bottom: 6rem;
 		background-color: #f5f5f5;
-    width: 100vw;
-    position: fixed;
-    top: 0;
+		width: 100vw;
+		position: fixed;
+		top: 0;
 	}
-
+	
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-
+	
 	.panel-body {
 		padding: 0 10px;
 	}
-
+	
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -160,52 +160,52 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-
+	
 	.back {
 		float: left;
 	}
-
+	
 	.back img {
 		height: 2.5rem;
 		font-size: 2.5rem;
 	}
-
+	
 	.form-group {
 		padding: 0.8rem 1rem;
 		border-bottom: 0.1rem solid #eee;
 		background: #fff;
 		margin-bottom: 0;
 	}
-
+	
 	.form-control {
 		outline: none;
 		border: none;
 		box-shadow: none;
 	}
-
+	
 	input {
 		background: #fff;
 	}
-
+	
 	.control-label {
 		font-size: 1.5rem;
 		top: 5.5px;
 		color: #555;
 	}
-
+	
 	.prompt {
 		font-size: smaller;
 		color: #09a2d6;
 		padding: 1rem;
 		background: #fff;
 	}
-
+	
 	.changePsw {
 		background: #f5f5f5;
 		border: none;
 		text-align: center;
 	}
-
+	
 	.submitBtn {
 		background: #09a2d6;
 		color: #fff;
@@ -213,5 +213,11 @@
 		font-size: large;
 		margin-top: 2.5rem;
 		border-radius: 0;
+	}
+	.submitBtn:active{
+		background: #009ACD;
+	}
+	.submitBtn:focus{
+		outline: 0;
 	}
 </style>

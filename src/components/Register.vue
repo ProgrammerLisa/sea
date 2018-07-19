@@ -111,26 +111,6 @@
 			this.$nextTick(() => {
 
 			})
-			var Verificationtimen = Verificationtimen;
-			that.time = localStorage.getItem(Verificationtimen);
-			if(that.time != "") {
-				var TimeReduction2 = setInterval(function() {
-					if(that.time > 0) {
-						localStorage.setItem(Verificationtimen, that.time);
-						that.time--;
-						that.btntxts = that.time + "s";
-						that.disabled = true;
-					} else {
-						that.time = 0;
-						that.btntxts = "获取验证码";
-						that.disabled = false;
-						localStorage.removeItem(Verificationtimen);
-						clearInterval(TimeReduction2);
-					}
-				}, 1000)
-			} else {
-				that.btntxts = "获取验证码";
-			}
 		},
 		//		created:function(){
 		//			if(sessionStorage.index2){
@@ -232,6 +212,9 @@
 			},
 			userTrue() {
 				//注册
+				sessionStorage.setItem("phone", this.phone);
+				sessionStorage.setItem("password", this.password);
+				sessionStorage.setItem("verify_code", this.verify_code);
 				this.$http({
 						method: "post",
 						url: "/users/register/verify-sms-code",
@@ -247,33 +230,18 @@
 						}
 					}).then(function(res) {
 						if(res.data.code == 0) {
-							this.$http({
-									method: "post",
-									url: "/users/register",
-									headers: {
-										"device": "android",
-										"Access-Control-Allow-Origin": "*"
-									},
-									data: {
-										phone: this.phone,
-										password: this.password,
-										invite_code: "10000", //邀请人ID 测试阶段 暂时不传
-										verify_code: this.verify_code
-									}
-								}).then(function(res) {
-									if(res.data.code == 0) {
-										this.$layer.msg('注册成功');
-										this.$router.replace('/ask');
-									} else {
-										this.$layer.msg(res.data.msg);
-									}
-								}.bind(this))
-								.catch(function(err) {
-									console.log(err)
-								}.bind(this))
+							//this.$layer.msg('注册成功');
+							this.$router.replace('/AskCode');
 						} else {
 							this.$layer.msg(res.data.msg);
 						}
+						//								}.bind(this))
+						//								.catch(function(err) {
+						//									console.log(err)
+						//								}.bind(this))
+						//						} else {
+						//							this.$layer.msg(res.data.msg);
+						//						}
 					}.bind(this))
 					.catch(function(err) {
 						console.log(err);
@@ -334,6 +302,7 @@
 				const that = this;
 				var Verificationtimen = Verificationtimen;
 				that.time = that.readCookie(Verificationtimen);
+//				that.time = localStorage.getItem(Verificationtimen);
 				if(that.time == "") {
 					this.$http({
 							method: 'post',
@@ -348,10 +317,9 @@
 						}).then(function(res) {
 							if(res.data.code == 0) {
 								this.$layer.msg(res.data.msg);
-
 								var TimeReduction1 = setInterval(function() {
 									if(that.time > 0) {
-										that.writeCookie(Verificationtimen, that.time);
+										localStorage.setItem(Verificationtimen, that.time);
 										that.time--;
 										that.btntxts = that.time + "s";
 										that.disabled = true;
@@ -404,6 +372,7 @@
 				if(cval != null)
 					document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 			}
+
 		}
 	}
 

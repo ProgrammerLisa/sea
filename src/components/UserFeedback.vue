@@ -114,4 +114,10 @@
 		font-size: large;
 		margin-top: 4rem;
 	}
+	.submitBtn:active{
+		background: #009ACD;
+	}
+	.submitBtn:focus{
+		outline: 0;
+	}
 </style>

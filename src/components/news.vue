@@ -71,7 +71,9 @@
 						"uid": localStorage.getItem("uid"),
 						"Access-Control-Allow-Origin": "*"
 					},
-					data: {}
+					data: {
+						"page": 1
+					}
 				}).then(function(res) {
 					if(res.data.code == 0) {
 						if(JSON.stringify(res.data.data) == "{}") {
@@ -105,7 +107,7 @@
 				}.bind(this))
 				.catch(function(err) {
 					this.newsNone = true;
-					this.$layer.msg(err)
+					this.$layer.msg("系统异常，请稍后再试");
 				}.bind(this));
 		},
 		methods: {
@@ -179,7 +181,7 @@
 						}
 					}.bind(this))
 					.catch(function(err) {
-						this.$layer.msg(err)
+						this.$layer.msg("系统异常，请稍后再试");
 					}.bind(this));
 			},
 			touchEnd(ev) {

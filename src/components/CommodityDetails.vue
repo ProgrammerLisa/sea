@@ -2,7 +2,8 @@
 	<div class="content">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"> <img :src="masrc"/></span> 商城
+				<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"> <img :src="masrc"/></span>
+				<span style="margin-left: -24px; position: absolute; left: 51%; font-size: 1.6rem;">商 城</span>
 			</div>
 		</div>
 		<div class="commodityImg">
@@ -223,5 +224,11 @@
 		border-radius: 0;
 		color: #fff;
 		width: 75%;
+	}
+	.exchangeBtn:active{
+		background: #009ACD;
+	}
+	.exchangeBtn:focus{
+		outline: 0;
 	}
 </style>

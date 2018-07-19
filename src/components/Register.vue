@@ -232,9 +232,6 @@
 			},
 			userTrue() {
 				//注册
-				sessionStorage.setItem("phone", this.phone);
-				sessionStorage.setItem("password", this.password);
-				sessionStorage.setItem("verify_code", this.verify_code);
 				this.$http({
 						method: "post",
 						url: "/users/register/verify-sms-code",
@@ -250,18 +247,56 @@
 						}
 					}).then(function(res) {
 						if(res.data.code == 0) {
-							//this.$layer.msg('注册成功');
-							this.$router.replace('/AskCode');
+							this.$http({
+									method: "post",
+									url: "/users/register",
+									headers: {
+										"device": "android",
+										"Access-Control-Allow-Origin": "*"
+									},
+									data: {
+										phone: this.phone,
+										password: this.password,
+										invite_code: "10000", //邀请人ID 测试阶段 暂时不传
+										verify_code: this.verify_code
+									}
+								}).then(function(res) {
+									if(res.data.code == 0) {
+										this.$layer.msg('注册成功，正在登录...');
+                    this.$http({
+                      method: 'post',
+                      url: '/auth/login',
+                      headers: {
+                        "device": "android"
+                      },
+                      data: {
+
+                        phone: this.phone,
+                        password: this.password
+                      }
+                    }).then(function(res) {
+                      console.log(res.data)
+                      if(res.data.code == 0) {
+                        this.$layer.msg('登录成功');
+                        localStorage.setItem('uid', res.data.data.uid);
+                        this.$router.replace('/home');
+                      } else {
+                        this.$layer.msg(res.data.msg);
+                      }
+                    }.bind(this))
+                      .catch(function(err) {
+                        console.log(err)
+                      }.bind(this))
+									} else {
+										this.$layer.msg(res.data.msg);
+									}
+								}.bind(this))
+								.catch(function(err) {
+									console.log(err)
+								}.bind(this))
 						} else {
 							this.$layer.msg(res.data.msg);
 						}
-						//								}.bind(this))
-						//								.catch(function(err) {
-						//									console.log(err)
-						//								}.bind(this))
-						//						} else {
-						//							this.$layer.msg(res.data.msg);
-						//						}
 					}.bind(this))
 					.catch(function(err) {
 						console.log(err);
@@ -321,7 +356,7 @@
 				event.preventDefault();
 				const that = this;
 				var Verificationtimen = Verificationtimen;
-				that.time = that.readCookie(Verificationtimen);
+				that.time =  localStorage.getItem(Verificationtimen);
 				if(that.time == "") {
 					this.$http({
 							method: 'post',
@@ -339,7 +374,7 @@
 
 								var TimeReduction1 = setInterval(function() {
 									if(that.time > 0) {
-										that.writeCookie(Verificationtimen, that.time);
+                    localStorage.setItem(Verificationtimen, that.time);
 										that.time--;
 										that.btntxts = that.time + "s";
 										that.disabled = true;
@@ -347,7 +382,7 @@
 										that.time = 0;
 										that.btntxts = "获取验证码";
 										that.disabled = false;
-										that.delCookie(Verificationtimen);
+                    localStorage.removeItem(Verificationtimen);
 										clearInterval(TimeReduction1);
 									}
 								}, 1000)
@@ -361,36 +396,6 @@
 					that.time = 60
 
 				}
-			},
-			writeCookie(name, value, hours) {
-				var expire = "";
-				hours = hours || 100;
-				if(hours != null) {
-					expire = new Date((new Date()).getTime() + hours * 1000);
-					expire = "; expires=" + expire.toGMTString();
-				}
-				document.cookie = name + "=" + escape(value) + expire;
-			},
-			readCookie(name) {
-				var cookieValue = "";
-				var search = name + "=";
-				if(document.cookie.length > 0) {
-					var offset = document.cookie.indexOf(search);
-					if(offset != -1) {
-						offset += search.length;
-						var end = document.cookie.indexOf(";", offset);
-						if(end == -1) end = document.cookie.length;
-						cookieValue = unescape(document.cookie.substring(offset, end))
-					}
-				}
-				return cookieValue;
-			},
-			delCookie(name) {
-				var exp = new Date();
-				exp.setTime(exp.getTime() - 1);
-				var cval = this.readCookie(name);
-				if(cval != null)
-					document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 			}
 
 		}
@@ -408,23 +413,23 @@
 		-webkit-box-shadow: 0 0 0px 1000px #fff inset;
 	}
 	/*焦点时也加上，不加会出现黄色背景闪动一下*/
-	
+
 	input[type=text]:focus,
 	input[type=password]:focus,
 	textarea:focus {
 		-webkit-box-shadow: 0 0 0 1000px white inset;
 	}
-	
+
 	#register {
 		height: 100vh;
 		width: 100vw;
 		background-color: white;
 	}
-	
+
 	span {
 		font-size: 10px;
 	}
-	
+
 	#group_input_imgs {
 		position: relative;
 		width: 54px;
@@ -432,18 +437,18 @@
 		margin-top: -50px;
 		/*margin-left: 75%;*/
 	}
-	
+
 	#group_input_img {
 		position: relative;
 		margin-top: -50px;
 		width: 54px;
 		float: right;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -454,11 +459,11 @@
 		line-height: 4.1rem;
 		border: 0;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
@@ -466,19 +471,19 @@
 		margin-top: 65%;
 		font-size: 1rem;
 	}*/
-	
+
 	i.weui-icon.weui_icon_clear.weui-icon-clear {
 		display: none;
 	}
-	
+
 	a {
 		color: #09a2d6;
 	}
-	
+
 	body {
 		background-color: white;
 	}
-	
+
 	#phone {
 		border-top: 0;
 		border-left: 0;
@@ -491,7 +496,7 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-	
+
 	#verification {
 		border-top: 0;
 		border-left: 0;
@@ -506,7 +511,7 @@
 		/*margin-left: 4.5px;
 		padding-left: 1.175rem;*/
 	}
-	
+
 	#verbtn {
 		position: relative;
 		margin-top: -47px;
@@ -521,7 +526,7 @@
 		border-radius: 0;
 		border: none;
 	}
-	
+
 	#passwordcheckModel_image {
 		background-image: url(../assets/images/eyeclick.png);
 		background-position: right;
@@ -531,22 +536,22 @@
 		border-bottom: 1px solid #F5F5F5;
 		margin-top: 1.25rem;
 	}
-	
+
 	#pwsbtn {
 		margin-top: -11px;
 		width: 100%;
 		background-color: #09A2D6;
 		border-radius: 0;
 	}
-	
+
 	#pwsbtn:active {
 		background-color: #09A2D6;
 	}
-	
+
 	#pwsbtn:disabled {
 		background: #C0C0C0;
 	}
-	
+
 	#btns {
 		border-top: 0;
 		border-left: 0;
@@ -560,7 +565,7 @@
 		letter-spacing: 0.05rem;
 		/*padding-left: 1.2rem;*/
 	}
-	
+
 	#btn {
 		border-top: 0;
 		border-left: 0;
@@ -574,20 +579,20 @@
 		letter-spacing: 0.05rem;
 		/*padding-left: 1.2rem;*/
 	}
-	
+
 	body>.el-container {
 		margin-bottom: 40px;
 	}
-	
+
 	.weui-cells {
 		border: 0px;
 	}
-	
+
 	.weui-btn:after {
 		border-radius: 0px;
 		border: none;
 	}
-	
+
 	button#pwsbtn.weui-btn.weui-btn_primary {
 		width: 100%;
 		margin-top: 20px;

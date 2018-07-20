@@ -54,8 +54,8 @@
 		},
 		mounted() {
 			this.$http({
-					method: "get",
-					url: "/users/friends/index",
+					method: "post",
+					url: "/users/following",
 					headers: {
 						"device": "android",
 						"uid": localStorage.getItem("uid"),
@@ -65,7 +65,9 @@
 				}).then(function(res) {
 					if(res.data.code != 0) {
 						this.$layer.msg(res.data.msg);
-					}
+					}else {
+					  console.log(res.data.data)
+          }
 				}.bind(this))
 				.catch(function(err) {
           this.$layer.msg("系统异常，请稍后再试");

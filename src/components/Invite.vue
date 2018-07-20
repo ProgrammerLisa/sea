@@ -58,7 +58,7 @@
 					data: {}
 				}).then(function(res) {
 					if(res.data.code == 0) {
-						this.ask_invite = res.data.my_invite_code
+						this.ask_invite = res.data.data.my_invite_code
 					} else {
 						this.$layer.msg(res.data.msg);
 					}

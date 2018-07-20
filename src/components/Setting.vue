@@ -53,7 +53,7 @@
 				<td class="text-right">已是最新版本 <img :src="more" class="more" /></td>
 			</tr>
 		</table>
-		<div class="btn btn-default loginOut" @click="loginOut">
+		<div class= "loginOut" @click="loginOut">
 			退出登录
 		</div>
 	</div>

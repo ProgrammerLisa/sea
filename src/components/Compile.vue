@@ -41,9 +41,9 @@
                 <span>从相册选择</span>
 						<input type="file" accept="image/*" id="fileBtn" @change="chooseImg('#fileBtn')">
 						</span>
-						<span class="headImgChoose fileinput-button">
-                <span>拍照上传</span>
-						<input type="file" accept="image/*" capture="camera">
+						<!--<span class="headImgChoose fileinput-button">-->
+                <!--<span>拍照上传</span>-->
+						<!--<input type="file" accept="image/*" capture="camera">-->
 						</span>
 						<div class="headImgChoose closeBtn" data-dismiss="modal">取消</div>
 					</div>
@@ -308,7 +308,7 @@
 	}
 
 	#ImgModal .modal-content {
-		height: 21vh;
+		height: 15vh;
 	}
 
 	.headImgChoose {

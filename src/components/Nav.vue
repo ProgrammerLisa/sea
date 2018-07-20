@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-xs-3 parents" v-for="(item,index) in navItem">
             <div class="nav-item" @click="nav(index)">
-              <span v-show="item.newsCount" class="badge msg">·</span>
+              <!--<span v-show="item.newsCount" class="badge msg">·</span>-->
               <img :src="item.imgSrc1">
               <span class="navTitle" :style="item.titleStyle">{{item.title}}</span>
             </div>
@@ -37,7 +37,7 @@
         navItem:[
           {navSrc:'/Home',title:'首页',imgSrc1:home,imgSrc2:home1,titleStyle:'',newsCount:false},
           {navSrc:'/find',title:'发现',imgSrc1:discovery,imgSrc2:discovery1,titleStyle:'',newsCount:false},
-          {navSrc:'/shopping',title:'商城',imgSrc1:store,imgSrc2:store1,titleStyle:'',newsCount:false},
+          {navSrc:'/Home',title:'商城',imgSrc1:store,imgSrc2:store1,titleStyle:'',newsCount:false},
           {navSrc:'/personal',title:'我的',imgSrc1:mine,imgSrc2:mine1,titleStyle:'',newsCount:false}
         ],
         imgSrcArr:[
@@ -59,10 +59,16 @@
        if(that.$route.path=='/'){
           that.navItem[0].imgSrc1=that.navItem[0].imgSrc2;
           that.navItem[0].titleStyle='color:#09a2d6';
+         that.navItem[2].imgSrc1=store;
+         that.navItem[2].titleStyle='color:#777';
         }else if(that.$route.path=='/shopping'){
           that.config();
           $(".vl-notify-mask").css({zIndex:"999"})
-        }
+        }else if(that.$route.path=='/Home'){
+         that.navItem[2].imgSrc1=store;
+         that.navItem[2].titleStyle='color:#777';
+       }
+        console.log(that.$route.path)
       //判断手机类型
       let ua = navigator.userAgent.toLowerCase();
       //android终端

@@ -1,10 +1,9 @@
 <template>
 
-
 	<div class="content">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back">  <img :src="masrc"/></span> 编辑资料
+				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back">  <img :src="masrc"/></span> 编辑资料
 			</div>
 		</div>
 		<div class="media noTop">
@@ -12,11 +11,11 @@
 				头像
 			</div>
 			<div class="media-right" data-toggle="modal" data-target="#ImgModal">
-        <img  class="media-object headImg" :src="`${headImg+'?'+now}`" v-if="haveHeadImg"/>
-        <img class="media-object headImg" :src="headImg" v-else/>
+				<img class="media-object headImg" :src="`${headImg+'?'+now}`" v-if="haveHeadImg" />
+				<img class="media-object headImg" :src="headImg" v-else/>
 			</div>
 		</div>
-		<div class="media" data-toggle="modal" data-target="#NickModal">
+		<div class="media" data-toggle="modal" data-target="#NickModal" @click="Nick">
 			<div class="media-body nickNameLeft">
 				昵称
 			</div>
@@ -54,7 +53,7 @@
 		</div>
 
 		<!-- 修改昵称模态框（Modal） -->
-		<div class="modal fade" id="NickModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<!--<div class="modal fade" id="NickModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -69,10 +68,8 @@
 						<button type="button" class="btn btn-primary nickYes" @click="submit">确定</button>
 					</div>
 				</div>
-				<!-- /.modal-content -->
 			</div>
-			<!-- /.modal -->
-		</div>
+		</div>-->
 	</div>
 </template>
 
@@ -83,11 +80,11 @@
 
 	export default {
 		name: "Compile",
-    computed:{
-      now(){
-        return Date.now();
-      }
-    },
+		computed: {
+			now() {
+				return Date.now();
+			}
+		},
 		data() {
 			return {
 				masrc: back,
@@ -96,7 +93,7 @@
 				IDcode: '',
 				chooseFile: '',
 				houzhuiming: '',
-        haveHeadImg:''
+				haveHeadImg: ''
 			}
 		},
 		inject: ['reload'],
@@ -113,25 +110,25 @@
 				}).then(function(res) {
 					if(res.data.code == 0) {
 						this.IDcode = res.data.data.phone;
-            if(res.data.data.nickname==""){
-              this.nickname = localStorage.getItem("uid");
-            }else {
-              this.nickname =res.data.data.nickname;
-            }
-            if(res.data.data.avatar==""){
-              this.headImg = headImg;
-              this.haveHeadImg=false
-            }else {
-              this.headImg = res.data.data.avatar;
-              this.haveHeadImg=true
-            }
+						if(res.data.data.nickname == "") {
+							this.nickname = localStorage.getItem("uid");
+						} else {
+							this.nickname = res.data.data.nickname;
+						}
+						if(res.data.data.avatar == "") {
+							this.headImg = headImg;
+							this.haveHeadImg = false
+						} else {
+							this.headImg = res.data.data.avatar;
+							this.haveHeadImg = true
+						}
 					} else {
-            this.haveHeadImg=false
+						this.haveHeadImg = false
 						this.$layer.msg(res.data.msg);
 					}
 				}.bind(this))
 				.catch(function(err) {
-          this.haveHeadImg=false
+					this.haveHeadImg = false
 					console.log(err)
 				}.bind(this))
 
@@ -165,6 +162,9 @@
 					})
 				};
 
+			},
+			Nick(){
+				this.$router.replace('/ChangeNickname');
 			},
 			submit() {
 				$("#NickModal").show();
@@ -205,7 +205,7 @@
 							}
 						}.bind(this))
 						.catch(function(err) {
-              this.$layer.msg("系统异常，请稍后再试");
+							this.$layer.msg("系统异常，请稍后再试");
 						}.bind(this))
 				}
 
@@ -220,18 +220,18 @@
 		overflow-x: hidden;
 		color: #666;
 		background-color: #f5f5f5;
-    width: 100vw;
+		width: 100vw;
 	}
-
+	
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-
+	
 	.panel-body {
 		padding: 0 1rem;
 	}
-
+	
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -241,76 +241,80 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-
-	.back{
-    position: absolute;
-    left: 1rem;
-  }
-  .back img {
-    height: 2.5rem;
-  }
-
-  .back span {
-    height: 2.5rem;
-    font-size: 2.5rem;
-    color: #DBDBDB;
-  }
-  .back span:active{
-    color: black;
-  }
+	
+	.back {
+		position: absolute;
+		left: 1rem;
+	}
+	
+	.back img {
+		height: 2.5rem;
+	}
+	
+	.back span {
+		height: 2.5rem;
+		font-size: 2.5rem;
+		color: #DBDBDB;
+	}
+	
+	.back span:active {
+		color: black;
+	}
+	
 	.media {
 		background: #fff;
 		padding: 1rem;
 		border-bottom: 0.1rem solid #f5f5f5;
 	}
-
+	
 	.noTop {
 		margin-top: 0;
 	}
-
+	
 	.media-body {
 		vertical-align: middle;
 	}
-
+	
 	.headImg {
 		width: 4rem;
 		height: 4rem;
 		border-radius: 50%;
 	}
-
+	
 	.media-right {
 		color: #888;
 		font-size: small;
 	}
-
+	
 	.more {
 		margin-left: 0.5rem;
 	}
+	
 	.modal-content {
 		margin: 0 2rem;
 		border-radius: 0;
 		border: none;
 		text-align: center;
 	}
-
+	
 	.modal-dialog {
 		margin: 35vh auto;
 	}
-
+	
 	.modal-header {
 		padding: 1rem;
 		border-bottom: none;
 		color: #444;
 	}
-
+	
 	.modal-body {
 		padding: 0;
 	}
-
+	
 	#ImgModal .modal-content {
 		height: 21vh;
 	}
-
+	
 	.headImgChoose {
 		position: relative;
 		display: inline-block;
@@ -327,7 +331,7 @@
 		border-radius: 0;
 		outline: none;
 	}
-
+	
 	.headImgChoose input {
 		position: absolute;
 		right: 0;
@@ -336,18 +340,18 @@
 		-ms-filter: 'alpha(opacity=0)';
 		font-size: 100%;
 	}
-
+	
 	#form_control {
 		width: 80%;
 		margin: 0 10%;
 		outline: none;
 		box-shadow: none;
 	}
-
+	
 	.closeBtn {
 		border-bottom: none;
 	}
-
+	
 	.nickInput {
 		border: none;
 		border-radius: 0;
@@ -355,7 +359,7 @@
 		border-bottom: 0.1rem solid #f1f1f1;
 		padding: 1.5rem 1rem;
 	}
-
+	
 	.nickText {
 		margin-bottom: 0;
 		text-align: left;
@@ -363,29 +367,29 @@
 		color: #FF2424;
 		font-size: smaller;
 	}
-
+	
 	#NickModal .modal-footer {
 		border-top: none;
 	}
-
+	
 	.nickNo,
 	.nickYes {
 		border-radius: 0;
 		padding: 0.4rem 1.5rem;
 	}
-
+	
 	.nickNo {
 		margin-right: 1rem;
 		background: #f1f1f1;
 	}
-
+	
 	.nickYes {
 		background: #09a2d6;
 		border-color: #2aabd2;
 	}
-
-  .nickNameRight {
-    width: 80%;
-    text-align: right;
-  }
+	
+	.nickNameRight {
+		width: 80%;
+		text-align: right;
+	}
 </style>

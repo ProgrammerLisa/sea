@@ -208,7 +208,7 @@
 	.nickYes {
 		border-radius: 0;
 		position: relative;
-		margin-top: -175%;
+		margin-top: -178%;
 		font-size: 1.6rem;
 		font-family:"Microsoft YaHei" ;
 		border: 0;
@@ -216,6 +216,7 @@
 		color: #09A2D6;
 		background: none;
 		display: block;
+		vertical-align: middle;
 	}
 	
 	.nickYes:active{

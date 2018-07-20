@@ -32,7 +32,7 @@
 	import backs from '@/assets/images/backs.png'
 
 	export default {
-		name: 'ask',
+		name: 'RegisterInviteCode',
 		components: {
 			XInput,
 			Group,
@@ -45,9 +45,16 @@
 				verif: '',
 				check: '',
 				demo1: false,
-				demo2: true
-			}
+				demo2: true,
+        phone:'',
+        password:'',
+      }
 		},
+    mounted(){
+      this.phone = this.$route.params.phone;
+      this.password = this.$route.params.password;
+      this.verify_code = this.$route.params.verify_code;
+    },
 		methods: {
 			evers() {
 				this.masrc = backs;
@@ -67,31 +74,53 @@
 					this.$layer.msg('请同意协议');
 					return;
 				} else {
-					//注册
-					this.$http({
-							method: "post",
-							url: "/users/register",
-							headers: {
-								"device": "android",
-								"Access-Control-Allow-Origin": "*"
-							},
-							data: {
-								phone: sessionStorage['phone'],
-								password: sessionStorage['password'],
-								verify_code: sessionStorage['verify_code'],
-								invite_code: this.verif
-							}
-						}).then(function(res) {
-							if(res.data.code == 0) {
+          this.$http({
+            method: "post",
+            url: "/users/register",
+            headers: {
+              "device": "android",
+              "Access-Control-Allow-Origin": "*"
+            },
+            data: {
+              phone: this.phone,
+              password: this.password,
+              verify_code: this.verify_code,
+              invite_code: this.verif
+            }
+          }).then(function(res) {
+            if(res.data.code == 0) {
+              this.$layer.msg('注册成功，正在登录...');
+              this.$http({
+                method: 'post',
+                url: '/auth/login',
+                headers: {
+                  "device": "android"
+                },
+                data: {
 
-								this.$router.replace('/Login');
-							} else {
-								this.$layer.msg(res.data.msg);
-							}
-						}.bind(this))
-						.catch(function(err) {
-							console.log(err)
-						}.bind(this))
+                  phone: this.phone,
+                  password: this.password
+                }
+              }).then(function(res) {
+                if(res.data.code == 0) {
+                  this.$layer.msg('登录成功');
+                  localStorage.setItem('uid', res.data.data.uid);
+                  this.$router.replace('/home');
+                } else {
+                  this.$layer.msg(res.data.msg);
+                }
+              }.bind(this))
+                .catch(function(err) {
+                  this.$layer.msg("系统异常，请稍后再试");
+                }.bind(this))
+            } else {
+              this.$layer.msg(res.data.msg);
+            }
+          }.bind(this))
+            .catch(function(err) {
+              console.log(err)
+            }.bind(this))
+
 				}
 			}
 		}

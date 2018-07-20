@@ -311,6 +311,10 @@
 		font-size: larger;
 		padding: 0.5rem;
 	}
+	
+	.keepSubmit:active{
+		background: #009ACD;
+	}
 
 	.modal-dialog {
 		margin: 0;

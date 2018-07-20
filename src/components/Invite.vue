@@ -165,7 +165,7 @@
 		 width: 100%;
 	}
   #finish:active{
-    background: #057EA5;
+    background: #009ACD;
   }
   .inviteCodeImg{
     text-align: center;

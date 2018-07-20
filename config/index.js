@@ -11,10 +11,10 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api':{
-        target:'http://47.104.161.100',//源地址
+        target:'http://xsea.pasontech.com',//源地址
         changeOrigin:true,//是否跨域
         pathRewrite:{
-          '^/api':'http://47.104.161.100'//路径重写
+          '^/api':'http://xsea.pasontech.com'//路径重写
         }
       }
     },

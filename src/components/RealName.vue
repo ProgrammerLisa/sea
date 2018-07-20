@@ -255,6 +255,10 @@
 		border-radius: 0;
 	}
 
+	.submitBtn:focus{
+		outline: 0;
+	}
+	
 	.submitBtn:active {
 		background: #009ACD;
 	}

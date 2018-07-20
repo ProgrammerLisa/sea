@@ -3,7 +3,7 @@
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
 				<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"> <img :src="masrc"/></span>
-				我的钱包
+				<span style="margin-left: -32px; position: absolute; left: 50%; font-size: 1.6rem;">我的钱包</span>
 			</div>
 		</div>
 		<table class="table" v-for="m in myWallet">

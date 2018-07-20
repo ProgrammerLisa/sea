@@ -141,6 +141,12 @@
     vertical-align: middle;
     margin-top: -1.5rem;
   }
+  .enchangeBtn:active{
+  	background: #009ACD;
+  }
+  .enchangeBtn:focus{
+  	outline: 0;
+  }
   .exchange{
     width: 100vw;
     height: 5rem;
@@ -158,5 +164,12 @@
   .noDisabled{
     background: #09a2d6;
     color: #fff;
+    display: inline-block;
+  }
+  .noDisabled:active{
+  	background: #009ACD;
+  }
+  .noDisabled:focus{
+  	outline: 0;
   }
 </style>

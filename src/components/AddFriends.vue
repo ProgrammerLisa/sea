@@ -2,7 +2,8 @@
 	<div class="content">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"><img :src="masrc"/></span> 添加好友
+				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"><img :src="masrc"/></span>
+				<span style="margin-left: -32px; position: absolute; left: 50%; font-size: 1.6rem;">添加朋友</span>
 			</div>
 		</div>
 		<div class="search">

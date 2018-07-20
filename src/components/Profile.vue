@@ -161,7 +161,7 @@
         //邀请人id
         this.$http({
           method: "post",
-          url: "/users/my-invite-code",
+          url: "/users/following",
           headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
           data: {}
         }).then(function(res){
@@ -170,7 +170,7 @@
         		this.$router.replace('/Login');
         	}
           if(res.data.code==0) {
-            this.Personal[1].myInvite = res.data.my_invite_code
+            this.Personal[1].myInvite = res.data.data.inviter_code
           }else {
             this.$layer.msg(res.data.msg);
           }

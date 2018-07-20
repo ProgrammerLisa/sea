@@ -15,7 +15,7 @@ import Personal from '@/components/Profile'
 import Register from '@/components/Register'
 import Retrieve from '@/components/RetrievePassword'
 import Ask from '@/components/Invite'
-import AskCode from '@/components/RegisterInviteCode'
+import RegisterInviteCode from '@/components/RegisterInviteCode'
 
 import ShareInvite from '@/components/ShareInvite'
 import GameRules from '@/components/GameRules'
@@ -273,10 +273,10 @@ export default new Router({
       meta:{index:3},
       component: PreOrder
     },{
-    	path:'/AskCode',
-    	name:'AskCode',
+    	path:'/RegisterInviteCode',
+    	name:'RegisterInviteCode',
     	meta:{index:3},
-    	component: AskCode
+    	component: RegisterInviteCode
     },{
       path:'/newsdetails',
       name:'NewsDetails',

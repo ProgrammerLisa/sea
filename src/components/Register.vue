@@ -231,6 +231,7 @@
 				}
 			},
 			userTrue() {
+			  //跳转邀请码
 				//注册
 				this.$http({
 						method: "post",
@@ -247,53 +248,16 @@
 						}
 					}).then(function(res) {
 						if(res.data.code == 0) {
-							this.$http({
-									method: "post",
-									url: "/users/register",
-									headers: {
-										"device": "android",
-										"Access-Control-Allow-Origin": "*"
-									},
-									data: {
-										phone: this.phone,
-										password: this.password,
-										invite_code: "10000", //邀请人ID 测试阶段 暂时不传
-										verify_code: this.verify_code
-									}
-								}).then(function(res) {
-									if(res.data.code == 0) {
-										this.$layer.msg('注册成功，正在登录...');
-                    this.$http({
-                      method: 'post',
-                      url: '/auth/login',
-                      headers: {
-                        "device": "android"
-                      },
-                      data: {
-
-                        phone: this.phone,
-                        password: this.password
-                      }
-                    }).then(function(res) {
-                      console.log(res.data)
-                      if(res.data.code == 0) {
-                        this.$layer.msg('登录成功');
-                        localStorage.setItem('uid', res.data.data.uid);
-                        this.$router.replace('/home');
-                      } else {
-                        this.$layer.msg(res.data.msg);
-                      }
-                    }.bind(this))
-                      .catch(function(err) {
-                        console.log(err)
-                      }.bind(this))
-									} else {
-										this.$layer.msg(res.data.msg);
-									}
-								}.bind(this))
-								.catch(function(err) {
-									console.log(err)
-								}.bind(this))
+              this.$router.push({
+                path: '/RegisterInviteCode',
+                name: 'RegisterInviteCode',
+                params: {
+                  name:'name',
+                  phone: this.phone,
+                  password: this.password,
+                  verify_code: this.verify_code
+                }
+              });
 						} else {
 							this.$layer.msg(res.data.msg);
 						}
@@ -357,7 +321,7 @@
 				const that = this;
 				var Verificationtimen = Verificationtimen;
 				that.time =  localStorage.getItem(Verificationtimen);
-				if(that.time == "") {
+				if(that.time == ""||that.time == null||that.time == undefined) {
 					this.$http({
 							method: 'post',
 							url: '/users/register/send-sms-code',

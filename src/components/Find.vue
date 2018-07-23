@@ -31,8 +31,8 @@
             <span class="glyphicon glyphicon-calendar taskIcon"></span>
             <div class="taskTitle">每日登录</div>
             <div class="taskBody">登录获取能量值</div>
-            <div class="taskSuccess" v-if="signIn"><span class="glyphicon glyphicon-ok"></span> 已完成</div>
-            <div class="taskBtn" v-else @click="signInFc">+2能量</div>
+            <div class="taskSuccess" v-show="signIn"><span class="glyphicon glyphicon-ok"></span> 已完成</div>
+            <div class="taskBtn" v-show="!signIn" @click="signInFc">+2能量</div>
           </div>
         </div>
       </div>
@@ -111,10 +111,29 @@
         data(){
             return{
               time:Date.now(),
-              signIn:false
+              signIn:true
             }
         },
         mounted(){
+          this.$http({
+            method: "post",
+            url: "/tasks/explore",
+            headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
+            data:{
+              nowtime:$("#time").text()
+            }
+          }).then(function(res){
+            if (res.data.code==0){
+              if (res.data.data.is_signin){
+                this.signIn=true
+              } else {
+                this.signIn=false
+              }
+            }
+          }.bind(this))
+            .catch(function(err){
+              console.log(err)
+            }.bind(this));
         },
         methods:{
           signInFc(){

@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-xs-3 parents" v-for="(item,index) in navItem">
             <div class="nav-item" @click="nav(index)">
-              <span v-show="item.newsCount" class="badge msg">·</span>
+              <!--<span v-show="item.newsCount" class="badge msg">·</span>-->
               <img :src="item.imgSrc1">
               <span class="navTitle" :style="item.titleStyle">{{item.title}}</span>
             </div>
@@ -59,9 +59,6 @@
        if(that.$route.path=='/'){
           that.navItem[0].imgSrc1=that.navItem[0].imgSrc2;
           that.navItem[0].titleStyle='color:#09a2d6';
-        }else if(that.$route.path=='/shopping'){
-          that.config();
-          $(".vl-notify-mask").css({zIndex:"999"})
         }
       //判断手机类型
       let ua = navigator.userAgent.toLowerCase();
@@ -124,16 +121,20 @@
         const that = this;
         if(index===2){
           this.config();
+          that.navItem[2].imgSrc1 =store;
+          that.navItem[2].titleStyle='color:#555';
           $(".vl-notify-mask").css({zIndex:"999"})
-        }
+        }else {
         for(var i=0;i<that.navItem.length;i++){
-          that.navItem[i].imgSrc1 = that.imgSrcArr[i];
-          that.navItem[i].titleStyle='';
-          that.$router.replace(that.navItem[index].navSrc);
-        }
+            that.navItem[i].imgSrc1 = that.imgSrcArr[i];
+            that.navItem[i].titleStyle='';
+            that.$router.replace(that.navItem[index].navSrc);
+          }
+          that.navItem[index].imgSrc1 = that.navItem[index].imgSrc2;
+          that.navItem[index].titleStyle='color:#09a2d6'
+      }
 
-        that.navItem[index].imgSrc1 = that.navItem[index].imgSrc2;
-        that.navItem[index].titleStyle='color:#09a2d6'
+
       },
       config(){
         const that = this;
@@ -155,11 +156,6 @@
         },function () {
           $(".vl-notify-mask").remove();
           $(".vl-notify").remove();
-          that.navItem[2].imgSrc1 = that.imgSrcArr[2];
-          that.navItem[2].titleStyle='';
-          that.navItem[0].imgSrc1 = that.navItem[0].imgSrc2;
-          that.navItem[0].titleStyle='color:#09a2d6'
-          that.$router.replace('/Home')
         })
 
         $(".vl-notice-title").css({

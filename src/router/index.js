@@ -47,9 +47,9 @@ import Compile from '@/components/Compile'
 import UploadHeadImg from '@/components/UploadHeadImg'
 import WechatService from '@/components/WechatService'
 import NewsDetails from '@/components/NewsDetails'
-import ChangeNickname from '@/components/ChangeNickname'
 
-
+import Nickname from '@/components/Nickname'
+import MyRankings from '@/components/MyRankings'
 
 Vue.use(Router)
 
@@ -255,11 +255,6 @@ export default new Router({
       name:'Compile',
       meta:{index:2},
       component: Compile
-    },{
-    	path:'/ChangeNickname',
-    	name:'ChangeNickname',
-    	meta:{index:2},
-    	component: ChangeNickname
     },
     {
       path:'/uploadheadImg',
@@ -298,6 +293,16 @@ export default new Router({
       name:'GameRules',
       meta:{index:2},
       component: GameRules
+    },{
+      path:'/nickname',
+      name:'Nickname',
+      meta:{index:3},
+      component: Nickname
+    },{
+      path:'/myrankings',
+      name:'MyRankings',
+      meta:{index:3},
+      component: MyRankings
     }
 
   ]

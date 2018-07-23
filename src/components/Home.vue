@@ -22,26 +22,6 @@
       <img v-bind:style="m.style" :src="m.href" />
     </div>
 
-
-    <group  @click.native="rankings" >
-      <cell v-bind:title="RankingTitle" v-bind:value="RankingSwitch" is-link></cell>
-    </group>
-    <table v-if="isBlack" class="table">
-      <tr><td><h4 class="decorate-title"><div class="decorate"></div>得宝数据</h4></td></tr>
-      <tr class="bcfff" v-for="list in RankingListBlack">
-        <td class="text-left">{{list.title}}</td>
-        <td class="text-right">{{list.count}}</td>
-      </tr>
-    </table>
-    <table v-else class="table">
-      <tr><td id="ranking"><h4 class="decorate-title"><div class="decorate"></div>综合排名</h4></td></tr>
-      <tr class="bcfff"><td>排行榜</td><td>账户</td><td>珍珠值数</td></tr>
-      <tr class="bcfff" v-for="list in RankingListForce">
-        <td>{{list.level}}</td>
-        <td>{{list.name}}</td>
-        <td class="pearl-count">{{list.count}}</td>
-      </tr>
-    </table>
   </div>
 </template>
 
@@ -356,16 +336,6 @@ export default {
     height: 100%;
     box-shadow: 0.5rem 0.5rem 0.5rem #ddd;
   }
-  .table{
-    text-align: center;
-  }
-  .table tr{
-    line-height: 4rem;
-    border-bottom: 0.1rem solid #efefef;
-  }
-  .bcfff{
-    background: #fff;
-  }
   .dropdown-toggle{
     width:4.5rem;
     border-radius: 0.5rem;
@@ -379,31 +349,8 @@ export default {
     margin-right: 1rem;
     vertical-align: middle;
   }
-  .text-left{
-    padding-left: 1rem;
-  }
-  .text-right{
-    padding-right: 1rem;
-    color: #09A2D6;
-  }
-  .pearl-count{
-    color: #09A2D6;
-  }
-  .decorate{
-    display: inline-block;
-    background: #09A2D6 ;
-    width: 0.3rem;
-    height: 1.6rem;
-    margin: 0 1rem;
-    vertical-align: middle;
-  }
-  .decorate-title{
-    text-align: left;
-  }
-  #ranking{
-    width:30%;
-  }
   p{
     margin-bottom: 0;
   }
+
 </style>

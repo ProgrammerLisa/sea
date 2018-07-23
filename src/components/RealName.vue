@@ -178,9 +178,10 @@
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
-		color: #555;
+    background: #09a2d6;
+    color: #fff;
 		font-size: 1.6rem;
-		margin-bottom: 0.5rem;
+    margin-bottom: 0;
 		height: 4.1rem;
 		line-height: 4.1rem;
 		border-bottom: 1px solid #f5f5f5;
@@ -258,7 +259,7 @@
 	.submitBtn:focus{
 		outline: 0;
 	}
-	
+
 	.submitBtn:active {
 		background: #009ACD;
 	}

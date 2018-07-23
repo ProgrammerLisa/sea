@@ -3,7 +3,7 @@
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
 				<span @click="goBack"  @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
-				<span style="margin-left: -36px; position: absolute; left: 50%; font-size: 1.8rem;">我的好友</span>
+				我的好友
 				<!--<router-link to="/addfriends" tag="span" class="addTo"> <img src="../assets/images/award.png" /></router-link>-->
 			</div>
 		</div>
@@ -54,8 +54,8 @@
 		},
 		mounted() {
 			this.$http({
-					method: "get",
-					url: "/users/friends/index",
+					method: "post",
+					url: "/users/follower",
 					headers: {
 						"device": "android",
 						"uid": localStorage.getItem("uid"),
@@ -65,7 +65,14 @@
 				}).then(function(res) {
 					if(res.data.code != 0) {
 						this.$layer.msg(res.data.msg);
-					}
+					}else {
+					  if(res.data.data.length==0){
+					    this.noFriend=true;
+            }else {
+					    //拥有好友时
+              this.noFriend=false;
+            }
+          }
 				}.bind(this))
 				.catch(function(err) {
           this.$layer.msg("系统异常，请稍后再试");
@@ -111,7 +118,8 @@
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
-		color: #555;
+		color: #fff;
+    background: #09a2d6;
 		font-size: 1.6rem;
 		margin-bottom: 1rem;
 		height: 4.1rem;

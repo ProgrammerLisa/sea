@@ -253,7 +253,8 @@
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
-		color: #555;
+    background: #09a2d6;
+    color: #fff;
 		font-size: 1.6rem;
 		margin-bottom: 0;
 		height: 4.1rem;
@@ -267,10 +268,6 @@
 
 	.back img {
 		height: 2.5rem;
-	}
-
-	.form-horizontal {
-		border-top: 0.5rem solid #f5f5f5;
 	}
 
 	.form-group {
@@ -311,7 +308,7 @@
 		font-size: larger;
 		padding: 0.5rem;
 	}
-	
+
 	.keepSubmit:active{
 		background: #009ACD;
 	}

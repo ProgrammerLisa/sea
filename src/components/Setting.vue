@@ -53,7 +53,7 @@
 				<td class="text-right">已是最新版本 <img :src="more" class="more" /></td>
 			</tr>
 		</table>
-		<div class="btn btn-default loginOut" @click="loginOut">
+		<div class= "loginOut" @click="loginOut">
 			退出登录
 		</div>
 	</div>
@@ -231,9 +231,10 @@
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
-		color: #555;
+    background: #09a2d6;
+    color: #fff;
 		font-size: 1.6rem;
-		margin-bottom: 1rem;
+		margin-bottom: 0;
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}

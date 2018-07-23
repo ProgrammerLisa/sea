@@ -58,7 +58,7 @@
 					data: {}
 				}).then(function(res) {
 					if(res.data.code == 0) {
-						this.ask_invite = res.data.my_invite_code
+						this.ask_invite = res.data.data.my_invite_code
 					} else {
 						this.$layer.msg(res.data.msg);
 					}
@@ -113,7 +113,8 @@
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
-		color: #555;
+    background: #09a2d6;
+    color: #fff;
 		font-size: 1.6rem;
 		margin-bottom: 0.8rem;
 		height: 4.1rem;

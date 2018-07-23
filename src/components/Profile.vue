@@ -89,6 +89,7 @@
               {title:'我的好友',PersonalHref:'friend',imfLeft:friend},
               {title:'我的邀请者',PersonalHref:'',imfLeft:inviter,noRouter:true,myInvite:''},
               {title:'邀请码',PersonalHref:'ask',imfLeft:invite},
+              {title:'排行榜',PersonalHref:'myrankings',imfLeft:invite},
               {title:'商城订单',PersonalHref:'commodityorder',imfLeft:indent},
               {title:'收货地址',PersonalHref:'address',imfLeft:address},
               {title:'客服中心',PersonalHref:'wechatservice',imfLeft:service},

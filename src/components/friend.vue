@@ -3,8 +3,8 @@
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
 				<span @click="goBack"  @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
-				我的好友
-				<router-link to="/addfriends" tag="span" class="addTo"> <img src="../assets/images/award.png" /></router-link>
+				<span style="margin-left: -36px; position: absolute; left: 50%; font-size: 1.8rem;">我的好友</span>
+				<!--<router-link to="/addfriends" tag="span" class="addTo"> <img src="../assets/images/award.png" /></router-link>-->
 			</div>
 		</div>
 		<div v-if="noFriend" class="addressNone">

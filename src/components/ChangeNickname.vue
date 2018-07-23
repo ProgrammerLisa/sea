@@ -11,7 +11,7 @@
 		</div>
 
 		<div class="modal-body nickChange">
-			<input class="form-control nickInput" id="form_control" type="text" :placeholder="nickname" />
+			<input class="form-control nickInput" id="form_control" type="text" :placeholder="nickname" maxlength="11" />
 			<p class="nickText">4-10个字符、仅支持中文、数字、英文</p>
 		</div>
 		<!-- 修改昵称模态框（Modal） -->
@@ -207,8 +207,6 @@
 	
 	.nickYes {
 		border-radius: 0;
-		position: relative;
-		margin-top: -178%;
 		font-size: 1.6rem;
 		font-family:"Microsoft YaHei" ;
 		border: 0;
@@ -217,6 +215,10 @@
 		background: none;
 		display: block;
 		vertical-align: middle;
+		position: absolute; 
+		text-align: right;
+		right: 10%;
+		margin-top:-5.5rem;
 	}
 	
 	.nickYes:active{
@@ -224,8 +226,7 @@
 	}
 	
 	.modal-footer{
-		position: absolute;
-		left: 72%;
+		position: relative;
 	}
 	
 </style>

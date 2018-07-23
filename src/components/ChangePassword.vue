@@ -215,4 +215,12 @@
 		margin-top: 2.5rem;
 		border-radius: 0;
 	}
+	
+	.submitBtn:active{
+		background: #009ACD;
+	}
+	
+	.submitBtn:focus{
+		outline: 0;
+	}
 </style>

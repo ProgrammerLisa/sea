@@ -1,10 +1,9 @@
 <template>
 
-
 	<div class="content">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back">  <img :src="masrc"/></span> 编辑资料
+				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back">  <img :src="masrc"/></span> 编辑资料
 			</div>
 		</div>
 		<div class="media noTop">
@@ -12,8 +11,8 @@
 				头像
 			</div>
 			<div class="media-right" data-toggle="modal" data-target="#ImgModal">
-        <img  class="media-object headImg" :src="`${headImg+'?'+now}`" v-if="haveHeadImg"/>
-        <img class="media-object headImg" :src="headImg" v-else/>
+				<img class="media-object headImg" :src="`${headImg+'?'+now}`" v-if="haveHeadImg" />
+				<img class="media-object headImg" :src="headImg" v-else/>
 			</div>
 		</div>
 		<router-link to="/nickname" tag="div" class="media">
@@ -55,7 +54,7 @@
 			<!-- /.modal -->
 		</div>
 
-		</div>
+	</div>
 </template>
 
 <script>
@@ -65,11 +64,11 @@
 
 	export default {
 		name: "Compile",
-    computed:{
-      now(){
-        return Date.now();
-      }
-    },
+		computed: {
+			now() {
+				return Date.now();
+			}
+		},
 		data() {
 			return {
 				masrc: back,
@@ -78,7 +77,7 @@
 				IDcode: '',
 				chooseFile: '',
 				houzhuiming: '',
-        haveHeadImg:''
+				haveHeadImg: ''
 			}
 		},
 		inject: ['reload'],
@@ -95,25 +94,25 @@
 				}).then(function(res) {
 					if(res.data.code == 0) {
 						this.IDcode = res.data.data.phone;
-            if(res.data.data.nickname==""){
-              this.nickname = localStorage.getItem("uid");
-            }else {
-              this.nickname =res.data.data.nickname;
-            }
-            if(res.data.data.avatar==""){
-              this.headImg = headImg;
-              this.haveHeadImg=false
-            }else {
-              this.headImg = res.data.data.avatar;
-              this.haveHeadImg=true
-            }
+						if(res.data.data.nickname == "") {
+							this.nickname = localStorage.getItem("uid");
+						} else {
+							this.nickname = res.data.data.nickname;
+						}
+						if(res.data.data.avatar == "") {
+							this.headImg = headImg;
+							this.haveHeadImg = false
+						} else {
+							this.headImg = res.data.data.avatar;
+							this.haveHeadImg = true
+						}
 					} else {
-            this.haveHeadImg=false
+						this.haveHeadImg = false
 						this.$layer.msg(res.data.msg);
 					}
 				}.bind(this))
 				.catch(function(err) {
-          this.haveHeadImg=false
+					this.haveHeadImg = false
 					console.log(err)
 				}.bind(this))
 
@@ -149,7 +148,6 @@
 
 			},
 
-
 		}
 	}
 </script>
@@ -159,7 +157,7 @@
 		overflow-x: hidden;
 		color: #666;
 		background-color: #f5f5f5;
-    width: 100vw;
+		width: 100vw;
 	}
 
 	.panel {
@@ -182,22 +180,25 @@
 		line-height: 4.1rem;
 	}
 
-	.back{
-    position: absolute;
-    left: 1rem;
-  }
-  .back img {
-    height: 2.5rem;
-  }
+	.back {
+		position: absolute;
+		left: 1rem;
+	}
 
-  .back span {
-    height: 2.5rem;
-    font-size: 2.5rem;
-    color: #DBDBDB;
-  }
-  .back span:active{
-    color: black;
-  }
+	.back img {
+		height: 2.5rem;
+	}
+
+	.back span {
+		height: 2.5rem;
+		font-size: 2.5rem;
+		color: #DBDBDB;
+	}
+
+	.back span:active {
+		color: black;
+	}
+
 	.media {
 		background: #fff;
 		padding: 1rem;
@@ -226,6 +227,7 @@
 	.more {
 		margin-left: 0.5rem;
 	}
+
 	.modal-content {
 		margin: 0 2rem;
 		border-radius: 0;
@@ -325,8 +327,8 @@
 		border-color: #2aabd2;
 	}
 
-  .nickNameRight {
-    width: 80%;
-    text-align: right;
-  }
+	.nickNameRight {
+		width: 80%;
+		text-align: right;
+	}
 </style>

@@ -4,7 +4,7 @@
 			<div class="panel-body">
 				<span @click="goBack"  @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
 				我的好友
-				<router-link to="/addfriends" tag="span" class="addTo"> <img src="../assets/images/award.png" /></router-link>
+				<!--<router-link to="/addfriends" tag="span" class="addTo"> <img src="../assets/images/award.png" /></router-link>-->
 			</div>
 		</div>
 		<div v-if="noFriend" class="addressNone">
@@ -55,7 +55,7 @@
 		mounted() {
 			this.$http({
 					method: "post",
-					url: "/users/following",
+					url: "/users/follower",
 					headers: {
 						"device": "android",
 						"uid": localStorage.getItem("uid"),
@@ -66,7 +66,12 @@
 					if(res.data.code != 0) {
 						this.$layer.msg(res.data.msg);
 					}else {
-					  console.log(res.data.data)
+					  if(res.data.data.length==0){
+					    this.noFriend=true;
+            }else {
+					    //拥有好友时
+              this.noFriend=false;
+            }
           }
 				}.bind(this))
 				.catch(function(err) {
@@ -113,7 +118,8 @@
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
-		color: #555;
+		color: #fff;
+    background: #09a2d6;
 		font-size: 1.6rem;
 		margin-bottom: 1rem;
 		height: 4.1rem;

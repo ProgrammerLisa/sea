@@ -37,7 +37,7 @@
         navItem:[
           {navSrc:'/Home',title:'首页',imgSrc1:home,imgSrc2:home1,titleStyle:'',newsCount:false},
           {navSrc:'/find',title:'发现',imgSrc1:discovery,imgSrc2:discovery1,titleStyle:'',newsCount:false},
-          {navSrc:'/Home',title:'商城',imgSrc1:store,imgSrc2:store1,titleStyle:'',newsCount:false},
+          {navSrc:'/shopping',title:'商城',imgSrc1:store,imgSrc2:store1,titleStyle:'',newsCount:false},
           {navSrc:'/personal',title:'我的',imgSrc1:mine,imgSrc2:mine1,titleStyle:'',newsCount:false}
         ],
         imgSrcArr:[
@@ -59,16 +59,7 @@
        if(that.$route.path=='/'){
           that.navItem[0].imgSrc1=that.navItem[0].imgSrc2;
           that.navItem[0].titleStyle='color:#09a2d6';
-         that.navItem[2].imgSrc1=store;
-         that.navItem[2].titleStyle='color:#777';
-        }else if(that.$route.path=='/shopping'){
-          that.config();
-          $(".vl-notify-mask").css({zIndex:"999"})
-        }else if(that.$route.path=='/Home'){
-         that.navItem[2].imgSrc1=store;
-         that.navItem[2].titleStyle='color:#777';
-       }
-        console.log(that.$route.path)
+        }
       //判断手机类型
       let ua = navigator.userAgent.toLowerCase();
       //android终端
@@ -130,16 +121,20 @@
         const that = this;
         if(index===2){
           this.config();
+          that.navItem[2].imgSrc1 =store;
+          that.navItem[2].titleStyle='color:#555';
           $(".vl-notify-mask").css({zIndex:"999"})
-        }
+        }else {
         for(var i=0;i<that.navItem.length;i++){
-          that.navItem[i].imgSrc1 = that.imgSrcArr[i];
-          that.navItem[i].titleStyle='';
-          that.$router.replace(that.navItem[index].navSrc);
-        }
+            that.navItem[i].imgSrc1 = that.imgSrcArr[i];
+            that.navItem[i].titleStyle='';
+            that.$router.replace(that.navItem[index].navSrc);
+          }
+          that.navItem[index].imgSrc1 = that.navItem[index].imgSrc2;
+          that.navItem[index].titleStyle='color:#09a2d6'
+      }
 
-        that.navItem[index].imgSrc1 = that.navItem[index].imgSrc2;
-        that.navItem[index].titleStyle='color:#09a2d6'
+
       },
       config(){
         const that = this;
@@ -161,11 +156,6 @@
         },function () {
           $(".vl-notify-mask").remove();
           $(".vl-notify").remove();
-          that.navItem[2].imgSrc1 = that.imgSrcArr[2];
-          that.navItem[2].titleStyle='';
-          that.navItem[0].imgSrc1 = that.navItem[0].imgSrc2;
-          that.navItem[0].titleStyle='color:#09a2d6'
-          that.$router.replace('/Home')
         })
 
         $(".vl-notice-title").css({

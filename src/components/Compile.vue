@@ -16,14 +16,14 @@
         <img class="media-object headImg" :src="headImg" v-else/>
 			</div>
 		</div>
-		<div class="media" data-toggle="modal" data-target="#NickModal">
+		<router-link to="/nickname" tag="div" class="media">
 			<div class="media-body nickNameLeft">
 				昵称
 			</div>
 			<div class="media-right nickNameRight">
 				<span id="nickname">{{nickname}}</span><span class="glyphicon glyphicon-menu-right more"></span>
 			</div>
-		</div>
+		</router-link>
 		<div class="media noTop">
 			<div class="media-body">
 				手机号码
@@ -44,8 +44,10 @@
 						<!--<span class="headImgChoose fileinput-button">-->
                 <!--<span>拍照上传</span>-->
 						<!--<input type="file" accept="image/*" capture="camera">-->
-						</span>
-						<div class="headImgChoose closeBtn" data-dismiss="modal">取消</div>
+						<!--</span>-->
+            <span class="headImgChoose closeBtn fileinput-button" data-dismiss="modal">
+              <span>取消</span>
+            </span>
 					</div>
 				</div>
 				<!-- /.modal-content -->
@@ -53,27 +55,7 @@
 			<!-- /.modal -->
 		</div>
 
-		<!-- 修改昵称模态框（Modal） -->
-		<div class="modal fade" id="NickModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title" id="myModalLabel">修改昵称</h4>
-					</div>
-					<div class="modal-body nickChange">
-						<input class="form-control nickInput" id="form_control" type="text" :placeholder="nickname" />
-						<p class="nickText">4-10个字符、仅支持中文、数字、英文</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default nickNo" data-dismiss="modal">取消</button>
-						<button type="button" class="btn btn-primary nickYes" @click="submit">确定</button>
-					</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal -->
 		</div>
-	</div>
 </template>
 
 <script>
@@ -166,50 +148,7 @@
 				};
 
 			},
-			submit() {
-				$("#NickModal").show();
-				if($("#form_control").val() == '' || $("#form_control").val() == null || $("#form_control").val() == undefined) {
-					$(".modal-backdrop").hide();
-					$("#NickModal").hide();
-					this.$layer.msg('请确认你的昵称');
-				} else if($("#form_control").val().length < 4) {
-					$(".modal-backdrop").hide();
-					$("#NickModal").hide();
-					this.$layer.msg('昵称不符合要求');
-				} else if($("#form_control").val().length > 10) {
-					$(".modal-backdrop").hide();
-					$("#NickModal").hide();
-					this.$layer.msg('昵称不符合要求');
-				} else {
-					this.isDisabled = true;
-					this.$http({
-							method: "post",
-							url: "/users/profile/edit",
-							headers: {
-								"device": "android",
-								"uid": localStorage.getItem("uid"),
-								"Access-Control-Allow-Origin": "*"
-							},
-							data: {
-								nickname: $("#form_control").val()
-							}
-						}).then(function(res) {
-							if(res.data.code == 0) {
-								$(".modal-backdrop").hide();
-								$("#NickModal").hide();
-								this.$layer.msg(res.data.msg);
-								this.nickname = res.data.data.nickname;
-								$("#form_control").val("")
-							} else {
-								this.$layer.msg(res.data.msg);
-							}
-						}.bind(this))
-						.catch(function(err) {
-              this.$layer.msg("系统异常，请稍后再试");
-						}.bind(this))
-				}
 
-			}
 
 		}
 	}
@@ -235,9 +174,10 @@
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
-		color: #555;
+    background: #09a2d6;
+		color: #fff;
 		font-size: 1.6rem;
-		margin-bottom: 0.5rem;
+		margin-bottom: 0;
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
@@ -308,7 +248,7 @@
 	}
 
 	#ImgModal .modal-content {
-		height: 15vh;
+		height: 14vh;
 	}
 
 	.headImgChoose {
@@ -316,12 +256,12 @@
 		display: inline-block;
 		overflow: hidden;
 		width: 100%;
-		height: 6.5vh;
+		height: 7.5vh;
 		border: none;
 		border-bottom: 0.1rem solid #e1e1e1;
 		padding: 0;
 		margin: 0;
-		line-height: 6.5vh;
+		line-height: 7.5vh;
 		font-size: 1.6rem;
 		text-align: center;
 		border-radius: 0;
@@ -346,6 +286,7 @@
 
 	.closeBtn {
 		border-bottom: none;
+    line-height: 4.5vh;
 	}
 
 	.nickInput {

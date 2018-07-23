@@ -2,7 +2,7 @@
 	<div class="content">
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"> <img :src="masrc"/></span> 
+				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"> <img :src="masrc"/></span>
 				<span style="margin-left: -32px; position: absolute; left: 50%; font-size: 1.6rem;">我的珍珠</span>
 			</div>
 		</div>
@@ -99,9 +99,10 @@
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
-		color: #555;
+    background: #09a2d6;
+    color: #fff;
 		font-size: 1.6rem;
-		margin-bottom: 0.5rem;
+    margin-bottom: 0;
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}

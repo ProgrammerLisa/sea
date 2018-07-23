@@ -113,7 +113,8 @@
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
-		color: #555;
+    background: #09a2d6;
+    color: #fff;
 		font-size: 1.6rem;
 		margin-bottom: 0.8rem;
 		height: 4.1rem;

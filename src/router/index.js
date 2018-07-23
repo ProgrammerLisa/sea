@@ -48,7 +48,8 @@ import UploadHeadImg from '@/components/UploadHeadImg'
 import WechatService from '@/components/WechatService'
 import NewsDetails from '@/components/NewsDetails'
 
-
+import Nickname from '@/components/Nickname'
+import MyRankings from '@/components/MyRankings'
 
 Vue.use(Router)
 
@@ -292,6 +293,16 @@ export default new Router({
       name:'GameRules',
       meta:{index:2},
       component: GameRules
+    },{
+      path:'/nickname',
+      name:'Nickname',
+      meta:{index:3},
+      component: Nickname
+    },{
+      path:'/myrankings',
+      name:'MyRankings',
+      meta:{index:3},
+      component: MyRankings
     }
 
   ]

@@ -1,5 +1,6 @@
 <template>
 	<div class="content">
+    <div id="navTopMargin"></div>
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
 				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"><img :src="masrc"/></span>
@@ -163,7 +164,7 @@
 		 background-color:#09A2D6;
 		 color: white;
 		 border-radius: 0;
-		 width: 100%;
+		 width: 80%;
 	}
   #finish:active{
     background: #009ACD;

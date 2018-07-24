@@ -1,5 +1,6 @@
 <template>
     <div class="content">
+      <div id="navTopMargin" style="background: #fff;"></div>
       <div class="panel panel-default BlackTitle">
         <div class="panel-body">
           商城
@@ -157,8 +158,8 @@
   .BlackTitle{
     text-align: center;
     letter-spacing: 0.05rem;
-    background: #09a2d6;
-    color: #fff;
+    background: #fff;
+    color: #555;
     font-size: 1.6rem;
     margin-bottom: 0;
     height: 4.1rem;

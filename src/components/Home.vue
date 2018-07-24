@@ -1,5 +1,5 @@
 <template>
-  <div class="contentMain">
+  <div class="content">
     <div id="main-top">
      <div id="notice" style="margin-top: 2rem;height: 2.5rem;">
     		<marquee style="height: 2.5rem;" scrollamount="5" scrolldelay="1"><span style="font-size: 1.6rem;">公告:亲爱的用户，平台momomo即将上线，敬请期待。</span></marquee>
@@ -7,7 +7,6 @@
      <div class="topOption option1">
         <span >珍珠量 {{imgSum}}</span>
       </div>
-
       <div id="imgDiv"></div>
     </div>
     <router-link class="option3" to="/gamerules" tag="div">
@@ -150,6 +149,9 @@ export default {
     }
   },
   mounted:function () {
+
+    $(".contentMain").css({height:$(".contentMain").height()-$(".myNav").height()+'px'})
+
     const that = this;
     this.$nextTick(() => {
       that.imgDiv.push(that.PearlLevel5);
@@ -260,10 +262,11 @@ export default {
 		font-size: 1.01rem;
     background: rgba(255,255,255,0.1);
 	}
-  .contentMain{
+  .content{
     width: 100vw;
+    height: 100vh;
     overflow-x: hidden;
-    background-color: #f5f5f5;
+    background: #0758a8;
     color: #666;
   }
   #main-top{
@@ -271,15 +274,15 @@ export default {
     background: url("../assets/images/bg.png") 100% 100% no-repeat;
     background-size: 100% 100%;
     color: white;
-    height: 65vh;
-    padding-top: 1px;
+    height: 93vh;
+    padding-top: 40px;
   }
   .topOption{
     position: absolute;
   }
   .option1{
     left: 1.5rem;
-    top: 7rem;
+    top: 9rem;
   }
 
   .invitation-friends{
@@ -331,24 +334,7 @@ export default {
   .float-container img{
     width: 100%;
   }
-  .bcImg{
-    width: 100%;
-    height: 100%;
-    box-shadow: 0.5rem 0.5rem 0.5rem #ddd;
-  }
-  .dropdown-toggle{
-    width:4.5rem;
-    border-radius: 0.5rem;
-    padding:0 0.5rem;
-  }
-  .dropdownImg{
-    width: 100%;
-  }
-  .dropdown-menu-img{
-    width: 1rem;
-    margin-right: 1rem;
-    vertical-align: middle;
-  }
+
   p{
     margin-bottom: 0;
   }

@@ -2,6 +2,7 @@
     <div class="content" id="myList">
       <div  style="height:600px;">
         <v-scroll :on-infinite="infinite" ref="myscroller">
+          <div id="navTopMargin"></div>
           <div class="panel panel-default BlackTitle">
             <div class="panel-body">
               <span @click="goBack" @touchstart="evers" @touchend="lat" class="back"><img :src="masrc"/></span>

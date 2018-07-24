@@ -1,5 +1,6 @@
 <template>
   <div class="content">
+    <div id="navTopMargin"></div>
     <div class="personal">
       <div class="news">
         <router-link to="/news" v-if="newsCount" tag="div" class="badgePositionRed"></router-link>
@@ -196,7 +197,7 @@
     overflow-x: hidden;
     background-color: #f5f5f5;
     color: #666;
-    padding-bottom: 6rem;
+    padding-bottom: 10rem;
   }
   .personal{
     background: url("../assets/images/blue.png") no-repeat #fff;

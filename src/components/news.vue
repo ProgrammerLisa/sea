@@ -22,7 +22,7 @@
 
 			</div>
 			<transition name="slide-fade">
-				<div class="del" v-if="n.show" @click="del(index)">
+				<div class="del"　v-if="n.show" @click="del(index)">
 					删除
 				</div>
 			</transition>

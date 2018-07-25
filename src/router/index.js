@@ -138,7 +138,7 @@ export default new Router({
     },
     {
       path:'/ask',
-      meta:{index:2},
+      meta:{index:3},
       component: Ask
     },
     {

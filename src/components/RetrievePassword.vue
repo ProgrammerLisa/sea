@@ -1,6 +1,6 @@
 <template>
 	<div id="retrieve">
-		<div>
+    <div id="navTopMargin"></div>
 			<div class="panel panel-default BlackTitle">
 				<div class="panel-body">
 					<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"> <img :src="masrc"/></span>
@@ -40,7 +40,6 @@
 				</div>
 			</form>
 
-		</div>
 	</div>
 </template>
 
@@ -407,7 +406,9 @@
 		line-height: 4.1rem;
 		border: 0;
 	}
-
+  .panel{
+    border-radius: 0;
+  }
 	.panel-body {
 		padding: 0 10px;
 	}

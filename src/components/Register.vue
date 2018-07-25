@@ -1,5 +1,6 @@
 <template>
 	<div id="register">
+    <div id="navTopMargin"></div>
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
 				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"> <img :src="masrc"/></span>
@@ -408,7 +409,9 @@
 		width: 54px;
 		float: right;
 	}
-
+  .panel{
+    border-radius: 0;
+  }
 	.panel-body {
 		padding: 0 10px;
 	}

@@ -1,12 +1,11 @@
 <template>
 	<div class="content">
     <div id="navTopMargin"></div>
-		<div class="panel panel-default BlackTitle">
-			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"><img :src="masrc"/></span>
-				<span style="margin-left: -37px; position: absolute; left: 50%; font-size: 1.8rem;">客服中心</span>
-			</div>
-		</div>
+    <div class="panel panel-default BlackTitle">
+      <div class="panel-body">
+        <span @click="goBack" @touchstart="evers" @touchend="lat" class="back">  <img :src="masrc"/></span> 客服中心
+      </div>
+    </div>
 
 		<div v-if="netNone" class="netNone">
 			<img :src="netNoneImg" />
@@ -89,7 +88,8 @@
 	}
 
 	.back {
-		float: left;
+    position: absolute;
+		left: 1rem;
 	}
 
 	.back img {

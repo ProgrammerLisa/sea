@@ -1,7 +1,7 @@
 <template>
   <div class="content">
-    <div id="main-top">
-     <div id="notice" style="margin-top: 2rem;height: 2.5rem;">
+    <div id="main-top" :style="bgHeight">
+     <div id="notice">
     		<marquee style="height: 2.5rem;" scrollamount="5" scrolldelay="1"><span style="font-size: 1.6rem;">公告:亲爱的用户，平台momomo即将上线，敬请期待。</span></marquee>
      </div>
      <div class="topOption option1">
@@ -17,9 +17,12 @@
       <img src="../assets/images/yaoqinghaoyou.png"  class="invitation-friends"/>
       <p>邀请好友</p>
     </router-link>
-    <div v-for="(m,index) in imgDiv" :class="m.divClass" :data-level="m.level" @click.once="flag && accumulative($event,index)">
-      <img v-bind:style="m.style" :src="m.href" />
+    <div id="pearlContainer">
+      <div v-for="(m,index) in imgDiv" :class="m.divClass" :data-level="m.level" @click.once="flag && accumulative($event,index)">
+        <img v-bind:style="m.style" :src="m.href" />
+      </div>
     </div>
+
 
   </div>
 </template>
@@ -145,13 +148,13 @@ export default {
         {level:3,name:'yizhisheng',count:10}
       ],
       RankingTitle:'得宝数据',
-      RankingSwitch:'综合排名'
+      RankingSwitch:'综合排名',
+      bgHeight:''
     }
   },
   mounted:function () {
-
-    $(".contentMain").css({height:$(".contentMain").height()-$(".myNav").height()+'px'})
-
+    let height=$(window).innerHeight()-$(".myNav").height();
+    this.bgHeight='height:'+height+'px';
     const that = this;
     this.$nextTick(() => {
       that.imgDiv.push(that.PearlLevel5);
@@ -161,7 +164,7 @@ export default {
       }
 
       that.cookies();
-
+      $("#pearlContainer").show()
     })
 
   },
@@ -257,6 +260,8 @@ export default {
 </script>
 <style scoped>
 	#notice{
+    margin-top: 2rem;
+    height: 2.5rem;
 		width: 100%;
 		font-family: "微软雅黑";
 		font-size: 1.01rem;
@@ -274,7 +279,6 @@ export default {
     background: url("../assets/images/bg.png") 100% 100% no-repeat;
     background-size: 100% 100%;
     color: white;
-    height: 93vh;
     padding-top: 40px;
   }
   .topOption{
@@ -306,6 +310,9 @@ export default {
   }
   .option4-Icon span{
     font-size: 2.5rem;
+  }
+  #pearlContainer{
+    display: none;
   }
   .float-container {
     width: 4.2rem;

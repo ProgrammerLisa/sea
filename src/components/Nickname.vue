@@ -113,7 +113,7 @@
   .nickInput{
     border-radius: 0;
     border: none;
-    height: 4rem
+    height: 4rem;
   }
   .addTo:active{
     color: #C6C4C4;

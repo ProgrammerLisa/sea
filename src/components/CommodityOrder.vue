@@ -113,24 +113,15 @@
 				this.$router.go(-1);
 			},
       goShopping(){
-        this.$layer.alert("商场即将上线", {
-          type: 0, //0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-          title: '温馨提示',
-          content: '',
-          area: 'auto',
-          offset: 'auto',
-          icon: -1,
-          btn: '确定',
-          time: 0,
-          shade: true,
-          yes: '',
-          cancel: '',
-          tips: [3,'#c00'],//支持上右下左四个方向，通过1-4进行方向设定,可以设定tips: [1, '#c00']
-          tipsMore: false,//是否允许多个tips
-          shadeClose: false,
-        },function () {
+        this.$layer.confirm("商场即将上线", {
+          contentClass: 'className',
+          btn: ['取消','确定']
+        },function(){},function () {
           $(".vl-notify-mask").remove();
           $(".vl-notify").remove();
+        })
+        $(".notify-btn-primary").css({
+          display: "none"
         })
 
         $(".vl-notice-title").css({
@@ -149,19 +140,16 @@
           width:"100%",
           margin:"0",
           border:"none",
-          background:"#fff",
-          color:"#555",
           padding:"1rem 0"
-        });
-        $(".notify-btn-default").css({
-          borderLeft:"1px solid #ddd"
         });
         $(".vl-notify").css({
           paddingBottom:"0"
         });
-        $(".vl-notify-mask").css({
-          background:"#111"
-        });
+
+
+        // $(".notify-btn-primary").css({
+        //   background:"#f5f5f5"
+        // });
 
       }
 		}
@@ -275,4 +263,5 @@
 	.goShopping:active {
 		background: #009ACD;
 	}
+
 </style>

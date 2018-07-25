@@ -64,6 +64,8 @@
 			}
 		},
 		mounted() {
+      console.log($(".media").eq(0).height())
+
 			this.$http({
 					method: "post",
 					url: "/messages/box",
@@ -248,6 +250,7 @@
 		margin-top: 0;
 		padding: 1rem;
 		border-bottom: 0.1rem solid #f5f5f5;
+    height: 6rem;
 	}
 
 	.media-left img {
@@ -297,12 +300,11 @@
 		background: #ff2424;
 		color: #fcf8e3;
 		width: 8rem;
-		height: 6rem;
 		line-height: 6rem;
 		text-align: center;
 		position: absolute;
-		right: 0rem;
-		margin-top: -5rem;
+		right: 0;
+		margin-top: -4.7rem;
 	}
 	/* 可以设置不同的进入和离开动画 */
 	/* 设置持续时间和动画函数 */

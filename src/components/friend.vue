@@ -10,7 +10,8 @@
 		</div>
 		<div v-if="noFriend" class="addressNone">
 			<img :src="noFriendImg" />
-			<p>您还没有好友，去添加好友吧</p>
+			<p>您您还没有好友，去邀请好友吧</p>
+      <router-link to="/ask" tag="span" class="goInvite">去邀请</router-link>
 		</div>
 		<div class="media friends" v-for="f in friends" v-else>
 			<div class="media-left">
@@ -97,46 +98,45 @@
 </script>
 
 <style scoped>
-	.content {
-		overflow-x: hidden;
-		color: #666;
-		padding-bottom: 6rem;
-		background-color: #f5f5f5;
+
+  .content {
+    overflow-x: hidden;
+    color: #666;
+    background-color: #f5f5f5;
     width: 100vw;
     position: fixed;
     top: 0;
-	}
+  }
 
-	.panel {
-		border: none;
-		border-radius: 0;
-	}
+  .panel {
+    border: none;
+    border-radius: 0;
+  }
 
-	.panel-body {
-		padding: 0 10px;
-	}
+  .panel-body {
+    padding: 0 1rem;
+  }
 
-	.BlackTitle {
-		text-align: center;
-		letter-spacing: 0.05rem;
-		color: #fff;
+  .BlackTitle {
+    text-align: center;
+    letter-spacing: 0.05rem;
     background: #09a2d6;
-		font-size: 1.6rem;
-		margin-bottom: 1rem;
-		height: 4.1rem;
-		line-height: 4.1rem;
-	}
+    color: #fff;
+    font-size: 1.6rem;
+    margin-bottom: 0;
+    height: 4.1rem;
+    line-height: 4.1rem;
+  }
 
-	.back {
-		float: left;
-		font-size: 1.8rem;
-		color: #C7C7C7;
-	}
+  .back {
+    position: absolute;
+    left: 1rem;
+  }
 
-	.back img {
-		height: 2.5rem;
-		font-size: 2.5rem;
-	}
+  .back img {
+    height: 2.5rem;
+  }
+
 
 	.addTo {
 		float: right;
@@ -188,4 +188,16 @@
 		width: 40%;
 		margin-bottom: 1rem;
 	}
+  .goInvite {
+    text-align: center;
+    background: #09a2d6;
+    color: #fff;
+    padding: 0.5rem 3rem;
+    display: inline-block;
+    margin-top: 1.5rem;
+  }
+
+  .goInvite:active {
+    background: #009ACD;
+  }
 </style>

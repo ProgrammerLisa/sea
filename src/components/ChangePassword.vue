@@ -1,5 +1,6 @@
 <template>
 	<div class="content">
+    <div id="navTopMargin"></div>
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
 				<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
@@ -215,11 +216,11 @@
 		margin-top: 2.5rem;
 		border-radius: 0;
 	}
-	
+
 	.submitBtn:active{
 		background: #009ACD;
 	}
-	
+
 	.submitBtn:focus{
 		outline: 0;
 	}

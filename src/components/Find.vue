@@ -1,5 +1,6 @@
 <template>
     <div class="content">
+      <div id="navTopMargin" style="background: #fff;"></div>
       <div class="panel panel-default BlackTitle">
         <div class="panel-body shoppingPanel">
           发现
@@ -164,8 +165,6 @@
     background-color: #f5f5f5;
     color: #666;
     width: 100vw;
-    position: fixed;
-    top: 0;
   }
   .panel{
     border:none;

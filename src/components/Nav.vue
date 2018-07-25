@@ -171,11 +171,12 @@
         });
         $(".notify-btn").css({
           borderRadius: "0",
-          width:"49%",
+          width:"100%",
           margin:"0",
           border:"none",
           background:"#fff",
-          color:"#555"
+          color:"#555",
+          padding:"1rem 0"
         });
         $(".notify-btn-default").css({
           borderLeft:"1px solid #ddd"
@@ -193,10 +194,7 @@
 </script>
 
 <style scoped>
-  .content{
-    margin-bottom: 60px;
-    color: #555;
-  }
+
   .myNav{
     position: fixed;
     bottom: 0;

@@ -1,5 +1,6 @@
 <template>
 	<div class="content">
+    <div id="navTopMargin"></div>
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
 				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"><img :src="masrc"/></span> <span class="backsize">修改地址</span>
@@ -261,9 +262,7 @@
 		margin-left: 10%;
 	}
 
-	.form-horizontal {
-		border-top: 0.5rem solid #f5f5f5;
-	}
+
 
 	.form-group {
 		padding: 1rem 3rem;

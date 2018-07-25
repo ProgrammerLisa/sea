@@ -1,5 +1,6 @@
 <template>
 	<div class="content">
+    <div id="navTopMargin"></div>
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
 				<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
@@ -9,7 +10,8 @@
 		<div v-if="OrderNone" class="OrderNone">
 			<img :src="OrderNoneImg" />
 			<p>还没有订单哦</p>
-			<router-link to="/shopping" tag="span" class="goShopping">去逛逛</router-link>
+      <span class="goShopping" @click="goShopping">去逛逛</span>
+			<!--<router-link to="/shopping" tag="span" class="goShopping">去逛逛</router-link>-->
 		</div>
 
 		<div v-else class="media" v-for="(goods,index) in commodity">
@@ -109,7 +111,59 @@
 			},
 			goBack() {
 				this.$router.go(-1);
-			}
+			},
+      goShopping(){
+        this.$layer.alert("商场即将上线", {
+          type: 0, //0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+          title: '温馨提示',
+          content: '',
+          area: 'auto',
+          offset: 'auto',
+          icon: -1,
+          btn: '确定',
+          time: 0,
+          shade: true,
+          yes: '',
+          cancel: '',
+          tips: [3,'#c00'],//支持上右下左四个方向，通过1-4进行方向设定,可以设定tips: [1, '#c00']
+          tipsMore: false,//是否允许多个tips
+          shadeClose: false,
+        },function () {
+          $(".vl-notify-mask").remove();
+          $(".vl-notify").remove();
+        })
+
+        $(".vl-notice-title").css({
+          display: "none"
+        });
+        $(".vl-notify-btns").css({
+          textAlign: "center",
+          borderTop:"1px solid #ddd",
+          padding:"0"
+        });
+        $(".vl-notify-content").css({
+          textAlign: "center"
+        });
+        $(".notify-btn").css({
+          borderRadius: "0",
+          width:"100%",
+          margin:"0",
+          border:"none",
+          background:"#fff",
+          color:"#555",
+          padding:"1rem 0"
+        });
+        $(".notify-btn-default").css({
+          borderLeft:"1px solid #ddd"
+        });
+        $(".vl-notify").css({
+          paddingBottom:"0"
+        });
+        $(".vl-notify-mask").css({
+          background:"#111"
+        });
+
+      }
 		}
 	}
 </script>

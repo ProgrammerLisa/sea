@@ -56,6 +56,10 @@ html{
   font-size:62.5%;
   background: #f5f5f5;
 }
+#navTopMargin{
+  height: 20px;
+  background: #09a2d6;
+}
 .weui-cells{
 	border: 0;
 }

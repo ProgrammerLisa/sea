@@ -3,7 +3,8 @@
     <div id="navTopMargin"></div>
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
-				<span @click="goBack"  @touchstart="evers" @touchend="lat"  class="back"><img :src="masrc"/></span> 邀请码
+				<span @click="goBack"  @touchstart="evers" @touchend="lat"  class="back"><img :src="masrc"/></span>
+				<span style="margin-left: -27px; position: absolute; left: 50%; font-size: 1.7rem;">邀请码</span>
 			</div>
 		</div>
 		<form>

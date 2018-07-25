@@ -9,7 +9,7 @@
 		<table class="table">
 			<tr>
 				<td class="text-left"><span class="high">账户</span></td>
-				<td class="text-right">136****</td>
+				<td class="text-right">{{IDcode}}</td>
 			</tr>
 			<router-link to="ChangePassword" tag="tr" class="arrow">
 				<td class="text-left">修改密码</td>
@@ -72,8 +72,31 @@
 			return {
 				masrc: back,
 				more: more,
-				isOn: true
+				isOn: true,
+				IDcode: ''
 			}
+		},
+		mounted: function() {
+			this.$http({
+					method: "get",
+					url: "/users/profile",
+					headers: {
+						"device": "android",
+						"uid": localStorage.getItem("uid"),
+						"Access-Control-Allow-Origin": "*"
+					},
+					data: {}
+				}).then(function(res) {
+					if(res.data.code == 0) {
+						this.IDcode = res.data.data.phone;
+					} else {
+						this.$layer.msg(res.data.msg);
+					}
+				}.bind(this))
+				.catch(function(err) {
+					console.log(err)
+				}.bind(this))
+
 		},
 		methods: {
 			switchBtn() {

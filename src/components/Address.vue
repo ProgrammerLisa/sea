@@ -3,7 +3,7 @@
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
 				<span @click="goBack" @touchstart="evers"  @touchend="lat"  class="back"><img :src="masrc"/></span>
-				收货地址
+				<span style="margin-left: -35px; position: absolute; left: 50%; font-size: 1.7rem;">收货地址</span>
 			</div>
 		</div>
 		<div v-if="noAddress" class="addressNone">

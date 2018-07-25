@@ -271,7 +271,7 @@ export default {
     background: url("../assets/images/bg.png") 100% 100% no-repeat;
     background-size: 100% 100%;
     color: white;
-    height: 65vh;
+    height: 91vh;
     padding-top: 1px;
   }
   .topOption{
@@ -291,7 +291,7 @@ export default {
     float: right;
     text-align: center;
     position: relative;
-    margin-top: -8rem;
+    margin-top: -24rem;
     margin-right: 1rem;
     color: #fff;
   }

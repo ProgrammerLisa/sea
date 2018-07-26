@@ -83,7 +83,7 @@
     letter-spacing: 0.05rem;
     background: #09a2d6;
     color: #fff;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     margin-bottom: 1rem;
     height: 4.1rem;
     line-height: 4.1rem;
@@ -123,7 +123,7 @@
     font-size: 1.5rem;
   }
   .commodityPrice{
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
   .commodityPriceNum{
     color: #09a2d6;

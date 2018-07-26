@@ -125,7 +125,7 @@
 		letter-spacing: 0.05rem;
     background: #09a2d6;
     color: #fff;
-		font-size: 1.6rem;
+    font-size: 1.5rem;
 		margin-bottom: 0;
 		height: 4.1rem;
 		line-height: 4.1rem;
@@ -169,7 +169,7 @@
 		border-bottom: 0.1rem solid #f1f1f1;
 		padding: 0.5rem 1rem;
 		color: #444;
-		font-size: 1.6rem;
+		font-size: 1.5rem;
 		margin-bottom: 0;
 	}
 
@@ -192,7 +192,7 @@
 	}
 
 	.invitePhone {
-		font-size: 1.6rem;
+		font-size: 1.5rem;
 	}
 
 	.inviteDate {
@@ -226,6 +226,6 @@
 
 	.modal-title {
 		color: #444;
-		font-size: 1.6rem;
+		font-size: 1.5rem;
 	}
 </style>

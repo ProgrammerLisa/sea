@@ -256,7 +256,7 @@
 		letter-spacing: 0.05rem;
     background: #09a2d6;
     color: #fff;
-		font-size: 1.6rem;
+		font-size: 1.5rem;
 		margin-bottom: 0;
 		height: 4.1rem;
 		line-height: 4.1rem;
@@ -288,7 +288,7 @@
 	}
 
 	.control-label {
-		font-size: 1.6rem;
+		font-size: 1.5rem;
 		color: #555;
 		margin-bottom: 0;
 		padding: 0.4rem 0;

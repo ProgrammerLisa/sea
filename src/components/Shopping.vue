@@ -160,7 +160,7 @@
     letter-spacing: 0.05rem;
     background: #fff;
     color: #555;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     margin-bottom: 0;
     height: 4.1rem;
     line-height: 4.1rem;
@@ -185,7 +185,7 @@
     font-size: 1.5rem;
   }
   .commodityPrice{
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     color: #09a2d6;
   }
   .goodsMessage{

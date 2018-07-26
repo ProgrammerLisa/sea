@@ -11,16 +11,15 @@
 			<p>暂时还没有消息哦</p>
 		</div>
 
-		<div class="media" v-for="(n,index) in news" v-else @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd" :data-curid="n.id">
-
-			<div class="media-left" @click="newsDetails(index)">
-				<span class="badge msg" v-show="!n.msg.is_read">·</span>
-			</div>
-			<div class="media-body" @click="newsDetails(index)">
+		<div class="media" v-for="(n,index) in news" v-else @touchstart="touchStart($event,index)" @touchmove="touchMove($event,index)" @touchend="touchEnd($event,index)" :data-curid="n.id">
+			<div class="media-body">
 				<h4 class="media-heading">{{n.msg.title}} <span class="time">{{n.msg.created_at}}</span></h4>
 				<div class="msgContent">{{n.msg.content}}</div>
 
 			</div>
+      <div class="media-right" >
+        <span class="badge msg" v-show="!n.msg.is_read">·</span>
+      </div>
 			<transition name="slide-fade">
 				<div class="del"　v-if="n.show" @click="del(index)">
 					删除
@@ -64,56 +63,57 @@
 			}
 		},
 		mounted() {
-      console.log($(".media").eq(0).height())
-
-			this.$http({
-					method: "post",
-					url: "/messages/box",
-					headers: {
-						"device": "android",
-						"uid": localStorage.getItem("uid"),
-						"Access-Control-Allow-Origin": "*"
-					},
-					data: {
-					  "page":1
-          }
-				}).then(function(res) {
-					if(res.data.code == 0) {
-						if(JSON.stringify(res.data.data) == "{}") {
-							this.newsNone = true;
-						} else {
-							this.newsNone = false;
-							for(let n in res.data.data) {
-								this.mobile.id = n;
-								this.mobile.msg = res.data.data[n];
-								this.mobile.msg.img = friend;
-								this.news.push(this.mobile);
-								this.mobile = {
-									id: '',
-									msg: {
-										img: '',
-										title: '',
-										content: '',
-										create_at: '',
-										is_read: ''
-									},
-									show: false,
-								};
-
-							}
-						}
-
-					} else {
-						this.newsNone = true;
-						this.$layer.msg(res.data.msg);
-					}
-				}.bind(this))
-				.catch(function(err) {
-					this.newsNone = true;
-          this.$layer.msg("系统异常，请稍后再试");
-				}.bind(this));
+      this.newsList();
 		},
 		methods: {
+		  newsList(){
+        this.$http({
+          method: "post",
+          url: "/messages/box",
+          headers: {
+            "device": "android",
+            "uid": localStorage.getItem("uid"),
+            "Access-Control-Allow-Origin": "*"
+          },
+          data: {
+            "page":1
+          }
+        }).then(function(res) {
+          if(res.data.code == 0) {
+            if(JSON.stringify(res.data.data) == "{}") {
+              this.newsNone = true;
+            } else {
+              this.newsNone = false;
+              for(let n in res.data.data) {
+                this.mobile.id = n;
+                this.mobile.msg = res.data.data[n];
+                this.mobile.msg.img = friend;
+                this.news.push(this.mobile);
+                this.mobile = {
+                  id: '',
+                  msg: {
+                    img: '',
+                    title: '',
+                    content: '',
+                    create_at: '',
+                    is_read: ''
+                  },
+                  show: false,
+                };
+
+              }
+            }
+
+          } else {
+            this.newsNone = true;
+            this.$layer.msg(res.data.msg);
+          }
+        }.bind(this))
+          .catch(function(err) {
+            this.newsNone = true;
+            this.$layer.msg("系统异常，请稍后再试");
+          }.bind(this));
+      },
 			newsDetails(index) {
 				this.$router.push({
 					path: '/newsdetails',
@@ -125,13 +125,14 @@
 					}
 				})
 			},
-			touchStart(ev) {
+			touchStart(ev,index) {
 				ev = ev || event;
 				ev.preventDefault();
 				//                      console.log(ev.targetTouches);
 				//                      console.log(ev.changedTouches);
 				if(ev.touches.length == 1) { //tounches类数组，等于1时表示此时有只有一只手指在触摸屏幕
 					this.startX = ev.touches[0].clientX; // 记录开始位置
+          this.disX=0;
 				}
 			},
 			touchMove(ev, index) {
@@ -143,7 +144,7 @@
 
 					//实时的滑动的距离-起始位置=实时移动的位置
 					this.disX = this.moveX - this.startX;
-					if(this.disX < 0 || this.disX == 0) {
+					if(this.disX < -50) {
 						for(var i in this.news) {
 							if(ev.currentTarget.dataset.curid == this.news[i].id) {
 								this.news[i].show = true
@@ -174,22 +175,33 @@
 						}
 					}).then(function(res) {
 						if(res.data.code == 0) {
-							this.$layer.msg(res.data.msg)
-							$(".media").eq(index).css({
-								display: "none"
-							})
-							if($(".media").length == 0) {
-								this.newsNone = true;
-							}
+							this.$layer.msg(res.data.msg);
+              this.news.splice(index,1);
+              if(this.news.length===0){
+                this.newsNone=true
+              }
 						}
 					}.bind(this))
 					.catch(function(err) {
             this.$layer.msg("系统异常，请稍后再试");
 					}.bind(this));
+
 			},
-			touchEnd(ev) {
-				ev = ev || event;
-				ev.preventDefault();
+			touchEnd(ev,index) {
+		    if(this.news[index].show){
+          if($(window).innerWidth()-$(".del").width()>this.startX&&this.disX==0){
+            this.newsDetails(index)
+          }
+        }else {
+          if(this.disX==0){
+            this.newsDetails(index)
+          }
+        }
+
+        ev = ev || event;
+        ev.preventDefault();
+
+
 			},
 			evers() {
 				this.masrc = backs;
@@ -230,7 +242,7 @@
 		letter-spacing: 0.05rem;
     background: #09a2d6;
     color: #fff;
-		font-size: 1.6rem;
+		font-size: 1.5rem;
     margin-bottom: 0;
 		height: 4.1rem;
 		line-height: 4.1rem;
@@ -247,10 +259,9 @@
 
 	.media {
 		background: #fff;
-		margin-top: 0;
-		padding: 1rem;
 		border-bottom: 0.1rem solid #f5f5f5;
-    height: 6rem;
+    padding: 0;
+    margin: 0;
 	}
 
 	.media-left img {
@@ -262,15 +273,17 @@
 
 	.media-body {
 		vertical-align: middle;
+    height: 6rem;
+    padding: 0 1rem;
 	}
 
-	.media-heading {
+  .media-heading {
 		color: #555;
 	}
 
 	.time {
 		float: right;
-		font-size: xx-small;
+		font-size: small;
 		margin-right: 1rem;
 		color: #777;
 	}
@@ -287,8 +300,9 @@
 	}
 
 	.msg {
-		position: absolute;
-		right: 0.5rem;
+    position: absolute;
+    right:0.5rem;
+    margin-top: 1rem;
 		color: #ff2424;
 		background: transparent;
 		font-size: xx-large;
@@ -299,12 +313,12 @@
 	.del {
 		background: #ff2424;
 		color: #fcf8e3;
-		width: 8rem;
+		width: 6rem;
 		line-height: 6rem;
 		text-align: center;
 		position: absolute;
 		right: 0;
-		margin-top: -4.7rem;
+		margin-top: -6rem;
 	}
 	/* 可以设置不同的进入和离开动画 */
 	/* 设置持续时间和动画函数 */

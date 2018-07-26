@@ -10,6 +10,7 @@ import axios from 'axios'
 import Croppa from 'vue-croppa'
 import 'vue-croppa/dist/vue-croppa.css'
 
+
 import router from './router'
 
 Vue.use(VueRouter);

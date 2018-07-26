@@ -1,27 +1,25 @@
 <template>
-  <div class="content">
-    <div id="main-top" :style="bgHeight">
+  <div id="content" :style="bgHeight">
      <div id="notice">
-    		<marquee style="height: 2.5rem;" scrollamount="5" scrolldelay="1"><span style="font-size: 1.6rem;">公告:亲爱的用户，平台momomo即将上线，敬请期待。</span></marquee>
+        <marquee style="height: 2.5rem;" scrollamount="5" scrolldelay="1"><span style="font-size: 1.5rem;">公告:亲爱的用户，平台momomo即将上线，敬请期待。</span></marquee>
      </div>
      <div class="topOption option1">
         <span >珍珠量 {{imgSum}}</span>
       </div>
       <div id="imgDiv"></div>
-    </div>
-    <router-link class="option3" to="/gamerules" tag="div">
-      <img src="../assets/images/youxiguize.png"  class="invitation-friends"/>
-      <p>游戏规则</p>
-    </router-link>
-    <router-link class="option4" to="/ask" tag="div">
-      <img src="../assets/images/yaoqinghaoyou.png"  class="invitation-friends"/>
-      <p>邀请好友</p>
-    </router-link>
-    <div id="pearlContainer">
-      <div v-for="(m,index) in imgDiv" :class="m.divClass" :data-level="m.level" @click.once="flag && accumulative($event,index)">
-        <img v-bind:style="m.style" :src="m.href" />
+      <router-link class="option3" to="/gamerules" tag="div">
+        <img src="../assets/images/youxiguize.png"  class="invitation-friends"/>
+        <p>游戏规则</p>
+      </router-link>
+      <router-link class="option4" to="/ask" tag="div">
+        <img src="../assets/images/yaoqinghaoyou.png"  class="invitation-friends"/>
+        <p>邀请好友</p>
+      </router-link>
+      <div id="pearlContainer">
+        <div v-for="(m,index) in imgDiv" :class="m.divClass" :data-level="m.level" @click.once="flag && accumulative($event,index)">
+          <img v-bind:style="m.style" :src="m.href" />
+        </div>
       </div>
-    </div>
 
 
   </div>
@@ -80,6 +78,7 @@ import pearl6 from '@/assets/images/pearl/6.png'
 import pearl7 from '@/assets/images/pearl/7.png'
 import pearl8 from '@/assets/images/pearl/8.png'
 import pearl9 from '@/assets/images/pearl/9.png'
+import THREE from  '@/assets/js/three.min.js'
 
 export default {
   components: {
@@ -149,14 +148,20 @@ export default {
       ],
       RankingTitle:'得宝数据',
       RankingSwitch:'综合排名',
-      bgHeight:''
+      bgHeight:'',
+      SEPARATION:100,AMOUNTX :50,AMOUNTY :50,container:'',camera:'', scene:'', renderer:'',particles:0, particle:0,count:0,mouseX:200,mouseY:-200,windowHalfX:window.innerWidth / 2,windowHalfY: window.innerHeight / 2
     }
   },
   mounted:function () {
-    let height=$(window).innerHeight()-$(".myNav").height();
-    this.bgHeight='height:'+height+'px';
-    const that = this;
-    this.$nextTick(() => {
+    this.init();
+    this.animate();
+    this.startStyle();
+  },
+  methods:{
+    startStyle(){
+      let height=$(window).innerHeight()-$(".myNav").height();
+      this.bgHeight='height:'+height+'px';
+      const that = this;
       that.imgDiv.push(that.PearlLevel5);
 
       for(var i=0;i<that.imgDiv.length;i++){
@@ -165,10 +170,7 @@ export default {
 
       that.cookies();
       $("#pearlContainer").show()
-    })
-
-  },
-  methods:{
+    },
     cookies(){
       const that = this;
       $(function () {
@@ -252,6 +254,145 @@ export default {
         this.RankingTitle='得宝数据';
         this.RankingSwitch='综合排名';
       }
+    },
+    init() {
+
+
+      var content = document.getElementById("content");
+      this.container = document.createElement( 'div' );
+      content.appendChild( this.container );
+
+      this.camera = new THREE.THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
+      this.camera.position.z = 1000;
+
+      this.scene = new THREE.THREE.Scene();
+
+      this.particles = new Array();
+
+      var PI2 = Math.PI * 2;
+      var material = new THREE.THREE.ParticleCanvasMaterial( {
+
+        color: 0xffffff,
+        program: function ( context ) {
+
+          context.beginPath();
+          context.arc( 0, 0, 1, 0, PI2, true );
+          context.fill();
+
+        }
+
+      } );
+
+      var i = 0;
+
+      for ( var ix = 0; ix < this.AMOUNTX; ix ++ ) {
+
+        for ( var iy = 0; iy < this.AMOUNTY; iy ++ ) {
+
+          this.particle = this.particles[ i ++ ] = new THREE.THREE.Particle( material );
+          this.particle.position.x = ix * this.SEPARATION - ( ( this.AMOUNTX * this.SEPARATION ) / 2 );
+          this.particle.position.z = iy * this.SEPARATION - ( ( this.AMOUNTY * this.SEPARATION ) / 2 );
+          this.scene.add( this.particle );
+
+        }
+
+      }
+
+      this.renderer = new THREE.THREE.CanvasRenderer();
+      this.renderer.setSize( window.innerWidth, window.innerHeight );
+      this.container.appendChild( this.renderer.domElement );
+
+      document.addEventListener( 'mousemove', this.onDocumentMouseMove, false );
+      document.addEventListener( 'touchstart', this.onDocumentTouchStart, false );
+      document.addEventListener( 'touchmove', this.onDocumentTouchMove, false );
+
+      //
+
+      window.addEventListener( 'resize', this.onWindowResize, false );
+
+    },
+
+    onWindowResize() {
+
+      this.windowHalfX = window.innerWidth / 2;
+      this.windowHalfY = window.innerHeight / 2;
+
+      this.camera.aspect = window.innerWidth / window.innerHeight;
+      this.camera.updateProjectionMatrix();
+
+      this.renderer.setSize( window.innerWidth, window.innerHeight );
+
+    },
+
+    //
+
+    onDocumentMouseMove( event ) {
+
+      this.mouseX = event.clientX - this.windowHalfX;
+      this.mouseY = event.clientY - this.windowHalfY;
+
+    },
+
+    onDocumentTouchStart( event ) {
+
+      if ( event.touches.length === 1 ) {
+
+        event.preventDefault();
+
+        this.mouseX = event.touches[ 0 ].pageX - this.windowHalfX;
+        this.mouseY = event.touches[ 0 ].pageY - this.windowHalfY;
+
+      }
+
+    },
+    onDocumentTouchMove( event ) {
+
+      if ( event.touches.length === 1 ) {
+
+        event.preventDefault();
+
+        this.mouseX = event.touches[ 0 ].pageX - this.windowHalfX;
+        this.mouseY = event.touches[ 0 ].pageY - this.windowHalfY;
+
+      }
+
+    },
+
+    //
+
+    animate() {
+
+      requestAnimationFrame( this.animate );
+
+      this.render();
+
+
+    },
+
+    render() {
+
+      this.camera.position.x += ( this.mouseX - this.camera.position.x ) * .05;
+      this.camera.position.y += ( - this.mouseY - this.camera.position.y ) * .05;
+      this.camera.lookAt( this.scene.position );
+
+      var i = 0;
+
+      for ( let ix = 0; ix < this.AMOUNTX; ix ++ ) {
+
+        for ( let iy = 0; iy < this.AMOUNTY; iy ++ ) {
+
+          this.particle = this.particles[ i++ ];
+          this.particle.position.y = ( Math.sin( ( ix + this.count ) * 0.3 ) * 50 ) + ( Math.sin( ( iy + this.count ) * 0.5 ) * 50 );
+          this.particle.scale.x = this.particle.scale.y = ( Math.sin( ( ix + this.count ) * 0.3 ) + 1 ) * 2 + ( Math.sin( ( iy + this.count ) * 0.5 ) + 1 ) * 2;
+
+        }
+
+      }
+
+      this.renderer.render( this.scene, this.camera );
+
+      this.count += 0.1;
+
     }
 
   }
@@ -259,28 +400,23 @@ export default {
 }
 </script>
 <style scoped>
+  #content{
+    width: 100vw;
+    overflow: hidden;
+    background: url("../assets/images/bg.png") no-repeat;
+    background-size: 100% 100%;
+    color: white;
+  }
+
 	#notice{
-    margin-top: 2rem;
+    position: absolute;
+    top: 2rem;
     height: 2.5rem;
 		width: 100%;
 		font-family: "微软雅黑";
 		font-size: 1.01rem;
     background: rgba(255,255,255,0.1);
 	}
-  .content{
-    width: 100vw;
-    height: 100vh;
-    overflow-x: hidden;
-    background: #0758a8;
-    color: #666;
-  }
-  #main-top{
-    width:100%;
-    background: url("../assets/images/bg.png") 100% 100% no-repeat;
-    background-size: 100% 100%;
-    color: white;
-    padding-top: 40px;
-  }
   .topOption{
     position: absolute;
   }
@@ -297,13 +433,13 @@ export default {
     width: 6rem;
     float: right;
     text-align: center;
-    position: relative;
-    margin-top: -8rem;
-    margin-right: 1rem;
+    position: absolute;
+    top: 66vh;
+    right: 1rem;
     color: #fff;
   }
   .option3{
-    margin-top: -16rem;
+    top: 50vh;
   }
   .option3 img,.option4 img{
     width: 70%;

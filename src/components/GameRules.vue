@@ -4,7 +4,7 @@
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
 				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"><img :src="masrc"/></span>
-				<span style="margin-left: -32px; position: absolute; left: 50%; font-size: 1.6rem;">游戏规则</span>
+				<span style="margin-left: -32px; position: absolute; left: 50%; font-size: 1.5rem;">游戏规则</span>
 			</div>
 		</div>
 	</div>
@@ -59,7 +59,7 @@
 		letter-spacing: 0.05rem;
     background: #09a2d6;
     color: #fff;
-		font-size: 1.6rem;
+		font-size: 1.5rem;
     margin-bottom: 0;
 		height: 4.1rem;
 		line-height: 4.1rem;

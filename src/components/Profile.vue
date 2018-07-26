@@ -1,61 +1,63 @@
 <template>
   <div class="content">
-    <div id="navTopMargin"></div>
-    <div class="personal">
-      <div class="news">
-        <router-link to="/news" v-if="newsCount" tag="div" class="badgePositionRed"></router-link>
-        <router-link to="/news" v-else tag="div" class="badgePosition"></router-link>
+    <div class="scroll">
+      <div id="navTopMargin"></div>
+      <div class="personal">
+        <div class="news">
+          <router-link to="/news" v-if="newsCount" tag="div" class="badgePositionRed"></router-link>
+          <router-link to="/news" v-else tag="div" class="badgePosition"></router-link>
+        </div>
+        <div class="container personalMessage">
+          <router-link tag="div" to="/compile" v-if="headDefault">
+            <div class="HeadPortrait">
+              <img  :src="`${headPortrait+'?'+now}`" v-if="haveHeadImg"/>
+              <img :src="headPortrait" v-else/>
+            </div>
+            <p class="nickName">{{nickName}}</p>
+            <!--<p class="userId">ID：{{phone}}</p>-->
+          </router-link>
+          <router-link  v-else tag="div" to="/login">
+            <div class="HeadPortrait">
+              <img :src="headPortrait"/>
+            </div>
+            <p class="nickName">点击登录</p>
+          </router-link>
+
+          <div class="row msgBox">
+            <router-link to="wallet" tag="div" class="col-xs-6  personalMessageLeft">
+              <img :src="wallet" class="personalIcon">
+              <span class="personalText" id="walletText">我的钱包</span>
+              <span class="wallet"></span>
+            </router-link>
+            <router-link to="realname" tag="div" class="col-xs-6">
+              <img :src="autonym" class="personalIcon">
+              <span class="personalText">实名信息</span>
+            </router-link>
+          </div>
+        </div>
+
       </div>
-      <div class="container personalMessage">
-        <router-link tag="div" to="/compile" v-if="headDefault">
-          <div class="HeadPortrait">
-            <img  :src="`${headPortrait+'?'+now}`" v-if="haveHeadImg"/>
-            <img :src="headPortrait" v-else/>
+      <div class="personalItem">
+        <div v-for="(m,index) in Personal" class="mediaDad">
+          <div class="media">
+            <router-link :to="m.PersonalHref" tag="div">
+              <div class="media-left">
+                <img class="media-object" :src="m.imfLeft">
+              </div>
+              <div class="media-body" style="vertical-align: middle">
+                {{m.title}}
+              </div>
+              <div class="media-right">
+                <img class="media-object" src="../assets/images/more.png" v-if="!m.noRouter" />
+                <span class="inviteCode" v-else>{{m.myInvite}}</span>
+              </div>
+            </router-link>
+
           </div>
-          <p class="nickName">{{nickName}}</p>
-          <!--<p class="userId">ID：{{phone}}</p>-->
-        </router-link>
-        <router-link  v-else tag="div" to="/login">
-          <div class="HeadPortrait">
-            <img :src="headPortrait"/>
-          </div>
-          <p class="nickName">点击登录</p>
-        </router-link>
+        </div>
 
-				<div class="row msgBox">
-					<router-link to="wallet" tag="div" class="col-xs-6  personalMessageLeft">
-						<img :src="wallet" class="personalIcon">
-						<span class="personalText" id="walletText">我的钱包</span>
-						<span class="wallet"></span>
-					</router-link>
-					<router-link to="realname" tag="div" class="col-xs-6">
-						<img :src="autonym" class="personalIcon">
-						<span class="personalText">实名信息</span>
-					</router-link>
-				</div>
-			</div>
-
-		</div>
-		<div class="personalItem">
-			<div v-for="(m,index) in Personal" class="mediaDad">
-				<div class="media">
-					<router-link :to="m.PersonalHref" tag="div">
-						<div class="media-left">
-							<img class="media-object" :src="m.imfLeft">
-						</div>
-						<div class="media-body" style="vertical-align: middle">
-							{{m.title}}
-						</div>
-						<div class="media-right">
-							<img class="media-object" src="../assets/images/more.png" v-if="!m.noRouter" />
-              <span class="inviteCode" v-else>{{m.myInvite}}</span>
-						</div>
-					</router-link>
-
-				</div>
-			</div>
-
-		</div>
+      </div>
+    </div>
 	</div>
 </template>
 
@@ -183,22 +185,22 @@
 
       },
       methods:{
-          changeBack(index){
-            // $(".media").css({background:'#fff'});
+        changeBack(index){
+          // $(".media").css({background:'#fff'});
 
-          }
-
+        }
       }
     }
 </script>
 
 <style scoped>
   .content{
-    overflow-x: hidden;
+    overflow: hidden;
     background-color: #f5f5f5;
     color: #666;
     padding-bottom: 10rem;
   }
+
   .personal{
     background: url("../assets/images/blue.png") no-repeat #fff;
     background-size: 100% 75%;
@@ -270,7 +272,7 @@
   .media{
     background: #fff;
     margin-top: 0;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     border-radius: 0;
     border: none;
     border-bottom: 0.1rem solid #f5f5f5;
@@ -295,21 +297,13 @@
   }
   @media screen and (min-height: 560px) and (max-height: 700px) {
     .media-object {
-      width:8vh
-    }
-    .media-right{
-      line-height: 8vh;
-    }
-  }
-  @media screen and (min-height: 700px) and (max-height: 850px) {
-    .media-object {
       width:7vh
     }
     .media-right{
       line-height: 7vh;
     }
   }
-  @media screen and (min-height: 850px) and (max-height: 1024px) {
+  @media screen and (min-height: 700px) and (max-height: 850px) {
     .media-object {
       width:6vh
     }
@@ -317,12 +311,20 @@
       line-height: 6vh;
     }
   }
-  @media screen and (min-height:1025px) and (max-height: 2000px) {
+  @media screen and (min-height: 850px) and (max-height: 1024px) {
     .media-object {
       width:5vh
     }
     .media-right{
       line-height: 5vh;
+    }
+  }
+  @media screen and (min-height:1025px) and (max-height: 2000px) {
+    .media-object {
+      width:4vh
+    }
+    .media-right{
+      line-height: 4vh;
     }
   }
   .msg{

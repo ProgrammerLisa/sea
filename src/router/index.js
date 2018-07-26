@@ -51,6 +51,7 @@ import NewsDetails from '@/components/NewsDetails'
 import Nickname from '@/components/Nickname'
 import MyRankings from '@/components/MyRankings'
 
+
 Vue.use(Router)
 
 Vue.prototype.$layer = layer(Vue);

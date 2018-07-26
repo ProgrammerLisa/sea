@@ -13,11 +13,12 @@
         </div>
       </div>
     </div>
+    <!--<audio id="audioPlay" src="@/assets/audio/475.mp3"></audio>-->
     <router-view></router-view>
   </div>
 
 </template>
-
+<script type="text/javascript" src="@/assets/js/shake.js"></script>
 <script>
   import home from '@/assets/images/home.png'
   import discovery from '@/assets/images/discovery.png'
@@ -118,6 +119,17 @@
     },
     methods:{
       nav(index){
+
+
+ //if phone support navigator.vibrate
+        if (navigator.vibrate) {
+            //vibrate 1 second
+            navigator.vibrate(200);
+        } else if (navigator.webkitVibrate) {
+            navigator.webkitVibrate(200);
+        }
+        //put your own code here etc.
+				
         const that = this;
         if(index===2){
           this.config();

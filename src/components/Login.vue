@@ -2,22 +2,24 @@
 
 	<div id="login">
 		<div id="nav">
-			<span @click="goBack" class="back"></span>登 录
+      <div id="navTopMargin"></div>
+			<div id="LoginTitle">登 录</div>
 		</div>
-		<div id="nav_login">
-			<div id="nav_common" @click="sort(1)">
-				<a id="a_common">普通登录</a>
-				<div id="a_common_animation"></div>
-			</div>
+    <div class="" id="loginModeTitle">
+      <div class="loginMode"  @click="sort(1)" >
+        <a id="a_common">普通登录</a>
+        <div id="a_common_animation"></div>
+      </div>
 
-			<div id="nav_sms" @click="sort(0)">
-				<a id="a_sms">短信登录</a>
-				<div id="a_sms_animation"></div>
-			</div>
-		</div>
+      <div class="loginMode" @click="sort(0)">
+        <a id="a_sms">短信登录</a>
+        <div id="a_sms_animation"></div>
+      </div>
+    </div>
+
 		<!--这是我要隐藏的  -->
 		<form v-if="isShow">
-			<div style="padding: 45px 30px;">
+			<div style="padding:0 30px;">
 				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: -5px;right: 7%;">
            			  <img src="../assets/images/x.png" style="position:absolute;"/>
@@ -48,7 +50,7 @@
 
 		<!--这是我要隐藏的  -->
 		<form v-else>
-			<div style="padding: 45px 30px;">
+			<div style="padding: 0 30px;">
 				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 					<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
 					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 7%;">
@@ -393,37 +395,39 @@
 		-webkit-box-shadow: 0 0 0px 1000px #fff inset;
 	}
 	/*焦点时也加上，不加会出现黄色背景闪动一下*/
-	
+
 	input[type=text]:focus,
 	input[type=password]:focus,
 	textarea:focus {
 		-webkit-box-shadow: 0 0 0 1000px white inset;
 	}
-	
+
 	button.weui-btn.weui-btn_primary {
 		background-color: #09A2D6;
 		border-radius: 0;
 	}
-	
+
 	button.weui-btn.weui-btn_primary:active {
 		background-color: #09A2D6;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	#login {
 		width: 100vw;
 		height: 100vh;
 		background: #fff;
 		overflow: hidden;
 	}
-	
+  #LoginTitle{
+    padding: 1rem;
+  }
 	#verifica {
 		border-top: 0;
 		border-left: 0;
@@ -436,15 +440,15 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-	
+
 	#ipwd .vux-x-input .weui-cell {
 		width: 80%;
 	}
-	
+
 	.weui-btn::after {
 		border-radius: 0;
 	}
-	
+
 	#verbtn {
 		position: relative;
 		margin-top: -44px;
@@ -459,7 +463,7 @@
 		border-radius: 0;
 		border: none;
 	}
-	
+
 	.phone {
 		border-top: 0;
 		border-left: 0;
@@ -472,15 +476,15 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-	
+
 	input::-ms-clear {
 		display: none;
 	}
-	
+
 	.phone:valid+.close {
 		display: inline;
 	}
-	
+
 	#ipwd {
 		border-top: 0;
 		border-left: 0;
@@ -493,12 +497,12 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-	
+
 	.group_inputs {
 		width: 100%;
-		padding-top: 14rem;
+		padding-top: 10rem;
 	}
-	
+
 	#group_input_img {
 		position: relative;
 		margin-top: -55px;
@@ -506,7 +510,7 @@
 		font-size: 1.2rem;
 		height: 55px;
 	}
-	
+
 	.group_input {
 		/*margin: -40px;*/
 		/*margin: 10px;*/
@@ -515,129 +519,109 @@
 		/*padding: 40px;*/
 		/*margin-left: -14px;*/
 	}
-	
+
 	.weui-cells:before {
 		border-top: 0px!important;
 	}
-	
+
 	.hyperlink {
 		right: 9%;
 		margin-top: 2rem;
 		position: absolute;
 	}
-	
+
 	.a_hyperlink {
 		color: #8C8C8C;
 	}
-	
+
 	a {
 		color: #353535;
 	}
-	
+
 	a:hover {
 		text-decoration: none;
 	}
-	
+
 	#nav {
-		position: fixed;
-		top: 0;
 		width: 100%;
-		height: 50px;
 		font-size: 1.8rem;
-		background-color: white;
+		background-color: #09a2d6;
 		text-align: center;
-		color: #555;
-		line-height: 50px;
+		color: #fff;
 		border-bottom: 1px solid #F5F5F5;
 	}
-	
-	#nav_login {
-		position: fixed;
-		top: 0;
-		width: 100%;
-		background-color: white;
-		text-align: center;
-		line-height: 50px;
-		border-bottom: 1px solid #C8C8CD;
-		margin-top: 50px;
-	}
-	
-	#nav_common {
-		position: fixed;
-		width: 50%;
-		background: white;
-		color: #09A2D6;
-		box-shadow: 0.2rem 0.2rem 0.2rem #ddd;
-		overflow: hidden;
-	}
-	
+  #loginModeTitle{
+    width: 100%;
+    height: 50px;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0.7rem 0.7rem 0.7rem #eee;
+  }
+  .loginMode{
+    width: 50%;
+    text-align: center;
+    line-height: 4rem;
+    overflow: hidden;
+    float: left;
+  }
 	#nav_common a {
 		width: 100%;
 		background: white;
 	}
-	
+
 	#a_common {
 		/*text-decoration:none;*/
 		/*border-bottom:3px solid #09A2D6;  #ccc换成链接的颜色*/
 		display: inline-block;
 		/*margin-bottom:-3px;  这里设置你要空的距离*/
 	}
-	
+
 	#a_sms {
 		width: 100%;
 		text-decoration: none;
 		display: inline-block;
 	}
-	
-	#nav_sms {
-		position: fixed;
-		width: 50%;
-		margin-left: 50%;
-		background: white;
-		border-left: none;
-		overflow: hidden;
-		box-shadow: 0.2rem 0.2rem 0.2rem #ddd;
-	}
-	
+
+
 	#a_common_animation {
 		width: 100%;
 		background: #09A2D6;
 		height: 0.3rem;
 		margin-left: 0
 	}
-	
+
 	#a_sms_animation {
 		width: 100%;
 		background: #09A2D6;
 		height: 0.3rem;
 		margin-left: -100%;
 	}
-	
+
 	.weui-btn:after,
 	#btn_login_normal:after,
 	#btn_login_sms:after,
 	#verbtn:after {
 		border: none;
 	}
-	
+
 	#btn_login_normal,
 	#btn_login_sms {
 		width: 100%;
 		margin-top: 30px;
 	}
-	
+
 	#btn_login_normal:disabled {
 		background: #C0C0C0;
 	}
-	
+
 	#btn_login_sms:disabled {
 		background: #C0C0C0;
 	}
-	
+
 	button#btn_login_normal.weui-btn.weui-btn_primary {
 		width: 100%;
 	}
-	
+
 	button#btn_login_sms.weui-btn.weui-btn_primary {
 		width: 100%;
 	}

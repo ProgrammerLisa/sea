@@ -85,8 +85,8 @@
 				}).then(function(res) {
 					if(res.data.code == 0) {
 						console.log(res.data.data);
-						if(!res.data.data.is_idverification) {
-							this.inputbox = true,
+						if(!res.data.data.is_realname) {
+							  this.inputbox = true;
 								this.succeed = false
 						} else {
 							this.realName[0].content = res.data.data.real_name
@@ -126,7 +126,7 @@
 				} else {
 					this.$http({
 							method: "post",
-							url: "/users/identity-verification",
+							url: "/users/real-name-authentication",
 							headers: {
 								"device": "android",
 								"uid": localStorage.getItem("uid"),
@@ -205,7 +205,7 @@
 	}
 
 	.table td {
-		padding: 1.5rem 1rem;
+		padding: 1.5rem 1.7rem;
 	}
 
 	.text-left {

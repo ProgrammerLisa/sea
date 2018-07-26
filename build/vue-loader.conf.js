@@ -11,6 +11,9 @@ module.exports = {
   loaders: utils.cssLoaders({
     sourceMap: sourceMapEnabled,
     extract: isProduction
+    ? config.build.productionSourceMap
+    : config.dev.cssSourceMap,
+    extract: isProduction
   }),
   cssSourceMap: sourceMapEnabled,
   cacheBusting: config.dev.cacheBusting, 
@@ -18,6 +21,7 @@ module.exports = {
     video: 'src',
     source: 'src',
     img: 'src',
+    audio: 'src',
     image: 'xlink:href'
   }
 }

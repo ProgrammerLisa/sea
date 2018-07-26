@@ -26,7 +26,7 @@
 			</tr>
 			<tr>
 
-        <td class="col-xs-6">
+        <td class="col-xs-5">
             <div v-if="a.msg.is_default">
               <div class="round">
               <span class="defaultRound" ></span>
@@ -40,7 +40,7 @@
             </div>
 
         </td>
-        <td class="col-xs-6 text-right">
+        <td class="col-xs-7 text-right">
           <span class="del" @click="editor(index)" >
             <img src="../assets/images/editor.png"/> 编辑
           </span>
@@ -239,7 +239,8 @@
 	}
 
 	.back {
-		float: left;
+		position: absolute;
+    left: 1rem;
 	}
 
 	.back img {

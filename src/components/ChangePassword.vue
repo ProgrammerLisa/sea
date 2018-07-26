@@ -9,31 +9,27 @@
 		</div>
 		<form class="form-horizontal">
 			<div class="form-group">
-				<label for="phone" class="col-xs-3 control-label">手机号</label>
 				<div class="col-xs-9">
 					<input type="number" class="form-control" id="phone" placeholder="请输入手机号">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="oldPsw" class="col-xs-3 control-label">原密码</label>
 				<div class="col-xs-9">
 					<input type="password" class="form-control" id="oldPsw" placeholder="请填写原密码">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="newPsw" class="col-xs-3 control-label">新密码</label>
 				<div class="col-xs-9">
 					<input type="password" class="form-control" id="newPsw" placeholder="请填写新密码">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="newPsw2" class="col-xs-3 control-label">确认密码</label>
 				<div class="col-xs-9">
 					<input type="password" class="form-control" id="newPsw2" placeholder="请再次填写确认密码">
 				</div>
 			</div>
 			<div class="prompt">
-				<span>密码必须是8-16位，至少含数字、字母、字符2种组合</span>
+				<span>密码必须是6-16位的数字、字母或下划线_组成</span>
 			</div>
 
 		</form>
@@ -76,7 +72,10 @@
 				} else if($('#newPsw').val() == "" || $('#newPsw').val() == undefined || $('#newPsw').val() == null) {
 					this.$layer.msg("请输入新密码");
 					$('#newPsw').focus();
-				} else if($('#oldPsw').val() == $('#newPsw2').val()) {
+				} else if(!(/^[0-9a-zA-Z_]\d{5,16}$/.test($('#newPsw').val()))){
+          this.$layer.msg("密码格式不正确");
+          $('#newPsw').focus();
+        } else if($('#oldPsw').val() == $('#newPsw2').val()) {
 					this.$layer.msg("密码不能重复");
 					$('#newPsw2').focus();
 				} else if($('#newPsw2').val() == "" || $('#newPsw2').val() == undefined || $('#newPsw2').val() == null) {

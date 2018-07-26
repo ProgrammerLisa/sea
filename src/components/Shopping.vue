@@ -1,7 +1,7 @@
 <template>
     <div class="content">
-      <div id="navTopMargin" style="background: #fff;"></div>
-      <div class="panel panel-default BlackTitle">
+      <div id="navTopMargin" style="background: #eee;"></div>
+      <div class="panel panel-default BlackTitle" style="background: #eee;">
         <div class="panel-body">
           商城
         </div>

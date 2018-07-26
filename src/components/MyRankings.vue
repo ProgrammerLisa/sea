@@ -12,7 +12,7 @@
     </div>
     <table v-if="isBlack" class="table">
       <tr><td><h4 class="decorate-title"><div class="decorate"></div>得宝数据</h4></td></tr>
-      <tr class="bcfff" v-for="list in RankingListBlack">
+      <tr class="bcfff myData" v-for="list in RankingListBlack">
         <td class="text-left">{{list.title}}</td>
         <td class="text-right">{{list.count}}</td>
       </tr>
@@ -85,6 +85,8 @@
     color: #666;
     background-color: #f5f5f5;
     width: 100vw;
+    position: fixed;
+    top: 0;
   }
 
   .panel {
@@ -147,12 +149,13 @@
     font-size: 1.6rem;
     text-align: left;
     color: #444;
+    padding: 0.5rem 0;
   }
   #ranking{
     width:30%;
   }
   #listTitle{
-    padding: 1rem 0;
+    padding: 1rem;
     height:4rem;
     display: block;
     background: #fff;
@@ -160,5 +163,8 @@
   }
   #listTitle:active{
     background: #ddd;
+  }
+  .myData td{
+    padding:0 2rem ;
   }
 </style>

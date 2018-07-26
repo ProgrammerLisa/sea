@@ -225,7 +225,7 @@
 	.media {
 		background: #fff;
 		margin-top: 0;
-		padding: 1rem;
+		padding: 1rem 1.6rem;
 		border-bottom: 0.1rem #F5F5F5 solid;
 	}
 

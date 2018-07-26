@@ -122,7 +122,7 @@
 
 	.pearl {
 		border-bottom: 0.1rem solid #f5f5f5;
-		padding:0 1rem;
+		padding:0 1.6rem;
     height: 8vh;
     line-height: 8vh;
 	}

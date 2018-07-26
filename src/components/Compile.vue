@@ -16,12 +16,12 @@
 				<img class="media-object headImg" :src="headImg" v-else/>
 			</div>
 		</div>
-		<router-link to="/nickname" tag="div" class="media">
+		<router-link to="/nickname" tag="div" class="media" style="padding-right: 1rem">
 			<div class="media-body nickNameLeft">
 				昵称
 			</div>
 			<div class="media-right nickNameRight">
-				<span id="nickname">{{nickname}}</span><span class="glyphicon glyphicon-menu-right more"></span>
+				<span id="nickname">{{nickname}}</span><span class="text-right"><img :src="more" class="moreImg"/></span>
 			</div>
 		</router-link>
 		<div class="media noTop">
@@ -62,6 +62,7 @@
 	import headImg from '@/assets/images/chushi.png'
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
+  import more from '@/assets/images/more.png'
 
 	export default {
 		name: "Compile",
@@ -72,6 +73,7 @@
 		},
 		data() {
 			return {
+        more:more,
 				masrc: back,
 				headImg: headImg,
 				nickname: '',
@@ -159,6 +161,7 @@
 		color: #666;
 		background-color: #f5f5f5;
 		width: 100vw;
+    height: 100vh;
 	}
 
 	.panel {
@@ -190,19 +193,9 @@
 		height: 2.5rem;
 	}
 
-	.back span {
-		height: 2.5rem;
-		font-size: 2.5rem;
-		color: #DBDBDB;
-	}
-
-	.back span:active {
-		color: black;
-	}
-
 	.media {
 		background: #fff;
-		padding: 1rem;
+		padding: 1rem 1.7rem;
 		border-bottom: 0.1rem solid #f5f5f5;
 	}
 
@@ -280,56 +273,17 @@
 		font-size: 100%;
 	}
 
-	#form_control {
-		width: 80%;
-		margin: 0 10%;
-		outline: none;
-		box-shadow: none;
-	}
 
 	.closeBtn {
 		border-bottom: none;
     line-height: 4.5vh;
 	}
 
-	.nickInput {
-		border: none;
-		border-radius: 0;
-		outline: none;
-		border-bottom: 0.1rem solid #f1f1f1;
-		padding: 1.5rem 1rem;
-	}
-
-	.nickText {
-		margin-bottom: 0;
-		text-align: left;
-		padding: 0.5rem 0 0 10%;
-		color: #FF2424;
-		font-size: smaller;
-	}
-
-	#NickModal .modal-footer {
-		border-top: none;
-	}
-
-	.nickNo,
-	.nickYes {
-		border-radius: 0;
-		padding: 0.4rem 1.5rem;
-	}
-
-	.nickNo {
-		margin-right: 1rem;
-		background: #f1f1f1;
-	}
-
-	.nickYes {
-		background: #09a2d6;
-		border-color: #2aabd2;
-	}
-
 	.nickNameRight {
 		width: 80%;
 		text-align: right;
 	}
+  .moreImg{
+    height: 3rem;
+  }
 </style>

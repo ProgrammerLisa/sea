@@ -1,12 +1,11 @@
 <template>
 	<div class="content">
     <div id="navTopMargin"></div>
-		<div class="panel panel-default BlackTitle">
-			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"><img :src="masrc"/></span>
-				<span style="margin-left: -20px; position: absolute; left: 50%; font-size: 1.8rem;">设 置</span>
-			</div>
-		</div>
+    <div class="panel panel-default BlackTitle">
+      <div class="panel-body">
+        <span @click="goBack" @touchstart="evers" @touchend="lat" class="back">  <img :src="masrc"/></span> 设置
+      </div>
+    </div>
 		<table class="table">
 			<tr>
 				<td class="text-left"><span class="high">账户</span></td>
@@ -320,7 +319,7 @@
 	.loginOut {
 		background: #fff;
 		text-align: center;
-		line-height: 3rem;
+		line-height: 4rem;
 		color: #ff2424;
 		letter-spacing: 0.1rem;
 		position: fixed;

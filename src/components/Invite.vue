@@ -1,12 +1,13 @@
 <template>
 	<div class="content">
     <div id="navTopMargin"></div>
-		<div class="panel panel-default BlackTitle">
-			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"><img :src="masrc"/></span>
-				<span style="margin-left: -30px; position: absolute; left: 50%; font-size: 1.8rem;">邀请码</span>
-			</div>
-		</div>
+    <div class="panel panel-default BlackTitle">
+      <div class="panel-body">
+        <span @click="goBack"  @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
+        邀请码
+        <!--<router-link to="/addfriends" tag="span" class="addTo"> <img src="../assets/images/award.png" /></router-link>-->
+      </div>
+    </div>
 		<div class="code">
 			<h4 class="title">我的专属邀请码</h4>
 			<div id="ask_invite" v-model="ask_invite">{{ask_invite}}</div>
@@ -123,7 +124,8 @@
 	}
 
 	.back {
-		float: left;
+    position: absolute;
+    left: 1rem;
 	}
 
 	.back img {

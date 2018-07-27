@@ -4,7 +4,7 @@
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
 				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"><img :src="masrc"/></span>
-				<span style="margin-left: -20px; position: absolute; left: 50%; font-size: 1.8rem;">关 于</span>
+				<span style="margin-left: -20px; position: absolute; left: 50%; font-size: 1.5rem;">关 于</span>
 			</div>
 		</div>
 		<div class="about">

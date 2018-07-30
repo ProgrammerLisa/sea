@@ -130,6 +130,7 @@
         }
         //put your own code here etc.
 				
+				
         const that = this;
         if(index===2){
           this.config();

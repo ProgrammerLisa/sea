@@ -4,7 +4,7 @@
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
 				<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
-				<span style="margin-left: -30px; position: absolute; left: 50%; font-size: 1.8rem;">提意见</span>
+				<span style="margin-left: -30px; position: absolute; left: 50%; font-size: 1.5rem;">提意见</span>
 			</div>
 		</div>
 		<div class="text">

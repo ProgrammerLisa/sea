@@ -7,7 +7,7 @@
 			</div>
 		</div>
 		<div>
-			<img src="../assets/images/invitebg.png" class="invitebg" />
+			<img src="../../assets/images/invitebg.png" class="invitebg" />
 		</div>
 		<div class="invitePlay">
 			<div class="btn btn-default" data-toggle="modal" data-target="#ImgModal">面对面邀请</div>

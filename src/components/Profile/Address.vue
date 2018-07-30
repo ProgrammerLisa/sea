@@ -42,10 +42,10 @@
         </td>
         <td class="col-xs-7 text-right">
           <span class="del" @click="editor(index)" >
-            <img src="../assets/images/editor.png"/> 编辑
+            <img src="../../assets/images/editor.png"/> 编辑
           </span>
 					<span class="del" @click="del(index)">
-            <img src="../assets/images/del.png"/> 删除
+            <img src="../../assets/images/del.png"/> 删除
           </span>
 				</td>
 			</tr>

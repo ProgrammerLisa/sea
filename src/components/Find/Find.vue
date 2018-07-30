@@ -7,7 +7,7 @@
         </div>
       </div>
       <div class="TitleImg">
-        <img src="../assets/images/banner.png"/>
+        <img src="../../assets/images/banner.png"/>
       </div>
       <div class="panel panel-default task">
         <div class="panel-body">
@@ -99,7 +99,7 @@
 </template>
 
 <script>
-  import {formatDate} from "../assets/js/date";
+  import {formatDate} from "../../assets/js/date";
 
   export default {
         name: "GetForce",

@@ -5,52 +5,56 @@ import $ from 'jquery'
 import '@/assets/css/bootstrap.css'
 import '@/assets/js/bootstrap.js'
 import '@/assets/js/jq.js'
+
+import AboutUs from '@/components/Profile/AboutUs'
+import AddFriends from '@/components/Profile/AddFriends'
+import address from '@/components/Profile/Address'
+import Ask from '@/components/Profile/Invite'
+
+import ChangePassword from '@/components/Profile/ChangePassword'
+import CommodityDetails from '@/components/Shopping/CommodityDetails'
+import CommodityOrder from '@/components/Shopping/CommodityOrder'
+import Compile from '@/components/Profile/Compile'
+
+import Find from '@/components/Find/Find'
+import friend from '@/components/Profile/friend'
+import FriendData from '@/components/Profile/FriendData'
+
+import GameRules from '@/components/Home/GameRules'
+
+import Home from '@/components/Home/Home'
+
+import Login from '@/components/Login/Login'
+
+import ModificationAddress from '@/components/Profile/ModificationAddress'
+import MyPearl from '@/components/Profile/MyPearl'
+import MyRankings from '@/components/Profile/MyRankings'
+
 import nav from '@/components/Nav'
-import Home from '@/components/Home'
-import Login from '@/components/Login'
-import Find from '@/components/Find'
-import Shopping from '@/components/Shopping'
-import Personal from '@/components/Profile'
+import news from '@/components/Profile/news'
+import NewAddress from '@/components/Profile/NewAddress'
+import NewsDetails from '@/components/Profile/NewsDetails'
+import Nickname from '@/components/Profile/Nickname'
 
-import Register from '@/components/Register'
-import Retrieve from '@/components/RetrievePassword'
-import Ask from '@/components/Invite'
-import RegisterInviteCode from '@/components/RegisterInviteCode'
+import Personal from '@/components/Profile/Profile'
+import PreOrder from '@/components/Shopping/PreOrder'
 
-import ShareInvite from '@/components/ShareInvite'
-import GameRules from '@/components/GameRules'
+import RealName from '@/components/Profile/RealName'
+import Register from '@/components/Login/Register'
+import Retrieve from '@/components/Login/RetrievePassword'
+import RegisterInviteCode from '@/components/Login/RegisterInviteCode'
+import Reward from '@/components/Profile/Reward'
 
-import friend from '@/components/friend'
-import address from '@/components/Address'
-import Service from '@/components/Service'
-import Setting from '@/components/Setting'
-import RealName from '@/components/RealName'
-import Wallet from '@/components/Wallet'
-import news from '@/components/news'
-import Reward from '@/components/Reward'
-import CommodityDetails from '@/components/CommodityDetails'
-import CommodityOrder from '@/components/CommodityOrder'
+import Service from '@/components/Profile/Service'
+import Setting from '@/components/Profile/Setting'
+import Shopping from '@/components/Shopping/Shopping'
+import Statement from '@/components/Profile/Statement'
 
+import UserFeedback from '@/components/Profile/UserFeedback'
+import UploadHeadImg from '@/components/Profile/UploadHeadImg'
 
-import ModificationAddress from '@/components/ModificationAddress'
-import Statement from '@/components/Statement'
-import MyPearl from '@/components/MyPearl'
-import ChangePassword from '@/components/ChangePassword'
-import UserFeedback from '@/components/UserFeedback'
-import AboutUs from '@/components/AboutUs'
-
-import PreOrder from '@/components/PreOrder'
-
-import AddFriends from '@/components/AddFriends'
-import NewAddress from '@/components/NewAddress'
-import Compile from '@/components/Compile'
-import UploadHeadImg from '@/components/UploadHeadImg'
-import WechatService from '@/components/WechatService'
-import NewsDetails from '@/components/NewsDetails'
-
-import Nickname from '@/components/Nickname'
-import MyRankings from '@/components/MyRankings'
-
+import Wallet from '@/components/Profile/Wallet'
+import WechatService from '@/components/Profile/WechatService'
 
 Vue.use(Router)
 
@@ -285,11 +289,6 @@ export default new Router({
       meta:{index:3},
       component: NewsDetails
     },{
-      path:'/shareinvite',
-      name:'ShareInvite',
-      meta:{index:2},
-      component: ShareInvite
-    },{
       path:'/gamerules',
       name:'GameRules',
       meta:{index:2},
@@ -304,6 +303,11 @@ export default new Router({
       name:'MyRankings',
       meta:{index:3},
       component: MyRankings
+    },{
+      path:'/frienddata',
+      name:'FriendData',
+      meta:{index:3},
+      component: FriendData
     }
 
   ]

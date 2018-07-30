@@ -10,13 +10,19 @@ import axios from 'axios'
 import Croppa from 'vue-croppa'
 import 'vue-croppa/dist/vue-croppa.css'
 
-
 import router from './router'
+
+import MuseUI from 'muse-ui'
+import 'muse-ui/dist/muse-ui.css'
+import '@/assets/iconfont/material-icons.css'
+import theme from 'muse-ui/lib/theme'
 
 Vue.use(VueRouter);
 Vue.use(VueClipboard);
 Vue.use(Croppa);
+Vue.use(MuseUI)
 // Vue.use(VueResource)
+theme.use('light');
 
 FastClick.attach(document.body);
 

@@ -45,7 +45,7 @@
               this.isDisabled = true;
               this.$http({
                 method: "post",
-                url: "/users/profile/edit",
+                url: "/users/info/edit",
                 headers: {
                   "device": "android",
                   "uid": localStorage.getItem("uid"),

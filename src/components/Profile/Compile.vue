@@ -1,10 +1,10 @@
 <template>
 
-	<div class="content">
+<div class="content">
     <div id="navTopMargin"></div>
 		<div class="panel panel-default BlackTitle">
-			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back">  <img :src="masrc"/></span> 编辑资料
+			<div class="panel-body" >
+				<span  @click="goBack" @touchstart="evers" @touchend="lat" class="back">  <img :src="masrc"/></span> 编辑资料
 			</div>
 		</div>
 		<div class="media noTop">
@@ -16,6 +16,18 @@
 				<img class="media-object headImg" :src="headImg" v-else/>
 			</div>
 		</div>
+		
+		<div class="media Pictures">
+			<div class="media-body">
+				上传头像
+				<span id="hint">长按拖拽可更改图片顺序,最多10张</span>
+			</div>
+			<div class="chart">
+				<img class="media-object graph"  src="../../assets/images/chushi.png"/>
+				<!--<img class="media-object sheet" src="../../assets/images/tianjia.png" />-->
+			</div>
+		</div>
+		
 		<router-link to="/nickname" tag="div" class="media" style="padding-right: 1rem">
 			<div class="media-body nickNameLeft">
 				昵称
@@ -24,12 +36,48 @@
 				<span id="nickname">{{nickname}}</span><span class="text-right"><img :src="more" class="moreImg"/></span>
 			</div>
 		</router-link>
-		<div class="media noTop">
+		
+		<div class="media noTop" style="padding-right: 1rem">
+			<div class="media-body">
+				性别
+			</div>
+			<div class="media-right ">
+				<span id="sex" data-target="#sexModal">男</span><span class="text-right"><img :src="more" class="moreImg"/></span>
+			</div>
+		</div>
+
+		
+		<div class="media noTop ID" style="padding-right: 1rem">
+			<div class="media-body">
+				ID号
+			</div>
+			<div class="media-right" style="padding-right: 15px;">
+				<span>{{pmid}}</span>
+			</div>
+		</div>
+		<router-link to="/Grade" tag="div" class="media" style="padding-right: 1rem;margin-top:0px ;">
+			<div class="media-body ">
+				等级
+			</div>
+			<div class="media-right ">
+				<span id="grade">{{rank}}</span><span class="text-right"><img :src="more" class="moreImg"/></span>
+			</div>
+		</router-link>
+		
+		<router-link to="/Sdfs" tag="div" class="media" style="padding-right: 1rem">
+			<div class="media-body ">
+				个性签名
+			</div>
+			<div class="media-right ">
+				<span id="signature">{{signature}}</span><span class="text-right"><img :src="more" class="moreImg"/></span>
+			</div>
+		</router-link>
+		<div class="media noTop phone">
 			<div class="media-body">
 				手机号码
 			</div>
 			<div class="media-right">
-				{{IDcode}}
+				<span>{{IDcode}}</span>
 			</div>
 		</div>
 		<!-- 头像选择模态框（Modal） -->
@@ -54,7 +102,7 @@
 			</div>
 			<!-- /.modal -->
 		</div>
-
+		
 	</div>
 </template>
 
@@ -77,17 +125,20 @@
 				masrc: back,
 				headImg: headImg,
 				nickname: '',
+				signature: 'hahaha',
 				IDcode: '',
 				chooseFile: '',
 				houzhuiming: '',
-				haveHeadImg: ''
+				haveHeadImg: '',
+				pmid:'141428',
+				rank: 'LV3'
 			}
 		},
 		inject: ['reload'],
 		mounted: function() {
 			this.$http({
 					method: "get",
-					url: "/users/profile",
+					url: "/users/info",
 					headers: {
 						"device": "android",
 						"uid": localStorage.getItem("uid"),
@@ -161,7 +212,7 @@
 		color: #666;
 		background-color: #f5f5f5;
 		width: 100vw;
-    height: 100vh;
+    height: 120vh;
 	}
 
 	.panel {
@@ -211,6 +262,16 @@
 		width: 4rem;
 		height: 4rem;
 		border-radius: 50%;
+	}
+	
+	.graph{
+		width: 4rem;
+		height: 4rem;
+		margin-top: 10px;
+	}
+	
+	.sheet{
+		float: right;
 	}
 
 	.media-right {
@@ -285,5 +346,22 @@
 	}
   .moreImg{
     height: 3rem;
+  }
+  
+  #hint{
+  	float: right;
+  	color: #888;
+  	font-size: 0.05rem;
+  	padding-right: 0px;
+  }
+  div.media-right{
+  	padding-right: 0;
+  }
+  .phone{
+  	margin-top: 15px;
+  }
+  .ID{
+  	margin-top: 15px;
+  	
   }
 </style>

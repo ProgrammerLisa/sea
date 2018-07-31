@@ -109,7 +109,7 @@
           //个人信息
         this.$http({
           method: "get",
-          url: "/users/profile",
+          url: "/users/info",
           headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
           data: {}
         }).then(function(res){

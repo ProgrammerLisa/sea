@@ -75,7 +75,7 @@
 		mounted() {
 			this.$http({
 					method: "get",
-					url: "/users/profile",
+					url: "/users/info",
 					headers: {
 						"device": "android",
 						"uid": localStorage.getItem("uid"),

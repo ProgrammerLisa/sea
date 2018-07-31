@@ -35,6 +35,8 @@ import news from '@/components/Profile/news'
 import NewAddress from '@/components/Profile/NewAddress'
 import NewsDetails from '@/components/Profile/NewsDetails'
 import Nickname from '@/components/Profile/Nickname'
+import Grade from '@/components/Profile/Grade'
+import Sdfs from '@/components/Profile/Sdfs'
 
 import Personal from '@/components/Profile/Profile'
 import PreOrder from '@/components/Shopping/PreOrder'
@@ -298,6 +300,16 @@ export default new Router({
       name:'Nickname',
       meta:{index:3},
       component: Nickname
+    },{
+      path:'/Grade',
+      name:'Grade',
+      meta:{index:3},
+      component: Grade
+    },{
+      path:'/Sdfs',
+      name:'Sdfs',
+      meta:{index:3},
+      component: Sdfs
     },{
       path:'/myrankings',
       name:'MyRankings',

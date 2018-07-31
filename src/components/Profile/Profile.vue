@@ -1,7 +1,6 @@
 <template>
   <div class="content">
     <div class="scroll">
-      <div id="navTopMargin"></div>
       <div class="personal">
         <div class="news">
           <router-link to="/news" v-if="newsCount" tag="div" class="badgePositionRed"></router-link>
@@ -25,38 +24,35 @@
 
           <div class="row msgBox">
             <router-link to="wallet" tag="div" class="col-xs-6  personalMessageLeft">
-              <img :src="wallet" class="personalIcon">
-              <span class="personalText" id="walletText">我的钱包</span>
+              <mu-button flat class="personalText" ><img :src="wallet" class="personalIcon">我的钱包</mu-button>
               <span class="wallet"></span>
             </router-link>
-            <router-link to="realname" tag="div" class="col-xs-6">
-              <img :src="autonym" class="personalIcon">
-              <span class="personalText">实名信息</span>
+            <router-link to="realname" tag="div" class="col-xs-6 personalMessageLeft">
+              <mu-button flat class="personalText" > <img :src="autonym" class="personalIcon">实名信息</mu-button>
             </router-link>
           </div>
         </div>
 
       </div>
-      <div class="personalItem">
-        <div v-for="(m,index) in Personal" class="mediaDad">
-          <div class="media">
-            <router-link :to="m.PersonalHref" tag="div">
-              <div class="media-left">
-                <img class="media-object" :src="m.imfLeft">
-              </div>
-              <div class="media-body" style="vertical-align: middle">
-                {{m.title}}
-              </div>
-              <div class="media-right">
-                <img class="media-object" src="../../assets/images/more.png" v-if="!m.noRouter" />
-                <span class="inviteCode" v-else>{{m.myInvite}}</span>
-              </div>
-            </router-link>
 
-          </div>
-        </div>
 
-      </div>
+      <mu-paper :z-depth="1" class="demo-list-wrap">
+        <mu-list>
+          <mu-list-item button v-for="(m,index) in Personal" :key="index" @click="profileAll(m.PersonalHref,m.PersonalName)">
+            <mu-list-item-action>
+              <img class="media-object" :src="m.imfLeft">
+            </mu-list-item-action>
+            <mu-list-item-title> {{m.title}}</mu-list-item-title>
+            <mu-list-item-action>
+              <mu-button icon  v-if="!m.noRouter">
+                <img class="media-object" src="../../assets/images/more.png" />
+              </mu-button>
+              <span class="inviteCode" v-else>{{m.myInvite}}</span>
+            </mu-list-item-action>
+          </mu-list-item>
+          <!--<mu-divider></mu-divider>-->
+        </mu-list>
+      </mu-paper>
     </div>
 	</div>
 </template>
@@ -89,14 +85,14 @@
             nickName:'',
             phone:'',
             Personal:[
-              {title:'我的好友',PersonalHref:'friend',imfLeft:friend},
-              {title:'我的邀请者',PersonalHref:'',imfLeft:inviter,noRouter:true,myInvite:''},
-              {title:'邀请码',PersonalHref:'ask',imfLeft:invite},
-              {title:'排行榜',PersonalHref:'myrankings',imfLeft:invite},
-              {title:'商城订单',PersonalHref:'commodityorder',imfLeft:indent},
-              {title:'收货地址',PersonalHref:'address',imfLeft:address},
-              {title:'客服中心',PersonalHref:'wechatservice',imfLeft:service},
-              {title:'账户设置',PersonalHref:'setting',imfLeft:setting}
+              {title:'我的好友',PersonalHref:'friend',PersonalName:'friend',imfLeft:friend},
+              {title:'我的邀请者',PersonalHref:'',PersonalName:'',imfLeft:inviter,noRouter:true,myInvite:''},
+              {title:'邀请码',PersonalHref:'ask',PersonalName:'ask',imfLeft:invite},
+              {title:'排行榜',PersonalHref:'myrankings',PersonalName:'MyRankings',imfLeft:invite},
+              {title:'商城订单',PersonalHref:'commodityorder',PersonalName:'CommodityOrder',imfLeft:indent},
+              {title:'收货地址',PersonalHref:'address',PersonalName:'address',imfLeft:address},
+              {title:'客服中心',PersonalHref:'wechatservice',PersonalName:'WechatService',imfLeft:service},
+              {title:'账户设置',PersonalHref:'setting',PersonalName:'Setting',imfLeft:setting}
             ],
             headPortrait:headImg,
             headDefault:true,
@@ -109,7 +105,7 @@
           //个人信息
         this.$http({
           method: "get",
-          url: "/users/profile",
+          url: "/users/info",
           headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
           data: {}
         }).then(function(res){
@@ -188,19 +184,31 @@
         changeBack(index){
           // $(".media").css({background:'#fff'});
 
+        },
+        profileAll(c,n){
+          this.$router.push({
+            path: c,
+            name: n,
+            params: {
+              name: 'name'
+            }
+          })
         }
       }
     }
 </script>
 
 <style scoped>
+
   .content{
     overflow: hidden;
     background-color: #f5f5f5;
     color: #666;
-    padding-bottom: 10rem;
+    padding-bottom: 8rem;
   }
-
+  .content::-webkit-scrollbar {
+    display:none
+  }
   .personal{
     background: url("../../assets/images/blue.png") no-repeat #fff;
     background-size: 100% 75%;
@@ -226,8 +234,9 @@
   }
 
   .personalMessage{
+    width: 90vw;
     background: #fff;
-    margin:0  1rem;
+    margin:0  5vw;
     padding: 1.5rem;
     border-radius: 0.5rem;
     display: flex;
@@ -237,6 +246,7 @@
   }
   .personalMessageLeft{
     padding-right: 0;
+    text-align: left;
   }
   .wallet{
     display: inline-block;
@@ -246,15 +256,13 @@
     margin-top: 0.6rem;
     background: #ddd;
   }
-  #walletText{
-    margin-right: 1rem;
-  }
+
   .msgBox{
     margin-top: 1rem;
   }
   .HeadPortrait img{
-    width: 5rem;
-    height: 5rem;
+    width: 6rem;
+    height: 6rem;
     border: 0.1rem solid #ddd;
     border-radius: 50%;
   }
@@ -269,29 +277,12 @@
     letter-spacing: 0.1rem;
 
   }
-  .media{
-    background: #fff;
-    margin-top: 0;
-    font-size: 1.5rem;
-    border-radius: 0;
-    border: none;
-    border-bottom: 0.1rem solid #f5f5f5;
-    text-align: left;
-    padding: 0;
-    padding-left:  1rem;
-    color: #666;
+ .mu-paper-round{
+   border-radius: 0;
+ }
+  .mu-elevation-1{
+    box-shadow: none;
   }
-  .media:active {
-    background: #f1f1f1
-  }
-  .media-left{
-    padding-bottom: 0;
-    padding-right: 0;
-  }
-  .mediaDad:nth-child(3), .mediaDad:nth-child(6){
-    margin-bottom: 1rem;
-  }
-
   .media-object{
     padding: 0.8rem;
   }
@@ -335,6 +326,6 @@
     line-height: 0;
   }
   .inviteCode{
-    padding-right: 2rem;
+    font-size: 1.5rem;
   }
 </style>

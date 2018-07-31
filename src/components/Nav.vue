@@ -18,7 +18,6 @@
   </div>
 
 </template>
-<script type="text/javascript" src="@/assets/js/shake.js"></script>
 <script>
   import home from '@/assets/images/home.png'
   import discovery from '@/assets/images/discovery.png'
@@ -80,7 +79,7 @@
 
       this.$http({
         method: 'get',
-        url: '/users/profile',
+        url: '/users/info',
         headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
         data: {}
       }).then(function(res){
@@ -129,8 +128,8 @@
             navigator.webkitVibrate(200);
         }
         //put your own code here etc.
-				
-				
+
+
         const that = this;
         if(index===2){
           this.config();

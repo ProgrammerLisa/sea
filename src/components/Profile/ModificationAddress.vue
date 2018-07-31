@@ -1,6 +1,5 @@
 <template>
 	<div class="content">
-    <div id="navTopMargin"></div>
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
 				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"><img :src="masrc"/></span> <span class="backsize">修改地址</span>

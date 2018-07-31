@@ -38,6 +38,7 @@ import Nickname from '@/components/Profile/Nickname'
 
 import Personal from '@/components/Profile/Profile'
 import PreOrder from '@/components/Shopping/PreOrder'
+import PhotoWall from '@/components/Profile/PhotoWall'
 
 import RealName from '@/components/Profile/RealName'
 import Register from '@/components/Login/Register'
@@ -143,6 +144,7 @@ export default new Router({
     },
     {
       path:'/ask',
+      name:'ask',
       meta:{index:3},
       component: Ask
     },
@@ -160,7 +162,7 @@ export default new Router({
     },
     {
       path:'/service',
-      name:'Service',
+      name:'service',
       meta:{index:2},
       component: Service
     },
@@ -308,6 +310,11 @@ export default new Router({
       name:'FriendData',
       meta:{index:3},
       component: FriendData
+    },{
+      path:'/photowall',
+      name:'PhotoWall',
+      meta:{index:4},
+      component: PhotoWall
     }
 
   ]

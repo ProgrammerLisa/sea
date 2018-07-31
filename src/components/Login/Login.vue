@@ -2,7 +2,6 @@
 
 	<div id="login">
 		<div id="nav">
-      <div id="navTopMargin"></div>
 			<div id="LoginTitle">登 录</div>
 		</div>
     <div class="" id="loginModeTitle">

@@ -1,6 +1,12 @@
 <template>
   <div class="content">
-    <mu-carousel transition="fade" class="picContainer" interval="5000"  hide-controls :active="active">
+    <div class="test">
+      <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="back">
+        <img :src="masrc"/>
+      </mu-button>
+    </div>
+
+    <mu-carousel transition="fade" class="picContainer" interval="5000" :cycle="false"  hide-controls :active="active">
       <mu-carousel-item v-for="(p,index) in pic" :key="index" >
         <img :src="p.src"/>
       </mu-carousel-item>
@@ -11,8 +17,11 @@
       </template>
     </mu-carousel>
     <div class="dataContainer">
-      <div class="title">好友昵称 </div>
+      <div class="title">好友昵称 <span class="sex">{{sex}}</span></div>
+      <div class="msg"><span class="level">Lv.{{level}}</span><span class="friendId">ID:{{id}}</span></div>
+      <div class="autograph">{{autograph}}</div>
     </div>
+    <div class="title" style="padding: 1rem 5vw 0">相册</div>
     <div class="controlContainer">
       <div class="controlScroll">
         <div class="controlContent"  v-for="(p,index) in pic">
@@ -20,7 +29,12 @@
         </div>
       </div>
     </div>
-
+    <div class="more"><span @click="photowall">查看更多图片<img src="../../assets/images/more.png"/></span></div>
+    <div class="news">
+      <mu-flex justify-content="center" align-items="center">
+        <mu-button full-width color="#09A2D6">发消息</mu-button>
+      </mu-flex>
+    </div>
   </div>
 </template>
 
@@ -31,17 +45,43 @@
     import pic4 from "@/assets/images/test/0824ab18972bd40719d54bb773899e510fb3096d.jpg"
     import pic5 from "@/assets/images/test/201711613356.jpg"
     import pic6 from "@/assets/images/test/E-XE-fyhskrq1912953.jpg"
+    import back from '@/assets/images/whiteback.png'
+    import backs from '@/assets/images/backs.png'
     export default {
         name: "FriendData",
         data(){
           return{
+            masrc: back,
             pic:[{src:pic1},{src:pic2},{src:pic3},{src:pic4},{src:pic5},{src:pic6}],
-            active: 0
+            active: 0,
+            sex:'♀',
+            level:0,
+            id:123456789,
+            autograph:'这个人很懒，还没有签名。'
           }
         },
         methods:{
           changeActive (index) {
             this.active = index;
+          },
+          evers() {
+            this.masrc = backs;
+          },
+          lat() {
+            this.masrc = back;
+          },
+          goBack() {
+            this.$router.go(-1);
+          },
+          photowall(){
+            this.$router.push({
+              path: '/photowall',
+              name: 'PhotoWall',
+              params: {
+                name: 'name',
+                dataObj: this.pic
+              }
+            })
           }
         }
     }
@@ -53,6 +93,31 @@
     position: fixed;
     top: 0;
     overflow: hidden;
+    background: #fff;
+    height: 100%;
+    overflow-y: scroll;
+  }
+  .content::-webkit-scrollbar {
+    display:none
+  }
+  .back{
+      position: absolute;
+      left: 0.5rem;
+    z-index: 9999;
+
+    }
+  .test{
+    background: linear-gradient(rgba(66,66,66,0.2),rgba(97,97,97,0.2),rgba(158,158,158,0.1),transparent);
+    border-radius: 0;
+    width: 100%;
+    height: 80px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+  }
+  .back img {
+    height: 2.5rem;
   }
   .picContainer{
     width: 100vw;
@@ -61,15 +126,17 @@
   }
   .picContainer img{
     width: 100vw;
+    height: 100vw;
   }
   .controlContainer{
     overflow-x: scroll;
+    padding: 1vw 5vw;
   }
   .controlContainer::-webkit-scrollbar {
     display:none
   }
   .controlScroll{
-    width: 132vw;
+    width: 135vw;
   }
   .controlContent{
     display: inline-block;
@@ -94,8 +161,60 @@
     background: rgba(255,255,255,1);
 
   }
+  .dataContainer{
+    padding: 1rem 5vw;
+    border-bottom: 0.6rem solid #f5f5f5;
+  }
   .title{
+    margin-bottom: 0.3rem;
     font-size: 16px;
     color: #444;
+  }
+  .sex{
+    background:#FC7D7D ;
+    color: #fff;
+    font-size: smaller;
+    display: inline-block;
+    width: 1.5rem;
+    line-height:1.5rem;
+    text-align: center;
+    border-radius: 50%;
+  }
+  .level{
+    background:#09A2D6 ;
+    color: #fff;
+    font-size:1rem;
+    display: inline-block;
+    border-radius:0.8rem;
+    padding: 0 0.5rem;
+    margin-right: 1rem;
+  }
+  .friendId{
+    font-size: 0.75rem;
+    color: #666;
+  }
+  .msg{
+    margin-bottom: 0.3rem;
+  }
+  .autograph{
+    font-size: 1.3rem;
+    color: #555;
+  }
+  .more{
+    text-align: center;
+    font-size: 1rem;
+    color: #646464;
+    margin-bottom:6rem;
+    margin-top: 1rem;
+  }
+  .more img{
+    width: 2.5rem;
+  }
+  .news{
+    background: #f5f5f5;
+    padding: 1rem  5vw;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
   }
 </style>

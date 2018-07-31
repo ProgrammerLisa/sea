@@ -2,7 +2,7 @@
     <div class="content">
       <div class="panel panel-default BlackTitle">
         <div class="panel-body">
-          <router-link tag="span" to="shopping" class="back"> <img src="../assets/images/back.png"/></router-link>
+          <router-link tag="span" to="shopping" class="back"> <img src="../../assets/images/back.png"/></router-link>
           商城
         </div>
       </div>

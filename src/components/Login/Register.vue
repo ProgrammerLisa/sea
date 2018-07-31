@@ -1,6 +1,6 @@
 <template>
 	<div id="register">
-    <div id="navTopMargin"></div>
+		<div id="navTopMargin"></div>
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
 				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"> <img :src="masrc"/></span>
@@ -12,7 +12,7 @@
 				<div style="padding-top: 3.5rem;">
 					<input id="phone" v-on:input="show()" ref="phone" name="phone" v-model="phone" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
 					<button v-if="btnShow" @click="bnns" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right: 8%;">
-            				<img src="../assets/images/x.png" style="position: absolute;" />
+            				<img src="../../assets/images/x.png" style="position: absolute;" />
          			</button>
 				</div>
 
@@ -20,7 +20,7 @@
 					<input id="verification" v-on:input="verifshow()" name="verification" maxlength="4" v-model="verify_code" placeholder="请输入短信验证码" />
 					<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxts}}</x-button>
 					<button v-if="btnVer" @click="ver" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right:45%;">
-            			<img src="../assets/images/x.png" style="position: absolute;" />
+            			<img src="../../assets/images/x.png" style="position: absolute;" />
          			</button>
 				</div>
 
@@ -29,7 +29,7 @@
 					<!--<span>@{{passwordValidate.errorText}}</span>-->
 					<img id="group_input_img" @click="Alt()" :src="imgs" />
 					<button v-if="pwdeShow" @click="pwde" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right: 8%;">
-            				<img src="../assets/images/x.png" style="position: absolute;" />
+            				<img src="../../assets/images/x.png" style="position: absolute;" />
          			</button>
 				</div>
 				<div style="padding-top: 30px;">
@@ -37,7 +37,7 @@
 					<!--<span>@{{passwordCheckValidate.errorText}}</span>-->
 					<img id="group_input_imgs" @click="Alte()" :src="imges" />
 					<button v-if="pwdebtn" @click="pwdes" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right: 8%;">
-            				<img src="../assets/images/x.png" style="position: absolute;" />
+            				<img src="../../assets/images/x.png" style="position: absolute;" />
          			</button>
 				</div>
 
@@ -409,13 +409,11 @@
 		width: 54px;
 		float: right;
 	}
-<<<<<<< HEAD
-  .panel{
-    border-radius: 0;
-  }
-=======
 	
->>>>>>> beefa55bd6d470c2f7b99d3612270bf97a27ee8c
+	.panel {
+		border-radius: 0;
+	}
+	
 	.panel-body {
 		padding: 0 10px;
 	}
@@ -500,7 +498,7 @@
 	}
 	
 	#passwordcheckModel_image {
-		background-image: url(../assets/images/eyeclick.png);
+		background-image: url(../../assets/images/eyeclick.png);
 		background-position: right;
 		/*设置图标位置*/
 		background-repeat: no-repeat;

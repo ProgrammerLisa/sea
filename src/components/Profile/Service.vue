@@ -26,7 +26,7 @@
 
     <!--输入框-->
     <div class="input-group">
-      <span class="input-group-addon" id="basic-addon1"><img src="../assets/images/input.png"/></span>
+      <span class="input-group-addon" id="basic-addon1"><img src="../../assets/images/input.png"/></span>
       <input type="text" class="form-control" placeholder="请输入你的问题" aria-describedby="basic-addon1">
       <span class="input-group-addon dispatchAddon">
         <button class="btn dispatchBtn">发送</button>

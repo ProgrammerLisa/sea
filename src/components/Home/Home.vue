@@ -8,11 +8,11 @@
       </div>
       <div id="imgDiv"></div>
       <router-link class="option3" to="/gamerules" tag="div">
-        <img src="../assets/images/youxiguize.png"  class="invitation-friends"/>
+        <img src="../../assets/images/youxiguize.png" class="invitation-friends"/>
         <p>游戏规则</p>
       </router-link>
       <router-link class="option4" to="/ask" tag="div">
-        <img src="../assets/images/yaoqinghaoyou.png"  class="invitation-friends"/>
+        <img src="../../assets/images/yaoqinghaoyou.png" class="invitation-friends"/>
         <p>邀请好友</p>
       </router-link>
       <div id="pearlContainer">
@@ -403,7 +403,7 @@ export default {
   #content{
     width: 100vw;
     overflow: hidden;
-    background: url("../assets/images/bg.png") no-repeat;
+    background: url("../../assets/images/bg.png") no-repeat;
     background-size: 100% 100%;
     color: white;
   }

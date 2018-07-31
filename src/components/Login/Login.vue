@@ -22,7 +22,7 @@
 			<div style="padding:0 30px;">
 				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: -5px;right: 7%;">
-           			  <img src="../assets/images/x.png" style="position:absolute;"/>
+           			  <img src="../../assets/images/x.png" style="position:absolute;"/>
           			</button>
 					<input required="required" class="phone" ref="mobile" v-on:input="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" />
 
@@ -32,7 +32,7 @@
 					<input id="ipwd" v-model="inppwd" v-on:input="ipwdshow()" :type="types" placeholder="请输入密码" maxlength="16" is-type="sendcode" />
 					<img id="group_input_img" @click="Alt" :src="imgs" />
 					<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 55px;">
-          			  <img src="../assets/images/x.png" />
+          			  <img src="../../assets/images/x.png" />
           			</button>
 				</div>
 
@@ -54,7 +54,7 @@
 				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 					<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
 					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 7%;">
-            			<img src="../assets/images/x.png" style="position: absolute;"/>
+            			<img src="../../assets/images/x.png" style="position: absolute;"/>
          			 </button>
 				</div>
 
@@ -62,7 +62,7 @@
 					<input id="verifica" v-on:input="verifshow()" v-model="verif" maxlength="4" placeholder="请输入短信验证码" />
 					<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</x-button>
 					<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 120px;">
-            			<img src="../assets/images/x.png" style="position: relative;"/>
+            			<img src="../../assets/images/x.png" style="position: relative;"/>
           			</button>
 				</div>
 

@@ -48,7 +48,7 @@
                 {{m.title}}
               </div>
               <div class="media-right">
-                <img class="media-object" src="../assets/images/more.png" v-if="!m.noRouter" />
+                <img class="media-object" src="../../assets/images/more.png" v-if="!m.noRouter" />
                 <span class="inviteCode" v-else>{{m.myInvite}}</span>
               </div>
             </router-link>
@@ -202,7 +202,7 @@
   }
 
   .personal{
-    background: url("../assets/images/blue.png") no-repeat #fff;
+    background: url("../../assets/images/blue.png") no-repeat #fff;
     background-size: 100% 75%;
     text-align: right;
     padding-bottom: 0.5rem;
@@ -215,13 +215,13 @@
   .badgePositionRed{
     width: 5rem;
     height: 3rem;
-    background:url("../assets/images/new.png") no-repeat;
+    background:url("../../assets/images/new.png") no-repeat;
     background-size: 60% 100%;
   }
   .badgePosition{
     width: 5rem;
     height: 3rem;
-    background:url("../assets/images/news.png") no-repeat;
+    background:url("../../assets/images/news.png") no-repeat;
     background-size: 60% 100%;
   }
 

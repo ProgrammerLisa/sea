@@ -1,5 +1,9 @@
 <template>
 	<div id="register">
+<<<<<<< HEAD
+=======
+		<div id="navTopMargin"></div>
+>>>>>>> 3db35e0c5cf49bc56bfc2fb7d89170fb12fc14fb
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
 				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"> <img :src="masrc"/></span>
@@ -408,13 +412,16 @@
 		width: 54px;
 		float: right;
 	}
-<<<<<<< HEAD
+	
+	.panel {
+		border-radius: 0;
+	}
+	
+
   .panel{
     border-radius: 0;
   }
-=======
 
->>>>>>> beefa55bd6d470c2f7b99d3612270bf97a27ee8c
 	.panel-body {
 		padding: 0 10px;
 	}

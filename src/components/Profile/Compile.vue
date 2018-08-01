@@ -1,106 +1,110 @@
 <template>
 
 	<div class="content">
-		<div class="panel panel-default BlackTitle">
-			<div class="panel-body" >
-				<span  @click="goBack" @touchstart="evers" @touchend="lat" class="back">  <img :src="masrc"/></span> 编辑资料
-			</div>
-		</div>
-		<div class="media noTop">
-			<div class="media-body">
-				头像
-			</div>
-			<div class="media-right" data-toggle="modal" data-target="#ImgModal">
-				<img class="media-object headImg" :src="`${headImg+'?'+now}`" v-if="haveHeadImg" />
-				<img class="media-object headImg" :src="headImg" v-else/>
-			</div>
-		</div>
+    <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0" id="nav1">
+      <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+        <img :src="masrc"/>
+      </mu-button>
+      <span class="navTitleText">编辑资料</span>
+    </mu-appbar>
+    <div class="contentMarginTop">
+      <div class="media noTop">
+        <div class="media-body">
+          头像
+        </div>
+        <div class="media-right" data-toggle="modal" data-target="#ImgModal">
+          <img class="media-object headImg" :src="`${headImg+'?'+now}`" v-if="haveHeadImg" />
+          <img class="media-object headImg" :src="headImg" v-else/>
+        </div>
+      </div>
 
-		<div class="media Pictures">
-			<div class="media-body">
-				上传头像
-				<span id="hint">长按拖拽可更改图片顺序,最多10张</span>
-			</div>
-			<div class="chart">
-				<img class="media-object graph"  src="../../assets/images/chushi.png"/>
-				<!--<img class="media-object sheet" src="../../assets/images/tianjia.png" />-->
-			</div>
-		</div>
+      <div class="media Pictures">
+        <div class="media-body">
+          上传头像
+          <span id="hint">长按拖拽可更改图片顺序,最多10张</span>
+        </div>
+        <div class="chart">
+          <img class="media-object graph"  src="../../assets/images/chushi.png"/>
+          <!--<img class="media-object sheet" src="../../assets/images/tianjia.png" />-->
+        </div>
+      </div>
 
-		<router-link to="/nickname" tag="div" class="media" style="padding-right: 1rem">
-			<div class="media-body nickNameLeft">
-				昵称
-			</div>
-			<div class="media-right nickNameRight">
-				<span id="nickname">{{nickname}}</span><span class="text-right"><img :src="more" class="moreImg"/></span>
-			</div>
-		</router-link>
+      <router-link to="/nickname" tag="div" class="media" style="padding-right: 1rem">
+        <div class="media-body nickNameLeft">
+          昵称
+        </div>
+        <div class="media-right nickNameRight">
+          <span id="nickname">{{nickname}}</span><span class="text-right"><img :src="more" class="moreImg"/></span>
+        </div>
+      </router-link>
 
-		<div class="media noTop" style="padding-right: 1rem">
-			<div class="media-body">
-				性别
-			</div>
-			<div class="media-right ">
-				<span id="sex" data-target="#sexModal">男</span><span class="text-right"><img :src="more" class="moreImg"/></span>
-			</div>
-		</div>
+      <div class="media noTop" style="padding-right: 1rem">
+        <div class="media-body">
+          性别
+        </div>
+        <div class="media-right ">
+          <span id="sex" data-target="#sexModal">男</span><span class="text-right"><img :src="more" class="moreImg"/></span>
+        </div>
+      </div>
 
 
-		<div class="media noTop ID" style="padding-right: 1rem">
-			<div class="media-body">
-				ID号
-			</div>
-			<div class="media-right" style="padding-right: 15px;">
-				<span>{{pmid}}</span>
-			</div>
-		</div>
-		<router-link to="/Grade" tag="div" class="media" style="padding-right: 1rem;margin-top:0px ;">
-			<div class="media-body ">
-				等级
-			</div>
-			<div class="media-right ">
-				<span id="grade">{{rank}}</span><span class="text-right"><img :src="more" class="moreImg"/></span>
-			</div>
-		</router-link>
+      <div class="media noTop ID" style="padding-right: 1rem">
+        <div class="media-body">
+          ID号
+        </div>
+        <div class="media-right" style="padding-right: 15px;">
+          <span>{{pmid}}</span>
+        </div>
+      </div>
+      <router-link to="/Grade" tag="div" class="media" style="padding-right: 1rem;margin-top:0px ;">
+        <div class="media-body ">
+          等级
+        </div>
+        <div class="media-right ">
+          <span id="grade">{{rank}}</span><span class="text-right"><img :src="more" class="moreImg"/></span>
+        </div>
+      </router-link>
 
-		<router-link to="/Sdfs" tag="div" class="media" style="padding-right: 1rem">
-			<div class="media-body ">
-				个性签名
-			</div>
-			<div class="media-right ">
-				<span id="signature">{{signature}}</span><span class="text-right"><img :src="more" class="moreImg"/></span>
-			</div>
-		</router-link>
-		<div class="media noTop phone">
-			<div class="media-body">
-				手机号码
-			</div>
-			<div class="media-right">
-				<span>{{IDcode}}</span>
-			</div>
-		</div>
-		<!-- 头像选择模态框（Modal） -->
-		<div class="modal fade" id="ImgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-body">
+      <router-link to="/Sdfs" tag="div" class="media" style="padding-right: 1rem">
+        <div class="media-body ">
+          个性签名
+        </div>
+        <div class="media-right ">
+          <span id="signature">{{signature}}</span><span class="text-right"><img :src="more" class="moreImg"/></span>
+        </div>
+      </router-link>
+      <div class="media noTop phone">
+        <div class="media-body">
+          手机号码
+        </div>
+        <div class="media-right">
+          <span>{{IDcode}}</span>
+        </div>
+      </div>
+      <!-- 头像选择模态框（Modal） -->
+      <div class="modal fade" id="ImgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
 						<span class="headImgChoose fileinput-button">
                 <span>从相册选择</span>
 						<input type="file" accept="image/*" id="fileBtn" @change="chooseImg('#fileBtn')">
 						</span>
-						<!--<span class="headImgChoose fileinput-button">-->
-                <!--<span>拍照上传</span>-->
-						<!--<input type="file" accept="image/*" capture="camera">-->
-						<!--</span>-->
-            <span class="headImgChoose closeBtn fileinput-button" data-dismiss="modal">
+              <!--<span class="headImgChoose fileinput-button">-->
+              <!--<span>拍照上传</span>-->
+              <!--<input type="file" accept="image/*" capture="camera">-->
+              <!--</span>-->
+              <span class="headImgChoose closeBtn fileinput-button" data-dismiss="modal">
               <span>取消</span>
             </span>
-					</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal -->
-		</div>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+      </div>
+    </div>
+
 
 	</div>
 </template>
@@ -214,39 +218,12 @@
     height: 120vh;
 	}
 
-	.panel {
-		border: none;
-		border-radius: 0;
-	}
-
-	.panel-body {
-		padding: 0 1rem;
-	}
-
-	.BlackTitle {
-		text-align: center;
-		letter-spacing: 0.05rem;
-    background: #09a2d6;
-		color: #fff;
-    font-size: 1.5rem;
-		margin-bottom: 0;
-		height: 4.1rem;
-		line-height: 4.1rem;
-	}
-
-	.back {
-		position: absolute;
-		left: 1rem;
-	}
-
-	.back img {
-		height: 2.5rem;
-	}
 
 	.media {
 		background: #fff;
 		padding: 1rem 1.7rem;
 		border-bottom: 0.1rem solid #f5f5f5;
+    margin-top: 0.6rem;
 	}
 
 	.noTop {
@@ -357,10 +334,10 @@
   	padding-right: 0;
   }
   .phone{
-  	margin-top: 15px;
+  	margin-top: 0.6rem;
   }
   .ID{
-  	margin-top: 15px;
+  	margin-top: 0.6rem;
 
   }
 </style>

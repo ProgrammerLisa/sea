@@ -1,45 +1,43 @@
 <template>
 	<div class="content">
-		<div class="panel panel-default BlackTitle">
-			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
-				<span style="margin-left: -32px; position: absolute; left: 50%; font-size: 1.5rem;">实名信息</span>
-			</div>
-		</div>
-		<div v-if="succeed " class="addressNone">
-			<img :src="succeedImg" />
-			<p>已认证成功</p>
-		</div>
-		<div v-if="inputbox">
-			<form class="form-horizontal">
-				<div class="form-group">
-					<label for="number" class="col-xs-3 control-label">身份证号</label>
-					<div class="col-xs-9">
-						<input type="number" class="form-control" id="number" placeholder="请输入本人身份证号">
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="name" class="col-xs-3 control-label">真实姓名</label>
-					<div class="col-xs-9">
-						<input type="text" class="form-control" id="name" placeholder="请输入真实姓名">
-					</div>
-				</div>
+    <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0">
+      <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+        <img :src="masrc"/>
+      </mu-button>
+      <span class="navTitleText">实名信息</span>
+    </mu-appbar>
+    <div class="contentMarginTop">
+      <div v-if="succeed " class="addressNone">
+        <img :src="succeedImg" />
+        <p>已认证成功</p>
+      </div>
+      <div v-if="inputbox">
+        <form class="form-horizontal">
+          <div class="form-group">
+              <input type="number" class="form-control" id="number" placeholder="请输入本人身份证号">
+          </div>
+          <div class="form-group">
+              <input type="text" class="form-control" id="name" placeholder="请输入真实姓名">
+          </div>
 
-				<div class="prompt">
-					<span>请填写正确信息以确保交易无误</span>
-				</div>
+          <div class="prompt">
+            <span>请填写正确信息以确保交易无误</span>
+          </div>
 
-			</form>
-			<div class="changePsw">
-				<button class="btn submitBtn" @click="submit">确 定</button>
-			</div>
-		</div>
-		<table v-else class="table">
-			<tr v-for="r in realName">
-				<td class="text-left">{{r.title}}</td>
-				<td class="text-right">{{r.content}}</td>
-			</tr>
-		</table>
+        </form>
+        <div class="changePsw">
+          <mu-flex justify-content="center" class="submitBtn" align-items="center">
+            <mu-button full-width color="#09A2D6" @click="submit">发消息</mu-button>
+          </mu-flex>
+        </div>
+      </div>
+      <table v-else class="table">
+        <tr v-for="r in realName">
+          <td class="text-left">{{r.title}}</td>
+          <td class="text-right">{{r.content}}</td>
+        </tr>
+      </table>
+    </div>
 	</div>
 </template>
 
@@ -222,22 +220,17 @@
 		outline: none;
 		border: none;
 		box-shadow: none;
+    padding: 0 2rem;
 	}
 
 	input {
 		background: #fff;
 	}
 
-	.control-label {
-		font-size: 1.5rem;
-		color: #555;
-		top: 5.5px;
-	}
-
 	.prompt {
 		font-size: smaller;
 		color: #09a2d6;
-		padding: 1rem;
+		padding: 1rem 2rem;
 		background: #fff;
 	}
 
@@ -248,20 +241,10 @@
 	}
 
 	.submitBtn {
-		background: #09a2d6;
-		color: #fff;
 		width: 92%;
 		font-size: large;
-		margin-top: 2.5rem;
 		border-radius: 0;
-	}
-
-	.submitBtn:focus{
-		outline: 0;
-	}
-
-	.submitBtn:active {
-		background: #009ACD;
+    margin:  2.5rem auto;
 	}
 
 	.addressNone {

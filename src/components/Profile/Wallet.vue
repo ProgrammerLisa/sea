@@ -1,17 +1,19 @@
 <template>
 	<div class="content">
-		<div class="panel panel-default BlackTitle">
-			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"> <img :src="masrc"/></span>
-				<span style="margin-left: -32px; position: absolute; left: 50%; font-size: 1.5rem;">我的钱包</span>
-			</div>
-		</div>
-		<table class="table" v-for="m in myWallet">
-			<router-link :to="m.url" tag="tr">
-				<td class="text-left">{{m.title}}</td>
-				<td class="text-right"><img :src="more" /></td>
-			</router-link>
-		</table>
+    <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0" id="nav1">
+      <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+        <img :src="masrc"/>
+      </mu-button>
+      <span class="navTitleText">我的钱包</span>
+    </mu-appbar>
+    <div class="contentMarginTop">
+      <table class="table" v-for="m in myWallet">
+        <router-link :to="m.url" tag="tr">
+          <td class="text-left">{{m.title}}</td>
+          <td class="text-right"><img :src="more" /></td>
+        </router-link>
+      </table>
+    </div>
 	</div>
 </template>
 

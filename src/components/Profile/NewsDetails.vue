@@ -1,11 +1,12 @@
 <template>
     <div class="content">
-      <div class="panel panel-default BlackTitle">
-        <div class="panel-body">
-          <span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
-          {{from_user}}
-        </div>
-      </div>
+
+      <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0" id="nav1">
+        <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+          <img :src="masrc"/>
+        </mu-button>
+        <span class="navTitleText">{{from_user}}</span>
+      </mu-appbar>
       <div class="media">
 
         <p class="text-center"><span class="DialogDate">{{created_at}}</span></p>
@@ -84,30 +85,6 @@
     overflow: hidden;
   }
 
-  .panel{
-    border:none;
-    border-radius: 0;
-  }
-  .panel-body {
-    padding:0 10px;
-  }
-  .BlackTitle{
-    text-align: center;
-    letter-spacing: 0.05rem;
-    background: #09a2d6;
-    color: #fff;
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    height: 4.1rem;
-    line-height: 4.1rem;
-  }
-  .back{
-    position: absolute;
-    left: 1rem;
-  }
-  .back img {
-    height: 2.5rem;
-  }
   .media-body{
     text-align: center;
   }

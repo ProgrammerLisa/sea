@@ -1,11 +1,11 @@
 <template>
 	<div class="content">
-    <div class="panel panel-default BlackTitle">
-      <div class="panel-body">
-        <span @click="goBack" @touchstart="evers" @touchend="lat" class="back">  <img :src="masrc"/></span> 客服中心
-      </div>
-    </div>
-
+    <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0">
+      <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+        <img :src="masrc"/>
+      </mu-button>
+      <span class="navTitleText">客服中心</span>
+    </mu-appbar>
 		<div v-if="netNone" class="netNone">
 			<img :src="netNoneImg" />
 			<p>暂时还没有消息哦</p>

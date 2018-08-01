@@ -38,19 +38,21 @@
 
       <mu-paper :z-depth="1" class="demo-list-wrap">
         <mu-list>
-          <mu-list-item button v-for="(m,index) in Personal" :key="index" @click="profileAll(m.PersonalHref,m.PersonalName)">
-            <mu-list-item-action>
-              <img class="media-object" :src="m.imfLeft">
-            </mu-list-item-action>
-            <mu-list-item-title> {{m.title}}</mu-list-item-title>
-            <mu-list-item-action>
-              <mu-button icon  v-if="!m.noRouter">
-                <img class="media-object" src="../../assets/images/more.png" />
-              </mu-button>
-              <span class="inviteCode" v-else>{{m.myInvite}}</span>
-            </mu-list-item-action>
-          </mu-list-item>
-          <!--<mu-divider></mu-divider>-->
+          <div v-for="(m,index) in Personal"  class="mylist">
+            <mu-list-item button  @click="profileAll(m.PersonalHref,m.PersonalName)">
+              <mu-list-item-action>
+                <img class="media-object" :src="m.imfLeft">
+              </mu-list-item-action>
+              <mu-list-item-title  class="listTitle"> {{m.title}}</mu-list-item-title>
+              <mu-list-item-action>
+                <mu-button icon  v-if="!m.noRouter">
+                  <img class="media-object" src="../../assets/images/more.png" />
+                </mu-button>
+                <span class="inviteCode" v-else>{{m.myInvite}}</span>
+              </mu-list-item-action>
+            </mu-list-item>
+            <mu-divider class="mu-divider"></mu-divider>
+          </div>
         </mu-list>
       </mu-paper>
     </div>
@@ -88,7 +90,7 @@
               {title:'我的好友',PersonalHref:'friend',PersonalName:'friend',imfLeft:friend},
               {title:'我的邀请者',PersonalHref:'',PersonalName:'',imfLeft:inviter,noRouter:true,myInvite:''},
               {title:'邀请码',PersonalHref:'ask',PersonalName:'ask',imfLeft:invite},
-              {title:'排行榜',PersonalHref:'myrankings',PersonalName:'MyRankings',imfLeft:invite},
+              {title:'夺宝记录',PersonalHref:'myrankings',PersonalName:'MyRankings',imfLeft:invite},
               {title:'商城订单',PersonalHref:'commodityorder',PersonalName:'CommodityOrder',imfLeft:indent},
               {title:'收货地址',PersonalHref:'address',PersonalName:'address',imfLeft:address},
               {title:'客服中心',PersonalHref:'wechatservice',PersonalName:'WechatService',imfLeft:service},
@@ -201,10 +203,12 @@
 <style scoped>
 
   .content{
-    overflow: hidden;
+    overflow-x: hidden;
     background-color: #f5f5f5;
     color: #666;
     padding-bottom: 8rem;
+    height: 100vh;
+    overflow-y: scroll;
   }
   .content::-webkit-scrollbar {
     display:none
@@ -245,8 +249,8 @@
     box-shadow: 0 0.3rem 0.3rem #ddd;
   }
   .personalMessageLeft{
-    padding-right: 0;
-    text-align: left;
+    padding: 0;
+    text-align: center;
   }
   .wallet{
     display: inline-block;
@@ -274,8 +278,7 @@
     width: 3.2rem;
   }
   .personalText{
-    letter-spacing: 0.1rem;
-
+    padding-left: 0;
   }
  .mu-paper-round{
    border-radius: 0;
@@ -288,34 +291,22 @@
   }
   @media screen and (min-height: 560px) and (max-height: 700px) {
     .media-object {
-      width:7vh
-    }
-    .media-right{
-      line-height: 7vh;
+      width:8vh
     }
   }
   @media screen and (min-height: 700px) and (max-height: 850px) {
     .media-object {
-      width:6vh
-    }
-    .media-right{
-      line-height: 6vh;
+      width:7vh
     }
   }
   @media screen and (min-height: 850px) and (max-height: 1024px) {
     .media-object {
-      width:5vh
-    }
-    .media-right{
-      line-height: 5vh;
+      width:7vh
     }
   }
   @media screen and (min-height:1025px) and (max-height: 2000px) {
     .media-object {
-      width:4vh
-    }
-    .media-right{
-      line-height: 4vh;
+      width:5vh
     }
   }
   .msg{
@@ -327,5 +318,30 @@
   }
   .inviteCode{
     font-size: 1.5rem;
+  }
+  .mu-list{
+    background: #f5f5f5;
+    padding-top: 0;
+    border-top: 1rem solid #fff;
+  }
+  .listTitle{
+    text-decoration:none;
+    color: #333;
+  }
+  a:hover, a:focus {
+    color: #23527c;
+    text-decoration: none;
+  }
+  .mu-divider{
+    background-color: #f5f5f5;
+  }
+  .mylist{
+    background: #fff;
+  }
+  .mylist:last-child>.mu-divider{
+    display: none;
+  }
+  .mylist:nth-child(4),.mylist:nth-child(6){
+    margin-bottom: 0.7rem;
   }
 </style>

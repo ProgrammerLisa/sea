@@ -1,31 +1,44 @@
 <template>
 	<div class="content">
-		<div class="panel panel-default BlackTitle">
-			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"> <img :src="masrc"/></span> 消息
-			</div>
-		</div>
+    <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0" id="nav1">
+      <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+        <img :src="masrc"/>
+      </mu-button>
+      <span class="navTitleText">消息</span>
+    </mu-appbar>
 		<div v-if="newsNone" class="newsNone">
 			<img :src="newsNoneImg" />
 			<p>暂时还没有消息哦</p>
 		</div>
 
-		<div class="media" v-for="(n,index) in news" v-else @touchstart="touchStart($event,index)" @touchmove="touchMove($event,index)" @touchend="touchEnd($event,index)" :data-curid="n.id">
-			<div class="media-body">
-				<h4 class="media-heading">{{n.msg.title}} <span class="time">{{n.msg.created_at}}</span></h4>
-				<div class="msgContent">{{n.msg.content}}</div>
 
-			</div>
-      <div class="media-right" >
-        <span class="badge msg" v-show="!n.msg.is_read">·</span>
-      </div>
-			<transition name="slide-fade">
-				<div class="del"　v-if="n.show" @click="del(index)">
-					删除
-				</div>
-			</transition>
 
-		</div>
+    <mu-paper :z-depth="0" class="demo-list-wrap"  v-else>
+      <mu-list textline="two-line">
+        <div v-for="(n,index) in news" :key="index" @touchstart="touchStart($event,index)" @touchmove="touchMove($event,index)" @touchend="touchEnd($event,index)" :data-curid="n.id">
+          <mu-list-item avatar button >
+             <mu-list-item-content>
+                  <mu-list-item-title>{{n.msg.title}}</mu-list-item-title>
+                  <mu-list-item-sub-title>
+                    {{n.msg.content}}
+                  </mu-list-item-sub-title>
+                </mu-list-item-content>
+                <mu-list-item-action >
+                  <mu-list-item-after-text>{{n.msg.created_at}}</mu-list-item-after-text>
+                </mu-list-item-action>
+            </mu-list-item>
+            <div class="media-right" >
+              <span class="badge msg" v-show="!n.msg.is_read">·</span>
+            </div>
+            <transition name="slide-fade">
+              <div class="del"　v-if="n.show" @click="del(index)">
+                删除
+              </div>
+            </transition>
+          </div>
+        <mu-divider></mu-divider>
+      </mu-list>
+    </mu-paper>
 	</div>
 </template>
 
@@ -133,6 +146,7 @@
 					this.startX = ev.touches[0].clientX; // 记录开始位置
           this.disX=0;
 				}
+				console.log(1)
 			},
 			touchMove(ev, index) {
 				ev = ev || event;
@@ -227,40 +241,8 @@
 		overflow: hidden;
 	}
 
-	.panel {
-		border: none;
-		border-radius: 0;
-	}
-
-	.panel-body {
-		padding: 0 10px;
-	}
-
-	.BlackTitle {
-		text-align: center;
-		letter-spacing: 0.05rem;
-    background: #09a2d6;
-    color: #fff;
-		font-size: 1.5rem;
-    margin-bottom: 0;
-		height: 4.1rem;
-		line-height: 4.1rem;
-	}
-
-	.back {
-		position: absolute;
-		left: 1rem;
-	}
-
 	.back img {
 		height: 2.5rem;
-	}
-
-	.media {
-		background: #fff;
-		border-bottom: 0.1rem solid #f5f5f5;
-    padding: 0;
-    margin: 0;
 	}
 
 	.media-left img {
@@ -268,23 +250,6 @@
 		border-radius: 50%;
 		width: 4rem;
 		margin-right: 0.5rem;
-	}
-
-	.media-body {
-		vertical-align: middle;
-    height: 6rem;
-    padding: 0 1rem;
-	}
-
-  .media-heading {
-		color: #555;
-	}
-
-	.time {
-		float: right;
-		font-size: small;
-		margin-right: 1rem;
-		color: #777;
 	}
 
 	.newsNone {
@@ -297,7 +262,13 @@
 		width: 40%;
 		margin-bottom: 1rem;
 	}
-
+  .demo-list-wrap{
+    margin-top: 0.6rem;
+    border-bottom: 1px #eee solid;
+  }
+  .mu-list{
+    padding: 0;
+  }
 	.msg {
     position: absolute;
     right:0.5rem;
@@ -318,6 +289,7 @@
 		position: absolute;
 		right: 0;
 		margin-top: -6rem;
+    z-index: 999;
 	}
 	/* 可以设置不同的进入和离开动画 */
 	/* 设置持续时间和动画函数 */

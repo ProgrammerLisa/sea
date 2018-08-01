@@ -1,60 +1,69 @@
 <template>
 	<div class="content">
-    <div class="panel panel-default BlackTitle">
-      <div class="panel-body">
-        <span @click="goBack" @touchstart="evers" @touchend="lat" class="back">  <img :src="masrc"/></span> 设置
-      </div>
+    <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0">
+      <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+        <img :src="masrc"/>
+      </mu-button>
+      <span class="navTitleText">设置</span>
+    </mu-appbar>
+    <div class="contentMarginTop">
+      <mu-paper :z-depth="0" class="demo-list-wrap">
+        <mu-list>
+            <mu-list-item button>
+              <mu-list-item-title  class="listTitle"> 账户</mu-list-item-title>
+              <mu-list-item-action>
+                <span style="font-size: 1.5rem">{{IDcode}}</span>
+              </mu-list-item-action>
+            </mu-list-item>
+            <mu-divider class="mu-divider"></mu-divider>
+          <router-link to="/changepassword">
+            <mu-list-item button>
+              <mu-list-item-title  class="listTitle"> 修改密码</mu-list-item-title>
+              <mu-list-item-action>
+                <mu-button icon>
+                  <img class="more" src="../../assets/images/more.png" />
+                </mu-button>
+              </mu-list-item-action>
+            </mu-list-item>
+            <mu-divider class="mu-divider" style="height: 0.6rem"></mu-divider>
+          </router-link>
+          <router-link to="/aboutus">
+            <mu-list-item button>
+              <mu-list-item-title  class="listTitle"> 关于我们</mu-list-item-title>
+              <mu-list-item-action>
+                <mu-button icon>
+                  <img class="more" src="../../assets/images/more.png" />
+                </mu-button>
+              </mu-list-item-action>
+            </mu-list-item>
+            <mu-divider class="mu-divider"></mu-divider>
+          </router-link>
+          <router-link to="/userfeedback">
+            <mu-list-item button>
+              <mu-list-item-title  class="listTitle"> 用户反馈</mu-list-item-title>
+              <mu-list-item-action>
+                <mu-button icon>
+                  <img class="more" src="../../assets/images/more.png" />
+                </mu-button>
+              </mu-list-item-action>
+            </mu-list-item>
+            <mu-divider class="mu-divider"></mu-divider>
+          </router-link>
+          <mu-list-item button>
+            <mu-list-item-title  class="listTitle"> 版本更新</mu-list-item-title>
+            <mu-list-item-action>
+              <span>已是最新版本</span>
+            </mu-list-item-action>
+          </mu-list-item>
+          <mu-divider class="mu-divider" style="background: #eee"></mu-divider>
+        </mu-list>
+
+      </mu-paper>
+      <mu-flex justify-content="center" align-items="center" class= "loginOut"  @click="loginOut">
+        <mu-button full-width large color="#fff" style="color: #F5594E;letter-spacing: 2px">退出登录</mu-button>
+      </mu-flex>
+
     </div>
-		<table class="table">
-			<tr>
-				<td class="text-left"><span class="high">账户</span></td>
-				<td class="text-right">{{IDcode}}</td>
-			</tr>
-			<router-link to="ChangePassword" tag="tr" class="arrow">
-				<td class="text-left">修改密码</td>
-				<td class="text-right"><img :src="more" class="more" /></td>
-			</router-link>
-			<tr class="spacing">
-				<td></td>
-				<td></td>
-			</tr>
-			<!--<tr class="settingBtn">-->
-				<!--<td class="text-left"><span class="high">消息提醒</span></td>-->
-				<!--<td class="text-right">-->
-					<!--<div class="blueBtn" @click="switchBtn">-->
-						<!--<div class="cap">-->
-							<!--<div class="whiteBtn">-->
-
-							<!--</div>-->
-						<!--</div>-->
-
-					<!--</div>-->
-				<!--</td>-->
-			<!--</tr>-->
-			<!--<tr class="arrow">-->
-				<!--<td class="text-left">空间清理</td>-->
-				<!--<td class="text-right" @click="CleanUpCaching">35M <img :src="more" class="more" /></td>-->
-			<!--</tr>-->
-			<!--<tr class="spacing">-->
-				<!--<td></td>-->
-				<!--<td></td>-->
-			<!--</tr>-->
-			<router-link to="AboutUs" tag="tr" class="arrow">
-				<td class="text-left">关于我们</td>
-				<td class="text-right"><img :src="more" class="more" /></td>
-			</router-link>
-			<router-link to="UserFeedback" tag="tr" class="arrow">
-				<td class="text-left">用户反馈</td>
-				<td class="text-right"><img :src="more" class="more" /></td>
-			</router-link>
-			<tr class="arrow">
-				<td class="text-left">版本更新</td>
-				<td class="text-right">已是最新版本 <img :src="more" class="more" /></td>
-			</tr>
-		</table>
-		<div class= "loginOut" @click="loginOut">
-			退出登录
-		</div>
 	</div>
 
 </template>
@@ -78,7 +87,7 @@
 		mounted: function() {
 			this.$http({
 					method: "get",
-					url: "/users/profile",
+					url: "/users/info",
 					headers: {
 						"device": "android",
 						"uid": localStorage.getItem("uid"),
@@ -240,80 +249,25 @@
     position: fixed;
     top: 0;
 	}
-
-	.panel {
-		border: none;
-		border-radius: 0;
-	}
-
-	.panel-body {
-		padding: 0 10px;
-	}
-
-	.BlackTitle {
-		text-align: center;
-		letter-spacing: 0.05rem;
-    background: #09a2d6;
-    color: #fff;
-		font-size: 1.5rem;
-		margin-bottom: 0;
-		height: 4.1rem;
-		line-height: 4.1rem;
-	}
-
-	.back {
-		position: absolute;
-		left: 1rem;
-	}
-
-	.back img {
-		height: 2.5rem;
-	}
-
-	.table {
-		background: #fff;
-	}
-
-	.table tr {
-		border-bottom: 0.1rem solid #f5f5f5;
-		height: 8vh;
-	}
-
-	.table td {
-		padding: 0.5rem 1.5rem;
-	}
-
-	.table .spacing {
-		height: 1rem;
-	}
-
-	.spacing td {
-		padding: 0;
-		height: 1rem;
-		background: #f5f5f5;
-	}
+  .mu-list{
+    padding: 0;
+  }
+  .listTitle{
+    color: #555;
+    font-size: 1.5rem;
+  }
+  .mu-divider{
+    background: #f5f5f5;
+  }
+  .mu-item-action{
+    min-width: 50%;
+  }
 
 	.more {
 		height: 3rem;
 	}
 
-	.arrow:active {
-		background: #f1f1f1;
-	}
 
-	.arrow td {
-		padding-top: 0.5rem;
-		padding-bottom: 0.5rem;
-	}
-
-	.arrow td:nth-child(2) {
-		padding-right: 0;
-	}
-
-	.high {
-		height: 3rem;
-		line-height: 3rem;
-	}
 
 	.loginOut {
 		background: #fff;
@@ -333,25 +287,6 @@
 		background: #f5f5f5;
 		color: red;
 		border: none;
-	}
-
-	.blueBtn {
-		background: #09a2d6;
-		border-radius: 2rem;
-		width: 3.5rem;
-		height: 2rem;
-		margin-bottom: -0.3rem;
-		display: inline-block;
-		overflow: hidden;
-	}
-
-	.cap {
-		border-radius: 2rem;
-		background: #ccc;
-		width: 100%;
-		height: 100%;
-		position: relative;
-		left: 1.5rem;
 	}
 
 </style>

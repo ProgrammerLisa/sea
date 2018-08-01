@@ -1,25 +1,27 @@
 <template>
 	<div class="content">
-		<div class="panel panel-default BlackTitle">
-			<div class="panel-body">
-				<span @click="goBack"  @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
-				<span style="margin-left: -30px; position: absolute; left: 50%; font-size: 1.5rem;">我的好友</span>
-				<!--<router-link to="/addfriends" tag="span" class="addTo"> <img src="../assets/images/award.png" /></router-link>-->
-			</div>
-		</div>
-		<div v-if="noFriend" class="addressNone">
-			<img :src="noFriendImg" />
-			<p>您还没有好友，去邀请好友吧</p>
-      <router-link to="/ask" tag="span" class="goInvite">去邀请</router-link>
-		</div>
-		<div class="media friends" v-for="f in friends" v-else @click="friendData">
-			<div class="media-left">
-				<img class="media-object" :src="f.headPortrait" alt="...">
-			</div>
-			<div class="media-body">
-				<h4 class="media-heading">{{f.friendName}}<span class="sex" v-bind:style="f.bcColor">{{f.sex}}</span></h4> ID：{{f.friendId}}
-			</div>
-		</div>
+    <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0">
+      <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+        <img :src="masrc"/>
+      </mu-button>
+      <span class="navTitleText">我的好友</span>
+    </mu-appbar>
+    <div class="contentMarginTop">
+      <div v-if="noFriend" class="addressNone">
+        <img :src="noFriendImg" />
+        <p>您还没有好友，去邀请好友吧</p>
+        <mu-button color="#09a2d6" @click="goAsk">去邀请</mu-button>
+      </div>
+      <div class="media friends" v-for="f in friends" v-else @click="friendData">
+        <div class="media-left">
+          <img class="media-object" :src="f.headPortrait" alt="...">
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading">{{f.friendName}}<span class="sex" v-bind:style="f.bcColor">{{f.sex}}</span></h4> ID：{{f.friendId}}
+        </div>
+      </div>
+    </div>
+
 	</div>
 </template>
 
@@ -96,6 +98,11 @@
           params: {
             name: 'name'
           }
+        })
+      },
+      goAsk() {
+        this.$router.push({
+          path: '/ask'
         })
       }
 		}

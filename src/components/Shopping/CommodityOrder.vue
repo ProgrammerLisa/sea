@@ -1,40 +1,45 @@
 <template>
 	<div class="content">
-		<div class="panel panel-default BlackTitle">
-			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
-				<span style="margin-left: -32px; position: absolute; left: 50%; font-size: 1.5rem;">我的订单</span>
-			</div>
-		</div>
-		<div v-if="OrderNone" class="OrderNone">
-			<img :src="OrderNoneImg" />
-			<p>还没有订单哦</p>
-      <span class="goShopping" @click="goShopping">去逛逛</span>
-			<!--<router-link to="/shopping" tag="span" class="goShopping">去逛逛</router-link>-->
-		</div>
+    <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0">
+      <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+        <img :src="masrc"/>
+      </mu-button>
+      <span class="navTitleText">我的订单</span>
+    </mu-appbar>
+    <div class="contentMarginTop">
+      <div v-if="OrderNone" class="OrderNone">
+        <img :src="OrderNoneImg" />
+        <p>还没有订单哦</p>
+        <mu-button color="#09a2d6" @click="openSimpleDialog">去逛逛</mu-button>
+        <mu-dialog  width="360" :open.sync="openSimple" style="text-align: center">
+          商场即将上线
+          <mu-button slot="actions" flat color="primary" @click="closeSimpleDialog">知道了</mu-button>
+        </mu-dialog>
+      </div>
 
-		<div v-else class="media" v-for="(goods,index) in commodity">
-			<div>
-				<div class="media-left">
-					<img class="media-object" :src="goods.commodityImg" alt="...">
-				</div>
-				<div class="media-body">
-					<p class="media-heading">{{goods.commodityTitle}}</p>
-					<div class="commodityPrice">{{goods.commodityPrice}}</div>
-					<div class="goodsMessage">成交价 ( 钻石量 )</div>
-					<div>
-						<span class="goodsMessage">兑换次数：{{goods.commodityNumber}} </span>
-						<button class="btn enchangeBtnEnd" v-if="goods.isEnd">
-             已收货
-           </button>
-						<button class="btn enchangeBtn" v-else>
-             确认收货
-           </button>
-					</div>
-				</div>
-			</div>
+      <div v-else class="media" v-for="(goods,index) in commodity">
+        <div>
+          <div class="media-left">
+            <img class="media-object" :src="goods.commodityImg" alt="...">
+          </div>
+          <div class="media-body">
+            <p class="media-heading">{{goods.commodityTitle}}</p>
+            <div class="commodityPrice">{{goods.commodityPrice}}</div>
+            <div class="goodsMessage">成交价 ( 钻石量 )</div>
+            <div>
+              <span class="goodsMessage">兑换次数：{{goods.commodityNumber}} </span>
+              <button class="btn enchangeBtnEnd" v-if="goods.isEnd">
+               已收货
+             </button>
+              <button class="btn enchangeBtn" v-else>
+               确认收货
+             </button>
+            </div>
+          </div>
+        </div>
 
-		</div>
+      </div>
+    </div>
 	</div>
 </template>
 
@@ -51,6 +56,7 @@
 				masrc: back,
 				OrderNone: true,
 				OrderNoneImg: OrderNoneImg,
+        openSimple: false,
 				commodity: [{
 						commodityImg: commodityImg,
 						commodityTitle: '品质生活 博朗榨汁机果汁机1',
@@ -100,6 +106,12 @@
 			}
 		},
 		methods: {
+      openSimpleDialog () {
+        this.openSimple = true;
+      },
+      closeSimpleDialog () {
+        this.openSimple = false;
+      },
 			evers() {
 				console.log(1)
 				this.masrc = backs;

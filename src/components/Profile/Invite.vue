@@ -1,19 +1,19 @@
 <template>
 	<div class="content">
-    <div class="panel panel-default BlackTitle">
-      <div class="panel-body">
-        <span @click="goBack"  @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
-        邀请码
-        <!--<router-link to="/addfriends" tag="span" class="addTo"> <img src="../assets/images/award.png" /></router-link>-->
-      </div>
-    </div>
+    <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0">
+      <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+        <img :src="masrc"/>
+      </mu-button>
+      <span class="titleText">邀请码</span>
+    </mu-appbar>
 		<div class="code">
 			<h4 class="title">我的专属邀请码</h4>
 			<div id="ask_invite" v-model="ask_invite">{{ask_invite}}</div>
 			<div style="padding-top:2.5rem;">
 				<p class="msg">每邀请一位好友下载并注册，你和好友都将获得同等奖励</p>
-				<x-button id="finish" v-clipboard:copy="ask_invite" v-clipboard:success="onCopy" v-clipboard:error="onError" type="primary">复制邀请码</x-button>
-			</div>
+        <mu-button style="margin-top: 1rem" large color="#09a2d6" v-clipboard:copy="ask_invite" v-clipboard:success="onCopy" v-clipboard:error="onError">复制邀请码</mu-button>
+
+      </div>
 		</div>
     <div class="inviteCodeImg">
       <img :src="erweima"/>
@@ -101,38 +101,6 @@
 		height: 100vh;
 		background: #fff;
 	}
-
-	.panel {
-		border: none;
-		border-radius: 0;
-	}
-
-	.panel-body {
-		padding: 0 10px;
-	}
-
-	.BlackTitle {
-		text-align: center;
-		letter-spacing: 0.05rem;
-    background: #09a2d6;
-    color: #fff;
-		font-size: 1.5rem;
-		margin-bottom: 0.8rem;
-		height: 4.1rem;
-		line-height: 4.1rem;
-	}
-
-	.back {
-    position: absolute;
-    left: 1rem;
-	}
-
-	.back img {
-		height: 2.5rem;
-		font-size: 2.5rem;
-		color: #DBDBDB;
-	}
-
 	.code {
 		padding: 2rem;
 		text-align: center;
@@ -161,15 +129,7 @@
     font-size: smaller;
     text-align: center;
   }
-	#finish{
-		 background-color:#09A2D6;
-		 color: white;
-		 border-radius: 0;
-		 width: 80%;
-	}
-  #finish:active{
-    background: #009ACD;
-  }
+
   .inviteCodeImg{
     text-align: center;
     position: fixed;

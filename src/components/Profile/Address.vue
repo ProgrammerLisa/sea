@@ -1,57 +1,65 @@
 <template>
 	<div class="content">
-		<div class="panel panel-default BlackTitle">
-			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers"  @touchend="lat"  class="back"><img :src="masrc"/></span>
-				<span style="margin-left: -30px; position: absolute; left: 50%; font-size: 1.5rem;">收货地址</span>
-			</div>
-		</div>
-		<div v-if="noAddress" class="addressNone">
-			<img :src="addressNone" />
-			<p>一个地址都没有哦</p>
-		</div>
-		<table v-else class="table address" v-for="(a,index) in myAddress">
-			<tr>
-				<td class="text-left">收货人</td>
-				<td class="text-right">{{a.msg.consignee}}</td>
-			</tr>
-			<tr>
-				<td class="text-left">联系电话</td>
-				<td class="text-right">{{a.msg.phone}}</td>
-			</tr>
-			<tr>
-				<td class="text-left">收货地址</td>
-				<td class="text-right">{{a.msg.address}}</td>
-			</tr>
-			<tr>
 
-        <td class="col-xs-5">
+    <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0">
+      <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+        <img :src="masrc"/>
+      </mu-button>
+      <span class="navTitleText">收货地址</span>
+    </mu-appbar>
+    <div class="contentMarginTop">
+      <div v-if="noAddress" class="addressNone">
+        <img :src="addressNone" />
+        <p>一个地址都没有哦</p>
+      </div>
+      <table v-else class="table address" v-for="(a,index) in myAddress">
+        <tr>
+          <td class="text-left">收货人</td>
+          <td class="text-right">{{a.msg.consignee}}</td>
+        </tr>
+        <tr>
+          <td class="text-left">联系电话</td>
+          <td class="text-right">{{a.msg.phone}}</td>
+        </tr>
+        <tr>
+          <td class="text-left">收货地址</td>
+          <td class="text-right">{{a.msg.address}}</td>
+        </tr>
+        <tr>
+
+          <td class="col-xs-5">
             <div v-if="a.msg.is_default">
               <div class="round">
-              <span class="defaultRound" ></span>
-            </div>
-            <span class="defaultChoose">已设为默认地址</span>
+                <span class="defaultRound" ></span>
+              </div>
+              <span class="defaultChoose">已设为默认地址</span>
             </div>
 
             <div @click="choose(index)"  v-else>
               <div class="round"></div>
-            <span class="default" v-if="">默认地址</span>
+              <span class="default" v-if="">默认地址</span>
             </div>
 
-        </td>
-        <td class="col-xs-7 text-right">
+          </td>
+          <td class="col-xs-7 text-right">
           <span class="del" @click="editor(index)" >
             <img src="../../assets/images/editor.png"/> 编辑
           </span>
-					<span class="del" @click="del(index)">
+            <span class="del" @click="del(index)">
             <img src="../../assets/images/del.png"/> 删除
           </span>
-				</td>
-			</tr>
-		</table>
-		<div class="newAddress">
-			<router-link to="/newaddress" tag="div" class="newAddressBtn"><span class="glyphicon glyphicon-plus"></span> <span class="large">新建地址</span></router-link>
-		</div>
+          </td>
+        </tr>
+      </table>
+      <div class="newAddress">
+        <router-link to="/newaddress" tag="div">
+          <mu-flex justify-content="center" align-items="center">
+            <mu-button full-width color="#09a2d6"> <mu-icon value="add"></mu-icon>新建地址</mu-button>
+          </mu-flex>
+        </router-link>
+      </div>
+
+    </div>
 
 	</div>
 </template>
@@ -217,39 +225,8 @@
     top: 0;
 	}
 
-	.panel {
-		border: none;
-		border-radius: 0;
-	}
-
-	.panel-body {
-		padding: 0 10px;
-	}
-
-	.BlackTitle {
-		text-align: center;
-		letter-spacing: 0.05rem;
-    background: #09a2d6;
-    color: #fff;
-		font-size: 1.5rem;
-		margin-bottom: 0;
-		height: 4.1rem;
-		line-height: 4.1rem;
-	}
-
-	.back {
-		position: absolute;
-    left: 1rem;
-	}
-
-	.back img {
-		height: 2.5rem;
-		font-size: 2.5rem;
-	}
-
-
 	.table {
-		margin-bottom: 1rem;
+		margin-bottom: 0.6rem;
 	}
 
 	.copyreader {
@@ -326,22 +303,9 @@
 		text-align: center;
 	}
 
-	.newAddressBtn {
-		width: 90%;
-		background: #09a2d6;
-		color: #f5f5f5;
-		padding: 0.5rem;
-		border: none;
-		margin: auto;
-		margin-bottom: 5%;
-	}
-
 	.large {
 		font-size: larger;
 	}
 
-	.newAddressBtn:active {
-		background: #009ACD;
-	}
 </style>
 

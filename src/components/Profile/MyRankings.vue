@@ -1,30 +1,84 @@
 <template>
   <div class="content">
-    <div class="panel panel-default BlackTitle">
-      <div class="panel-body">
-        <span @click="goBack" @touchstart="evers"  @touchend="lat" class="back">  <img :src="masrc"/></span> 排行榜
+    <div id="navBox">
+      <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0" id="nav1">
+        <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+          <img :src="masrc"/>
+        </mu-button>
+        <span class="navTitleText">夺宝记录</span>
+      </mu-appbar>
+      <div class="income" id="nav2">
+        <div class="today">
+          <div class="incomeTitle">今日收益</div>
+          <div style="font-size: 34px; font-weight: 300;">8.6666</div>
+        </div>
+        <mu-row>
+          <mu-col span="6">
+            <div class="grid-cell">
+              <div class="incomeTitle">昨日收益</div>
+              <div>6.666</div>
+            </div>
+          </mu-col>
+          <mu-col span="6">
+            <div class="grid-cell">
+              <div class="incomeTitle">累计收益</div>
+              <div>6.666</div>
+            </div>
+          </mu-col>
+        </mu-row>
       </div>
+      <mu-paper id="nav3" :z-depth="0">
+        <mu-list style="padding: 0">
+          <mu-list-item>
+            <mu-list-item-content>
+              <mu-list-item-title><span  style="color: #09a2d6;margin-right: 0.6rem;font-weight: 700">|</span>收支记录</mu-list-item-title>
+            </mu-list-item-content>
+          </mu-list-item>
+        </mu-list>
+      </mu-paper>
     </div>
-    <div id="listTitle" @click="rankings" >
-      <div class="col-xs-6 text-left" style="font-weight: bold;font-size: 1.7rem">{{RankingTitle}}</div>
-      <div class="col-xs-6 text-right" style="color: #888">{{RankingSwitch}} <span class="glyphicon glyphicon-menu-right" style="font-size: xx-small"></span></div>
-    </div>
-    <table v-if="isBlack" class="table">
-      <tr><td><h4 class="decorate-title"><div class="decorate"></div>得宝数据</h4></td></tr>
-      <tr class="bcfff myData" v-for="list in RankingListBlack">
-        <td class="text-left">{{list.title}}</td>
-        <td class="text-right">{{list.count}}</td>
-      </tr>
-    </table>
-    <table v-else class="table">
-      <tr><td id="ranking"><h4 class="decorate-title"><div class="decorate"></div>综合排名</h4></td></tr>
-      <tr class="bcfff"><td>排行榜</td><td>账户</td><td>珍珠值数</td></tr>
-      <tr class="bcfff" v-for="list in RankingListForce">
-        <td>{{list.level}}</td>
-        <td>{{list.name}}</td>
-        <td class="pearl-count">{{list.count}}</td>
-      </tr>
-    </table>
+
+    <mu-paper id="dataBox" :z-depth="2">
+      <mu-list class="mu-list">
+        <div class="dataContainer">
+          <div class="dataList"  v-for="(i,index) in data" :key="index">
+            <mu-list-item class="mu-list-item">
+              <mu-list-item-content>
+                <mu-list-item-title>Photos</mu-list-item-title>
+                <mu-list-item-sub-title class="dateText">Jan 9, 2014</mu-list-item-sub-title>
+              </mu-list-item-content>
+              <mu-list-item-action>
+                <mu-list-item-title class="count">+300</mu-list-item-title>
+              </mu-list-item-action>
+            </mu-list-item>
+            <mu-divider class="mu-divider" shallow-inset></mu-divider>
+          </div>
+        </div>
+
+      </mu-list>
+    </mu-paper>
+
+
+    <!--<div id="listTitle" @click="rankings" >-->
+      <!--<div class="col-xs-6 text-left" style="font-weight: bold;font-size: 1.7rem">{{RankingTitle}}</div>-->
+      <!--<div class="col-xs-6 text-right" style="color: #888">{{RankingSwitch}} <span class="glyphicon glyphicon-menu-right" style="font-size: xx-small"></span></div>-->
+    <!--</div>-->
+    <!--<table v-if="isBlack" class="table">-->
+      <!--<tr><td><h4 class="decorate-title"><div class="decorate"></div>得宝数据</h4></td></tr>-->
+      <!--<tr class="bcfff myData" v-for="list in RankingListBlack">-->
+        <!--<td class="text-left">{{list.title}}</td>-->
+        <!--<td class="text-right">{{list.count}}</td>-->
+      <!--</tr>-->
+    <!--</table>-->
+    <!--<table v-else class="table">-->
+      <!--<tr><td id="ranking"><h4 class="decorate-title"><div class="decorate"></div>综合排名</h4></td></tr>-->
+      <!--<tr class="bcfff"><td>排行榜</td><td>账户</td><td>珍珠值数</td></tr>-->
+      <!--<tr class="bcfff" v-for="list in RankingListForce">-->
+        <!--<td>{{list.level}}</td>-->
+        <!--<td>{{list.name}}</td>-->
+        <!--<td class="pearl-count">{{list.count}}</td>-->
+      <!--</tr>-->
+    <!--</table>-->
 
 
   </div>
@@ -39,6 +93,8 @@
           return{
             masrc: back,
             isBlack:true,
+            data:[1,2,3,4,5,6,7,8],
+
             RankingTitle:'得宝数据',
             RankingSwitch:'综合排名',
             RankingListBlack:[
@@ -53,6 +109,11 @@
             ]
           }
         },
+      mounted(){
+        let height=$("#nav1").height()+$("#nav2").height()+$("#nav3").height();
+        $("#navBox").css({height:height+'px'});
+        $("#dataBox").css({marginTop:height+'px'})
+      },
       methods: {
         evers() {
           this.masrc = backs;
@@ -81,40 +142,76 @@
 <style scoped>
   .content {
     overflow-x: hidden;
-    color: #666;
+    overflow-y: scroll;
     background-color: #f5f5f5;
     width: 100vw;
+    height: 100vh;
+  }
+  #navBox{
     position: fixed;
     top: 0;
+    width: 100vw;
+    z-index: 9999;
+    background: #fff;
   }
-
-  .panel {
-    border: none;
-    border-radius: 0;
+  .content::-webkit-scrollbar {
+    display:none
   }
-
-  .panel-body {
-    padding: 0 1rem;
+  #dataBox{
+    margin-top: 50vh;
   }
-
-  .BlackTitle {
-    text-align: center;
-    letter-spacing: 0.05rem;
-    background: #09a2d6;
-    color: #fff;
-    font-size: 1.5rem;
-    margin-bottom: 0;
-    height: 4.1rem;
-    line-height: 4.1rem;
+  .titleText{
+    font-size: 17px;
   }
-
   .back{
     position: absolute;
-    left: 1rem;
+    left:0.5rem;
   }
   .back img {
-    height: 2.5rem;
+    height: 30px;
   }
+  .income{
+    background: #09a2d6;
+    text-align: center;
+    width: 100%;
+    color: #fff;
+  }
+  .incomeTitle{
+    font-size: 1.5rem;
+  }
+  .today{
+    width: 90%;
+    margin: auto;
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+    padding: 1rem 0;
+  }
+  .grid-cell{
+    margin: 1rem 0;
+  }
+  .grid-cell:first-child{
+    border-right: 1px solid rgba(255,255,255,0.2);
+  }
+  .mu-list{
+    border-bottom: 1px solid #eee;
+  }
+  .mu-list-item{
+    padding: 0.5rem 0;
+  }
+  .dateText{
+    font-size: 1rem;
+  }
+  .mu-divider{
+    background: #eee;
+  }
+  .dataList:last-child>.mu-divider{
+    display: none;
+  }
+  .count{
+    color: #09a2d6;
+  }
+
+
+
   .table{
     text-align: center;
   }

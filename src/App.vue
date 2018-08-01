@@ -53,7 +53,6 @@ export default {
 @import '~vux/src/styles/reset.less';
 
 html{
-  font-size:62.5%;
   background: #f5f5f5;
 }
 
@@ -87,5 +86,26 @@ html{
   opacity: 0;
   transform:translate3d(-100%, 0, 0);
 }
+a:hover, a:focus {
+  text-decoration: none;
+}
+  .myNavTitle{
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    height: 4rem;
+  }
 
+  .getBack{
+    position: absolute;
+    left: 0;
+  }
+  .getBack img {
+    height: 2.5rem;
+  }
+  .navTitleText{
+    font-size: 17px;
+  }
+  .contentMarginTop{
+    margin-top: 0.6rem;
+  }
 </style>

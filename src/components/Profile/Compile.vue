@@ -1,6 +1,7 @@
 <template>
 
-	<div class="content">
+<div class="content">
+    <div id="navTopMargin"></div>
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body" >
 				<span  @click="goBack" @touchstart="evers" @touchend="lat" class="back">  <img :src="masrc"/></span> 编辑资料
@@ -15,7 +16,7 @@
 				<img class="media-object headImg" :src="headImg" v-else/>
 			</div>
 		</div>
-
+		
 		<div class="media Pictures">
 			<div class="media-body">
 				上传头像
@@ -25,8 +26,11 @@
 				<img class="media-object graph"  src="../../assets/images/chushi.png"/>
 				<!--<img class="media-object sheet" src="../../assets/images/tianjia.png" />-->
 			</div>
+			<div class="chart-to">
+				<img class="media-object sheet" src="../../assets/images/tianjia.png" />
+			</div>
 		</div>
-
+		
 		<router-link to="/nickname" tag="div" class="media" style="padding-right: 1rem">
 			<div class="media-body nickNameLeft">
 				昵称
@@ -35,17 +39,17 @@
 				<span id="nickname">{{nickname}}</span><span class="text-right"><img :src="more" class="moreImg"/></span>
 			</div>
 		</router-link>
-
-		<div class="media noTop" style="padding-right: 1rem">
+		
+		<div class="media noTop" data-toggle="modal" data-target="#SexModal" style="padding-right: 1rem">
 			<div class="media-body">
 				性别
 			</div>
-			<div class="media-right ">
-				<span id="sex" data-target="#sexModal">男</span><span class="text-right"><img :src="more" class="moreImg"/></span>
+			<div class="media-right">
+				<span id="sex" data-target="#sexModal">{{sexe}}</span><span class="text-right"><img :src="more" class="moreImg"/></span>
 			</div>
 		</div>
 
-
+		
 		<div class="media noTop ID" style="padding-right: 1rem">
 			<div class="media-body">
 				ID号
@@ -62,7 +66,7 @@
 				<span id="grade">{{rank}}</span><span class="text-right"><img :src="more" class="moreImg"/></span>
 			</div>
 		</router-link>
-
+		
 		<router-link to="/Sdfs" tag="div" class="media" style="padding-right: 1rem">
 			<div class="media-body ">
 				个性签名
@@ -101,7 +105,25 @@
 			</div>
 			<!-- /.modal -->
 		</div>
-
+		
+		<div class="modal fade" id="SexModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<span class="headImgChoose fileinput-button"  @click="man('男')">
+						<input name="sex" type="radio" checked="checked"  >男
+					</span>
+					<span class="headImgChoose fileinput-button"  @click="man('女')">
+						<input name="sex" type="radio">女
+					</span>
+					<div class="modal-footer" style="border-top: 0px; text-align: center;">
+						<button type="button" style="border: 0px;" class="btn btn-default nickNo" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+		
 	</div>
 </template>
 
@@ -120,10 +142,11 @@
 		},
 		data() {
 			return {
-        more:more,
+        		more:more,
 				masrc: back,
 				headImg: headImg,
 				nickname: '',
+				sexe: '男',
 				signature: 'hahaha',
 				IDcode: '',
 				chooseFile: '',
@@ -200,12 +223,29 @@
 				};
 
 			},
-
+			man(a) {
+				this.sexe=a;
+				$("#SexModal").hide();
+				$(".modal-backdrop").hide();
+				console.log(1)
+			}
 		}
 	}
 </script>
 
 <style scoped>
+	.chart{
+		width: 10%;
+	}
+	.chart-to{
+		position: relative;
+		background-color: #F5F5F5;
+		float: left;
+		left: 5rem;
+		bottom: 4rem;
+		width: 48px;
+		height: 48px;
+	}
 	.content {
 		overflow-x: hidden;
 		color: #666;
@@ -241,6 +281,7 @@
 
 	.back img {
 		height: 2.5rem;
+		z-index: 999;
 	}
 
 	.media {
@@ -262,15 +303,17 @@
 		height: 4rem;
 		border-radius: 50%;
 	}
-
+	
 	.graph{
 		width: 4rem;
 		height: 4rem;
 		margin-top: 10px;
 	}
-
+	
 	.sheet{
 		float: right;
+		width: 48px;
+		height: 48px;
 	}
 
 	.media-right {
@@ -340,13 +383,16 @@
 	}
 
 	.nickNameRight {
-		width: 80%;
+		width:80%;
 		text-align: right;
+	}
+	.nickNameLeft{
+		text-align: left;
 	}
   .moreImg{
     height: 3rem;
   }
-
+  
   #hint{
   	float: right;
   	color: #888;
@@ -361,6 +407,6 @@
   }
   .ID{
   	margin-top: 15px;
-
+  	
   }
 </style>

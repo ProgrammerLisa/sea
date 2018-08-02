@@ -93,11 +93,12 @@ a:hover, a:focus {
     text-align: center;
     border-bottom: 1px solid #eee;
     height: 4rem;
+    margin-left: -48px;
   }
 
   .getBack{
-    position: absolute;
-    left: 0;
+    position: relative;
+    left:48px;
   }
   .getBack img {
     height: 2.5rem;

@@ -13,6 +13,10 @@
         </div>
       </div>
     </div>
+    <mu-dialog  width="360" :open.sync="openSimple" style="text-align: center">
+      商场即将上线
+      <mu-button slot="actions" style="width: 100%;border-top: 1px solid #eee" flat color="primary" @click="closeSimpleDialog">知道了</mu-button>
+    </mu-dialog>
     <!--<audio id="audioPlay" src="@/assets/audio/475.mp3"></audio>-->
     <router-view></router-view>
   </div>
@@ -44,7 +48,8 @@
           home,discovery,store,mine
         ],
         isLogin:true,
-        phoneType:''
+        phoneType:'',
+        openSimple: false
       }
     },
     mounted:function(){
@@ -149,40 +154,10 @@
 
       },
       config() {
-        const that = this;
-        this.$layer.confirm("商场即将上线", {
-          contentClass: 'className',
-          btn: ['取消', '确定']
-        }, function () {
-        }, function () {
-          $(".vl-notify-mask").remove();
-          $(".vl-notify").remove();
-        })
-        $(".notify-btn-primary").css({
-          display: "none"
-        })
-
-        $(".vl-notice-title").css({
-          display: "none"
-        });
-        $(".vl-notify-btns").css({
-          textAlign: "center",
-          borderTop: "1px solid #ddd",
-          padding: "0"
-        });
-        $(".vl-notify-content").css({
-          textAlign: "center"
-        });
-        $(".notify-btn").css({
-          borderRadius: "0",
-          width: "100%",
-          margin: "0",
-          border: "none",
-          padding: "1rem 0"
-        });
-        $(".vl-notify").css({
-          paddingBottom: "0"
-        });
+        this.openSimple = true;
+      },
+      closeSimpleDialog () {
+        this.openSimple = false;
       }
     }
   }

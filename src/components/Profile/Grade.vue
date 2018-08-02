@@ -1,96 +1,272 @@
 <template>
-	<div id="Grade">
-		<div id="navTopMargin"></div>
-		<div class="panel panel-default BlackTitle">
-			<div class="panel-body" >
-				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"> <img :src="masrc"/></span>
-				<span style="margin-left: -35px; position: absolute; left: 50%; font-size: 1.8rem;">我的等级</span>
-			</div>
-		</div>
-	</div>
+  <div class="content">
+    <div id="navBox">
+      <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0" id="nav1">
+        <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+          <img :src="masrc"/>
+        </mu-button>
+        <span class="navTitleText">我的等级</span>
+      </mu-appbar>
+      <div class="income" id="nav2">
+        <div class="today">
+          <img style="width: 72px;height: 72px;margin-top: 20px;margin-bottom: 20px;" src="../../assets/images/chushi.png" />
+          <!--<div style="font-size: 34px; font-weight: 300;">8.6666</div>-->
+        </div>
+        <div>
+        	<span style="font-size: 1.2rem;">能力值:&#160&#160 45 &#160&#160距离下一级还需:&#160&#160 15</span>
+        </div>
+      </div>
+      <mu-paper id="nav3" :z-depth="0">
+        <mu-list style="padding: 0">
+          <mu-list-item>
+            <mu-list-item-content>
+              <mu-list-item-title><span  style="color: #09a2d6;margin-right: 0.6rem;font-weight: 700">|</span>等级权益</mu-list-item-title>
+            </mu-list-item-content>
+          </mu-list-item>
+        </mu-list>
+        <mu-list style="padding: 0">
+          <mu-list-item>
+            <mu-list-item-content>
+              <mu-list-item-title> <mu-avatar color="#09A2D6" size="18">1</mu-avatar> 达到3级 可解锁 “海洋之心”</mu-list-item-title>
+            </mu-list-item-content>
+          </mu-list-item>
+        </mu-list>
+        <mu-list style="padding: 0">
+          <mu-list-item>
+            <mu-list-item-content>
+              <mu-list-item-title><mu-avatar color="#09A2D6" size="18">2</mu-avatar> 等级越高获得的珍珠价值越高</mu-list-item-title>
+            </mu-list-item-content>
+          </mu-list-item>
+        </mu-list>
+      </mu-paper>
+    </div>
+<div style="background-color: #F5F5F5;height: 2%;">
+	
+</div>
+    <mu-paper id="dataBox" :z-depth="0">
+      <mu-list class="mu-list">
+        <div class="dataContainer">
+          <div class="dataList" >
+          	<mu-list-item >
+              <mu-list-item-content>
+                <mu-list-item-title><span  style="color: #09a2d6;margin-right: 0.6rem;font-weight: 700">|</span>如何升级</mu-list-item-title>
+              </mu-list-item-content>
+              <mu-list-item-action>
+                <mu-list-item-title class="count">做任务快速升级<span class="text-right"><img :src="more" class="moreImg"/></span></mu-list-item-title>
+              </mu-list-item-action>
+            </mu-list-item>
+            <mu-list-item class="mu-list-item">
+              <mu-list-item-content>
+                <mu-list-item-title>每日签到</mu-list-item-title>
+                <mu-list-item-sub-title class="dateText">日常任务</mu-list-item-sub-title>
+              </mu-list-item-content>
+              <mu-list-item-action>
+                <mu-list-item-title class="count"><span class="count-text">5能量</span>/10次上限/天</mu-list-item-title>
+              </mu-list-item-action>
+            </mu-list-item>
+            <mu-list-item class="mu-list-item">
+              <mu-list-item-content>
+                <mu-list-item-title>每日签到</mu-list-item-title>
+                <mu-list-item-sub-title class="dateText">日常任务</mu-list-item-sub-title>
+              </mu-list-item-content>
+              <mu-list-item-action>
+                <mu-list-item-title class="count"><span class="count-text">5能量</span>/10次上限/天</mu-list-item-title>
+              </mu-list-item-action>
+            </mu-list-item>
+            <mu-list-item class="mu-list-item">
+              <mu-list-item-content>
+                <mu-list-item-title>每日签到</mu-list-item-title>
+                <mu-list-item-sub-title class="dateText">日常任务</mu-list-item-sub-title>
+              </mu-list-item-content>
+              <mu-list-item-action>
+                <mu-list-item-title class="count"><span class="count-text">5能量</span>/10次上限/天</mu-list-item-title>
+              </mu-list-item-action>
+            </mu-list-item>
+            <mu-list-item class="mu-list-item">
+              <mu-list-item-content>
+                <mu-list-item-title>每日签到</mu-list-item-title>
+                <mu-list-item-sub-title class="dateText">日常任务</mu-list-item-sub-title>
+              </mu-list-item-content>
+              <mu-list-item-action>
+                <mu-list-item-title class="count"><span class="count-text">5能量</span>/10次上限/天</mu-list-item-title>
+              </mu-list-item-action>
+            </mu-list-item>
+            <mu-divider class="mu-divider" shallow-inset></mu-divider>
+          </div>
+        </div>
+
+      </mu-list>
+    </mu-paper>
+
+  </div>
 </template>
 
 <script>
-	import back from '@/assets/images/back.png'
-	import backs from '@/assets/images/backs.png'
-	
-	export default {
-		name: "Grade",
-		data() {
-			return {
-				masrc: back
-			}
-		},
-		methods:{
-			evers() {
-				this.masrc = backs;
-			},
-			lat() {
-				this.masrc = back;
-			},
-			goBack() {
-				this.$router.go(-1);
-			}
-		}
-	}
+  import back from '@/assets/images/back.png'
+  import backs from '@/assets/images/backs.png'
+   import more from '@/assets/images/more.png'
+    export default {
+        name: "Grade",
+        data(){
+          return{
+            masrc: back,
+            more:more
+            
+          }
+        },
+      mounted(){
+        let height=$("#nav1").height()+$("#nav2").height()+$("#nav3").height();
+        $("#navBox").css({height:height+'px'});
+        $("#dataBox").css({marginTop:height+'px'})
+      },
+      methods: {
+        evers() {
+          this.masrc = backs;
+        },
+        lat() {
+          this.masrc = back;
+        },
+        goBack() {
+          this.$router.go(-1);
+        }
+      }
+    }
 </script>
 
 <style scoped>
-	#grade {
-		height: 100vh;
-		width: 100vw;
-		background-color: white;
+	span.text-right{
+		padding-right: 0;
 	}
-	
-	span {
-		font-size: 10px;
+	.moreImg{
+    height: 3rem;
+  }
+	.count-text{
+		color: #323232;
 	}
-
-	#group_input_imgs {
-		position: relative;
-		width: 54px;
-		float: right;
-		margin-top: -50px;
-		/*margin-left: 75%;*/
-	}
-
-	#group_input_img {
-		position: relative;
-		margin-top: -50px;
-		width: 54px;
-		float: right;
-	}
-	
-	.panel {
-		border-radius: 0;
-	}
-	
-
-  .panel{
-    border-radius: 0;
+  .content {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background-color: #f5f5f5;
+    width: 100vw;
+    height: 100vh;
+  }
+  #navBox{
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 9999;
+    background: #fff;
+  }
+  .content::-webkit-scrollbar {
+    display:none
+  }
+  #dataBox{
+    margin-top: 50vh;
+  }
+  .dataContainer{
+  	margin-top: 1vh;
+  }
+  .titleText{
+    font-size: 17px;
+  }
+  .back{
+    position: absolute;
+    left:0.5rem;
+  }
+  .back img {
+    height: 30px;
+  }
+  .income{
+    background: #09a2d6;
+    text-align: center;
+    width: 100%;
+    color: #fff;
+  }
+  .incomeTitle{
+    font-size: 1.5rem;
+  }
+  .today{
+    width: 90%;
+    margin: auto;
+    padding: 1rem 0;
+  }
+  .grid-cell{
+    margin: 1rem 0;
+  }
+  .grid-cell:first-child{
+    border-right: 1px solid rgba(255,255,255,0.2);
+  }
+  .mu-list{
+    border-bottom: 1px solid #eee;
+  }
+  .mu-list-item{
+    padding: 0.5rem 0;
+    border-top:1px solid #F5F5F5;
+  }
+  .dateText{
+    font-size: 1rem;
+  }
+  .mu-divider{
+    background: #eee;
+  }
+  .dataList:last-child>.mu-divider{
+    display: none;
+  }
+  .count{
+    font-size: 1.3rem;
   }
 
-	.panel-body {
-		padding: 0 10px;
-	}
 
-	.BlackTitle {
-		text-align: center;
-		letter-spacing: 0.05rem;
-		background: #09a2d6;
-		color: #fff;
-		font-size: 1.8rem;
-		margin-bottom: 0;
-		height: 4.1rem;
-		line-height: 4.1rem;
-		border: 0;
-	}
 
-	.back {
-		float: left;
-	}
+  .table{
+    text-align: center;
+  }
+  .table tr{
+    line-height: 4rem;
+    border-bottom: 0.1rem solid #efefef;
+  }
+  .bcfff{
+    background: #fff;
+  }
 
-	.back img {
-		height: 2.5rem;
-	}
+  .text-left{
+    padding-left: 1rem;
+  }
+  .text-right{
+    padding-right: 1rem;
+    color: #09A2D6;
+  }
+  .pearl-count{
+    color: #09A2D6;
+  }
+  .decorate{
+    display: inline-block;
+    background: #09A2D6 ;
+    width: 0.3rem;
+    height: 1.6rem;
+    margin: 0 1rem;
+    vertical-align: middle;
+  }
+  .decorate-title{
+    font-size: 1.5rem;
+    text-align: left;
+    color: #444;
+    padding: 0.5rem 0;
+  }
+  #ranking{
+    width:30%;
+  }
+  #listTitle{
+    padding: 1rem;
+    height:4rem;
+    display: block;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+  }
+  #listTitle:active{
+    background: #ddd;
+  }
+  .myData td{
+    padding:0 2rem ;
+  }
 </style>

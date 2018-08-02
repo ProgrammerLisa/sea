@@ -103,7 +103,7 @@ a:hover, a:focus {
     height: 2.5rem;
   }
   .navTitleText{
-    font-size: 17px;
+    font-size: 1.6rem;
   }
   .contentMarginTop{
     margin-top: 0.6rem;

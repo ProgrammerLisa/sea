@@ -13,6 +13,11 @@
               <img :src="headPortrait" v-else/>
             </div>
             <p class="nickName">{{nickName}}</p>
+            <p style="margin: 0">
+               <mu-button flat style="height: 32px;line-height: 32px">
+                 <mu-icon value="phone_iphone" left style="font-size: 1.6rem;margin: 0"></mu-icon>{{phone}}
+               </mu-button>
+            </p>
             <!--<p class="userId">ID：{{phone}}</p>-->
           </router-link>
           <router-link  v-else tag="div" to="/login">
@@ -114,6 +119,7 @@
           if(res.data.code==0){
             var nikename = res.data.data.nickname;
             var headimg = res.data.data.avatar;
+            this.phone=res.data.data.phone;
             if(nikename==""){
               this.nickName = localStorage.getItem("uid");
             }else {
@@ -262,7 +268,7 @@
   }
 
   .msgBox{
-    margin-top: 1rem;
+    /*margin-top: 1rem;*/
   }
   .HeadPortrait img{
     width: 6rem;
@@ -273,6 +279,9 @@
   .nickName{
     padding-top: 1rem;
     margin: 0;
+  }
+  .material-icons{
+    font-size: 1.8rem;
   }
   .personalIcon{
     width: 3.2rem;

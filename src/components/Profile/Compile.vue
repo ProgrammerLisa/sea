@@ -42,12 +42,12 @@
       </div>
     </router-link>
 
-    <div class="media noTop" data-toggle="modal" data-target="#SexModal" style="padding-right: 1rem">
+    <div class="media noTop" @click="openScrollDialog" style="padding-right: 1rem">
       <div class="media-body">
         性别
       </div>
       <div class="media-right">
-        <span id="sex" data-target="#sexModal">{{sexe}}</span><span class="text-right"><img :src="more" class="moreImg"/></span>
+        <span id="sex" data-target="#sexModal">{{ringtone}}</span><span class="text-right"><img :src="more" class="moreImg"/></span>
       </div>
     </div>
 
@@ -111,23 +111,18 @@
 			<!-- /.modal -->
 		</div>
 
-		<div class="modal fade" id="SexModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<span class="headImgChoose fileinput-button"  @click="man('男')">
-						<input name="sex" type="radio" checked="checked"  >男
-					</span>
-					<span class="headImgChoose fileinput-button"  @click="man('女')">
-						<input name="sex" type="radio">女
-					</span>
-					<div class="modal-footer" style="border-top: 0px; text-align: center;">
-						<button type="button" style="border: 0px;" class="btn btn-default nickNo" data-dismiss="modal">取消</button>
-					</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal -->
-		</div>
+    <mu-dialog width="360" scrollable :open.sync="openScroll" >
+      <mu-list>
+        <mu-list-item :key="option" v-for="option in options">
+          <mu-list-item-content>
+            <mu-radio  :label="option" :value="option" v-model="ringtone" @click="sexChoose"></mu-radio>
+          </mu-list-item-content>
+        </mu-list-item>
+      </mu-list>
+      <mu-button style="margin: auto;width: 95%" slot="actions" color="#455a64" @click="closeScrollDialog">取消</mu-button>
+    </mu-dialog>
+
+
     </div>
 	</div>
 </template>
@@ -151,14 +146,19 @@
 				masrc: back,
 				headImg: headImg,
 				nickname: '',
-				sexe: '男',
 				signature: 'hahaha',
 				IDcode: '',
 				chooseFile: '',
 				houzhuiming: '',
 				haveHeadImg: '',
 				pmid:'141428',
-				rank: 'LV3'
+				rank: 'LV3',
+        openScroll: false,
+        ringtone: '男',
+        options: [
+          '男',
+          '女'
+        ]
 			}
 		},
 		inject: ['reload'],
@@ -208,6 +208,15 @@
 			goBack() {
 				this.$router.go(-1);
 			},
+      openScrollDialog () {
+        this.openScroll = true;
+      },
+      closeScrollDialog () {
+        this.openScroll = false;
+      },
+      sexChoose(){
+        this.openScroll = false;
+      },
 			chooseImg(c) {
 				let that = this;
 				let $c = document.querySelector(c);
@@ -253,10 +262,9 @@
 	}
 	.content {
 		overflow-x: hidden;
-		color: #666;
 		background-color: #f5f5f5;
 		width: 100vw;
-    height: 120vh;
+    margin-bottom: 2rem;
 	}
 
 	.media {
@@ -368,7 +376,6 @@
   .moreImg{
     height: 3rem;
   }
-
   #hint{
   	float: right;
   	color: #888;
@@ -382,7 +389,7 @@
   	margin-top: 0.6rem;
   }
   .ID{
-
   	margin-top: 0.6rem;
   }
+
 </style>

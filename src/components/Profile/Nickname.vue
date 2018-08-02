@@ -1,12 +1,21 @@
 <template>
     <div class="content">
-      <div class="panel panel-default BlackTitle">
-        <div class="panel-body">
-          <span @click="goBack" @touchstart="evers"  @touchend="lat" class="back">  <img :src="masrc"/></span> 昵称
-          <span class="addTo" @click="submit"> 确定</span>
-        </div>
+      <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0" style="padding: 0;">
+        <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" >
+          <img :src="masrc" style="width: 2.5rem"/>
+        </mu-button>
+        <span class="navTitleText">昵 称</span>
+        <mu-menu slot="right">
+          <mu-button flat @click="submit" style="color: #09a2d6">确定</mu-button>
+        </mu-menu>
+      </mu-appbar>
+      <div class="contentMarginTop">
+       <mu-form :model="form" class="mu-demo-form" :label-position="labelPosition" label-width="100">
+          <mu-form-item prop="input" >
+            <mu-text-field @focus="inputFocus" @blur="inputFocus" :action-icon="haveData?'highlight_off':''" :action-click="clearInput" style="background: #fff;border-top: 1px solid #eee;" color="#09a2d6" v-model="form.input" placeholder="4-10个字符、仅支持中文、数字、英文"  ></mu-text-field>
+          </mu-form-item>
+        </mu-form>
       </div>
-      <input class="form-control nickInput" id="form_control" type="text" placeholder="4-10个字符、仅支持中文、数字、英文" />
 
     </div>
 </template>
@@ -20,6 +29,14 @@
         data(){
             return{
               masrc: back,
+              labelPosition: 'top',
+              form: {
+                input: '',
+                switch: false,
+                slider: 30
+              },
+              visibility: false,
+              haveData:false
             }
         },
         methods:{
@@ -32,13 +49,24 @@
           goBack() {
             this.$router.go(-1);
           },
+          inputFocus(){
+            if(this.form.input==''||this.form.input==undefined||this.form.input==null){
+              this.haveData=false
+            }else {
+              this.haveData=true
+            }
+
+          },
+          clearInput(){
+            this.form.input='';
+            this.haveData=false;
+          },
           submit() {
-            $("#NickModal").show();
-            if($("#form_control").val() == '' || $("#form_control").val() == null || $("#form_control").val() == undefined) {
+            if(this.form.input== '') {
               this.$layer.msg('请输入你的昵称');
-            } else if($("#form_control").val().length < 4) {
+            } else if(this.form.input.length < 4) {
               this.$layer.msg('昵称不符合要求');
-            } else if($("#form_control").val().length > 10) {
+            } else if(this.form.input.length > 10) {
               this.$layer.msg('昵称不符合要求');
             } else {
               this.isDisabled = true;
@@ -51,7 +79,7 @@
                   "Access-Control-Allow-Origin": "*"
                 },
                 data: {
-                  nickname: $("#form_control").val()
+                  nickname: this.form.input
                 }
               }).then(function(res) {
                 if(res.data.code == 0) {
@@ -77,44 +105,8 @@
     color: #666;
     background-color: #f5f5f5;
     width: 100vw;
-  }
-
-  .panel {
-    border: none;
-    border-radius: 0;
-  }
-
-  .panel-body {
-    padding: 0 1rem;
-  }
-
-  .BlackTitle {
-    text-align: center;
-    letter-spacing: 0.05rem;
-    background: #09a2d6;
-    color: #fff;
-    font-size: 1.5rem;
-    margin-bottom: 0;
-    height: 4.1rem;
-    line-height: 4.1rem;
-  }
-
-  .back{
-    position: absolute;
-    left: 1rem;
-  }
-  .back img {
-    height: 2.5rem;
-  }
-  .addTo {
-    float: right;
-  }
-  .nickInput{
-    border-radius: 0;
-    border: none;
-    height: 4rem;
-  }
-  .addTo:active{
-    color: #C6C4C4;
+    height: 100vh;
+    position: fixed;
+    top: 0;
   }
 </style>

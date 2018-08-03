@@ -1,9 +1,5 @@
 <template>
 	<div id="register">
-<<<<<<< HEAD
-=======
-		<div id="navTopMargin"></div>
->>>>>>> 3db35e0c5cf49bc56bfc2fb7d89170fb12fc14fb
 		<div class="panel panel-default BlackTitle">
 			<div class="panel-body">
 				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"> <img :src="masrc"/></span>

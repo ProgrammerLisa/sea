@@ -155,7 +155,7 @@
 				chooseFile: '',
 				houzhuiming: '',
 				haveHeadImg: '',
-				pmid:'141428',
+				pmid:'',
 				rank: 'LV3',
         openScroll: false,
         ringtone: '男',
@@ -179,6 +179,7 @@
 				}).then(function(res) {
 					if(res.data.code == 0) {
 						this.IDcode = res.data.data.phone;
+						this.pmid = localStorage.getItem("uid");
 						if(res.data.data.nickname == "") {
 							this.nickname = localStorage.getItem("uid");
 						} else {

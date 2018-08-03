@@ -47,9 +47,9 @@
         <div class="row task1">
           <div class="col-xs-4 taskList">
             <span class="glyphicon glyphicon-globe taskIcon"></span>
-            <div class="taskTitle">资讯</div>
-            <div class="taskBody">邀请好友+10能量</div>
-            <div class="taskBtn">+100能量</div>
+            <div class="taskTitle">公益慈善</div>
+            <div class="taskBody">爱心捐助+10能量</div>
+            <router-link to="/publicgood" tag="div" class="taskBtn">+10能量</router-link>
           </div>
           <div class="col-xs-4 taskList">
             <span class="glyphicon glyphicon-music taskIcon"></span>

@@ -16,6 +16,9 @@ import CommodityDetails from '@/components/Shopping/CommodityDetails'
 import CommodityOrder from '@/components/Shopping/CommodityOrder'
 import Compile from '@/components/Profile/Compile'
 
+import Donation from '@/components/Find/Donation'
+import DonationCount from '@/components/Find/DonationCount'
+
 import Find from '@/components/Find/Find'
 import friend from '@/components/Profile/friend'
 import FriendData from '@/components/Profile/FriendData'
@@ -38,6 +41,7 @@ import Nickname from '@/components/Profile/Nickname'
 import Grade from '@/components/Profile/Grade'
 import Sdfs from '@/components/Profile/Sdfs'
 
+import PublicGood from '@/components/Find/PublicGood'
 import Personal from '@/components/Profile/Profile'
 import PreOrder from '@/components/Shopping/PreOrder'
 import PhotoWall from '@/components/Profile/PhotoWall'
@@ -327,6 +331,21 @@ export default new Router({
       name:'PhotoWall',
       meta:{index:4},
       component: PhotoWall
+    },{
+      path:'/publicgood',
+      name:'PublicGood',
+      meta:{index:2},
+      component: PublicGood
+    },{
+      path:'/donation',
+      name:'Donation',
+      meta:{index:3},
+      component: Donation
+    },{
+      path:'/donationcount',
+      name:'DonationCount',
+      meta:{index:4},
+      component: DonationCount
     }
 
   ]

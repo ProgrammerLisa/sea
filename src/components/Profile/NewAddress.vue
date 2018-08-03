@@ -14,33 +14,17 @@
         <mu-form-item prop="phone" :rules="passwordRules">
           <mu-text-field type="text" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/" v-model="validateForm.phone" prop="phone" placeholder="请填写收货手机号码"></mu-text-field>
         </mu-form-item>
+          <mu-form-item prop="address" :rules="addressRules">
+            <mu-text-field type="text" v-model="validateForm.address" data-toggle="modal" data-target="#addressModal" prop="address" placeholder="请选择地区"></mu-text-field>
+          </mu-form-item>
         <mu-form-item prop="addressNumber" :rules="addressNumberRules">
           <mu-text-field type="text" v-model="validateForm.addressNumber" prop="addressNumber" placeholder="详细地址(如门牌号等)"></mu-text-field>
         </mu-form-item>
-        <mu-form-item>
-          <mu-button color="primary" @click="submits">提交</mu-button>
-          <mu-button @click="clear">重置</mu-button>
-        </mu-form-item>
-      </mu-form>
-    </mu-container>
-		<form class="form-horizontal contentMarginTop">
-			<div class="form-group">
-				<input type="text" class="form-control" id="name" placeholder="请填写收货人姓名">
-			</div>
-			<div class="form-group">
-				<input type="number" class="form-control" id="phone" placeholder="请填写收货手机号码">
-			</div>
-			<div class="form-group">
-				<input type="text" data-toggle="modal" data-target="#addressModal" class="form-control" id="address" :value="address" placeholder="请选择地区">
-			</div>
-			<div class="form-group">
-				<input type="text" class="form-control" id="home" placeholder="详细地址(如门牌号等)">
-			</div>
-			<div class="keep">
-				<div class="keepSubmit" @click="submit">保 存</div>
-			</div>
-		</form>
 
+      </mu-form>
+
+    </mu-container>
+    <mu-button color="#09a2d6" @click="submit" class="submitBtn">提交</mu-button>
 		<div class="modal fade" style="z-index: 999" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -95,19 +79,24 @@
 			return {
 				masrc: back,
         usernameRules: [
-          { validate: (val) => !!val, message: '必须填写用户名'}
+          { validate: (val) => !!val, message: '必须填写用户名'},
+          { validate: (val) => new RegExp("^[ ]+$").test(val)===false , message: '用户名不能为空'}
         ],
         passwordRules: [
-          { validate: (val) => !!val, message: '必须填写密码'},
+          { validate: (val) => !!val, message: '必须填写手机号码'},
           { validate: (val) => /^1[3|4|5|7|8]\d{9}$/.test(val) , message: '手机号码不正确'}
         ],
-        addressNumberRules:[
-          { validate: (val) => !!val, message: '必须填写详细地址'},
-          { validate: (val) => val.length >0, message: '地址不能为空'}
+        addressRules:[
+          { validate: (val) => !!val, message: '地址不能为空'}
         ],
+        addressNumberRules:[
+          { validate: (val) => !!val, message: '必须填写详细地址'}
+        ],
+
         validateForm: {
           username: '',
           phone: '',
+          address:'',
           addressNumber:''
         },
 
@@ -146,19 +135,6 @@
 			goBack() {
 				this.$router.go(-1);
 			},
-      submits () {
-        this.$refs.form.validate().then((result) => {
-          console.log('form valid: ', result)
-        });
-      },
-      clear () {
-        this.$refs.form.clear();
-        this.validateForm = {
-          username: '',
-          phone: '',
-          addressNumber:''
-        };
-      },
 			provinceChoose(index) {
 				this.cityName = [];
 				let city = this.code[$(".provinceName").eq(index).val()];
@@ -222,46 +198,38 @@
 					color: "#09a2d6"
 				});
 
-				this.address = $("#provinceName").text() + " " + $("#cityName").text() + " " + $("#districtsName").text()
+				this.validateForm.address = $("#provinceName").text() + " " + $("#cityName").text() + " " + $("#districtsName").text()
 			},
 			submit() {
-				var reg = /^1[3|4|5|7|8]\d{9}$/;
-				if($("#name").val() == '' || $("#name").val() == null || $("#name").val() == undefined) {
-					this.$layer.msg('请填写收货人');
-				} else if($("#phone").val() == '' || $("#phone").val() == null || $("#phone").val() == undefined) {
-					this.$layer.msg('请填写手机号码');
-				} else if(!reg.test($("#phone").val())) {
-					this.$layer.msg('请填写正确的手机号码');
-				} else if($("#address").val() == '' || $("#address").val() == null || $("#address").val() == undefined) {
-					this.$layer.msg('请填写收货地址');
-				} else if($("#home").val() == '' || $("#home").val() == null || $("#home").val() == undefined) {
-					this.$layer.msg('请填写具体地址');
-				} else {
-					this.$http({
-							method: "post",
-							url: "/users/delivery_address/add",
-							headers: {
-								"device": "android",
-								"uid": localStorage.getItem("uid"),
-								"Access-Control-Allow-Origin": "*"
-							},
-							data: {
-								consignee: $("#name").val(),
-								phone: $("#phone").val(),
-								address: $("#address").val() + $("#home").val()
-							}
-						}).then(function(res) {
-							if(res.data.code == 0) {
-								this.$layer.msg(res.data.msg);
-								this.$router.go(-1);
-							} else {
-								this.$layer.msg(res.data.msg);
-							}
-						}.bind(this))
-						.catch(function(err) {
-              this.$layer.msg("系统异常，请稍后再试");
-						}.bind(this))
-				}
+        this.$refs.form.validate().then((result) => {
+          if(result){
+            this.$http({
+              method: "post",
+              url: "/users/delivery_address/add",
+              headers: {
+                "device": "android",
+                "uid": localStorage.getItem("uid"),
+                "Access-Control-Allow-Origin": "*"
+              },
+              data: {
+                consignee: this.validateForm.username,
+                phone: this.validateForm.phone,
+                address: this.validateForm.address + this.validateForm.addressNumber
+              }
+            }).then(function(res) {
+              if(res.data.code == 0) {
+                this.$layer.msg(res.data.msg);
+                this.$router.go(-1);
+              } else {
+                this.$layer.msg(res.data.msg);
+              }
+            }.bind(this))
+              .catch(function(err) {
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this))
+          }
+        });
+
 			}
 
 		}
@@ -292,48 +260,6 @@
     margin-bottom: 0;
   }
 
-	.form-group {
-		padding: 1rem 3rem;
-		border-bottom: 0.1rem solid #eee;
-		margin-bottom: 0;
-	}
-
-	.form-group:last-child {
-		margin-bottom: 0;
-	}
-
-	.form-control {
-		outline: none;
-		border: none;
-		box-shadow: none;
-	}
-
-	.control-label {
-		font-size: 1.5rem;
-		color: #555;
-		margin-bottom: 0;
-		padding: 0.4rem 0;
-		font-weight: normal;
-	}
-
-	.keep {
-		background: #f5f5f5;
-		padding: 2rem 0;
-	}
-
-	.keepSubmit {
-		width: 90%;
-		margin: auto;
-		background: #09a2d6;
-		color: #fff;
-		text-align: center;
-		font-size: larger;
-		padding: 0.5rem;
-	}
-
-	.keepSubmit:active{
-		background: #009ACD;
-	}
 
 	.modal-dialog {
 		margin: 0;
@@ -364,5 +290,8 @@
 		list-style: none;
 		margin-bottom: 1rem;
 	}
-
+  .submitBtn{
+    width: 90%;
+    margin: 2rem 5%;
+  }
 </style>

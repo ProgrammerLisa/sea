@@ -2,19 +2,22 @@
     <div class="content" id="myList">
       <div  style="height:600px;">
         <v-scroll :on-infinite="infinite" ref="myscroller">
-          <div class="panel panel-default BlackTitle">
-            <div class="panel-body">
-              <span @click="goBack" @touchstart="evers" @touchend="lat" class="back"><img :src="masrc"/></span>
-              <span style="margin-left: -32px; position: absolute; left: 50%; font-size: 1.5rem;">收支记录</span>
-            </div>
-          </div>
-          <div class="media" v-for="s in Statement">
-            <div class="media-body">
-              <div class="media-heading">{{s.title}}</div>
-              <span class="data">{{s.date}}</span>
-            </div>
-            <div class="media-right">
-              {{s.symbol}}{{s.count}}
+
+          <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0">
+            <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+              <img :src="masrc"/>
+            </mu-button>
+            <span class="navTitleText">收支记录</span>
+          </mu-appbar>
+          <div class="contentMarginTop">
+            <div class="media" v-for="s in Statement">
+              <div class="media-body">
+                <div class="media-heading">{{s.title}}</div>
+                <span class="data">{{s.date}}</span>
+              </div>
+              <div class="media-right">
+                {{s.symbol}}{{s.count}}
+              </div>
             </div>
           </div>
         </v-scroll>

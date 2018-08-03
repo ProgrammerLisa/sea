@@ -9,17 +9,25 @@
     <span class="navTitleText">编辑资料</span>
   </mu-appbar>
   <div class="contentMarginTop">
-    <div class="media noTop">
-      <div class="media-body">
-        头像
-      </div>
-      <div class="media-right" data-toggle="modal" data-target="#ImgModal">
-        <img class="media-object headImg" :src="`${headImg+'?'+now}`" v-if="haveHeadImg" />
-        <img class="media-object headImg" :src="headImg" v-else/>
-      </div>
-    </div>
+    <mu-paper :z-depth="0" class="demo-list-wrap">
+      <mu-list >
+        <div class="mylist" data-toggle="modal" data-target="#ImgModal">
+          <mu-list-item avatar button>
+            <mu-list-item-title>头像</mu-list-item-title>
+            <mu-list-item-action>
+              <mu-avatar>
+                  <img class="media-object headImg" :src="`${headImg+'?'+now}`" v-if="haveHeadImg" />
+                  <img class="media-object headImg" :src="headImg" v-else/>
+              </mu-avatar>
+            </mu-list-item-action>
+          </mu-list-item>
+          <mu-divider class="mu-divider"></mu-divider>
 
-    <div class="media Pictures">
+        </div>
+      </mu-list>
+    </mu-paper>
+
+    <div class="media Pictures" style="margin-top: 0">
       <div class="media-body">
         上传头像
         <span id="hint">长按拖拽可更改图片顺序,最多10张</span>
@@ -33,58 +41,54 @@
       </div>
     </div>
 
-    <router-link to="/nickname" tag="div" class="media" style="padding-right: 1rem">
-      <div class="media-body nickNameLeft">
-        昵称
-      </div>
-      <div class="media-right nickNameRight">
-        <span id="nickname">{{nickname}}</span><span class="text-right"><img :src="more" class="moreImg"/></span>
-      </div>
-    </router-link>
+    <mu-paper :z-depth="0" class="demo-list-wrap marginTop" >
+      <mu-list>
+          <mu-list-item to="/nickname" avatar button class="mu-list-item">
+            <mu-list-item-title>昵称</mu-list-item-title>
+            <mu-list-item-action class="listRight">
+              <div>{{nickname}}<img :src="more" class="moreImg"/></div>
+            </mu-list-item-action>
+          </mu-list-item>
+          <mu-divider class="mu-divider"></mu-divider>
+        <mu-list-item @click="openScrollDialog" avatar button class="mu-list-item">
+          <mu-list-item-title>性别</mu-list-item-title>
+          <mu-list-item-action class="listRight">
+            <div>{{ringtone}}<img :src="more" class="moreImg"/></div>
+             </mu-list-item-action>
+        </mu-list-item>
+        <mu-divider class="mu-divider"></mu-divider>
+        <mu-list-item avatar button style="margin-top: 0.6rem" class="mu-list-item">
+          <mu-list-item-title>ID号</mu-list-item-title>
+          <mu-list-item-action style="padding-right: 16px">
+            <div>{{pmid}}</div>
+           </mu-list-item-action>
+        </mu-list-item>
+        <mu-divider class="mu-divider"></mu-divider>
+        <mu-list-item to="/Grade" avatar button class="mu-list-item">
+          <mu-list-item-title>等级</mu-list-item-title>
+          <mu-list-item-action class="listRight">
+            <div>{{rank}}<img :src="more" class="moreImg"/></div>
+         </mu-list-item-action>
+        </mu-list-item>
+        <mu-divider class="mu-divider" style="margin-top: 0.6rem"></mu-divider>
+        <mu-list-item to="/Sdfs" avatar button class="mu-list-item">
+          <mu-list-item-title>个性签名</mu-list-item-title>
+          <mu-list-item-action class="listRight">
+            <div>{{signature}}<img :src="more" class="moreImg"/></div>
+          </mu-list-item-action>
+        </mu-list-item>
+        <mu-divider class="mu-divider" style="margin-top: 0.6rem"></mu-divider>
+        <mu-list-item avatar button class="mu-list-item">
+          <mu-list-item-title>手机号码</mu-list-item-title>
+          <mu-list-item-action style="padding-right: 16px">
+            <div>{{IDcode}}</div>
+          </mu-list-item-action>
+        </mu-list-item>
+      </mu-list>
+    </mu-paper>
 
-    <div class="media noTop" @click="openScrollDialog" style="padding-right: 1rem">
-      <div class="media-body">
-        性别
-      </div>
-      <div class="media-right">
-        <span id="sex" data-target="#sexModal">{{ringtone}}</span><span class="text-right"><img :src="more" class="moreImg"/></span>
-      </div>
-    </div>
 
 
-    <div class="media noTop ID" style="padding-right: 1rem">
-      <div class="media-body">
-        ID号
-      </div>
-      <div class="media-right" style="padding-right: 15px;">
-        <span>{{pmid}}</span>
-      </div>
-    </div>
-    <router-link to="/Grade" tag="div" class="media" style="padding-right: 1rem;margin-top:0px ;">
-      <div class="media-body ">
-        等级
-      </div>
-      <div class="media-right ">
-        <span id="grade">{{rank}}</span><span class="text-right"><img :src="more" class="moreImg"/></span>
-      </div>
-    </router-link>
-
-    <router-link to="/Sdfs" tag="div" class="media" style="padding-right: 1rem">
-      <div class="media-body ">
-        个性签名
-      </div>
-      <div class="media-right ">
-        <span id="signature">{{signature}}</span><span class="text-right"><img :src="more" class="moreImg"/></span>
-      </div>
-    </router-link>
-    <div class="media noTop phone">
-      <div class="media-body">
-        手机号码
-      </div>
-      <div class="media-right">
-        <span>{{IDcode}}</span>
-      </div>
-    </div>
     <!-- 头像选择模态框（Modal） -->
     <div class="modal fade" id="ImgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -112,14 +116,14 @@
 		</div>
 
     <mu-dialog width="360" scrollable :open.sync="openScroll" >
-      <mu-list>
+      <mu-list style="border-bottom: 1px solid #eee">
         <mu-list-item :key="option" v-for="option in options">
           <mu-list-item-content>
             <mu-radio  :label="option" :value="option" v-model="ringtone" @click="sexChoose"></mu-radio>
           </mu-list-item-content>
         </mu-list-item>
-      </mu-list>
-      <mu-button style="margin: auto;width: 95%" slot="actions" color="#455a64" @click="closeScrollDialog">取消</mu-button>
+      </mu-list >
+      <mu-button style="margin: auto;width: 100%;" flat slot="actions" @click="closeScrollDialog">取消</mu-button>
     </mu-dialog>
 
 
@@ -264,9 +268,13 @@
 		overflow-x: hidden;
 		background-color: #f5f5f5;
 		width: 100vw;
-    margin-bottom: 2rem;
+    height: 100vh;
+    overflow-y: scroll;
+    padding-bottom: 2rem;
 	}
-
+  .content::-webkit-scrollbar {
+    display:none
+  }
 	.media {
 		background: #fff;
 		padding: 1rem 1.7rem;
@@ -305,9 +313,13 @@
 		font-size: small;
 	}
 
-	.more {
-		margin-left: 0.5rem;
-	}
+  .mu-list{
+    padding: 0;
+  }
+  .listRight{
+    width: 50%
+  }
+
 
 	.modal-content {
 		margin: 0 2rem;
@@ -382,7 +394,7 @@
   	font-size: 0.05rem;
   	padding-right: 0px;
   }
-  div.media-right{
+  .media-right{
   	padding-right: 0;
   }
   .phone{
@@ -391,5 +403,20 @@
   .ID{
   	margin-top: 0.6rem;
   }
-
+  .media-right{
+    padding: 0;
+  }
+  .mu-divider{
+    background: #f5f5f5;
+  }
+  .mu-item{
+    padding-right: 0;
+  }
+  .marginTop{
+    margin-top: 0.6rem;
+    background: #f5f5f5;
+  }
+  .mu-list-item{
+    background: #fff;
+  }
 </style>

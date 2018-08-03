@@ -1,12 +1,29 @@
 <template>
 	<div class="content">
-		<div class="panel panel-default BlackTitle">
-			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"><img :src="masrc"/> </span> 新建地址
-
-			</div>
-		</div>
-		<form class="form-horizontal">
+    <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0">
+      <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+        <img :src="masrc"/>
+      </mu-button>
+      <span class="navTitleText">新建地址</span>
+    </mu-appbar>
+    <mu-container class="contentMarginTop" style="background: #fff">
+        <mu-form ref="form" :model="validateForm" class="mu-demo-form" >
+        <mu-form-item prop="username" :rules="usernameRules">
+          <mu-text-field v-model="validateForm.username" prop="username" placeholder="请填写收货人姓名"></mu-text-field>
+        </mu-form-item>
+        <mu-form-item prop="phone" :rules="passwordRules">
+          <mu-text-field type="text" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/" v-model="validateForm.phone" prop="phone" placeholder="请填写收货手机号码"></mu-text-field>
+        </mu-form-item>
+        <mu-form-item prop="addressNumber" :rules="addressNumberRules">
+          <mu-text-field type="text" v-model="validateForm.addressNumber" prop="addressNumber" placeholder="详细地址(如门牌号等)"></mu-text-field>
+        </mu-form-item>
+        <mu-form-item>
+          <mu-button color="primary" @click="submits">提交</mu-button>
+          <mu-button @click="clear">重置</mu-button>
+        </mu-form-item>
+      </mu-form>
+    </mu-container>
+		<form class="form-horizontal contentMarginTop">
 			<div class="form-group">
 				<input type="text" class="form-control" id="name" placeholder="请填写收货人姓名">
 			</div>
@@ -77,6 +94,23 @@
 		data() {
 			return {
 				masrc: back,
+        usernameRules: [
+          { validate: (val) => !!val, message: '必须填写用户名'}
+        ],
+        passwordRules: [
+          { validate: (val) => !!val, message: '必须填写密码'},
+          { validate: (val) => /^1[3|4|5|7|8]\d{9}$/.test(val) , message: '手机号码不正确'}
+        ],
+        addressNumberRules:[
+          { validate: (val) => !!val, message: '必须填写详细地址'},
+          { validate: (val) => val.length >0, message: '地址不能为空'}
+        ],
+        validateForm: {
+          username: '',
+          phone: '',
+          addressNumber:''
+        },
+
 				code: code,
 				codeArr: [],
 				province: '',
@@ -112,6 +146,19 @@
 			goBack() {
 				this.$router.go(-1);
 			},
+      submits () {
+        this.$refs.form.validate().then((result) => {
+          console.log('form valid: ', result)
+        });
+      },
+      clear () {
+        this.$refs.form.clear();
+        this.validateForm = {
+          username: '',
+          phone: '',
+          addressNumber:''
+        };
+      },
 			provinceChoose(index) {
 				this.cityName = [];
 				let city = this.code[$(".provinceName").eq(index).val()];
@@ -241,34 +288,9 @@
     width: 100vw;
 	}
 
-	.panel {
-		border: none;
-		border-radius: 0;
-	}
-
-	.panel-body {
-		padding: 0 10px;
-	}
-
-	.BlackTitle {
-		text-align: center;
-		letter-spacing: 0.05rem;
-    background: #09a2d6;
-    color: #fff;
-		font-size: 1.5rem;
-		margin-bottom: 0;
-		height: 4.1rem;
-		line-height: 4.1rem;
-	}
-
-	.back {
-		position: absolute;
-		left: 1rem;
-	}
-
-	.back img {
-		height: 2.5rem;
-	}
+	.mu-form-item{
+    margin-bottom: 0;
+  }
 
 	.form-group {
 		padding: 1rem 3rem;

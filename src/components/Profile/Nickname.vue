@@ -1,7 +1,7 @@
 <template>
     <div class="content">
-      <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0" style="padding: 0;">
-        <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" >
+      <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0" style="padding: 0;margin-left: 0" >
+        <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat">
           <img :src="masrc" style="width: 2.5rem"/>
         </mu-button>
         <span class="navTitleText">昵 称</span>

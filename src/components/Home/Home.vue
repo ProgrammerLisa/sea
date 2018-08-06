@@ -7,10 +7,14 @@
         <span >珍珠量 {{imgSum}}</span>
       </div>
       <div id="imgDiv"></div>
-      <router-link class="option3" to="/gamerules" tag="div">
-        <img src="../../assets/images/youxiguize.png" class="invitation-friends"/>
-        <p>游戏规则</p>
-      </router-link>
+    <router-link class="option2" to="/gamerules" tag="div">
+      <img src="../../assets/images/youxiguize.png" class="invitation-friends"/>
+      <p>游戏规则</p>
+    </router-link>
+    <router-link class="option3" to="/record" tag="div">
+      <img src="../../assets/images/zhanji.png" class="invitation-friends"/><span class="tips"></span>
+      <p>战绩</p>
+    </router-link>
       <router-link class="option4" to="/ask" tag="div">
         <img src="../../assets/images/yaoqinghaoyou.png" class="invitation-friends"/>
         <p>邀请好友</p>
@@ -429,20 +433,26 @@ export default {
     border-radius: 50%;
     padding: 0.4rem;
   }
-  .option3,.option4{
+  .option2,.option3,.option4{
     width: 6rem;
     float: right;
     text-align: center;
     position: absolute;
-    top: 66vh;
-    right: 1rem;
+    top: 70vh;
     color: #fff;
   }
-  .option3{
-    top: 50vh;
+  .option2{
+    right: 1rem;
   }
-  .option3 img,.option4 img{
+  .option3{
+    top: 55vh;
+    right: 1rem;
+  }
+  .option2 img, .option3 img,.option4 img{
     width: 70%;
+  }
+  .option4{
+    left: 1rem;
   }
   .option4-Icon span{
     font-size: 2.5rem;
@@ -481,5 +491,7 @@ export default {
   p{
     margin-bottom: 0;
   }
-
+  .tips{
+    width: 0.6rem;height: 0.6rem;display: inline-block;background: #FC0506;position: absolute;right: 1.2rem;margin-top:0.2rem;border-radius: 50%
+  }
 </style>

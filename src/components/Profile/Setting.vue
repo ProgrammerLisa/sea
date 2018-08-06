@@ -64,7 +64,7 @@
       </mu-flex>
       <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert" style="text-align: center">
         确认要退出登录吗
-        <mu-button slot="actions" flat color="primary" @click="closeAlertDialog" class="loginOutBtn">确定</mu-button>
+        <mu-button slot="actions" flat color="primary" @click="loginOut" class="loginOutBtn">确定</mu-button>
         <mu-button slot="actions" flat color="primary" @click="closeAlertDialog" class="loginOutBtn">取消</mu-button>
       </mu-dialog>
     </div>
@@ -149,13 +149,9 @@
 				this.$router.go(-1);
 			},
 			loginOut() {
-
+        this.openAlert = false;
 				const that = this;
-				this.$layer.confirm("确认要退出登录吗", {
-					title: "退出登录"
-				}, function(c) {
 
-					$(".vl-notify").remove();
 					that.$http({
 							method: "post",
 							url: "/auth/logout",
@@ -163,8 +159,7 @@
 								"device": "android",
 								"uid": localStorage.getItem("uid"),
 								"Access-Control-Allow-Origin": "*"
-							},
-							data: {}
+							}
 						}).then(function(res) {
 							if(res.data.code == 0) {
 								that.$layer.msg(res.data.msg);
@@ -178,36 +173,7 @@
 						.catch(function(err) {
               this.$layer.msg("系统异常，请稍后再试");
 						}.bind(this))
-				})
 
-				$(".vl-notice-title").css({
-					display: "none"
-				});
-				$(".vl-notify-btns").css({
-          textAlign: "center",
-          borderTop:"1px solid #ddd",
-          padding:"0"
-				});
-				$(".vl-notify-content").css({
-					textAlign: "center"
-				});
-				$(".notify-btn").css({
-					borderRadius: "0",
-          width:"49%",
-          margin:"0",
-          border:"none",
-          background:"#fff",
-          color:"#555"
-				});
-        $(".notify-btn-default").css({
-          borderLeft:"1px solid #ddd"
-        });
-        $(".vl-notify").css({
-          paddingBottom:"0"
-        });
-        $(".vl-notify-mask").css({
-          background:"#111"
-        });
 			}
 		}
 	}

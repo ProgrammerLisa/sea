@@ -58,13 +58,12 @@
 		mounted() {
 			this.$http({
 					method: "post",
-					url: "/users/follower",
+					url: "/users/followers",
 					headers: {
 						"device": "android",
 						"uid": localStorage.getItem("uid"),
 						"Access-Control-Allow-Origin": "*"
-					},
-					data: {}
+					}
 				}).then(function(res) {
 					if(res.data.code != 0) {
 						this.$layer.msg(res.data.msg);

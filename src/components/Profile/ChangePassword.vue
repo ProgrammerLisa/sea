@@ -1,12 +1,12 @@
 <template>
 	<div class="content">
-		<div class="panel panel-default BlackTitle">
-			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
-				<span style="margin-left: -30px; position: absolute; left: 50%; font-size: 1.5rem;">重置密码</span>
-			</div>
-		</div>
-		<form class="form-horizontal">
+    <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0">
+      <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+        <img :src="masrc"/>
+      </mu-button>
+      <span class="navTitleText">重置密码</span>
+    </mu-appbar>
+		<form class="form-horizontal contentMarginTop">
 			<div class="form-group">
 				<div class="col-xs-9">
 					<input type="number" class="form-control" id="phone" placeholder="请输入手机号">
@@ -35,6 +35,26 @@
 		<div class="changePsw">
 			<button class="btn submitBtn" @click="changePsw">确 定</button>
 		</div>
+
+    <!--<mu-container class="contentMarginTop" style="background: #fff">-->
+      <!--<mu-form ref="form" :model="validateForm" class="mu-demo-form" >-->
+        <!--<mu-form-item prop="username" :rules="usernameRules">-->
+          <!--<mu-text-field v-model="validateForm.username" prop="username" placeholder="请填写收货人姓名"></mu-text-field>-->
+        <!--</mu-form-item>-->
+        <!--<mu-form-item prop="phone" :rules="passwordRules">-->
+          <!--<mu-text-field type="text" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/" v-model="validateForm.phone" prop="phone" placeholder="请填写收货手机号码"></mu-text-field>-->
+        <!--</mu-form-item>-->
+        <!--<mu-form-item prop="address" :rules="addressRules">-->
+          <!--<mu-text-field type="text" v-model="validateForm.address" data-toggle="modal" data-target="#addressModal" prop="address" placeholder="请选择地区"></mu-text-field>-->
+        <!--</mu-form-item>-->
+        <!--<mu-form-item prop="addressNumber" :rules="addressNumberRules">-->
+          <!--<mu-text-field type="text" v-model="validateForm.addressNumber" prop="addressNumber" placeholder="详细地址(如门牌号等)"></mu-text-field>-->
+        <!--</mu-form-item>-->
+
+      <!--</mu-form>-->
+
+    <!--</mu-container>-->
+    <!--<mu-button color="#09a2d6" @click="submit" class="submitBtn">提交</mu-button>-->
 	</div>
 </template>
 

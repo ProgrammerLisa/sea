@@ -60,7 +60,7 @@
     </mu-container>
     <div class="newAddress">
       <mu-flex justify-content="center" align-items="center">
-        <mu-button full-width color="#09a2d6"> 捐珍珠</mu-button>
+        <mu-button full-width color="#09a2d6" to="/donationcount"> 捐珍珠</mu-button>
       </mu-flex>
     </div>
   </div>

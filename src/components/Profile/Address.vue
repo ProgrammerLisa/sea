@@ -45,9 +45,14 @@
           <span class="del" @click="editor(index)" >
             <img src="../../assets/images/editor.png"/> 编辑
           </span>
-            <span class="del" @click="del(index)">
+            <span class="del" @click="openAlertDialog">
             <img src="../../assets/images/del.png"/> 删除
           </span>
+            <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert" style="text-align: center">
+              确认要退出登录吗
+              <mu-button slot="actions" flat color="primary" @click="del(index)" class="loginOutBtn">确定</mu-button>
+              <mu-button slot="actions" flat color="primary" @click="closeAlertDialog" class="loginOutBtn">取消</mu-button>
+            </mu-dialog>
           </td>
         </tr>
       </table>
@@ -75,6 +80,7 @@
 		data() {
 			return {
 				masrc: back,
+        openAlert: false,
 				noAddress: '',
 				addressNone: addressNone,
 				myAddress: [],
@@ -132,6 +138,13 @@
           }.bind(this))
       },
       methods:{
+        openAlertDialog () {
+          this.openAlert = true;
+          $(".mu-flat-button").css({height:"48px"})
+        },
+        closeAlertDialog () {
+          this.openAlert = false;
+        },
         choose(index){
           this.$http({
             method: "post",

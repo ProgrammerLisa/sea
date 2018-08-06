@@ -47,6 +47,7 @@ import PreOrder from '@/components/Shopping/PreOrder'
 import PhotoWall from '@/components/Profile/PhotoWall'
 
 import RealName from '@/components/Profile/RealName'
+import Record from '@/components/Home/Record'
 import Register from '@/components/Login/Register'
 import Retrieve from '@/components/Login/RetrievePassword'
 import RegisterInviteCode from '@/components/Login/RegisterInviteCode'
@@ -346,6 +347,11 @@ export default new Router({
       name:'DonationCount',
       meta:{index:4},
       component: DonationCount
+    },{
+      path:'/record',
+      name:'Record',
+      meta:{index:2},
+      component: Record
     }
 
   ]

@@ -63,6 +63,37 @@
 
           },
           submit() {
+            if(this.form.input== '') {
+              this.$layer.msg('请输入你的签名');
+            } else if(this.form.input.length < 4) {
+              this.$layer.msg('签名不符合要求');
+            } else if(this.form.input.length > 10) {
+              this.$layer.msg('签名不符合要求');
+            } else {
+              this.isDisabled = true;
+              this.$http({
+                method: "post",
+                url: "/users/edit-resume",
+                headers: {
+                  "device": "android",
+                  "uid": localStorage.getItem("uid"),
+                  "Access-Control-Allow-Origin": "*"
+                },
+                data: {
+                  resume: this.form.input
+                }
+              }).then(function(res) {
+                if(res.data.code == 0) {
+                  this.$layer.msg(res.data.msg);
+                  this.$router.go(-1);
+                } else {
+                  this.$layer.msg(res.data.msg);
+                }
+              }.bind(this))
+                .catch(function(err) {
+                  this.$layer.msg("系统异常，请稍后再试");
+                }.bind(this))
+            }
 
           }
         }

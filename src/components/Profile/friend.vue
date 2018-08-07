@@ -7,7 +7,7 @@
       <span class="navTitleText">我的好友</span>
     </mu-appbar>
     <div class="contentMarginTop">
-      <div v-if="noFriend" class="addressNone">
+      <div v-if="!noFriend" class="addressNone">
         <img :src="noFriendImg" />
         <p>您还没有好友，去邀请好友吧</p>
         <mu-button color="#09a2d6" @click="goAsk">去邀请</mu-button>

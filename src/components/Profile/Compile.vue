@@ -96,13 +96,10 @@
 						<div class="modal-body">
 							<span class="headImgChoose fileinput-button">
                 <span>从相册选择</span>
-							<input type="file" accept="image/*" id="fileBtn" @change="chooseImg('#fileBtn')">
-							</span>
-							<!--<span class="headImgChoose fileinput-button">-->
-							<!--<span>拍照上传</span>-->
-							<!--<input type="file" accept="image/*" capture="camera">-->
-							<!--</span>-->
-							<span class="headImgChoose closeBtn fileinput-button" data-dismiss="modal">
+						<input type="file" accept="image/*" id="fileBtn" @change="chooseImg('#fileBtn')">
+						</span>
+
+            <span class="headImgChoose closeBtn fileinput-button" data-dismiss="modal">
               <span>取消</span>
 							</span>
 
@@ -162,13 +159,11 @@
 				pmid: '',
 				rank: 'LV3',
 				openScroll: false,
-				ringtone: '男',
-				gender: null,
+				ringtone: '',
 				options: [
 					'男',
 					'女'
 				]
-
 			}
 		},
 		inject: ['reload'],
@@ -184,8 +179,16 @@
 					data: {}
 				}).then(function(res) {
 					if(res.data.code == 0) {
+            this.signature=res.data.data.resume;
 						this.IDcode = res.data.data.phone;
 						this.pmid = localStorage.getItem("uid");
+						if(res.data.data.gender=="UNKNOWN"){
+						  this.ringtone="请选择"
+            }else if(res.data.data.gender=="MALE"){
+              this.ringtone="男"
+            }else if(res.data.data.gender=="FEMALE"){
+              this.ringtone="女"
+            }
 						if(res.data.data.nickname == "") {
 							this.nickname = localStorage.getItem("uid");
 						} else {
@@ -238,15 +241,45 @@
 			goBack() {
 				this.$router.go(-1);
 			},
-			openScrollDialog() {
-				this.openScroll = true;
-			},
-			closeScrollDialog() {
-				this.openScroll = false;
-			},
-			sexChoose() {
-				this.openScroll = false;
-			},
+      openScrollDialog () {
+        this.openScroll = true;
+      },
+      closeScrollDialog () {
+        this.openScroll = false;
+      },
+      sexChoose(){
+        // this.openScroll = false;
+        let gender;
+        console.log(this.ringtone)
+        if(this.ringtone==="男"){
+          gender='MALE'
+        }else if(this.ringtone==="女"){
+          gender='FEMALE'
+        }else{
+          gender='UNKNOWN'
+        }
+        this.$http({
+          method: "post",
+          url: "/users/edit-gender",
+          headers: {
+            "device": "android",
+            "uid": localStorage.getItem("uid"),
+            "Access-Control-Allow-Origin": "*"
+          },
+          data: {
+            gender:gender
+          }
+        }).then(function(res) {
+          if(res.data.code===0){
+            this.openScroll = false;
+          }
+          this.$layer.msg(res.data.msg)
+        }.bind(this))
+          .catch(function(err) {
+            console.log(err)
+          }.bind(this))
+
+      },
 			chooseImg(c) {
 				let that = this;
 				let $c = document.querySelector(c);
@@ -314,7 +347,7 @@
 		height: 20vw;
 		margin-top: 4px;
 	}
-	
+
 	.content {
 		overflow-x: hidden;
 		background-color: #f5f5f5;
@@ -323,81 +356,83 @@
 		overflow-y: scroll;
 		padding-bottom: 2rem;
 	}
-	
+
 	.content::-webkit-scrollbar {
 		display: none
 	}
-	
+
 	.media {
 		background: #fff;
 		padding: 1rem 1.7rem;
 		border-bottom: 0.1rem solid #f5f5f5;
 		margin-top: 0.6rem;
 	}
-	
-	.noTop {
-		margin-top: 0;
-	}
-	
 	.media-body {
 		vertical-align: middle;
 	}
-	
+
 	.headImg {
 		width: 4rem;
 		height: 4rem;
 		border-radius: 50%;
 	}
-	
+
 	.graph {
 		width: 4rem;
 		height: 4rem;
 		margin-top: 10px;
 	}
-	
+
 	.sheet {
 		width: 20vw;
 		height: 20vw;
 	}
-	
+  .mu-list{
+    padding: 0;
+  }
+  .listRight{
+    width: 50%
+  }
+
+
 	.media-right {
 		color: #888;
 		font-size: small;
 	}
-	
+
 	.mu-list {
 		padding: 0;
 	}
-	
+
 	.listRight {
 		width: 50%
 	}
-	
+
 	.modal-content {
 		margin: 0 2rem;
 		border-radius: 0;
 		border: none;
 		text-align: center;
 	}
-	
+
 	.modal-dialog {
 		margin: 35vh auto;
 	}
-	
+
 	.modal-header {
 		padding: 1rem;
 		border-bottom: none;
 		color: #444;
 	}
-	
+
 	.modal-body {
 		padding: 0;
 	}
-	
+
 	#ImgModal .modal-content {
 		height: 14vh;
 	}
-	
+
 	.headImgChoose {
 		position: relative;
 		display: inline-block;
@@ -414,7 +449,7 @@
 		border-radius: 0;
 		outline: none;
 	}
-	
+
 	.headImgChoose input {
 		position: absolute;
 		right: 0;
@@ -423,15 +458,10 @@
 		-ms-filter: 'alpha(opacity=0)';
 		font-size: 100%;
 	}
-	
+
 	.closeBtn {
 		border-bottom: none;
 		line-height: 4.5vh;
-	}
-	
-	.nickNameRight {
-		width: 80%;
-		text-align: right;
 	}
 	
 	.nickNameLeft {
@@ -502,3 +532,4 @@
     width: 135vw;
   }
 </style>
+

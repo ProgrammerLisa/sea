@@ -52,7 +52,6 @@ import Record from '@/components/Home/Record'
 import Register from '@/components/Login/Register'
 import Retrieve from '@/components/Login/RetrievePassword'
 import RegisterInviteCode from '@/components/Login/RegisterInviteCode'
-import Reward from '@/components/Profile/Reward'
 
 import Service from '@/components/Profile/Service'
 import Setting from '@/components/Profile/Setting'
@@ -204,12 +203,6 @@ export default new Router({
       name:'news',
       meta:{index:2},
       component: news
-    },
-    {
-      path:'/reward',
-      name:'Reward',
-      meta:{index:2},
-      component: Reward
     },
     {
       path:'/addfriends',

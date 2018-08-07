@@ -5,6 +5,7 @@ import $ from 'jquery'
 import '@/assets/css/bootstrap.css'
 import '@/assets/js/bootstrap.js'
 import '@/assets/js/jq.js'
+import '@/assets/js/jquery-ui.js'
 
 import AboutUs from '@/components/Profile/AboutUs'
 import AddFriends from '@/components/Profile/AddFriends'

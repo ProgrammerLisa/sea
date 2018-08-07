@@ -28,15 +28,18 @@
 
 			<div class="media Pictures" style="margin-top: 0">
 				<div class="media-body">
-					上传头像
+					上传相册
 					<span id="hint">长按拖拽可更改图片顺序,最多10张</span>
 				</div>
-				<div class="chart">
-					<img class="media-object graph" src="../../assets/images/chushi.png" />
-					<!--<img class="media-object sheet" src="../../assets/images/tianjia.png" />-->
-				</div>
-				<div class="chart-to">
-					<img class="media-object sheet" src="../../assets/images/tianjia.png" />
+				<div class="controlContainer">
+					<div class="controlScroll">
+						<div class="controlContent" v-for="(p,index) in pic">
+							<img class="media-object graph" :src="p.src" @click="changeActive(index)" />
+						</div>
+						<div class="chart-to">
+							<img class="media-object sheet" src="../../assets/images/tianjia.png" />
+						</div>
+					</div>
 				</div>
 			</div>
 
@@ -130,6 +133,11 @@
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
 	import more from '@/assets/images/more.png'
+	import timg from "@/assets/images/test/timg.jpg"
+	import pic2 from "@/assets/images/test/1f05664d192e4d8987bdef2562775e4f_th.png"
+	import pic3 from "@/assets/images/test/86c9f191d93d4b208002970e8635cbef.jpg"
+	import pic4 from "@/assets/images/test/0824ab18972bd40719d54bb773899e510fb3096d.jpg"
+	import pic5 from "@/assets/images/test/201711613356.jpg"
 
 	export default {
 		name: "Compile",
@@ -140,6 +148,8 @@
 		},
 		data() {
 			return {
+				pic: [{src: timg}, {src: pic2}, {src: pic3}],
+				active: 0,
 				more: more,
 				masrc: back,
 				headImg: headImg,
@@ -157,8 +167,8 @@
 				options: [
 					'男',
 					'女'
-				],
-				
+				]
+
 			}
 		},
 		inject: ['reload'],
@@ -190,12 +200,12 @@
 							this.ringtone = ringtone;
 						} else {
 							this.ringtone = res.data.data.gender;
-							if(this.ringtone=='MALE'){
-								this.ringtone ='男'
-							}else if(this.ringtone == 'FEMALE'){
+							if(this.ringtone == 'MALE') {
+								this.ringtone = '男'
+							} else if(this.ringtone == 'FEMALE') {
 								this.ringtone = '女'
 							}
-							console.log(this.ringtone+'值');
+							//							console.log(this.ringtone+'值');
 						}
 						if(res.data.data.avatar == "") {
 							this.headImg = headImg;
@@ -216,6 +226,9 @@
 
 		},
 		methods: {
+			changeActive(index) {
+				this.active = index;
+			},
 			evers() {
 				this.masrc = backs;
 			},
@@ -287,23 +300,19 @@
 						this.$layer.msg("系统异常，请稍后再试");
 					}.bind(this))
 			}
-		} 
-	}
-</script>
-
-<style scoped>  
-	.chart {
-		width: 10%;
+		}
 	}
 	
+</script>
+
+<style scoped>
 	.chart-to {
 		position: relative;
 		background-color: #F5F5F5;
-		float: left;
-		left: 5rem;
-		bottom: 4rem;
-		width: 48px;
-		height: 48px;
+		float: right;
+		width: 20ve;
+		height: 20vw;
+		margin-top: 4px;
 	}
 	
 	.content {
@@ -347,9 +356,8 @@
 	}
 	
 	.sheet {
-		float: right;
-		width: 48px;
-		height: 48px;
+		width: 20vw;
+		height: 20vw;
 	}
 	
 	.media-right {
@@ -473,4 +481,24 @@
 	.mu-list-item {
 		background: #fff;
 	}
+	
+	.controlContainer{
+    overflow-x: scroll;
+  }
+  .controlContainer::-webkit-scrollbar {
+    display:none
+  }
+  
+  .controlContent{
+    display: inline-block;
+    white-space:nowrap;
+  }
+  .controlContent img{
+    width: 20vw;
+    height: 20vw;
+    margin: 1vw;
+  }
+  .controlScroll{
+    width: 135vw;
+  }
 </style>

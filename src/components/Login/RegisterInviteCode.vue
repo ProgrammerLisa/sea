@@ -146,7 +146,7 @@
 	.panel-body {
 		padding: 0 10px;
 	}
-
+	
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;

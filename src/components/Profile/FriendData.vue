@@ -30,11 +30,7 @@
       </div>
     </div>
     <div class="more"><span @click="photowall">查看更多图片<img src="../../assets/images/more.png"/></span></div>
-    <div class="news">
-      <mu-flex justify-content="center" align-items="center">
-        <mu-button full-width color="#09A2D6">发消息</mu-button>
-      </mu-flex>
-    </div>
+
   </div>
 </template>
 
@@ -204,7 +200,6 @@
     text-align: center;
     font-size: 1rem;
     color: #646464;
-    margin-bottom:6rem;
     margin-top: 1rem;
   }
   .more img{

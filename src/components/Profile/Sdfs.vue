@@ -63,7 +63,30 @@
 
           },
           submit() {
-
+            if(this.form.input==''||this.form.input==undefined||this.form.input==null){
+              this.$layer.msg("内容不能为空");
+            }else {
+              this.$http({
+                method: "post",
+                url: "/users/edit-resume",
+                headers: {
+                  "device": "android",
+                  "uid": localStorage.getItem("uid"),
+                  "Access-Control-Allow-Origin": "*"
+                },
+                data: {
+                  resume:this.form.input
+                }
+              }).then(function(res) {
+                this.$layer.msg(res.data.msg);
+                if(res.data.code===0){
+                  this.$router.go(-1);
+                }
+              }.bind(this))
+                .catch(function(err) {
+                  console.log(err)
+                }.bind(this))
+            }
           }
         }
     }

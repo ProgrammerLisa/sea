@@ -98,10 +98,7 @@
                 <span>从相册选择</span>
 						<input type="file" accept="image/*" id="fileBtn" @change="chooseImg('#fileBtn')">
 						</span>
-            <!--<span class="headImgChoose fileinput-button">-->
-            <!--<span>拍照上传</span>-->
-            <!--<input type="file" accept="image/*" capture="camera">-->
-            <!--</span>-->
+
             <span class="headImgChoose closeBtn fileinput-button" data-dismiss="modal">
               <span>取消</span>
             </span>
@@ -158,7 +155,7 @@
 				pmid:'',
 				rank: 'LV3',
         openScroll: false,
-        ringtone: '男',
+        ringtone: '',
         options: [
           '男',
           '女'
@@ -178,8 +175,16 @@
 					data: {}
 				}).then(function(res) {
 					if(res.data.code == 0) {
+            this.signature=res.data.data.resume;
 						this.IDcode = res.data.data.phone;
 						this.pmid = localStorage.getItem("uid");
+						if(res.data.data.gender=="UNKNOWN"){
+						  this.ringtone="请选择"
+            }else if(res.data.data.gender=="MALE"){
+              this.ringtone="男"
+            }else if(res.data.data.gender=="FEMALE"){
+              this.ringtone="女"
+            }
 						if(res.data.data.nickname == "") {
 							this.nickname = localStorage.getItem("uid");
 						} else {
@@ -220,7 +225,37 @@
         this.openScroll = false;
       },
       sexChoose(){
-        this.openScroll = false;
+        // this.openScroll = false;
+        let gender;
+        console.log(this.ringtone)
+        if(this.ringtone==="男"){
+          gender='MALE'
+        }else if(this.ringtone==="女"){
+          gender='FEMALE'
+        }else{
+          gender='UNKNOWN'
+        }
+        this.$http({
+          method: "post",
+          url: "/users/edit-gender",
+          headers: {
+            "device": "android",
+            "uid": localStorage.getItem("uid"),
+            "Access-Control-Allow-Origin": "*"
+          },
+          data: {
+            gender:gender
+          }
+        }).then(function(res) {
+          if(res.data.code===0){
+            this.openScroll = false;
+          }
+          this.$layer.msg(res.data.msg)
+        }.bind(this))
+          .catch(function(err) {
+            console.log(err)
+          }.bind(this))
+
       },
 			chooseImg(c) {
 				let that = this;
@@ -283,10 +318,6 @@
     margin-top: 0.6rem;
 	}
 
-	.noTop {
-		margin-top: 0;
-	}
-
 	.media-body {
 		vertical-align: middle;
 	}
@@ -309,11 +340,6 @@
 		height: 48px;
 	}
 
-	.media-right {
-		color: #888;
-		font-size: small;
-	}
-
   .mu-list{
     padding: 0;
   }
@@ -331,12 +357,6 @@
 
 	.modal-dialog {
 		margin: 35vh auto;
-	}
-
-	.modal-header {
-		padding: 1rem;
-		border-bottom: none;
-		color: #444;
 	}
 
 	.modal-body {
@@ -379,13 +399,6 @@
     line-height: 4.5vh;
 	}
 
-	.nickNameRight {
-		width:80%;
-		text-align: right;
-	}
-	.nickNameLeft{
-		text-align: left;
-	}
   .moreImg{
     height: 3rem;
   }
@@ -395,18 +408,7 @@
   	font-size: 0.05rem;
   	padding-right: 0px;
   }
-  .media-right{
-  	padding-right: 0;
-  }
-  .phone{
-  	margin-top: 0.6rem;
-  }
-  .ID{
-  	margin-top: 0.6rem;
-  }
-  .media-right{
-    padding: 0;
-  }
+
   .mu-divider{
     background: #f5f5f5;
   }

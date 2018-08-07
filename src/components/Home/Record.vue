@@ -72,19 +72,23 @@
                     </mu-avatar>
                   </mu-list-item-action>
                   <mu-list-item-content>
-                    <mu-list-item-title>Sent mail </mu-list-item-title>
+                    <mu-list-item-title>{{m.from_user}}</mu-list-item-title>
                     <mu-list-item-sub-title>
-                      <span style="font-size: small;">{{m.date}}</span>
+                      <span style="font-size: small;">{{m.created_at}}</span>
                     </mu-list-item-sub-title>
-                    <mu-list-item-title style="margin-top: 0.5rem"><span style="float: left" v-show="m.msg.length!=0"> <mu-icon class="toggle-icon" size="24" value="keyboard_arrow_down" color="#888"></mu-icon></span> {{m.msgTitle}}</mu-list-item-title>
+                    <mu-list-item-title style="margin-top: 0.5rem">
+                      <span style="float: left" v-show="m.reply.length!=0">
+                        <mu-icon class="toggle-icon" size="24" value="keyboard_arrow_down" color="#888"></mu-icon>
+                      </span> {{m.content}}
+                    </mu-list-item-title>
 
                   </mu-list-item-content>
                   <mu-list-item-action>
                     <mu-button small color="#fff" textColor="#09a2d6" flat style="border: solid 1px #09a2d6">回复</mu-button>
                   </mu-list-item-action>
 
-                  <mu-list-item-content button :ripple="false" slot="nested" v-for="(msg,item) in m.msg" :key="item" class="msgList">
-                    <div class="msgs"><span style="color: #09a2d6">{{msg.title}}</span>：{{msg.content}}</div>
+                  <mu-list-item-content button :ripple="false" slot="nested" class="msgList">
+                    <div class="msgs"><span style="color: #09a2d6">我</span>：{{m.reply}}</div>
                   </mu-list-item-content>
                 </mu-list-item>
                 <mu-divider></mu-divider>
@@ -123,11 +127,35 @@
               {name:'鱼弟',date:'2018-07-22 18:33:46',revenge:'',id:''}
             ],
             message:[
-              {name:'鱼弟',date:'2018-07-22 18:33:46',msgTitle:'哈哈哈，我来看一下你',msg:[]},
-              {name:'鱼弟',date:'2018-07-22 18:33:46',msgTitle:'哈哈哈，我来看一下你',msg:[{title:'鱼弟',content:'哈哈哈，我来看一下你,哈哈哈，我来看一下你'},{title:'鱼弟',content:'哈哈哈，我来看一下你'},{title:'鱼弟',content:'哈哈哈，我来看一下你'}]},
-              {name:'鱼弟',date:'2018-07-22 18:33:46',msgTitle:'哈哈哈，我来看一下你',msg:[{title:'鱼弟',content:'哈哈哈，我来看一下你'},{title:'鱼弟',content:'哈哈哈，我来看一下你'}]},
+
             ]
           }
+        },
+        mounted(){
+          this.$http({
+            method: "post",
+            url: "/messages/message-board",
+            headers: {
+              "device": "android",
+              "uid": localStorage.getItem("uid"),
+              "Access-Control-Allow-Origin": "*"
+            }
+          }).then(function(res) {
+            console.log(res.data)
+            if(res.data.data.length!=0){
+              this.message=res.data.data;
+              for (let i in res.data.data) {
+                if(JSON.stringify(res.data.data[i].reply) != "{}"){
+                  for(let j in res.data.data[i].reply){
+                    this.message[i].reply=res.data.data[i].reply[j]
+                  }
+                }
+              }
+            }
+          }.bind(this))
+            .catch(function(err) {
+              this.$layer.msg("系统异常，请稍后再试");
+            }.bind(this))
         },
         methods:{
           evers() {

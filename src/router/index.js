@@ -60,6 +60,7 @@ import Statement from '@/components/Profile/Statement'
 
 import UserFeedback from '@/components/Profile/UserFeedback'
 import UploadHeadImg from '@/components/Profile/UploadHeadImg'
+import UploadPhotoImg from '@/components/Profile/UploadPhotoImg'
 
 import Wallet from '@/components/Profile/Wallet'
 import WechatService from '@/components/Profile/WechatService'
@@ -269,6 +270,12 @@ export default new Router({
       name:'UploadHeadImg',
       meta:{index:3},
       component: UploadHeadImg
+    },
+    {
+      path:'/uploadPhotoImg',
+      name:'UploadPhotoImg',
+      meta:{index:3},
+      component: UploadPhotoImg
     },
     {
       path:'/mypearl',

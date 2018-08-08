@@ -33,10 +33,10 @@
 				</div>
 				<div class="controlContainer">
 					<div class="controlScroll">
-						<div class="controlContent" v-for="(p,index) in pic">
-							<img class="media-object graph" :src="p.src" @click="changeActive(index)" />
+						<div class="controlContent" v-for="(p,index) in timg" v-dragging="{ item: p, list: timg, group: 'p' }" :key="p.src">
+							<img class="media-object graph" :src="`${p+'?'+now}`" v-if="phtoImg" @click="changeActive(index)" />
 						</div>
-						<div class="chart-to">
+						<div class="chart-to" data-toggle="modal" data-target="#PhModal">
 							<img class="media-object sheet" src="../../assets/images/tianjia.png" />
 						</div>
 					</div>
@@ -96,10 +96,10 @@
 						<div class="modal-body">
 							<span class="headImgChoose fileinput-button">
                 <span>从相册选择</span>
-						<input type="file" accept="image/*" id="fileBtn" @change="chooseImg('#fileBtn')">
-						</span>
+							<input type="file" accept="image/*" id="fileBtn" @change="chooseImg('#fileBtn')">
+							</span>
 
-            <span class="headImgChoose closeBtn fileinput-button" data-dismiss="modal">
+							<span class="headImgChoose closeBtn fileinput-button" data-dismiss="modal">
               <span>取消</span>
 							</span>
 
@@ -108,6 +108,25 @@
 					<!-- /.modal-content -->
 				</div>
 				<!-- /.modal -->
+			</div>
+
+			<!-- 照片选择模态框（Modal） -->
+			<div class="modal fade" id="PhModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+							<span class="headImgChoose fileinput-button">
+                <span>从相册选择图片</span>
+							<input type="file" accept="image/*" id="phBtn" @change="photoImg('#phBtn')">
+							</span>
+
+							<span class="headImgChoose closeBtn fileinput-button" data-dismiss="modal">
+              <span>取消</span>
+							</span>
+
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<mu-dialog width="360" scrollable :open.sync="openScroll">
@@ -145,17 +164,19 @@
 		},
 		data() {
 			return {
-				pic: [{src: timg}, {src: pic2}, {src: pic3}],
 				active: 0,
 				more: more,
 				masrc: back,
 				headImg: headImg,
+				timg: timg,
 				nickname: '',
 				signature: 'hahaha',
 				IDcode: '',
 				chooseFile: '',
 				houzhuiming: '',
+				extensions: '', 
 				haveHeadImg: '',
+				phtoImg: '',
 				pmid: '',
 				rank: 'LV3',
 				openScroll: false,
@@ -179,16 +200,16 @@
 					data: {}
 				}).then(function(res) {
 					if(res.data.code == 0) {
-            this.signature=res.data.data.resume;
+						this.signature = res.data.data.resume;
 						this.IDcode = res.data.data.phone;
 						this.pmid = localStorage.getItem("uid");
-						if(res.data.data.gender=="UNKNOWN"){
-						  this.ringtone="请选择"
-            }else if(res.data.data.gender=="MALE"){
-              this.ringtone="男"
-            }else if(res.data.data.gender=="FEMALE"){
-              this.ringtone="女"
-            }
+						if(res.data.data.gender == "UNKNOWN") {
+							this.ringtone = "保密"
+						} else if(res.data.data.gender == "MALE") {
+							this.ringtone = "男"
+						} else if(res.data.data.gender == "FEMALE") {
+							this.ringtone = "女"
+						}
 						if(res.data.data.nickname == "") {
 							this.nickname = localStorage.getItem("uid");
 						} else {
@@ -203,13 +224,25 @@
 							this.ringtone = ringtone;
 						} else {
 							this.ringtone = res.data.data.gender;
-							if(this.ringtone == 'MALE') {
+							if(res.data.data.gender == "UNKNOWN") {
+								this.ringtone = "保密"
+							} else if(this.ringtone == 'MALE') {
 								this.ringtone = '男'
 							} else if(this.ringtone == 'FEMALE') {
 								this.ringtone = '女'
 							}
 							//							console.log(this.ringtone+'值');
 						}
+
+						console.log(this.timg = timg)
+						if(res.data.data.pictures == "") {
+							this.timg = timg;
+							this.phtoImg = false;
+						} else {
+							this.timg = res.data.data.pictures;
+							this.phtoImg = true
+						}
+
 						if(res.data.data.avatar == "") {
 							this.headImg = headImg;
 							this.haveHeadImg = false
@@ -219,11 +252,13 @@
 						}
 					} else {
 						this.haveHeadImg = false
+						this.phtoImg = false
 						this.$layer.msg(res.data.msg);
 					}
 				}.bind(this))
 				.catch(function(err) {
 					this.haveHeadImg = false
+					this.phtoImg = false
 					console.log(err)
 				}.bind(this))
 
@@ -241,45 +276,45 @@
 			goBack() {
 				this.$router.go(-1);
 			},
-      openScrollDialog () {
-        this.openScroll = true;
-      },
-      closeScrollDialog () {
-        this.openScroll = false;
-      },
-      sexChoose(){
-        // this.openScroll = false;
-        let gender;
-        console.log(this.ringtone)
-        if(this.ringtone==="男"){
-          gender='MALE'
-        }else if(this.ringtone==="女"){
-          gender='FEMALE'
-        }else{
-          gender='UNKNOWN'
-        }
-        this.$http({
-          method: "post",
-          url: "/users/edit-gender",
-          headers: {
-            "device": "android",
-            "uid": localStorage.getItem("uid"),
-            "Access-Control-Allow-Origin": "*"
-          },
-          data: {
-            gender:gender
-          }
-        }).then(function(res) {
-          if(res.data.code===0){
-            this.openScroll = false;
-          }
-          this.$layer.msg(res.data.msg)
-        }.bind(this))
-          .catch(function(err) {
-            console.log(err)
-          }.bind(this))
+			openScrollDialog() {
+				this.openScroll = true;
+			},
+			closeScrollDialog() {
+				this.openScroll = false;
+			},
+			sexChoose() {
+				// this.openScroll = false;
+				let gender;
+				console.log(this.ringtone)
+				if(this.ringtone === "男") {
+					gender = 'MALE'
+				} else if(this.ringtone === "女") {
+					gender = 'FEMALE'
+				} else {
+					gender = 'UNKNOWN'
+				}
+				this.$http({
+						method: "post",
+						url: "/users/edit-gender",
+						headers: {
+							"device": "android",
+							"uid": localStorage.getItem("uid"),
+							"Access-Control-Allow-Origin": "*"
+						},
+						data: {
+							gender: gender
+						}
+					}).then(function(res) {
+						if(res.data.code === 0) {
+							this.openScroll = false;
+						}
+						this.$layer.msg(res.data.msg)
+					}.bind(this))
+					.catch(function(err) {
+						console.log(err)
+					}.bind(this))
 
-      },
+			},
 			chooseImg(c) {
 				let that = this;
 				let $c = document.querySelector(c);
@@ -299,6 +334,26 @@
 					})
 				};
 
+			},
+			photoImg(c) {
+				alert(1);
+				let that = this;
+				let $c = document.querySelector(c);
+				that.chooseFile = $c.files[0];
+				let reader = new FileReader();
+				reader.readAsDataURL(that.chooseFile);
+				reader.onload = function(e) {
+					$(".modal-backdrop").hide();
+					that.$router.push({
+						path: '/UploadPhotoImg',
+						name: 'UploadPhotoImg',
+						params: {
+							name: 'name',
+							dataObj: e.target.result,
+							extensions: that.chooseFile.name.split('.')[1]
+						}
+					})
+				};
 			},
 			sexChoose(a) {
 				//				this.sexe=a;
@@ -335,19 +390,18 @@
 			}
 		}
 	}
-	
 </script>
 
 <style scoped>
 	.chart-to {
-		position: relative;
+		position: relative; 
 		background-color: #F5F5F5;
 		float: right;
 		width: 20ve;
 		height: 20vw;
 		margin-top: 4px;
 	}
-
+	
 	.content {
 		overflow-x: hidden;
 		background-color: #f5f5f5;
@@ -356,83 +410,85 @@
 		overflow-y: scroll;
 		padding-bottom: 2rem;
 	}
-
+	
 	.content::-webkit-scrollbar {
 		display: none
 	}
-
+	
 	.media {
 		background: #fff;
-		padding: 1rem 1.7rem;
+		padding: 1rem 1.1rem;
 		border-bottom: 0.1rem solid #f5f5f5;
 		margin-top: 0.6rem;
 	}
+	
 	.media-body {
 		vertical-align: middle;
 	}
-
+	
 	.headImg {
 		width: 4rem;
 		height: 4rem;
 		border-radius: 50%;
 	}
-
+	
 	.graph {
 		width: 4rem;
 		height: 4rem;
 		margin-top: 10px;
 	}
-
+	
 	.sheet {
 		width: 20vw;
 		height: 20vw;
 	}
-  .mu-list{
-    padding: 0;
-  }
-  .listRight{
-    width: 50%
-  }
-
-
+	
+	.mu-list {
+		padding: 0;
+	}
+	
+	.listRight {
+		width: 50%
+	}
+	
 	.media-right {
 		color: #888;
 		font-size: small;
 	}
-
+	
 	.mu-list {
 		padding: 0;
 	}
-
+	
 	.listRight {
 		width: 50%
 	}
-
+	
 	.modal-content {
 		margin: 0 2rem;
 		border-radius: 0;
 		border: none;
 		text-align: center;
 	}
-
+	
 	.modal-dialog {
 		margin: 35vh auto;
 	}
-
+	
 	.modal-header {
 		padding: 1rem;
 		border-bottom: none;
 		color: #444;
 	}
-
+	
 	.modal-body {
 		padding: 0;
 	}
-
+	
 	#ImgModal .modal-content {
 		height: 14vh;
 	}
-
+	
 	.headImgChoose {
 		position: relative;
 		display: inline-block;
@@ -449,7 +505,7 @@
 		border-radius: 0;
 		outline: none;
 	}
-
+	
 	.headImgChoose input {
 		position: absolute;
 		right: 0;
@@ -458,7 +514,7 @@
 		-ms-filter: 'alpha(opacity=0)';
 		font-size: 100%;
 	}
-
+	
 	.closeBtn {
 		border-bottom: none;
 		line-height: 4.5vh;
@@ -512,24 +568,26 @@
 		background: #fff;
 	}
 	
-	.controlContainer{
-    overflow-x: scroll;
-  }
-  .controlContainer::-webkit-scrollbar {
-    display:none
-  }
-  
-  .controlContent{
-    display: inline-block;
-    white-space:nowrap;
-  }
-  .controlContent img{
-    width: 20vw;
-    height: 20vw;
-    margin: 1vw;
-  }
-  .controlScroll{
-    width: 135vw;
-  }
+	.controlContainer {
+		overflow-x: scroll;
+	}
+	
+	.controlContainer::-webkit-scrollbar {
+		display: none
+	}
+	
+	.controlContent {
+		display: inline-block;
+		white-space: nowrap;
+	}
+	
+	.controlContent img {
+		width: 20vw;
+		height: 20vw;
+		margin: 1vw;
+	}
+	
+	.controlScroll {
+		width: 100%;
+	}
 </style>
-

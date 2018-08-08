@@ -5,7 +5,10 @@
         <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
           <img :src="masrc"/>
         </mu-button>
-        <span class="navTitleText">{{from_user}}</span>
+        <span class="navTitleText">
+          <!--{{from_user}}-->
+          系统消息
+        </span>
       </mu-appbar>
       <div class="media">
 

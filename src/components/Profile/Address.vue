@@ -27,35 +27,26 @@
         </tr>
         <tr>
 
-          <td class="col-xs-5">
-            <div v-if="a.msg.is_default">
-              <div class="round">
-                <span class="defaultRound" ></span>
-              </div>
-              <span class="defaultChoose">已设为默认地址</span>
-            </div>
-
-            <div @click="choose(index)"  v-else>
-              <div class="round"></div>
-              <span class="default" v-if="">默认地址</span>
-            </div>
-
+          <td class="col-xs-5" style="padding-right: 0;padding-top: 1rem">
+           <mu-radio @click="choose(index)" v-model="form.radio" textColor="#555" :value="a.id" :label="a.label" ></mu-radio>
           </td>
           <td class="col-xs-7 text-right">
-          <span class="del" @click="editor(index)" >
+          <div class="del" @click="editor(index)" >
             <img src="../../assets/images/editor.png"/> 编辑
-          </span>
-            <span class="del" @click="openAlertDialog">
+          </div>
+          <div class="del" @click="openAlertDialog(index)">
             <img src="../../assets/images/del.png"/> 删除
-          </span>
-            <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert" style="text-align: center">
-              确认要退出登录吗
-              <mu-button slot="actions" flat color="primary" @click="del(index)" class="loginOutBtn">确定</mu-button>
-              <mu-button slot="actions" flat color="primary" @click="closeAlertDialog" class="loginOutBtn">取消</mu-button>
-            </mu-dialog>
+          </div>
+
           </td>
         </tr>
       </table>
+      <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert" style="text-align: center">
+        确认要删除吗，删除后不能恢复
+        <mu-button slot="actions" flat color="primary" @click="del" class="loginOutBtn">确定</mu-button>
+        <mu-button slot="actions" flat color="primary" @click="closeAlertDialog" class="loginOutBtn">取消</mu-button>
+      </mu-dialog>
+
       <div class="newAddress">
         <router-link to="/newaddress" tag="div">
           <mu-flex justify-content="center" align-items="center">
@@ -63,6 +54,7 @@
           </mu-flex>
         </router-link>
       </div>
+
 
     </div>
 
@@ -75,24 +67,23 @@
 	import backs from '@/assets/images/backs.png'
 
 	export default {
-		name: "Address",
-		inject: ['reload'],
-		data() {
-			return {
-				masrc: back,
-        openAlert: false,
-				noAddress: '',
-				addressNone: addressNone,
-				myAddress: [],
-				mobile: {
-					id: '',
-					msg: {
-						name: '',
-						phoneNumber: '',
-						address: '',
-						is_default: ''
-					}
-
+      name: "Address",
+      inject: ['reload'],
+      data() {
+        return {
+          masrc: back,
+          noAddress: '',
+          addressNone: addressNone,
+          myAddress: [],
+          openAlert: false,
+          item:'',
+          form: {
+            radio: ''
+          },
+          mobile: {
+            id: '',
+            msg:'',
+            label:'默认地址'
           }
         }
       },
@@ -105,7 +96,6 @@
           data: {}
         }).then(function(res){
           if(res.data.code==0){
-
             if(JSON.stringify(res.data.data) == "{}"){
               this.noAddress = true
             }else {
@@ -116,6 +106,12 @@
 
 								this.mobile.id = p;
 								this.mobile.msg = myJson[p];
+                if(myJson[p].is_default){
+                  this.form.radio= p;
+                  this.mobile.label ='已设为默认地址';
+                }else {
+                  this.mobile.label ='默认地址';
+                }
 								this.myAddress.push(this.mobile);
 								this.mobile = {
 									id: '',
@@ -138,8 +134,9 @@
           }.bind(this))
       },
       methods:{
-        openAlertDialog () {
+        openAlertDialog (index) {
           this.openAlert = true;
+          this.item = index;
           $(".mu-flat-button").css({height:"48px"})
         },
         closeAlertDialog () {
@@ -156,7 +153,10 @@
           }).then(function(res){
             if(res.data.code==0){
               this.$layer.msg(res.data.msg);
-              this.reload();
+              for(let i in this.myAddress){
+                this.myAddress[i].label="默认地址"
+              }
+              this.myAddress[index].label="已设为默认地址"
             }else {
               this.$layer.msg(res.data.msg);
             }
@@ -179,12 +179,9 @@
 
 				})
 			},
-			del(index) {
+			del() {
 				let that = this;
-				this.$layer.confirm("确认要删除吗，删除后不能恢复", {
-					title: "删除确认"
-				}, function(c) {
-					$(".vl-notify").remove();
+
 					that.$http({
 							method: "post",
 							url: "/users/delivery_address/delete",
@@ -194,11 +191,12 @@
 								"Access-Control-Allow-Origin": "*"
 							},
 							data: {
-								id: that.myAddress[index].id
+								id: that.myAddress[that.item].id
 							}
 						}).then(function(res) {
 							if(res.data.code == 0) {
 								that.$layer.msg(res.data.msg);
+                that.closeAlertDialog();
 								that.reload();
 							} else {
 								that.$layer.msg(res.data.msg);
@@ -208,7 +206,6 @@
               this.$layer.msg("系统异常，请稍后再试");
 						}.bind(this))
 
-				});
 
 			},
 			evers() {
@@ -236,8 +233,11 @@
     height: 100%;
     position: fixed;
     top: 0;
+    font-size: 1.6rem;
 	}
-
+  .content::-webkit-scrollbar {
+    display:none
+  }
 	.table {
 		margin-bottom: 0.6rem;
 	}
@@ -265,31 +265,14 @@
 
 	.text-left {
 		color: #555;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
 	}
 
-	.round {
-		display: inline-block;
-		width: 1.2rem;
-		height: 1.2rem;
-		border-radius: 50%;
-		border: 0.1rem solid #aaa;
-		margin-right: 0.5rem;
-		vertical-align: middle;
-		text-align: center;
-		line-height: 0.8rem;
-	}
-
-	.defaultRound {
-		display: inline-block;
-		width: 0.6rem;
-		height: 0.6rem;
-		border-radius: 50%;
-		background: #09A2D6;
-	}
-
-	.del:first-child {
-		margin-right: 1rem;
+	.del{
+    display: inline-block;
+  }
+	.del:last-child {
+		margin-left: 1rem;
 	}
 
 	.del img {
@@ -319,6 +302,14 @@
 	.large {
 		font-size: larger;
 	}
-
+  .loginOutBtn{
+    border-top: 1px solid #ddd;width: 50%;
+  }
+  .loginOutBtn:first-child{
+    border-right: 1px solid #ddd;
+  }
+  .loginOutBtn:last-child{
+    color: #555;
+  }
 </style>
 

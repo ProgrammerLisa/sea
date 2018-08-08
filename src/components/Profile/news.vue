@@ -18,7 +18,10 @@
         <div v-for="(n,index) in news" :key="index" @touchstart="touchStart($event,index)" @touchmove="touchMove($event,index)" @touchend="touchEnd($event,index)" :data-curid="n.id">
           <mu-list-item avatar button >
              <mu-list-item-content>
-                  <mu-list-item-title>{{n.msg.title}}</mu-list-item-title>
+                  <mu-list-item-title>
+                    <!--{{n.msg.title}}-->
+                    系统消息
+                  </mu-list-item-title>
                   <mu-list-item-sub-title>
                     {{n.msg.content}}
                   </mu-list-item-sub-title>
@@ -35,8 +38,9 @@
                 删除
               </div>
             </transition>
+          <mu-divider></mu-divider>
           </div>
-        <mu-divider></mu-divider>
+
       </mu-list>
     </mu-paper>
 	</div>
@@ -91,6 +95,7 @@
             "page":1
           }
         }).then(function(res) {
+          console.log(res.data)
           if(res.data.code == 0) {
             if(JSON.stringify(res.data.data) == "{}") {
               this.newsNone = true;
@@ -146,7 +151,6 @@
 					this.startX = ev.touches[0].clientX; // 记录开始位置
           this.disX=0;
 				}
-				console.log(1)
 			},
 			touchMove(ev, index) {
 				ev = ev || event;
@@ -157,7 +161,7 @@
 
 					//实时的滑动的距离-起始位置=实时移动的位置
 					this.disX = this.moveX - this.startX;
-					if(this.disX < -50) {
+					if(this.disX < -100) {
 						for(var i in this.news) {
 							if(ev.currentTarget.dataset.curid == this.news[i].id) {
 								this.news[i].show = true
@@ -311,18 +315,7 @@
 		opacity: 0;
 	}
 
-	.msgContent {}
-
-	.msgContent {
-		position: relative;
-		line-height: 1.4em;
-		/* 3 times the line-height to show 3 lines */
-		height: 1.4em;
-		overflow: hidden;
-	}
-
-	.msgContent::after {
-		content: "...";
-		font-weight: bold;
-	}
+  .mu-divider{
+    background: #f5f5f5;
+  }
 </style>

@@ -198,7 +198,6 @@
 							}else if(this.ringtone == 'FEMALE'){
 								this.ringtone = '女'
 							}
-							console.log(this.ringtone+'值');
 						}
 						if(res.data.data.avatar == "") {
 							this.headImg = headImg;

@@ -1,65 +1,70 @@
 <template>
 	<div class="content">
-		<div class="panel panel-default BlackTitle">
-			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"><img :src="masrc"/></span> <span class="backsize">修改地址</span>
-				<div class="keepSubmit" @click="keepSubmit">保存</div>
-			</div>
-		</div>
-		<form class="form-horizontal">
-			<div class="form-group">
-				<input type="text" class="form-control" id="name" placeholder="请填写收货人姓名">
-			</div>
-			<div class="form-group">
-				<input type="number" class="form-control" id="phone" placeholder="请填写收货手机号码">
-			</div>
-			<div class="form-group" data-toggle="modal" data-target="#myModal">
-				<input type="text" class="form-control" id="address" :value="address" placeholder="请选择地区">
-			</div>
-			<div class="form-group">
-				<input type="text" class="form-control" id="home" placeholder="详细地址(如门牌号等)">
-			</div>
-		</form>
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel">所在地区</h4>
-					</div>
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-xs-4 text-center" id="provinceName">请选择</div>
-							<div class="col-xs-4 text-center" id="cityName">请选择</div>
-							<div class="col-xs-4 text-center" id="districtsName">请选择</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<div class="row">
-							<div class="col-xs-4 text-center auto">
-								<ul>
-									<li v-for="(p,index) in provinceName" :value="p.code" @click="provinceChoose(index)" class="provinceName">{{p.name}}</li>
-								</ul>
-							</div>
-							<div class="col-xs-4 text-center auto">
-								<ul>
-									<li v-for="(p,index) in cityName" :value="p.code" @click="cityChoose(index)" class="cityName">{{p.name}}</li>
-								</ul>
-							</div>
-							<div class="col-xs-4 text-center auto">
-								<ul>
-									<li v-for="(p,index) in districtsName" :value="p.code" @click="districtsChoose(index)" class="districtsName" data-dismiss="modal">{{p.name}}</li>
-								</ul>
-							</div>
-						</div>
+    <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0">
+      <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+        <img :src="masrc"/>
+      </mu-button>
+      <span class="navTitleText">修改地址</span>
+    </mu-appbar>
+    <mu-container class="contentMarginTop" style="background: #fff">
+      <mu-form ref="form" :model="validateForm" class="mu-demo-form" >
+        <mu-form-item prop="username" :rules="usernameRules">
+          <mu-text-field v-model="validateForm.username" prop="username" placeholder="请填写收货人姓名"></mu-text-field>
+        </mu-form-item>
+        <mu-form-item prop="phone" :rules="passwordRules">
+          <mu-text-field type="text" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/" v-model="validateForm.phone" prop="phone" placeholder="请填写收货手机号码"></mu-text-field>
+        </mu-form-item>
+        <mu-form-item prop="address" :rules="addressRules">
+          <mu-text-field type="text" v-model="validateForm.address" data-toggle="modal" data-target="#addressModal" prop="address" placeholder="请选择地区"></mu-text-field>
+        </mu-form-item>
+        <mu-form-item prop="addressNumber" :rules="addressNumberRules">
+          <mu-text-field type="text" v-model="validateForm.addressNumber" prop="addressNumber" placeholder="详细地址(如门牌号等)"></mu-text-field>
+        </mu-form-item>
 
-					</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal -->
-		</div>
-	</div>
+      </mu-form>
+
+    </mu-container>
+    <mu-button color="#09a2d6" @click="keepSubmit" class="submitBtn">提交</mu-button>
+    <div class="modal fade" style="z-index: 999" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">所在地区</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-xs-4 text-center" id="provinceName">请选择</div>
+              <div class="col-xs-4 text-center" id="cityName">请选择</div>
+              <div class="col-xs-4 text-center" id="districtsName">请选择</div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="row">
+              <div class="col-xs-4 text-center auto">
+                <ul>
+                  <li v-for="(p,index) in provinceName" :value="p.code" @click="provinceChoose(index)" class="provinceName">{{p.name}}</li>
+                </ul>
+              </div>
+              <div class="col-xs-4 text-center auto">
+                <ul>
+                  <li v-for="(p,index) in cityName" :value="p.code" @click="cityChoose(index)" class="cityName">{{p.name}}</li>
+                </ul>
+              </div>
+              <div class="col-xs-4 text-center auto">
+                <ul>
+                  <li v-for="(p,index) in districtsName" :value="p.code" @click="districtsChoose(index)" class="districtsName" data-dismiss="modal">{{p.name}}</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+    </div>
+
+  </div>
 
 </template>
 
@@ -73,7 +78,30 @@
 		data() {
 			return {
 				masrc: back,
-				addressTd: '',
+        masrc: back,
+        usernameRules: [
+          { validate: (val) => !!val, message: '必须填写用户名'},
+          { validate: (val) => new RegExp("^[ ]+$").test(val)===false , message: '用户名不能为空'}
+        ],
+        passwordRules: [
+          { validate: (val) => !!val, message: '必须填写手机号码'},
+          { validate: (val) => /^1[3|4|5|7|8]\d{9}$/.test(val) , message: '手机号码不正确'}
+        ],
+        addressRules:[
+          { validate: (val) => !!val, message: '地址不能为空'}
+        ],
+        addressNumberRules:[
+          { validate: (val) => !!val, message: '必须填写详细地址'}
+        ],
+
+        validateForm: {
+          username: '',
+          phone: '',
+          address:'',
+          addressNumber:''
+        },
+
+        addressTd: '',
 				code: code,
 				codeArr: [],
 				province: '',
@@ -171,47 +199,38 @@
 					color: "#09a2d6"
 				});
 
-				this.address = $("#provinceName").text() + " " + $("#cityName").text() + " " + $("#districtsName").text()
+        this.validateForm.address = $("#provinceName").text() + " " + $("#cityName").text() + " " + $("#districtsName").text()
 			},
 			keepSubmit() {
-				var reg = /^1[3|4|5|7|8]\d{9}$/;
-				if($("#name").val() == '' || $("#name").val() == null || $("#name").val() == undefined) {
-					this.$layer.msg('请填写收货人');
-				} else if($("#phone").val() == '' || $("#phone").val() == null || $("#phone").val() == undefined) {
-					this.$layer.msg('请填写联系电话');
-				} else if(!reg.test($("#phone").val())) {
-					this.$layer.msg('请填写正确的手机号码');
-				} else if($("#address").val() == '' || $("#address").val() == null || $("#address").val() == undefined) {
-					this.$layer.msg('请填写收货地址');
-				} else if($("#home").val() == '' || $("#home").val() == null || $("#home").val() == undefined) {
-					this.$layer.msg('请填写具体地址');
-				} else {
-					this.$http({
-							method: "post",
-							url: "/users/delivery_address/edit",
-							headers: {
-								"device": "android",
-								"uid": localStorage.getItem("uid"),
-								"Access-Control-Allow-Origin": "*"
-							},
-							data: {
-								id: this.addressTd,
-								consignee: $("#name").val(),
-								phone: $("#phone").val(),
-								address: $("#address").val() + $("#home").val()
-							}
-						}).then(function(res) {
-							if(res.data.code == 0) {
-								this.$layer.msg(res.data.msg);
-								this.$router.go(-1);
-							} else {
-								this.$layer.msg(res.data.msg);
-							}
-						}.bind(this))
-						.catch(function(err) {
-              this.$layer.msg("系统异常，请稍后再试");
-						}.bind(this))
-				}
+        this.$refs.form.validate().then((result) => {
+          if (result) {
+            this.$http({
+              method: "post",
+              url: "/users/delivery_address/edit",
+              headers: {
+                "device": "android",
+                "uid": localStorage.getItem("uid"),
+                "Access-Control-Allow-Origin": "*"
+              },
+              data: {
+                id: this.addressTd,
+                consignee: this.validateForm.username,
+                phone: this.validateForm.phone,
+                address: this.validateForm.address + this.validateForm.addressNumber
+              }
+            }).then(function (res) {
+              if (res.data.code == 0) {
+                this.$layer.msg(res.data.msg);
+                this.$router.go(-1);
+              } else {
+                this.$layer.msg(res.data.msg);
+              }
+            }.bind(this))
+              .catch(function (err) {
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this))
+          }
+        })
 			},
 
 		}
@@ -219,99 +238,48 @@
 </script>
 
 <style scoped>
-	.content {
-		overflow-x: hidden;
-		color: #666;
-		background-color: #fff;
+  .content {
+    overflow-x: hidden;
+    color: #666;
     width: 100vw;
-    position: fixed;
-    top: 0;
-	}
+  }
 
-	.panel {
-		border: none;
-		border-radius: 0;
-	}
-
-	.panel-body {
-		padding: 0 10px;
-	}
-
-	.BlackTitle {
-		text-align: center;
-		letter-spacing: 0.05rem;
-    background: #09a2d6;
-    color: #fff;
-		font-size: 1.5rem;
-		margin-bottom: 0;
-		height: 4.1rem;
-		line-height: 4.1rem;
-	}
-
-	.back {
-		position: absolute;
-		left: 1rem;
-	}
-
-	.back img {
-		height: 2.5rem;
-	}
-
-	.backsize{
-		margin-left: 10%;
-	}
+  .mu-form-item{
+    margin-bottom: 0;
+  }
 
 
+  .modal-dialog {
+    margin: 0;
+  }
 
-	.form-group {
-		padding: 1rem 3rem;
-		border-bottom: 0.1rem solid #eee;
-		margin-bottom: 0;
-	}
+  .modal-content {
+    height: 70vh;
+    margin-top: 30vh;
+    border: none;
+    border-radius: 0;
+    overflow: hidden;
+  }
 
-	.form-group:last-child {
-		margin-bottom: 0;
-	}
+  #myModalLabel {
+    text-align: center;
+  }
 
-	.form-control {
-		outline: none;
-		border: none;
-		box-shadow: none;
-	}
+  .auto {
+    height: 50vh;
+    overflow: auto;
+  }
 
-	.keepSubmit {
-		float: right;
-		font-size: 1.5rem;
-		padding: 0 1rem;
-	}
+  .auto::-webkit-scrollbar {
+    display: none;
+  }
 
-	.modal-dialog {
-		margin: 0;
-	}
-
-	.modal-content {
-		height: 70vh;
-		margin-top: 30vh;
-		border: none;
-		border-radius: 0;
-		overflow: hidden;
-	}
-
-	#myModalLabel {
-		text-align: center;
-	}
-
-	.auto {
-		height: 50vh;
-		overflow: auto;
-	}
-
-	.auto::-webkit-scrollbar {
-		display: none;
-	}
-
-	li {
-		list-style: none;
-		margin-bottom: 1rem;
-	}
+  li {
+    list-style: none;
+    margin-bottom: 1rem;
+  }
+  .submitBtn{
+    width: 90%;
+    margin: 2rem 5%;
+  }
 </style>

@@ -78,7 +78,6 @@
 			changePsw() {
         this.$refs.form.validate().then((result) => {
           if (result) {
-          } else {
             this.$http({
               method: 'post',
               url: '/users/reset-password',
@@ -103,6 +102,8 @@
               .catch(function (err) {
                 this.$layer.msg("系统异常，请稍后再试");
               }.bind(this))
+          } else {
+
           }
         })
 			},

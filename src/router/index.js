@@ -5,6 +5,7 @@ import $ from 'jquery'
 import '@/assets/css/bootstrap.css'
 import '@/assets/js/bootstrap.js'
 import '@/assets/js/jq.js'
+import '@/assets/js/jquery-ui.js'
 
 import AboutUs from '@/components/Profile/AboutUs'
 import AddFriends from '@/components/Profile/AddFriends'
@@ -59,6 +60,7 @@ import Statement from '@/components/Profile/Statement'
 
 import UserFeedback from '@/components/Profile/UserFeedback'
 import UploadHeadImg from '@/components/Profile/UploadHeadImg'
+import UploadPhotoImg from '@/components/Profile/UploadPhotoImg'
 
 import Wallet from '@/components/Profile/Wallet'
 import WechatService from '@/components/Profile/WechatService'
@@ -268,6 +270,12 @@ export default new Router({
       name:'UploadHeadImg',
       meta:{index:3},
       component: UploadHeadImg
+    },
+    {
+      path:'/uploadPhotoImg',
+      name:'UploadPhotoImg',
+      meta:{index:3},
+      component: UploadPhotoImg
     },
     {
       path:'/mypearl',

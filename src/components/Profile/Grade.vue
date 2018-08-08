@@ -9,15 +9,19 @@
 			</mu-appbar>
 			<div class="income" id="nav2">
 				<div class="today">
-					<img style="width: 72px;height: 72px;margin-top: 20px;margin-bottom: 20px;" src="../../assets/images/chushi.png" />
+					<img style="width: 72px;height: 72px;margin-top: 20px;margin-bottom: -20px;" src="../../assets/images/chushi.png" />
+					<div class="le">
+						<span class="level">Lv.{{level}}</span>
+					</div>
 				</div>
+
 				<div>
 					<span style="font-size: 1.2rem;">能力值:&#160&#160 45 &#160&#160距离下一级还需:&#160&#160 15</span>
 				</div>
 				<mu-container>
 					<mu-flex class="demo-linear-progress">
 						<mu-linear-progress style="width: 90%;margin:0 auto;" mode="determinate" color="#FFFFFF" size="7" :max="100" :value="35"></mu-linear-progress>
-						<div style="position: absolute; float: left;padding-top: 3%;width: 90%;" >
+						<div style="position: absolute; float: left;padding-top: 3%;width: 90%;">
 							<span style="float: left;margin-left: 5%;">Lv.0</span>
 							<span>Lv.3</span>
 							<span style="float: right;">Lv.5</span>
@@ -122,7 +126,8 @@
 		data() {
 			return {
 				masrc: back,
-				more: more
+				more: more,
+				level: 3
 
 			}
 		},
@@ -305,5 +310,17 @@
 	.demo-linear-progress {
 		margin-top: 1rem;
 		margin-bottom: 4rem;
+	}
+	
+	.level {
+		background: #09A2D6;
+		color: #fff;
+		font-size: 1rem;
+		margin-left: 3rem;
+		background: #09A2D6;
+		display: inline-block;
+		border-radius: 0.8rem;
+		margin-bottom: 1rem;
+		padding: 0 0.5rem;
 	}
 </style>

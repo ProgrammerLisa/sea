@@ -28,15 +28,18 @@
 
 			<div class="media Pictures" style="margin-top: 0">
 				<div class="media-body">
-					上传头像
+					上传相册
 					<span id="hint">长按拖拽可更改图片顺序,最多10张</span>
 				</div>
-				<div class="chart">
-					<img class="media-object graph" src="../../assets/images/chushi.png" />
-					<!--<img class="media-object sheet" src="../../assets/images/tianjia.png" />-->
-				</div>
-				<div class="chart-to">
-					<img class="media-object sheet" src="../../assets/images/tianjia.png" />
+				<div class="controlContainer">
+					<div class="controlScroll">
+						<div class="controlContent" v-for="(p,index) in timg" v-dragging="{ item: p, list: timg, group: 'p' }" :key="p.src">
+							<img class="media-object graph" :src="`${p+'?'+now}`" v-if="phtoImg" @click="changeActive(index)" />
+						</div>
+						<div class="chart-to" data-toggle="modal" data-target="#PhModal">
+							<img class="media-object sheet" src="../../assets/images/tianjia.png" />
+						</div>
+					</div>
 				</div>
 			</div>
 
@@ -93,10 +96,10 @@
 						<div class="modal-body">
 							<span class="headImgChoose fileinput-button">
                 <span>从相册选择</span>
-						<input type="file" accept="image/*" id="fileBtn" @change="chooseImg('#fileBtn')">
-						</span>
+							<input type="file" accept="image/*" id="fileBtn" @change="chooseImg('#fileBtn')">
+							</span>
 
-            <span class="headImgChoose closeBtn fileinput-button" data-dismiss="modal">
+							<span class="headImgChoose closeBtn fileinput-button" data-dismiss="modal">
               <span>取消</span>
 							</span>
 
@@ -105,6 +108,25 @@
 					<!-- /.modal-content -->
 				</div>
 				<!-- /.modal -->
+			</div>
+
+			<!-- 照片选择模态框（Modal） -->
+			<div class="modal fade" id="PhModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+							<span class="headImgChoose fileinput-button">
+                <span>从相册选择图片</span>
+							<input type="file" accept="image/*" id="phBtn" @change="photoImg('#phBtn')">
+							</span>
+
+							<span class="headImgChoose closeBtn fileinput-button" data-dismiss="modal">
+              <span>取消</span>
+							</span>
+
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<mu-dialog width="360" scrollable :open.sync="openScroll">
@@ -127,6 +149,11 @@
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
 	import more from '@/assets/images/more.png'
+	import timg from "@/assets/images/test/timg.jpg"
+	import pic2 from "@/assets/images/test/1f05664d192e4d8987bdef2562775e4f_th.png"
+	import pic3 from "@/assets/images/test/86c9f191d93d4b208002970e8635cbef.jpg"
+	import pic4 from "@/assets/images/test/0824ab18972bd40719d54bb773899e510fb3096d.jpg"
+	import pic5 from "@/assets/images/test/201711613356.jpg"
 
 	export default {
 		name: "Compile",
@@ -137,23 +164,27 @@
 		},
 		data() {
 			return {
+				active: 0,
 				more: more,
 				masrc: back,
 				headImg: headImg,
+				timg: timg,
 				nickname: '',
 				signature: 'hahaha',
 				IDcode: '',
 				chooseFile: '',
 				houzhuiming: '',
+				extensions: '',
 				haveHeadImg: '',
+				phtoImg: '',
 				pmid: '',
 				rank: 'LV3',
-        openScroll: false,
-        ringtone: '',
-        options: [
-          '男',
-          '女'
-        ]
+				openScroll: false,
+				ringtone: '',
+				options: [
+					'男',
+					'女'
+				]
 			}
 		},
 		inject: ['reload'],
@@ -169,16 +200,16 @@
 					data: {}
 				}).then(function(res) {
 					if(res.data.code == 0) {
-            this.signature=res.data.data.resume;
+						this.signature = res.data.data.resume;
 						this.IDcode = res.data.data.phone;
 						this.pmid = localStorage.getItem("uid");
-						if(res.data.data.gender=="UNKNOWN"){
-						  this.ringtone="请选择"
-            }else if(res.data.data.gender=="MALE"){
-              this.ringtone="男"
-            }else if(res.data.data.gender=="FEMALE"){
-              this.ringtone="女"
-            }
+						if(res.data.data.gender == "UNKNOWN") {
+							this.ringtone = "保密"
+						} else if(res.data.data.gender == "MALE") {
+							this.ringtone = "男"
+						} else if(res.data.data.gender == "FEMALE") {
+							this.ringtone = "女"
+						}
 						if(res.data.data.nickname == "") {
 							this.nickname = localStorage.getItem("uid");
 						} else {
@@ -193,12 +224,25 @@
 							this.ringtone = ringtone;
 						} else {
 							this.ringtone = res.data.data.gender;
-							if(this.ringtone=='MALE'){
-								this.ringtone ='男'
-							}else if(this.ringtone == 'FEMALE'){
+							if(res.data.data.gender == "UNKNOWN") {
+								this.ringtone = "保密"
+							} else if(this.ringtone == 'MALE') {
+								this.ringtone = '男'
+							} else if(this.ringtone == 'FEMALE') {
 								this.ringtone = '女'
 							}
+							//							console.log(this.ringtone+'值');
 						}
+
+						console.log(this.timg = timg)
+						if(res.data.data.pictures == "") {
+							this.timg = timg;
+							this.phtoImg = false;
+						} else {
+							this.timg = res.data.data.pictures;
+							this.phtoImg = true
+						}
+
 						if(res.data.data.avatar == "") {
 							this.headImg = headImg;
 							this.haveHeadImg = false
@@ -208,16 +252,21 @@
 						}
 					} else {
 						this.haveHeadImg = false
+						this.phtoImg = false
 						this.$layer.msg(res.data.msg);
 					}
 				}.bind(this))
 				.catch(function(err) {
 					this.haveHeadImg = false
+					this.phtoImg = false
 					console.log(err)
 				}.bind(this))
 
 		},
 		methods: {
+			changeActive(index) {
+				this.active = index;
+			},
 			evers() {
 				this.masrc = backs;
 			},
@@ -227,45 +276,45 @@
 			goBack() {
 				this.$router.go(-1);
 			},
-      openScrollDialog () {
-        this.openScroll = true;
-      },
-      closeScrollDialog () {
-        this.openScroll = false;
-      },
-      sexChoose(){
-        // this.openScroll = false;
-        let gender;
-        console.log(this.ringtone)
-        if(this.ringtone==="男"){
-          gender='MALE'
-        }else if(this.ringtone==="女"){
-          gender='FEMALE'
-        }else{
-          gender='UNKNOWN'
-        }
-        this.$http({
-          method: "post",
-          url: "/users/edit-gender",
-          headers: {
-            "device": "android",
-            "uid": localStorage.getItem("uid"),
-            "Access-Control-Allow-Origin": "*"
-          },
-          data: {
-            gender:gender
-          }
-        }).then(function(res) {
-          if(res.data.code===0){
-            this.openScroll = false;
-          }
-          this.$layer.msg(res.data.msg)
-        }.bind(this))
-          .catch(function(err) {
-            console.log(err)
-          }.bind(this))
+			openScrollDialog() {
+				this.openScroll = true;
+			},
+			closeScrollDialog() {
+				this.openScroll = false;
+			},
+			sexChoose() {
+				// this.openScroll = false;
+				let gender;
+				console.log(this.ringtone)
+				if(this.ringtone === "男") {
+					gender = 'MALE'
+				} else if(this.ringtone === "女") {
+					gender = 'FEMALE'
+				} else {
+					gender = 'UNKNOWN'
+				}
+				this.$http({
+						method: "post",
+						url: "/users/edit-gender",
+						headers: {
+							"device": "android",
+							"uid": localStorage.getItem("uid"),
+							"Access-Control-Allow-Origin": "*"
+						},
+						data: {
+							gender: gender
+						}
+					}).then(function(res) {
+						if(res.data.code === 0) {
+							this.openScroll = false;
+						}
+						this.$layer.msg(res.data.msg)
+					}.bind(this))
+					.catch(function(err) {
+						console.log(err)
+					}.bind(this))
 
-      },
+			},
 			chooseImg(c) {
 				let that = this;
 				let $c = document.querySelector(c);
@@ -285,6 +334,26 @@
 					})
 				};
 
+			},
+			photoImg(c) {
+				alert(1);
+				let that = this;
+				let $c = document.querySelector(c);
+				that.chooseFile = $c.files[0];
+				let reader = new FileReader();
+				reader.readAsDataURL(that.chooseFile);
+				reader.onload = function(e) {
+					$(".modal-backdrop").hide();
+					that.$router.push({
+						path: '/UploadPhotoImg',
+						name: 'UploadPhotoImg',
+						params: {
+							name: 'name',
+							dataObj: e.target.result,
+							extensions: that.chooseFile.name.split('.')[1]
+						}
+					})
+				};
 			},
 			sexChoose(a) {
 				//				this.sexe=a;
@@ -324,18 +393,13 @@
 </script>
 
 <style scoped>
-	.chart {
-		width: 10%;
-	}
-
 	.chart-to {
 		position: relative;
 		background-color: #F5F5F5;
-		float: left;
-		left: 5rem;
-		bottom: 4rem;
-		width: 48px;
-		height: 48px;
+		float: right;
+		width: 20vw;
+		height: 20vw;
+		margin-top: 4px;
 	}
 
 	.content {
@@ -353,10 +417,11 @@
 
 	.media {
 		background: #fff;
-		padding: 1rem 1.7rem;
+		padding: 1rem 1.1rem;
 		border-bottom: 0.1rem solid #f5f5f5;
 		margin-top: 0.6rem;
 	}
+
 	.media-body {
 		vertical-align: middle;
 	}
@@ -374,17 +439,17 @@
 	}
 
 	.sheet {
-		float: right;
-		width: 48px;
-		height: 48px;
+		width: 20vw;
+		height: 20vw;
 	}
-  .mu-list{
-    padding: 0;
-  }
-  .listRight{
-    width: 50%
-  }
 
+	.mu-list {
+		padding: 0;
+	}
+
+	.listRight {
+		width: 50%
+	}
 
 	.media-right {
 		color: #888;
@@ -455,29 +520,74 @@
 		line-height: 4.5vh;
 	}
 
-  .moreImg{
-    height: 3rem;
-  }
-  #hint{
-  	float: right;
-  	color: #888;
-  	font-size: 0.05rem;
-  	padding-right: 0px;
-  }
+	.nickNameLeft {
+		text-align: left;
+	}
 
-  .mu-divider{
-    background: #f5f5f5;
-  }
-  .mu-item{
-    padding-right: 0;
-  }
-  .marginTop{
-    margin-top: 0.6rem;
-    background: #f5f5f5;
-  }
-  .mu-list-item{
-    background: #fff;
-  }
+	.moreImg {
+		height: 3rem;
+	}
+
+	#hint {
+		float: right;
+		color: #888;
+		font-size: 0.05rem;
+		padding-right: 0px;
+	}
+
+	.media-right {
+		padding-right: 0;
+	}
+
+	.phone {
+		margin-top: 0.6rem;
+	}
+
+	.ID {
+		margin-top: 0.6rem;
+	}
+
+	.media-right {
+		padding: 0;
+	}
+
+	.mu-divider {
+		background: #f5f5f5;
+	}
+
+	.mu-item {
+		padding-right: 0;
+	}
+
+	.marginTop {
+		margin-top: 0.6rem;
+		background: #f5f5f5;
+	}
+
+	.mu-list-item {
+		background: #fff;
+	}
+
+	.controlContainer {
+		overflow-x: scroll;
+	}
+
+	.controlContainer::-webkit-scrollbar {
+		display: none
+	}
+
+	.controlContent {
+		display: inline-block;
+		white-space: nowrap;
+	}
+
+	.controlContent img {
+		width: 20vw;
+		height: 20vw;
+		margin: 1vw;
+	}
+
+	.controlScroll {
+		width: 100%;
+	}
 </style>
-
-

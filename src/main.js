@@ -5,6 +5,7 @@ import App from './App'
 import layer from 'vue-layer'
 import VueClipboard from 'vue-clipboard2'
 import VueScroller from 'vue-scroller'
+import VueDND from 'awe-dnd'
 // import  VueResource  from 'vue-resource'
 import axios from 'axios'
 import Croppa from 'vue-croppa'
@@ -17,6 +18,7 @@ import 'muse-ui/dist/muse-ui.css'
 import '@/assets/iconfont/material-icons.css'
 import theme from 'muse-ui/lib/theme'
 
+Vue.use(VueDND);
 Vue.use(VueRouter);
 Vue.use(VueClipboard);
 Vue.use(Croppa);

@@ -140,7 +140,7 @@
           signInFc(){
             this.$http({
               method: "post",
-              url: "/tasks/login-everyday",
+              url: "/tasks/sign-in",
               headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
               data: {
                 signin_at:$("#time").text()

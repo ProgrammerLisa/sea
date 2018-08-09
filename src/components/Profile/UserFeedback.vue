@@ -1,14 +1,14 @@
 <template>
 	<div class="content">
-		<div class="panel panel-default BlackTitle">
-			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers"  @touchend="lat" class="back"><img :src="masrc"/></span>
-				<span style="margin-left: -30px; position: absolute; left: 50%; font-size: 1.5rem;">提意见</span>
-			</div>
-		</div>
+    <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0">
+      <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+        <img :src="masrc"/>
+      </mu-button>
+      <span class="navTitleText">提意见</span>
+    </mu-appbar>
 		<div class="text">
 			<textarea class="form-control" rows="12" placeholder="请将您的意见或建议留言发给我们，收到后我们会立即处理并给予回复哦~" v-model="text"></textarea>
-			<button class="btn submitBtn" @click="submitBtn">提交</button>
+      <mu-button color="#09a2d6" @click="submitBtn" class="submitBtn">提交</mu-button>
 		</div>
 	</div>
 </template>

@@ -40,24 +40,19 @@
 
       </div>
 
-
       <mu-paper :z-depth="1" class="demo-list-wrap">
         <mu-list>
-          <div v-for="(m,index) in Personal"  class="mylist">
-            <mu-list-item button  @click="profileAll(m.PersonalHref,m.PersonalName)">
-              <mu-list-item-action>
-                <img class="media-object" :src="m.imfLeft">
-              </mu-list-item-action>
-              <mu-list-item-title  class="listTitle"> {{m.title}}</mu-list-item-title>
-              <mu-list-item-action>
-                <mu-button icon  v-if="!m.noRouter">
-                  <img class="media-object" src="../../assets/images/more.png" />
-                </mu-button>
-                <span class="inviteCode" v-else>{{m.myInvite}}</span>
-              </mu-list-item-action>
-            </mu-list-item>
-            <mu-divider class="mu-divider"></mu-divider>
-          </div>
+          <mu-list-item button v-for="(m,index) in Personal" class="mylist" :to="m.PersonalHref">
+            <mu-list-item-action>
+              <img class="images" :src="m.imfLeft">
+            </mu-list-item-action>
+            <mu-list-item-title>{{m.title}}</mu-list-item-title>
+            <mu-list-item-action>
+              <img  v-if="!m.noRouter" class="images" src="../../assets/images/more.png" style="position: relative;left: 1rem"/>
+              <span v-else class="inviteCode" v-else>{{m.myInvite}}</span>
+            </mu-list-item-action>
+          </mu-list-item>
+
         </mu-list>
       </mu-paper>
     </div>
@@ -247,7 +242,8 @@
     width: 90vw;
     background: #fff;
     margin:0  5vw;
-    padding: 1.5rem;
+    padding: 1rem;
+    padding-bottom: 0.5rem;
     border-radius: 0.5rem;
     display: flex;
     flex-direction:column;
@@ -263,7 +259,7 @@
     float: right;
     width: 0.1rem;
     height: 1.8rem;
-    margin-top: 0.6rem;
+    margin-top: 1rem;
     background: #ddd;
   }
 
@@ -295,26 +291,26 @@
   .mu-elevation-1{
     box-shadow: none;
   }
-  .media-object{
+  .images{
     padding: 0.8rem;
   }
   @media screen and (min-height: 560px) and (max-height: 700px) {
-    .media-object {
+    .images {
       width:8vh
     }
   }
   @media screen and (min-height: 700px) and (max-height: 850px) {
-    .media-object {
+    .images {
       width:7vh
     }
   }
   @media screen and (min-height: 850px) and (max-height: 1024px) {
-    .media-object {
+    .images {
       width:7vh
     }
   }
   @media screen and (min-height:1025px) and (max-height: 2000px) {
-    .media-object {
+    .images {
       width:5vh
     }
   }
@@ -331,7 +327,6 @@
   .mu-list{
     background: #f5f5f5;
     padding-top: 0;
-    border-top: 1rem solid #fff;
   }
   .listTitle{
     text-decoration:none;
@@ -345,10 +340,7 @@
     background-color: #f5f5f5;
   }
   .mylist{
-    background: #fff;
-  }
-  .mylist:last-child>.mu-divider{
-    display: none;
+    background: #fff;border-bottom: 1px solid #f5f5f5
   }
   .mylist:nth-child(4),.mylist:nth-child(6){
     margin-bottom: 0.7rem;

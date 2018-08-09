@@ -180,7 +180,7 @@
 						color: '#666'
 					});
 					$("#a_common_animation").animate({
-						marginLeft: 0
+						marginLeft: '25%'
 					}, 500);
 					$("#a_sms_animation").animate({
 						marginLeft: '-100%'
@@ -198,7 +198,7 @@
 						marginLeft: '100%'
 					}, 500);
 					$("#a_sms_animation").animate({
-						marginLeft: 0
+						marginLeft: '25%'
 					}, 500);
 				}
 			},
@@ -544,17 +544,17 @@
 	#nav {
 		width: 100%;
 		font-size: 1.8rem;
-		background-color: #09a2d6;
+		background-color: #fff;
 		text-align: center;
-		color: #fff;
-		border-bottom: 1px solid #F5F5F5;
+		color: #333;
+		border-bottom: 2px solid #f6f6f6;
 	}
   #loginModeTitle{
     width: 100%;
     height: 50px;
     padding: 0;
     margin: 0;
-    box-shadow: 0.7rem 0.7rem 0.7rem #eee;
+    border-bottom: 1px solid #f6f6f6;
   }
   .loginMode{
     width: 50%;
@@ -583,14 +583,14 @@
 
 
 	#a_common_animation {
-		width: 100%;
+		width: 50%;
 		background: #09A2D6;
 		height: 0.3rem;
-		margin-left: 0
+		margin-left: 25%;
 	}
 
 	#a_sms_animation {
-		width: 100%;
+		width: 50%;
 		background: #09A2D6;
 		height: 0.3rem;
 		margin-left: -100%;

@@ -1,7 +1,11 @@
 <template>
-  <div id="content" :style="bgHeight">
+  <div id="content">
+    <div class="landscape" ></div>
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+
      <div id="notice">
-        <marquee style="height: 2.5rem;" scrollamount="5" scrolldelay="1"><span style="font-size: 1.5rem;">公告:亲爱的用户，平台momomo即将上线，敬请期待。</span></marquee>
+        <marquee style="height: 2.5rem;" scrollamount="5" scrolldelay="1"><span style="font-size: 1.5rem;color: #fff">公告:亲爱的用户，平台momomo即将上线，敬请期待。</span></marquee>
      </div>
      <div class="topOption option1">
         <span >珍珠量 {{imgSum}}</span>
@@ -15,15 +19,15 @@
       <img src="../../assets/images/zhanji.png" class="invitation-friends"/><span class="tips"></span>
       <p>战绩</p>
     </router-link>
-      <router-link class="option4" to="/ask" tag="div">
-        <img src="../../assets/images/yaoqinghaoyou.png" class="invitation-friends"/>
-        <p>邀请好友</p>
-      </router-link>
-      <div id="pearlContainer">
-        <div v-for="(m,index) in imgDiv" :class="m.divClass" :data-level="m.level" @click.once="flag && accumulative($event,index)">
-          <img v-bind:style="m.style" :src="m.href" />
-        </div>
+    <router-link class="option4" to="/ask" tag="div">
+      <img src="../../assets/images/yaoqinghaoyou.png" class="invitation-friends"/>
+      <p>邀请好友</p>
+    </router-link>
+    <div id="pearlContainer">
+      <div v-for="(m,index) in imgDiv" :class="m.divClass" :data-level="m.level" @click.once="flag && accumulative($event,index)">
+        <img v-bind:style="m.style" :src="m.href" />
       </div>
+    </div>
 
 
   </div>
@@ -82,7 +86,6 @@ import pearl6 from '@/assets/images/pearl/6.png'
 import pearl7 from '@/assets/images/pearl/7.png'
 import pearl8 from '@/assets/images/pearl/8.png'
 import pearl9 from '@/assets/images/pearl/9.png'
-import THREE from  '@/assets/js/three.min.js'
 
 export default {
   components: {
@@ -157,14 +160,13 @@ export default {
     }
   },
   mounted:function () {
-    this.init();
-    this.animate();
     this.startStyle();
+    this.bubble();
   },
   methods:{
     startStyle(){
-      let height=$(window).innerHeight()-$(".myNav").height();
-      this.bgHeight='height:'+height+'px';
+      $(".landscape").css({bottom:$(".myNav").height()+'px'})
+
       const that = this;
       that.imgDiv.push(that.PearlLevel5);
 
@@ -259,145 +261,197 @@ export default {
         this.RankingSwitch='综合排名';
       }
     },
-    init() {
+    bubble(){
+      function Star(id, x, y){
+        this.id = id;
+        this.x = x;
+        this.y = y;
+        this.r = Math.floor(Math.random()*2)+1;
+        var alpha = (Math.floor(Math.random()*10)+1)/10/2;
+        this.color = "rgba(255,255,255,"+alpha+")";
+      }
+
+      Star.prototype.draw = function() {
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = this.r * 2;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      Star.prototype.move = function() {
+        this.y -= .15;
+        if (this.y <= -10) this.y = HEIGHT + 10;
+        this.draw();
+      }
+
+      Star.prototype.die = function() {
+        stars[this.id] = null;
+        delete stars[this.id];
+      }
 
 
-      var content = document.getElementById("content");
-      this.container = document.createElement( 'div' );
-      content.appendChild( this.container );
+      function Dot(id, x, y, r) {
+        this.id = id;
+        this.x = x;
+        this.y = y;
+        this.r = Math.floor(Math.random()*5)+1;
+        this.maxLinks = 2;
+        this.speed = .5;
+        this.a = .5;
+        this.aReduction = .005;
+        this.color = "rgba(255,255,255,"+this.a+")";
+        this.linkColor = "rgba(255,255,255,"+this.a/4+")";
 
-      this.camera = new THREE.THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
-      this.camera.position.z = 1000;
+        this.dir = Math.floor(Math.random()*140)+200;
+      }
 
-      this.scene = new THREE.THREE.Scene();
+      Dot.prototype.draw = function() {
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = this.r * 2;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
+        ctx.closePath();
+        ctx.fill();
+      }
 
-      this.particles = new Array();
+      Dot.prototype.link = function() {
+        if (this.id == 0) return;
+        var previousDot1 = getPreviousDot(this.id, 1);
+        var previousDot2 = getPreviousDot(this.id, 2);
+        var previousDot3 = getPreviousDot(this.id, 3);
+        if (!previousDot1) return;
+        ctx.strokeStyle = this.linkColor;
+        ctx.moveTo(previousDot1.x, previousDot1.y);
+        ctx.beginPath();
+        ctx.lineTo(this.x, this.y);
+        if (previousDot2 != false) ctx.lineTo(previousDot2.x, previousDot2.y);
+        if (previousDot3 != false) ctx.lineTo(previousDot3.x, previousDot3.y);
+        ctx.stroke();
+        ctx.closePath();
+      }
 
-      var PI2 = Math.PI * 2;
-      var material = new THREE.THREE.ParticleCanvasMaterial( {
+      function getPreviousDot(id, stepback) {
+        if (id == 0 || id - stepback < 0) return false;
+        if (typeof dots[id - stepback] != "undefined") return dots[id - stepback];
+        else return false;//getPreviousDot(id - stepback);
+      }
 
-        color: 0xffffff,
-        program: function ( context ) {
+      Dot.prototype.move = function() {
+        this.a -= this.aReduction;
+        if (this.a <= 0) {
+          this.die();
+          return
+        }
+        this.color = "rgba(255,255,255,"+this.a+")";
+        this.linkColor = "rgba(255,255,255,"+this.a/4+")";
+        this.x = this.x + Math.cos(degToRad(this.dir))*this.speed,
+          this.y = this.y + Math.sin(degToRad(this.dir))*this.speed;
 
-          context.beginPath();
-          context.arc( 0, 0, 1, 0, PI2, true );
-          context.fill();
+        this.draw();
+        this.link();
+      }
 
+      Dot.prototype.die = function() {
+        dots[this.id] = null;
+        delete dots[this.id];
+      }
+
+
+      var canvas  = document.getElementById('canvas'),
+        ctx = canvas.getContext('2d'),
+        WIDTH,
+        HEIGHT,
+        mouseMoving = false,
+        mouseMoveChecker,
+        mouseX,
+        mouseY,
+        stars = [],
+        initStarsPopulation = 80,
+        dots = [],
+        dotsMinDist = 2,
+        maxDistFromCursor = 50;
+
+      setCanvasSize();
+      init();
+
+      function setCanvasSize() {
+        WIDTH = document.documentElement.clientWidth,
+          HEIGHT = document.documentElement.clientHeight;
+
+        canvas.setAttribute("width", WIDTH);
+        canvas.setAttribute("height", HEIGHT);
+      }
+
+      function init() {
+        ctx.strokeStyle = "white";
+        ctx.shadowColor = "white";
+        for (var i = 0; i < initStarsPopulation; i++) {
+          stars[i] = new Star(i, Math.floor(Math.random()*WIDTH), Math.floor(Math.random()*HEIGHT));
+          //stars[i].draw();
+        }
+        ctx.shadowBlur = 0;
+        animate();
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, WIDTH, HEIGHT);
+
+        for (var i in stars) {
+          stars[i].move();
+        }
+        for (var i in dots) {
+          dots[i].move();
+        }
+        drawIfMouseMoving();
+        requestAnimationFrame(animate);
+      }
+      var can = document.getElementById("canvas")
+      window.onmousemove = function(e){
+        mouseMoving = true;
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        clearInterval(mouseMoveChecker);
+        mouseMoveChecker = setTimeout(function() {
+          mouseMoving = false;
+        }, 100);
+      }
+
+
+      function drawIfMouseMoving(){
+        if (!mouseMoving) return;
+
+        if (dots.length == 0) {
+          dots[0] = new Dot(0, mouseX, mouseY);
+          dots[0].draw();
+          return;
         }
 
-      } );
+        var previousDot = getPreviousDot(dots.length, 1);
+        var prevX = previousDot.x;
+        var prevY = previousDot.y;
 
-      var i = 0;
+        var diffX = Math.abs(prevX - mouseX);
+        var diffY = Math.abs(prevY - mouseY);
 
-      for ( var ix = 0; ix < this.AMOUNTX; ix ++ ) {
+        if (diffX < dotsMinDist || diffY < dotsMinDist) return;
 
-        for ( var iy = 0; iy < this.AMOUNTY; iy ++ ) {
-
-          this.particle = this.particles[ i ++ ] = new THREE.THREE.Particle( material );
-          this.particle.position.x = ix * this.SEPARATION - ( ( this.AMOUNTX * this.SEPARATION ) / 2 );
-          this.particle.position.z = iy * this.SEPARATION - ( ( this.AMOUNTY * this.SEPARATION ) / 2 );
-          this.scene.add( this.particle );
-
-        }
-
+        var xVariation = Math.random() > .5 ? -1 : 1;
+        xVariation = xVariation*Math.floor(Math.random()*maxDistFromCursor)+1;
+        var yVariation = Math.random() > .5 ? -1 : 1;
+        yVariation = yVariation*Math.floor(Math.random()*maxDistFromCursor)+1;
+        dots[dots.length] = new Dot(dots.length, mouseX+xVariation, mouseY+yVariation);
+        dots[dots.length-1].draw();
+        dots[dots.length-1].link();
       }
+//setInterval(drawIfMouseMoving, 17);
 
-      this.renderer = new THREE.THREE.CanvasRenderer();
-      this.renderer.setSize( window.innerWidth, window.innerHeight );
-      this.container.appendChild( this.renderer.domElement );
-
-      document.addEventListener( 'mousemove', this.onDocumentMouseMove, false );
-      document.addEventListener( 'touchstart', this.onDocumentTouchStart, false );
-      document.addEventListener( 'touchmove', this.onDocumentTouchMove, false );
-
-      //
-
-      window.addEventListener( 'resize', this.onWindowResize, false );
-
-    },
-
-    onWindowResize() {
-
-      this.windowHalfX = window.innerWidth / 2;
-      this.windowHalfY = window.innerHeight / 2;
-
-      this.camera.aspect = window.innerWidth / window.innerHeight;
-      this.camera.updateProjectionMatrix();
-
-      this.renderer.setSize( window.innerWidth, window.innerHeight );
-
-    },
-
-    //
-
-    onDocumentMouseMove( event ) {
-
-      this.mouseX = event.clientX - this.windowHalfX;
-      this.mouseY = event.clientY - this.windowHalfY;
-
-    },
-
-    onDocumentTouchStart( event ) {
-
-      if ( event.touches.length === 1 ) {
-
-        event.preventDefault();
-
-        this.mouseX = event.touches[ 0 ].pageX - this.windowHalfX;
-        this.mouseY = event.touches[ 0 ].pageY - this.windowHalfY;
-
+      function degToRad(deg) {
+        return deg * (Math.PI / 180);
       }
-
-    },
-    onDocumentTouchMove( event ) {
-
-      if ( event.touches.length === 1 ) {
-
-        event.preventDefault();
-
-        this.mouseX = event.touches[ 0 ].pageX - this.windowHalfX;
-        this.mouseY = event.touches[ 0 ].pageY - this.windowHalfY;
-
-      }
-
-    },
-
-    //
-
-    animate() {
-
-      requestAnimationFrame( this.animate );
-
-      this.render();
-
-
-    },
-
-    render() {
-
-      this.camera.position.x += ( this.mouseX - this.camera.position.x ) * .05;
-      this.camera.position.y += ( - this.mouseY - this.camera.position.y ) * .05;
-      this.camera.lookAt( this.scene.position );
-
-      var i = 0;
-
-      for ( let ix = 0; ix < this.AMOUNTX; ix ++ ) {
-
-        for ( let iy = 0; iy < this.AMOUNTY; iy ++ ) {
-
-          this.particle = this.particles[ i++ ];
-          this.particle.position.y = ( Math.sin( ( ix + this.count ) * 0.3 ) * 50 ) + ( Math.sin( ( iy + this.count ) * 0.5 ) * 50 );
-          this.particle.scale.x = this.particle.scale.y = ( Math.sin( ( ix + this.count ) * 0.3 ) + 1 ) * 2 + ( Math.sin( ( iy + this.count ) * 0.5 ) + 1 ) * 2;
-
-        }
-
-      }
-
-      this.renderer.render( this.scene, this.camera );
-
-      this.count += 0.1;
-
     }
+
 
   }
 
@@ -406,12 +460,44 @@ export default {
 <style scoped>
   #content{
     width: 100vw;
-    overflow: hidden;
-    background: url("../../assets/images/bg.png") no-repeat;
-    background-size: 100% 100%;
-    color: white;
+    margin:0;
+    overflow:hidden;
+    height:100vh;
+    cursor:none;
+    background:black;
+    color: #fff;
+    background:linear-gradient(to bottom,#0B0B15 0%,#5788fe 100%);
   }
-
+  .filter {
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    background:#58DEFF;
+    animation:colorChange 30s ease-in-out infinite;
+    animation-fill-mode:both;
+    mix-blend-mode:overlay;
+  }
+  @keyframes colorChange {
+    0%,100% {
+      opacity:0;
+    }
+    50% {
+      opacity:.9;
+    }
+  }.landscape {
+     position:absolute;
+     left:0;
+     width:100%;
+     height:100%;
+     /*background-image:url(https://openclipart.org/image/2400px/svg_to_png/250847/Trees-Landscape-Silhouette.png);
+       */
+     background-image:url('../../assets/images/bg.png');
+     background-size:100% 100%;
+     background-repeat:repeat-x;
+     background-position:center bottom;
+   }
 	#notice{
     position: absolute;
     top: 2rem;
@@ -438,21 +524,21 @@ export default {
     float: right;
     text-align: center;
     position: absolute;
-    top: 70vh;
+    top: 72vh;
     color: #fff;
   }
   .option2{
-    right: 1rem;
+    right: 0.6rem;
   }
   .option3{
     top: 55vh;
-    right: 1rem;
+    right: 0.6rem;
   }
   .option2 img, .option3 img,.option4 img{
     width: 70%;
   }
   .option4{
-    left: 1rem;
+    left: 0.6rem;
   }
   .option4-Icon span{
     font-size: 2.5rem;

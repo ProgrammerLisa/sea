@@ -1,29 +1,28 @@
 <template>
     <div class="content" id="myList">
-      <div  style="height:600px;">
-        <v-scroll :on-infinite="infinite" ref="myscroller">
 
-          <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0">
-            <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+          <mu-appbar class="myNavTitle myNav" color="#fff" textColor="#333" z-depth="0">
+            <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack ">
               <img :src="masrc"/>
             </mu-button>
             <span class="navTitleText">收支记录</span>
           </mu-appbar>
           <div class="contentMarginTop">
-            <div class="media" v-for="s in Statement">
-              <div class="media-body">
-                <div class="media-heading">{{s.title}}</div>
-                <span class="data">{{s.date}}</span>
-              </div>
-              <div class="media-right">
-                {{s.symbol}}{{s.count}}
-              </div>
-            </div>
+            <mu-container ref="container" class="demo-loadmore-content">
+              <mu-load-more @refresh="refresh" :refreshing="refreshing" :loading="loading" @load="load">
+                <div class="media" v-for="s in Statement">
+                  <div class="media-body">
+                    <div class="media-heading">{{s.title}}</div>
+                    <span class="data">{{s.date}}</span>
+                  </div>
+                  <div class="media-right">
+                    {{s.symbol}}{{s.count}}
+                  </div>
+                </div>
+              </mu-load-more>
+            </mu-container>
           </div>
-        </v-scroll>
-      </div>
 
-      <canvas id="myCanvas"></canvas>
     </div>
 
 </template>
@@ -31,17 +30,17 @@
 <script>
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
-  import Scroll from '@/components/plug-ins/scroll'
 
 	export default {
 		name: "Statement",
-    components : {
-      'v-scroll': Scroll
-    },
+
     data() {
 			return {
 				masrc: back,
+        refreshing: false,
+        loading: false,
         noData: '',
+        count:1,
 				Statement: [{
 						title: '阅读资讯',
 						date: '2018-05-18 10:59:16',
@@ -118,7 +117,7 @@
 			}
 		},
 		mounted() {
-      this.loading();
+      $(".myNav").css({width:$(window).width()+48+'px'})
 		},
 		methods: {
 			evers() {
@@ -130,53 +129,30 @@
 			goBack() {
 				this.$router.go(-1);
 			},
-      infinite(done) {
-			  $("#myCanvas").css({display:"block"});
-        $("#myList").css({marginBottom:"25vw"});
-        var c = window.document.body.scrollHeight;
-        window.scroll(0,c);
-			  setTimeout(function () {
-          $("#myCanvas").css({display:"none"});
-          $("#myList").css({marginBottom:"0"});
-        },3000)
-        done()
+      refresh () {
+        this.refreshing = true;
+        this.$refs.container.scrollTop = 0;
+        setTimeout(() => {
+          this.refreshing = false;
+        }, 2000)
       },
-      loading() {
-        var canvas = document.getElementById("myCanvas"),
-          ctx = canvas.getContext("2d"),
-          w = canvas.width,
-          h = canvas.height,
-          x = w/2,
-          y = h/4,
-          radius = 30;
-        ctx.fillStyle = "#f5f5f5";
-        ctx.fillRect(0,0,w,h);
-
-        var r = [3,4,4.5,5,6,7];//串串球大小排序
-        var angle = [10,25,45,65,90,120];//串串球旋转角度
-        var alpha = [0.25,0.35,0.45,0.65,0.8,1];//串串球透明度
-        var x1=[],y1=[];
-
-        setInterval(function(){
-          ctx.fillStyle = "#f5f5f5";
-          ctx.fillRect(0,0,w,h);
-          x1 = [];
-          y1 = [];
-          for(var i = 0; i < r.length; i ++){
-            if(angle[i] >= 360) angle[i] = 0;
-            ctx.beginPath();
-            ctx.font = "1rem sans-serif";
-            ctx.fillStyle = "rgba(156,236,255,"+alpha[i]+")";
-            x1.push( x + radius*Math.cos(angle[i]*Math.PI/180));
-            y1.push( y + radius*Math.sin(angle[i]*Math.PI/180));
-            ctx.arc(x1[i],y1[i],r[i],0,2*Math.PI, true);
-            ctx.closePath();
-            ctx.fill();
-            angle[i] += 5;
-          }
-        },25);
+      load () {
+        this.loading = true;
+			  let model = {
+          title: this.count,
+          date: '2018-05-18 10:59:16',
+          isIncome: true,
+          count: 5,
+          symbol: ''
+        };
+        setTimeout(() => {
+          this.Statement.push(model)
+          this.count++;
+          this.loading = false;
+        }, 2000)
 
       }
+
 		}
 	}
 </script>
@@ -187,43 +163,24 @@
 		color: #666;
 		background-color: #fff;
 		width: 100vw;
-    height: 100vh;
-    overflow-y: scroll;
     padding-bottom: 0;
     margin-bottom: 0;
+    height: 100vh;
+    overflow-y: scroll;
 	}
-
-  .scroller {
-    position: relative;
+  .content::-webkit-scrollbar {
+    display: none
   }
-	.panel {
-		border: none;
-		border-radius: 0;
-	}
-
-	.panel-body {
-		padding: 0 10px;
-	}
-
-	.BlackTitle {
-		text-align: center;
-		letter-spacing: 0.05rem;
-    background: #09a2d6;
-    color: #fff;
-		font-size: 1.5rem;
-    margin-bottom: 0;
-		height: 4.1rem;
-		line-height: 4.1rem;
-	}
-
-	.back {
-		float: left;
-	}
-
-	.back img {
-		height: 2.5rem;
-	}
-
+  .myNavTitle{
+  }
+  .myNav{
+    position: fixed;
+    top: 0;
+  }
+  .getBack img{
+    position: absolute;
+    left: 0;
+  }
 	.media {
 		background: #fff;
 		margin-top: 0;
@@ -233,7 +190,7 @@
 
 	.media-heading {
 		color: #444;
-		font-size: 1.25rem;
+		font-size: 1.6rem;
 	}
 
 	.data {
@@ -245,14 +202,7 @@
 		vertical-align: middle;
 		font-size: large;
 	}
-  #myCanvas{
-    margin: 0;
-    width: 100vw;
-    height: 50vw;
-    position: fixed;
-    left: 0;
-    bottom:-25vw;
-    display: none;
+  .contentMarginTop{
+    margin-top: 4.4rem;
   }
-
 </style>

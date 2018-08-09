@@ -66,34 +66,6 @@
     top: 0;
 	}
 
-	.panel {
-		border: none;
-		border-radius: 0;
-	}
-
-	.panel-body {
-		padding: 0 10px;
-	}
-
-	.BlackTitle {
-		text-align: center;
-		letter-spacing: 0.05rem;
-    background: #09a2d6;
-    color: #fff;
-		font-size: 1.5rem;
-		margin-bottom: 0;
-		height: 4.1rem;
-		line-height: 4.1rem;
-	}
-
-	.back {
-		float: left;
-	}
-	.back img {
-		height: 2.5rem;
-		font-size: 2.5rem;
-	}
-
 	.table {
 		background: #fff;
 		border-bottom: 0.1rem solid #f5f5f5;
@@ -106,7 +78,7 @@
 
 	.table td {
 		padding: 1rem 1rem 1rem 1.7rem;
-    font-size: 1.25rem;
+    font-size: 1.6rem;
 	}
 
 	.text-left {

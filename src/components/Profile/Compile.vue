@@ -32,12 +32,13 @@
 					<span id="hint">长按拖拽可更改图片顺序,最多10张</span>
 				</div>
 				<div class="controlContainer">
-					<div class="controlScroll">
-						<div class="controlContent" v-for="(p,index) in timg" v-dragging="{ item: p, list: timg, group: 'p' }" :key="p.src">
-							<img class="media-object graph" :src="`${p+'?'+now}`" v-if="phtoImg" @click="changeActive(index)" />
+					<div class="controlScroll" >
+						<div class="controlContent"   v-for="(p,index) in timg" v-dragging="{ item: p, list: timg, group: 'p' }" :key="p.index" >
+							<img alt="有" class="media-object graph" :src="`${p+'?'+now}`" @click="changeActive(index)" />
 						</div>
 						<div class="chart-to" data-toggle="modal" data-target="#PhModal">
-							<img class="media-object sheet" src="../../assets/images/tianjia.png" />
+							<!--<img class="media-object sheet" src="../../assets/images/tianjia.png" />-->
+							<span class="sheet">+</span>
 						</div>
 					</div>
 				</div>
@@ -234,13 +235,10 @@
 							//							console.log(this.ringtone+'值');
 						}
 
-						console.log(this.timg = timg)
 						if(res.data.data.pictures == "") {
-							this.timg = timg;
-							this.phtoImg = false;
+							this.timg = [timg];
 						} else {
 							this.timg = res.data.data.pictures;
-							this.phtoImg = true
 						}
 
 						if(res.data.data.avatar == "") {
@@ -390,16 +388,26 @@
 			}
 		}
 	}
+
+	
 </script>
 
 <style scoped>
 	.chart-to {
+<<<<<<< HEAD
+		position: fixed;
+=======
 		position: relative;
+>>>>>>> a7e07bf9e4427fab556ddeaac1dc68993c063999
 		background-color: #F5F5F5;
 		float: right;
 		width: 20vw;
 		height: 20vw;
-		margin-top: 4px;
+		margin-left: 75%;
+		margin-top: -22.5%;
+		display: table-cell;
+   	 	vertical-align: middle;
+    	text-align: center;  
 	}
 
 	.content {
@@ -439,8 +447,10 @@
 	}
 
 	.sheet {
-		width: 20vw;
-		height: 20vw;
+		/*width: 10vw;
+		height: 10vw;*/
+		font-size: 4rem;
+		color: #888;
 	}
 
 	.mu-list {
@@ -588,6 +598,7 @@
 	}
 
 	.controlScroll {
-		width: 100%;
+		width: 261vw;
+		margin-bottom: 0.5rem;
 	}
 </style>

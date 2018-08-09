@@ -42,7 +42,7 @@
 
       <mu-paper :z-depth="1" class="demo-list-wrap">
         <mu-list>
-          <mu-list-item button v-for="(m,index) in Personal" class="mylist" :to="m.PersonalHref">
+          <mu-list-item button v-for="(m,index) in Personal" class="mylist" :to="m.PersonalHref" :key="index">
             <mu-list-item-action>
               <img class="images" :src="m.imfLeft">
             </mu-list-item-action>

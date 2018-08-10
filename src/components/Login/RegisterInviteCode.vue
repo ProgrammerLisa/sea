@@ -1,11 +1,11 @@
 <template>
 	<div class="content">
-		<div class="panel panel-default BlackTitle">
-			<div class="panel-body">
-				<span @click="goBack"  @touchstart="evers" @touchend="lat"  class="back"><img :src="masrc"/></span>
-				<span style="margin-left: -27px; position: absolute; left: 50%; font-size: 1.7rem;">邀请码</span>
-			</div>
-		</div>
+    <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0" >
+      <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+        <img :src="masrc"/>
+      </mu-button>
+      <span class="navTitleText" style="font-size: 1.6rem">邀请码</span>
+    </mu-appbar>
 		<form>
 		<div class="code">
 			<center>
@@ -146,7 +146,7 @@
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;

@@ -119,6 +119,7 @@
     width: 100vw;
     max-height: 100vw;
     overflow: hidden;
+    margin-top: -1px;
   }
   .picContainer img{
     width: 100vw;
@@ -186,7 +187,7 @@
     margin-right: 1rem;
   }
   .friendId{
-    font-size: 0.75rem;
+    font-size: small;
     color: #666;
   }
   .msg{
@@ -198,7 +199,7 @@
   }
   .more{
     text-align: center;
-    font-size: 1rem;
+    font-size: 1.6rem;
     color: #646464;
     margin-top: 1rem;
   }

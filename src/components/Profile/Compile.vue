@@ -26,15 +26,17 @@
 				</mu-list>
 			</mu-paper>
 
-			<div class="media Pictures" style="margin-top: 0">
+			<div class="media Pictures" >
 				<div class="media-body">
 					上传相册
-					<span id="hint">长按拖拽可更改图片顺序,最多10张</span>
+					<span class="hint" @click="editImage" v-if="editimages">编辑</span>
+          <span class="hint" @click="doNotEdit" v-else>取消</span>
 				</div>
-				<div class="controlContainer">
-					<div class="controlScroll" >
-						<div class="controlContent"   v-for="(p,index) in timg" v-dragging="{ item: p, list: timg, group: 'p' }" :key="p.index" >
-							<img alt="有" class="media-object graph" :src="`${p+'?'+now}`" @click="changeActive(index)" />
+				<div class="controlContainer" >
+					<div class="controlScroll" :style="aaaaaa">
+						<div class="controlContent"   v-for="(p,index) in timg" :key="index" >
+                <img alt="有" class="media-object graph" :src="p.img" @touchstart="showDeleteButton(index)" @touchend="clearLoop(index)"/>
+                <span class="clearIcon" v-show="p.show">   <mu-icon value="remove_circle" color="#333" @click="clearImage(index)"></mu-icon></span>
 						</div>
 						<div class="chart-to" data-toggle="modal" data-target="#PhModal">
 							<!--<img class="media-object sheet" src="../../assets/images/tianjia.png" />-->
@@ -43,7 +45,6 @@
 					</div>
 				</div>
 			</div>
-
 			<mu-paper :z-depth="0" class="demo-list-wrap marginTop">
 				<mu-list>
 					<mu-list-item to="/nickname" avatar button class="mu-list-item">
@@ -169,9 +170,12 @@
 				more: more,
 				masrc: back,
 				headImg: headImg,
-				timg: timg,
+				timg: [{img:timg,show:false},{img:more,show:false},{img:timg,show:false},{img:timg,show:false},{img:timg,show:false},{img:headImg,show:false}],
+        editimages:true,
+        loop:'',
 				nickname: '',
 				signature: 'hahaha',
+        aaaaaa:'width:900px',
 				IDcode: '',
 				chooseFile: '',
 				houzhuiming: '',
@@ -189,7 +193,10 @@
 			}
 		},
 		inject: ['reload'],
-		mounted: function() {
+    created(){
+    },
+    mounted() {
+      this.aaaaaa='width:'+(this.timg.length+2)*96+'px';
 			this.$http({
 					method: "get",
 					url: "/users/info",
@@ -236,7 +243,7 @@
 						}
 
 						if(res.data.data.pictures == "") {
-							this.timg = [timg];
+
 						} else {
 							this.timg = res.data.data.pictures;
 						}
@@ -385,20 +392,41 @@
 					.catch(function(err) {
 						this.$layer.msg("系统异常，请稍后再试");
 					}.bind(this))
-			}
+			},
+      editImage(){
+        this.editimages=false;
+        for (let i in this.timg) {
+          this.timg[i].show=true;
+        }
+      },
+      doNotEdit(){
+        this.editimages=true;
+        for (let i in this.timg) {
+          this.timg[i].show=false;
+        }
+      },
+      showDeleteButton(index){
+			  this.loop='';
+			  let that = this;
+        that.loop=setTimeout(function () {
+          that.timg[index].show=!that.timg[index].show;
+        },1000)
+      },
+      clearLoop() {
+        clearInterval(this.loop);
+      },
+      clearImage(index){
+			  this.timg.splice(index,1)
+      }
 		}
 	}
 
-	
+
 </script>
 
 <style scoped>
 	.chart-to {
-<<<<<<< HEAD
-		position: fixed;
-=======
 		position: relative;
->>>>>>> a7e07bf9e4427fab556ddeaac1dc68993c063999
 		background-color: #F5F5F5;
 		float: right;
 		width: 20vw;
@@ -407,7 +435,7 @@
 		margin-top: -22.5%;
 		display: table-cell;
    	 	vertical-align: middle;
-    	text-align: center;  
+    	text-align: center;
 	}
 
 	.content {
@@ -423,11 +451,11 @@
 		display: none
 	}
 
-	.media {
+	.Pictures {
 		background: #fff;
 		padding: 1rem 1.1rem;
 		border-bottom: 0.1rem solid #f5f5f5;
-		margin-top: 0.6rem;
+		margin-top: 0;
 	}
 
 	.media-body {
@@ -441,9 +469,8 @@
 	}
 
 	.graph {
-		width: 4rem;
-		height: 4rem;
-		margin-top: 10px;
+		width:100%;
+		height: 100%;
 	}
 
 	.sheet {
@@ -460,20 +487,6 @@
 	.listRight {
 		width: 50%
 	}
-
-	.media-right {
-		color: #888;
-		font-size: small;
-	}
-
-	.mu-list {
-		padding: 0;
-	}
-
-	.listRight {
-		width: 50%
-	}
-
 	.modal-content {
 		margin: 0 2rem;
 		border-radius: 0;
@@ -484,13 +497,6 @@
 	.modal-dialog {
 		margin: 35vh auto;
 	}
-
-	.modal-header {
-		padding: 1rem;
-		border-bottom: none;
-		color: #444;
-	}
-
 	.modal-body {
 		padding: 0;
 	}
@@ -530,35 +536,15 @@
 		line-height: 4.5vh;
 	}
 
-	.nickNameLeft {
-		text-align: left;
-	}
-
 	.moreImg {
 		height: 3rem;
 	}
 
-	#hint {
+	.hint {
 		float: right;
 		color: #888;
 		font-size: 0.05rem;
 		padding-right: 0px;
-	}
-
-	.media-right {
-		padding-right: 0;
-	}
-
-	.phone {
-		margin-top: 0.6rem;
-	}
-
-	.ID {
-		margin-top: 0.6rem;
-	}
-
-	.media-right {
-		padding: 0;
 	}
 
 	.mu-divider {
@@ -580,6 +566,7 @@
 
 	.controlContainer {
 		overflow-x: scroll;
+
 	}
 
 	.controlContainer::-webkit-scrollbar {
@@ -589,16 +576,25 @@
 	.controlContent {
 		display: inline-block;
 		white-space: nowrap;
+    padding: 1rem 0.8rem 0 0;
+    width:8rem;
+    height: 8rem;
+    overflow: hidden;
+    margin-right: 1rem;
 	}
 
-	.controlContent img {
-		width: 20vw;
-		height: 20vw;
-		margin: 1vw;
-	}
 
 	.controlScroll {
-		width: 261vw;
 		margin-bottom: 0.5rem;
 	}
+  .clearIcon{
+    display: inline-block;
+    position: relative;
+    left:6rem;
+    top:-8rem;
+    width:  2rem;
+    height: 2rem;
+    background: #fff;
+    border-radius: 50%;
+  }
 </style>

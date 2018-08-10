@@ -1,11 +1,11 @@
 <template>
 	<div id="register">
-		<div class="panel panel-default BlackTitle">
-			<div class="panel-body">
-				<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"> <img :src="masrc"/></span>
-				<span style="margin-left: -20px; position: absolute; left: 50%; font-size: 1.8rem;">注 册</span>
-			</div>
-		</div>
+    <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0" >
+      <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+        <img :src="masrc"/>
+      </mu-button>
+      <span class="navTitleText" style="font-size: 1.6rem">注册</span>
+    </mu-appbar>
 		<form id="form_register">
 			<div style="padding: 45px 30px">
 				<div style="padding-top: 3.5rem;">
@@ -408,11 +408,11 @@
 		width: 54px;
 		float: right;
 	}
-	
+
 	.panel {
 		border-radius: 0;
 	}
-	
+
 
   .panel{
     border-radius: 0;

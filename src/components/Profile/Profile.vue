@@ -49,7 +49,7 @@
             <mu-list-item-title>{{m.title}}</mu-list-item-title>
             <mu-list-item-action>
               <img  v-if="!m.noRouter" class="images" src="../../assets/images/more.png" style="position: relative;left: 1rem"/>
-              <span v-else class="inviteCode" v-else>{{m.myInvite}}</span>
+              <span v-else class="inviteCode">{{m.myInvite}}</span>
             </mu-list-item-action>
           </mu-list-item>
 

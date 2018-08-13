@@ -461,8 +461,8 @@ export default {
   #content{
     width: 100vw;
     margin:0;
-    overflow:hidden;
     height:100vh;
+    overflow:hidden;
     cursor:none;
     background:black;
     color: #fff;
@@ -488,7 +488,7 @@ export default {
     }
   }.landscape {
      position:absolute;
-     left:0;
+     left:0;bottom:0;
      width:100%;
      height:100%;
      /*background-image:url(https://openclipart.org/image/2400px/svg_to_png/250847/Trees-Landscape-Silhouette.png);

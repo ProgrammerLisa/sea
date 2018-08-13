@@ -17,7 +17,12 @@
           <img class="media-object" :src="f.headPortrait" alt="...">
         </div>
         <div class="media-body">
-          <h4 class="media-heading">{{f.friendName}}<span class="sex" v-bind:style="f.bcColor">{{f.sex}}</span></h4> ID：{{f.friendId}}
+          <h4 class="media-heading">
+            {{f.friendName}}
+
+            <span class="sex" v-bind:style="f.bcColor">{{f.sex}}</span>
+          </h4>
+          ID：{{f.friendId}}
         </div>
       </div>
     </div>
@@ -43,6 +48,7 @@
 						friendName: '小红花',
 						friendId: '123456789',
 						sex: '♀',
+            color:'#FC8484',
 						bcColor: 'background: #FC8484;'
 					},
 					{
@@ -50,6 +56,7 @@
 						friendName: '小红花',
 						friendId: '123456789',
 						sex: '♂',
+            color:'#5CB3FC',
 						bcColor: 'background: #5CB3FC;'
 					}
 				]
@@ -163,6 +170,9 @@
 		border-bottom: 0.1rem solid #f5f5f5;
 		padding: 1rem;
 	}
+  .friends:active{
+    background: #f5f5f5;
+  }
 
 	.media-heading {
 		margin-top: 0.3rem;
@@ -183,6 +193,7 @@
 		display: inline-block;
 		width: 1.3rem;
 		height: 1.3rem;
+    line-height: 1.3rem;
 		font-size: xx-small;
 		text-align: center;
 		margin: 0 1rem;

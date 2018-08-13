@@ -1,11 +1,11 @@
 <template>
 	<div id="retrieve">
-			<div class="panel panel-default BlackTitle">
-				<div class="panel-body">
-					<span @click="goBack" @touchstart="evers" @touchend="lat" class="back"> <img :src="masrc"/></span>
-					<span style="margin-left: -37px; position: absolute; left: 50%; font-size: 1.8rem;">找回密码</span>
-				</div>
-			</div>
+    <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0" >
+      <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+        <img :src="masrc"/>
+      </mu-button>
+      <span class="navTitleText" style="font-size: 1.6rem">找回密码</span>
+    </mu-appbar>
 
 			<form id="form_password">
 				<div style="padding: 45px 30px">

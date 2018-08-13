@@ -32,9 +32,9 @@
 					<span id="hint">长按拖拽可更改图片顺序,最多10张</span>
 				</div>
 				<div class="controlContainer">
-					<div class="controlScroll">
-						<div class="controlContent" v-for="(p,index) in timg" v-dragging="{ item: p, list: timg, group: 'p' }" :key="p.index">
-							<img @touchstart="rem" @touchend="js()" alt="有" class="media-object graph" :src="`${p+'?'+now}`" @click="changeActive(index)" />
+					<div class="controlScroll" >
+						<div class="controlContent"   v-for="(p,index) in timg" v-dragging="{ item: p, list: timg, group: 'p' }" :key="p.index" >
+							<img @touchstart="rem(p,index)" @touchend="js()" alt="有" class="media-object graph" :src="`${p+'?'+now}`" @click="changeActive(index)" />
 						</div>
 						<div class="chart-to" data-toggle="modal" data-target="#PhModal">
 							<!--<img class="media-object sheet" src="../../assets/images/tianjia.png" />-->
@@ -334,7 +334,6 @@
 
 			},
 			photoImg(c) {
-				alert(1);
 				let that = this;
 				let $c = document.querySelector(c);
 				that.chooseFile = $c.files[0];
@@ -377,6 +376,7 @@
 					}).then(function(res) {
 
 						if(res.data.code == 0) {
+							layer.close(index);
 							this.$layer.msg(res.data.msg);
 						} else {
 							this.$layer.msg(res.data.msg);
@@ -386,37 +386,37 @@
 						this.$layer.msg("系统异常，请稍后再试");
 					}.bind(this))
 			},
-			rem() {
+			rem(Iurl,i) {
 				let that = this;
 				that.time = setTimeout(function() {
 					that.$layer.confirm('is not?', {
 						icon: 3,
 						title: '确定删除该图片吗'
+
 						
-//						this.$http({
-//						method: "post",
-//						url: "/users/delete-picture",
-//						headers: {
-//							"device": "android",
-//							"uid": localStorage.getItem("uid")
-//						},
-//						data: {
-//							"url": this.res.data.data.pictures
-//						}
-//					}).then(function(res) {
-//
-//						if(res.data.code == 0) {
-//							this.$layer.msg(res.data.msg);
-//						} else {
-//							this.$layer.msg(res.data.msg);
-//						}
-//					}.bind(this))
-//					.catch(function(err) {
-//						this.$layer.msg("系统异常，请稍后再试");
-//					}.bind(this))
-						
-					}, function(index) {
-						layer.close(index);
+					}, function(index) {					
+						that.$http({
+							method: "post",
+							url: "/users/delete-picture",
+							headers: {
+								"device": "android",
+								"uid": localStorage.getItem("uid")
+							},
+							data: {
+								"url": Iurl
+							}
+						}).then(function(res) {
+							if(res.data.code == 0) {
+								that.$layer.msg(res.data.msg);
+							} else {
+								that.$layer.msg(res.data.msg);
+							}
+							that.timg.splice(i,1)
+					}.bind(this))
+					.catch(function(err) {
+						that.$layer.msg("系统异常，请稍后再试"+err);
+					}.bind(this));
+					layer.close(index);
 					});
 				}, 1000)
 			},
@@ -425,22 +425,33 @@
 			}
 		}
 	}
+
+	
 </script>
 
 <style scoped>
 	.chart-to {
-		position: fixed;
+		position: relative ;
 		background-color: #F5F5F5;
 		float: right;
 		width: 20vw;
 		height: 20vw;
-		margin-left: 75%;
-		margin-top: -22.5%;
+		float: none;
+		float: right;
+		margin-right: 6%;
+		margin-top: 1%;
 		display: table-cell;
-		vertical-align: middle;
-		text-align: center;
+    	text-align: center;  
 	}
 	
+	.sheet {
+		/*width: 10vw;
+		height: 10vw;*/
+		font-size: 4rem;
+		vertical-align: middle;
+		color: #888;
+	}
+
 	.content {
 		overflow-x: hidden;
 		background-color: #f5f5f5;
@@ -449,87 +460,80 @@
 		overflow-y: scroll;
 		padding-bottom: 2rem;
 	}
-	
+
 	.content::-webkit-scrollbar {
 		display: none
 	}
-	
+
 	.media {
 		background: #fff;
 		padding: 1rem 1.1rem;
 		border-bottom: 0.1rem solid #f5f5f5;
 		margin-top: 0.6rem;
 	}
-	
+
 	.media-body {
 		vertical-align: middle;
 	}
-	
+
 	.headImg {
 		width: 4rem;
 		height: 4rem;
 		border-radius: 50%;
 	}
-	
+
 	.graph {
 		width: 4rem;
 		height: 4rem;
 		margin-top: 10px;
 	}
-	
-	.sheet {
-		/*width: 10vw;
-		height: 10vw;*/
-		font-size: 4rem;
-		color: #888;
-	}
-	
+
 	.mu-list {
 		padding: 0;
 	}
-	
+
 	.listRight {
 		width: 50%
 	}
-	
+
 	.media-right {
 		color: #888;
 		font-size: small;
 	}
-	
+
 	.mu-list {
 		padding: 0;
 	}
-	
+
 	.listRight {
 		width: 50%
 	}
-	
+
 	.modal-content {
 		margin: 0 2rem;
 		border-radius: 0;
 		border: none;
 		text-align: center;
 	}
-	
+
 	.modal-dialog {
 		margin: 35vh auto;
 	}
-	
+
 	.modal-header {
 		padding: 1rem;
 		border-bottom: none;
 		color: #444;
 	}
-	
+
 	.modal-body {
 		padding: 0;
 	}
-	
+
 	#ImgModal .modal-content {
 		height: 14vh;
 	}
-	
+
 	.headImgChoose {
 		position: relative;
 		display: inline-block;
@@ -546,7 +550,7 @@
 		border-radius: 0;
 		outline: none;
 	}
-	
+
 	.headImgChoose input {
 		position: absolute;
 		right: 0;
@@ -555,81 +559,81 @@
 		-ms-filter: 'alpha(opacity=0)';
 		font-size: 100%;
 	}
-	
+
 	.closeBtn {
 		border-bottom: none;
 		line-height: 4.5vh;
 	}
-	
+
 	.nickNameLeft {
 		text-align: left;
 	}
-	
+
 	.moreImg {
 		height: 3rem;
 	}
-	
+
 	#hint {
 		float: right;
 		color: #888;
 		font-size: 0.05rem;
 		padding-right: 0px;
 	}
-	
+
 	.media-right {
 		padding-right: 0;
 	}
-	
+
 	.phone {
 		margin-top: 0.6rem;
 	}
-	
+
 	.ID {
 		margin-top: 0.6rem;
 	}
-	
+
 	.media-right {
 		padding: 0;
 	}
-	
+
 	.mu-divider {
 		background: #f5f5f5;
 	}
-	
+
 	.mu-item {
 		padding-right: 0;
 	}
-	
+
 	.marginTop {
 		margin-top: 0.6rem;
 		background: #f5f5f5;
 	}
-	
+
 	.mu-list-item {
 		background: #fff;
 	}
-	
+
 	.controlContainer {
 		overflow-x: scroll;
 	}
-	
+
 	.controlContainer::-webkit-scrollbar {
 		display: none
 	}
-	
+
 	.controlContent {
 		display: inline-block;
 		white-space: nowrap;
 	}
-	
+
 	.controlContent img {
 		width: 20vw;
 		height: 20vw;
 		margin: 1vw;
 	}
-	
+
 	.controlScroll {
-		width: 261vw;
+		width: auto;
 		margin-bottom: 0.5rem;
 	}
 </style>

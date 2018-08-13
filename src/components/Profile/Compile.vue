@@ -376,6 +376,7 @@
 					}).then(function(res) {
 
 						if(res.data.code == 0) {
+							layer.close(index);
 							this.$layer.msg(res.data.msg);
 						} else {
 							this.$layer.msg(res.data.msg);
@@ -392,7 +393,6 @@
 						icon: 3,
 						title: '确定删除该图片吗'
 
-
 					}, function(index) {
 						that.$http({
 							method: "post",
@@ -405,7 +405,6 @@
 								"url": Iurl
 							}
 						}).then(function(res) {
-
 							if(res.data.code == 0) {
 								that.$layer.msg(res.data.msg);
 							} else {
@@ -415,8 +414,8 @@
 					}.bind(this))
 					.catch(function(err) {
 						that.$layer.msg("系统异常，请稍后再试"+err);
-					}.bind(this))
-					layer.close(index)
+					}.bind(this));
+					layer.close(index);
 					});
 				}, 1000)
 			},
@@ -435,12 +434,20 @@
 		background-color: #F5F5F5;
 		width: 20vw;
 		height: 20vw;
-    clear: right;
+		float: none;
 		float: right;
 		margin-right: 6%;
 		margin-top: 1%;
 		display: table-cell;
     	text-align: center;
+	}
+
+	.sheet {
+		/*width: 10vw;
+		height: 10vw;*/
+		font-size: 4rem;
+		vertical-align: middle;
+		color: #888;
 	}
 
 	.sheet {

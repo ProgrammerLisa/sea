@@ -26,17 +26,15 @@
 				</mu-list>
 			</mu-paper>
 
-			<div class="media Pictures" >
+			<div class="media Pictures" style="margin-top: 0">
 				<div class="media-body">
 					上传相册
-					<span class="hint" @click="editImage" v-if="editimages">编辑</span>
-          <span class="hint" @click="doNotEdit" v-else>取消</span>
+					<span id="hint">长按拖拽可更改图片顺序,最多10张</span>
 				</div>
-				<div class="controlContainer" >
-					<div class="controlScroll" :style="aaaaaa">
-						<div class="controlContent"   v-for="(p,index) in timg" :key="index" >
-                <img alt="有" class="media-object graph" :src="p.img" @touchstart="showDeleteButton(index)" @touchend="clearLoop(index)"/>
-                <span class="clearIcon" v-show="p.show">   <mu-icon value="remove_circle" color="#333" @click="clearImage(index)"></mu-icon></span>
+				<div class="controlContainer">
+					<div class="controlScroll" >
+						<div class="controlContent"   v-for="(p,index) in timg" v-dragging="{ item: p, list: timg, group: 'p' }" :key="p.index" >
+							<img @touchstart="rem(p,index)" @touchend="js()" alt="有" class="media-object graph" :src="`${p+'?'+now}`" @click="changeActive(index)" />
 						</div>
 						<div class="chart-to" data-toggle="modal" data-target="#PhModal">
 							<!--<img class="media-object sheet" src="../../assets/images/tianjia.png" />-->
@@ -45,6 +43,7 @@
 					</div>
 				</div>
 			</div>
+
 			<mu-paper :z-depth="0" class="demo-list-wrap marginTop">
 				<mu-list>
 					<mu-list-item to="/nickname" avatar button class="mu-list-item">
@@ -170,12 +169,9 @@
 				more: more,
 				masrc: back,
 				headImg: headImg,
-				timg: [{img:timg,show:false},{img:more,show:false},{img:timg,show:false},{img:timg,show:false},{img:timg,show:false},{img:headImg,show:false}],
-        editimages:true,
-        loop:'',
+				timg: timg,
 				nickname: '',
 				signature: 'hahaha',
-        aaaaaa:'width:900px',
 				IDcode: '',
 				chooseFile: '',
 				houzhuiming: '',
@@ -193,10 +189,7 @@
 			}
 		},
 		inject: ['reload'],
-    created(){
-    },
-    mounted() {
-      this.aaaaaa='width:'+(this.timg.length+2)*96+'px';
+		mounted: function() {
 			this.$http({
 					method: "get",
 					url: "/users/info",
@@ -243,7 +236,7 @@
 						}
 
 						if(res.data.data.pictures == "") {
-
+							this.timg = [timg];
 						} else {
 							this.timg = res.data.data.pictures;
 						}
@@ -341,7 +334,6 @@
 
 			},
 			photoImg(c) {
-				alert(1);
 				let that = this;
 				let $c = document.querySelector(c);
 				that.chooseFile = $c.files[0];
@@ -393,31 +385,44 @@
 						this.$layer.msg("系统异常，请稍后再试");
 					}.bind(this))
 			},
-      editImage(){
-        this.editimages=false;
-        for (let i in this.timg) {
-          this.timg[i].show=true;
-        }
-      },
-      doNotEdit(){
-        this.editimages=true;
-        for (let i in this.timg) {
-          this.timg[i].show=false;
-        }
-      },
-      showDeleteButton(index){
-			  this.loop='';
-			  let that = this;
-        that.loop=setTimeout(function () {
-          that.timg[index].show=!that.timg[index].show;
-        },1000)
-      },
-      clearLoop() {
-        clearInterval(this.loop);
-      },
-      clearImage(index){
-			  this.timg.splice(index,1)
-      }
+			rem(Iurl,i) {
+				let that = this;
+				that.time = setTimeout(function() {
+					that.$layer.confirm('is not?', {
+						icon: 3,
+						title: '确定删除该图片吗'
+
+
+					}, function(index) {
+						that.$http({
+							method: "post",
+							url: "/users/delete-picture",
+							headers: {
+								"device": "android",
+								"uid": localStorage.getItem("uid")
+							},
+							data: {
+								"url": Iurl
+							}
+						}).then(function(res) {
+
+							if(res.data.code == 0) {
+								that.$layer.msg(res.data.msg);
+							} else {
+								that.$layer.msg(res.data.msg);
+							}
+							that.timg.splice(i,1)
+					}.bind(this))
+					.catch(function(err) {
+						that.$layer.msg("系统异常，请稍后再试"+err);
+					}.bind(this))
+					layer.close(index)
+					});
+				}, 1000)
+			},
+			js() {
+				clearTimeout(this.time);
+			}
 		}
 	}
 
@@ -426,16 +431,24 @@
 
 <style scoped>
 	.chart-to {
-		position: relative;
+		position: relative ;
 		background-color: #F5F5F5;
-		float: right;
 		width: 20vw;
 		height: 20vw;
-		margin-left: 75%;
-		margin-top: -22.5%;
+    clear: right;
+		float: right;
+		margin-right: 6%;
+		margin-top: 1%;
 		display: table-cell;
-   	 	vertical-align: middle;
     	text-align: center;
+	}
+
+	.sheet {
+		/*width: 10vw;
+		height: 10vw;*/
+		font-size: 4rem;
+		vertical-align: middle;
+		color: #888;
 	}
 
 	.content {
@@ -451,11 +464,11 @@
 		display: none
 	}
 
-	.Pictures {
+	.media {
 		background: #fff;
 		padding: 1rem 1.1rem;
 		border-bottom: 0.1rem solid #f5f5f5;
-		margin-top: 0;
+		margin-top: 0.6rem;
 	}
 
 	.media-body {
@@ -469,15 +482,9 @@
 	}
 
 	.graph {
-		width:100%;
-		height: 100%;
-	}
-
-	.sheet {
-		/*width: 10vw;
-		height: 10vw;*/
-		font-size: 4rem;
-		color: #888;
+		width: 4rem;
+		height: 4rem;
+		margin-top: 10px;
 	}
 
 	.mu-list {
@@ -487,6 +494,20 @@
 	.listRight {
 		width: 50%
 	}
+
+	.media-right {
+		color: #888;
+		font-size: small;
+	}
+
+	.mu-list {
+		padding: 0;
+	}
+
+	.listRight {
+		width: 50%
+	}
+
 	.modal-content {
 		margin: 0 2rem;
 		border-radius: 0;
@@ -497,6 +518,13 @@
 	.modal-dialog {
 		margin: 35vh auto;
 	}
+
+	.modal-header {
+		padding: 1rem;
+		border-bottom: none;
+		color: #444;
+	}
+
 	.modal-body {
 		padding: 0;
 	}
@@ -536,15 +564,35 @@
 		line-height: 4.5vh;
 	}
 
+	.nickNameLeft {
+		text-align: left;
+	}
+
 	.moreImg {
 		height: 3rem;
 	}
 
-	.hint {
+	#hint {
 		float: right;
 		color: #888;
 		font-size: 0.05rem;
 		padding-right: 0px;
+	}
+
+	.media-right {
+		padding-right: 0;
+	}
+
+	.phone {
+		margin-top: 0.6rem;
+	}
+
+	.ID {
+		margin-top: 0.6rem;
+	}
+
+	.media-right {
+		padding: 0;
 	}
 
 	.mu-divider {
@@ -566,7 +614,6 @@
 
 	.controlContainer {
 		overflow-x: scroll;
-
 	}
 
 	.controlContainer::-webkit-scrollbar {
@@ -576,25 +623,16 @@
 	.controlContent {
 		display: inline-block;
 		white-space: nowrap;
-    padding: 1rem 0.8rem 0 0;
-    width:8rem;
-    height: 8rem;
-    overflow: hidden;
-    margin-right: 1rem;
 	}
 
+	.controlContent img {
+		width: 20vw;
+		height: 20vw;
+		margin: 1vw;
+	}
 
 	.controlScroll {
+		width: auto;
 		margin-bottom: 0.5rem;
 	}
-  .clearIcon{
-    display: inline-block;
-    position: relative;
-    left:6rem;
-    top:-8rem;
-    width:  2rem;
-    height: 2rem;
-    background: #fff;
-    border-radius: 50%;
-  }
 </style>

@@ -104,86 +104,90 @@
           }
       },
       mounted(){
-          //个人信息
-        this.$http({
-          method: "get",
-          url: "/users/info",
-          headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
-          data: {}
-        }).then(function(res){
-          if(res.data.code==0){
-            var nikename = res.data.data.nickname;
-            var headimg = res.data.data.avatar;
-            this.phone=res.data.data.phone;
-            if(nikename==""){
-              this.nickName = localStorage.getItem("uid");
-            }else {
-              this.nickName =nikename;
-            }
-            if(headimg==""){
-              this.headPortrait = headImg;
-              this.haveHeadImg=false;
-            }else {
-              this.headPortrait = res.data.data.avatar;
-              this.haveHeadImg=true;
-            }
-
-          }else {
-            this.headPortrait = headImg;
-            this.headDefault=false;
-            this.$layer.msg(res.data.msg);
-          }
-        }.bind(this))
-          .catch(function(err){
-            this.$layer.msg("系统异常，请稍后再试");
-          }.bind(this));
-
-        //消息
-        this.$http({
-          method: "post",
-          url: "/messages/box",
-          headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
-          data: {
-            "page":1
-          }
-        }).then(function(res){
-          if(res.data.code==0) {
-            if(res.data.count>0){
-              this.newsCount = true
-            }else {
-              this.newsCount = false
-            }
-          }else {
-            this.$layer.msg(res.data.msg);
-          }
-        }.bind(this))
-          .catch(function(err){
-            this.$layer.msg("系统异常，请稍后再试");
-          }.bind(this));
-
-        //邀请人id
-        this.$http({
-          method: "post",
-          url: "/users/following",
-          headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
-          data: {}
-        }).then(function(res){
-        	if(res.data.code === 401){
-//      		this.$layer.alert('登录操作  请登录');
-        		this.$router.replace('/Login');
-        	}
-          if(res.data.code==0) {
-            this.Personal[1].myInvite = res.data.data.inviter_code
-          }else {
-            this.$layer.msg(res.data.msg);
-          }
-        }.bind(this))
-          .catch(function(err){
-            this.$layer.msg("系统异常，请稍后再试");
-          }.bind(this));
-
+        this.$nextTick(function () {
+          this.info();
+        })
       },
       methods:{
+          info(){
+            //个人信息
+            this.$http({
+              method: "get",
+              url: "/users/info",
+              headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
+              data: {}
+            }).then(function(res){
+              if(res.data.code==0){
+                var nikename = res.data.data.nickname;
+                var headimg = res.data.data.avatar;
+                this.phone=res.data.data.phone;
+                if(nikename==""){
+                  this.nickName = localStorage.getItem("uid");
+                }else {
+                  this.nickName =nikename;
+                }
+                if(headimg==""){
+                  this.headPortrait = headImg;
+                  this.haveHeadImg=false;
+                }else {
+                  this.headPortrait = res.data.data.avatar;
+                  this.haveHeadImg=true;
+                }
+
+              }else {
+                this.headPortrait = headImg;
+                this.headDefault=false;
+                this.$layer.msg(res.data.msg);
+              }
+            }.bind(this))
+              .catch(function(err){
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this));
+
+            //消息
+            this.$http({
+              method: "post",
+              url: "/messages/box",
+              headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
+              data: {
+                "page":1
+              }
+            }).then(function(res){
+              if(res.data.code==0) {
+                if(res.data.count>0){
+                  this.newsCount = true
+                }else {
+                  this.newsCount = false
+                }
+              }else {
+                this.$layer.msg(res.data.msg);
+              }
+            }.bind(this))
+              .catch(function(err){
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this));
+
+            //邀请人id
+            this.$http({
+              method: "post",
+              url: "/users/following",
+              headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
+              data: {}
+            }).then(function(res){
+              if(res.data.code === 401){
+//      		this.$layer.alert('登录操作  请登录');
+                this.$router.replace('/Login');
+              }
+              if(res.data.code==0) {
+                this.Personal[1].myInvite = res.data.data.inviter_code
+              }else {
+                this.$layer.msg(res.data.msg);
+              }
+            }.bind(this))
+              .catch(function(err){
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this));
+          },
         changeBack(index){
           // $(".media").css({background:'#fff'});
 

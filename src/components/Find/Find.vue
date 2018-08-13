@@ -112,39 +112,39 @@
         data(){
             return{
               time:Date.now(),
-              signIn:true
+              signIn:''
             }
         },
         mounted(){
-          this.$http({
-            method: "post",
-            url: "/tasks/explore",
-            headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
-            data:{
-              nowtime:$("#time").text()
-            }
-          }).then(function(res){
-            if (res.data.code==0){
-              if (res.data.data.is_signin){
-                this.signIn=true
-              } else {
-                this.signIn=false
-              }
-            }
-          }.bind(this))
-            .catch(function(err){
-              console.log(err)
-            }.bind(this));
+          this.$nextTick(function () {
+            this.isSignIn();
+          })
         },
         methods:{
+          isSignIn(){
+            this.$http({
+              method: "post",
+              url: "/tasks/explore",
+              headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
+
+            }).then(function(res){
+              if (res.data.code==0){
+                if (res.data.data.has_signed){
+                  this.signIn=true
+                } else {
+                  this.signIn=false
+                }
+              }
+            }.bind(this))
+              .catch(function(err){
+                console.log(err)
+              }.bind(this));
+          },
           signInFc(){
             this.$http({
               method: "post",
               url: "/tasks/sign-in",
               headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
-              data: {
-                signin_at:$("#time").text()
-              }
             }).then(function(res){
                 this.$layer.msg(res.data.msg);
                 if(res.data.code==0){

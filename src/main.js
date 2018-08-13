@@ -22,7 +22,7 @@ Vue.use(VueDND);
 Vue.use(VueRouter);
 Vue.use(VueClipboard);
 Vue.use(Croppa);
-Vue.use(MuseUI)
+Vue.use(MuseUI);
 // Vue.use(VueResource)
 theme.use('light');
 

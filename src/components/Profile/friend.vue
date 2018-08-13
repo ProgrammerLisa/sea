@@ -63,31 +63,37 @@
 			}
 		},
 		mounted() {
-			this.$http({
-					method: "post",
-					url: "/users/followers",
-					headers: {
-						"device": "android",
-						"uid": localStorage.getItem("uid"),
-						"Access-Control-Allow-Origin": "*"
-					}
-				}).then(function(res) {
-					if(res.data.code != 0) {
-						this.$layer.msg(res.data.msg);
-					}else {
-					  if(res.data.data.length==0){
-					    this.noFriend=true;
+      this.$nextTick(function () {
+        this.friend()
+      })
+
+		},
+		methods: {
+      friend(){
+        this.$http({
+          method: "post",
+          url: "/users/followers",
+          headers: {
+            "device": "android",
+            "uid": localStorage.getItem("uid"),
+            "Access-Control-Allow-Origin": "*"
+          }
+        }).then(function(res) {
+          if(res.data.code != 0) {
+            this.$layer.msg(res.data.msg);
+          }else {
+            if(res.data.data.length==0){
+              this.noFriend=true;
             }else {
-					    //拥有好友时
+              //拥有好友时
               this.noFriend=false;
             }
           }
-				}.bind(this))
-				.catch(function(err) {
-          this.$layer.msg("系统异常，请稍后再试");
-				}.bind(this))
-		},
-		methods: {
+        }.bind(this))
+          .catch(function(err) {
+            this.$layer.msg("系统异常，请稍后再试");
+          }.bind(this))
+      },
 			evers() {
 				this.masrc = backs;
 			},

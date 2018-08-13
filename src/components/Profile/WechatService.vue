@@ -13,7 +13,7 @@
 		<div v-else class="service">
 			<h4 class="serviceTitle">客服时间</h4>
 			<p class="serviceTime">工作日 9:00-21:00</p>
-			<p class="servicePrompt">如有问题请长按识别联系客服</p>
+			<p class="servicePrompt">如有问题请加微信联系客服</p>
 			<img :src="wechatservice" />
 		</div>
 	</div>
@@ -21,7 +21,6 @@
 
 <script>
 	import netNoneImg from '@/assets/images/network.png'
-	import wechatservice from '@/assets/images/wechatservice.png'
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
 
@@ -32,13 +31,34 @@
 				masrc: back,
 				netNone: false,
 				netNoneImg: netNoneImg,
-				wechatservice: wechatservice
+				wechatservice: ''
 			}
 		},
 		mounted() {
-
+      this.$nextTick(function () {
+        this.service()
+      })
 		},
 		methods: {
+      service(){
+        this.$http({
+          method: "get",
+          url: "/customer-service",
+          headers: {
+            "device": "android",
+            "uid": localStorage.getItem("uid"),
+            "Access-Control-Allow-Origin": "*"
+          }
+        }).then(function(res) {
+          if(res.data.code===0){
+            this.wechatservice=res.data.data.customer_service_qrcode;
+          }
+
+        }.bind(this))
+          .catch(function(err) {
+            this.$layer.msg("系统异常，请稍后再试");
+          }.bind(this))
+      },
 			evers() {
 				console.log(1)
 				this.masrc = backs;

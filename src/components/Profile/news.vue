@@ -15,29 +15,33 @@
 
     <mu-paper :z-depth="0" class="demo-list-wrap"  v-else>
       <mu-list textline="two-line">
-        <div v-for="(n,index) in news" :key="index" @touchstart="touchStart($event,index)" @touchmove="touchMove($event,index)" @touchend="touchEnd($event,index)" :data-curid="n.id">
+        <div v-for="(n,index) in reverseData" :key="index" @touchstart="touchStart($event,index)" @touchmove="touchMove($event,index)" @touchend="touchEnd($event,index)" :data-curid="n.id">
           <mu-list-item avatar button >
              <mu-list-item-content>
                   <mu-list-item-title>
                     <!--{{n.msg.title}}-->
-                    系统消息
+                    系统消息 <span style="float: right;font-size: small;color: #555">{{n.msg.created_at}}</span>
                   </mu-list-item-title>
                   <mu-list-item-sub-title>
                     {{n.msg.content}}
                   </mu-list-item-sub-title>
                 </mu-list-item-content>
-                <mu-list-item-action >
-                  <mu-list-item-after-text>{{n.msg.created_at}}</mu-list-item-after-text>
-                </mu-list-item-action>
+
             </mu-list-item>
             <div class="media-right" >
               <span class="badge msg" v-show="!n.msg.is_read">·</span>
             </div>
             <transition name="slide-fade">
-              <div class="del"　v-if="n.show" @click="del(index)">
+              <div class="del"　v-if="n.show" @click="openAlertDialog">
                 删除
               </div>
+
             </transition>
+          <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert" style="text-align: center">
+            确认删除这条消息吗
+            <mu-button slot="actions" flat color="primary" @click="del(index)" class="loginOutBtn">确定</mu-button>
+            <mu-button slot="actions" flat color="primary" @click="closeAlertDialog" class="loginOutBtn">取消</mu-button>
+          </mu-dialog>
           <mu-divider></mu-divider>
           </div>
 
@@ -60,6 +64,7 @@
 				newsNone: true,
 				newsNoneImg: newsNoneImg,
 				news: [],
+        openAlert:false,
 				mobile: {
 					id: '',
 					msg: {
@@ -78,10 +83,23 @@
 				disX: 0, //移动距离
 			}
 		},
+    computed: {
+      reverseData() {
+        return this.news.reverse();
+      }
+    },
 		mounted() {
-      this.newsList();
+      this.$nextTick(function () {
+        this.newsList();
+      })
 		},
 		methods: {
+      openAlertDialog () {
+        this.openAlert = true;
+      },
+      closeAlertDialog () {
+        this.openAlert = false;
+      },
 		  newsList(){
         this.$http({
           method: "post",
@@ -95,12 +113,12 @@
             "page":1
           }
         }).then(function(res) {
-          console.log(res.data)
           if(res.data.code == 0) {
             if(JSON.stringify(res.data.data) == "{}") {
               this.newsNone = true;
             } else {
               this.newsNone = false;
+              console.log(res.data.data)
               for(let n in res.data.data) {
                 this.mobile.id = n;
                 this.mobile.msg = res.data.data[n];
@@ -276,7 +294,7 @@
 	.msg {
     position: absolute;
     right:0.5rem;
-    margin-top: 1rem;
+    margin-top: -5rem;
 		color: #ff2424;
 		background: transparent;
 		font-size: xx-large;
@@ -317,5 +335,13 @@
 
   .mu-divider{
     background: #f5f5f5;
+  }
+
+  .loginOutBtn{
+    border-top: 1px solid #ddd;width: 50%;
+    color: #555;
+  }
+  .loginOutBtn:first-child{
+    border-right: 1px solid #ddd;
   }
 </style>

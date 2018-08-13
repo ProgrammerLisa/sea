@@ -44,7 +44,7 @@
         <div class="demo-text" v-if="active2 === 0">
           <mu-paper :z-depth="0" class="demo-list-wrap">
             <mu-list textline="three-line" class="stealerList">
-              <div v-for="(s,index) in stealer">
+              <div v-for="(s,index) in stealer" class="list">
                 <mu-list-item avatar>
                   <mu-list-item-content class="contentLeft">
                     <mu-list-item-title style="margin-bottom: 0.5rem">{{s.name}} <span style="color: rgba(0, 0, 0, .6)">偷取了你的珍珠</span></mu-list-item-title>
@@ -63,8 +63,8 @@
         </div>
         <div class="demo-text" v-if="active2 === 1">
           <mu-paper :z-depth="0" class="demo-list-wrap">
-            <mu-list toggle-nested textline="three-line">
-              <div v-for="(m,index) in message">
+            <mu-list toggle-nested textline="three-line" class="mu-list">
+              <div v-for="(m,index) in message" class="list">
                 <mu-list-item style="padding: 1rem 0" button nested :open="open === 'send'+index" @toggle-nested="open = arguments[0] ? 'send+index' : ''">
                   <mu-list-item-action>
                     <mu-avatar>
@@ -84,14 +84,19 @@
 
                   </mu-list-item-content>
                   <mu-list-item-action>
-                    <mu-button small color="#fff" textColor="#09a2d6" flat style="border: solid 1px #09a2d6">回复</mu-button>
+                    <mu-button small color="#fff" textColor="#09a2d6" flat @click="openLeaveMessage" style="border: solid 1px #09a2d6">回复</mu-button>
+                    <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openMessage">
+                      <mu-text-field v-model="leavemessage" label="回复小偷" full-width placeholder="请输入回复内容"></mu-text-field>
+                      <mu-button slot="actions" flat color="primary" @click="leaveMessage(index)">发送</mu-button>
+                      <mu-button slot="actions" flat color="#555" @click="closeLeaveMessage">取消</mu-button>
+                    </mu-dialog>
                   </mu-list-item-action>
 
-                  <mu-list-item-content button :ripple="false" slot="nested" class="msgList">
+                  <mu-list-item-content button :ripple="false" slot="nested" class="msgList" v-show="m.hasMsg">
                     <div class="msgs"><span style="color: #09a2d6">我</span>：{{m.reply}}</div>
                   </mu-list-item-content>
                 </mu-list-item>
-                <mu-divider></mu-divider>
+                <mu-divider class="mu-divider"></mu-divider>
               </div>
             </mu-list>
           </mu-paper>
@@ -126,38 +131,53 @@
               {name:'鱼弟',date:'2018-07-22 18:33:46',revenge:'',id:''},
               {name:'鱼弟',date:'2018-07-22 18:33:46',revenge:'',id:''}
             ],
-            message:[
-
-            ]
+            message:[],
+            openMessage:false,
+            leavemessage:''
           }
         },
         mounted(){
-          this.$http({
-            method: "post",
-            url: "/messages/message-board",
-            headers: {
-              "device": "android",
-              "uid": localStorage.getItem("uid"),
-              "Access-Control-Allow-Origin": "*"
-            }
-          }).then(function(res) {
-            console.log(res.data)
-            if(res.data.data.length!=0){
-              this.message=res.data.data;
-              for (let i in res.data.data) {
-                if(JSON.stringify(res.data.data[i].reply) != "{}"){
-                  for(let j in res.data.data[i].reply){
-                    this.message[i].reply=res.data.data[i].reply[j]
+          this.$nextTick(function () {
+            this.board();
+          })
+        },
+        methods:{
+          board(){
+            this.$http({
+              method: "post",
+              url: "/messages/message-board",
+              headers: {
+                "device": "android",
+                "uid": localStorage.getItem("uid"),
+                "Access-Control-Allow-Origin": "*"
+              }
+            }).then(function(res) {
+              if(res.data.data.length!=0){
+                this.message=res.data.data;
+                console.log(this.message)
+                for (let i in res.data.data) {
+                  if(res.data.data[i].reply.length!==0){
+                    for(let j in res.data.data[i].reply){
+                      this.message[i].reply=res.data.data[i].reply[j];
+                      this.message[i].hasMsg=true
+                    }
                   }
                 }
               }
-            }
-          }.bind(this))
-            .catch(function(err) {
-              this.$layer.msg("系统异常，请稍后再试");
             }.bind(this))
-        },
-        methods:{
+              .catch(function(err) {
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this))
+          },
+          openLeaveMessage(){
+            this.openMessage = true;
+          },
+          closeLeaveMessage(){
+            this.openMessage = false;
+          },
+          leaveMessage(index){
+            console.log(this.message[index].mid)
+          },
           evers() {
             this.masrc = backs;
           },
@@ -172,7 +192,15 @@
 </script>
 
 <style scoped>
-
+  .content{
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+  .content::-webkit-scrollbar{
+    display: none;
+  }
   .demo-container{
     background: #f5f5f5;
     width: 88%;
@@ -240,5 +268,8 @@
   }
   .msgs{
     font-size: 1.5rem;
+  }
+  .list:last-child .mu-divider{
+    display: none;
   }
 </style>

@@ -185,9 +185,9 @@ export default {
           var cl = "float-container-left-" + index;
           var cookievalTop = localStorage.getItem(ck);
           var cookievalLeft = localStorage.getItem(cl);
-          if (cookievalTop == "" || cookievalLeft == "" || cookievalTop == null || cookievalLeft == null || cookievalTop == undefined || cookievalLeft == undefined) {
-            cookievalTop = parseInt((($('#main-top').outerHeight() - 100) * 0.7 * Math.random() + $('#main-top').outerHeight() * 0.3) / 12);
-            cookievalLeft = parseInt(($('#main-top').outerWidth() - 100) * 0.8 * Math.random() / 12);
+          if (cookievalTop == "" || cookievalLeft == "" || cookievalTop == null || cookievalLeft == null || cookievalTop == undefined || cookievalLeft == undefined||cookievalTop == null||cookievalLeft == null) {
+            cookievalTop = parseInt((($(window).height() - 100) * 0.7 * Math.random() + $(window).height() * 0.3) / 12);
+            cookievalLeft = parseInt(($(window).width() - 100) * 0.8 * Math.random() / 12);
             $(".float-container" + index).css({top: cookievalTop + 'rem', left: cookievalLeft + 'rem'});
             localStorage.setItem(ck, cookievalTop);
             localStorage.setItem(cl, cookievalLeft);
@@ -379,9 +379,9 @@ export default {
       function setCanvasSize() {
         WIDTH = document.documentElement.clientWidth,
           HEIGHT = document.documentElement.clientHeight;
-
+          console.log(WIDTH,HEIGHT)
         canvas.setAttribute("width", WIDTH);
-        canvas.setAttribute("height", HEIGHT);
+        canvas.setAttribute("height", HEIGHT-$(".myNav").height()-10);
       }
 
       function init() {
@@ -470,7 +470,8 @@ export default {
   }
   .filter {
     width:100%;
-    height:100%;
+    height:100vh;
+    overflow: hidden;
     position:absolute;
     top:0;
     left:0;

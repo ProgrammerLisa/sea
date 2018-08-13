@@ -116,10 +116,11 @@
     height: 2.5rem;
   }
   .picContainer{
-    width: 100vw;
+    width: 100.5vw;
     max-height: 100vw;
     overflow: hidden;
-    margin-top: -1px;
+    margin-top: -3px;
+    margin-left: -2px;
   }
   .picContainer img{
     width: 100vw;

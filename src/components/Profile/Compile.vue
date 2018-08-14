@@ -261,6 +261,7 @@
 				}.bind(this))
 
 		},
+		
 		methods: {
 			changeActive(index) {
 				this.active = index;

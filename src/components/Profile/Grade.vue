@@ -9,7 +9,9 @@
 			</mu-appbar>
 			<div class="income" id="nav2">
 				<div class="today">
-					<img style="width: 72px;height: 72px;margin-top: 20px;margin-bottom: -20px;" src="../../assets/images/chushi.png" />
+					<!--<img style="width: 72px;height: 72px;margin-top: 20px;margin-bottom: -20px;" src="../../assets/images/chushi.png" />-->
+									<img class="media-object headImg" :src="`${headImg+'?'+now}`" v-if="haveHeadImg" />
+									<img class="media-object headImg" :src="headImg" v-else/>
 					<div class="le">
 						<span class="level">Lv.{{level}}</span>
 					</div>
@@ -118,6 +120,7 @@
 </template>
 
 <script>
+	import headImg from '@/assets/images/chushi.png'
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
 	import more from '@/assets/images/more.png'
@@ -125,11 +128,47 @@
 		name: "Grade",
 		data() {
 			return {
+				headImg: headImg,
+				haveHeadImg: '',
 				masrc: back,
 				more: more,
 				level: 3
 
 			}
+		},
+		mounted: function() {
+			this.$http({
+					method: "post",
+					url: "/users/level",
+					headers: {
+						"device": "android",
+						"uid": localStorage.getItem("uid"),
+						"Access-Control-Allow-Origin": "*"
+					},
+					data: {
+					}
+				}).then(function(res) {
+					console.log(res.data.msg);
+					if(res.data.code == 0) {
+//						this.signature = res.data.data.resume;
+							
+						if(res.data.data.avatar == "") {
+							this.headImg = headImg;
+							this.haveHeadImg = false
+						} else {
+							this.headImg = res.data.data.avatar;
+							this.haveHeadImg = true
+						}
+					} else {
+						this.$layer.msg(res.data.msg);
+					}
+				}.bind(this))
+				.catch(function(err) {
+					this.haveHeadImg = false
+					this.phtoImg = false
+					console.log(err)
+				}.bind(this))
+
 		},
 		mounted() {
 			let height = $("#nav1").height() + $("#nav2").height() + $("#nav3").height();
@@ -322,5 +361,13 @@
 		border-radius: 0.8rem;
 		margin-bottom: 1rem;
 		padding: 0 0.5rem;
+	}
+	
+	.headImg{
+		width: 72px;
+		height: 72px;
+		margin-top: 20px;
+		margin-bottom: -20px;
+		margin-left: 40%;
 	}
 </style>

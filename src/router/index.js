@@ -23,6 +23,7 @@ import DonationCount from '@/components/Find/DonationCount'
 import Find from '@/components/Find/Find'
 import friend from '@/components/Profile/friend'
 import FriendData from '@/components/Profile/FriendData'
+import FriendFarm from '@/components/Farm/FriendFarm'
 
 import GameRules from '@/components/Home/GameRules'
 
@@ -353,7 +354,13 @@ export default new Router({
       name:'Record',
       meta:{index:2},
       component: Record
-    }
+    },{
+      path:'/friendfarm',
+      name:'FriendFarm',
+      meta:{index:4},
+      component: FriendFarm
+    },
+
 
   ]
 })

@@ -6,7 +6,7 @@
       </mu-button>
     </div>
 
-    <mu-carousel transition="fade" class="picContainer" interval="5000" :cycle="false"  hide-controls :active="active">
+    <mu-carousel transition="fade" class="picContainer" interval="5000" :cycle="false"  hide-controls hide-indicators :active="active">
       <mu-carousel-item v-for="(p,index) in pic" :key="index" >
         <img :src="p.src"/>
       </mu-carousel-item>
@@ -16,10 +16,15 @@
         </mu-button>
       </template>
     </mu-carousel>
-    <div class="dataContainer">
-      <div class="title">好友昵称 <span class="sex">{{sex}}</span></div>
-      <div class="msg"><span class="level">Lv.{{level}}</span><span class="friendId">ID:{{id}}</span></div>
-      <div class="autograph">{{autograph}}</div>
+    <div class="text-center">
+
+      <img :src="headImg" style="width: 8rem;border-radius: 50%;border: 0.5rem solid #fff;position: relative;margin-top: -4rem"/>
+    </div>
+    <div class="dataContainer text-center">
+        <div class="title">好友昵称 <span class="sex">{{sex}}</span></div>
+        <div class="msg"><div class="level">Lv.{{level}}</div><div class="friendId">ID:{{id}}</div></div>
+        <div class="autograph">{{autograph}}</div>
+
     </div>
     <div class="title" style="padding: 1rem 5vw 0">相册</div>
     <div class="controlContainer">
@@ -30,7 +35,7 @@
       </div>
     </div>
     <div class="more"><span @click="photowall">查看更多图片<img src="../../assets/images/more.png"/></span></div>
-
+    <mu-button to="/friendfarm" full-width large color="#09A2D6" style="position: fixed;bottom: 0">进入好友主页</mu-button>
   </div>
 </template>
 
@@ -48,6 +53,7 @@
         data(){
           return{
             masrc: back,
+            headImg:pic1,
             pic:[{src:pic1},{src:pic2},{src:pic3},{src:pic4},{src:pic5},{src:pic6}],
             active: 0,
             sex:'♀',
@@ -92,6 +98,7 @@
     background: #fff;
     height: 100%;
     overflow-y: scroll;
+    padding-bottom: 4rem;
   }
   .content::-webkit-scrollbar {
     display:none
@@ -186,6 +193,7 @@
     border-radius:0.8rem;
     padding: 0 0.5rem;
     margin-right: 1rem;
+    margin-bottom: 0.5rem;
   }
   .friendId{
     font-size: small;
@@ -200,18 +208,12 @@
   }
   .more{
     text-align: center;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     color: #646464;
     margin-top: 1rem;
   }
   .more img{
     width: 2.5rem;
   }
-  .news{
-    background: #f5f5f5;
-    padding: 1rem  5vw;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-  }
+
 </style>

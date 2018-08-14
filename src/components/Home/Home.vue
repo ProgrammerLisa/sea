@@ -8,7 +8,8 @@
         <marquee style="height: 2.5rem;" scrollamount="5" scrolldelay="1"><span style="font-size: 1.5rem;color: #fff">公告:亲爱的用户，平台momomo即将上线，敬请期待。</span></marquee>
      </div>
      <div class="topOption option1">
-        <span >珍珠量 {{imgSum}}</span>
+        <div class="icon"><img :src="zhenzhuIcon"/> 珍珠 {{imgSum}}</div>
+        <div class="icon"><img :src="nengliangIcon"/> 能量 {{imgSum}}</div>
       </div>
       <div id="imgDiv"></div>
     <router-link class="option2" to="/gamerules" tag="div">
@@ -36,6 +37,8 @@
 <script>
 import { Group, Cell } from 'vux'
 import backGround from '@/assets/images/bg.png'
+import zhenzhuIcon from '@/assets/images/zhenzhuHome.png'
+import nengliang from '@/assets/images/nengliang.png'
 import shell from '@/assets/images/bihe.png'
 import henghesha1 from '@/assets/images/henghesha/1.png'
 import henghesha2 from '@/assets/images/henghesha/2.png'
@@ -97,6 +100,8 @@ export default {
       imgSum:0,
       imgSrc:backGround,
       flag:true,
+      zhenzhuIcon:zhenzhuIcon,
+      nengliangIcon:nengliang,
       pearl:[pearl1,pearl2,pearl3,pearl4,pearl5,pearl6,pearl7,pearl8,pearl9],
       opal:[opal1,opal2,opal3,opal4,opal5,opal6,opal7,opal8,opal9],
       opper:[opper1,opper2,opper3,opper4,opper5,opper6,opper7,opper8,opper9],
@@ -379,7 +384,6 @@ export default {
       function setCanvasSize() {
         WIDTH = document.documentElement.clientWidth,
           HEIGHT = document.documentElement.clientHeight;
-          console.log(WIDTH,HEIGHT)
         canvas.setAttribute("width", WIDTH);
         canvas.setAttribute("height", HEIGHT-$(".myNav").height()-10);
       }
@@ -508,12 +512,21 @@ export default {
 		font-size: 1.01rem;
     background: rgba(255,255,255,0.1);
 	}
+  .icon{
+    background: rgba(0,0,0,0.2);
+    border-radius: 2rem;
+    padding: 0.1rem 1.5rem 0.1rem 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .icon img{
+    width: 2rem;
+  }
   .topOption{
     position: absolute;
   }
   .option1{
     left: 1.5rem;
-    top: 9rem;
+    top: 8rem;
   }
 
   .invitation-friends{

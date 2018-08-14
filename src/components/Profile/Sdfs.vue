@@ -14,7 +14,7 @@
       <div class="contentMarginTop">
         <mu-form :model="form" class="mu-demo-form" :label-position="labelPosition" label-width="100">
           <mu-form-item prop="input" >
-            <mu-text-field @focus="inputFocus" @blur="inputFocus" :action-icon="haveData?'highlight_off':''" :action-click="clearInput" style="background: #fff;border-top: 1px solid #eee;" color="#09a2d6" v-model="form.input" placeholder="这个人很懒,还没有签名"  ></mu-text-field>
+            <mu-text-field @focus="inputFocus" @blur="inputFocus" :action-icon="haveData?'highlight_off':''" :action-click="clearInput" style="background: #fff;border-top: 1px solid #eee;" color="#09a2d6" v-model="form.input" placeholder="编辑个性签名"  ></mu-text-field>
           </mu-form-item>
         </mu-form>
       </div>

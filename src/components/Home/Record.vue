@@ -11,13 +11,13 @@
         <mu-col span="6" class="counts">
           <div class="grid-cell">
             <h4>今日偷取</h4>
-            <div class="count">{{mycount}}颗</div>
+            <div class="count">{{mycount}} 颗</div>
           </div>
         </mu-col>
         <mu-col span="6" class="counts">
           <div class="grid-cell">
             <h4>被偷数量</h4>
-            <div class="count">{{becount}}颗</div>
+            <div class="count">{{becount}} 颗</div>
           </div>
         </mu-col>
       </mu-row>
@@ -26,30 +26,26 @@
       <div class="visitorTitle">
         <span class="sign"></span>到访小偷
       </div>
-      <mu-row>
-        <mu-col span="2"><div class="grid-cell visitor"><img :src="img"/></div></mu-col>
-        <mu-col span="2"><div class="grid-cell visitor"><img :src="img"/></div></mu-col>
-        <mu-col span="2"><div class="grid-cell visitor"><img :src="img"/></div></mu-col>
-        <mu-col span="2"><div class="grid-cell visitor"><img :src="img"/></div></mu-col>
-        <mu-col span="2"><div class="grid-cell visitor"><img :src="img"/></div></mu-col>
-        <mu-col span="2"><div class="grid-cell visitor"><img :src="img"/></div></mu-col>
+      <mu-row v-if="hasVisitor">
+        <mu-col span="2" v-for="(v,index) in visitor" :key="index"><div class="grid-cell visitor"><img :src="v.avatar"/></div></mu-col>
       </mu-row>
+      <div class="text-center" v-else style="padding: 1rem;color: #555;font-size: 1.6rem">暂无访客</div>
     </div>
     <div class="contentMarginTop">
       <mu-container>
         <mu-tabs :value.sync="active2" color="#fff" indicator-color="#09a2d6" full-width >
-          <mu-tab style="color:#555">最新动态</mu-tab>
-          <mu-tab style="color:#555">小偷留言</mu-tab>
+          <mu-tab style="color:#555;font-size: 1.6rem">最新动态</mu-tab>
+          <mu-tab style="color:#555;font-size: 1.6rem">小偷留言</mu-tab>
         </mu-tabs>
         <div class="demo-text" v-if="active2 === 0">
-          <mu-paper :z-depth="0" class="demo-list-wrap">
-            <mu-list textline="three-line" class="stealerList">
+          <mu-paper :z-depth="0" v-if="hasNews" class="demo-list-wrap">
+            <mu-list class="stealerList">
               <div v-for="(s,index) in stealer" class="list">
                 <mu-list-item avatar>
                   <mu-list-item-content class="contentLeft">
-                    <mu-list-item-title style="margin-bottom: 0.5rem">{{s.name}} <span style="color: rgba(0, 0, 0, .6)">偷取了你的珍珠</span></mu-list-item-title>
+                    <mu-list-item-title style="margin-bottom: 0.5rem">{{s.nickname}} <span style="font-size:1.5rem;color: rgba(0, 0, 0, .6)">偷取了你的珍珠</span></mu-list-item-title>
                     <mu-list-item-sub-title>
-                      <span style="font-size: small;">{{s.date}}</span>
+                      <span style="font-size: small;">{{s.stolen_time}}</span>
                     </mu-list-item-sub-title>
                   </mu-list-item-content>
                   <mu-list-item-action class="contentRight">
@@ -60,15 +56,16 @@
               </div>
             </mu-list>
           </mu-paper>
+          <div v-else class="text-center" style="padding: 5rem;font-size: 1.6rem;color:#777">暂无最新动态</div>
         </div>
         <div class="demo-text" v-if="active2 === 1">
-          <mu-paper :z-depth="0" class="demo-list-wrap">
+          <mu-paper :z-depth="0" v-if="hasMessage" class="demo-list-wrap">
             <mu-list toggle-nested textline="three-line" class="mu-list">
               <div v-for="(m,index) in message" class="list">
                 <mu-list-item style="padding: 1rem 0" button nested :open="open === 'send'+index" @toggle-nested="open = arguments[0] ? 'send+index' : ''">
                   <mu-list-item-action>
                     <mu-avatar>
-                      <img :src="img">
+                      <img :src="m.from_user_avatar">
                     </mu-avatar>
                   </mu-list-item-action>
                   <mu-list-item-content>
@@ -86,20 +83,28 @@
                   <mu-list-item-action>
                     <mu-button small color="#fff" textColor="#09a2d6" flat @click="openLeaveMessage" style="border: solid 1px #09a2d6">回复</mu-button>
                     <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openMessage">
-                      <mu-text-field v-model="leavemessage" label="回复小偷" full-width placeholder="请输入回复内容"></mu-text-field>
-                      <mu-button slot="actions" flat color="primary" @click="leaveMessage(index)">发送</mu-button>
+                      <div style="height: 110px">
+                        <mu-text-field type="text" label="回复小偷" v-model="leavemessage" placeholder="请输入回复内容"  full-width style="margin-bottom: 0;"></mu-text-field>
+                        <mu-slide-top-transition v-show="messageMsgShow">
+                          <div class="mu-transition-box mu-inverse" style="color: #EF5350;font-size: small" v-show="messageMsgShow">{{messageMsg}}</div>
+                        </mu-slide-top-transition>
+                      </div>
+
+                      <mu-button slot="actions" flat color="primary" @click="leaveMessage(m.mid)">发送 </mu-button>
                       <mu-button slot="actions" flat color="#555" @click="closeLeaveMessage">取消</mu-button>
+
                     </mu-dialog>
                   </mu-list-item-action>
 
                   <mu-list-item-content button :ripple="false" slot="nested" class="msgList" v-show="m.hasMsg">
-                    <div class="msgs"><span style="color: #09a2d6">我</span>：{{m.reply}}</div>
+                    <div class="msgs" v-for="(r,item) in m.reply"><span style="color: #09a2d6">我</span>：{{r[1]}}</div>
                   </mu-list-item-content>
                 </mu-list-item>
                 <mu-divider class="mu-divider"></mu-divider>
               </div>
             </mu-list>
           </mu-paper>
+          <div v-else class="text-center" style="padding: 5rem;font-size: 1.6rem;color:#777">暂无留言</div>
         </div>
 
       </mu-container>
@@ -110,38 +115,64 @@
 <script>
   import back from '@/assets/images/back.png'
   import backs from '@/assets/images/backs.png'
-  import img from '@/assets/images/test/timg.jpg'
     export default {
         name: "Record",
         data(){
           return{
             masrc: back,
-            mycount:1.11,
-            becount:1.11,
-            img:img,
+            mycount:'',
+            becount:'',
+            hasVisitor:false,
+            hasNews:false,
+            hasMessage:false,
             active2: 0,
             open: '',
-            stealer:[
-              {name:'鱼弟',date:'2018-07-22 18:33:46',revenge:'',id:''},
-              {name:'鱼弟',date:'2018-07-22 18:33:46',revenge:'',id:''},
-              {name:'鱼弟',date:'2018-07-22 18:33:46',revenge:'',id:''},
-              {name:'鱼弟',date:'2018-07-22 18:33:46',revenge:'',id:''},
-              {name:'鱼弟',date:'2018-07-22 18:33:46',revenge:'',id:''},
-              {name:'鱼弟',date:'2018-07-22 18:33:46',revenge:'',id:''},
-              {name:'鱼弟',date:'2018-07-22 18:33:46',revenge:'',id:''},
-              {name:'鱼弟',date:'2018-07-22 18:33:46',revenge:'',id:''}
-            ],
+            visitor:[],
+            stealer:[],
             message:[],
             openMessage:false,
-            leavemessage:''
+            leavemessage:'',
+            messageMsg:'',
+            messageMsgShow:false
           }
         },
         mounted(){
           this.$nextTick(function () {
+            this.gain();
             this.board();
           })
         },
         methods:{
+          gain(){
+            this.$http({
+              method: "post",
+              url: "/users/gain",
+              headers: {
+                "device": "android",
+                "uid": localStorage.getItem("uid"),
+                "Access-Control-Allow-Origin": "*"
+              }
+            }).then(function(res) {
+              //偷取数量
+              if(res.data.code===0){
+                this.mycount=res.data.data.today_steal;
+                this.becount=res.data.data.today_stolen;
+              }
+              //访客（最多六人）
+              if(res.data.data.visitor_list.length!==0){
+                this.hasVisitor=true;
+                this.visitor=res.data.data.visitor_list;
+              }
+              //最新动态
+              if(res.data.data.news.length!==0){
+                this.hasNews=true;
+                this.stealer=res.data.data.news
+              }
+            }.bind(this))
+              .catch(function(err) {
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this))
+          },
           board(){
             this.$http({
               method: "post",
@@ -152,15 +183,12 @@
                 "Access-Control-Allow-Origin": "*"
               }
             }).then(function(res) {
-              if(res.data.data.length!=0){
+              if(res.data.data.length!==0){
+                this.hasMessage=true;
                 this.message=res.data.data;
-                console.log(this.message)
-                for (let i in res.data.data) {
-                  if(res.data.data[i].reply.length!==0){
-                    for(let j in res.data.data[i].reply){
-                      this.message[i].reply=res.data.data[i].reply[j];
-                      this.message[i].hasMsg=true
-                    }
+                for (let i in this.message) {
+                  if(this.message[i].reply.length!==0){
+                    this.message[i].hasMsg=true;
                   }
                 }
               }
@@ -173,10 +201,41 @@
             this.openMessage = true;
           },
           closeLeaveMessage(){
+            this.leavemessage='';
             this.openMessage = false;
           },
-          leaveMessage(index){
-            console.log(this.message[index].mid)
+          leaveMessage(mid){
+            let res = new RegExp("^[ ]+$");
+            if(this.leavemessage===''||res.test(this.leavemessage)===true){
+              this.messageMsg="回复内容不能为空";
+              this.messageMsgShow=true;
+            }else {
+              this.messageMsg="";
+              this.messageMsgShow=false;
+              this.$http({
+                method: "post",
+                url: "/messages/reply",
+                headers: {
+                  "device": "android",
+                  "uid": localStorage.getItem("uid"),
+                  "Access-Control-Allow-Origin": "*"
+                },
+                data:{
+                  mid:mid,
+                  content:this.leavemessage
+                }
+              }).then(function(res) {
+                this.openMessage = false;
+                this.$layer.msg(res.data.msg);
+                this.board();
+                if(res.data.code===0){
+                 console.log(res.data)
+                }
+              }.bind(this))
+                .catch(function(err) {
+                  this.$layer.msg("系统异常，请稍后再试");
+                }.bind(this))
+            }
           },
           evers() {
             this.masrc = backs;
@@ -244,9 +303,7 @@
   }
   .contentLeft{
     width: 60%;
-  }
-  .contentRight  {
-    width: 40%;
+    margin: 0.5rem 0;
   }
   .mu-flat-button.mu-button-small {
     font-size: 13px;
@@ -271,5 +328,9 @@
   }
   .list:last-child .mu-divider{
     display: none;
+  }
+  .messageMsg{
+    color: #ff2424;
+    font-size: small;
   }
 </style>

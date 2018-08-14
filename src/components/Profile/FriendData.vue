@@ -98,7 +98,7 @@
     background: #fff;
     height: 100%;
     overflow-y: scroll;
-    padding-bottom: 4rem;
+    padding-bottom: 5rem;
   }
   .content::-webkit-scrollbar {
     display:none

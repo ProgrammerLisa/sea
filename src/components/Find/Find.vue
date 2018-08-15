@@ -20,20 +20,21 @@
             <span class="glyphicon glyphicon-link taskIcon"></span>
             <div class="taskTitle">邀请10名好友</div>
             <div class="taskBody">邀请好友+10能量</div>
-            <div class="taskBtn">+100能量</div>
+            <div class="taskBtn">+5能量</div>
           </div>
           <div class="col-xs-4 taskList">
-            <span class="glyphicon glyphicon-map-marker taskIcon"></span>
-            <div class="taskTitle">关注微信公众号</div>
-            <div class="taskBody">关注获取能量</div>
-            <div class="taskBtn">+2能量</div>
+            <span class="glyphicon glyphicon-globe taskIcon"></span>
+            <div class="taskTitle">公益慈善</div>
+            <div class="taskBody">爱心捐助+10能量</div>
+            <router-link to="/publicgood" tag="div" class="taskBtn">+10能量</router-link>
           </div>
+
           <div class="col-xs-4 taskListLast">
             <span class="glyphicon glyphicon-calendar taskIcon"></span>
             <div class="taskTitle">每日登录</div>
             <div class="taskBody">登录获取能量值</div>
             <div class="taskSuccess" v-show="signIn"><span class="glyphicon glyphicon-ok"></span> 已完成</div>
-            <div class="taskBtn" v-show="!signIn" @click="signInFc">+2能量</div>
+            <div class="taskBtn" v-show="!signIn" @click="signInFc">+1能量</div>
           </div>
         </div>
       </div>
@@ -46,10 +47,10 @@
       <div class="container">
         <div class="row task1">
           <div class="col-xs-4 taskList">
-            <span class="glyphicon glyphicon-globe taskIcon"></span>
-            <div class="taskTitle">公益慈善</div>
-            <div class="taskBody">爱心捐助+10能量</div>
-            <router-link to="/publicgood" tag="div" class="taskBtn">+10能量</router-link>
+            <span class="glyphicon glyphicon-map-marker taskIcon"></span>
+            <div class="taskTitle">关注微信公众号</div>
+            <div class="taskBody">关注获取能量</div>
+            <div class="taskBtn">+2能量</div>
           </div>
           <div class="col-xs-4 taskList">
             <span class="glyphicon glyphicon-music taskIcon"></span>

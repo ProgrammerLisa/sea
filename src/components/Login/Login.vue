@@ -4,13 +4,13 @@
 		<div id="nav">
 			<div id="LoginTitle">登 录</div>
 		</div>
-    <div class="" id="loginModeTitle">
-      <div class="loginMode"  @click="sort(1)" >
+    <div id="loginModeTitle">
+      <div class="loginMode" @click="sort(1)">
         <a id="a_common">普通登录</a>
         <div id="a_common_animation"></div>
       </div>
 
-      <div class="loginMode" @click="sort(0)">
+      <div class="loginMode"  @click="sort(0)">
         <a id="a_sms">短信登录</a>
         <div id="a_sms_animation"></div>
       </div>
@@ -179,12 +179,8 @@
 					$("#a_sms").css({
 						color: '#666'
 					});
-					$("#a_common_animation").animate({
-						marginLeft: '25%'
-					}, 500);
-					$("#a_sms_animation").animate({
-						marginLeft: '-100%'
-					}, 500);
+          $("#a_sms_animation").animate({opacity:0}, 500);
+          $("#a_common_animation").animate({opacity:1}, 500);
 				}
 				if(index == 0) {
 					that.isShow = false;
@@ -194,12 +190,8 @@
 					$("#a_sms").css({
 						color: '#09A2D6'
 					});
-					$("#a_common_animation").animate({
-						marginLeft: '100%'
-					}, 500);
-					$("#a_sms_animation").animate({
-						marginLeft: '25%'
-					}, 500);
+          $("#a_sms_animation").animate({opacity:1}, 500);
+          $("#a_common_animation").animate({opacity:0}, 500);
 				}
 			},
 			bnn() {
@@ -410,14 +402,6 @@
 		background-color: #09A2D6;
 	}
 
-	.back img {
-		height: 2.5rem;
-	}
-
-	.back {
-		float: left;
-	}
-
 	#login {
 		width: 100vw;
 		height: 100vh;
@@ -547,11 +531,11 @@
 		background-color: #fff;
 		text-align: center;
 		color: #333;
-		border-bottom: 2px solid #f6f6f6;
+		border-bottom: 1px solid #f6f6f6;
 	}
   #loginModeTitle{
     width: 100%;
-    height: 50px;
+    height: 4.3rem;
     padding: 0;
     margin: 0;
     border-bottom: 1px solid #f6f6f6;
@@ -563,15 +547,12 @@
     overflow: hidden;
     float: left;
   }
-	#nav_common a {
-		width: 100%;
-		background: white;
-	}
 
 	#a_common {
 		/*text-decoration:none;*/
 		/*border-bottom:3px solid #09A2D6;  #ccc换成链接的颜色*/
 		display: inline-block;
+    color: #09a2d6;
 		/*margin-bottom:-3px;  这里设置你要空的距离*/
 	}
 
@@ -593,7 +574,8 @@
 		width: 50%;
 		background: #09A2D6;
 		height: 0.3rem;
-		margin-left: -100%;
+		margin-left: 25%;
+    opacity: 0;
 	}
 
 	.weui-btn:after,

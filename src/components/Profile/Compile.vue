@@ -190,79 +190,84 @@
 		},
 		inject: ['reload'],
 		mounted: function() {
-			this.$http({
-					method: "get",
-					url: "/users/info",
-					headers: {
-						"device": "android",
-						"uid": localStorage.getItem("uid"),
-						"Access-Control-Allow-Origin": "*"
-					},
-					data: {}
-				}).then(function(res) {
-					if(res.data.code == 0) {
-						this.signature = res.data.data.resume;
-						this.IDcode = res.data.data.phone;
-						this.pmid = localStorage.getItem("uid");
-						if(res.data.data.gender == "UNKNOWN") {
-							this.ringtone = "保密"
-						} else if(res.data.data.gender == "MALE") {
-							this.ringtone = "男"
-						} else if(res.data.data.gender == "FEMALE") {
-							this.ringtone = "女"
-						}
-						if(res.data.data.nickname == "") {
-							this.nickname = localStorage.getItem("uid");
-						} else {
-							this.nickname = res.data.data.nickname;
-						}
-						if(res.data.data.signature == "") {
-							this.signature = signature;
-						} else {
-							this.signature = res.data.data.resume;
-						}
-						if(res.data.data.ringtone == "") {
-							this.ringtone = ringtone;
-						} else {
-							this.ringtone = res.data.data.gender;
-							if(res.data.data.gender == "UNKNOWN") {
-								this.ringtone = "保密"
-							} else if(this.ringtone == 'MALE') {
-								this.ringtone = '男'
-							} else if(this.ringtone == 'FEMALE') {
-								this.ringtone = '女'
-							}
-							//							console.log(this.ringtone+'值');
-						}
-
-						if(res.data.data.pictures == "") {
-							this.timg = [timg];
-						} else {
-							this.timg = res.data.data.pictures;
-						}
-
-						if(res.data.data.avatar == "") {
-							this.headImg = headImg;
-							this.haveHeadImg = false
-						} else {
-							this.headImg = res.data.data.avatar;
-							this.haveHeadImg = true
-						}
-					} else {
-						this.haveHeadImg = false
-						this.phtoImg = false
-						this.$layer.msg(res.data.msg);
-					}
-				}.bind(this))
-				.catch(function(err) {
-					this.haveHeadImg = false
-					this.phtoImg = false
-					console.log(err)
-				}.bind(this))
-
+      this.$nextTick(function () {
+        this.compile();
+      })
 		},
-		
+
 		methods: {
+		  compile(){
+        this.$http({
+          method: "get",
+          url: "/users/info",
+          headers: {
+            "device": "android",
+            "uid": localStorage.getItem("uid"),
+            "Access-Control-Allow-Origin": "*"
+          },
+          data: {}
+        }).then(function(res) {
+          if(res.data.code == 0) {
+            this.signature = res.data.data.resume;
+            this.IDcode = res.data.data.phone;
+            this.pmid = localStorage.getItem("uid");
+            if(res.data.data.gender == "UNKNOWN") {
+              this.ringtone = "保密"
+            } else if(res.data.data.gender == "MALE") {
+              this.ringtone = "男"
+            } else if(res.data.data.gender == "FEMALE") {
+              this.ringtone = "女"
+            }
+            if(res.data.data.nickname == "") {
+              this.nickname = localStorage.getItem("uid");
+            } else {
+              this.nickname = res.data.data.nickname;
+            }
+            if(res.data.data.signature == "") {
+              this.signature = signature;
+            } else {
+              this.signature = res.data.data.resume;
+            }
+            if(res.data.data.ringtone == "") {
+              this.ringtone = ringtone;
+            } else {
+              this.ringtone = res.data.data.gender;
+              if(res.data.data.gender == "UNKNOWN") {
+                this.ringtone = "保密"
+              } else if(this.ringtone == 'MALE') {
+                this.ringtone = '男'
+              } else if(this.ringtone == 'FEMALE') {
+                this.ringtone = '女'
+              }
+              //							console.log(this.ringtone+'值');
+            }
+
+            if(res.data.data.pictures == "") {
+              this.timg = [timg];
+            } else {
+              this.timg = res.data.data.pictures;
+            }
+
+            if(res.data.data.avatar == "") {
+              this.headImg = headImg;
+              this.haveHeadImg = false
+            } else {
+              this.headImg = res.data.data.avatar;
+              this.haveHeadImg = true
+            }
+          } else {
+            this.haveHeadImg = false
+            this.phtoImg = false
+            this.$layer.msg(res.data.msg);
+          }
+        }.bind(this))
+          .catch(function(err) {
+            this.haveHeadImg = false
+            this.phtoImg = false
+            console.log(err)
+          }.bind(this))
+
+      },
 			changeActive(index) {
 				this.active = index;
 			},
@@ -281,39 +286,7 @@
 			closeScrollDialog() {
 				this.openScroll = false;
 			},
-			sexChoose() {
-				// this.openScroll = false;
-				let gender;
-				console.log(this.ringtone)
-				if(this.ringtone === "男") {
-					gender = 'MALE'
-				} else if(this.ringtone === "女") {
-					gender = 'FEMALE'
-				} else {
-					gender = 'UNKNOWN'
-				}
-				this.$http({
-						method: "post",
-						url: "/users/edit-gender",
-						headers: {
-							"device": "android",
-							"uid": localStorage.getItem("uid"),
-							"Access-Control-Allow-Origin": "*"
-						},
-						data: {
-							gender: gender
-						}
-					}).then(function(res) {
-						if(res.data.code === 0) {
-							this.openScroll = false;
-						}
-						this.$layer.msg(res.data.msg)
-					}.bind(this))
-					.catch(function(err) {
-						console.log(err)
-					}.bind(this))
 
-			},
 			chooseImg(c) {
 				let that = this;
 				let $c = document.querySelector(c);
@@ -355,7 +328,6 @@
 			},
 			sexChoose(a) {
 				//				this.sexe=a;
-				console.log(a)
 				if(a == "男") {
 					this.gender = "MALE"
 				} else if(a == "女") {
@@ -376,8 +348,8 @@
 						}
 					}).then(function(res) {
 
-						if(res.data.code == 0) {
-							layer.close(index);
+						if(res.data.code === 0) {
+              this.openScroll = false;
 							this.$layer.msg(res.data.msg);
 						} else {
 							this.$layer.msg(res.data.msg);

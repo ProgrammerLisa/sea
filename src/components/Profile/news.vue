@@ -10,43 +10,30 @@
 			<img :src="newsNoneImg" />
 			<p>暂时还没有消息哦</p>
 		</div>
-
-
-
-    <mu-paper :z-depth="0" class="demo-list-wrap"  v-else>
-      <mu-list textline="two-line">
-        <div v-for="(n,index) in reverseData" :key="index" @touchstart="touchStart($event,index)" @touchmove="touchMove($event,index)" @touchend="touchEnd($event,index)" :data-curid="n.id">
-          <mu-list-item avatar button >
-             <mu-list-item-content>
-                  <mu-list-item-title>
-                    <!--{{n.msg.title}}-->
-                    系统消息 <span style="float: right;font-size: small;color: #555">{{n.msg.created_at}}</span>
-                  </mu-list-item-title>
-                  <mu-list-item-sub-title>
-                    {{n.msg.content}}
-                  </mu-list-item-sub-title>
-                </mu-list-item-content>
-
-            </mu-list-item>
-            <div class="media-right" >
-              <span class="badge msg" v-show="!n.msg.is_read">·</span>
-            </div>
-            <transition name="slide-fade">
-              <div class="del"　v-if="n.show" @click="openAlertDialog">
-                删除
-              </div>
-
-            </transition>
-          <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert" style="text-align: center">
-            确认删除这条消息吗
-            <mu-button slot="actions" flat color="primary" @click="del(index)" class="loginOutBtn">确定</mu-button>
-            <mu-button slot="actions" flat color="primary" @click="closeAlertDialog" class="loginOutBtn">取消</mu-button>
-          </mu-dialog>
-          <mu-divider></mu-divider>
+    <div class="contentMarginTop">
+      <div v-for="(n,index) in reverseData" class="newsContainer" @touchstart="touchStart($event,index)" @touchmove="touchMove($event,index)" @touchend="touchEnd($event,index)" :data-curid="n.id">
+        <mu-ripple class="mu-ripple-demo">
+          <div class="newsContent">
+            <div class="newsTitle">系统消息<span class="newsDate">{{n.msg.created_at}}</span></div>
+            <div class="newsText">{{n.msg.content}}</div>
           </div>
+        </mu-ripple>
+        <div class="media-right" >
+        <span class="badge msg" v-show="!n.msg.is_read">·</span>
+        </div>
+        <transition name="slide-fade">
+          <div class="del" v-show="n.show" @click="openAlertDialog(index)">
+           删除
+          </div>
+        </transition>
+        <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="n.msgShow" style="text-align: center">
+        确认删除这条消息吗
+        <mu-button slot="actions" flat color="primary" @click="del(index)" class="loginOutBtn">确定</mu-button>
+        <mu-button slot="actions" flat color="primary" @click="closeAlertDialog(index)" class="loginOutBtn">取消</mu-button>
+        </mu-dialog>
+      </div>
+    </div>
 
-      </mu-list>
-    </mu-paper>
 	</div>
 </template>
 
@@ -75,6 +62,7 @@
 						is_read: ''
 					},
 					show: false,
+          msgShow:false
 				},
 
 				startX: 0, //开始触摸的位置
@@ -94,11 +82,11 @@
       })
 		},
 		methods: {
-      openAlertDialog () {
-        this.openAlert = true;
+      openAlertDialog (index) {
+        this.news[index].msgShow = true;
       },
-      closeAlertDialog () {
-        this.openAlert = false;
+      closeAlertDialog (index) {
+        this.news[index].msgShow = false;
       },
 		  newsList(){
         this.$http({
@@ -133,7 +121,8 @@
                     create_at: '',
                     is_read: ''
                   },
-                  show: false,
+                  show: true,
+                  msgShow:false
                 };
 
               }
@@ -162,7 +151,6 @@
 			},
 			touchStart(ev,index) {
 				ev = ev || event;
-				ev.preventDefault();
 				//                      console.log(ev.targetTouches);
 				//                      console.log(ev.changedTouches);
 				if(ev.touches.length == 1) { //tounches类数组，等于1时表示此时有只有一只手指在触摸屏幕
@@ -179,7 +167,7 @@
 
 					//实时的滑动的距离-起始位置=实时移动的位置
 					this.disX = this.moveX - this.startX;
-					if(this.disX < -100) {
+					if(this.disX < -60) {
 						for(var i in this.news) {
 							if(ev.currentTarget.dataset.curid == this.news[i].id) {
 								this.news[i].show = true
@@ -260,20 +248,17 @@
 		width: 100vw;
 		position: fixed;
 		top: 0;
-		overflow: hidden;
+		overflow-y: scroll;
 	}
-
-	.back img {
-		height: 2.5rem;
-	}
-
-	.media-left img {
-		border: 0.1rem solid #09a2d6;
-		border-radius: 50%;
-		width: 4rem;
-		margin-right: 0.5rem;
-	}
-
+  .content::-webkit-scrollbar{
+    display: none;
+  }
+  .mu-ripple-demo {
+    position: relative;
+    width:100%;
+    height: 100%;
+    background-color: #fff;
+  }
 	.newsNone {
 		text-align: center;
 		padding-top: 18vh;
@@ -284,13 +269,23 @@
 		width: 40%;
 		margin-bottom: 1rem;
 	}
-  .demo-list-wrap{
-    margin-top: 0.6rem;
-    border-bottom: 1px #eee solid;
+  .newsContainer{
+    height: 7rem;background: #fff;border-bottom: 1px solid #f5f5f5
   }
-  .mu-list{
-    padding: 0;
+  .newsContent{
+    line-height: 2rem;
+    padding:1.5rem 2rem;
   }
+  .newsTitle{
+    font-size: 1.6rem;color: #333
+  }
+  .newsDate{
+    float: right;font-size: small;color: #555
+  }
+  .newsText{
+    width: 60%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;word-wrap: break-word;
+  }
+
 	.msg {
     position: absolute;
     right:0.5rem;
@@ -306,11 +301,12 @@
 		background: #ff2424;
 		color: #fcf8e3;
 		width: 6rem;
-		line-height: 6rem;
+		line-height: 7rem;
 		text-align: center;
-		position: absolute;
-		right: 0;
-		margin-top: -6rem;
+		position: relative;
+		right: -100%;
+    margin-left: -6rem;
+		margin-top: -7rem;
     z-index: 999;
 	}
 	/* 可以设置不同的进入和离开动画 */

@@ -2,7 +2,7 @@
 	<div class="content">
 		<div id="navBox">
 			<mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0" id="nav1">
-				<mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+				<mu-button icon slot="left" @click="goBack" class="getBack">
 					<img :src="masrc" />
 				</mu-button>
 				<span class="navTitleText">我的等级</span>
@@ -18,11 +18,11 @@
 				</div>
 
 				<div>
-					<span style="font-size: 1.2rem;">能力值:&#160&#160 45 &#160&#160距离下一级还需:&#160&#160 15</span>
+					<span style="font-size: 1.2rem;">能量值:&#160&#160 {{energ}} &#160&#160距离下一级还需:&#160&#160 {{need}}</span>
 				</div>
 				<mu-container>
 					<mu-flex class="demo-linear-progress">
-						<mu-linear-progress style="width: 90%;margin:0 auto;" mode="determinate" color="#FFFFFF" size="7" :max="100" :value="35"></mu-linear-progress>
+						<mu-linear-progress style="width: 90%;margin:0 auto;" mode="determinate" color="#FFFFFF" size="7" :max="1000" :value="energ"></mu-linear-progress>
 						<div style="position: absolute; float: left;padding-top: 3%;width: 90%;">
 							<span style="float: left;margin-left: 5%;">Lv.0</span>
 							<span>Lv.3</span>
@@ -126,18 +126,37 @@
 	import more from '@/assets/images/more.png'
 	export default {
 		name: "Grade",
+		computed: {
+			now() {
+				return Date.now();
+			}
+		},
 		data() {
 			return {
 				headImg: headImg,
 				haveHeadImg: '',
 				masrc: back,
 				more: more,
-				level: 3
+				level: '',
+				need:'',
+				energ:''
 
 			}
 		},
-		mounted: function() {
-			this.$http({
+
+		mounted() {
+			let height = $("#nav1").height() + $("#nav2").height() + $("#nav3").height();
+			$("#navBox").css({
+				height: height + 'px'
+			});
+			$("#dataBox").css({
+				marginTop: height + 'px'
+			});
+			this.getdatelist();
+		},
+		methods: {
+			getdatelist(){
+				this.$http({
 					method: "post",
 					url: "/users/level",
 					headers: {
@@ -145,18 +164,23 @@
 						"uid": localStorage.getItem("uid"),
 						"Access-Control-Allow-Origin": "*"
 					},
-					data: {
-					}
+					data: {}
 				}).then(function(res) {
-					console.log(res.data.msg);
+					
 					if(res.data.code == 0) {
+//						this.rank = res.data.data.level;
 //						this.signature = res.data.data.resume;
+						this.energ = res.data.data.energy;
+						let rank = res.data.data.level;
+						this.level = res.data.data.level;
+						this.need = res.data.data.up_level_needed;
 							
 						if(res.data.data.avatar == "") {
 							this.headImg = headImg;
 							this.haveHeadImg = false
 						} else {
 							this.headImg = res.data.data.avatar;
+							console.log(this.headImg)
 							this.haveHeadImg = true
 						}
 					} else {
@@ -168,20 +192,6 @@
 					this.phtoImg = false
 					console.log(err)
 				}.bind(this))
-
-		},
-		mounted() {
-			let height = $("#nav1").height() + $("#nav2").height() + $("#nav3").height();
-			$("#navBox").css({
-				height: height + 'px'
-			});
-			$("#dataBox").css({
-				marginTop: height + 'px'
-			})
-		},
-		methods: {
-			evers() {
-				this.masrc = backs;
 			},
 			lat() {
 				this.masrc = back;
@@ -369,5 +379,6 @@
 		margin-top: 20px;
 		margin-bottom: -20px;
 		margin-left: 40%;
+		border-radius: 50%;
 	}
 </style>

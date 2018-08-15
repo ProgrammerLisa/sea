@@ -32,8 +32,8 @@
 					<span id="hint">长按拖拽可更改图片顺序,最多10张</span>
 				</div>
 				<div class="controlContainer">
-					<div class="controlScroll" >
-						<div class="controlContent"   v-for="(p,index) in timg" v-dragging="{ item: p, list: timg, group: 'p' }" :key="p.index" >
+					<div class="controlScroll">
+						<div class="controlContent" v-for="(p,index) in timg" v-dragging="{ item: p, list: timg, group: 'p' }" :key="p.index">
 							<img @touchstart="rem(p,index)" @touchend="js()" alt="有" class="media-object graph" :src="`${p+'?'+now}`" @click="changeActive(index)" />
 						</div>
 						<div class="chart-to" data-toggle="modal" data-target="#PhModal">
@@ -70,7 +70,7 @@
 					<mu-list-item to="/Grade" avatar button class="mu-list-item">
 						<mu-list-item-title>等级</mu-list-item-title>
 						<mu-list-item-action class="listRight">
-							<div>{{rank}}<img :src="more" class="moreImg" /></div>
+							<div>Lv.{{rank}}<img :src="more" class="moreImg" /></div>
 						</mu-list-item-action>
 					</mu-list-item>
 					<mu-divider class="mu-divider" style="margin-top: 0.6rem"></mu-divider>
@@ -179,7 +179,7 @@
 				haveHeadImg: '',
 				phtoImg: '',
 				pmid: '',
-				rank: 'LV3',
+				rank: '',
 				openScroll: false,
 				ringtone: '',
 				options: [
@@ -359,76 +359,66 @@
 						this.$layer.msg("系统异常，请稍后再试");
 					}.bind(this))
 			},
-			rem(Iurl,i) {
+			rem(Iurl, i) {
 				let that = this;
 				that.time = setTimeout(function() {
-					that.$layer.confirm('is not?', {
+					mui.confirm('is not?', {
 						icon: 3,
 						title: '确定删除该图片吗'
-
 					}, function(index) {
 						that.$http({
-							method: "post",
-							url: "/users/delete-picture",
-							headers: {
-								"device": "android",
-								"uid": localStorage.getItem("uid")
-							},
-							data: {
-								"url": Iurl
-							}
-						}).then(function(res) {
-							if(res.data.code == 0) {
-								that.$layer.msg(res.data.msg);
-							} else {
-								that.$layer.msg(res.data.msg);
-							}
-							that.timg.splice(i,1)
-					}.bind(this))
-					.catch(function(err) {
-						that.$layer.msg("系统异常，请稍后再试"+err);
-					}.bind(this));
-					layer.close(index);
+								method: "post",
+								url: "/users/delete-picture",
+								headers: {
+									"device": "android",
+									"uid": localStorage.getItem("uid")
+								},
+								data: {
+									"url": Iurl
+								}
+							}).then(function(res) {
+								if(res.data.code == 0) {
+									that.$layer.msg(res.data.msg);
+								} else {
+									that.$layer.msg(res.data.msg);
+								}
+								that.timg.splice(i, 1)
+							}.bind(this))
+							.catch(function(err) {
+								that.$layer.msg("系统异常，请稍后再试" + err);
+							}.bind(this))
+
 					});
 				}, 1000)
 			},
 			js() {
 				clearTimeout(this.time);
 			}
+
 		}
 	}
-
-
 </script>
 
 <style scoped>
 	.chart-to {
-		position: relative ;
+		position: relative;
 		background-color: #F5F5F5;
 		width: 20vw;
 		height: 20vw;
-		float: none;
 		float: right;
 		margin-right: 6%;
 		margin-top: 1%;
-		display: table-cell;
-    	text-align: center;
+		text-align: center;
+		font-size: 3.5rem;
+		color:#e1e1e1 ;
 	}
 
-	.sheet {
-		/*width: 10vw;
-		height: 10vw;*/
-		font-size: 4rem;
+	.sheet{
+		position: relative;
 		vertical-align: middle;
-		color: #888;
-	}
-
-	.sheet {
-		/*width: 10vw;
-		height: 10vw;*/
-		font-size: 4rem;
-		vertical-align: middle;
-		color: #888;
+		text-align: center;
+		width: 20vw;
+		height: 20vw;
 	}
 
 	.content {

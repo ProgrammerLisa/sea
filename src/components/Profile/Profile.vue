@@ -89,7 +89,7 @@
             Personal:[
               {title:'我的好友',PersonalHref:'friend',PersonalName:'friend',imfLeft:friend},
               {title:'我的邀请者',PersonalHref:'',PersonalName:'',imfLeft:inviter,noRouter:true,myInvite:''},
-              {title:'邀请码',PersonalHref:'ask',PersonalName:'ask',imfLeft:invite},
+              {title:'邀请奖励',PersonalHref:'ask',PersonalName:'ask',imfLeft:invite},
               {title:'夺宝记录',PersonalHref:'myrankings',PersonalName:'MyRankings',imfLeft:invite},
               {title:'商城订单',PersonalHref:'commodityorder',PersonalName:'CommodityOrder',imfLeft:indent},
               {title:'收货地址',PersonalHref:'address',PersonalName:'address',imfLeft:address},

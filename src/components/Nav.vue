@@ -125,15 +125,6 @@
       nav(index){
 
 
- //if phone support navigator.vibrate
-        if (navigator.vibrate) {
-            //vibrate 1 second
-            navigator.vibrate(200);
-        } else if (navigator.webkitVibrate) {
-            navigator.webkitVibrate(200);
-        }
-        //put your own code here etc.
-
 
         const that = this;
         if(index===2){

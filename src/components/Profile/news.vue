@@ -22,7 +22,7 @@
         <span class="badge msg" v-show="!n.msg.is_read">·</span>
         </div>
         <transition name="slide-fade">
-          <div class="del" v-show="n.show" @click="openAlertDialog(index)">
+          <div class="del" v-show="n.show" @touchstart="openAlertDialog(index)">
            删除
           </div>
         </transition>
@@ -121,7 +121,7 @@
                     create_at: '',
                     is_read: ''
                   },
-                  show: true,
+                  show: false,
                   msgShow:false
                 };
 
@@ -246,6 +246,7 @@
 		padding-bottom: 6rem;
 		background-color: #f5f5f5;
 		width: 100vw;
+    height: 100%;
 		position: fixed;
 		top: 0;
 		overflow-y: scroll;

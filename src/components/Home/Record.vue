@@ -24,7 +24,7 @@
     </mu-container>
     <div class="visitorContainer">
       <div class="visitorTitle">
-        <span class="sign"></span>到访小偷
+        <span class="sign"></span>访客
       </div>
       <mu-row v-if="hasVisitor">
         <mu-col span="2" v-for="(v,index) in visitor" :key="index"><div class="grid-cell visitor"><img :src="v.avatar"/></div></mu-col>
@@ -38,72 +38,111 @@
           <mu-tab style="color:#555;font-size: 1.6rem">小偷留言</mu-tab>
         </mu-tabs>
         <div class="demo-text" v-if="active2 === 0">
-          <mu-paper :z-depth="0" v-if="hasNews" class="demo-list-wrap">
-            <mu-list class="stealerList">
-              <div v-for="(s,index) in stealer" class="list">
-                <mu-list-item avatar>
-                  <mu-list-item-content class="contentLeft">
-                    <mu-list-item-title style="margin-bottom: 0.5rem">{{s.nickname}} <span style="font-size:1.5rem;color: rgba(0, 0, 0, .6)">偷取了你的珍珠</span></mu-list-item-title>
-                    <mu-list-item-sub-title>
-                      <span style="font-size: small;">{{s.stolen_time}}</span>
-                    </mu-list-item-sub-title>
-                  </mu-list-item-content>
-                  <mu-list-item-action class="contentRight">
-                    <mu-button small color="#fff" textColor="#09a2d6" flat style="border: solid 1px #09a2d6">去复仇</mu-button>
-                  </mu-list-item-action>
-                </mu-list-item>
-                <mu-divider></mu-divider>
-              </div>
-            </mu-list>
-          </mu-paper>
+          <div  v-if="hasNews"  style="padding-top: 1rem">
+            <div v-for="(s,index) in stealer" class="stealerList">
+              <mu-row>
+                <mu-col span="8">
+                  <div class="stealerTitle">
+                    {{s.nickname}} <span class="stealerText">偷取了你的珍珠</span>
+                  </div>
+                    <div class="stealerDate">{{s.stolen_time}}</div>
+                </mu-col>
+                <mu-col span="4">
+                  <div class="text-right">
+                    <mu-button small color="#fff" textColor="#09a2d6" flat style="border: solid 1px #09a2d6;height: 3rem;margin-top: 0.5rem">去复仇</mu-button>
+                  </div>
+                </mu-col>
+              </mu-row>
+            </div>
+          </div>
           <div v-else class="text-center" style="padding: 5rem;font-size: 1.6rem;color:#777">暂无最新动态</div>
         </div>
         <div class="demo-text" v-if="active2 === 1">
-          <mu-paper :z-depth="0" v-if="hasMessage" class="demo-list-wrap">
-            <mu-list toggle-nested textline="three-line" class="mu-list">
-              <div v-for="(m,index) in message" class="list">
-                <mu-list-item style="padding: 1rem 0" button nested :open="open === 'send'+index" @toggle-nested="open = arguments[0] ? 'send+index' : ''">
-                  <mu-list-item-action>
-                    <mu-avatar>
-                      <img :src="m.from_user_avatar">
-                    </mu-avatar>
-                  </mu-list-item-action>
-                  <mu-list-item-content>
-                    <mu-list-item-title>{{m.from_user}}</mu-list-item-title>
-                    <mu-list-item-sub-title>
-                      <span style="font-size: small;">{{m.created_at}}</span>
-                    </mu-list-item-sub-title>
-                    <mu-list-item-title style="margin-top: 0.5rem">
-                      <span style="float: left" v-show="m.reply.length!=0">
-                        <mu-icon class="toggle-icon" size="24" value="keyboard_arrow_down" color="#888"></mu-icon>
-                      </span> {{m.content}}
-                    </mu-list-item-title>
+          <!--<mu-paper :z-depth="0" v-if="hasMessage" class="demo-list-wrap">-->
+          <!--<mu-list toggle-nested textline="three-line" class="mu-list">-->
+          <!--<div v-for="(m,index) in message" class="list">-->
+          <!--<mu-list-item style="padding: 0 0 0 1rem" button nested :open="open === 'send'+index" @toggle-nested="open = arguments[0] ? 'send+index' : ''">-->
+          <!--<mu-list-item-action>-->
+          <!--<mu-avatar>-->
+          <!--<img :src="m.from_user_avatar">-->
+          <!--</mu-avatar>-->
+          <!--</mu-list-item-action>-->
+          <!--<mu-list-item-content>-->
+          <!--<mu-list-item-title>{{m.from_user}}</mu-list-item-title>-->
+          <!--<mu-list-item-sub-title>-->
+          <!--<span style="font-size: small;">{{m.created_at}}</span>-->
+          <!--</mu-list-item-sub-title>-->
+          <!--<mu-list-item-title style="margin-top: 0.5rem">-->
+          <!--<span style="float: left" v-show="m.reply.length!=0">-->
+          <!--<mu-icon class="toggle-icon" size="24" value="keyboard_arrow_down" color="#888"></mu-icon>-->
+          <!--</span> {{m.content}}-->
+          <!--</mu-list-item-title>-->
 
-                  </mu-list-item-content>
-                  <mu-list-item-action>
-                    <mu-button small color="#fff" textColor="#09a2d6" flat @click="openLeaveMessage" style="border: solid 1px #09a2d6">回复</mu-button>
-                    <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openMessage">
-                      <div style="height: 110px">
-                        <mu-text-field type="text" label="回复小偷" v-model="leavemessage" placeholder="请输入回复内容"  full-width style="margin-bottom: 0;"></mu-text-field>
-                        <mu-slide-top-transition v-show="messageMsgShow">
-                          <div class="mu-transition-box mu-inverse" style="color: #EF5350;font-size: small" v-show="messageMsgShow">{{messageMsg}}</div>
-                        </mu-slide-top-transition>
-                      </div>
+          <!--</mu-list-item-content>-->
+          <!--<mu-list-item-action>-->
+          <!--<mu-button small color="#fff" textColor="#09a2d6" flat @click="openLeaveMessage(index)" style="border: solid 1px #09a2d6">回复</mu-button>-->
+          <!--<mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="m.openMessage">-->
+          <!--<div style="height: 110px">-->
+          <!--<mu-text-field type="text" label="回复小偷" v-model="leavemessage" placeholder="请输入回复内容"  full-width style="margin-bottom: 0;"></mu-text-field>-->
+          <!--<mu-slide-top-transition v-show="messageMsgShow">-->
+          <!--<div class="mu-transition-box mu-inverse" style="color: #EF5350;font-size: small" v-show="messageMsgShow">{{messageMsg}}</div>-->
+          <!--</mu-slide-top-transition>-->
+          <!--</div>-->
 
-                      <mu-button slot="actions" flat color="primary" @click="leaveMessage(m.mid)">发送 </mu-button>
-                      <mu-button slot="actions" flat color="#555" @click="closeLeaveMessage">取消</mu-button>
+          <!--<mu-button slot="actions" flat color="primary" @click="leaveMessage(index,m.mid)">发送 </mu-button>-->
+          <!--<mu-button slot="actions" flat color="#555" @click="closeLeaveMessage(index)">取消</mu-button>-->
 
-                    </mu-dialog>
-                  </mu-list-item-action>
+          <!--</mu-dialog>-->
+          <!--</mu-list-item-action>-->
 
-                  <mu-list-item-content button :ripple="false" slot="nested" class="msgList" v-show="m.hasMsg">
-                    <div class="msgs" v-for="(r,item) in m.reply"><span style="color: #09a2d6">我</span>：{{r[1]}}</div>
-                  </mu-list-item-content>
-                </mu-list-item>
-                <mu-divider class="mu-divider"></mu-divider>
+          <!--<mu-list-item-content button :ripple="false" slot="nested" class="msgList" v-show="m.hasMsg">-->
+          <!--<div class="msgs" v-for="(r,item) in m.reply"><span style="color: #09a2d6">我</span>：{{r[1]}}</div>-->
+          <!--</mu-list-item-content>-->
+          <!--</mu-list-item>-->
+          <!--<mu-divider class="mu-divider"></mu-divider>-->
+          <!--</div>-->
+          <!--</mu-list>-->
+          <!--</mu-paper>-->
+          <div v-if="hasMessage" style="padding-top: 2rem">
+            <div class="media" v-for="(m,index) in message" >
+              <div class="media-left">
+                <img class="media-object" :src="m.from_user_avatar"/>
               </div>
-            </mu-list>
-          </mu-paper>
+              <div class="media-body">
+                <h4 class="media-heading">{{m.from_user}}</h4>
+                <div style="color: #666">{{m.created_at}}</div>
+                <div class="panel-group" id="accordion">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <a data-toggle="collapse" data-parent="#accordion" :href="m.href"> <h4 class="panel-title"> <span class="glyphicon glyphicon-chevron-down" v-show="m.hasMsg"></span> {{m.content}}</h4></a>
+                    </div>
+                    <div :id="m.item" v-show="m.hasMsg" class="panel-collapse collapse in" style="background: #f5f5f5">
+                      <div class="panel-body" v-for="(r,item) in m.reply" style="border: none;padding:0.5rem 1rem;font-size: 1.5rem"><span style="color: #09a2d6">我</span>：{{r[1]}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="media-right">
+                <mu-button small color="#fff" textColor="#09a2d6" @click="openLeaveMessage(index)" flat style="border: solid 1px #09a2d6;height: 3rem;margin-top: 0.5rem">回复</mu-button>
+                <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="m.openMessage">
+                <div style="height: 110px">
+                <mu-text-field type="text" label="回复小偷" v-model="leavemessage" placeholder="请输入回复内容"  full-width style="margin-bottom: 0;"></mu-text-field>
+                <mu-slide-top-transition v-show="messageMsgShow">
+                <div class="mu-transition-box mu-inverse" style="color: #EF5350;font-size: small" v-show="messageMsgShow">{{messageMsg}}</div>
+                </mu-slide-top-transition>
+                </div>
+
+                <mu-button slot="actions" flat color="primary" @click="leaveMessage(index,m.mid)">发送 </mu-button>
+                <mu-button slot="actions" flat color="#555" @click="closeLeaveMessage(index)">取消</mu-button>
+
+                </mu-dialog>
+              </div>
+            </div>
+          </div>
+
+
+
+
           <div v-else class="text-center" style="padding: 5rem;font-size: 1.6rem;color:#777">暂无留言</div>
         </div>
 
@@ -130,7 +169,6 @@
             visitor:[],
             stealer:[],
             message:[],
-            openMessage:false,
             leavemessage:'',
             messageMsg:'',
             messageMsgShow:false
@@ -184,11 +222,19 @@
               }
             }).then(function(res) {
               if(res.data.data.length!==0){
+                this.message=[];
                 this.hasMessage=true;
-                this.message=res.data.data;
-                for (let i in this.message) {
-                  if(this.message[i].reply.length!==0){
-                    this.message[i].hasMsg=true;
+                let data=res.data.data;
+                for (let i in data) {
+                  data[i].openMessage=false;
+                  if(data[i].reply.length!==0){
+                    data[i].hasMsg=true;
+                    data[i].item = 'item'+i;
+                    data[i].href='#item'+i;
+                    this.message.push(data[i])
+                  }else {
+                    data[i].hasMsg=false;
+                    this.message.push(data[i])
                   }
                 }
               }
@@ -197,14 +243,16 @@
                 this.$layer.msg("系统异常，请稍后再试");
               }.bind(this))
           },
-          openLeaveMessage(){
-            this.openMessage = true;
+          openLeaveMessage(index){
+            this.message[index].openMessage = true;
           },
-          closeLeaveMessage(){
+          closeLeaveMessage(index){
             this.leavemessage='';
-            this.openMessage = false;
+            this.messageMsgShow=false;
+            this.message[index].openMessage = false;
+            console.log(this.message[index].openMessage)
           },
-          leaveMessage(mid){
+          leaveMessage(index,mid){
             let res = new RegExp("^[ ]+$");
             if(this.leavemessage===''||res.test(this.leavemessage)===true){
               this.messageMsg="回复内容不能为空";
@@ -225,7 +273,7 @@
                   content:this.leavemessage
                 }
               }).then(function(res) {
-                this.openMessage = false;
+                this.message[index].openMessage = false;
                 this.$layer.msg(res.data.msg);
                 this.board();
                 if(res.data.code===0){
@@ -301,22 +349,47 @@
     width: 100%;
     border-radius: 50%;
   }
-  .contentLeft{
-    width: 60%;
-    margin: 0.5rem 0;
-  }
-  .mu-flat-button.mu-button-small {
-    font-size: 13px;
-    height: 35px;
-  }
-  .mu-flat-button{
-    min-width: 66px;
-  }
+
   .stealerList{
-    padding-bottom: 0;
+    height: 6rem;
+    padding: 1rem;
+    line-height: 2rem;
+    border-bottom: 1px solid #eee;
   }
-  .mu-divider{
-    background: #eee;
+  .stealerTitle{
+    font-size: 1.6rem;
+    color: #333;
+    overflow: hidden;white-space: nowrap;text-overflow: ellipsis;word-wrap: break-word;
+  }
+  .stealerText{
+    color: #555;
+    font-size: 1.5rem;
+  }
+  .stealerDate{
+    font-size: small;
+    color: #666;
+  }
+  .media{
+    border-bottom: 1px solid #eee;
+  }
+  .media-left{
+    border-radius: 50%;
+    width: 6rem;
+  }
+  .media-object{
+    width: 6rem;
+    border-radius: 50%;
+  }
+  a{
+    color: #333;
+  }
+  .panel{
+    box-shadow: none;
+    border: none;
+    background: #FAFAFA;
+  }
+  .panel-heading{
+    padding-left: 0;
   }
   .msgList{
     background: #F5F5F5;

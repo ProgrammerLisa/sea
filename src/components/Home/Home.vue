@@ -454,7 +454,7 @@ export default {
   }
   .option1{
     left: 1rem;
-    top: 8rem;
+    top: 6.5rem;
   }
 
   .invitation-friends{

@@ -40,55 +40,26 @@ import backGround from '@/assets/images/bg.png'
 import zhenzhuIcon from '@/assets/images/zhenzhuHome.png'
 import nengliang from '@/assets/images/nengliang.png'
 import shell from '@/assets/images/bihe.png'
-import henghesha1 from '@/assets/images/henghesha/1.png'
-import henghesha2 from '@/assets/images/henghesha/2.png'
-import henghesha3 from '@/assets/images/henghesha/3.png'
-import henghesha4 from '@/assets/images/henghesha/4.png'
-import henghesha5 from '@/assets/images/henghesha/5.png'
-import henghesha6 from '@/assets/images/henghesha/6.png'
-import henghesha7 from '@/assets/images/henghesha/7.png'
-import henghesha8 from '@/assets/images/henghesha/8.png'
-import henghesha9 from '@/assets/images/henghesha/9.png'
 
-import ocean1 from '@/assets/images/ocean/1.png'
-import ocean2 from '@/assets/images/ocean/2.png'
-import ocean3 from '@/assets/images/ocean/3.png'
-import ocean4 from '@/assets/images/ocean/4.png'
-import ocean5 from '@/assets/images/ocean/5.png'
-import ocean6 from '@/assets/images/ocean/6.png'
-import ocean7 from '@/assets/images/ocean/7.png'
-import ocean8 from '@/assets/images/ocean/8.png'
-import ocean9 from '@/assets/images/ocean/9.png'
+import ocean1 from '@/assets/images/haiyangzhixin3x/hailanzhixin1@3x.png'
+import ocean2 from '@/assets/images/haiyangzhixin3x/hailanzhixin2@3x.png'
+import ocean3 from '@/assets/images/haiyangzhixin3x/hailanzhixin3@3x.png'
+import ocean4 from '@/assets/images/haiyangzhixin3x/hailanzhixin4@3x.png'
+import ocean5 from '@/assets/images/haiyangzhixin3x/hailanzhixin5@3x.png'
+import ocean6 from '@/assets/images/haiyangzhixin3x/hailanzhixin6@3x.png'
+import ocean7 from '@/assets/images/haiyangzhixin3x/hailanzhixin7@3x.png'
+import ocean8 from '@/assets/images/haiyangzhixin3x/hailanzhixin8@3x.png'
+import ocean9 from '@/assets/images/haiyangzhixin3x/hailanzhixin9@3x.png'
 
-import opal1 from '@/assets/images/opal/1.png'
-import opal2 from '@/assets/images/opal/2.png'
-import opal3 from '@/assets/images/opal/3.png'
-import opal4 from '@/assets/images/opal/4.png'
-import opal5 from '@/assets/images/opal/5.png'
-import opal6 from '@/assets/images/opal/6.png'
-import opal7 from '@/assets/images/opal/7.png'
-import opal8 from '@/assets/images/opal/8.png'
-import opal9 from '@/assets/images/opal/9.png'
-
-import opper1 from '@/assets/images/opper/1.png'
-import opper2 from '@/assets/images/opper/2.png'
-import opper3 from '@/assets/images/opper/3.png'
-import opper4 from '@/assets/images/opper/4.png'
-import opper5 from '@/assets/images/opper/5.png'
-import opper6 from '@/assets/images/opper/6.png'
-import opper7 from '@/assets/images/opper/7.png'
-import opper8 from '@/assets/images/opper/8.png'
-import opper9 from '@/assets/images/opper/9.png'
-
-import pearl1 from '@/assets/images/pearl/1.png'
-import pearl2 from '@/assets/images/pearl/2.png'
-import pearl3 from '@/assets/images/pearl/3.png'
-import pearl4 from '@/assets/images/pearl/4.png'
-import pearl5 from '@/assets/images/pearl/5.png'
-import pearl6 from '@/assets/images/pearl/6.png'
-import pearl7 from '@/assets/images/pearl/7.png'
-import pearl8 from '@/assets/images/pearl/8.png'
-import pearl9 from '@/assets/images/pearl/9.png'
+import pearl1 from '@/assets/images/zhenzhu3x/zhenzhu1@3x.png'
+import pearl2 from '@/assets/images/zhenzhu3x/zhenzhu2@3x.png'
+import pearl3 from '@/assets/images/zhenzhu3x/zhenzhu3@3x.png'
+import pearl4 from '@/assets/images/zhenzhu3x/zhenzhu4@3x.png'
+import pearl5 from '@/assets/images/zhenzhu3x/zhenzhu5@3x.png'
+import pearl6 from '@/assets/images/zhenzhu3x/zhenzhu6@3x.png'
+import pearl7 from '@/assets/images/zhenzhu3x/zhenzhu7@3x.png'
+import pearl8 from '@/assets/images/zhenzhu3x/zhenzhu8@3x.png'
+import pearl9 from '@/assets/images/zhenzhu3x/zhenzhu9@3x.png'
 
 export default {
   components: {
@@ -103,49 +74,25 @@ export default {
       zhenzhuIcon:zhenzhuIcon,
       nengliangIcon:nengliang,
       pearl:[pearl1,pearl2,pearl3,pearl4,pearl5,pearl6,pearl7,pearl8,pearl9],
-      opal:[opal1,opal2,opal3,opal4,opal5,opal6,opal7,opal8,opal9],
-      opper:[opper1,opper2,opper3,opper4,opper5,opper6,opper7,opper8,opper9],
-      hengshesha:[henghesha1,henghesha2,henghesha3,henghesha4,henghesha5,henghesha6,henghesha7,henghesha8,henghesha9],
       ocean:[ocean1,ocean2,ocean3,ocean4,ocean5,ocean6,ocean7,ocean8,ocean9],
       imgDiv:[
-        {imgCount:1,href:shell,divClass:'',animation:'',level:1},
-        {imgCount:1,href:shell,divClass:'',animation:'',level:2},
-        {imgCount:1,href:shell,divClass:'',animation:'',level:3}
+        {imgCount:1,href:pearl1,divClass:'',animation:'',level:1},
+        {imgCount:1,href:ocean1,divClass:'',animation:'',level:2},
+        {imgCount:1,href:pearl1,divClass:'',animation:'',level:1}
       ],
       PearlLevel1:{
         imgCount:1,
-        href:shell,
+        href:pearl1,
         divClass:'',
         animation:'',
         level:1
       },
       PearlLevel2:{
         imgCount:2,
-        href:shell,
+        href:ocean1,
         divClass:'',
         animation:'',
         level:2
-      },
-      PearlLevel3:{
-        imgCount:3,
-        href:shell,
-        divClass:'',
-        animation:'',
-        level:3
-      },
-      PearlLevel4:{
-        imgCount:4,
-        href:shell,
-        divClass:'',
-        animation:'',
-        level:4
-      },
-      PearlLevel5:{
-        imgCount:5,
-        href:shell,
-        divClass:'',
-        animation:'',
-        level:5
       },
       isBlack:true,
       RankingListBlack:[
@@ -170,10 +117,9 @@ export default {
   },
   methods:{
     startStyle(){
-      $(".landscape").css({bottom:$(".myNav").height()+'px'})
 
       const that = this;
-      that.imgDiv.push(that.PearlLevel5);
+      that.imgDiv.push(that.PearlLevel2);
 
       for(var i=0;i<that.imgDiv.length;i++){
         that.imgDiv[i].divClass='float-container float-container'+i;
@@ -204,7 +150,6 @@ export default {
     },
     animation(e,arr){
       e.currentTarget.style.background = "transparent";
-      e.currentTarget.style.padding = "0";
       e.target.style.width = '200%';
       e.target.style.height = '200%';
       for(let i in arr){
@@ -221,29 +166,14 @@ export default {
       switch (parseInt(e.currentTarget.dataset.level))
       {
         case 1:
-          imgArr=this.pearl;
-          this.animation(e,imgArr);
-          this.$layer.msg("普通珍珠");
+          imgArr=that.pearl;
+          that.animation(e,imgArr);
+          that.$layer.msg("普通珍珠");
           break;
         case 2:
-          imgArr=this.opal;
-          this.animation(e,imgArr);
-          this.$layer.msg("稀有物品 猫眼");
-          break;
-        case 3:
-          imgArr=this.opper;
-          this.animation(e,imgArr);
-          this.$layer.msg("珍宝 - 影欧珀");
-          break;
-        case 4:
-          imgArr=this.hengshesha;
-          this.animation(e,imgArr);
-          this.$layer.msg("极品 --- 恒河沙");
-          break;
-        case 5:
-          imgArr=this.ocean;
-          this.animation(e,imgArr);
-          this.$layer.msg("恭喜获得 海洋之心");
+          imgArr=that.ocean;
+          that.animation(e,imgArr);
+          that.$layer.msg("恭喜获得 海洋之心");
           break;
       }
 
@@ -253,7 +183,7 @@ export default {
         divSelf.remove();
         localStorage.removeItem("float-container-left-" + index);
         localStorage.removeItem("float-container-top-" + index);
-      },2500);
+      },4000);
     },
     rankings(){
       if(this.isBlack){
@@ -468,9 +398,9 @@ export default {
     height:100vh;
     overflow:hidden;
     cursor:none;
-    background:black;
     color: #fff;
-    background:linear-gradient(to bottom,#0B0B15 0%,#5788fe 100%);
+    /*background:linear-gradient(to bottom,#3198D3 0%,#2E6EA1 100%);*/
+    background: #2F7BB0;
   }
   .filter {
     width:100%;
@@ -479,7 +409,6 @@ export default {
     position:absolute;
     top:0;
     left:0;
-    background:#58DEFF;
     animation:colorChange 30s ease-in-out infinite;
     animation-fill-mode:both;
     mix-blend-mode:overlay;
@@ -493,7 +422,7 @@ export default {
     }
   }.landscape {
      position:absolute;
-     left:0;bottom:0;
+     left:0;bottom:45px;
      width:100%;
      height:100%;
      /*background-image:url(https://openclipart.org/image/2400px/svg_to_png/250847/Trees-Landscape-Silhouette.png);
@@ -508,7 +437,6 @@ export default {
     top: 2rem;
     height: 2.5rem;
 		width: 100%;
-		font-family: "微软雅黑";
 		font-size: 1.01rem;
     background: rgba(255,255,255,0.1);
 	}
@@ -525,7 +453,7 @@ export default {
     position: absolute;
   }
   .option1{
-    left: 1.5rem;
+    left: 1rem;
     top: 8rem;
   }
 
@@ -542,17 +470,21 @@ export default {
     color: #fff;
   }
   .option2{
-    right: 0.6rem;
+    right: 1rem;
   }
   .option3{
     top: 55vh;
-    right: 0.6rem;
+    right: 1rem;
   }
   .option2 img, .option3 img,.option4 img{
     width: 70%;
   }
+  .option2:active img,.option3:active img,.option4:active img{
+    transform: scale3d(0.8,0.8,0.8);
+    transition: 0.1s;
+  }
   .option4{
-    left: 0.6rem;
+    left: 1rem;
   }
   .option4-Icon span{
     font-size: 2.5rem;
@@ -563,15 +495,13 @@ export default {
   .float-container {
     width: 4.2rem;
     height: 4.2rem;
-    border-radius: 50%;
     position: absolute;
-    padding:0.1rem 0.3rem 0.5rem;
     /*box-shadow: 0.1rem 0.1rem 0.1rem #112941;*/
     animation: myfirst 2s infinite;
-    background: -webkit-radial-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.2),rgba(255,255,255,0.7)); /* Safari 5.1 - 6.0 */
-    background: -o-radial-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.2),rgba(255,255,255,0.7)); /* Opera 11.6 - 12.0 */
-    background: -moz-radial-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.2),rgba(255,255,255,0.7)); /* Firefox 3.6 - 15 */
-    background: radial-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.2),rgba(255,255,255,0.7)); /* 标准的语法（必须放在最后） */
+    /*background: -webkit-radial-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.2),rgba(255,255,255,0.7)); !* Safari 5.1 - 6.0 *!*/
+    /*background: -o-radial-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.2),rgba(255,255,255,0.7)); !* Opera 11.6 - 12.0 *!*/
+    /*background: -moz-radial-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.2),rgba(255,255,255,0.7)); !* Firefox 3.6 - 15 *!*/
+    /*background: radial-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.2),rgba(255,255,255,0.7)); !* 标准的语法（必须放在最后） *!*/
   }
   @keyframes myfirst {
     0% {
@@ -585,7 +515,7 @@ export default {
     }
   }
   .float-container img{
-    width: 100%;
+    width: 150%;
   }
 
   p{

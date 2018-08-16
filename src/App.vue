@@ -64,7 +64,7 @@ html{
 .slide-left-enter-active,
 .slide-left-leave-active {
   will-change: transform;
-  transition: all .4s;
+  transition: all .3s;
   position: absolute;
   width:100%;
   height: 100%;

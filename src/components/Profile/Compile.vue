@@ -26,6 +26,8 @@
 				</mu-list>
 			</mu-paper>
 
+			<mu-divider class="mu-divider" style="margin-top: 0.6rem;"></mu-divider>
+
 			<div class="media Pictures" style="margin-top: 0">
 				<div class="media-body">
 					上传相册
@@ -37,8 +39,8 @@
 							<img @touchstart="rem(p,index)" @touchend="js()" alt="有" class="media-object graph" :src="`${p+'?'+now}`" @click="changeActive(index)" />
 						</div>
 						<div class="chart-to" data-toggle="modal" data-target="#PhModal">
-							<!--<img class="media-object sheet" src="../../assets/images/tianjia.png" />-->
-							<span class="sheet">+</span>
+							<img class="media-object sheet" src="../../assets/images/tianjia.png" />
+							<!--<span class="sheet">+</span>-->
 						</div>
 					</div>
 				</div>
@@ -129,7 +131,8 @@
 					</div>
 				</div>
 			</div>
-
+			
+			<!-- 性别选择模态框（Modal） -->
 			<mu-dialog width="360" scrollable :open.sync="openScroll">
 				<mu-list style="border-bottom: 1px solid #eee">
 					<mu-list-item :key="option" v-for="option in options">
@@ -141,6 +144,8 @@
 				<mu-button style="margin: auto;width: 100%;" flat slot="actions" @click="closeScrollDialog">取消</mu-button>
 			</mu-dialog>
 
+
+			<!-- 照片删除 -->
 			<mu-dialog title="操作提示" width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert">
 				确定要删除吗
 				<mu-button slot="actions" flat color="primary" @click="closeAlertDialog">取消</mu-button>
@@ -423,25 +428,26 @@
 </script>
 
 <style scoped>
+	
 	.chart-to {
-		position: relative;
-		background-color: #F5F5F5;
 		width: 20vw;
-		height: 20vw;
+		height:20vw;
 		float: right;
-		margin-right: 6%;
+		background-color: #F5F5F5;
+		display:table-cell;
+		vertical-align:middle;
+		text-align:center;
 		margin-top: 1%;
-		text-align: center;
-		font-size: 3.5rem;
-		color: #e1e1e1;
+		margin-right: 6%;
 	}
 	
 	.sheet {
 		position: relative;
-		vertical-align: middle;
+		vertical-align:middle;
 		text-align: center;
-		width: 20vw;
-		height: 20vw;
+		width: 10vw;
+		height:10vw;
+		margin: 25%;
 	}
 	
 	.content {
@@ -626,6 +632,5 @@
 	
 	.controlScroll {
 		width: auto;
-		margin-bottom: 0.5rem;
 	}
 </style>

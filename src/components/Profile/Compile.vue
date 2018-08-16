@@ -31,7 +31,7 @@
 					上传相册
 					<span id="hint">长按拖拽可更改图片顺序,最多10张</span>
 				</div>
-				<div class="controlContainer">
+				<div class="controlContainer" >
 					<div class="controlScroll">
 						<div class="controlContent" v-for="(p,index) in timg" v-dragging="{ item: p, list: timg, group: 'p' }" :key="p.index">
 							<img @touchstart="rem(p,index)" @touchend="js()" alt="有" class="media-object graph" :src="`${p+'?'+now}`" @click="changeActive(index)" />
@@ -141,6 +141,12 @@
 				<mu-button style="margin: auto;width: 100%;" flat slot="actions" @click="closeScrollDialog">取消</mu-button>
 			</mu-dialog>
 
+			<mu-dialog title="操作提示" width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert">
+				确定要删除吗
+				<mu-button slot="actions" flat color="primary" @click="closeAlertDialog">取消</mu-button>
+				<mu-button slot="actions" flat color="primary" @click="AlertDialog(Iurl,i)">确认</mu-button>
+			</mu-dialog>
+
 		</div>
 	</div>
 </template>
@@ -181,7 +187,10 @@
 				pmid: '',
 				rank: '',
 				openScroll: false,
+				openAlert: false,
 				ringtone: '',
+				Iurl:'',
+				i:'',
 				options: [
 					'男',
 					'女'
@@ -190,86 +199,90 @@
 		},
 		inject: ['reload'],
 		mounted: function() {
-			this.$http({
-					method: "get",
-					url: "/users/info",
-					headers: {
-						"device": "android",
-						"uid": localStorage.getItem("uid"),
-						"Access-Control-Allow-Origin": "*"
-					},
-					data: {}
-				}).then(function(res) {
-					if(res.data.code == 0) {
-
-						let rank = res.data.data.level;
-						if(rank) {
-							this.rank = res.data.data.level;
-						} else {
-							this.rank = 0
-						}
-						this.signature = res.data.data.resume;
-						this.IDcode = res.data.data.phone;
-						this.pmid = localStorage.getItem("uid");
-						if(res.data.data.gender == "UNKNOWN") {
-							this.ringtone = "保密"
-						} else if(res.data.data.gender == "MALE") {
-							this.ringtone = "男"
-						} else if(res.data.data.gender == "FEMALE") {
-							this.ringtone = "女"
-						}
-						if(res.data.data.nickname == "") {
-							this.nickname = localStorage.getItem("uid");
-						} else {
-							this.nickname = res.data.data.nickname;
-						}
-						if(res.data.data.signature == "") {
-							this.signature = signature;
-						} else {
-							this.signature = res.data.data.resume;
-						}
-						if(res.data.data.ringtone == "") {
-							this.ringtone = ringtone;
-						} else {
-							this.ringtone = res.data.data.gender;
-							if(res.data.data.gender == "UNKNOWN") {
-								this.ringtone = "保密"
-							} else if(this.ringtone == 'MALE') {
-								this.ringtone = '男'
-							} else if(this.ringtone == 'FEMALE') {
-								this.ringtone = '女'
-							}
-							//							console.log(this.ringtone+'值');
-						}
-
-						if(res.data.data.pictures == "") {
-							this.timg = [timg];
-						} else {
-							this.timg = res.data.data.pictures;
-						}
-
-						if(res.data.data.avatar == "") {
-							this.headImg = headImg;
-							this.haveHeadImg = false
-						} else {
-							this.headImg = res.data.data.avatar;
-							this.haveHeadImg = true
-						}
-					} else {
-						this.haveHeadImg = false
-						this.phtoImg = false
-						this.$layer.msg(res.data.msg);
-					}
-				}.bind(this))
-				.catch(function(err) {
-					this.haveHeadImg = false
-					this.phtoImg = false
-					console.log(err)
-				}.bind(this))
-
+			this.$nextTick(function() {
+				this.compile();
+			})
 		},
 
 		methods: {
+			compile() {
+				this.$http({
+						method: "get",
+						url: "/users/info",
+						headers: {
+							"device": "android",
+							"uid": localStorage.getItem("uid"),
+							"Access-Control-Allow-Origin": "*"
+						},
+						data: {}
+					}).then(function(res) {
+						if(res.data.code == 0) {
+							let rank = res.data.data.level;
+							if(rank) {
+								this.rank = res.data.data.level;
+							} else {
+								this.rank = 0
+							}
+							this.signature = res.data.data.resume;
+							this.IDcode = res.data.data.phone;
+							this.pmid = localStorage.getItem("uid");
+							if(res.data.data.gender == "UNKNOWN") {
+								this.ringtone = "保密"
+							} else if(res.data.data.gender == "MALE") {
+								this.ringtone = "男"
+							} else if(res.data.data.gender == "FEMALE") {
+								this.ringtone = "女"
+							}
+							if(res.data.data.nickname == "") {
+								this.nickname = localStorage.getItem("uid");
+							} else {
+								this.nickname = res.data.data.nickname;
+							}
+							if(res.data.data.signature == "") {
+								this.signature = signature;
+							} else {
+								this.signature = res.data.data.resume;
+							}
+							if(res.data.data.ringtone == "") {
+								this.ringtone = ringtone;
+							} else {
+								this.ringtone = res.data.data.gender;
+								if(res.data.data.gender == "UNKNOWN") {
+									this.ringtone = "保密"
+								} else if(this.ringtone == 'MALE') {
+									this.ringtone = '男'
+								} else if(this.ringtone == 'FEMALE') {
+									this.ringtone = '女'
+								}
+								//							console.log(this.ringtone+'值');
+							}
+
+							if(res.data.data.pictures == "") {
+								this.timg = [timg];
+							} else {
+								this.timg = res.data.data.pictures;
+							}
+
+							if(res.data.data.avatar == "") {
+								this.headImg = headImg;
+								this.haveHeadImg = false
+							} else {
+								this.headImg = res.data.data.avatar;
+								this.haveHeadImg = true
+							}
+						} else {
+							this.haveHeadImg = false
+							this.phtoImg = false
+							this.$layer.msg(res.data.msg);
+						}
+					}.bind(this))
+					.catch(function(err) {
+						this.haveHeadImg = false
+						this.phtoImg = false
+						console.log(err)
+					}.bind(this))
+
+			},
 			changeActive(index) {
 				this.active = index;
 			},
@@ -288,39 +301,7 @@
 			closeScrollDialog() {
 				this.openScroll = false;
 			},
-			sexChoose() {
-				// this.openScroll = false;
-				let gender;
-				console.log(this.ringtone)
-				if(this.ringtone === "男") {
-					gender = 'MALE'
-				} else if(this.ringtone === "女") {
-					gender = 'FEMALE'
-				} else {
-					gender = 'UNKNOWN'
-				}
-				this.$http({
-						method: "post",
-						url: "/users/edit-gender",
-						headers: {
-							"device": "android",
-							"uid": localStorage.getItem("uid"),
-							"Access-Control-Allow-Origin": "*"
-						},
-						data: {
-							gender: gender
-						}
-					}).then(function(res) {
-						if(res.data.code === 0) {
-							this.openScroll = false;
-						}
-						this.$layer.msg(res.data.msg)
-					}.bind(this))
-					.catch(function(err) {
-						console.log(err)
-					}.bind(this))
 
-			},
 			chooseImg(c) {
 				let that = this;
 				let $c = document.querySelector(c);
@@ -362,7 +343,6 @@
 			},
 			sexChoose(a) {
 				//				this.sexe=a;
-				console.log(a)
 				if(a == "男") {
 					this.gender = "MALE"
 				} else if(a == "女") {
@@ -383,8 +363,8 @@
 						}
 					}).then(function(res) {
 
-						if(res.data.code == 0) {
-							layer.close(index);
+						if(res.data.code === 0) {
+							this.openScroll = false;
 							this.$layer.msg(res.data.msg);
 						} else {
 							this.$layer.msg(res.data.msg);
@@ -396,38 +376,46 @@
 			},
 			rem(Iurl, i) {
 				let that = this;
+				//				 that.openAlert = true;
 				that.time = setTimeout(function() {
-					mui.confirm('is not?', {
-						icon: 3,
-						title: '确定删除该图片吗'
-					}, function(index) {
-						that.$http({
-								method: "post",
-								url: "/users/delete-picture",
-								headers: {
-									"device": "android",
-									"uid": localStorage.getItem("uid")
-								},
-								data: {
-									"url": Iurl
-								}
-							}).then(function(res) {
-								if(res.data.code == 0) {
-									that.$layer.msg(res.data.msg);
-								} else {
-									that.$layer.msg(res.data.msg);
-								}
-								that.timg.splice(i, 1)
-							}.bind(this))
-							.catch(function(err) {
-								that.$layer.msg("系统异常，请稍后再试" + err);
-							}.bind(this))
 
-					});
+					that.openAlert = true;
+					that.Iurl=Iurl;
+					that.i=i;
 				}, 1000)
 			},
 			js() {
 				clearTimeout(this.time);
+			},
+
+			closeAlertDialog() {
+				this.openAlert = false;
+			},
+			AlertDialog(Iurl,i) {
+				this.$http({
+						method: "post",
+						url: "/users/delete-picture",
+						headers: {
+							"device": "android",
+							"uid": localStorage.getItem("uid"),
+							"Access-Control-Allow-Origin": "*"
+						},
+						data: {
+							"url": Iurl
+						}
+					}).then(function(res) {
+						if(res.data.code == 0) {
+							this.openAlert = false;
+							this.$layer.msg(res.data.msg);
+						} else {
+							this.$layer.msg(res.data.msg);
+							this.openAlert = false;
+						}
+						this.timg.splice(i, 1)
+					}.bind(this))
+					.catch(function(err) {
+						this.$layer.msg("系统异常，请稍后再试" + err);
+					}.bind(this))
 			}
 
 		}
@@ -445,10 +433,10 @@
 		margin-top: 1%;
 		text-align: center;
 		font-size: 3.5rem;
-		color:#e1e1e1 ;
+		color: #e1e1e1;
 	}
 	
-	.sheet{
+	.sheet {
 		position: relative;
 		vertical-align: middle;
 		text-align: center;

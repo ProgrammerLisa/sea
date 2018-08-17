@@ -113,7 +113,6 @@ export default {
   },
   mounted:function () {
     this.startStyle();
-    this.bubble();
   },
   methods:{
     startStyle(){
@@ -137,7 +136,7 @@ export default {
           var cookievalTop = localStorage.getItem(ck);
           var cookievalLeft = localStorage.getItem(cl);
           if (cookievalTop == "" || cookievalLeft == "" || cookievalTop == null || cookievalLeft == null || cookievalTop == undefined || cookievalLeft == undefined||cookievalTop == null||cookievalLeft == null) {
-            cookievalTop = parseInt((($(window).height() - 100) * 0.7 * Math.random() + $(window).height() * 0.3) / 12);
+            cookievalTop = parseInt((($(window).height() - 200) * 0.7 * Math.random() + $(window).height() * 0.3) / 12);
             cookievalLeft = parseInt(($(window).width() - 100) * 0.8 * Math.random() / 12);
             $(".float-container" + index).css({top: cookievalTop + 'rem', left: cookievalLeft + 'rem'});
             localStorage.setItem(ck, cookievalTop);
@@ -148,16 +147,19 @@ export default {
         }
       })
     },
-    animation(e,arr){
-      e.currentTarget.style.background = "transparent";
-      e.target.style.width = '200%';
-      e.target.style.height = '200%';
+    animation(e,index,arr){
       for(let i in arr){
         (function(i){
           setTimeout(function(){
             e.target.src = arr[i];
+            if(i==arr.length-1){
+              console.log(true)
+              $(".float-container").eq(index).animate({marginTop:'-150%'},500)
+            }
           },i*200);
+
         })(i);
+
       }
     },
     accumulative(e,index){
@@ -167,225 +169,27 @@ export default {
       {
         case 1:
           imgArr=that.pearl;
-          that.animation(e,imgArr);
+          that.animation(e,index,imgArr);
           that.$layer.msg("普通珍珠");
           break;
         case 2:
           imgArr=that.ocean;
-          that.animation(e,imgArr);
+          that.animation(e,index,imgArr);
           that.$layer.msg("恭喜获得 海洋之心");
           break;
       }
 
       this.imgSum+=this.imgDiv[index].imgCount;
       let divSelf = e.currentTarget;
+      // setTimeout(function(){
+      //   $(".float-container").eq(index).animate({marginTop:'-150%'},500)
+      // },2000);
       setTimeout(function(){
         divSelf.remove();
         localStorage.removeItem("float-container-left-" + index);
         localStorage.removeItem("float-container-top-" + index);
-      },4000);
-    },
-    rankings(){
-      if(this.isBlack){
-        this.isBlack=false;
-        this.RankingTitle='综合排名';
-        this.RankingSwitch='得宝数据';
-      }else {
-        this.isBlack=true;
-        this.RankingTitle='得宝数据';
-        this.RankingSwitch='综合排名';
-      }
-    },
-    bubble(){
-      function Star(id, x, y){
-        this.id = id;
-        this.x = x;
-        this.y = y;
-        this.r = Math.floor(Math.random()*2)+1;
-        var alpha = (Math.floor(Math.random()*10)+1)/10/2;
-        this.color = "rgba(255,255,255,"+alpha+")";
-      }
-
-      Star.prototype.draw = function() {
-        ctx.fillStyle = this.color;
-        ctx.shadowBlur = this.r * 2;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
-        ctx.closePath();
-        ctx.fill();
-      }
-
-      Star.prototype.move = function() {
-        this.y -= .15;
-        if (this.y <= -10) this.y = HEIGHT + 10;
-        this.draw();
-      }
-
-      Star.prototype.die = function() {
-        stars[this.id] = null;
-        delete stars[this.id];
-      }
-
-
-      function Dot(id, x, y, r) {
-        this.id = id;
-        this.x = x;
-        this.y = y;
-        this.r = Math.floor(Math.random()*5)+1;
-        this.maxLinks = 2;
-        this.speed = .5;
-        this.a = .5;
-        this.aReduction = .005;
-        this.color = "rgba(255,255,255,"+this.a+")";
-        this.linkColor = "rgba(255,255,255,"+this.a/4+")";
-
-        this.dir = Math.floor(Math.random()*140)+200;
-      }
-
-      Dot.prototype.draw = function() {
-        ctx.fillStyle = this.color;
-        ctx.shadowBlur = this.r * 2;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
-        ctx.closePath();
-        ctx.fill();
-      }
-
-      Dot.prototype.link = function() {
-        if (this.id == 0) return;
-        var previousDot1 = getPreviousDot(this.id, 1);
-        var previousDot2 = getPreviousDot(this.id, 2);
-        var previousDot3 = getPreviousDot(this.id, 3);
-        if (!previousDot1) return;
-        ctx.strokeStyle = this.linkColor;
-        ctx.moveTo(previousDot1.x, previousDot1.y);
-        ctx.beginPath();
-        ctx.lineTo(this.x, this.y);
-        if (previousDot2 != false) ctx.lineTo(previousDot2.x, previousDot2.y);
-        if (previousDot3 != false) ctx.lineTo(previousDot3.x, previousDot3.y);
-        ctx.stroke();
-        ctx.closePath();
-      }
-
-      function getPreviousDot(id, stepback) {
-        if (id == 0 || id - stepback < 0) return false;
-        if (typeof dots[id - stepback] != "undefined") return dots[id - stepback];
-        else return false;//getPreviousDot(id - stepback);
-      }
-
-      Dot.prototype.move = function() {
-        this.a -= this.aReduction;
-        if (this.a <= 0) {
-          this.die();
-          return
-        }
-        this.color = "rgba(255,255,255,"+this.a+")";
-        this.linkColor = "rgba(255,255,255,"+this.a/4+")";
-        this.x = this.x + Math.cos(degToRad(this.dir))*this.speed,
-          this.y = this.y + Math.sin(degToRad(this.dir))*this.speed;
-
-        this.draw();
-        this.link();
-      }
-
-      Dot.prototype.die = function() {
-        dots[this.id] = null;
-        delete dots[this.id];
-      }
-
-
-      var canvas  = document.getElementById('canvas'),
-        ctx = canvas.getContext('2d'),
-        WIDTH,
-        HEIGHT,
-        mouseMoving = false,
-        mouseMoveChecker,
-        mouseX,
-        mouseY,
-        stars = [],
-        initStarsPopulation = 80,
-        dots = [],
-        dotsMinDist = 2,
-        maxDistFromCursor = 50;
-
-      setCanvasSize();
-      init();
-
-      function setCanvasSize() {
-        WIDTH = document.documentElement.clientWidth,
-          HEIGHT = document.documentElement.clientHeight;
-        canvas.setAttribute("width", WIDTH);
-        canvas.setAttribute("height", HEIGHT-$(".myNav").height()-10);
-      }
-
-      function init() {
-        ctx.strokeStyle = "white";
-        ctx.shadowColor = "white";
-        for (var i = 0; i < initStarsPopulation; i++) {
-          stars[i] = new Star(i, Math.floor(Math.random()*WIDTH), Math.floor(Math.random()*HEIGHT));
-          //stars[i].draw();
-        }
-        ctx.shadowBlur = 0;
-        animate();
-      }
-
-      function animate() {
-        ctx.clearRect(0, 0, WIDTH, HEIGHT);
-
-        for (var i in stars) {
-          stars[i].move();
-        }
-        for (var i in dots) {
-          dots[i].move();
-        }
-        drawIfMouseMoving();
-        requestAnimationFrame(animate);
-      }
-      var can = document.getElementById("canvas")
-      window.onmousemove = function(e){
-        mouseMoving = true;
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        clearInterval(mouseMoveChecker);
-        mouseMoveChecker = setTimeout(function() {
-          mouseMoving = false;
-        }, 100);
-      }
-
-
-      function drawIfMouseMoving(){
-        if (!mouseMoving) return;
-
-        if (dots.length == 0) {
-          dots[0] = new Dot(0, mouseX, mouseY);
-          dots[0].draw();
-          return;
-        }
-
-        var previousDot = getPreviousDot(dots.length, 1);
-        var prevX = previousDot.x;
-        var prevY = previousDot.y;
-
-        var diffX = Math.abs(prevX - mouseX);
-        var diffY = Math.abs(prevY - mouseY);
-
-        if (diffX < dotsMinDist || diffY < dotsMinDist) return;
-
-        var xVariation = Math.random() > .5 ? -1 : 1;
-        xVariation = xVariation*Math.floor(Math.random()*maxDistFromCursor)+1;
-        var yVariation = Math.random() > .5 ? -1 : 1;
-        yVariation = yVariation*Math.floor(Math.random()*maxDistFromCursor)+1;
-        dots[dots.length] = new Dot(dots.length, mouseX+xVariation, mouseY+yVariation);
-        dots[dots.length-1].draw();
-        dots[dots.length-1].link();
-      }
-//setInterval(drawIfMouseMoving, 17);
-
-      function degToRad(deg) {
-        return deg * (Math.PI / 180);
-      }
+      },3000);
     }
-
 
   }
 
@@ -400,33 +204,14 @@ export default {
     cursor:none;
     color: #fff;
     /*background:linear-gradient(to bottom,#3198D3 0%,#2E6EA1 100%);*/
-    background: #2F7BB0;
+    background: #1A3B57;
   }
-  .filter {
-    width:100%;
-    height:100vh;
-    overflow: hidden;
-    position:absolute;
-    top:0;
-    left:0;
-    animation:colorChange 30s ease-in-out infinite;
-    animation-fill-mode:both;
-    mix-blend-mode:overlay;
-  }
-  @keyframes colorChange {
-    0%,100% {
-      opacity:0;
-    }
-    50% {
-      opacity:.9;
-    }
-  }.landscape {
+
+  .landscape {
      position:absolute;
      left:0;bottom:45px;
      width:100%;
      height:100%;
-     /*background-image:url(https://openclipart.org/image/2400px/svg_to_png/250847/Trees-Landscape-Silhouette.png);
-       */
      background-image:url('../../assets/images/bg.png');
      background-size:100% 100%;
      background-repeat:repeat-x;
@@ -462,7 +247,7 @@ export default {
     padding: 0.4rem;
   }
   .option2,.option3,.option4{
-    width: 6rem;
+    width: 7rem;
     float: right;
     text-align: center;
     position: absolute;
@@ -498,10 +283,7 @@ export default {
     position: absolute;
     /*box-shadow: 0.1rem 0.1rem 0.1rem #112941;*/
     animation: myfirst 2s infinite;
-    /*background: -webkit-radial-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.2),rgba(255,255,255,0.7)); !* Safari 5.1 - 6.0 *!*/
-    /*background: -o-radial-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.2),rgba(255,255,255,0.7)); !* Opera 11.6 - 12.0 *!*/
-    /*background: -moz-radial-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.2),rgba(255,255,255,0.7)); !* Firefox 3.6 - 15 *!*/
-    /*background: radial-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.2),rgba(255,255,255,0.7)); !* 标准的语法（必须放在最后） *!*/
+
   }
   @keyframes myfirst {
     0% {
@@ -515,7 +297,7 @@ export default {
     }
   }
   .float-container img{
-    width: 150%;
+    width: 200%;
   }
 
   p{

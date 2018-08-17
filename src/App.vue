@@ -86,7 +86,7 @@ html{
   opacity: 0;
   transform:translate3d(-100%, 0, 0);
 }
-a:hover, a:focus {
+a:hover, a:focus ,a:visited,a:active{
   text-decoration: none;
 }
   .myNavTitle{
@@ -104,7 +104,7 @@ a:hover, a:focus {
     height: 2.5rem;
   }
   .navTitleText{
-    font-size: 1.6rem;
+    font-size: 1.8rem;
   }
   .contentMarginTop{
     margin-top: 0.6rem;

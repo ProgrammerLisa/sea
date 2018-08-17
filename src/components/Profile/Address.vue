@@ -83,57 +83,62 @@
           mobile: {
             id: '',
             msg:'',
-            label:'默认地址'
+            label:''
           }
         }
       },
 
       mounted(){
-        this.$http({
-          method: "get",
-          url: "/users/delivery_address",
-          headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
-          data: {}
-        }).then(function(res){
-          if(res.data.code==0){
-            if(JSON.stringify(res.data.data) == "{}"){
-              this.noAddress = true
-            }else {
-              this.noAddress =  false;
-
-							let myJson = res.data.data;
-							for(let p in myJson) { //遍历json对象的每个key/value对,p为key
-
-								this.mobile.id = p;
-								this.mobile.msg = myJson[p];
-                if(myJson[p].is_default){
-                  this.form.radio= p;
-                  this.mobile.label ='已设为默认地址';
-                }else {
-                  this.mobile.label ='默认地址';
-                }
-								this.myAddress.push(this.mobile);
-								this.mobile = {
-									id: '',
-									msg: {
-										name: '',
-										phoneNumber: '',
-										address: '',
-										is_default: ''
-									}
-
-								};
-              }
-            }
-          }else {
-            this.$layer.msg(res.data.msg);
-          }
-        }.bind(this))
-          .catch(function(err){
-            this.$layer.msg("系统异常，请稍后再试");
-          }.bind(this))
+        this.$nextTick(function () {
+          this.getList();
+        })
       },
       methods:{
+        getList(){
+          this.$http({
+            method: "get",
+            url: "/users/delivery_address",
+            headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
+            data: {}
+          }).then(function(res){
+            if(res.data.code==0){
+              if(JSON.stringify(res.data.data) == "{}"){
+                this.noAddress = true
+              }else {
+                this.noAddress =  false;
+
+                let myJson = res.data.data;
+                for(let p in myJson) { //遍历json对象的每个key/value对,p为key
+
+                  this.mobile.id = p;
+                  this.mobile.msg = myJson[p];
+                  if(myJson[p].is_default){
+                    this.form.radio= p;
+                    this.mobile.label ='已设为默认地址';
+                  }else {
+                    this.mobile.label ='默认地址';
+                  }
+                  this.myAddress.push(this.mobile);
+                  this.mobile = {
+                    id: '',
+                    msg: {
+                      name: '',
+                      phoneNumber: '',
+                      address: '',
+                      is_default: ''
+                    },
+                    label:''
+                  };
+                }
+              }
+            }else {
+              this.$layer.msg(res.data.msg);
+            }
+          }.bind(this))
+            .catch(function(err){
+              this.$layer.msg("系统异常，请稍后再试");
+            }.bind(this))
+        },
         openAlertDialog (index) {
           this.openAlert = true;
           this.item = index;
@@ -151,12 +156,13 @@
               id:this.myAddress[index].id
             }
           }).then(function(res){
-            if(res.data.code==0){
-              this.$layer.msg(res.data.msg);
-              for(let i in this.myAddress){
-                this.myAddress[i].label="默认地址"
+
+            if(res.data.code===0){
+              for (let i in this.myAddress){
+                this.myAddress[i].label='默认地址'
               }
-              this.myAddress[index].label="已设为默认地址"
+              this.myAddress[index].label='已设为默认地址';
+              this.$layer.msg(res.data.msg);
             }else {
               this.$layer.msg(res.data.msg);
             }
@@ -209,11 +215,9 @@
 
 			},
 			evers() {
-				console.log(1)
 				this.masrc = backs;
 			},
 			lat() {
-				console.log(2)
 				this.masrc = back;
 			},
 			goBack() {

@@ -247,7 +247,6 @@
 	.income {
 		background: #09a2d6;
 		text-align: center;
-		width: 100%;
 		color: #fff;
 	}
 	

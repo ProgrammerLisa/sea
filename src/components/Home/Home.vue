@@ -5,7 +5,7 @@
     <canvas id="canvas"></canvas>
 
      <div id="notice">
-        <marquee style="height: 2.5rem;" scrollamount="5" scrolldelay="1"><span style="font-size: 1.5rem;color: #fff">公告:亲爱的用户，平台momomo即将上线，敬请期待。</span></marquee>
+        <marquee style="height: 2.5rem;" scrollamount="5" scrolldelay="1"><span style="font-size: 1.5rem;color: #fff;vertical-align:middle;">公告:亲爱的用户，平台momomo即将上线，敬请期待.</span></marquee>
      </div>
      <div class="topOption option1">
         <div class="icon"><img :src="zhenzhuIcon"/> 珍珠 {{imgSum}}</div>

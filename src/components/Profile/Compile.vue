@@ -13,12 +13,17 @@
 					<div class="myHeadImg" @click="openHiDialog">
 						<mu-list-item avatar button>
 							<mu-list-item-title>头像</mu-list-item-title>
-							<mu-list-item-action>
-								<mu-avatar>
+							<mu-list-item-action class="album">
+								<!--<mu-avatar>-->
 									<img class="media-object headImg" :src="`${headImg+'?'+now}`" v-if="haveHeadImg" />
 									<img class="media-object headImg" :src="headImg" v-else/>
-								</mu-avatar>
+								<!--</mu-avatar>-->
 							</mu-list-item-action>
+							
+							<mu-list-item-action  class="album-listRight">
+									<img :src="more" class="moreImg" />
+							</mu-list-item-action>
+							
 						</mu-list-item>
 
 					</div>
@@ -39,12 +44,11 @@
 						</div>
 						<div class="chart-to" @click="openPhDialog">
 							<img class="media-object sheet" src="../../assets/images/tianjia.png" />
-							<!--<span class="sheet">+</span>-->
 						</div>
 					</div>
 				</div>
 			</div>
-
+			
 			<mu-paper :z-depth="0" class="demo-list-wrap marginTop">
 				<mu-list>
 					<mu-list-item to="/nickname" avatar button class="mu-list-item">
@@ -428,21 +432,24 @@
 </script>
 
 <style scoped>
+<<<<<<< HEAD
+=======
+	
+	.mu-item-action{
+		min-width: 3.0rem;
+	}
+>>>>>>> d972feaef81e6015978ab22c8410b2006764db45
 
 	.chart-to {
 		width: 20vw;
 		height:20vw;
-		float: right;
 		background-color: #F5F5F5;
-		display:table-cell;
-		vertical-align:middle;
-		text-align:center;
-		margin-top: 1%;
-		margin-right: 6%;
+		margin: 1vw;
+		display: inline-block;
+		white-space: nowrap;
 	}
 
 	.sheet {
-		position: relative;
 		vertical-align:middle;
 		text-align: center;
 		width: 10vw;
@@ -493,7 +500,7 @@
 	}
 
 	.listRight {
-		width: 50%
+		width: 50%;
 	}
 
 	.media-right {
@@ -504,11 +511,15 @@
 	.mu-list {
 		padding: 0;
 	}
+<<<<<<< HEAD
 
 	.listRight {
 		width: 50%
 	}
 
+=======
+	
+>>>>>>> d972feaef81e6015978ab22c8410b2006764db45
 	.modal-content {
 		margin: 0 2rem;
 		border-radius: 0;
@@ -567,18 +578,22 @@
 		float: right;
 		color: #888;
 		font-size: 0.05rem;
-		padding-right: 0px;
+		padding-right: 1.2rem;
 	}
 
 
 	.mu-divider {
 		background: #f5f5f5;
 	}
+<<<<<<< HEAD
 
 	.mu-item {
 		padding-right: 0;
 	}
 
+=======
+	
+>>>>>>> d972feaef81e6015978ab22c8410b2006764db45
 	.marginTop {
 		margin-top: 0.6rem;
 		background: #f5f5f5;
@@ -610,6 +625,7 @@
 	.controlScroll {
 		width: auto;
 	}
+<<<<<<< HEAD
   .delBtn{
     border-top: 1px solid #ddd;width: 50%;
     color: #555;
@@ -619,3 +635,11 @@
     color: #09a2d6;
   }
 </style>
+=======
+	
+	.getBack{
+		width: 36px;
+	}
+	
+</style>
+>>>>>>> d972feaef81e6015978ab22c8410b2006764db45

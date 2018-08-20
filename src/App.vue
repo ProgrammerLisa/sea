@@ -109,4 +109,7 @@ a:hover, a:focus ,a:visited,a:active{
   .contentMarginTop{
     margin-top: 0.6rem;
   }
+  .publicDialogTitle{
+    padding: 2rem;
+  }
 </style>

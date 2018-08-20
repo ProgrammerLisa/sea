@@ -12,20 +12,20 @@
           <div class="incomeTitle">今日收益</div>
           <div style="font-size: 34px; font-weight: 300;">8.6666</div>
         </div>
-        <mu-row>
-          <mu-col span="6">
+        <div style="display: flex">
+          <div class="text-center" style="width: 50%;">
             <div class="grid-cell">
               <div class="incomeTitle">昨日收益</div>
               <div>6.666</div>
             </div>
-          </mu-col>
-          <mu-col span="6">
+          </div>
+          <div class="text-center" style="width: 50%;">
             <div class="grid-cell">
               <div class="incomeTitle">累计收益</div>
               <div>6.666</div>
             </div>
-          </mu-col>
-        </mu-row>
+          </div>
+        </div>
       </div>
       <mu-paper id="nav3" :z-depth="0">
         <mu-list style="padding: 0">
@@ -40,9 +40,7 @@
 
     <mu-paper id="dataBox" :z-depth="2">
       <mu-list class="mu-list">
-        <div class="dataContainer">
-          <div class="dataList"  v-for="(i,index) in data" :key="index">
-            <mu-list-item class="mu-list-item">
+            <mu-list-item class="mu-list-item" v-for="(i,index) in data" :key="index">
               <mu-list-item-content>
                 <mu-list-item-title>Photos</mu-list-item-title>
                 <mu-list-item-sub-title class="dateText">Jan 9, 2014</mu-list-item-sub-title>
@@ -51,34 +49,9 @@
                 <mu-list-item-title class="count">+300</mu-list-item-title>
               </mu-list-item-action>
             </mu-list-item>
-            <mu-divider class="mu-divider" shallow-inset></mu-divider>
-          </div>
-        </div>
 
       </mu-list>
     </mu-paper>
-
-
-    <!--<div id="listTitle" @click="rankings" >-->
-      <!--<div class="col-xs-6 text-left" style="font-weight: bold;font-size: 1.7rem">{{RankingTitle}}</div>-->
-      <!--<div class="col-xs-6 text-right" style="color: #888">{{RankingSwitch}} <span class="glyphicon glyphicon-menu-right" style="font-size: xx-small"></span></div>-->
-    <!--</div>-->
-    <!--<table v-if="isBlack" class="table">-->
-      <!--<tr><td><h4 class="decorate-title"><div class="decorate"></div>得宝数据</h4></td></tr>-->
-      <!--<tr class="bcfff myData" v-for="list in RankingListBlack">-->
-        <!--<td class="text-left">{{list.title}}</td>-->
-        <!--<td class="text-right">{{list.count}}</td>-->
-      <!--</tr>-->
-    <!--</table>-->
-    <!--<table v-else class="table">-->
-      <!--<tr><td id="ranking"><h4 class="decorate-title"><div class="decorate"></div>综合排名</h4></td></tr>-->
-      <!--<tr class="bcfff"><td>排行榜</td><td>账户</td><td>珍珠值数</td></tr>-->
-      <!--<tr class="bcfff" v-for="list in RankingListForce">-->
-        <!--<td>{{list.level}}</td>-->
-        <!--<td>{{list.name}}</td>-->
-        <!--<td class="pearl-count">{{list.count}}</td>-->
-      <!--</tr>-->
-    <!--</table>-->
 
 
   </div>
@@ -111,6 +84,7 @@
         },
       mounted(){
         let height=$("#nav1").height()+$("#nav2").height()+$("#nav3").height();
+        console.log(height)
         $("#navBox").css({height:height+'px'});
         $("#dataBox").css({marginTop:height+'px'})
       },
@@ -157,9 +131,7 @@
   .content::-webkit-scrollbar {
     display:none
   }
-  #dataBox{
-    margin-top: 50vh;
-  }
+
   .titleText{
     font-size: 17px;
   }
@@ -193,9 +165,14 @@
   }
   .mu-list{
     border-bottom: 1px solid #eee;
+
   }
   .mu-list-item{
     padding: 0.5rem 0;
+    border-bottom: 1px solid #f5f5f5;
+  }
+  .mu-list-item:last-child{
+    border-bottom: none;
   }
   .dateText{
     font-size: 1rem;

@@ -27,12 +27,12 @@
             <p class="nickName">点击登录</p>
           </router-link>
 
-          <div class="row msgBox">
-            <router-link to="wallet" tag="div" class="col-xs-6  personalMessageLeft">
+          <div class="msgBox">
+            <router-link to="wallet" tag="div" class="personalMessageLeft">
               <mu-button flat class="personalText" ><img :src="wallet" class="personalIcon">我的钱包</mu-button>
-              <span class="wallet"></span>
             </router-link>
-            <router-link to="realname" tag="div" class="col-xs-6 personalMessageLeft">
+            <div class="wallet"></div>
+            <router-link to="realname" tag="div" class="personalMessageLeft">
               <mu-button flat class="personalText" > <img :src="autonym" class="personalIcon">实名信息</mu-button>
             </router-link>
           </div>
@@ -257,18 +257,17 @@
   .personalMessageLeft{
     padding: 0;
     text-align: center;
+    width: 50%;
   }
   .wallet{
-    display: inline-block;
-    float: right;
     width: 0.1rem;
-    height: 1.8rem;
-    margin-top: 1rem;
+    height: 1.6rem;
     background: #ddd;
+    margin-top: 1.2rem;
   }
 
   .msgBox{
-    /*margin-top: 1rem;*/
+    display: flex;
   }
   .HeadPortrait img{
     width: 6rem;
@@ -344,7 +343,11 @@
     background-color: #f5f5f5;
   }
   .mylist{
-    background: #fff;border-bottom: 1px solid #f5f5f5
+    background: #fff;border-bottom: 1px solid #f5f5f5;
+    padding-right: 1.2rem;
+  }
+  .mylist:nth-child(2){
+    padding-right: 2rem;
   }
   .mylist:nth-child(4),.mylist:nth-child(6){
     margin-bottom: 0.7rem;

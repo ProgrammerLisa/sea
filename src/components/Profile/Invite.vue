@@ -7,12 +7,11 @@
       <span class="titleText">邀请码</span>
     </mu-appbar>
 		<div class="code">
-			<h4 class="title">我的专属邀请码</h4>
+			<div class="title">我的专属邀请码</div>
 			<div id="ask_invite" v-model="ask_invite">{{ask_invite}}</div>
-			<div style="padding-top:2.5rem;">
-				<p class="msg">每邀请一位好友下载并注册，你和好友都将获得同等奖励</p>
-        <mu-button style="margin-top: 1rem" large color="#09a2d6" v-clipboard:copy="ask_invite" v-clipboard:success="onCopy" v-clipboard:error="onError">复制邀请码</mu-button>
-
+      <div class="msgText">每邀请一位好友下载并注册，你和好友都将获得同等奖励</div>
+      <div>
+        <mu-button large color="#09a2d6" v-clipboard:copy="ask_invite" v-clipboard:success="onCopy" v-clipboard:error="onError">复制邀请码</mu-button>
       </div>
 		</div>
     <div class="inviteCodeImg">
@@ -104,11 +103,13 @@
 	.code {
 		padding: 2rem;
 		text-align: center;
-	}
+    display: flex;
+    flex-direction:column
+  }
 
 	.title {
 		color: #444;
-		margin-bottom: 2rem;
+    font-size: 1.6rem;
 	}
 
 	#ask_invite {
@@ -117,17 +118,17 @@
 		border-top: 0;
 		border-left: 0;
 		border-right: 0;
-		/*padding-left: 1.2rem;*/
 		font-size: 4.5rem;
 		border-bottom: 1px solid #eee;
 		width: 100%;
 		outline: none;
 		letter-spacing: 0.05rem;
 	}
-  .msg{
+  .msgText{
     color: #777;
     font-size: smaller;
     text-align: center;
+    padding: 1rem 0;
   }
 
   .inviteCodeImg{

@@ -24,7 +24,7 @@
       <!--</div>-->
     </div>
     <mu-dialog  width="360" :open.sync="openSimple" style="text-align: center">
-      商场即将上线
+      <div class="publicDialogTitle">商场即将上线</div>
       <mu-button slot="actions" style="width: 100%;border-top: 1px solid #eee" flat color="primary" @click="closeSimpleDialog">知道了</mu-button>
     </mu-dialog>
     <!--<audio id="audioPlay" src="@/assets/audio/475.mp3"></audio>-->

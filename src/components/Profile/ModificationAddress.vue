@@ -6,7 +6,7 @@
       </mu-button>
       <span class="navTitleText">修改地址</span>
     </mu-appbar>
-    <mu-container class="contentMarginTop" style="background: #fff">
+    <mu-container style="border-top: 0.6rem solid #f5f5f5">
       <mu-form ref="form" :model="validateForm" class="mu-demo-form" >
         <mu-form-item prop="username" :rules="usernameRules">
           <mu-text-field v-model="validateForm.username" prop="username" placeholder="请填写收货人姓名"></mu-text-field>
@@ -14,8 +14,8 @@
         <mu-form-item prop="phone" :rules="passwordRules">
           <mu-text-field type="text" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/" v-model="validateForm.phone" prop="phone" placeholder="请填写收货手机号码"></mu-text-field>
         </mu-form-item>
-        <mu-form-item prop="address" :rules="addressRules">
-          <mu-text-field type="text" v-model="validateForm.address" data-toggle="modal" data-target="#addressModal" prop="address" placeholder="请选择地区"></mu-text-field>
+        <mu-form-item prop="address" :rules="addressRules" data-toggle="modal" data-target="#addressModal">
+          <mu-text-field disabled="disabled" type="text" v-model="validateForm.address"  prop="address" placeholder="请选择地区"></mu-text-field>
         </mu-form-item>
         <mu-form-item prop="addressNumber" :rules="addressNumberRules">
           <mu-text-field type="text" v-model="validateForm.addressNumber" prop="addressNumber" placeholder="详细地址(如门牌号等)"></mu-text-field>
@@ -32,31 +32,27 @@
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h4 class="modal-title" id="myModalLabel">所在地区</h4>
           </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-xs-4 text-center" id="provinceName">请选择</div>
-              <div class="col-xs-4 text-center" id="cityName">请选择</div>
-              <div class="col-xs-4 text-center" id="districtsName">请选择</div>
-            </div>
+          <div class="modal-body addressTitleContainer">
+              <div class="addressTitle text-center" id="provinceName">请选择</div>
+              <div class="addressTitle text-center" id="cityName">请选择</div>
+              <div class="addressTitle text-center" id="districtsName">请选择</div>
           </div>
-          <div class="modal-footer">
-            <div class="row">
-              <div class="col-xs-4 text-center auto">
+          <div class="modal-footer addressTitleContainer">
+              <div class=" text-center auto">
                 <ul>
                   <li v-for="(p,index) in provinceName" :value="p.code" @click="provinceChoose(index)" class="provinceName">{{p.name}}</li>
                 </ul>
               </div>
-              <div class="col-xs-4 text-center auto">
+              <div class=" text-center auto">
                 <ul>
                   <li v-for="(p,index) in cityName" :value="p.code" @click="cityChoose(index)" class="cityName">{{p.name}}</li>
                 </ul>
               </div>
-              <div class="col-xs-4 text-center auto">
+              <div class=" text-center auto">
                 <ul>
                   <li v-for="(p,index) in districtsName" :value="p.code" @click="districtsChoose(index)" class="districtsName" data-dismiss="modal">{{p.name}}</li>
                 </ul>
               </div>
-            </div>
 
           </div>
         </div>
@@ -242,6 +238,7 @@
     overflow-x: hidden;
     color: #666;
     width: 100vw;
+    background: #fff;
   }
 
   .mu-form-item{
@@ -264,7 +261,13 @@
   #myModalLabel {
     text-align: center;
   }
-
+  .addressTitleContainer{
+    display: flex;
+    font-size: 1.6rem;
+  }
+  .addressTitle,.auto{
+    width: 33.3%;
+  }
   .auto {
     height: 50vh;
     overflow: auto;

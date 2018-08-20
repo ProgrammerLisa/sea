@@ -27,7 +27,7 @@
           </div>
         </transition>
         <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="n.msgShow" style="text-align: center">
-        确认删除这条消息吗
+          <div class="publicDialogTitle">确认删除这条消息吗</div>
         <mu-button slot="actions" flat color="primary" @click="del(index)" class="loginOutBtn">确定</mu-button>
         <mu-button slot="actions" flat color="primary" @click="closeAlertDialog(index)" class="loginOutBtn">取消</mu-button>
         </mu-dialog>

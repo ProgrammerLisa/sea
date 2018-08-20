@@ -7,6 +7,7 @@
       <span class="navTitleText">设置</span>
     </mu-appbar>
     <div class="contentMarginTop">
+
       <mu-paper :z-depth="0" class="demo-list-wrap">
         <mu-list>
             <mu-list-item button>
@@ -16,8 +17,7 @@
               </mu-list-item-action>
             </mu-list-item>
             <mu-divider class="mu-divider"></mu-divider>
-          <router-link to="/changepassword">
-            <mu-list-item button>
+            <mu-list-item button to="/changepassword">
               <mu-list-item-title  class="listTitle"> 修改密码</mu-list-item-title>
               <mu-list-item-action>
                 <mu-button icon>
@@ -26,9 +26,7 @@
               </mu-list-item-action>
             </mu-list-item>
             <mu-divider class="mu-divider" style="height: 0.6rem"></mu-divider>
-          </router-link>
-          <router-link to="/aboutus">
-            <mu-list-item button>
+            <mu-list-item button to="/aboutus">
               <mu-list-item-title  class="listTitle"> 关于我们</mu-list-item-title>
               <mu-list-item-action>
                 <mu-button icon>
@@ -37,9 +35,7 @@
               </mu-list-item-action>
             </mu-list-item>
             <mu-divider class="mu-divider"></mu-divider>
-          </router-link>
-          <router-link to="/userfeedback">
-            <mu-list-item button>
+            <mu-list-item button to="/userfeedback">
               <mu-list-item-title  class="listTitle"> 用户反馈</mu-list-item-title>
               <mu-list-item-action>
                 <mu-button icon>
@@ -48,14 +44,13 @@
               </mu-list-item-action>
             </mu-list-item>
             <mu-divider class="mu-divider"></mu-divider>
-          </router-link>
-          <mu-list-item button>
-            <mu-list-item-title  class="listTitle"> 版本更新</mu-list-item-title>
-            <mu-list-item-action>
-              <span>已是最新版本</span>
-            </mu-list-item-action>
-          </mu-list-item>
-          <mu-divider class="mu-divider" style="background: #eee"></mu-divider>
+            <mu-list-item button>
+              <mu-list-item-title  class="listTitle"> 版本更新</mu-list-item-title>
+              <mu-list-item-action>
+                <span>已是最新版本</span>
+              </mu-list-item-action>
+            </mu-list-item>
+            <mu-divider class="mu-divider" style="background: #eee"></mu-divider>
         </mu-list>
 
       </mu-paper>
@@ -63,7 +58,7 @@
         <mu-button full-width large color="#fff" style="color: #F5594E;letter-spacing: 2px">退出登录</mu-button>
       </mu-flex>
       <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert" style="text-align: center">
-        确认要退出登录吗
+        <div class="publicDialogTitle">确认要退出登录吗</div>
         <mu-button slot="actions" flat color="primary" @click="loginOut" class="loginOutBtn">确定</mu-button>
         <mu-button slot="actions" flat color="primary" @click="closeAlertDialog" class="loginOutBtn">取消</mu-button>
       </mu-dialog>
@@ -189,6 +184,20 @@
     position: fixed;
     top: 0;
 	}
+  .myList{
+    background: #fff;
+    display: flex;
+    font-size: 1.6rem;
+    color: #333;
+    padding:1rem 1.8rem;
+    border-bottom: 1px solid #f5f5f5;
+  }
+  .myListTitle{
+    width: 40%;
+  }
+  .myListBody{
+    width: 60%;
+  }
   .mu-list{
     padding: 0;
   }

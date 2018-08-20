@@ -67,7 +67,7 @@
               <div class="media-right leaveMessage">
                 <mu-button small color="#fff" textColor="#09a2d6" @click="openLeaveMessage(index)" flat style="border: solid 1px #09a2d6;height: 3rem;margin-top: 0.5rem">回复</mu-button>
                 <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="m.openMessage">
-                <div style="height: 110px">
+                <div class="publicDialogTitle" style="height: 110px;padding-top: 1rem">
                 <mu-text-field type="text" label="回复小偷" v-model="leavemessage" placeholder="请输入回复内容"  full-width style="margin-bottom: 0;"></mu-text-field>
                 <mu-slide-top-transition v-show="messageMsgShow">
                 <div class="mu-transition-box mu-inverse" style="color: #EF5350;font-size: small" v-show="messageMsgShow">{{messageMsg}}</div>

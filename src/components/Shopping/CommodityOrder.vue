@@ -12,7 +12,7 @@
         <p>还没有订单哦</p>
         <mu-button color="#09a2d6" @click="openSimpleDialog">去逛逛</mu-button>
         <mu-dialog  width="360" :open.sync="openSimple" style="text-align: center">
-          商场即将上线
+          <div class="publicDialogTitle">商场即将上线</div>
           <mu-button slot="actions" style="width: 100%;border-top: 1px solid #eee" flat color="primary" @click="closeSimpleDialog">知道了</mu-button>
         </mu-dialog>
       </div>

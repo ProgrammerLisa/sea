@@ -10,7 +10,7 @@
 		<div class="contentMarginTop">
 			<mu-paper :z-depth="0" class="demo-list-wrap">
 				<mu-list>
-					<div class="mylist" data-toggle="modal" data-target="#ImgModal">
+					<div class="myHeadImg" @click="openHiDialog">
 						<mu-list-item avatar button>
 							<mu-list-item-title>头像</mu-list-item-title>
 							<mu-list-item-action>
@@ -20,7 +20,6 @@
 								</mu-avatar>
 							</mu-list-item-action>
 						</mu-list-item>
-						<mu-divider class="mu-divider"></mu-divider>
 
 					</div>
 				</mu-list>
@@ -31,14 +30,14 @@
 			<div class="media Pictures" style="margin-top: 0">
 				<div class="media-body">
 					上传相册
-					<span id="hint">长按拖拽可更改图片顺序,最多10张</span>
+					<span id="hint">长按图片可删除</span>
 				</div>
 				<div class="controlContainer" >
 					<div class="controlScroll">
 						<div class="controlContent" v-for="(p,index) in timg" v-dragging="{ item: p, list: timg, group: 'p' }" :key="p.index">
 							<img @touchstart="rem(p,index)" @touchend="js()" alt="有" class="media-object graph" :src="`${p+'?'+now}`" @click="changeActive(index)" />
 						</div>
-						<div class="chart-to" data-toggle="modal" data-target="#PhModal">
+						<div class="chart-to" @click="openPhDialog">
 							<img class="media-object sheet" src="../../assets/images/tianjia.png" />
 							<!--<span class="sheet">+</span>-->
 						</div>
@@ -93,48 +92,36 @@
 			</mu-paper>
 
 			<!-- 头像选择模态框（Modal） -->
-			<div class="modal fade" id="ImgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-body">
-							<span class="headImgChoose fileinput-button">
-                <span>从相册选择</span>
-							<input type="file" accept="image/*" id="fileBtn" @change="chooseImg('#fileBtn')">
-							</span>
+      <mu-dialog width="300" scrollable :open.sync="openHi" class="text-center">
+        <div style="border-bottom: 1px solid #eee" >
+          <mu-button style="width: 100%" flat color="#09A2D6">
+                <span class="headImgChoose fileinput-button">
+                    <span>从相册选择</span>
+                    <input type="file" accept="image/*" id="fileBtn" @change="chooseImg('#fileBtn')">
+                </span>
+          </mu-button>
+        </div>
 
-							<span class="headImgChoose closeBtn fileinput-button" data-dismiss="modal">
-              <span>取消</span>
-							</span>
-
-						</div>
-					</div>
-					<!-- /.modal-content -->
-				</div>
-				<!-- /.modal -->
-			</div>
+        <mu-button style="width: 100%" flat color="#333"  @click="closeHiDialog">取消</mu-button>
+      </mu-dialog>
 
 			<!-- 照片选择模态框（Modal） -->
-			<div class="modal fade" id="PhModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-body">
-							<span class="headImgChoose fileinput-button">
-                <span>从相册选择图片</span>
-							<input type="file" accept="image/*" id="phBtn" @change="photoImg('#phBtn')">
-							</span>
+      <mu-dialog width="300" scrollable :open.sync="openPh" class="text-center">
+        <div style="border-bottom: 1px solid #eee" >
+              <mu-button style="width: 100%" flat color="#09A2D6">
+                <span class="headImgChoose fileinput-button">
+                    <span>从相册选择图片</span>
+                    <input type="file" accept="image/*" id="phBtn" @change="photoImg('#phBtn')">
+                </span>
+              </mu-button>
+        </div>
 
-							<span class="headImgChoose closeBtn fileinput-button" data-dismiss="modal">
-              <span>取消</span>
-							</span>
+        <mu-button style="width: 100%" flat color="#333"  @click="closePhDialog">取消</mu-button>
+      </mu-dialog>
 
-						</div>
-					</div>
-				</div>
-			</div>
-			
 			<!-- 性别选择模态框（Modal） -->
 			<mu-dialog width="360" scrollable :open.sync="openScroll">
-				<mu-list style="border-bottom: 1px solid #eee">
+				<mu-list style="border-bottom: 1px solid #eee;padding: 1rem 2rem 0">
 					<mu-list-item :key="option" v-for="option in options">
 						<mu-list-item-content>
 							<mu-radio :label="option" :value="option" v-model="ringtone" @click="sexChoose(option)"></mu-radio>
@@ -146,10 +133,10 @@
 
 
 			<!-- 照片删除 -->
-			<mu-dialog title="操作提示" width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert">
-				确定要删除吗
-				<mu-button slot="actions" flat color="primary" @click="closeAlertDialog">取消</mu-button>
-				<mu-button slot="actions" flat color="primary" @click="AlertDialog(Iurl,i)">确认</mu-button>
+			<mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert">
+				<div style="border-bottom: 1px solid #f5f5f5" class="text-center publicDialogTitle">确定要删除吗</div>
+				<mu-button slot="actions" flat color="primary" @click="AlertDialog(Iurl,i)" class="delBtn">确认</mu-button>
+        <mu-button slot="actions" flat color="primary" @click="closeAlertDialog" class="delBtn">取消</mu-button>
 			</mu-dialog>
 
 		</div>
@@ -199,7 +186,9 @@
 				options: [
 					'男',
 					'女'
-				]
+				],
+        openPh:false,
+        openHi:false
 			}
 		},
 		inject: ['reload'],
@@ -306,7 +295,18 @@
 			closeScrollDialog() {
 				this.openScroll = false;
 			},
-
+      openHiDialog () {
+        this.openHi = true;
+      },
+      closeHiDialog () {
+        this.openHi = false;
+      },
+      openPhDialog () {
+        this.openPh = true;
+      },
+      closePhDialog () {
+        this.openPh = false;
+      },
 			chooseImg(c) {
 				let that = this;
 				let $c = document.querySelector(c);
@@ -428,7 +428,7 @@
 </script>
 
 <style scoped>
-	
+
 	.chart-to {
 		width: 20vw;
 		height:20vw;
@@ -440,7 +440,7 @@
 		margin-top: 1%;
 		margin-right: 6%;
 	}
-	
+
 	.sheet {
 		position: relative;
 		vertical-align:middle;
@@ -449,7 +449,7 @@
 		height:10vw;
 		margin: 25%;
 	}
-	
+
 	.content {
 		overflow-x: hidden;
 		background-color: #f5f5f5;
@@ -458,80 +458,76 @@
 		overflow-y: scroll;
 		padding-bottom: 2rem;
 	}
-	
+
 	.content::-webkit-scrollbar {
 		display: none
 	}
-	
+
 	.media {
 		background: #fff;
 		padding: 1rem 1.1rem;
 		border-bottom: 0.1rem solid #f5f5f5;
 		margin-top: 0.6rem;
 	}
-	
+
 	.media-body {
 		vertical-align: middle;
 	}
-	
+
 	.headImg {
 		width: 4rem;
 		height: 4rem;
 		border-radius: 50%;
 	}
-	
+  .myHeadImg{
+    padding: 1rem 1.5rem 1rem 0;
+  }
 	.graph {
 		width: 4rem;
 		height: 4rem;
 		margin-top: 10px;
 	}
-	
+
 	.mu-list {
 		padding: 0;
 	}
-	
+
 	.listRight {
 		width: 50%
 	}
-	
+
 	.media-right {
 		color: #888;
 		font-size: small;
 	}
-	
+
 	.mu-list {
 		padding: 0;
 	}
-	
+
 	.listRight {
 		width: 50%
 	}
-	
+
 	.modal-content {
 		margin: 0 2rem;
 		border-radius: 0;
 		border: none;
 		text-align: center;
 	}
-	
+
 	.modal-dialog {
 		margin: 35vh auto;
 	}
-	
-	.modal-header {
-		padding: 1rem;
-		border-bottom: none;
-		color: #444;
-	}
-	
+
 	.modal-body {
 		padding: 0;
 	}
-	
+
 	#ImgModal .modal-content {
 		height: 14vh;
 	}
-	
+
 	.headImgChoose {
 		position: relative;
 		display: inline-block;
@@ -548,7 +544,7 @@
 		border-radius: 0;
 		outline: none;
 	}
-	
+
 	.headImgChoose input {
 		position: absolute;
 		right: 0;
@@ -557,80 +553,69 @@
 		-ms-filter: 'alpha(opacity=0)';
 		font-size: 100%;
 	}
-	
+
 	.closeBtn {
 		border-bottom: none;
 		line-height: 4.5vh;
 	}
-	
-	.nickNameLeft {
-		text-align: left;
-	}
-	
+
 	.moreImg {
 		height: 3rem;
 	}
-	
+
 	#hint {
 		float: right;
 		color: #888;
 		font-size: 0.05rem;
 		padding-right: 0px;
 	}
-	
-	.media-right {
-		padding-right: 0;
-	}
-	
-	.phone {
-		margin-top: 0.6rem;
-	}
-	
-	.ID {
-		margin-top: 0.6rem;
-	}
-	
-	.media-right {
-		padding: 0;
-	}
-	
+
+
 	.mu-divider {
 		background: #f5f5f5;
 	}
-	
+
 	.mu-item {
 		padding-right: 0;
 	}
-	
+
 	.marginTop {
 		margin-top: 0.6rem;
 		background: #f5f5f5;
 	}
-	
+
 	.mu-list-item {
 		background: #fff;
 	}
-	
+
 	.controlContainer {
 		overflow-x: scroll;
 	}
-	
+
 	.controlContainer::-webkit-scrollbar {
 		display: none
 	}
-	
+
 	.controlContent {
 		display: inline-block;
 		white-space: nowrap;
 	}
-	
+
 	.controlContent img {
 		width: 20vw;
 		height: 20vw;
 		margin: 1vw;
 	}
-	
+
 	.controlScroll {
 		width: auto;
 	}
+  .delBtn{
+    border-top: 1px solid #ddd;width: 50%;
+    color: #555;
+  }
+  .delBtn:first-child{
+    border-right: 1px solid #ddd;
+    color: #09a2d6;
+  }
 </style>

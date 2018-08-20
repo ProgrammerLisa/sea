@@ -1,63 +1,65 @@
 <template>
 	<div class="content">
+    <div class="myAddress">
+      <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0">
+        <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+          <img :src="masrc"/>
+        </mu-button>
+        <span class="navTitleText">收货地址</span>
+      </mu-appbar>
+      <div class="contentMarginTop">
+        <div v-if="noAddress" class="addressNone">
+          <img :src="addressNone" />
+          <p>一个地址都没有哦</p>
+        </div>
+        <table v-else class="table address" v-for="(a,index) in myAddress">
+          <tr>
+            <td class="text-left">收货人</td>
+            <td class="text-right">{{a.msg.consignee}}</td>
+          </tr>
+          <tr>
+            <td class="text-left">联系电话</td>
+            <td class="text-right">{{a.msg.phone}}</td>
+          </tr>
+          <tr>
+            <td class="text-left">收货地址</td>
+            <td class="text-right">{{a.msg.address}}</td>
+          </tr>
+          <tr>
 
-    <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0">
-      <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
-        <img :src="masrc"/>
-      </mu-button>
-      <span class="navTitleText">收货地址</span>
-    </mu-appbar>
-    <div class="contentMarginTop">
-      <div v-if="noAddress" class="addressNone">
-        <img :src="addressNone" />
-        <p>一个地址都没有哦</p>
+            <td class="col-xs-5" style="padding-right: 0;padding-top: 1rem">
+              <mu-radio @click="choose(index)" v-model="form.radio" textColor="#555" :value="a.id" :label="a.label" ></mu-radio>
+            </td>
+            <td class="col-xs-7 text-right">
+              <div class="del" @click="editor(index)" >
+                <img src="../../assets/images/editor.png"/> 编辑
+              </div>
+              <div class="del" @click="openAlertDialog(index)">
+                <img src="../../assets/images/del.png"/> 删除
+              </div>
+
+            </td>
+          </tr>
+        </table>
+        <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert" style="text-align: center">
+          <div class="publicDialogTitle">确认要删除吗，删除后不能恢复</div>
+          <mu-button slot="actions" flat color="primary" @click="del" class="loginOutBtn">确定</mu-button>
+          <mu-button slot="actions" flat color="primary" @click="closeAlertDialog" class="loginOutBtn">取消</mu-button>
+        </mu-dialog>
+
+
+
+
       </div>
-      <table v-else class="table address" v-for="(a,index) in myAddress">
-        <tr>
-          <td class="text-left">收货人</td>
-          <td class="text-right">{{a.msg.consignee}}</td>
-        </tr>
-        <tr>
-          <td class="text-left">联系电话</td>
-          <td class="text-right">{{a.msg.phone}}</td>
-        </tr>
-        <tr>
-          <td class="text-left">收货地址</td>
-          <td class="text-right">{{a.msg.address}}</td>
-        </tr>
-        <tr>
-
-          <td class="col-xs-5" style="padding-right: 0;padding-top: 1rem">
-           <mu-radio @click="choose(index)" v-model="form.radio" textColor="#555" :value="a.id" :label="a.label" ></mu-radio>
-          </td>
-          <td class="col-xs-7 text-right">
-          <div class="del" @click="editor(index)" >
-            <img src="../../assets/images/editor.png"/> 编辑
-          </div>
-          <div class="del" @click="openAlertDialog(index)">
-            <img src="../../assets/images/del.png"/> 删除
-          </div>
-
-          </td>
-        </tr>
-      </table>
-      <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert" style="text-align: center">
-        确认要删除吗，删除后不能恢复
-        <mu-button slot="actions" flat color="primary" @click="del" class="loginOutBtn">确定</mu-button>
-        <mu-button slot="actions" flat color="primary" @click="closeAlertDialog" class="loginOutBtn">取消</mu-button>
-      </mu-dialog>
-
-      <div class="newAddress">
-        <router-link to="/newaddress" tag="div">
-          <mu-flex justify-content="center" align-items="center">
-            <mu-button full-width color="#09a2d6"> <mu-icon value="add"></mu-icon>新建地址</mu-button>
-          </mu-flex>
-        </router-link>
-      </div>
-
-
     </div>
 
+    <div class="newAddress">
+      <router-link to="/newaddress" tag="div">
+        <mu-flex justify-content="center" align-items="center">
+          <mu-button full-width color="#09a2d6"> <mu-icon value="add"></mu-icon>新建地址</mu-button>
+        </mu-flex>
+      </router-link>
+    </div>
 	</div>
 </template>
 
@@ -234,12 +236,13 @@
 		padding-bottom: 6rem;
 		background-color: #f5f5f5;
 		width: 100vw;
-    height: 100%;
-    position: fixed;
-    top: 0;
     font-size: 1.6rem;
 	}
-  .content::-webkit-scrollbar {
+  .myAddress{
+    height: 100vh;
+    overflow-y: scroll;
+  }
+  .myAddress::-webkit-scrollbar {
     display:none
   }
 	.table {

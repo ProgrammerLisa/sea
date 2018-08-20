@@ -22,7 +22,9 @@
     </div>
     <div class="dataContainer text-center">
         <div class="title">好友昵称 <span class="sex">{{sex}}</span></div>
-        <div class="msg"><div class="level">Lv.{{level}}</div><div class="friendId">ID:{{id}}</div></div>
+        <div>
+          <span class="level">Lv.{{level}}</span><span class="friendId">ID:{{id}}</span>
+        </div>
         <div class="autograph">{{autograph}}</div>
 
     </div>
@@ -167,8 +169,10 @@
 
   }
   .dataContainer{
-    padding: 1rem 5vw;
+    padding: 1rem auto;
     border-bottom: 0.6rem solid #f5f5f5;
+    display: flex;
+    flex-direction:column;
   }
   .title{
     margin-bottom: 0.3rem;
@@ -189,7 +193,6 @@
     background:#09A2D6 ;
     color: #fff;
     font-size:1rem;
-    display: inline-block;
     border-radius:0.8rem;
     padding: 0 0.5rem;
     margin-right: 1rem;
@@ -205,6 +208,7 @@
   .autograph{
     font-size: 1.3rem;
     color: #555;
+    padding-bottom: 1rem;
   }
   .more{
     text-align: center;

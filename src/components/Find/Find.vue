@@ -14,22 +14,21 @@
           <span class="glyphicon glyphicon-minus decorate"></span>基础任务
         </div>
       </div>
-      <div class="container">
-        <div class="row task1">
-          <div class="col-xs-4 taskList">
+        <div class="task1">
+          <div class="taskList">
             <span class="glyphicon glyphicon-link taskIcon"></span>
             <div class="taskTitle">邀请10名好友</div>
             <div class="taskBody">邀请好友+10能量</div>
             <div class="taskBtn">+5能量</div>
           </div>
-          <div class="col-xs-4 taskList">
+          <div class="taskList">
             <span class="glyphicon glyphicon-globe taskIcon"></span>
             <div class="taskTitle">公益慈善</div>
             <div class="taskBody">爱心捐助+10能量</div>
             <router-link to="/publicgood" tag="div" class="taskBtn">+10能量</router-link>
           </div>
 
-          <div class="col-xs-4 taskListLast">
+          <div class="taskListLast taskList">
             <span class="glyphicon glyphicon-calendar taskIcon"></span>
             <div class="taskTitle">每日登录</div>
             <div class="taskBody">登录获取能量值</div>
@@ -37,65 +36,9 @@
             <div class="taskBtn" v-show="!signIn" @click="signInFc">+1能量</div>
           </div>
         </div>
-      </div>
       <div id="time" style="display: none">{{time | formatDate}}</div>
-      <div class="panel panel-default task">
-        <div class="panel-body">
-          <span class="glyphicon glyphicon-minus decorate"></span>独家任务
-        </div>
-      </div>
-      <div class="container">
-        <div class="row task1">
-          <div class="col-xs-4 taskList">
-            <span class="glyphicon glyphicon-map-marker taskIcon"></span>
-            <div class="taskTitle">关注微信公众号</div>
-            <div class="taskBody">关注获取能量</div>
-            <div class="taskBtn">+2能量</div>
-          </div>
-          <div class="col-xs-4 taskList">
-            <span class="glyphicon glyphicon-music taskIcon"></span>
-            <div class="taskTitle">网易云音乐</div>
-            <div class="taskBody">关注获取能量</div>
-            <div class="taskBtn">+2能量</div>
-          </div>
-          <div class="col-xs-4 taskListLast">
-            <span class="glyphicon glyphicon-book taskIcon"></span>
-            <div class="taskTitle">网易云课堂</div>
-            <div class="taskBody">登录获取能量</div>
-            <div class="taskSuccess"><span class="glyphicon glyphicon-ok"></span> 已完成</div>
-          </div>
-        </div>
 
-      </div>
 
-      <div class="panel panel-default task">
-        <div class="panel-body">
-          <span class="glyphicon glyphicon-minus decorate"></span>独家任务
-        </div>
-      </div>
-      <div class="container">
-        <div class="row task1">
-          <div class="col-xs-4 taskList">
-            <span class="glyphicon glyphicon-globe taskIcon"></span>
-            <div class="taskTitle">资讯</div>
-            <div class="taskBody">邀请好友+10能量</div>
-            <div class="taskBtn">+100能量</div>
-          </div>
-          <div class="col-xs-4 taskList">
-            <span class="glyphicon glyphicon-music taskIcon"></span>
-            <div class="taskTitle">网易云音乐</div>
-            <div class="taskBody">关注获取能量</div>
-            <div class="taskBtn">+2能量</div>
-          </div>
-          <div class="col-xs-4 taskListLast">
-            <span class="glyphicon glyphicon-book taskIcon"></span>
-            <div class="taskTitle">网易云课堂</div>
-            <div class="taskBody">登录获取能量值</div>
-            <div class="taskSuccess"><span class="glyphicon glyphicon-ok"></span> 已完成</div>
-          </div>
-        </div>
-
-      </div>
     </div>
 </template>
 
@@ -166,6 +109,12 @@
     background-color: #f5f5f5;
     color: #666;
     width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+  .content::-webkit-scrollbar{
+    display: none;
   }
   .panel{
     border:none;
@@ -198,13 +147,16 @@
     border-bottom: 1px solid #f7f7f7;
     background: #fff;
     text-align: center;
+    display: flex;
   }
   .taskList{
+    width: 33%;
     border-right: 0.1rem solid #eee;
     padding: 0.5rem 0;
   }
   .taskListLast{
     padding: 0.5rem 0;
+    border-right: none;
   }
   .taskIcon{
     color: #09a2d6;

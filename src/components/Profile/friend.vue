@@ -105,7 +105,7 @@
 			friendData() {
 				this.$router.push({
 					path: '/frienddata',
-					name: 'FriendData',
+					name: 'frienddata',
 					params: {
 						name: 'name'
 					}
@@ -129,16 +129,16 @@
 		position: fixed;
 		top: 0;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 1rem;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -149,48 +149,48 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		position: absolute;
 		left: 1rem;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
-	
+
 	.addTo {
 		float: right;
 	}
-	
+
 	.addTo img {
 		height: 2.5rem;
 	}
-	
+
 	.friends {
 		background: #fff;
 		margin-top: 0;
 		border-bottom: 0.1rem solid #f5f5f5;
 		padding: 1rem;
 	}
-	
+
 	.friends:active {
 		background: #f5f5f5;
 	}
-	
+
 	.media-heading {
 		margin-top: 0.3rem;
 		margin-bottom: 5px;
 		font-size: 1.5rem;
 	}
-	
+
 	.media-left img {
 		border: 0.1rem solid #09a2d6;
 		border-radius: 50%;
 		width: 4rem;
 		margin-right: 0.5rem;
 	}
-	
+
 	.sex {
 		color: #fff;
 		border-radius: 50%;
@@ -203,18 +203,18 @@
 		margin: 0 1rem;
 		vertical-align: top;
 	}
-	
+
 	.addressNone {
 		text-align: center;
 		padding-top: 18vh;
 		color: #999;
 	}
-	
+
 	.addressNone img {
 		width: 40%;
 		margin-bottom: 1rem;
 	}
-	
+
 	.goInvite {
 		text-align: center;
 		background: #09a2d6;
@@ -223,7 +223,7 @@
 		display: inline-block;
 		margin-top: 1.5rem;
 	}
-	
+
 	.goInvite:active {
 		background: #009ACD;
 	}

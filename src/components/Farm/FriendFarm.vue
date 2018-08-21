@@ -18,7 +18,7 @@
   import back from '@/assets/images/back.png'
   import backs from '@/assets/images/backs.png'
     export default {
-        name: "FriendFarm",
+        name: "friendfarm",
         data() {
           return {
             masrc: back

@@ -81,11 +81,9 @@
 		},
 		methods: {
 			evers() {
-				console.log(1)
 				this.masrc = backs;
 			},
 			lat() {
-				console.log(2)
 				this.masrc = back;
 			},
 			goBack() {
@@ -94,7 +92,7 @@
 			preOrder() {
 				this.$router.push({
 					path: '/preorder',
-					name: 'PreOrder',
+					name: 'preorder',
 					params: {
 						name: 'name',
 						dataObj: {

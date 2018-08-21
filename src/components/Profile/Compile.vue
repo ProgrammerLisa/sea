@@ -19,11 +19,11 @@
 									<img class="media-object headImg" :src="headImg" v-else/>
 								<!--</mu-avatar>-->
 							</mu-list-item-action>
-							
+
 							<mu-list-item-action  class="album-listRight">
 									<img :src="more" class="moreImg" />
 							</mu-list-item-action>
-							
+
 						</mu-list-item>
 
 					</div>
@@ -48,7 +48,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<mu-paper :z-depth="0" class="demo-list-wrap marginTop">
 				<mu-list>
 					<mu-list-item to="/nickname" avatar button class="mu-list-item">
@@ -321,7 +321,7 @@
 					$(".modal-backdrop").hide();
 					that.$router.push({
 						path: '/uploadheadImg',
-						name: 'UploadHeadImg',
+						name: 'uploadheadimg',
 						params: {
 							name: 'name',
 							dataObj: e.target.result,
@@ -340,8 +340,8 @@
 				reader.onload = function(e) {
 					$(".modal-backdrop").hide();
 					that.$router.push({
-						path: '/UploadPhotoImg',
-						name: 'UploadPhotoImg',
+						path: '/uploadphotoimg',
+						name: 'uploadphotoimg',
 						params: {
 							name: 'name',
 							dataObj: e.target.result,
@@ -432,19 +432,16 @@
 </script>
 
 <style scoped>
-<<<<<<< HEAD
-=======
-	
+
 	.mu-item-action{
 		min-width: 3.0rem;
 	}
->>>>>>> d972feaef81e6015978ab22c8410b2006764db45
 
 	.chart-to {
 		width: 20vw;
 		height:20vw;
 		background-color: #F5F5F5;
-		margin: 1vw;
+    margin: 1vw;
 		display: inline-block;
 		white-space: nowrap;
 	}
@@ -487,7 +484,7 @@
 		border-radius: 50%;
 	}
   .myHeadImg{
-    padding: 1rem 1.5rem 1rem 0;
+    padding: 1rem 0;
   }
 	.graph {
 		width: 4rem;
@@ -495,48 +492,16 @@
 		margin-top: 10px;
 	}
 
-	.mu-list {
-		padding: 0;
-	}
 
 	.listRight {
 		width: 50%;
 	}
 
-	.media-right {
-		color: #888;
-		font-size: small;
-	}
-
 	.mu-list {
 		padding: 0;
 	}
-<<<<<<< HEAD
-
 	.listRight {
 		width: 50%
-	}
-
-=======
-	
->>>>>>> d972feaef81e6015978ab22c8410b2006764db45
-	.modal-content {
-		margin: 0 2rem;
-		border-radius: 0;
-		border: none;
-		text-align: center;
-	}
-
-	.modal-dialog {
-		margin: 35vh auto;
-	}
-
-	.modal-body {
-		padding: 0;
-	}
-
-	#ImgModal .modal-content {
-		height: 14vh;
 	}
 
 	.headImgChoose {
@@ -585,15 +550,6 @@
 	.mu-divider {
 		background: #f5f5f5;
 	}
-<<<<<<< HEAD
-
-	.mu-item {
-		padding-right: 0;
-	}
-
-=======
-	
->>>>>>> d972feaef81e6015978ab22c8410b2006764db45
 	.marginTop {
 		margin-top: 0.6rem;
 		background: #f5f5f5;
@@ -625,7 +581,6 @@
 	.controlScroll {
 		width: auto;
 	}
-<<<<<<< HEAD
   .delBtn{
     border-top: 1px solid #ddd;width: 50%;
     color: #555;
@@ -634,12 +589,7 @@
     border-right: 1px solid #ddd;
     color: #09a2d6;
   }
+
 </style>
-=======
-	
-	.getBack{
-		width: 36px;
-	}
-	
-</style>
->>>>>>> d972feaef81e6015978ab22c8410b2006764db45
+
+

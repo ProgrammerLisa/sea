@@ -249,8 +249,8 @@
 					}).then(function(res) {
 						if(res.data.code == 0) {
 							this.$router.push({
-								path: '/RegisterInviteCode',
-								name: 'RegisterInviteCode',
+								path: '/registerinvitecode',
+								name: 'registerinvitecode',
 								params: {
 									name: 'name',
 									phone: this.phone,

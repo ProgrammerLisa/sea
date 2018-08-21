@@ -141,7 +141,7 @@
 			newsDetails(index) {
 				this.$router.push({
 					path: '/newsdetails',
-					name: 'NewsDetails',
+					name: 'newsdetails',
 					params: {
 						name: 'name',
 						dataObj: this.news[index].id

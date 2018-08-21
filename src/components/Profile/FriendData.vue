@@ -51,7 +51,7 @@
     import back from '@/assets/images/whiteback.png'
     import backs from '@/assets/images/backs.png'
     export default {
-        name: "FriendData",
+        name: "frienddata",
         data(){
           return{
             masrc: back,
@@ -80,7 +80,7 @@
           photowall(){
             this.$router.push({
               path: '/photowall',
-              name: 'PhotoWall',
+              name: 'photowall',
               params: {
                 name: 'name',
                 dataObj: this.pic

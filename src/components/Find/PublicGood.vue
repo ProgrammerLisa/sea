@@ -53,7 +53,7 @@
   import carouselImg5 from '@/assets/images/test/u=2684343809,1084507092&fm=27&gp=0.jpg'
 
     export default {
-        name: "PublicGood",
+        name: "publicgood",
         data(){
           return{
             masrc: back,
@@ -64,27 +64,27 @@
               {
                 title: '教育助学',
                 data:[
-                  {id:'sdhfjui',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'Donation'},
-                  {id:'czxdsad',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'Donation'},
-                  {id:'hgfhsdf',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'Donation'}
+                  {id:'sdhfjui',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'donation'},
+                  {id:'czxdsad',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'donation'},
+                  {id:'hgfhsdf',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'donation'}
                 ]
 
               },
               {
                 title: '大病医疗',
                 data:[
-                  {id:'fdgasda',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'Donation'},
-                  {id:'asfxzrf',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'Donation'},
-                  {id:'vchbfdg',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'Donation'}
+                  {id:'fdgasda',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'donation'},
+                  {id:'asfxzrf',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'donation'},
+                  {id:'vchbfdg',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'donation'}
                 ]
 
               },
               {
                 title: '公益慈善',
                 data:[
-                  {id:'wqewssf',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'Donation'},
-                  {id:'hgjkhyj',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'Donation'},
-                  {id:'vshsdfs',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'Donation'}
+                  {id:'wqewssf',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'donation'},
+                  {id:'hgjkhyj',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'donation'},
+                  {id:'vshsdfs',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'donation'}
                 ]
 
               },

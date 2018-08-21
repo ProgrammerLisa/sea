@@ -74,7 +74,7 @@
 	import backs from '@/assets/images/backs.png'
 
 	export default {
-		name: "Setting",
+		name: "setting",
 		data() {
 			return {
 				masrc: back,
@@ -85,28 +85,33 @@
 			}
 		},
 		mounted: function() {
-			this.$http({
-					method: "get",
-					url: "/users/info",
-					headers: {
-						"device": "android",
-						"uid": localStorage.getItem("uid"),
-						"Access-Control-Allow-Origin": "*"
-					},
-					data: {}
-				}).then(function(res) {
-					if(res.data.code == 0) {
-						this.IDcode = res.data.data.phone;
-					} else {
-						this.$layer.msg(res.data.msg);
-					}
-				}.bind(this))
-				.catch(function(err) {
-					console.log(err)
-				}.bind(this))
+      this.$nextTick(function () {
+        this.getSet();
+      })
 
 		},
 		methods: {
+		  getSet(){
+        this.$http({
+          method: "get",
+          url: "/users/info",
+          headers: {
+            "device": "android",
+            "uid": localStorage.getItem("uid"),
+            "Access-Control-Allow-Origin": "*"
+          },
+          data: {}
+        }).then(function(res) {
+          if(res.data.code == 0) {
+            this.IDcode = res.data.data.phone;
+          } else {
+            this.$layer.msg(res.data.msg);
+          }
+        }.bind(this))
+          .catch(function(err) {
+            console.log(err)
+          }.bind(this))
+      },
       openAlertDialog () {
         this.openAlert = true;
         $(".mu-flat-button").css({height:"48px"})

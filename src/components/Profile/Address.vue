@@ -69,7 +69,7 @@
 	import backs from '@/assets/images/backs.png'
 
 	export default {
-      name: "Address",
+      name: "address",
       inject: ['reload'],
       data() {
         return {
@@ -178,7 +178,7 @@
           let addressId = this.myAddress[index].id;
           this.$router.push({
             path: '/modificationaddress',
-            name: 'ModificationAddress',
+            name: 'modificationaddress',
             params: {
               name:'name',
               dataObj:addressId

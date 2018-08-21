@@ -38,7 +38,7 @@
     import carousel from '@/assets/images/banner.png'
     import commodityImg from '@/assets/images/bg.png'
     export default {
-        name: "Shopping",
+        name: "shopping",
         data(){
           return{
             carousel:carousel,
@@ -122,7 +122,7 @@
           }else {
             that.$router.push({
               path: '/commoditydetails',
-              name: 'CommodityDetails',
+              name: 'commoditydetails',
               params: {
                 name:'name',
                 dataObj:that.commodity[index]

@@ -74,7 +74,7 @@
 
 
     export default {
-        name: "Personal",
+        name: "personal",
       computed:{
         now(){
           return Date.now();
@@ -176,7 +176,7 @@
             }).then(function(res){
               if(res.data.code === 401){
 //      		this.$layer.alert('登录操作  请登录');
-                this.$router.replace('/Login');
+                this.$router.replace('/login');
               }
               if(res.data.code==0) {
                 this.Personal[1].myInvite = res.data.data.inviter_code

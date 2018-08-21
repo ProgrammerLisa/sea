@@ -15,15 +15,15 @@
 							<mu-list-item-title>头像</mu-list-item-title>
 							<mu-list-item-action class="album">
 								<!--<mu-avatar>-->
-									<img class="media-object headImg" :src="`${headImg+'?'+now}`" v-if="haveHeadImg" />
-									<img class="media-object headImg" :src="headImg" v-else/>
+								<img class="media-object headImg" :src="`${headImg+'?'+now}`" v-if="haveHeadImg" />
+								<img class="media-object headImg" :src="headImg" v-else/>
 								<!--</mu-avatar>-->
 							</mu-list-item-action>
-							
-							<mu-list-item-action  class="album-listRight">
-									<img :src="more" class="moreImg" />
+
+							<mu-list-item-action class="album-listRight">
+								<img :src="more" class="moreImg" />
 							</mu-list-item-action>
-							
+
 						</mu-list-item>
 
 					</div>
@@ -37,7 +37,7 @@
 					上传相册
 					<span id="hint">长按图片可删除</span>
 				</div>
-				<div class="controlContainer" >
+				<div class="controlContainer">
 					<div class="controlScroll">
 						<div class="controlContent" v-for="(p,index) in timg" v-dragging="{ item: p, list: timg, group: 'p' }" :key="p.index">
 							<img @touchstart="rem(p,index)" @touchend="js()" alt="有" class="media-object graph" :src="`${p+'?'+now}`" @click="changeActive(index)" />
@@ -48,7 +48,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<mu-paper :z-depth="0" class="demo-list-wrap marginTop">
 				<mu-list>
 					<mu-list-item to="/nickname" avatar button class="mu-list-item">
@@ -96,32 +96,32 @@
 			</mu-paper>
 
 			<!-- 头像选择模态框（Modal） -->
-      <mu-dialog width="300" scrollable :open.sync="openHi" class="text-center">
-        <div style="border-bottom: 1px solid #eee" >
-          <mu-button style="width: 100%" flat color="#09A2D6">
-                <span class="headImgChoose fileinput-button">
+			<mu-dialog width="300" scrollable :open.sync="openHi" class="text-center">
+				<div style="border-bottom: 1px solid #eee">
+					<mu-button style="width: 100%" flat color="#09A2D6">
+						<span class="headImgChoose fileinput-button">
                     <span>从相册选择</span>
-                    <input type="file" accept="image/*" id="fileBtn" @change="chooseImg('#fileBtn')">
-                </span>
-          </mu-button>
-        </div>
+						<input type="file" accept="image/*" id="fileBtn" @change="chooseImg('#fileBtn')">
+						</span>
+					</mu-button>
+				</div>
 
-        <mu-button style="width: 100%" flat color="#333"  @click="closeHiDialog">取消</mu-button>
-      </mu-dialog>
+				<mu-button style="width: 100%" flat color="#333" @click="closeHiDialog">取消</mu-button>
+			</mu-dialog>
 
 			<!-- 照片选择模态框（Modal） -->
-      <mu-dialog width="300" scrollable :open.sync="openPh" class="text-center">
-        <div style="border-bottom: 1px solid #eee" >
-              <mu-button style="width: 100%" flat color="#09A2D6">
-                <span class="headImgChoose fileinput-button">
+			<mu-dialog width="300" scrollable :open.sync="openPh" class="text-center">
+				<div style="border-bottom: 1px solid #eee">
+					<mu-button style="width: 100%" flat color="#09A2D6">
+						<span class="headImgChoose fileinput-button">
                     <span>从相册选择图片</span>
-                    <input type="file" accept="image/*" id="phBtn" @change="photoImg('#phBtn')">
-                </span>
-              </mu-button>
-        </div>
+						<input type="file" accept="image/*" id="phBtn" @change="photoImg('#phBtn')">
+						</span>
+					</mu-button>
+				</div>
 
-        <mu-button style="width: 100%" flat color="#333"  @click="closePhDialog">取消</mu-button>
-      </mu-dialog>
+				<mu-button style="width: 100%" flat color="#333" @click="closePhDialog">取消</mu-button>
+			</mu-dialog>
 
 			<!-- 性别选择模态框（Modal） -->
 			<mu-dialog width="360" scrollable :open.sync="openScroll">
@@ -135,12 +135,11 @@
 				<mu-button style="margin: auto;width: 100%;" flat slot="actions" @click="closeScrollDialog">取消</mu-button>
 			</mu-dialog>
 
-
 			<!-- 照片删除 -->
 			<mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert">
 				<div style="border-bottom: 1px solid #f5f5f5" class="text-center publicDialogTitle">确定要删除吗</div>
 				<mu-button slot="actions" flat color="primary" @click="AlertDialog(Iurl,i)" class="delBtn">确认</mu-button>
-        <mu-button slot="actions" flat color="primary" @click="closeAlertDialog" class="delBtn">取消</mu-button>
+				<mu-button slot="actions" flat color="primary" @click="closeAlertDialog" class="delBtn">取消</mu-button>
 			</mu-dialog>
 
 		</div>
@@ -185,14 +184,14 @@
 				openScroll: false,
 				openAlert: false,
 				ringtone: '',
-				Iurl:'',
-				i:'',
+				Iurl: '',
+				i: '',
 				options: [
 					'男',
 					'女'
 				],
-        openPh:false,
-        openHi:false
+				openPh: false,
+				openHi: false
 			}
 		},
 		inject: ['reload'],
@@ -299,18 +298,18 @@
 			closeScrollDialog() {
 				this.openScroll = false;
 			},
-      openHiDialog () {
-        this.openHi = true;
-      },
-      closeHiDialog () {
-        this.openHi = false;
-      },
-      openPhDialog () {
-        this.openPh = true;
-      },
-      closePhDialog () {
-        this.openPh = false;
-      },
+			openHiDialog() {
+				this.openHi = true;
+			},
+			closeHiDialog() {
+				this.openHi = false;
+			},
+			openPhDialog() {
+				this.openPh = true;
+			},
+			closePhDialog() {
+				this.openPh = false;
+			},
 			chooseImg(c) {
 				let that = this;
 				let $c = document.querySelector(c);
@@ -389,8 +388,8 @@
 				that.time = setTimeout(function() {
 
 					that.openAlert = true;
-					that.Iurl=Iurl;
-					that.i=i;
+					that.Iurl = Iurl;
+					that.i = i;
 				}, 1000)
 			},
 			js() {
@@ -400,7 +399,7 @@
 			closeAlertDialog() {
 				this.openAlert = false;
 			},
-			AlertDialog(Iurl,i) {
+			AlertDialog(Iurl, i) {
 				this.$http({
 						method: "post",
 						url: "/users/delete-picture",
@@ -432,13 +431,9 @@
 </script>
 
 <style scoped>
-<<<<<<< HEAD
-=======
-	
 	.mu-item-action{
 		min-width: 3.0rem;
 	}
->>>>>>> d972feaef81e6015978ab22c8410b2006764db45
 
 	.chart-to {
 		width: 20vw;
@@ -448,7 +443,7 @@
 		display: inline-block;
 		white-space: nowrap;
 	}
-
+	
 	.sheet {
 		vertical-align:middle;
 		text-align: center;
@@ -456,7 +451,7 @@
 		height:10vw;
 		margin: 25%;
 	}
-
+	
 	.content {
 		overflow-x: hidden;
 		background-color: #f5f5f5;
@@ -465,80 +460,76 @@
 		overflow-y: scroll;
 		padding-bottom: 2rem;
 	}
-
+	
 	.content::-webkit-scrollbar {
 		display: none
 	}
-
+	
 	.media {
 		background: #fff;
 		padding: 1rem 1.1rem;
 		border-bottom: 0.1rem solid #f5f5f5;
 		margin-top: 0.6rem;
 	}
-
+	
 	.media-body {
 		vertical-align: middle;
 	}
-
+	
 	.headImg {
 		width: 4rem;
 		height: 4rem;
 		border-radius: 50%;
 	}
-  .myHeadImg{
-    padding: 1rem 1.5rem 1rem 0;
-  }
+	
 	.graph {
 		width: 4rem;
 		height: 4rem;
 		margin-top: 10px;
 	}
-
+	
 	.mu-list {
 		padding: 0;
 	}
-
+	
 	.listRight {
 		width: 50%;
 	}
-
+	
 	.media-right {
 		color: #888;
 		font-size: small;
 	}
-
+	
 	.mu-list {
 		padding: 0;
 	}
-<<<<<<< HEAD
-
-	.listRight {
-		width: 50%
-	}
-
-=======
 	
->>>>>>> d972feaef81e6015978ab22c8410b2006764db45
 	.modal-content {
 		margin: 0 2rem;
 		border-radius: 0;
 		border: none;
 		text-align: center;
 	}
-
+	
 	.modal-dialog {
 		margin: 35vh auto;
 	}
-
+	
+	.modal-header {
+		padding: 1rem;
+		border-bottom: none;
+		color: #444;
+	}
+	
 	.modal-body {
 		padding: 0;
 	}
-
+	
 	#ImgModal .modal-content {
 		height: 14vh;
 	}
-
+	
 	.headImgChoose {
 		position: relative;
 		display: inline-block;
@@ -555,7 +546,7 @@
 		border-radius: 0;
 		outline: none;
 	}
-
+	
 	.headImgChoose input {
 		position: absolute;
 		right: 0;
@@ -564,82 +555,90 @@
 		-ms-filter: 'alpha(opacity=0)';
 		font-size: 100%;
 	}
-
+	
 	.closeBtn {
 		border-bottom: none;
 		line-height: 4.5vh;
 	}
-
+	
+	.nickNameLeft {
+		text-align: left;
+	}
+	
 	.moreImg {
 		height: 3rem;
 	}
-
+	
 	#hint {
 		float: right;
 		color: #888;
 		font-size: 0.05rem;
-		padding-right: 1.2rem;
+		padding-right: 1.5rem;
 	}
-
-
+	
+	.media-right {
+		padding-right: 0;
+	}
+	
+	.phone {
+		margin-top: 0.6rem;
+	}
+	
+	.ID {
+		margin-top: 0.6rem;
+	}
+	
+	.media-right {
+		padding: 0;
+	}
+	
 	.mu-divider {
 		background: #f5f5f5;
 	}
-<<<<<<< HEAD
-
-	.mu-item {
-		padding-right: 0;
-	}
-
-=======
 	
->>>>>>> d972feaef81e6015978ab22c8410b2006764db45
 	.marginTop {
 		margin-top: 0.6rem;
 		background: #f5f5f5;
 	}
-
+	
 	.mu-list-item {
 		background: #fff;
 	}
-
+	
 	.controlContainer {
 		overflow-x: scroll;
 	}
-
+	
 	.controlContainer::-webkit-scrollbar {
 		display: none
 	}
-
+	
 	.controlContent {
 		display: inline-block;
 		white-space: nowrap;
 	}
-
+	
 	.controlContent img {
 		width: 20vw;
 		height: 20vw;
 		margin: 1vw;
 	}
-
+	
 	.controlScroll {
 		width: auto;
 	}
-<<<<<<< HEAD
-  .delBtn{
-    border-top: 1px solid #ddd;width: 50%;
-    color: #555;
-  }
-  .delBtn:first-child{
-    border-right: 1px solid #ddd;
-    color: #09a2d6;
-  }
-</style>
-=======
 	
 	.getBack{
 		width: 36px;
 	}
+
+	.delBtn{
+		border-top: 1px solid #ddd;width: 50%;
+		color: #555;
+	}
+	.delBtn:first-child{
+		border-right: 1px solid #ddd;
+		color: #09a2d6;
+	}
 	
 </style>
->>>>>>> d972feaef81e6015978ab22c8410b2006764db45

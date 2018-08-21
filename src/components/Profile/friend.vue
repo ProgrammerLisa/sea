@@ -14,14 +14,13 @@
 			</div>
 			<div class="media friends" v-for="f in friends" v-else @click="friendData">
 				<div class="media-left">
-					<img class="media-object" :src="f.headPortrait" alt="...">
+					<img class="media-object" :src="f.avatar" alt="...">
 				</div>
 				<div class="media-body">
 					<h4 class="media-heading">
-            {{f.friendName}}
-
-            <span class="sex" v-bind:style="f.bcColor">{{f.sex}}</span>
-          </h4> ID：{{f.friendId}}
+			            {{f.nickname}}
+			            <span class="sex" v-bind:style="f.bcColor">{{f.gender}}</span>
+          			</h4> ID：{{f.uid}}
 				</div>
 			</div>
 		</div>
@@ -43,18 +42,19 @@
 				noFriend: true,
 				noFriendImg: noFriendImg,
 				friends: [{
-						headPortrait: headImg,
-						friendName: '小红花',
-						friendId: '123456789',
-						sex: '♀',
+						avatar: '123',
+						nickname: '11',
+						uid:'123456',
+						gender:'♀' ,
+//						'♀''♂'
 						color: '#FC8484',
 						bcColor: 'background: #FC8484;'
-					},
-					{
-						headPortrait: headImg,
-						friendName: '小红花',
-						friendId: '123456789',
-						sex: '♂',
+					},{
+						avatar: '123',
+						nickname: '11',
+						uid:'123456',
+						gender:'♂' ,
+//						'♀''♂'
 						color: '#5CB3FC',
 						bcColor: 'background: #5CB3FC;'
 					}
@@ -78,14 +78,32 @@
 							"Access-Control-Allow-Origin": "*"
 						},
 					}).then(function(res) {
+//						console.dir(res.data.data)
 						if(res.data.code != 0) {
 							this.$layer.msg(res.data.msg);
 						} else {
 							if(res.data.data.length == 0) {
-								this.noFriend = true;
-							} else {
-								//拥有好友时
 								this.noFriend = false;
+							} else {
+								this.noFriend = true;
+								for(let i=0;i<res.data.data.length;i++){
+									if(res.data.data[i].avatar == ""){
+										res.data.data[i].avatar = headImg;
+									}
+									if(res.data.data[i].gender!="FEMALE"){
+										res.data.data[i].color='#5CB3FC';
+										res.data.data[i].bcColor='background: #5CB3FC;';
+										res.data.data[i].gender='♂';
+									}else{
+										res.data.data[i].color='#FC8484;';
+										res.data.data[i].bcColor='background: #FC8484;';
+										res.data.data[i].gender='♀';
+									}
+								}
+								this.friends=res.data.data;
+//								console.dir(res.data.data)
+//								console.dir(this.friends)
+								
 							}
 						}
 					}.bind(this))
@@ -126,6 +144,7 @@
 		color: #666;
 		background-color: #f5f5f5;
 		width: 100vw;
+		height: 100%;
 		position: fixed;
 		top: 0;
 	}

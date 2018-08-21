@@ -33,7 +33,7 @@
 	import backs from '@/assets/images/backs.png'
 
 	export default {
-		name: 'RegisterInviteCode',
+		name: 'registerinvitecode',
 		components: {
 			XInput,
 			Group,

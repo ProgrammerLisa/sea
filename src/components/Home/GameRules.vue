@@ -14,7 +14,7 @@
 	import backs from '@/assets/images/backs.png'
 
 	export default {
-		name: "GameRules",
+		name: "gamerules",
 		data() {
 			return {
 				masrc: back,

@@ -22,7 +22,7 @@
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
 	export default {
-		name: "Wallet",
+		name: "wallet",
 		data() {
 			return {
 				masrc: back,

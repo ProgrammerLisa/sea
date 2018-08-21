@@ -50,7 +50,7 @@
 	import backs from '@/assets/images/backs.png'
 
 	export default {
-		name: "CommodityOrder",
+		name: "commodityorder",
 		data() {
 			return {
 				masrc: back,

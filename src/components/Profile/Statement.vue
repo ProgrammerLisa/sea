@@ -32,7 +32,7 @@
 	import backs from '@/assets/images/backs.png'
 
 	export default {
-		name: "Statement",
+		name: "statement",
 
     data() {
 			return {

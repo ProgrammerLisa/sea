@@ -125,7 +125,7 @@
 	import backs from '@/assets/images/backs.png'
 	import more from '@/assets/images/more.png'
 	export default {
-		name: "Grade",
+		name: "grade",
 		computed: {
 			now() {
 				return Date.now();
@@ -166,7 +166,7 @@
 					},
 					data: {}
 				}).then(function(res) {
-					
+
 					if(res.data.code == 0) {
 //						this.rank = res.data.data.level;
 //						this.signature = res.data.data.resume;
@@ -174,7 +174,7 @@
 						let rank = res.data.data.level;
 						this.level = res.data.data.level;
 						this.need = res.data.data.up_level_needed;
-							
+
 						if(res.data.data.avatar == "") {
 							this.headImg = headImg;
 							this.haveHeadImg = false
@@ -207,15 +207,15 @@
 	span.text-right {
 		padding-right: 0;
 	}
-	
+
 	.moreImg {
 		height: 3rem;
 	}
-	
+
 	.count-text {
 		color: #323232;
 	}
-	
+
 	.content {
 		overflow-x: hidden;
 		overflow-y: scroll;
@@ -223,7 +223,7 @@
 		width: 100vw;
 		height: 100vh;
 	}
-	
+
 	#navBox {
 		position: fixed;
 		top: 0;
@@ -231,94 +231,94 @@
 		z-index: 9999;
 		background: #fff;
 	}
-	
+
 	.content::-webkit-scrollbar {
 		display: none
 	}
-	
+
 	#dataBox {
 		margin-top: 50vh;
 	}
-	
+
 	.dataContainer {
 		margin-top: 1vh;
 	}
-	
+
 	.income {
 		background: #09a2d6;
 		text-align: center;
 		color: #fff;
 	}
-	
+
 	.incomeTitle {
 		font-size: 1.5rem;
 	}
-	
+
 	.today {
 		width: 90%;
 		margin: auto;
 		padding: 1rem 0;
 	}
-	
+
 	.grid-cell {
 		margin: 1rem 0;
 	}
-	
+
 	.grid-cell:first-child {
 		border-right: 1px solid rgba(255, 255, 255, 0.2);
 	}
-	
+
 	.mu-list {
 		border-bottom: 1px solid #eee;
 	}
-	
+
 	.mu-list-item {
 		padding: 0.5rem 0;
 		border-top: 1px solid #F5F5F5;
 	}
-	
+
 	.dateText {
 		font-size: 1rem;
 	}
-	
+
 	.mu-divider {
 		background: #eee;
 	}
-	
+
 	.dataList:last-child>.mu-divider {
 		display: none;
 	}
-	
+
 	.count {
 		font-size: 1.3rem;
 	}
-	
+
 	.table {
 		text-align: center;
 	}
-	
+
 	.table tr {
 		line-height: 4rem;
 		border-bottom: 0.1rem solid #efefef;
 	}
-	
+
 	.bcfff {
 		background: #fff;
 	}
-	
+
 	.text-left {
 		padding-left: 1rem;
 	}
-	
+
 	.text-right {
 		padding-right: 1rem;
 		color: #09A2D6;
 	}
-	
+
 	.pearl-count {
 		color: #09A2D6;
 	}
-	
+
 	.decorate {
 		display: inline-block;
 		background: #09A2D6;
@@ -327,18 +327,18 @@
 		margin: 0 1rem;
 		vertical-align: middle;
 	}
-	
+
 	.decorate-title {
 		font-size: 1.5rem;
 		text-align: left;
 		color: #444;
 		padding: 0.5rem 0;
 	}
-	
+
 	#ranking {
 		width: 30%;
 	}
-	
+
 	#listTitle {
 		padding: 1rem;
 		height: 4rem;
@@ -346,20 +346,20 @@
 		background: #fff;
 		border-bottom: 1px solid #eee;
 	}
-	
+
 	#listTitle:active {
 		background: #ddd;
 	}
-	
+
 	.myData td {
 		padding: 0 2rem;
 	}
-	
+
 	.demo-linear-progress {
 		margin-top: 1rem;
 		margin-bottom: 4rem;
 	}
-	
+
 	.level {
 		background: #09A2D6;
 		color: #fff;
@@ -371,7 +371,7 @@
 		margin-bottom: 1rem;
 		padding: 0 0.5rem;
 	}
-	
+
 	.headImg{
 		width: 72px;
 		height: 72px;

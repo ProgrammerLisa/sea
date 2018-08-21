@@ -25,7 +25,7 @@
 	import backs from '@/assets/images/backs.png'
 
 	export default {
-		name: "AddFriends",
+		name: "addfriends",
 		data() {
 			return {
 				masrc: back

@@ -37,7 +37,7 @@
 	import backs from '@/assets/images/backs.png'
 
 	export default {
-		name: "CommodityDetails",
+		name: "commoditydetails",
 		data() {
 			return {
 				masrc: back,

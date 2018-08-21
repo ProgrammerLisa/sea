@@ -29,7 +29,7 @@
 	import backs from '@/assets/images/backs.png'
 
 	export default {
-		name: "MyPearl",
+		name: "mypearl",
 		data() {
 			return {
 				masrc: back,

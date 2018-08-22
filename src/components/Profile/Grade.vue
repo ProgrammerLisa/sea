@@ -25,7 +25,7 @@
 						<mu-linear-progress style="width: 90%;margin:0 auto;" mode="determinate" color="#FFFFFF" size="7" :max="1000" ></mu-linear-progress>
 						<div style="position: absolute; float: left;padding-top: 3%;width: 90%;">
 							<span style="float: left;margin-left: 5%;">Lv.0</span>
-							<span>Lv.3</span>
+							<span style="margin-right: 6%;">Lv.4</span>
 							<span style="float: right;">Lv.5</span>
 						</div>
 					</mu-flex>
@@ -221,6 +221,7 @@
 	.income {
 		background: #09a2d6;
 		text-align: center;
+		width: 100%;
 		color: #fff;
 	}
   .GradeMsg{

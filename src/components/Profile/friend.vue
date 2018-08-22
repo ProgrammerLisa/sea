@@ -12,7 +12,7 @@
 				<p>您还没有好友，去邀请好友吧</p>
 				<mu-button color="#09a2d6" @click="goAsk">去邀请</mu-button>
 			</div>
-			<div class="media friends" v-for="f in friends" v-else @click="friendData">
+			<div class="media friends" v-for="f in friends" v-else @click="friendData(f.uid)">
 				<div class="media-left">
 					<img class="media-object" :src="f.avatar" alt="...">
 				</div>
@@ -117,7 +117,10 @@
 			goBack() {
 				this.$router.go(-1);
 			},
-			friendData() {
+			friendData(f) {
+				localStorage.setItem("friend_uid",f)
+//				console.log(localStorage.getItem("friend_uid"))
+				
 				this.$router.push({
 					path: '/frienddata',
 					name: 'frienddata',

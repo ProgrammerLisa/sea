@@ -272,11 +272,11 @@
 
 							}
 
-							if(res.data.data.pictures.length===0) {
-								this.timg = [];
+							if(res.data.data.pictures == "") {
+								this.timg = [timg];
 							} else {
-                this.timg=res.data.data.pictures;
-              }
+								this.timg = res.data.data.pictures;
+							}
 
 							if(res.data.data.avatar == "") {
 								this.headImg = headImg;
@@ -299,11 +299,6 @@
 					}.bind(this))
 
 			},
-      //将图片压缩转成base64
-       getBase64Image(img) {
-         let reader = new FileReader();
-         reader.readAsDataURL(img);
-       },
 			changeActive(index) {
 				this.active = index;
 			},
@@ -367,7 +362,7 @@
 						name: 'uploadphotoimg',
 						params: {
 							name: 'name',
-							dataObj: this.result,
+							dataObj: e.target.result,
 							extensions: that.chooseFile.name.split('.')[1]
 						}
 					})

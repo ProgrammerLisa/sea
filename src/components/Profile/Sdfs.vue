@@ -26,7 +26,7 @@
   import backs from '@/assets/images/backs.png'
 
     export default {
-        name: "Sdfs",
+        name: "sdfs",
         data(){
             return{
               masrc: back,

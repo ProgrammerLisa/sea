@@ -41,7 +41,7 @@
     import back from '@/assets/images/back.png'
     import backs from '@/assets/images/backs.png'
     export default {
-        name: "Service",
+        name: "service",
         data(){
           return{
             masrc: back,

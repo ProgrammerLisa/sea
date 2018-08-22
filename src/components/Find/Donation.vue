@@ -74,7 +74,7 @@
   import carouselImg3 from '@/assets/images/test/u=1498947469,1572939960&fm=27&gp=0.jpg'
   import carouselImg4 from '@/assets/images/test/u=1333292247,557777395&fm=27&gp=0.jpg'
     export default {
-        name: "Donation",
+        name: "donation",
         data(){
           return{
             masrc: back,

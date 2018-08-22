@@ -22,7 +22,7 @@
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
 	export default {
-		name: "Wallet",
+		name: "wallet",
 		data() {
 			return {
 				masrc: back,
@@ -40,11 +40,9 @@
 		},
 		methods: {
 			evers() {
-				console.log(1)
 				this.masrc = backs;
 			},
 			lat() {
-				console.log(2)
 				this.masrc = back;
 			},
 			goBack() {

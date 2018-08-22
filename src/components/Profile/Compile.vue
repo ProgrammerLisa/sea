@@ -19,7 +19,6 @@
 								<img class="media-object headImg" :src="headImg" v-else/>
 								<!--</mu-avatar>-->
 							</mu-list-item-action>
-
 							<mu-list-item-action class="album-listRight">
 								<img :src="more" class="moreImg" />
 							</mu-list-item-action>
@@ -158,7 +157,7 @@
 	import pic5 from "@/assets/images/test/201711613356.jpg"
 
 	export default {
-		name: "Compile",
+		name: "compile",
 		computed: {
 			now() {
 				return Date.now();
@@ -170,7 +169,7 @@
 				more: more,
 				masrc: back,
 				headImg: headImg,
-				timg: timg,
+				timg: [],
 				nickname: '',
 				signature: 'hahaha',
 				IDcode: '',
@@ -320,7 +319,7 @@
 					$(".modal-backdrop").hide();
 					that.$router.push({
 						path: '/uploadheadImg',
-						name: 'UploadHeadImg',
+						name: 'uploadheadimg',
 						params: {
 							name: 'name',
 							dataObj: e.target.result,
@@ -339,8 +338,8 @@
 				reader.onload = function(e) {
 					$(".modal-backdrop").hide();
 					that.$router.push({
-						path: '/UploadPhotoImg',
-						name: 'UploadPhotoImg',
+						path: '/uploadphotoimg',
+						name: 'uploadphotoimg',
 						params: {
 							name: 'name',
 							dataObj: e.target.result,
@@ -439,11 +438,11 @@
 		width: 20vw;
 		height:20vw;
 		background-color: #F5F5F5;
-		margin: 1vw;
+    margin: 1vw;
 		display: inline-block;
 		white-space: nowrap;
 	}
-	
+
 	.sheet {
 		vertical-align:middle;
 		text-align: center;
@@ -451,7 +450,7 @@
 		height:10vw;
 		margin: 25%;
 	}
-	
+
 	.content {
 		overflow-x: hidden;
 		background-color: #f5f5f5;
@@ -460,76 +459,51 @@
 		overflow-y: scroll;
 		padding-bottom: 2rem;
 	}
-	
+
 	.content::-webkit-scrollbar {
 		display: none
 	}
-	
+
 	.media {
 		background: #fff;
 		padding: 1rem 1.1rem;
 		border-bottom: 0.1rem solid #f5f5f5;
 		margin-top: 0.6rem;
 	}
-	
+
 	.media-body {
 		vertical-align: middle;
 	}
-	
+
 	.headImg {
 		width: 4rem;
 		height: 4rem;
 		border-radius: 50%;
 	}
-	
+  .myHeadImg{
+    padding: 1rem 0;
+  }
 	.graph {
 		width: 4rem;
 		height: 4rem;
 		margin-top: 10px;
 	}
-	
-	.mu-list {
-		padding: 0;
-	}
-	
+
 	.listRight {
-		width: 50%;
+		width: 50%
 	}
-	
-	.media-right {
-		color: #888;
-		font-size: small;
-	}
-	
 	.mu-list {
 		padding: 0;
 	}
-	
-	.modal-content {
-		margin: 0 2rem;
-		border-radius: 0;
-		border: none;
-		text-align: center;
-	}
-	
-	.modal-dialog {
-		margin: 35vh auto;
-	}
-	
-	.modal-header {
-		padding: 1rem;
-		border-bottom: none;
-		color: #444;
-	}
-	
-	.modal-body {
+
+	.mu-list {
 		padding: 0;
 	}
-	
+
 	#ImgModal .modal-content {
 		height: 14vh;
 	}
-	
+
 	.headImgChoose {
 		position: relative;
 		display: inline-block;
@@ -546,7 +520,7 @@
 		border-radius: 0;
 		outline: none;
 	}
-	
+
 	.headImgChoose input {
 		position: absolute;
 		right: 0;
@@ -555,90 +529,65 @@
 		-ms-filter: 'alpha(opacity=0)';
 		font-size: 100%;
 	}
-	
-	.closeBtn {
-		border-bottom: none;
-		line-height: 4.5vh;
-	}
-	
-	.nickNameLeft {
-		text-align: left;
-	}
-	
+
+
 	.moreImg {
 		height: 3rem;
 	}
-	
+
 	#hint {
 		float: right;
 		color: #888;
 		font-size: 0.05rem;
 		padding-right: 1.5rem;
 	}
-	
-	.media-right {
-		padding-right: 0;
-	}
-	
-	.phone {
-		margin-top: 0.6rem;
-	}
-	
-	.ID {
-		margin-top: 0.6rem;
-	}
-	
-	.media-right {
-		padding: 0;
-	}
-	
+
 	.mu-divider {
 		background: #f5f5f5;
 	}
-	
 	.marginTop {
 		margin-top: 0.6rem;
 		background: #f5f5f5;
 	}
-	
+
 	.mu-list-item {
 		background: #fff;
 	}
-	
+
 	.controlContainer {
 		overflow-x: scroll;
 	}
-	
+
 	.controlContainer::-webkit-scrollbar {
 		display: none
 	}
-	
+
 	.controlContent {
 		display: inline-block;
 		white-space: nowrap;
 	}
-	
+
 	.controlContent img {
 		width: 20vw;
 		height: 20vw;
 		margin: 1vw;
 	}
-	
+
 	.controlScroll {
 		width: auto;
 	}
-	
-	.getBack{
-		width: 36px;
-	}
+  .delBtn{
+    border-top: 1px solid #ddd;width: 50%;
+    color: #555;
+  }
+  .delBtn:first-child{
+    border-right: 1px solid #ddd;
+    color: #09a2d6;
+  }
 
-	.delBtn{
-		border-top: 1px solid #ddd;width: 50%;
-		color: #555;
-	}
-	.delBtn:first-child{
-		border-right: 1px solid #ddd;
-		color: #09a2d6;
-	}
-	
 </style>
+
+
+
+
+

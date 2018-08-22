@@ -70,7 +70,7 @@
 	import backs from '@/assets/images/backs.png'
 
 	export default {
-		name: "ModificationAddress",
+		name: "modificationaddress",
 		data() {
 			return {
 				masrc: back,

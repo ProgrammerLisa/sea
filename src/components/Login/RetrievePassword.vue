@@ -53,7 +53,7 @@
 	//	localStorage.setItem("site", "js8.in");
 
 	export default {
-		name: "login",
+		name: "retrievepassword",
 		components: {
 			XInput,
 			Group,

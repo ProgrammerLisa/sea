@@ -50,7 +50,7 @@
 	import backs from '@/assets/images/backs.png'
 
 	export default {
-		name: "CommodityOrder",
+		name: "commodityorder",
 		data() {
 			return {
 				masrc: back,
@@ -113,11 +113,9 @@
         this.openSimple = false;
       },
 			evers() {
-				console.log(1)
 				this.masrc = backs;
 			},
 			lat() {
-				console.log(2)
 				this.masrc = back;
 			},
 			goBack() {

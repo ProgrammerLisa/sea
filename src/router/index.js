@@ -7,67 +7,6 @@ import '@/assets/js/bootstrap.js'
 import '@/assets/js/jq.js'
 import '@/assets/js/jquery-ui.js'
 
-
-
-import AboutUs from '@/components/Profile/AboutUs'
-import AddFriends from '@/components/Profile/AddFriends'
-import address from '@/components/Profile/Address'
-import Ask from '@/components/Profile/Invite'
-
-import ChangePassword from '@/components/Profile/ChangePassword'
-import CommodityDetails from '@/components/Shopping/CommodityDetails'
-import CommodityOrder from '@/components/Shopping/CommodityOrder'
-import Compile from '@/components/Profile/Compile'
-
-import Donation from '@/components/Find/Donation'
-import DonationCount from '@/components/Find/DonationCount'
-
-import Find from '@/components/Find/Find'
-import friend from '@/components/Profile/friend'
-import FriendData from '@/components/Profile/FriendData'
-import FriendFarm from '@/components/Farm/FriendFarm'
-
-import GameRules from '@/components/Home/GameRules'
-
-import Home from '@/components/Home/Home'
-
-import Login from '@/components/Login/Login'
-
-import ModificationAddress from '@/components/Profile/ModificationAddress'
-import MyPearl from '@/components/Profile/MyPearl'
-import MyRankings from '@/components/Profile/MyRankings'
-
-import nav from '@/components/Nav'
-import news from '@/components/Profile/news'
-import NewAddress from '@/components/Profile/NewAddress'
-import NewsDetails from '@/components/Profile/NewsDetails'
-import Nickname from '@/components/Profile/Nickname'
-import Grade from '@/components/Profile/Grade'
-import Sdfs from '@/components/Profile/Sdfs'
-
-import PublicGood from '@/components/Find/PublicGood'
-import Personal from '@/components/Profile/Profile'
-import PreOrder from '@/components/Shopping/PreOrder'
-import PhotoWall from '@/components/Profile/PhotoWall'
-
-import RealName from '@/components/Profile/RealName'
-import Record from '@/components/Home/Record'
-import Register from '@/components/Login/Register'
-import Retrieve from '@/components/Login/RetrievePassword'
-import RegisterInviteCode from '@/components/Login/RegisterInviteCode'
-
-import Service from '@/components/Profile/Service'
-import Setting from '@/components/Profile/Setting'
-import Shopping from '@/components/Shopping/Shopping'
-import Statement from '@/components/Profile/Statement'
-
-import UserFeedback from '@/components/Profile/UserFeedback'
-import UploadHeadImg from '@/components/Profile/UploadHeadImg'
-import UploadPhotoImg from '@/components/Profile/UploadPhotoImg'
-
-import Wallet from '@/components/Profile/Wallet'
-import WechatService from '@/components/Profile/WechatService'
-
 Vue.use(Router)
 
 Vue.prototype.$layer = layer(Vue);
@@ -78,12 +17,12 @@ if(uid!=null&&uid!=undefined&&uid!=''){
   defaultRouter = {
     path: '/',
     meta:{index:0},
-    component: nav,
+    component: resolve => require(['@/components/Nav'], resolve),
     children: [
       {
         path: '/',
         meta:{index:0},
-        component: Home
+        component: resolve => require(['@/components/Home/Home'], resolve)
       }
     ]
   }
@@ -91,7 +30,7 @@ if(uid!=null&&uid!=undefined&&uid!=''){
   defaultRouter = {
     path: '/',
     meta:{index:1},
-    component: Login
+    component: resolve => require(['@/components/Login/Login'], resolve)
   }
 }
 
@@ -102,265 +41,265 @@ export default new Router({
     {
       path: '/nav',
       meta:{index:0},
-      component: nav,
+      component: resolve => require(['@/components/Nav'], resolve),
       children:[
         {
           path:'/',
           meta:{index:1},
-          component:Home
+          component:  resolve => require(['@/components/Home/Home'], resolve)
         },
         {
           path:'/home',
           meta:{index:1},
-          component:Home
+          component:resolve => require(['@/components/Home/Home'], resolve)
         },
         {
           path:'/find',
           meta:{index:1},
-          component:Find
+          component:resolve => require(['@/components/Find/Find'], resolve)
         },
         {
           path:'/shopping',
           meta:{index:1},
-          component:Shopping
+          component:resolve => require(['@/components/Shopping/Shopping'], resolve)
         },
         {
           path:'/personal',
           meta:{ index: 1},
-          component:Personal
+          component: resolve => require(['@/components/Profile/Profile'], resolve)
         }
       ]
     },
     {
       path:'/find',
       meta:{index:1},
-      component:Find
+      component: resolve => require(['@/components/Find/Find'], resolve)
     },
     {
       path: '/register',
-      name:'Register',
+      name:'register',
       meta:{index:2},
-      component: Register
+      component:  resolve => require(['@/components/Login/Register'], resolve)
     },
     {
       path:'/login',
-      name:'Login',
+      name:'login',
       meta:{index:1},
-      component: Login
+      component:  resolve => require(['@/components/Login/Login'], resolve)
     },
     {
       path:'/retrieve',
-      name:'Retrieve',
-      component: Retrieve
+      name:'retrieve',
+      component: resolve => require(['@/components/Login/RetrievePassword'], resolve)
     },
     {
       path:'/ask',
       name:'ask',
       meta:{index:3},
-      component: Ask
+      component:  resolve => require(['@/components/Profile/Invite'], resolve)
     },
     {
       path:'/friend',
       name:'friend',
       meta:{index:2},
-      component: friend
+      component: resolve => require(['@/components/Profile/friend'], resolve)
     },
     {
       path:'/address',
       name:'address',
       meta:{index:2},
-      component: address
+      component: resolve => require(['@/components/Profile/Address'], resolve)
     },
     {
       path:'/service',
       name:'service',
       meta:{index:2},
-      component: Service
+      component:  resolve => require(['@/components/Profile/Service'], resolve)
     },
     {
       path:'/wechatservice',
-      name:'WechatService',
+      name:'wechatservice',
       meta:{index:2},
-      component: WechatService
+      component:  resolve => require(['@/components/Profile/WechatService'], resolve)
     },
 
     {
       path:'/setting',
-      name:'Setting',
+      name:'setting',
       meta:{index:2},
-      component: Setting
+      component: resolve => require(['@/components/Profile/setting'], resolve)
     },
     {
       path:'/realname',
-      name:'RealName',
+      name:'realname',
       meta:{index:2},
-      component: RealName
+      component: resolve => require(['@/components/Profile/RealName'], resolve)
     },
     {
       path:'/wallet',
-      name:'Wallet',
+      name:'wallet',
       meta:{index:2},
-      component: Wallet
+      component:  resolve => require(['@/components/Profile/Wallet'], resolve)
     },
     {
       path:'/news',
       name:'news',
       meta:{index:2},
-      component: news
+      component:  resolve => require(['@/components/Profile/news'], resolve)
     },
     {
       path:'/addfriends',
-      name:'AddFriends',
+      name:'addfriends',
       meta:{index:3},
-      component: AddFriends
+      component:  resolve => require(['@/components/Profile/AddFriends'], resolve)
     },
     {
       path:'/commoditydetails',
-      name:'CommodityDetails',
+      name:'commoditydetails',
       meta:{index:2},
-      component: CommodityDetails
+      component:  resolve => require(['@/components/Shopping/CommodityDetails'], resolve)
     },
     {
       path:'/commodityorder',
-      name:'CommodityOrder',
+      name:'commodityorder',
       meta:{index:2},
-      component: CommodityOrder
+      component:  resolve => require(['@/components/Shopping/CommodityOrder'], resolve)
     },
     {
       path:'/modificationaddress',
-      name:'ModificationAddress',
+      name:'modificationaddress',
       meta:{index:3},
-      component: ModificationAddress
+      component:  resolve => require(['@/components/Profile/ModificationAddress'], resolve)
     },
     {
       path:'/newaddress',
-      name:'NewAddress',
+      name:'newaddress',
       meta:{index:3},
-      component: NewAddress
+      component:  resolve => require(['@/components/Profile/NewAddress'], resolve)
     },
     {
       path:'/statement',
-      name:'Statement',
+      name:'statement',
       meta:{index:3},
-      component: Statement
+      component:  resolve => require(['@/components/Profile/Statement'], resolve)
     },
     {
       path:'/changepassword',
-      name:'ChangePassword',
+      name:'changepassword',
       meta:{index:3},
-      component: ChangePassword
+      component:  resolve => require(['@/components/Profile/ChangePassword'], resolve)
     },
     {
       path:'/userfeedback',
-      name:'UserFeedback',
+      name:'userfeedback',
       meta:{index:3},
-      component: UserFeedback
+      component:  resolve => require(['@/components/Profile/UserFeedback'], resolve)
     },
     {
       path:'/aboutus',
-      name:'AboutUs',
+      name:'aboutus',
       meta:{index:3},
-      component: AboutUs
+      component:  resolve => require(['@/components/Profile/AboutUs'], resolve)
     },
     {
       path:'/compile',
-      name:'Compile',
+      name:'compile',
       meta:{index:2},
-      component: Compile
+      component: resolve => require(['@/components/Profile/Compile'], resolve)
     },
     {
       path:'/uploadheadImg',
-      name:'UploadHeadImg',
+      name:'uploadheadimg',
       meta:{index:3},
-      component: UploadHeadImg
+      component:  resolve => require(['@/components/Profile/UploadHeadImg'], resolve)
     },
     {
       path:'/uploadPhotoImg',
-      name:'UploadPhotoImg',
+      name:'uploadphotoimg',
       meta:{index:3},
-      component: UploadPhotoImg
+      component:  resolve => require(['@/components/Profile/UploadPhotoImg'], resolve)
     },
     {
       path:'/mypearl',
-      name:'MyPearl',
+      name:'mypearl',
       meta:{index:3},
-      component: MyPearl
+      component:  resolve => require(['@/components/Profile/MyPearl'], resolve)
     },
     {
       path:'/preorder',
-      name:'PreOrder',
+      name:'preorder',
       meta:{index:3},
-      component: PreOrder
+      component:  resolve => require(['@/components/Shopping/PreOrder'], resolve)
     },{
-    	path:'/RegisterInviteCode',
-    	name:'RegisterInviteCode',
+    	path:'/registerinvitecode',
+    	name:'registerinvitecode',
     	meta:{index:3},
-    	component: RegisterInviteCode
+    	component:  resolve => require(['@/components/Login/RegisterInviteCode'], resolve)
     },{
       path:'/newsdetails',
-      name:'NewsDetails',
+      name:'newsdetails',
       meta:{index:3},
-      component: NewsDetails
+      component:  resolve => require(['@/components/Profile/NewsDetails'], resolve)
     },{
       path:'/gamerules',
-      name:'GameRules',
+      name:'gamerules',
       meta:{index:2},
-      component: GameRules
+      component:  resolve => require(['@/components/Home/GameRules'], resolve)
     },{
       path:'/nickname',
-      name:'Nickname',
+      name:'nickname',
       meta:{index:3},
-      component: Nickname
+      component:  resolve => require(['@/components/Profile/Nickname'], resolve)
     },{
-      path:'/Grade',
-      name:'Grade',
+      path:'/grade',
+      name:'grade',
       meta:{index:3},
-      component: Grade
+      component:  resolve => require(['@/components/Profile/Grade'], resolve)
     },{
-      path:'/Sdfs',
-      name:'Sdfs',
+      path:'/sdfs',
+      name:'sdfs',
       meta:{index:3},
-      component: Sdfs
+      component:  resolve => require(['@/components/Profile/Sdfs'], resolve)
     },{
       path:'/myrankings',
-      name:'MyRankings',
+      name:'myrankings',
       meta:{index:3},
-      component: MyRankings
+      component:  resolve => require(['@/components/Profile/MyRankings'], resolve)
     },{
       path:'/frienddata',
-      name:'FriendData',
+      name:'frienddata',
       meta:{index:3},
-      component: FriendData
+      component:  resolve => require(['@/components/Profile/FriendData'], resolve)
     },{
       path:'/photowall',
-      name:'PhotoWall',
+      name:'photowall',
       meta:{index:4},
-      component: PhotoWall
+      component:  resolve => require(['@/components/Profile/PhotoWall'], resolve)
     },{
       path:'/publicgood',
-      name:'PublicGood',
+      name:'publicgood',
       meta:{index:2},
-      component: PublicGood
+      component:  resolve => require(['@/components/Find/PublicGood'], resolve)
     },{
       path:'/donation',
-      name:'Donation',
+      name:'donation',
       meta:{index:3},
-      component: Donation
+      component:  resolve => require(['@/components/Find/Donation'], resolve)
     },{
       path:'/donationcount',
-      name:'DonationCount',
+      name:'donationcount',
       meta:{index:4},
-      component: DonationCount
+      component:  resolve => require(['@/components/Find/DonationCount'], resolve)
     },{
       path:'/record',
-      name:'Record',
+      name:'record',
       meta:{index:2},
-      component: Record
+      component:  resolve => require(['@/components/Home/Record'], resolve)
     },{
       path:'/friendfarm',
-      name:'FriendFarm',
+      name:'friendfarm',
       meta:{index:4},
-      component: FriendFarm
+      component:  resolve => require(['@/components/Farm/FriendFarm'], resolve)
     },
 
 

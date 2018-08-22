@@ -33,7 +33,7 @@
 
 <script>
     export default {
-        name: "PreOrder",
+        name: "preorder",
         data(){
           return{
             commodityImg:'',

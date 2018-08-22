@@ -61,7 +61,7 @@
   import back from '@/assets/images/back.png'
   import backs from '@/assets/images/backs.png'
     export default {
-        name: "MyRankings",
+        name: "myrankings",
         data(){
           return{
             masrc: back,

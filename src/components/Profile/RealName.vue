@@ -52,7 +52,7 @@
 			return {
 				masrc: back,
 				inputbox: false,
-				succeed: true,
+				succeed: false,
 				succeedImg: succeedImg,
 				realName: [{
 						title: '姓名',
@@ -81,13 +81,13 @@
 					data: {}
 				}).then(function(res) {
 					if(res.data.code == 0) {
-						console.log(res.data.data);
 						if(!res.data.data.is_realname) {
 							  this.inputbox = true;
 								this.succeed = false
 						} else {
-							this.realName[0].content = res.data.data.real_name
-							this.realName[1].content = res.data.data.card_num
+              this.succeed = true;
+							this.realName[0].content = res.data.data.real_name;
+							this.realName[1].content = res.data.data.card_num;
 							this.realName[2].content = res.data.data.phone
 						}
 					} else {
@@ -101,11 +101,9 @@
 		},
 		methods: {
 			evers() {
-				console.log(1)
 				this.masrc = backs;
 			},
 			lat() {
-				console.log(2)
 				this.masrc = back;
 			},
 			goBack() {

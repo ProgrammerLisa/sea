@@ -29,7 +29,7 @@
 	import backs from '@/assets/images/backs.png'
 
 	export default {
-		name: "MyPearl",
+		name: "mypearl",
 		data() {
 			return {
 				masrc: back,
@@ -63,11 +63,9 @@
 		},
 		methods: {
 			evers() {
-				console.log(1)
 				this.masrc = backs;
 			},
 			lat() {
-				console.log(2)
 				this.masrc = back;
 			},
 			goBack() {

@@ -46,7 +46,7 @@
   import {formatDate} from "../../assets/js/date";
 
   export default {
-        name: "GetForce",
+        name: "getforce",
         filters:{
           formatDate(time){
             let data = new Date(time);

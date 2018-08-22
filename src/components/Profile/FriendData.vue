@@ -21,7 +21,7 @@
 			<img :src="avatar" style="width: 8rem;border-radius: 50%;border: 0.5rem solid #fff;position: relative;margin-top: -4rem" />
 		</div>
 		<div class="dataContainer text-center">
-			<div class="title">{{nickname}} <span class="sex">{{gender}}</span></div>
+			<div class="title">{{nickname}} <span class="sex" v-bind:style="bcColor">{{gender}}</span></div>
 			<div>
 				<span class="level">Lv.{{level}}</span><span class="friendId">ID:{{friend_uid}}</span>
 			</div>
@@ -59,6 +59,7 @@
 				pic:[],
 				active: 0,
 				gender: '♀',
+				bcColor: 'background:#5CB3FC',
 				level: 0,
 				nickname: '好友昵称',
 				friend_uid: 123456789,
@@ -72,7 +73,7 @@
 		},
 		methods: {
 			FriendData() {
-				console.log(this.friend_uid)
+//				console.log(this.friend_uid)
 				this.$http({
 						method: "post",
 						url: "/users/profile",
@@ -87,14 +88,16 @@
 					}).then(function(res) {
 						this.level = res.data.data.level;
 						this.resume = res.data.data.resume;
-//						this.avatar = res.data.data.avatar;
+						this.avatar = res.data.data.avatar;
 						this.nickname = res.data.data.nickname;
 						this.gender = res.data.data.gender;
 						this.friend_uid = res.data.data.uid;
 						 if(res.data.data.gender == "MALE") {
 								this.gender = '♂'
+								this.bcColor='background: #5CB3FC;';
 							} else {
 								this.gender = '♀'
+								this.bcColor='background: #FC8484;';
 							}
 //						this.pic = res.data.data.picture;
 						for(let i=0;i<res.data.data.picture.length;i++){

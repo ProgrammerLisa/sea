@@ -106,7 +106,7 @@
               this.newsNone = true;
             } else {
               this.newsNone = false;
-              console.log(res.data.data)
+              this.news=[];
               for(let n in res.data.data) {
                 this.mobile.id = n;
                 this.mobile.msg = res.data.data[n];
@@ -141,7 +141,7 @@
 			newsDetails(index) {
 				this.$router.push({
 					path: '/newsdetails',
-					name: 'NewsDetails',
+					name: 'newsdetails',
 					params: {
 						name: 'name',
 						dataObj: this.news[index].id
@@ -199,10 +199,7 @@
 					}).then(function(res) {
 						if(res.data.code == 0) {
 							this.$layer.msg(res.data.msg);
-              this.news.splice(index,1);
-              if(this.news.length===0){
-                this.newsNone=true
-              }
+              this.newsList();
 						}
 					}.bind(this))
 					.catch(function(err) {

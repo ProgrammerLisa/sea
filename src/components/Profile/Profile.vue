@@ -13,9 +13,8 @@
 							<img :src="headPortrait" v-else/>
 							<div class="le">
 								<span class="level">Lv.{{level}}</span>
+							</div>
 						</div>
-						</div>
-						
 						<p class="nickName">{{nickName}}</p>
 						<p style="margin: 0">
 							<mu-button flat style="height: 32px;line-height: 32px">
@@ -144,8 +143,7 @@
 				headDefault: true,
 				isLogin: true,
 				newsCount: false,
-				haveHeadImg: false,
-				level:''
+				haveHeadImg: false
 			}
 		},
 		mounted() {
@@ -239,7 +237,7 @@
 						if(res.data.code == 0) {
 							this.Personal[1].myInvite = res.data.data.inviter_code
 						} else {
-							this.$layer.msg(res.data.msg);
+							this.Personal[1].myInvite = "无";
 						}
 					}.bind(this))
 					.catch(function(err) {

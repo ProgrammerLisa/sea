@@ -15,7 +15,7 @@
           <mu-text-field type="text" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/" v-model="validateForm.phone" prop="phone" placeholder="请填写收货手机号码"></mu-text-field>
         </mu-form-item>
         <mu-form-item prop="address" :rules="addressRules" data-toggle="modal" data-target="#addressModal">
-          <mu-text-field disabled="disabled" type="text" v-model="validateForm.address"  prop="address" placeholder="请选择地区"></mu-text-field>
+          <mu-text-field type="text" v-model="validateForm.address"  prop="address" placeholder="请选择地区"></mu-text-field>
         </mu-form-item>
         <mu-form-item prop="addressNumber" :rules="addressNumberRules">
           <mu-text-field type="text" v-model="validateForm.addressNumber" prop="addressNumber" placeholder="详细地址(如门牌号等)"></mu-text-field>
@@ -110,7 +110,9 @@
 			}
 		},
 		mounted() {
-			this.addressTd = this.$route.params.dataObj;
+			this.addressTd = this.$route.params.dataObj.id;
+			this.validateForm.username=this.$route.params.dataObj.username;
+      this.validateForm.phone=this.$route.params.dataObj.phone;
 			for(var item in this.code) {
 				this.codeArr.push(this.code[item]);
 			}

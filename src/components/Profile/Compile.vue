@@ -38,12 +38,22 @@
 				</div>
 				<div class="controlContainer">
 					<div class="controlScroll">
-						<div class="controlContent" v-for="(p,index) in timg" v-dragging="{ item: p, list: timg, group: 'p' }" :key="p.index">
-							<img @touchstart="rem(p,index)" @touchend="js()" alt="有" class="media-object graph" :src="`${p+'?'+now}`" @click="changeActive(index)" />
-						</div>
-						<div class="chart-to" @click="openPhDialog">
-							<img class="media-object sheet" src="../../assets/images/tianjia.png" />
-						</div>
+            <div v-if="show">
+              <div class="controlContent" v-for="(p,index) in timg" v-dragging="{ item: p, list: timg, group: 'p' }" :key="p.index">
+                <img @touchstart="rem(p,index)" @touchend="js()" class="media-object graph" :src="`${p+'?'+now}`" @click="changeActive(index)" />
+              </div>
+              <div class="chart-to" @click="openPhDialog">
+                <img class="media-object sheet" src="../../assets/images/tianjia.png" />
+              </div>
+            </div>
+
+            <div class="lds-css ng-scope" v-else>
+              <div style="width:100%;height:100%" class="lds-ripple">
+                <div></div>
+                <div></div>
+              </div>
+            </div>
+
 					</div>
 				</div>
 			</div>
@@ -166,42 +176,51 @@
 		data() {
 			return {
 				active: 0,
-				more: more,
-				masrc: back,
+        chooseFile: '',
+        count:0,
+        extensions: '',
+        haveHeadImg: '',
 				headImg: headImg,
-				timg: [],
-				nickname: '',
-				signature: 'hahaha',
-				IDcode: '',
-				chooseFile: '',
-				houzhuiming: '',
-				extensions: '',
-				haveHeadImg: '',
-				phtoImg: '',
-				pmid: '',
-				rank: '',
-				openScroll: false,
-				openAlert: false,
-				ringtone: '',
-				Iurl: '',
-				i: '',
-				options: [
-					'男',
-					'女'
-				],
-				openPh: false,
-				openHi: false
+        houzhuiming: '',
+        i: '',
+        IDcode: '',
+        Iurl: '',
+        loading2:false,
+        masrc: back,
+        more: more,
+        nickname: '',
+        openAlert: false,
+        openHi: false,
+        openPh: false,
+        openScroll: false,
+        options: [
+          '男',
+          '女'
+        ],
+        phtoImg: '',
+        pmid: '',
+        rank: '',
+        ringtone: '',
+        show:false,
+        signature: 'hahaha',
+				timg: []
 			}
 		},
 		inject: ['reload'],
-		mounted: function() {
+
+    mounted: function() {
 			this.$nextTick(function() {
+			  let that =this;
 				this.compile();
+        setTimeout(function () {
+          that.show=true
+        },1000)
 			})
 		},
 
 		methods: {
 			compile() {
+			  let that=this;
 				this.$http({
 						method: "get",
 						url: "/users/info",
@@ -250,17 +269,14 @@
 								} else if(this.ringtone == 'FEMALE') {
 									this.ringtone = '女'
 								}
-								//							console.log(this.ringtone+'值');
+
 							}
 
 							if(res.data.data.pictures.length===0) {
 								this.timg = [];
 							} else {
-                // this.timg = [];
-					// 		    this.timg.push(res.data.data.pictures[0])
-
-								console.log(res.data.data)
-							}
+                this.timg=res.data.data.pictures;
+              }
 
 							if(res.data.data.avatar == "") {
 								this.headImg = headImg;
@@ -272,6 +288,7 @@
 						} else {
 							this.haveHeadImg = false
 							this.phtoImg = false
+              this.show=true;
 							this.$layer.msg(res.data.msg);
 						}
 					}.bind(this))
@@ -438,6 +455,70 @@
 </script>
 
 <style scoped>
+  @keyframes lds-ripple {
+    0% {
+      top: 96px;
+      left: 96px;
+      width: 0;
+      height: 0;
+      opacity: 1;
+    }
+    100% {
+      top: 18px;
+      left: 18px;
+      width: 156px;
+      height: 156px;
+      opacity: 0;
+    }
+  }
+  @-webkit-keyframes lds-ripple {
+    0% {
+      top: 96px;
+      left: 96px;
+      width: 0;
+      height: 0;
+      opacity: 1;
+    }
+    100% {
+      top: 18px;
+      left: 18px;
+      width: 156px;
+      height: 156px;
+      opacity: 0;
+    }
+  }
+  .lds-ripple {
+    position: relative;
+    margin: auto;
+  }
+  .lds-ripple div {
+    box-sizing: content-box;
+    position: absolute;
+    border-width: 4px;
+    border-style: solid;
+    opacity: 1;
+    border-radius: 50%;
+    -webkit-animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  }
+  .lds-ripple div:nth-child(1) {
+    border-color: #09a2d6;
+  }
+  .lds-ripple div:nth-child(2) {
+    border-color: #32a0da;
+    -webkit-animation-delay: -0.5s;
+    animation-delay: -0.5s;
+  }
+  .lds-ripple {
+    width: 200px !important;
+    height: 200px !important;
+    -webkit-transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+    transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+  }
+
+
+
+
 	.mu-item-action{
 		min-width: 3.0rem;
 	}

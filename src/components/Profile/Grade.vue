@@ -22,7 +22,7 @@
 				</div>
 				<mu-container>
 					<mu-flex class="demo-linear-progress">
-						<mu-linear-progress style="width: 90%;margin:0 auto;" mode="determinate" color="#FFFFFF" size="7" :max="1000" :value="energ"></mu-linear-progress>
+						<mu-linear-progress style="width: 90%;margin:0 auto;" mode="determinate" color="#FFFFFF" size="7" :max="1000" ></mu-linear-progress>
 						<div style="position: absolute; float: left;padding-top: 3%;width: 90%;">
 							<span style="float: left;margin-left: 5%;">Lv.0</span>
 							<span>Lv.3</span>
@@ -31,92 +31,71 @@
 					</mu-flex>
 				</mu-container>
 			</div>
+      <div id="#nav3">
+        <div class="GradeMsg"><span style="color: #09a2d6;margin-right: 0.6rem;font-weight: 700">|</span>等级权益</div>
+        <div class="GradeMsg"><mu-avatar color="#09A2D6" size="18">1</mu-avatar> 达到3级 可解锁 “海洋之心”</div>
+        <div class="GradeMsg"><mu-avatar color="#09A2D6" size="18">2</mu-avatar> 等级越高获得的珍珠价值越高</div>
+        <div class="GradeMsg">
+          <div style="display: flex">
+            <div style="width: 40%">
+              <span style="color: #09a2d6;margin-right: 0.6rem;font-weight: 700">|</span>如何升级
+            </div>
+            <div style="width: 60%;font-size: 1.4rem;padding-right: 2px" class="text-right">
+              做任务快速升级<img :src="more" class="moreImg"/>
+            </div>
+          </div>
+        </div>
+      </div>
 
-			<mu-paper id="nav3" :z-depth="0">
-				<mu-list style="padding: 0">
-					<mu-list-item>
-						<mu-list-item-content>
-							<mu-list-item-title><span style="color: #09a2d6;margin-right: 0.6rem;font-weight: 700">|</span>等级权益</mu-list-item-title>
-						</mu-list-item-content>
-					</mu-list-item>
-				</mu-list>
-				<mu-list style="padding: 0">
-					<mu-list-item>
-						<mu-list-item-content>
-							<mu-list-item-title>
-								<mu-avatar color="#09A2D6" size="18">1</mu-avatar> 达到3级 可解锁 “海洋之心”</mu-list-item-title>
-						</mu-list-item-content>
-					</mu-list-item>
-				</mu-list>
-				<mu-list style="padding: 0">
-					<mu-list-item>
-						<mu-list-item-content>
-							<mu-list-item-title>
-								<mu-avatar color="#09A2D6" size="18">2</mu-avatar> 等级越高获得的珍珠价值越高</mu-list-item-title>
-						</mu-list-item-content>
-					</mu-list-item>
-				</mu-list>
-			</mu-paper>
-		</div>
-		<div style="background-color: #F5F5F5;height: 2%;">
 
 		</div>
-		<mu-paper id="dataBox" :z-depth="0">
-			<mu-list class="mu-list">
-				<div class="dataContainer">
-					<div class="dataList">
-						<mu-list-item>
-							<mu-list-item-content>
-								<mu-list-item-title><span style="color: #09a2d6;margin-right: 0.6rem;font-weight: 700">|</span>如何升级</mu-list-item-title>
-							</mu-list-item-content>
-							<mu-list-item-action>
-								<mu-list-item-title class="count">做任务快速升级<span class="text-right"><img :src="more" class="moreImg"/></span></mu-list-item-title>
-							</mu-list-item-action>
-						</mu-list-item>
-						<mu-list-item class="mu-list-item">
-							<mu-list-item-content>
-								<mu-list-item-title>每日签到</mu-list-item-title>
-								<mu-list-item-sub-title class="dateText">日常任务</mu-list-item-sub-title>
-							</mu-list-item-content>
-							<mu-list-item-action>
-								<mu-list-item-title class="count"><span class="count-text">5 能量</span> / 无上限 / 日均</mu-list-item-title>
-							</mu-list-item-action>
-						</mu-list-item>
-						<mu-list-item class="mu-list-item">
-							<mu-list-item-content>
-								<mu-list-item-title>邀请好友</mu-list-item-title>
-								<mu-list-item-sub-title class="dateText">额外任务</mu-list-item-sub-title>
-							</mu-list-item-content>
-							<mu-list-item-action>
-								<mu-list-item-title class="count"><span class="count-text">5 能量</span> / 10 次上限 / 天</mu-list-item-title>
-							</mu-list-item-action>
-						</mu-list-item>
-						<mu-list-item class="mu-list-item">
-							<mu-list-item-content>
-								<mu-list-item-title>公益慈善</mu-list-item-title>
-								<mu-list-item-sub-title class="dateText">额外任务</mu-list-item-sub-title>
-							</mu-list-item-content>
-							<mu-list-item-action>
-								<mu-list-item-title class="count"><span class="count-text">5 能量</span> / 1 次上限 / 天</mu-list-item-title>
-							</mu-list-item-action>
-						</mu-list-item>
-						<mu-list-item class="mu-list-item">
-							<mu-list-item-content>
-								<mu-list-item-title>阅读资讯</mu-list-item-title>
-								<mu-list-item-sub-title class="dateText">日常任务</mu-list-item-sub-title>
-							</mu-list-item-content>
-							<mu-list-item-action>
-								<mu-list-item-title class="count"><span class="count-text">5 能量</span> / 5 次上限 / 天</mu-list-item-title>
-							</mu-list-item-action>
-						</mu-list-item>
-						<mu-divider class="mu-divider" shallow-inset></mu-divider>
-					</div>
-				</div>
+    <div id="dataBox">
+      <mu-paper :z-depth="0">
+        <mu-list class="mu-list">
+          <mu-list-item class="mu-list-item">
+            <mu-list-item-content>
+              <mu-list-item-title>每日签到</mu-list-item-title>
+              <mu-list-item-sub-title class="dateText">日常任务</mu-list-item-sub-title>
+            </mu-list-item-content>
+            <mu-list-item-action>
+              <mu-list-item-title class="count"><span class="count-text">5 能量</span> / 无上限 / 日均</mu-list-item-title>
+            </mu-list-item-action>
+          </mu-list-item>
+          <mu-list-item class="mu-list-item">
+            <mu-list-item-content>
+              <mu-list-item-title>邀请好友</mu-list-item-title>
+              <mu-list-item-sub-title class="dateText">额外任务</mu-list-item-sub-title>
+            </mu-list-item-content>
+            <mu-list-item-action>
+              <mu-list-item-title class="count"><span class="count-text">5 能量</span> / 10 次上限 / 天</mu-list-item-title>
+            </mu-list-item-action>
+          </mu-list-item>
+          <mu-list-item class="mu-list-item">
+            <mu-list-item-content>
+              <mu-list-item-title>公益慈善</mu-list-item-title>
+              <mu-list-item-sub-title class="dateText">额外任务</mu-list-item-sub-title>
+            </mu-list-item-content>
+            <mu-list-item-action>
+              <mu-list-item-title class="count"><span class="count-text">5 能量</span> / 1 次上限 / 天</mu-list-item-title>
+            </mu-list-item-action>
+          </mu-list-item>
+          <mu-list-item class="mu-list-item">
+            <mu-list-item-content>
+              <mu-list-item-title>阅读资讯</mu-list-item-title>
+              <mu-list-item-sub-title class="dateText">日常任务</mu-list-item-sub-title>
+            </mu-list-item-content>
+            <mu-list-item-action>
+              <mu-list-item-title class="count"><span class="count-text">5 能量</span> / 5 次上限 / 天</mu-list-item-title>
+            </mu-list-item-action>
+          </mu-list-item>
+          <mu-divider class="mu-divider" shallow-inset></mu-divider>
 
-			</mu-list>
-		</mu-paper>
 
-	</div>
+        </mu-list>
+      </mu-paper>
+    </div>
+
+  </div>
 </template>
 
 <script>
@@ -145,12 +124,10 @@
 		},
 
 		mounted() {
-			let height = $("#nav1").height() + $("#nav2").height() + $("#nav3").height();
-			$("#navBox").css({
-				height: height + 'px'
-			});
+			let height =$("#navBox").height();
+
 			$("#dataBox").css({
-				marginTop: height + 'px'
+				marginTop:height + 'px'
 			});
 			this.getdatelist();
 		},
@@ -180,7 +157,6 @@
 							this.haveHeadImg = false
 						} else {
 							this.headImg = res.data.data.avatar;
-							console.log(this.headImg)
 							this.haveHeadImg = true
 						}
 					} else {
@@ -196,6 +172,9 @@
 			lat() {
 				this.masrc = back;
 			},
+      evers() {
+        this.masrc = backs;
+      },
 			goBack() {
 				this.$router.go(-1);
 			}
@@ -237,11 +216,6 @@
 	}
 
 	#dataBox {
-		margin-top: 50vh;
-	}
-
-	.dataContainer {
-		margin-top: 1vh;
 	}
 
 	.income {
@@ -249,10 +223,15 @@
 		text-align: center;
 		color: #fff;
 	}
-
-	.incomeTitle {
-		font-size: 1.5rem;
-	}
+  .GradeMsg{
+    border-bottom: 1px solid #eee;
+    line-height: 4rem;
+    font-size: 1.6rem;
+    padding: 0 16px;
+  }
+  .GradeMsg:last-child{
+    padding-right: 0;
+  }
 
 	.today {
 		width: 90%;
@@ -260,16 +239,8 @@
 		padding: 1rem 0;
 	}
 
-	.grid-cell {
-		margin: 1rem 0;
-	}
-
-	.grid-cell:first-child {
-		border-right: 1px solid rgba(255, 255, 255, 0.2);
-	}
-
 	.mu-list {
-		border-bottom: 1px solid #eee;
+    padding: 0;
 	}
 
 	.mu-list-item {
@@ -291,64 +262,12 @@
 
 	.count {
 		font-size: 1.3rem;
-	}
-
-	.table {
-		text-align: center;
-	}
-
-	.table tr {
-		line-height: 4rem;
-		border-bottom: 0.1rem solid #efefef;
-	}
-
-	.bcfff {
-		background: #fff;
-	}
-
-	.text-left {
-		padding-left: 1rem;
+    margin-right: 16px;
 	}
 
 	.text-right {
 		padding-right: 1rem;
 		color: #09A2D6;
-	}
-
-	.pearl-count {
-		color: #09A2D6;
-	}
-
-	.decorate {
-		display: inline-block;
-		background: #09A2D6;
-		width: 0.3rem;
-		height: 1.6rem;
-		margin: 0 1rem;
-		vertical-align: middle;
-	}
-
-	.decorate-title {
-		font-size: 1.5rem;
-		text-align: left;
-		color: #444;
-		padding: 0.5rem 0;
-	}
-
-	#ranking {
-		width: 30%;
-	}
-
-	#listTitle {
-		padding: 1rem;
-		height: 4rem;
-		display: block;
-		background: #fff;
-		border-bottom: 1px solid #eee;
-	}
-
-	#listTitle:active {
-		background: #ddd;
 	}
 
 	.myData td {

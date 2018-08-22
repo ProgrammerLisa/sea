@@ -97,43 +97,6 @@
           that.phoneType= "web"
         }
 
-        this.$http({
-          method: 'get',
-          url: '/users/info',
-          headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
-          data: {}
-        }).then(function(res){
-          if(res.data.code==0){
-
-          }else {
-            this.$layer.msg(res.data.msg);
-          }
-        }.bind(this))
-          .catch(function(err){
-            this.$layer.msg("系统异常，请稍后再试");
-          }.bind(this))
-
-        this.$http({
-          method: "post",
-          url: "/messages/box",
-          headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
-          data: {
-            "page":1
-          }
-        }).then(function(res){
-          if(res.data.code==0) {
-            if(res.data.count>0){
-              this.navItem[3].newsCount = true
-            }else {
-              this.navItem[3].newsCount = false
-            }
-          }else {
-            this.$layer.msg(res.data.msg);
-          }
-        }.bind(this))
-          .catch(function(err){
-            this.$layer.msg("系统异常，请稍后再试");
-          }.bind(this));
       },
       handleChange(val){
         this.bottomNav = val;

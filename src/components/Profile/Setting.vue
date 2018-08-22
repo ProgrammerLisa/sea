@@ -13,7 +13,7 @@
             <mu-list-item button>
               <mu-list-item-title  class="listTitle"> 账户</mu-list-item-title>
               <mu-list-item-action>
-                <span style="font-size: 1.5rem">{{IDcode}}</span>
+                <span style="font-size: 1.5rem;margin-right: 16px">{{IDcode}}</span>
               </mu-list-item-action>
             </mu-list-item>
             <mu-divider class="mu-divider"></mu-divider>
@@ -47,7 +47,7 @@
             <mu-list-item button>
               <mu-list-item-title  class="listTitle"> 版本更新</mu-list-item-title>
               <mu-list-item-action>
-                <span>已是最新版本</span>
+                <span style="margin-right: 16px">已是最新版本</span>
               </mu-list-item-action>
             </mu-list-item>
             <mu-divider class="mu-divider" style="background: #eee"></mu-divider>
@@ -189,20 +189,7 @@
     position: fixed;
     top: 0;
 	}
-  .myList{
-    background: #fff;
-    display: flex;
-    font-size: 1.6rem;
-    color: #333;
-    padding:1rem 1.8rem;
-    border-bottom: 1px solid #f5f5f5;
-  }
-  .myListTitle{
-    width: 40%;
-  }
-  .myListBody{
-    width: 60%;
-  }
+
   .mu-list{
     padding: 0;
   }
@@ -219,6 +206,7 @@
 
 	.more {
 		height: 3rem;
+    margin-right: 15px
 	}
 
 

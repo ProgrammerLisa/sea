@@ -181,7 +181,7 @@
             name: 'modificationaddress',
             params: {
               name:'name',
-              dataObj:addressId
+              dataObj:{id:addressId,username:this.myAddress[index].msg.consignee,phone:this.myAddress[index].msg.phone,address:this.myAddress[index].msg.address}
 
 					}
 
@@ -267,7 +267,7 @@
 	}
 
 	.address td {
-		padding: 0 1.5rem;
+		padding: 0 16px;
 	}
 
 	.text-left {

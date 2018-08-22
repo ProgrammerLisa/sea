@@ -304,6 +304,7 @@ export default {
     margin-bottom: 0;
   }
   .tips{
-    width: 0.6rem;height: 0.6rem;display: inline-block;background: #FC0506;position: absolute;right: 1.2rem;margin-top:0.2rem;border-radius: 50%
+      width: 0.6rem;height: 0.6rem;display: inline-block;background: #FC0506;position: absolute;right: 1.2rem;margin-top:0.2rem;border-radius: 50%;
+      display: none;
   }
 </style>

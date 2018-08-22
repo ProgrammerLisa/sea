@@ -7,12 +7,12 @@
 			<span class="navTitleText">我的好友</span>
 		</mu-appbar>
 		<div class="contentMarginTop">
-			<div v-if="!noFriend" class="addressNone">
+			<div v-if="noFriend" class="addressNone">
 				<img :src="noFriendImg" />
 				<p>您还没有好友，去邀请好友吧</p>
 				<mu-button color="#09a2d6" @click="goAsk">去邀请</mu-button>
 			</div>
-			<div class="media friends" v-for="f in friends" v-else @click="friendData">
+			<div class="media friends" v-for="f in friends" v-else @click="friendData(f.uid)">
 				<div class="media-left">
 					<img class="media-object" :src="f.avatar" alt="...">
 				</div>
@@ -78,14 +78,13 @@
 							"Access-Control-Allow-Origin": "*"
 						},
 					}).then(function(res) {
-//						console.dir(res.data.data)
 						if(res.data.code != 0) {
 							this.$layer.msg(res.data.msg);
 						} else {
 							if(res.data.data.length == 0) {
-								this.noFriend = false;
-							} else {
 								this.noFriend = true;
+							} else {
+								this.noFriend = false;
 								for(let i=0;i<res.data.data.length;i++){
 									if(res.data.data[i].avatar == ""){
 										res.data.data[i].avatar = headImg;
@@ -101,9 +100,7 @@
 									}
 								}
 								this.friends=res.data.data;
-//								console.dir(res.data.data)
-//								console.dir(this.friends)
-								
+
 							}
 						}
 					}.bind(this))
@@ -120,10 +117,13 @@
 			goBack() {
 				this.$router.go(-1);
 			},
-			friendData() {
+			friendData(f) {
+				localStorage.setItem("friend_uid",f)
+//				console.log(localStorage.getItem("friend_uid"))
+				
 				this.$router.push({
 					path: '/frienddata',
-					name: 'FriendData',
+					name: 'frienddata',
 					params: {
 						name: 'name'
 					}
@@ -148,16 +148,16 @@
 		position: fixed;
 		top: 0;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 1rem;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -168,48 +168,48 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.back {
 		position: absolute;
 		left: 1rem;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
-	
+
 	.addTo {
 		float: right;
 	}
-	
+
 	.addTo img {
 		height: 2.5rem;
 	}
-	
+
 	.friends {
 		background: #fff;
 		margin-top: 0;
 		border-bottom: 0.1rem solid #f5f5f5;
 		padding: 1rem;
 	}
-	
+
 	.friends:active {
 		background: #f5f5f5;
 	}
-	
+
 	.media-heading {
 		margin-top: 0.3rem;
 		margin-bottom: 5px;
 		font-size: 1.5rem;
 	}
-	
+
 	.media-left img {
 		border: 0.1rem solid #09a2d6;
 		border-radius: 50%;
 		width: 4rem;
 		margin-right: 0.5rem;
 	}
-	
+
 	.sex {
 		color: #fff;
 		border-radius: 50%;
@@ -222,18 +222,18 @@
 		margin: 0 1rem;
 		vertical-align: top;
 	}
-	
+
 	.addressNone {
 		text-align: center;
 		padding-top: 18vh;
 		color: #999;
 	}
-	
+
 	.addressNone img {
 		width: 40%;
 		margin-bottom: 1rem;
 	}
-	
+
 	.goInvite {
 		text-align: center;
 		background: #09a2d6;
@@ -242,7 +242,7 @@
 		display: inline-block;
 		margin-top: 1.5rem;
 	}
-	
+
 	.goInvite:active {
 		background: #009ACD;
 	}

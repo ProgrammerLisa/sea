@@ -181,7 +181,7 @@
               if(res.data.code==0) {
                 this.Personal[1].myInvite = res.data.data.inviter_code
               }else {
-                this.$layer.msg(res.data.msg);
+                this.Personal[1].myInvite="无";
               }
             }.bind(this))
               .catch(function(err){

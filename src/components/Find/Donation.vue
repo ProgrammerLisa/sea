@@ -24,22 +24,20 @@
     <mu-flex class="demo-linear-progress" style="line-height: 1.6rem">
       <mu-linear-progress mode="determinate" :value="75" :size="10" color="#09a2d6" style="width: 80%;border-radius: 2rem;margin-left: 1.3rem;"></mu-linear-progress><span style="margin:-0.5rem 0 0 1rem;color: #09a2d6">75%</span>
     </mu-flex>
-    <mu-container class="demo-container">
-      <mu-row gutter>
-        <mu-col span="6">
+    <div style="display: flex">
+        <div class="contentTitle text-center">
           <div class="grid-cell">
             <div style="color:#09a2d6">200,000.00</div>
             <div style="font-size: 1.5rem">目标爱心/颗</div>
           </div>
-        </mu-col>
-        <mu-col span="6">
+        </div>
+        <div class="contentTitle text-center">
           <div class="grid-cell">
             <div style="color:#09a2d6">140,000.65</div>
             <div>已筹/颗</div>
           </div>
-        </mu-col>
-      </mu-row>
-    </mu-container>
+        </div>
+    </div>
     <mu-card-text style="border-bottom: 0.6rem solid #f5f5f5">
       <h4>项目详情 </h4>
       <div style="text-indent:2.5rem;color: #444">
@@ -60,7 +58,7 @@
     </mu-container>
     <div class="newAddress">
       <mu-flex justify-content="center" align-items="center">
-        <mu-button full-width color="#09a2d6" to="/donationcount"> 捐珍珠</mu-button>
+        <mu-button full-width color="#09a2d6" textColor="#fff" to="/donationcount"> 捐珍珠</mu-button>
       </mu-flex>
     </div>
   </div>
@@ -104,7 +102,7 @@
     position: fixed;
     top: 0;
     background: #fff;
-    border-bottom: 5rem solid #f5f5f5;
+    /*border-bottom: 5rem solid #f5f5f5;*/
   }
   .content::-webkit-scrollbar {
     display: none;
@@ -112,6 +110,12 @@
   .mu-carousel-item img{
     width: 100%;
     height: 18rem;
+  }
+  .contentTitle{
+    width: 50%;
+    padding: 1.5rem 0;
+    border-bottom: 0.6rem solid #f5f5f5;
+    font-size: 1.6rem;
   }
   .mu-carousel{
     height: 18rem;
@@ -126,8 +130,6 @@
     border-bottom: 0.6rem solid #f5f5f5;
   }
   .newAddress {
-    position: fixed;
-    bottom: 0;
     background: #f5f5f5;
     width: 100%;
     padding: 1rem;

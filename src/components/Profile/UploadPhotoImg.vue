@@ -4,11 +4,10 @@
     <croppa v-model="myCroppa" :prevent-white-space="true" id="myCroppa">
       <img crossOrigin="anonymous" :src="imageSrc" slot="initial" id="img"/>
     </croppa>
-    <div class="row">
-      <div class=" col-xs-6"><div class="mybtn" @click="submit">上传</div></div>
-      <div class=" col-xs-6"><div class="mybtn" @click="goBack">取消</div></div>
+    <div style="display: flex">
+      <div class="Phbtn"><div class="mybtn" @click="submit">上传</div></div>
+      <div class="Phbtn"><div class="mybtn" @click="goBack">取消</div></div>
     </div>
-<img src="" id="aaa">
   </div>
 
 </template>
@@ -25,6 +24,7 @@
     },
     mounted(){
       this.imageSrc=this.$route.params.dataObj;
+      console.log(this.imageSrc)
       this.extensions=this.$route.params.extensions;
     },
     methods:{
@@ -84,10 +84,11 @@
   }
   #myCroppa{
     display: inline-block;
-    box-shadow: 0.5rem 0.5rem 0.5rem #666;
+    box-shadow: 0.5rem 0.5rem 0.5rem #ddd;
   }
-  .btnContent{
-    padding: 3rem;
+  .Phbtn{
+    width: 50%;
+    padding: 0 1rem;
   }
   .mybtn{
     border: 1px solid #ccc;

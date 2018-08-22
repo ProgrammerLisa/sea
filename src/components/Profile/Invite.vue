@@ -9,10 +9,10 @@
 		<div class="code">
 			<div class="title">我的专属邀请码</div>
 			<div id="ask_invite" v-model="ask_invite">{{ask_invite}}</div>
-      <div class="msgText">每邀请一位好友下载并注册，你和好友都将获得同等奖励</div>
-      <div>
+      <div style="margin-top: 1rem">
         <mu-button large color="#09a2d6" v-clipboard:copy="ask_invite" v-clipboard:success="onCopy" v-clipboard:error="onError">复制邀请码</mu-button>
       </div>
+      <div class="msgText">每邀请一位好友下载并注册，你和好友都将获得同等奖励</div>
 		</div>
     <div class="inviteCodeImg">
       <img :src="erweima"/>
@@ -110,6 +110,7 @@
 	.title {
 		color: #444;
     font-size: 1.6rem;
+    margin-bottom: 1rem;
 	}
 
 	#ask_invite {

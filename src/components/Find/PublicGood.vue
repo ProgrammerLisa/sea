@@ -27,19 +27,20 @@
         <img :src="carouselImg4">
       </mu-carousel-item>
     </mu-carousel>
-    <mu-container class="demo-container" v-for="(data,index) in datas" :key="index" style="padding: 0 1rem">
-      <div style="font-size: 1.8rem;padding: 1rem 0;color: #444"><div class="sign"></div>{{data.title}}</div>
-      <mu-row gutter>
-        <mu-col span="4" v-for="(flex,item) in data.data" :key="item">
-          <div class="grid-cell"  @click="goDonation(flex.path,flex.name,flex.id)">
+    <div v-for="(data,index) in datas" >
+      <div style="font-size: 1.7rem;padding: 1rem 2.5%;color: #444"><div class="sign"></div>{{data.title}}</div>
+      <div class="goodUl">
+        <div v-for="(flex,item) in data.data" class="goodList">
+          <div @click="goDonation(flex.path,flex.name,flex.id)">
             <img :src="flex.img" style="width: 100%">
             <h5>{{flex.title}}</h5>
             <div class="fontStyle">{{flex.pitches}}</div>
             <p class="fontStyle"><span style="color: #09a2d6">{{flex.count}}份</span>爱心</p>
           </div>
-        </mu-col>
-      </mu-row>
-    </mu-container>
+        </div>
+      </div>
+
+    </div>
   </div>
 </template>
 
@@ -146,6 +147,18 @@
   .mu-carousel-item img{
     width: 100%;
     height: 15rem;
+  }
+  .goodUl{
+    display: flex;
+  }
+  .goodList{
+    width: 30%;
+  }
+  .goodList:nth-child(1){
+    margin:0 0 0 2.5%;
+  }
+  .goodList:nth-child(2),.goodList:nth-child(3){
+    margin: 0 0 0 2.5%;
   }
   .mu-carousel{
     height: 15rem;

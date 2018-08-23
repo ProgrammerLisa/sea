@@ -7,9 +7,12 @@
       照片墙
     </mu-appbar>
     <div class="photoContainer">
-        <div class="d-flex flex-row justify-content-start align-items-center flex-wrapper"  v-for="(p,index) in photo">
-          <div class="d-flex flex-row justify-content-center align-items-end flex-demo" v-for="(s,item) in p.src"><img :src="s.src"  @click="openSimpleDialog(s.src)"></div>
+        <div class="d-flex flex-row justify-content-start align-items-center flex-wrapper"  >
+          <div class="d-flex flex-row justify-content-center align-items-end flex-demo" v-for="(p,index) in photo" > <img :src="p"  @click="openSimpleDialog(p)"></div>
         </div>
+        <!--<div v-for="item in photo">
+        		<img :src="item">
+        </div>-->
     </div>
     <mu-dialog :open.sync="openSimple" max-width="1000" fullscreen transition="fade">
       <div class="dialogContainer">

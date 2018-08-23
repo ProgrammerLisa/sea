@@ -26,6 +26,7 @@
 				<mu-container>
 					<mu-flex class="demo-linear-progress">
 						<mu-linear-progress style="width: 90%;margin:0 auto;border-radius: 8rem" mode="determinate" color="#FFFFFF" size="7" :max="1000"></mu-linear-progress>
+
 						<div style="position: absolute; float: left;padding-top: 3%;width: 90%;">
 							<span style="float: left;margin-left: 5%;">Lv.0</span>
 							<span style="margin-right: 6%;">Lv.4</span>

@@ -8,7 +8,7 @@
     </mu-appbar>
 		<div class="about">
 			<img :src="logo" class="logo" />
-			<h4>深海夺宝1.11</h4>
+			<h4>夺宝行动1.11</h4>
 			<p class="agreement">《用户使用协议和隐私条款》</p>
 		</div>
 	</div>

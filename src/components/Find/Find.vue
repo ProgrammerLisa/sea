@@ -46,7 +46,7 @@
   import {formatDate} from "../../assets/js/date";
 
   export default {
-        name: "getforce",
+        name: "GetForce",
         filters:{
           formatDate(time){
             let data = new Date(time);
@@ -74,9 +74,9 @@
             }).then(function(res){
               if (res.data.code==0){
                 if (res.data.data.has_signed){
-                  this.signIn=true
-                } else {
                   this.signIn=false
+                } else {
+                  this.signIn=true
                 }
               }
             }.bind(this))

@@ -133,14 +133,16 @@
 				this.$router.go(-1);
 			},
 			photowall() {
+				console.log(this.pic)
 				this.$router.push({
 					path: '/photowall',
-					name: 'PhotoWall',
+					name: 'photowall',
 					params: {
 						name: 'name',
 						dataObj: this.pic
 					}
 				})
+				console.log(this.$route.params);
 			}
 		}
 	}

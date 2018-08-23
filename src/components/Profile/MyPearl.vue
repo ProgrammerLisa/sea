@@ -21,9 +21,6 @@
 
 <script>
 	import zhenzhu from '@/assets/images/zhenzhu2x.png'
-	import maoyan from '@/assets/images/maoyan2x.png'
-	import yingoupo from '@/assets/images/yingoupo2x.png'
-	import hernghesha from '@/assets/images/hernghesha2x.png'
 	import haiyangzhixin from '@/assets/images/haiyangzhixin2x.png'
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
@@ -38,21 +35,7 @@
 						name: '珍珠',
 						count: 26
 					},
-					{
-						img: maoyan,
-						name: '猫眼',
-						count: 8
-					},
-					{
-						img: yingoupo,
-						name: '影欧珀',
-						count: 10
-					},
-					{
-						img: hernghesha,
-						name: '恒河沙',
-						count: 6
-					},
+
 					{
 						img: haiyangzhixin,
 						name: '海洋之心',

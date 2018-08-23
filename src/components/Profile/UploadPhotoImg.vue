@@ -24,7 +24,6 @@
     },
     mounted(){
       this.imageSrc=this.$route.params.dataObj;
-      console.log(this.imageSrc)
       this.extensions=this.$route.params.extensions;
     },
     methods:{

@@ -35,23 +35,27 @@
           }
         },
         mounted(){
-          this.photoList=this.$route.params.dataObj;
-          this.src=this.photoList[0].src;
-          if(this.photoList.length>3){
-            if(this.photoList.length%3===0){
-              for (let i=0;i<this.photoList.length/3;i++){
-                this.photo.push({src:this.photoList.slice(3*i,3*i+3),position:['start','center','end']})
-              }
-            }else {
-              for (let i=0;i<parseInt(this.photoList.length/3);i++){
-                this.photo.push({src:this.photoList.slice(3*i,3*i+3),position:['start','center','end']})
-              }
-              this.photo.push({src:this.photoList.slice(parseInt(this.photoList.length/3)*3,this.photoList.length),position:['start','center','end']})
-            }
-          }
-          console.log(this.photo)
+          this.$nextTick(function() {
+            this.photoFunc();
+          })
         },
         methods:{
+          photoFunc(){
+            this.photoList=this.$route.params.dataObj;
+            this.src=this.photoList[0].src;
+            if(this.photoList.length>3){
+              if(this.photoList.length%3===0){
+                for (let i=0;i<this.photoList.length/3;i++){
+                  this.photo.push({src:this.photoList.slice(3*i,3*i+3),position:['start','center','end']})
+                }
+              }else {
+                for (let i=0;i<parseInt(this.photoList.length/3);i++){
+                  this.photo.push({src:this.photoList.slice(3*i,3*i+3),position:['start','center','end']})
+                }
+                this.photo.push({src:this.photoList.slice(parseInt(this.photoList.length/3)*3,this.photoList.length),position:['start','center','end']})
+              }
+            }
+          },
           evers() {
             this.masrc = backs;
           },

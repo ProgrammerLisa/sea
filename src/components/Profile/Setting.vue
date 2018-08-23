@@ -164,7 +164,7 @@
 							if(res.data.code == 0) {
 								that.$layer.msg(res.data.msg);
 								localStorage.removeItem("uid");
-								that.$router.replace('/');
+								that.$router.replace('/login');
 								that.$router.go(0);
 							} else {
 								that.$layer.msg(res.data.msg);

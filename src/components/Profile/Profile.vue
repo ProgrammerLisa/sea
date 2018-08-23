@@ -7,7 +7,7 @@
 					<router-link to="/news" v-else tag="div" class="badgePosition"></router-link>
 				</div>
 				<div class="container personalMessage">
-					<router-link tag="div" to="/compile" v-if="headDefault">
+					<div @click="goCompile" v-if="headDefault">
 						<div class="HeadPortrait">
 							<img :src="`${headPortrait+'?'+now}`" v-if="haveHeadImg" />
 							<img :src="headPortrait" v-else/>
@@ -22,7 +22,7 @@
 							</mu-button>
 						</p>
 						<!--<p class="userId">ID：{{phone}}</p>-->
-					</router-link>
+					</div>
 					<router-link v-else tag="div" to="/login">
 						<div class="HeadPortrait">
 							<img :src="headPortrait" />
@@ -51,7 +51,7 @@
 						</mu-list-item-action>
 						<mu-list-item-title>{{m.title}}</mu-list-item-title>
 						<mu-list-item-action>
-							<img v-if="!m.noRouter" class="images" src="../../assets/images/more.png" style="position: relative;left: 1rem" />
+							<img v-if="!m.noRouter" class="images" src="../../assets/images/more.png" style="position: relative;right: 6px" />
 							<span v-else class="inviteCode">{{m.myInvite}}</span>
 						</mu-list-item-action>
 					</mu-list-item>
@@ -84,6 +84,7 @@
 		},
 		data() {
 			return {
+			  data:'',
 				autonym: autonym,
 				wallet: wallet,
 				nickName: '',
@@ -106,7 +107,7 @@
 						title: '邀请奖励',
 						PersonalHref: 'ask',
 						PersonalName: 'ask',
-						imfLeft: invite
+						imfLeft: gift
 					},
 					{
 						title: '夺宝记录',
@@ -143,7 +144,8 @@
 				headDefault: true,
 				isLogin: true,
 				newsCount: false,
-				haveHeadImg: false
+				haveHeadImg: false,
+        level:''
 			}
 		},
 		mounted() {
@@ -165,6 +167,7 @@
 						data: {}
 					}).then(function(res) {
 						if(res.data.code == 0) {
+						  this.data=res.data.data;
 							var nikename = res.data.data.nickname;
 							var headimg = res.data.data.avatar;
 							this.phone = res.data.data.phone;
@@ -243,10 +246,16 @@
 						this.$layer.msg("系统异常，请稍后再试");
 					}.bind(this));
 			},
-			changeBack(index) {
-				// $(".media").css({background:'#fff'});
-
-			},
+      goCompile(){
+        this.$router.push({
+          path: '/compile',
+          name: 'compile',
+          params: {
+            name: 'name',
+            data:this.data
+          }
+        })
+      },
 			profileAll(c, n) {
 				this.$router.push({
 					path: c,
@@ -334,7 +343,7 @@
 	.HeadPortrait img {
 		width: 6rem;
 		height: 6rem;
-		border: 0.1rem solid #ddd;
+		border: 0.1rem solid #f5f5f5;
 		border-radius: 50%;
 	}
 
@@ -348,11 +357,6 @@
 		padding-top: 1rem;
 		margin: 0;
 	}
-
-	.material-icons {
-		font-size: 1.8rem;
-	}
-
 	.personalIcon {
 		width: 3.2rem;
 	}
@@ -407,6 +411,8 @@
 
 	.inviteCode {
 		font-size: 1.5rem;
+    position: relative;
+    right: 6px
 	}
 
 	.mu-list {
@@ -414,20 +420,15 @@
 		padding-top: 0;
 	}
 
-	.listTitle {
-		text-decoration: none;
-		color: #333;
-	}
-
 	.level {
 		background: #09A2D6;
 		color: #fff;
 		font-size: 1rem;
-		background: #09A2D6;
 		border-radius: 1rem;
 		padding: 0 0.5rem;
 		margin-top: -20px;
 		position: absolute;
+    border: 1px solid #fff;
 	}
 
 	a:hover,
@@ -443,7 +444,6 @@
 	.mylist {
 		background: #fff;
 		border-bottom: 1px solid #f5f5f5;
-		padding-right: 1.2rem;
 	}
 
 	.mylist:nth-child(2) {

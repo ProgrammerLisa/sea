@@ -6,7 +6,7 @@
 			</mu-button>
 		</div>
 
-		<mu-carousel transition="fade" class="picContainer" interval="5000" :cycle="false" hide-controls hide-indicators :active="active">
+		<mu-carousel v-show="hasPic" transition="fade" class="picContainer" interval="5000" :cycle="false" hide-controls hide-indicators :active="active">
 			<mu-carousel-item v-for="(p,index) in pic" :key="index">
 				<img :src="p.src"  />
 			</mu-carousel-item>
@@ -18,7 +18,8 @@
 		</mu-carousel>
 		<div class="text-center">
 
-			<img :src="avatar" style="width: 8rem;border-radius: 50%;border: 0.5rem solid #fff;position: relative;margin-top: -4rem" />
+			<img v-if="hasPic" :src="avatar" style="width: 8rem;border-radius: 50%;border: 0.5rem solid #fff;position: relative;margin-top: -4rem" />
+      <img v-else :src="avatar" style="width: 8rem;border-radius: 50%;border: 0.5rem solid #fff;position: relative;margin-top: 2rem" />
 		</div>
 		<div class="dataContainer text-center">
 			<div class="title">{{nickname}} <span class="sex" v-bind:style="bcColor">{{gender}}</span></div>
@@ -28,27 +29,27 @@
 			<div class="autograph">{{resume}}</div>
 
 		</div>
-		<div class="title" style="padding: 1rem 5vw 0">相册</div>
-		<div class="controlContainer">
-			<div class="controlScroll">
-				<div class="controlContent" v-for="(p,index) in pic">
-					<img :src="p.src" @click="changeActive(index)" />
-				</div>
-			</div>
-		</div>
-		<div class="more"><span @click="photowall">查看更多图片<img src="../../assets/images/more.png"/></span></div>
-		<mu-button to="/friendfarm" full-width large color="#09A2D6" style="position: fixed;bottom: 0">进入好友主页</mu-button>
+    <div v-if="hasPic">
+      <div class="title" style="padding: 1rem 5vw 0">相册</div>
+      <div class="controlContainer">
+        <div class="controlScroll">
+          <div class="controlContent" v-for="(p,index) in pic">
+            <img :src="p.src" @click="changeActive(index)" />
+          </div>
+        </div>
+      </div>
+      <div class="more"><span @click="photowall">查看更多图片<img src="../../assets/images/more.png"/></span></div>
+    </div>
+    <div v-else class="more">
+      暂无相册
+    </div>
+		<mu-button @click="goFriendFarm" full-width large color="#09A2D6" style="position: fixed;bottom: 0">进入好友主页</mu-button>
 	</div>
 </template>
 
 <script>
-	import pic1 from "@/assets/images/test/timg.jpg"
-	import pic2 from "@/assets/images/test/1f05664d192e4d8987bdef2562775e4f_th.png"
-	import pic3 from "@/assets/images/test/86c9f191d93d4b208002970e8635cbef.jpg"
-	import pic4 from "@/assets/images/test/0824ab18972bd40719d54bb773899e510fb3096d.jpg"
-	import pic5 from "@/assets/images/test/201711613356.jpg"
-	import pic6 from "@/assets/images/test/E-XE-fyhskrq1912953.jpg"
-	import back from '@/assets/images/whiteback.png'
+	import pic1 from "@/assets/images/chushi.png"
+	import back from '@/assets/images/return.png'
 	import backs from '@/assets/images/backs.png'
 	export default {
 		name: "FriendData",
@@ -63,7 +64,8 @@
 				level: 0,
 				nickname: '好友昵称',
 				friend_uid: 123456789,
-				resume: '这个人很懒，还没有签名。'
+				resume: '这个人很懒，还没有签名。',
+        hasPic:false
 			}
 		},
 		mounted() {
@@ -73,7 +75,6 @@
 		},
 		methods: {
 			FriendData() {
-//				console.log(this.friend_uid)
 				this.$http({
 						method: "post",
 						url: "/users/profile",
@@ -86,33 +87,47 @@
 							friend_uid: localStorage.getItem("friend_uid")
 						}
 					}).then(function(res) {
-						this.level = res.data.data.level;
-						this.resume = res.data.data.resume;
-						this.avatar = res.data.data.avatar;
-						this.nickname = res.data.data.nickname;
-						this.gender = res.data.data.gender;
-						this.friend_uid = res.data.data.uid;
-						 if(res.data.data.gender == "MALE") {
-								this.gender = '♂'
-								this.bcColor='background: #5CB3FC;';
-							} else {
-								this.gender = '♀'
-								this.bcColor='background: #FC8484;';
-							}
-//						this.pic = res.data.data.picture;
-						for(let i=0;i<res.data.data.picture.length;i++){
-//								this.pic[i].src=res.data.data.picture[i]
-//								console.log(res.data.data.picture[i])
-									this.pic.push({"src":res.data.data.picture[i]})
-							}
-						
-						
-//								this.friends=res.data.data;
-						
-//						console.log(res.data.data.picture[i])
+
+
 						if(res.data.code == 0) {
-							console.log(res.data.data)
-						} else {
+              this.level = res.data.data.level;
+              this.friend_uid = res.data.data.uid;
+              if(res.data.data.avatar==""){
+                this.avatar = pic1
+              }else {
+                this.avatar = res.data.data.avatar;
+						  }
+						  if(res.data.data.nickname==""){
+						    this.nickname=res.data.data.uid;
+              }else {
+                this.nickname = res.data.data.nickname;
+              }
+              if(res.data.data.resume==""){
+                this.resume="这个人很懒，还没有签名。"
+              }else {
+
+                this.resume = res.data.data.resume;
+              }
+              if(res.data.data.gender == "MALE") {
+                this.gender = '♂'
+                this.bcColor='background: #5CB3FC;';
+              } else if(res.data.data.gender=="UNKNOWN"){
+                this.gender = '?'
+                this.bcColor='background: #ddd;';
+              }else{
+                this.gender = '♀'
+                this.bcColor='background: #FC8484;';
+              }
+              if(res.data.data.picture.length>0){
+                this.hasPic=true;
+                for(let i=0;i<res.data.data.picture.length;i++){
+                  this.pic.push({"src":res.data.data.picture[i]})
+                }
+              }else {
+                this.hasPic=false;
+              }
+
+            } else {
 							this.$layer.msg(res.data.msg);
 						}
 					}.bind(this))
@@ -141,7 +156,17 @@
 						dataObj: this.pic
 					}
 				})
-			}
+			},
+      goFriendFarm(){
+        this.$router.push({
+          path: '/friendfarm',
+          name: 'friendfarm',
+          params: {
+            name: 'name',
+            dataObj: this.friend_uid
+          }
+        })
+      }
 		}
 	}
 </script>
@@ -157,17 +182,17 @@
 		overflow-y: scroll;
 		padding-bottom: 5rem;
 	}
-	
+
 	.content::-webkit-scrollbar {
 		display: none
 	}
-	
+
 	.back {
 		position: absolute;
 		left: 0.5rem;
 		z-index: 9999;
 	}
-	
+
 	.test {
 		background: linear-gradient(rgba(66, 66, 66, 0.2), rgba(97, 97, 97, 0.2), rgba(158, 158, 158, 0.1), transparent);
 		border-radius: 0;
@@ -178,11 +203,11 @@
 		top: 0;
 		z-index: 9999;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
-	
+
 	.picContainer {
 		width: 100.5vw;
 		max-height: 100vw;
@@ -190,65 +215,65 @@
 		margin-top: -3px;
 		margin-left: -2px;
 	}
-	
+
 	.picContainer img {
 		width: 100vw;
 		height: 100vw;
 	}
-	
+
 	.controlContainer {
 		overflow-x: scroll;
 		padding: 1vw 5vw;
 	}
-	
+
 	.controlContainer::-webkit-scrollbar {
 		display: none
 	}
-	
+
 	.controlScroll {
 		width: 135vw;
 	}
-	
+
 	.controlContent {
 		display: inline-block;
 		white-space: nowrap;
 	}
-	
+
 	.controlContent img {
 		width: 20vw;
 		height: 20vw;
 		margin: 1vw;
 	}
-	
+
 	.mu-carousel-indicator-button {
 		width: 0.6rem;
 		height: 0.6rem;
 	}
-	
+
 	.mu-carousel-indicator-button .rect-indicator {
 		background: #BEBEBE;
 		width: 0.6rem;
 		height: 0.6rem;
 		border-radius: 50%;
 	}
-	
+
 	.mu-carousel-indicator-button__active .rect-indicator {
 		background: rgba(255, 255, 255, 1);
 	}
-	
+
 	.dataContainer {
 		padding: 1rem auto;
 		border-bottom: 0.6rem solid #f5f5f5;
 		display: flex;
 		flex-direction: column;
 	}
-	
+
 	.title {
 		margin-bottom: 0.3rem;
 		font-size: 16px;
 		color: #444;
 	}
-	
+
 	.sex {
 		background: #FC7D7D;
 		color: #fff;
@@ -259,7 +284,7 @@
 		text-align: center;
 		border-radius: 50%;
 	}
-	
+
 	.level {
 		background: #09A2D6;
 		color: #fff;
@@ -269,29 +294,29 @@
 		margin-right: 1rem;
 		margin-bottom: 0.5rem;
 	}
-	
+
 	.friendId {
 		font-size: small;
 		color: #666;
 	}
-	
+
 	.msg {
 		margin-bottom: 0.3rem;
 	}
-	
+
 	.autograph {
 		font-size: 1.3rem;
 		color: #555;
 		padding-bottom: 1rem;
 	}
-	
+
 	.more {
 		text-align: center;
 		font-size: 1.5rem;
 		color: #646464;
 		margin-top: 1rem;
 	}
-	
+
 	.more img {
 		width: 2.5rem;
 	}

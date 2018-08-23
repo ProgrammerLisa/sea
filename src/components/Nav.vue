@@ -2,26 +2,14 @@
   <div class="content">
 
     <div class="myNav">
-      <mu-container>
         <mu-bottom-nav :value="bottomNav" @change="handleChange">
           <!--<mu-bottom-nav-item :title="item.title" v-for="(item,index) in navItem" :key="index" :icon="item.icon" @click="nav(index)"></mu-bottom-nav-item>-->
-          <mu-bottom-nav-item title="首页" value="首页" icon=" " v-bind:iconClass="{selected:bottomNav=='首页'}"  to="/Home"></mu-bottom-nav-item>
-          <mu-bottom-nav-item title="发现" value="发现" icon=" " v-bind:iconClass="{selected:bottomNav=='发现'}" to="/find"></mu-bottom-nav-item>
-          <mu-bottom-nav-item title="商城" value="商城" icon=" " v-bind:iconClass="{selected:bottomNav=='商城'}" to="#"></mu-bottom-nav-item>
-          <mu-bottom-nav-item title="我的" value="我的" icon=" " v-bind:iconClass="{selected:bottomNav=='我的'}" to="/personal"></mu-bottom-nav-item>
+          <mu-bottom-nav-item title="首页" to="/home" value="首页" icon=" " v-bind:iconClass="{selected:bottomNav=='首页'}"  @click="goHome"></mu-bottom-nav-item>
+          <mu-bottom-nav-item title="发现" to="/find" value="发现" icon=" " v-bind:iconClass="{selected:bottomNav=='发现'}"  @click="goFind"></mu-bottom-nav-item>
+          <mu-bottom-nav-item title="商城" to="#" value="商城" icon=" " v-bind:iconClass="{selected:bottomNav=='商城'}"  @click="goShopping"></mu-bottom-nav-item>
+          <mu-bottom-nav-item title="我的" to="/personal" value="我的" icon=" " v-bind:iconClass="{selected:bottomNav=='我的'}"  @click="goMine"></mu-bottom-nav-item>
         </mu-bottom-nav>
-      </mu-container>
-      <!--<div class="container">-->
-        <!--<div class="row">-->
-          <!--<div class="col-xs-3" v-for="(item,index) in navItem">-->
-            <!--<div class="nav-item" @click="nav(index)">-->
-              <!--&lt;!&ndash;<span v-show="item.newsCount" class="badge msg">·</span>&ndash;&gt;-->
-              <!--<img :src="item.imgSrc1">-->
-              <!--<span class="navTitle" :style="item.titleStyle">{{item.title}}</span>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
+
     </div>
     <mu-dialog  width="360" :open.sync="openSimple" style="text-align: center">
       <div class="publicDialogTitle">商场即将上线</div>
@@ -50,15 +38,6 @@
       return{
         bottomNav:'',
         uid:'',
-        navItem:[
-          {navSrc:'/Home',title:'首页',icon:'home',imgSrc1:home,imgSrc2:home1,titleStyle:'',newsCount:false},
-          {navSrc:'/find',title:'发现',icon:'explore',imgSrc1:discovery,imgSrc2:discovery1,titleStyle:'',newsCount:false},
-          {navSrc:'/shopping',title:'商城',icon:'shopping',imgSrc1:store,imgSrc2:store1,titleStyle:'',newsCount:false},
-          {navSrc:'/personal',title:'我的',icon:'home',imgSrc1:mine,imgSrc2:mine1,titleStyle:'',newsCount:false}
-        ],
-        imgSrcArr:[
-          home,discovery,store,mine
-        ],
         isLogin:true,
         phoneType:'',
         openSimple: false
@@ -103,6 +82,18 @@
         if(this.bottomNav=='商城'){
           this.config()
         }
+      },
+      goHome(){
+        this.$router.replace({path: '/home'})
+      },
+      goFind(){
+        this.$router.replace({path: '/find'})
+      },
+      goShopping(){
+        this.config()
+      },
+      goMine(){
+        this.$router.replace({path: '/personal'})
       },
       config() {
         this.openSimple = true;
@@ -185,6 +176,7 @@
     width: 100%;
     background: #fff;
     z-index: 99;
+    padding-top: 3px;
   }
 .msg{
   color: #ff2424;

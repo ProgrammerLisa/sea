@@ -9,12 +9,15 @@
 			</mu-appbar>
 			<div class="income" id="nav2">
 				<div class="today">
-					<!--<img style="width: 72px;height: 72px;margin-top: 20px;margin-bottom: -20px;" src="../../assets/images/chushi.png" />-->
-									<img class="media-object headImg" :src="`${headImg+'?'+now}`" v-if="haveHeadImg" />
-									<img class="media-object headImg" :src="headImg" v-else/>
-					<div class="le">
-						<span class="level">Lv.{{level}}</span>
-					</div>
+				 <div class="headImgBg">
+            <img class=" headImg" :src="`${headImg+'?'+now}`" v-if="haveHeadImg" />
+            <img class=" headImg" :src="headImg" v-else/>
+            <div class="le">
+              <span class="level">Lv.{{level}}</span>
+            </div>
+          </div>
+
+
 				</div>
 
 				<div>
@@ -22,7 +25,7 @@
 				</div>
 				<mu-container>
 					<mu-flex class="demo-linear-progress">
-						<mu-linear-progress style="width: 90%;margin:0 auto;" mode="determinate" color="#FFFFFF" size="7" :max="1000" ></mu-linear-progress>
+						<mu-linear-progress style="width: 90%;margin:0 auto;border-radius: 8rem" mode="determinate" color="#FFFFFF" size="7" :max="1000"></mu-linear-progress>
 						<div style="position: absolute; float: left;padding-top: 3%;width: 90%;">
 							<span style="float: left;margin-left: 5%;">Lv.0</span>
 							<span style="margin-right: 6%;">Lv.4</span>
@@ -35,7 +38,7 @@
         <div class="GradeMsg"><span style="color: #09a2d6;margin-right: 0.6rem;font-weight: 700">|</span>等级权益</div>
         <div class="GradeMsg"><mu-avatar color="#09A2D6" size="18">1</mu-avatar> 达到3级 可解锁 “海洋之心”</div>
         <div class="GradeMsg"><mu-avatar color="#09A2D6" size="18">2</mu-avatar> 等级越高获得的珍珠价值越高</div>
-        <div class="GradeMsg">
+        <div class="GradeMsg" style="border-top: 0.6rem solid #f5f5f5">
           <div style="display: flex">
             <div style="width: 40%">
               <span style="color: #09a2d6;margin-right: 0.6rem;font-weight: 700">|</span>如何升级
@@ -124,11 +127,6 @@
 		},
 
 		mounted() {
-			let height =$("#navBox").height();
-
-			$("#dataBox").css({
-				marginTop:height + 'px'
-			});
 			this.getdatelist();
 		},
 		methods: {
@@ -204,8 +202,7 @@
 	}
 
 	#navBox {
-		position: fixed;
-		top: 0;
+
 		width: 100vw;
 		z-index: 9999;
 		background: #fff;
@@ -213,9 +210,6 @@
 
 	.content::-webkit-scrollbar {
 		display: none
-	}
-
-	#dataBox {
 	}
 
 	.income {
@@ -226,7 +220,7 @@
 	}
   .GradeMsg{
     border-bottom: 1px solid #eee;
-    line-height: 4rem;
+    line-height: 5rem;
     font-size: 1.6rem;
     padding: 0 16px;
   }
@@ -235,9 +229,8 @@
   }
 
 	.today {
-		width: 90%;
+		width: 100%;
 		margin: auto;
-		padding: 1rem 0;
 	}
 
 	.mu-list {
@@ -281,23 +274,28 @@
 	}
 
 	.level {
-		background: #09A2D6;
 		color: #fff;
 		font-size: 1rem;
 		margin-left: 3rem;
 		background: #09A2D6;
 		display: inline-block;
 		border-radius: 0.8rem;
-		margin-bottom: 1rem;
 		padding: 0 0.5rem;
 	}
 
 	.headImg{
 		width: 72px;
 		height: 72px;
-		margin-top: 20px;
+		margin-top: 40px;
 		margin-bottom: -20px;
-		margin-left: 40%;
 		border-radius: 50%;
+    /*display: none;*/
 	}
+  .headImgBg{
+    margin: auto;
+    width:150px;
+    height: 150px;
+    background: url("../../assets/images/bliing.png") no-repeat;
+    background-size: 100% 100% ;
+  }
 </style>

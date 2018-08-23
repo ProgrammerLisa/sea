@@ -102,7 +102,6 @@
     position: fixed;
     top: 0;
     background: #fff;
-    /*border-bottom: 5rem solid #f5f5f5;*/
   }
   .content::-webkit-scrollbar {
     display: none;

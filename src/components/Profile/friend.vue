@@ -81,6 +81,7 @@
 						if(res.data.code != 0) {
 							this.$layer.msg(res.data.msg);
 						} else {
+						  console.log(res.data.data)
 							if(res.data.data.length == 0) {
 								this.noFriend = true;
 							} else {
@@ -98,6 +99,9 @@
 										res.data.data[i].bcColor='background: #FC8484;';
 										res.data.data[i].gender='♀';
 									}
+									if(res.data.data[i].nickname==""){
+                    res.data.data[i].nickname=res.data.data[i].uid
+                  }
 								}
 								this.friends=res.data.data;
 
@@ -120,7 +124,7 @@
 			friendData(f) {
 				localStorage.setItem("friend_uid",f)
 //				console.log(localStorage.getItem("friend_uid"))
-				
+
 				this.$router.push({
 					path: '/frienddata',
 					name: 'frienddata',
@@ -148,44 +152,9 @@
 		position: fixed;
 		top: 0;
 	}
-
-	.panel {
-		border: none;
-		border-radius: 0;
-	}
-
-	.panel-body {
-		padding: 0 1rem;
-	}
-
-	.BlackTitle {
-		text-align: center;
-		letter-spacing: 0.05rem;
-		background: #09a2d6;
-		color: #fff;
-		font-size: 1.5rem;
-		margin-bottom: 0;
-		height: 4.1rem;
-		line-height: 4.1rem;
-	}
-
-	.back {
-		position: absolute;
-		left: 1rem;
-	}
-
-	.back img {
-		height: 2.5rem;
-	}
-
-	.addTo {
-		float: right;
-	}
-
-	.addTo img {
-		height: 2.5rem;
-	}
-
+  .content::-webkit-scrollbar{
+    display: none;
+  }
 	.friends {
 		background: #fff;
 		margin-top: 0;
@@ -214,10 +183,9 @@
 		color: #fff;
 		border-radius: 50%;
 		display: inline-block;
-		width: 1.3rem;
-		height: 1.3rem;
-		line-height: 1.3rem;
-		font-size: xx-small;
+    width: 1.5rem;
+    line-height: 1.5rem;
+		font-size: smaller;
 		text-align: center;
 		margin: 0 1rem;
 		vertical-align: top;

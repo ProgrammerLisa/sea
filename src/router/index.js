@@ -300,7 +300,12 @@ export default new Router({
       name:'friendfarm',
       meta:{index:4},
       component:  resolve => require(['@/components/Farm/FriendFarm'], resolve)
-    },
+    },{
+      path:'/leavingmessage',
+      name:'leavingmessage',
+      meta:{index:5},
+      component:  resolve => require(['@/components/Farm/LeavingMessage'], resolve)
+    }
 
 
   ]

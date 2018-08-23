@@ -9,7 +9,7 @@
         </span>
     </mu-appbar>
     <div class="icon"><img :src="bh"/> <span style="vertical-align: middle">珍珠 {{imgSum}}</span></div>
-    <div class="options">
+    <div class="options" @click="LeavingMessage">
       <img src="../../assets/images/liuyanban.png" class="invitation-friends"/>
       <p>留言板</p>
     </div>
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-  import back from '@/assets/images/back.png'
+  import back from '@/assets/images/return.png'
   import backs from '@/assets/images/backs.png'
   import bh from '@/assets/images/bihe.png'
     export default {
@@ -34,10 +34,24 @@
           return {
             masrc: back,
             bh:bh,
-            imgSum:0
+            imgSum:0,
+            id:''
           }
         },
+        mounted(){
+          this.id=this.$route.params.dataObj;
+        },
         methods:{
+          LeavingMessage(){
+            this.$router.push({
+              path: '/leavingmessage',
+              name: 'leavingmessage',
+              params: {
+                name: 'name',
+                dataObj: this.id
+              }
+            })
+          },
           goBack() {
             this.$router.go(-1);
           },
@@ -98,6 +112,10 @@
   }
   .options img{
     width: 80%;
+  }
+  .options img:active{
+    transform: scale3d(0.8,0.8,0.8);
+    transition: 0.1s;
   }
   .waitingContainer{
     margin-top: 40vh;

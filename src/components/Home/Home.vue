@@ -5,7 +5,7 @@
     <canvas id="canvas"></canvas>
 
      <div id="notice">
-        <marquee style="height: 2.5rem;" scrollamount="5" scrolldelay="1"><span style="font-size: 1.5rem;color: #fff;vertical-align:middle;">公告:亲爱的用户，平台momomo即将上线，敬请期待.</span></marquee>
+        <marquee style="height: 2.5rem;" scrollamount="5" scrolldelay="1"><span style="font-size: 1.5rem;color: #fff;vertical-align:middle;">{{marquee}}</span></marquee>
      </div>
      <div class="topOption option1">
         <div class="icon"><img :src="zhenzhuIcon"/> 珍珠 {{imgSum}}</div>
@@ -27,6 +27,7 @@
     <div id="pearlContainer">
       <div v-for="(m,index) in imgDiv" :class="m.divClass" :data-level="m.level" @click.once="flag && accumulative($event,index)">
         <img v-bind:style="m.style" :src="m.href" />
+        {{m.imgCount}}
       </div>
     </div>
 
@@ -71,28 +72,29 @@ export default {
       imgSum:0,
       imgSrc:backGround,
       flag:true,
+      marquee:'',
       zhenzhuIcon:zhenzhuIcon,
       nengliangIcon:nengliang,
       pearl:[pearl1,pearl2,pearl3,pearl4,pearl5,pearl6,pearl7,pearl8,pearl9],
       ocean:[ocean1,ocean2,ocean3,ocean4,ocean5,ocean6,ocean7,ocean8,ocean9],
       imgDiv:[
-        {imgCount:1,href:pearl1,divClass:'',animation:'',level:1},
-        {imgCount:1,href:ocean1,divClass:'',animation:'',level:2},
-        {imgCount:1,href:pearl1,divClass:'',animation:'',level:1}
+
       ],
       PearlLevel1:{
-        imgCount:1,
+        imgCount:'',
         href:pearl1,
         divClass:'',
         animation:'',
-        level:1
+        level:1,
+        id:''
       },
       PearlLevel2:{
-        imgCount:2,
+        imgCount:'',
         href:ocean1,
         divClass:'',
         animation:'',
-        level:2
+        level:2,
+        id:''
       },
       isBlack:true,
       RankingListBlack:[
@@ -112,19 +114,50 @@ export default {
     }
   },
   mounted:function () {
-    this.startStyle();
+    this.$nextTick(function() {
+      this.startStyle();
+    })
   },
   methods:{
     startStyle(){
+      this.$http({
+        method: "post",
+        url: "/",
+        headers: {
+          "device": "android",
+          "uid": localStorage.getItem("uid"),
+          "Access-Control-Allow-Origin": "*"
+        },
+        data: {}
+      }).then(function(res) {
+        if(res.data.code == 0) {
 
-      const that = this;
-      that.imgDiv.push(that.PearlLevel2);
+           //  this.marquee = res.data.data.configs.marquee;
+           // if(res.data.data.pearls.length!==0){
+           //   for(let i in res.data.data.pearls){
+           //      if(res.data.data.pearls[i].pearl_type=="NORMAL"){
+           //
+           //        //普通珍珠
+           //        this.PearlLevel1.id=res.data.data.pearls[i].id;
+           //        this.PearlLevel1.imgCount=res.data.data.pearls[i].reward;
+           //        this.PearlLevel1.divClass='float-container float-container'+i;
+           //        this.imgDiv.push(this.PearlLevel1)
+           //      }else if(res.data.data.pearls[i]==="LUCK"){
+           //        //海洋之心
+           //      }
+           //
+           //   }
+           //
+           //   this.cookies();
 
-      for(var i=0;i<that.imgDiv.length;i++){
-        that.imgDiv[i].divClass='float-container float-container'+i;
-      }
+           // }
+        }
+      }.bind(this))
+        .catch(function(err) {
+          this.$layer.msg("系统异常，请稍后再试");
+        }.bind(this));
 
-      that.cookies();
+
       $("#pearlContainer").show()
     },
     cookies(){
@@ -136,8 +169,8 @@ export default {
           var cookievalTop = localStorage.getItem(ck);
           var cookievalLeft = localStorage.getItem(cl);
           if (cookievalTop == "" || cookievalLeft == "" || cookievalTop == null || cookievalLeft == null || cookievalTop == undefined || cookievalLeft == undefined||cookievalTop == null||cookievalLeft == null) {
-            cookievalTop = parseInt((($(window).height() - 200) * 0.7 * Math.random() + $(window).height() * 0.3) / 12);
-            cookievalLeft = parseInt(($(window).width() - 100) * 0.8 * Math.random() / 12);
+            cookievalTop = parseInt((($(window).height() - 200) * 0.7 * Math.random()*10 + $(window).height() * 0.3) / 12);
+            cookievalLeft = parseInt(($(window).width() - 100) * 0.8 * Math.random()*10 / 12);
             $(".float-container" + index).css({top: cookievalTop + 'rem', left: cookievalLeft + 'rem'});
             localStorage.setItem(ck, cookievalTop);
             localStorage.setItem(cl, cookievalLeft);

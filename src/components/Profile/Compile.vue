@@ -39,8 +39,8 @@
 				<div class="controlContainer">
 					<div class="controlScroll">
             <div v-if="show">
-              <div class="controlContent" v-for="(p,index) in timg" v-dragging="{ item: p, list: timg, group: 'p' }" :key="p.index">
-                <img @touchstart="rem(p,index)" @touchend="js()" class="media-object graph" :src="`${p+'?'+now}`" @click="changeActive(index)" />
+              <div class="controlContent" v-for="(p,index) in timg" >
+                <img @touchstart="rem(p,index)" @touchend="js()" class="media-object graph" :src="p" @click="changeActive(index)" />
               </div>
               <div class="chart-to" @click="openPhDialog">
                 <img class="media-object sheet" src="../../assets/images/tianjia.png" />
@@ -160,11 +160,6 @@
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
 	import more from '@/assets/images/more.png'
-	import timg from "@/assets/images/test/timg.jpg"
-	import pic2 from "@/assets/images/test/1f05664d192e4d8987bdef2562775e4f_th.png"
-	import pic3 from "@/assets/images/test/86c9f191d93d4b208002970e8635cbef.jpg"
-	import pic4 from "@/assets/images/test/0824ab18972bd40719d54bb773899e510fb3096d.jpg"
-	import pic5 from "@/assets/images/test/201711613356.jpg"
 
 	export default {
 		name: "compile",
@@ -201,26 +196,21 @@
         pmid: '',
         rank: '',
         ringtone: '',
-        show:false,
+        show:true,
         signature: 'hahaha',
-				timg: []
+				timg: [],
 			}
 		},
-		inject: ['reload'],
 
     mounted: function() {
 			this.$nextTick(function() {
-			  let that =this;
 				this.compile();
-        setTimeout(function () {
-          that.show=true
-        },1000)
+
 			})
 		},
 
 		methods: {
 			compile() {
-			  let that=this;
 				this.$http({
 						method: "get",
 						url: "/users/info",
@@ -563,6 +553,7 @@
 		width: 4rem;
 		height: 4rem;
 		border-radius: 50%;
+    border: 1px solid #f5f5f5;
 	}
   .myHeadImg{
     padding: 1rem 0;

@@ -32,23 +32,30 @@
     },
     methods: {
       submitBtn(){
-        this.$http({
-          method: "post",
-          url: "/messages/leave-message",
-          headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
-          data: {
-            content:this.text,
-            to_user:this.id
-          }
-        }).then(function(res){
-          this.$layer.msg(res.data.msg)
-          if(res.data.code==0){
-            this.$router.go(-1);
-          }
-        }.bind(this))
-          .catch(function(err){
-            this.$layer.msg("系统异常，请稍后再试");
-          }.bind(this));
+        let res = new RegExp("^[ ]+$");
+        if(this.text===''||res.test(this.text)===true){
+          this.messageMsg="回复内容不能为空";
+          this.messageMsgShow=true;
+        }else {
+          this.$http({
+            method: "post",
+            url: "/messages/leave-message",
+            headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
+            data: {
+              content:this.text,
+              to_user:this.id
+            }
+          }).then(function(res){
+            this.$layer.msg(res.data.msg)
+            if(res.data.code==0){
+              this.$router.go(-1);
+            }
+          }.bind(this))
+            .catch(function(err){
+              this.$layer.msg("系统异常，请稍后再试");
+            }.bind(this));
+        }
+
       },
       evers() {
         this.masrc = backs;

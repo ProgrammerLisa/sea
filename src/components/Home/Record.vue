@@ -46,7 +46,7 @@
                 </div>
                 <div class="stealerRight">
                   <div class="text-right">
-                    <mu-button small color="#fff" textColor="#09a2d6" flat class="vBtn">去复仇</mu-button>
+                    <mu-button @click="goFriendFarm(s.thief_uid)" small color="#fff" textColor="#09a2d6" flat class="vBtn">去复仇</mu-button>
                   </div>
                 </div>
             </div>
@@ -236,6 +236,38 @@
                   this.$layer.msg("系统异常，请稍后再试");
                 }.bind(this))
             }
+          },
+          goFriendFarm(id){
+            this.$http({
+              method: "post",
+              url: "/users/plant",
+              headers: {
+                "device": "android",
+                "uid": localStorage.getItem("uid"),
+                "Access-Control-Allow-Origin": "*"
+              },
+              data: {
+                friend_uid:id
+              }
+            }).then(function(res) {
+
+              if(res.data.code == 0) {
+                this.$router.push({
+                  path:'/friendfarm',
+                  name:'friendfarm',
+                  params: {
+                    name: 'name',
+                    dataObj: id
+                  }
+                })
+              } else {
+                this.$layer.msg(res.data.msg);
+              }
+            }.bind(this))
+              .catch(function(err) {
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this))
+
           },
           evers() {
             this.masrc = backs;

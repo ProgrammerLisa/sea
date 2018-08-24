@@ -8,13 +8,19 @@
           好友养殖场
         </span>
 		</mu-appbar>
-		<div class="icon"><img :src="bh" /> <span style="vertical-align: middle">珍珠 {{imgSum}}</span></div>
+		<div class="icon"><img :src="friend_avatar" /> <span style="vertical-align: middle">珍珠 {{friend_pearl}}</span></div>
 		<div class="options" @click="LeavingMessage">
 			<img src="../../assets/images/liuyanban.png" class="invitation-friends" />
 			<p>留言板</p>
 		</div>
-		<div class="farmBack">
-			<div class="waitingContainer">
+
+		<div class="farmBack" >
+      <div id="pearlContainer" v-if="hasPearl">
+      <button :class="t.divClass" v-for="(t,index) in imgDiv" @click="getPearl(index,t.id) " :disabled="t.isDisabled" :style="'background: url('+t.href+');background-repeat: no-repeat;background-size: 4.5rem 4.5rem ;'">
+        <div class="text-center" style="margin-top: 5rem;font-size: smaller" >{{t.imgCount}}</div>
+      </button>
+    </div>
+			<div class="waitingContainer" v-else>
 				<div class="waiting">
 					<img :src="bh" />
 				</div>
@@ -28,14 +34,38 @@
 	import back from '@/assets/images/return.png'
 	import backs from '@/assets/images/backs.png'
 	import bh from '@/assets/images/bihe.png'
+  import pic1 from "@/assets/images/chushi.png"
+  import defaultPearl from '@/assets/images/zhenzhu.png'
+  import defaultOcean from '@/assets/images/haiyangzhixin.png'
 	export default {
 		name: "friendfarm",
 		data() {
 			return {
 				masrc: back,
 				bh: bh,
-				imgSum: 0,
-				id: ''
+        friend_pearl: 0,
+				id: '',
+        friend_avatar:pic1,
+        hasPearl:false,
+        imgDiv:[],
+        PearlLevel1:{
+          imgCount:'',
+          href:defaultPearl,
+          divClass:'',
+          animation:'',
+          level:1,
+          id:'',
+          isDisabled:false,
+        },
+        PearlLevel2:{
+          imgCount:'',
+          href:defaultOcean,
+          divClass:'',
+          animation:'',
+          level:2,
+          id:'',
+          isDisabled:false,
+        }
 			}
 		},
 		mounted() {
@@ -60,7 +90,39 @@
 					}).then(function(res) {
 
 						if(res.data.code == 0) {
+              this.friend_pearl=res.data.friend_pearl;
+              if(res.data.friend_avatar===null||res.data.friend_avatar===undefined||res.data.friend_avatar===""){
+                this.friend_avatar=pic1
+              }else {
+                this.friend_avatar=res.data.friend_avatar
+              }
+              if(res.data.pearls.length>0){
+                this.hasPearl=true;
+                this.imgDiv=[];
 
+                for(let i=0;i<res.data.pearls.length;i++){
+                  if(res.data.pearls[i].pearl_type==="NORMAL"){
+
+                    //普通珍珠
+                    this.PearlLevel1.id=res.data.pearls[i].id;
+                    this.PearlLevel1.imgCount=res.data.pearls[i].reward;
+                    this.PearlLevel1.divClass='pearlBox pearlBox'+res.data.pearls[i].today_num%10;
+                    this.imgDiv.push(this.PearlLevel1)
+                    this.PearlLevel1={ imgCount:'', divClass:'',href:defaultPearl, animation:'', level:1, id:'',isDisabled:false}
+
+                  }else if(res.data.pearls[i].pearl_type==="LUCK"){
+                    //海洋之心
+                    this.PearlLevel2.id=res.data.pearls[i].id;
+                    this.PearlLevel2.imgCount=res.data.pearls[i].reward;
+                    this.PearlLevel1.divClass='pearlBox pearlBox'+res.data.pearls[i].today_num%10;
+                    this.imgDiv.push(this.PearlLevel2)
+                    this.PearlLevel2={ imgCount:'', divClass:'',href:defaultOcean, animation:'', level:2, id:'',isDisabled:false}
+                  }
+
+                }
+              }else {
+                this.hasPearl=false
+              }
 						} else {
 							this.$layer.msg(res.data.msg);
 						}
@@ -69,6 +131,9 @@
 						this.$layer.msg("系统异常，请稍后再试");
 					}.bind(this))
 			},
+      getPearl(){
+        this.$layer.msg("此功能暂未开放");
+      },
 			LeavingMessage() {
 				this.$router.push({
 					path: '/leavingmessage',
@@ -101,12 +166,12 @@
 		overflow: hidden;
 		background-color: #1A3B57;
 	}
-	
+
 	#farmNav {
 		background: rgba(255, 255, 255, 0.3);
 		color: #fff;
 	}
-	
+
 	.farmBack {
 		width: 100%;
 		height: 100vh;
@@ -118,22 +183,22 @@
 		background-repeat: repeat-x;
 		background-position: center top;
 	}
-	
+
 	.icon {
 		position: absolute;
 		left: 1rem;
 		top: 6.5rem;
 		background: rgba(0, 0, 0, 0.2);
 		border-radius: 2rem;
-		padding: 0.1rem 1.5rem 0.1rem 0.5rem;
+		padding: 0.3rem 1.5rem 0.3rem 0.5rem;
 		font-size: 1.5rem;
 	}
-	
+
 	.icon img {
 		width: 2.5rem;
 		border-radius: 50%;
 	}
-	
+
 	.options {
 		width: 6rem;
 		text-align: center;
@@ -142,32 +207,85 @@
 		right: 0;
 		color: #fff;
 	}
-	
+
 	.options img {
 		width: 80%;
 	}
-	
+
 	.options img:active {
 		transform: scale3d(0.8, 0.8, 0.8);
 		transition: 0.1s;
 	}
-	
+  #pearlContainer{
+    position: relative;
+    width: 100vw;
+    height: 50vh;
+    margin-top: 10vh;
+  }
+  .pearlBox{
+    border: none;
+    width: 4.5rem;
+    height: 8rem;
+    position: absolute;
+    animation: myfirst 2s infinite;
+  }
+  .pearlBox1{
+    top: 35vh;
+    left: 40vw;
+  }
+  .pearlBox2{
+    top: 20vh;
+    left: 41vw;
+  }
+  .pearlBox3{
+    top: 25vh;
+    left: 5vw;
+  }
+  .pearlBox4{
+    top: 15vh;
+    left: 20vw;
+  }
+  .pearlBox5{
+    top: 15vh;
+    left: 70vw;
+  }
+  .pearlBox6{
+    top: 30vh;
+    left: 70vw;
+  }
+  .pearlBox7{
+    top: 40vh;
+    left: 8vw;
+  }
+  .pearlBox8{
+    top: 50vh;
+    left: 28vw;
+  }
+  .pearlBox9{
+    top: 45vh;
+    left: 58vw;
+  }
+  .pearlBox0{
+    top: 5vh;
+    left: 55vw;
+  }
+
 	.waitingContainer {
 		margin-top: 40vh;
 		font-size: 1.5rem;
 	}
-	
+
 	.waiting {
 		width: 6rem;
 		height: 6rem;
 		animation: myfirst 2s infinite;
 		margin: 1rem auto;
 	}
-	
+
 	.waiting img {
 		width: 100%;
 	}
-	
+
 	@keyframes myfirst {
 		0% {
 			transform: translate(0, 0);

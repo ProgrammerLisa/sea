@@ -31,7 +31,7 @@
         <mu-list style="padding: 0">
           <mu-list-item>
             <mu-list-item-content>
-              <mu-list-item-title><span  style="color: #09a2d6;margin-right: 0.6rem;font-weight: 700">|</span>收支记录</mu-list-item-title>
+              <mu-list-item-title><span  style="color: #09a2d6;margin-right: 0.6rem;font-weight: 700">|</span>夺宝记录</mu-list-item-title>
             </mu-list-item-content>
           </mu-list-item>
         </mu-list>

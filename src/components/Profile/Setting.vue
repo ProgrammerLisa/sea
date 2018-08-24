@@ -161,13 +161,13 @@
 								"Access-Control-Allow-Origin": "*"
 							}
 						}).then(function(res) {
-							if(res.data.code == 0) {
-                this.$layer.msg(res.data.msg);
-                this.$router.go(0);
+            that.$layer.msg(res.data.msg);
+							if(res.data.code === 0) {
 								localStorage.removeItem("uid");
-                this.$router.replace('/login');
-							} else {
-								that.$layer.msg(res.data.msg);
+                that.$router.replace('/login');
+							} else if(res.data.code===401){
+                that.$router.replace('/login');
+
 							}
 						}.bind(this))
 						.catch(function(err) {

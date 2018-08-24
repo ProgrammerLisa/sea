@@ -34,8 +34,8 @@
       <p>邀请好友</p>
     </router-link>
     <div id="pearlContainer" v-if="hasPearl">
-      <button class="pearlBox" v-for="(t,index) in imgDiv" @click="getPearl(index,t.id) " :disabled="t.isDisabled" :style="'background: url('+t.href+');background-repeat: no-repeat;background-size: 4.5rem 4.5rem ;'">
-        <div class="text-center" style="margin-top: 5rem;font-size: small" >{{t.imgCount}}</div>
+      <button :class="t.divClass" v-for="(t,index) in imgDiv" @click="getPearl(index,t.id) " :disabled="t.isDisabled" :style="'background: url('+t.href+');background-repeat: no-repeat;background-size: 4.5rem 4.5rem ;'">
+        <div class="text-center" style="margin-top: 5rem;font-size: smaller" >{{t.imgCount}}</div>
       </button>
     </div>
     <div class="waitingContainer" v-else>
@@ -77,8 +77,6 @@ import pearl7 from '@/assets/images/zhenzhu3x/zhenzhu7@3x.png'
 import pearl8 from '@/assets/images/zhenzhu3x/zhenzhu8@3x.png'
 import pearl9 from '@/assets/images/zhenzhu3x/zhenzhu9@3x.png'
 
-import {CollBox,Ball} from "../../assets/js/collision.min";
-
 export default {
   components: {
     Group,
@@ -99,18 +97,6 @@ export default {
       pearl:[pearl1,pearl2,pearl3,pearl4,pearl5,pearl6,pearl7,pearl8,pearl9],
       ocean:[ocean1,ocean2,ocean3,ocean4,ocean5,ocean6,ocean7,ocean8,ocean9],
       imgDiv:[],
-      test:[
-        {pic:defaultPearl,count:0.1},
-        {pic:defaultPearl,count:0.1},
-        {pic:defaultPearl,count:0.1},
-        {pic:defaultPearl,count:0.1},
-        {pic:defaultPearl,count:0.1},
-        {pic:defaultPearl,count:0.1},
-        {pic:defaultPearl,count:0.1},
-        {pic:defaultPearl,count:0.1},
-        {pic:defaultPearl,count:0.1},
-        {pic:defaultPearl,count:0.1}
-      ],
       PearlLevel1:{
         imgCount:'',
         href:defaultPearl,
@@ -155,50 +141,30 @@ export default {
             this.marquee = res.data.data.configs.marquee;
            if(res.data.data.pearls.length!==0){
               that.hasPearl=true;
-              console.log(res.data.data)
-              if(res.data.data.pearls.length>=10){
-                this.imgDiv=[];
-                for(let i=0;i<10;i++){
-                  if(res.data.data.pearls[i].pearl_type=="NORMAL"){
 
-                    //普通珍珠
-                    this.PearlLevel1.id=res.data.data.pearls[i].id;
-                    this.PearlLevel1.imgCount=res.data.data.pearls[i].reward;
-                    this.PearlLevel1.divClass='float-container float-container'+i;
-                    this.imgDiv.push(this.PearlLevel1)
-                    this.PearlLevel1={ imgCount:'', href:defaultPearl, divClass:'', animation:'', level:1, id:'',isDisabled:false}
-                  }else if(res.data.data.pearls[i]==="LUCK"){
-                    //海洋之心
-                    this.PearlLevel2.id=res.data.data.pearls[i].id;
-                    this.PearlLevel2.imgCount=res.data.data.pearls[i].reward;
-                    this.PearlLevel2.divClass='float-container float-container'+i;
-                    this.imgDiv.push(this.PearlLevel2)
-                    this.PearlLevel2={ imgCount:'', href:defaultOcean, divClass:'', animation:'', level:2, id:'',isDisabled:false}
-                  }
-
-                }
-              }else {
                 this.imgDiv=[];
 
                 for(let i=0;i<res.data.data.pearls.length;i++){
-                  if(res.data.data.pearls[i].pearl_type=="NORMAL"){
+                  if(res.data.data.pearls[i].pearl_type==="NORMAL"){
 
                     //普通珍珠
                     this.PearlLevel1.id=res.data.data.pearls[i].id;
                     this.PearlLevel1.imgCount=res.data.data.pearls[i].reward;
+                    this.PearlLevel1.divClass='pearlBox pearlBox'+res.data.data.pearls[i].today_num%10;
                     this.imgDiv.push(this.PearlLevel1)
-                    this.PearlLevel1={ imgCount:'', href:defaultPearl, animation:'', level:1, id:''}
+                    this.PearlLevel1={ imgCount:'', divClass:'',href:defaultPearl, animation:'',isDisabled:false, level:1, id:''}
 
-                  }else if(res.data.data.pearls[i]==="LUCK"){
+                  }else if(res.data.data.pearls[i].pearl_type==="LUCK"){
                     //海洋之心
                     this.PearlLevel2.id=res.data.data.pearls[i].id;
                     this.PearlLevel2.imgCount=res.data.data.pearls[i].reward;
+                    this.PearlLevel1.divClass='pearlBox pearlBox'+res.data.data.pearls[i].today_num%10;
                     this.imgDiv.push(this.PearlLevel2)
-                    this.PearlLevel2={ imgCount:'', href:defaultOcean, animation:'', level:2, id:''}
+                    this.PearlLevel2={ imgCount:'', divClass:'',href:defaultOcean, animation:'',isDisabled:false, level:2, id:''}
                   }
 
                 }
-              }
+
 
 
            }else {
@@ -226,18 +192,16 @@ export default {
                pearl_id: id
              }
            }).then(function(res) {
-             this.$layer.msg(res.data.msg);
              if(res.data.code == 0) {
                this.pearlCount=res.data.user_pearl;
                this.energyCount=res.data.user_energy;
                $(".pearlBox").eq(index).animate({top:"-200%"},1000);
-               setTimeout(function () {
-                 $(".pearlBox").eq(index).remove()
-               },1000)
+
                 if(res.data.is_new_round===true){
                   this.startStyle();
                 }
              }else {
+               this.$layer.msg(res.data.msg);
                this.imgDiv[index].isDisabled=false;
              }
            }.bind(this))
@@ -246,28 +210,6 @@ export default {
                this.$layer.msg("系统异常，请稍后再试");
              }.bind(this))
    },
-
-    cookies(){
-      const that = this;
-      $(function () {
-        for (var index = 0; index < that.imgDiv.length; index++) {
-          var ck = "float-container-top-" + index;
-          var cl = "float-container-left-" + index;
-          var cookievalTop = localStorage.getItem(ck);
-          var cookievalLeft = localStorage.getItem(cl);
-          if (cookievalTop == "" || cookievalLeft == "" || cookievalTop == null || cookievalLeft == null || cookievalTop == undefined || cookievalLeft == undefined||cookievalTop == null||cookievalLeft == null) {
-            cookievalTop = parseInt(($(window).height() - $(window).height()*0.3-200) * Math.random()+150);
-            cookievalLeft = parseInt(($(window).width() - 200) * Math.random());
-            $(".float-container" + index).css({top: cookievalTop + 'px', left: cookievalLeft + 'px'});
-            localStorage.setItem(ck, cookievalTop);
-            localStorage.setItem(cl, cookievalLeft);
-          } else {
-            $(".float-container" + index).css({top: cookievalTop + 'px', left: cookievalLeft + 'px'});
-          }
-        }
-      })
-    },
-
 
     animation(e,index,arr){
       for(let i in arr){
@@ -426,43 +368,43 @@ export default {
     position: absolute;
     animation: myfirst 2s infinite;
   }
-  .pearlBox:nth-child(1){
+  .pearlBox1{
     top: 20vh;
     left: 40vw;
   }
-  .pearlBox:nth-child(2){
+  .pearlBox2{
     top: 5vh;
     left: 41vw;
   }
-  .pearlBox:nth-child(3){
+  .pearlBox3{
     top: 10vh;
     left: 5vw;
   }
-  .pearlBox:nth-child(4){
+  .pearlBox4{
     top: 0;
     left: 20vw;
   }
-  .pearlBox:nth-child(5){
+  .pearlBox5{
     top: 0;
     left: 70vw;
   }
-  .pearlBox:nth-child(6){
+  .pearlBox6{
     top: 15vh;
     left: 70vw;
   }
-  .pearlBox:nth-child(7){
+  .pearlBox7{
     top: 25vh;
     left: 8vw;
   }
-  .pearlBox:nth-child(8){
+  .pearlBox8{
     top: 35vh;
     left: 28vw;
   }
-  .pearlBox:nth-child(9){
+  .pearlBox9{
     top: 30vh;
     left: 58vw;
   }
-  .pearlBox:nth-child(10){
+  .pearlBox0{
     top: -10vh;
     left: 55vw;
   }

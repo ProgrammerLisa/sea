@@ -81,7 +81,6 @@
 						if(res.data.code != 0) {
 							this.$layer.msg(res.data.msg);
 						} else {
-						  console.log(res.data.data)
 							if(res.data.data.length == 0) {
 								this.noFriend = true;
 							} else {
@@ -123,7 +122,6 @@
 			},
 			friendData(f) {
 				localStorage.setItem("friend_uid",f)
-//				console.log(localStorage.getItem("friend_uid"))
 
 				this.$router.push({
 					path: '/frienddata',

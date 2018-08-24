@@ -25,15 +25,17 @@
 				</div>
 				<mu-container>
 					<mu-flex class="demo-linear-progress">
+
 						<mu-linear-progress style="width: 90%;margin:0 auto;border-radius: 8rem" mode="determinate" color="#FFFFFF" size="7" :max="1000"></mu-linear-progress>
 
-						<div style="position: absolute; float: left;padding-top: 3%;width: 90%;">
-							<span style="float: left;margin-left: 5%;">Lv.0</span>
-							<span style="margin-right: 6%;">Lv.4</span>
-							<span style="float: right;">Lv.5</span>
-						</div>
+
 					</mu-flex>
 				</mu-container>
+        <div style="padding:1rem 2rem;width: 100%;display: flex;">
+          <div class="text-left" style="width: 33%">Lv.0</div>
+          <div class="text-center" style="width: 33%">Lv.1</div>
+          <div class="text-right" style="width: 34%;color: #fff;padding-right: 0">Lv.2</div>
+        </div>
 			</div>
       <div id="#nav3">
         <div class="GradeMsg"><span style="color: #09a2d6;margin-right: 0.6rem;font-weight: 700">|</span>等级权益</div>
@@ -271,7 +273,6 @@
 
 	.demo-linear-progress {
 		margin-top: 1rem;
-		margin-bottom: 4rem;
 	}
 
 	.level {

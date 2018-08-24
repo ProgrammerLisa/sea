@@ -162,10 +162,10 @@
 							}
 						}).then(function(res) {
 							if(res.data.code == 0) {
-								that.$layer.msg(res.data.msg);
+                this.$layer.msg(res.data.msg);
+                this.$router.go(0);
 								localStorage.removeItem("uid");
-								that.$router.replace('/login');
-								that.$router.go(0);
+                this.$router.replace('/login');
 							} else {
 								that.$layer.msg(res.data.msg);
 							}

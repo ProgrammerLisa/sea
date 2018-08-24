@@ -5,11 +5,20 @@
     <canvas id="canvas"></canvas>
 
      <div id="notice">
-        <marquee style="height: 2.5rem;" scrollamount="5" scrolldelay="1"><span style="font-size: 1.5rem;color: #fff;vertical-align:middle;">{{marquee}}</span></marquee>
+        <marquee style="line-height: 2rem;" scrollamount="5" scrolldelay="1"><span style="font-size: 1.5rem;color: #fff;vertical-align:middle;">{{marquee}}</span></marquee>
      </div>
      <div class="topOption option1">
-        <div class="icon"><img :src="zhenzhuIcon"/> 珍珠 {{imgSum}}</div>
-        <div class="icon"><img :src="nengliangIcon"/> 能量 {{imgSum}}</div>
+        <div class="icon">
+          <img :src="zhenzhuIcon"/>
+          珍珠
+          <span style="margin-left: 0.5rem">{{pearlCount}}</span>
+
+        </div>
+        <div class="icon">
+          <img :src="nengliangIcon"/>
+          能量
+          <span style="margin-left: 0.5rem">{{energyCount}}</span>
+        </div>
       </div>
       <div id="imgDiv"></div>
     <router-link class="option2" to="/gamerules" tag="div">
@@ -24,23 +33,29 @@
       <img src="../../assets/images/yaoqinghaoyou.png" class="invitation-friends"/>
       <p>邀请好友</p>
     </router-link>
-    <div id="pearlContainer">
-      <div v-for="(m,index) in imgDiv" :class="m.divClass" :data-level="m.level" @click.once="flag && accumulative($event,index)">
-        <img v-bind:style="m.style" :src="m.href" />
-        {{m.imgCount}}
-      </div>
+    <div id="pearlContainer" v-if="hasPearl">
+      <button class="pearlBox" v-for="(t,index) in imgDiv" @click="getPearl(index,t.id) " :disabled="t.isDisabled" :style="'background: url('+t.href+');background-repeat: no-repeat;background-size: 4.5rem 4.5rem ;'">
+        <div class="text-center" style="margin-top: 5rem;font-size: small" >{{t.imgCount}}</div>
+      </button>
     </div>
-
+    <div class="waitingContainer" v-else>
+      <div class="waiting">
+        <img :src="bh"/>
+      </div>
+      <div class="text-center" style="color: #fff">正在生长中...</div>
+    </div>
 
   </div>
 </template>
 
 <script>
 import { Group, Cell } from 'vux'
-import backGround from '@/assets/images/bg.png'
 import zhenzhuIcon from '@/assets/images/zhenzhuHome.png'
 import nengliang from '@/assets/images/nengliang.png'
-import shell from '@/assets/images/bihe.png'
+
+import defaultPearl from '@/assets/images/zhenzhu.png'
+import defaultOcean from '@/assets/images/haiyangzhixin.png'
+import bh from '@/assets/images/bihe.png'
 
 import ocean1 from '@/assets/images/haiyangzhixin3x/hailanzhixin1@3x.png'
 import ocean2 from '@/assets/images/haiyangzhixin3x/hailanzhixin2@3x.png'
@@ -62,55 +77,58 @@ import pearl7 from '@/assets/images/zhenzhu3x/zhenzhu7@3x.png'
 import pearl8 from '@/assets/images/zhenzhu3x/zhenzhu8@3x.png'
 import pearl9 from '@/assets/images/zhenzhu3x/zhenzhu9@3x.png'
 
+import {CollBox,Ball} from "../../assets/js/collision.min";
+
 export default {
   components: {
     Group,
     Cell
   },
+  filters:{
+
+  },
   data(){
     return{
-      imgSum:0,
-      imgSrc:backGround,
-      flag:true,
+      pearlCount:0,
+      energyCount:0,
       marquee:'',
+      hasPearl:false,
+      bh:bh,
       zhenzhuIcon:zhenzhuIcon,
       nengliangIcon:nengliang,
       pearl:[pearl1,pearl2,pearl3,pearl4,pearl5,pearl6,pearl7,pearl8,pearl9],
       ocean:[ocean1,ocean2,ocean3,ocean4,ocean5,ocean6,ocean7,ocean8,ocean9],
-      imgDiv:[
-
+      imgDiv:[],
+      test:[
+        {pic:defaultPearl,count:0.1},
+        {pic:defaultPearl,count:0.1},
+        {pic:defaultPearl,count:0.1},
+        {pic:defaultPearl,count:0.1},
+        {pic:defaultPearl,count:0.1},
+        {pic:defaultPearl,count:0.1},
+        {pic:defaultPearl,count:0.1},
+        {pic:defaultPearl,count:0.1},
+        {pic:defaultPearl,count:0.1},
+        {pic:defaultPearl,count:0.1}
       ],
       PearlLevel1:{
         imgCount:'',
-        href:pearl1,
+        href:defaultPearl,
         divClass:'',
         animation:'',
         level:1,
-        id:''
+        id:'',
+        isDisabled:false,
       },
       PearlLevel2:{
         imgCount:'',
-        href:ocean1,
+        href:defaultOcean,
         divClass:'',
         animation:'',
         level:2,
-        id:''
-      },
-      isBlack:true,
-      RankingListBlack:[
-        {title:'我的排名',count:66},
-        {title:'今日得宝数',count:75},
-        {title:'全民累计得宝数',count:75}
-      ],
-      RankingListForce:[
-        {level:1,name:'yizhisheng',count:1000},
-        {level:2,name:'yizhisheng',count:100},
-        {level:3,name:'yizhisheng',count:10}
-      ],
-      RankingTitle:'得宝数据',
-      RankingSwitch:'综合排名',
-      bgHeight:'',
-      SEPARATION:100,AMOUNTX :50,AMOUNTY :50,container:'',camera:'', scene:'', renderer:'',particles:0, particle:0,count:0,mouseX:200,mouseY:-200,windowHalfX:window.innerWidth / 2,windowHalfY: window.innerHeight / 2
+        id:'',
+        isDisabled:false,
+      }
     }
   },
   mounted:function () {
@@ -131,26 +149,61 @@ export default {
         data: {}
       }).then(function(res) {
         if(res.data.code == 0) {
+          this.pearlCount = res.data.data.user.pearl;
+          this.energyCount = res.data.data.user.energy;
+            let that = this;
+            this.marquee = res.data.data.configs.marquee;
+           if(res.data.data.pearls.length!==0){
+              that.hasPearl=true;
+              console.log(res.data.data)
+              if(res.data.data.pearls.length>=10){
+                this.imgDiv=[];
+                for(let i=0;i<10;i++){
+                  if(res.data.data.pearls[i].pearl_type=="NORMAL"){
 
-           //  this.marquee = res.data.data.configs.marquee;
-           // if(res.data.data.pearls.length!==0){
-           //   for(let i in res.data.data.pearls){
-           //      if(res.data.data.pearls[i].pearl_type=="NORMAL"){
-           //
-           //        //普通珍珠
-           //        this.PearlLevel1.id=res.data.data.pearls[i].id;
-           //        this.PearlLevel1.imgCount=res.data.data.pearls[i].reward;
-           //        this.PearlLevel1.divClass='float-container float-container'+i;
-           //        this.imgDiv.push(this.PearlLevel1)
-           //      }else if(res.data.data.pearls[i]==="LUCK"){
-           //        //海洋之心
-           //      }
-           //
-           //   }
-           //
-           //   this.cookies();
+                    //普通珍珠
+                    this.PearlLevel1.id=res.data.data.pearls[i].id;
+                    this.PearlLevel1.imgCount=res.data.data.pearls[i].reward;
+                    this.PearlLevel1.divClass='float-container float-container'+i;
+                    this.imgDiv.push(this.PearlLevel1)
+                    this.PearlLevel1={ imgCount:'', href:defaultPearl, divClass:'', animation:'', level:1, id:'',isDisabled:false}
+                  }else if(res.data.data.pearls[i]==="LUCK"){
+                    //海洋之心
+                    this.PearlLevel2.id=res.data.data.pearls[i].id;
+                    this.PearlLevel2.imgCount=res.data.data.pearls[i].reward;
+                    this.PearlLevel2.divClass='float-container float-container'+i;
+                    this.imgDiv.push(this.PearlLevel2)
+                    this.PearlLevel2={ imgCount:'', href:defaultOcean, divClass:'', animation:'', level:2, id:'',isDisabled:false}
+                  }
 
-           // }
+                }
+              }else {
+                this.imgDiv=[];
+
+                for(let i=0;i<res.data.data.pearls.length;i++){
+                  if(res.data.data.pearls[i].pearl_type=="NORMAL"){
+
+                    //普通珍珠
+                    this.PearlLevel1.id=res.data.data.pearls[i].id;
+                    this.PearlLevel1.imgCount=res.data.data.pearls[i].reward;
+                    this.imgDiv.push(this.PearlLevel1)
+                    this.PearlLevel1={ imgCount:'', href:defaultPearl, animation:'', level:1, id:''}
+
+                  }else if(res.data.data.pearls[i]==="LUCK"){
+                    //海洋之心
+                    this.PearlLevel2.id=res.data.data.pearls[i].id;
+                    this.PearlLevel2.imgCount=res.data.data.pearls[i].reward;
+                    this.imgDiv.push(this.PearlLevel2)
+                    this.PearlLevel2={ imgCount:'', href:defaultOcean, animation:'', level:2, id:''}
+                  }
+
+                }
+              }
+
+
+           }else {
+             that.hasPearl=false;
+           }
         }
       }.bind(this))
         .catch(function(err) {
@@ -158,8 +211,42 @@ export default {
         }.bind(this));
 
 
-      $("#pearlContainer").show()
     },
+   getPearl(index,id){
+     this.imgDiv[index].isDisabled=true;
+     this.$http({
+             method: "post",
+             url: "/play",
+             headers: {
+               "device": "android",
+               "uid": localStorage.getItem("uid"),
+               "Access-Control-Allow-Origin": "*"
+             },
+             data: {
+               pearl_id: id
+             }
+           }).then(function(res) {
+             this.$layer.msg(res.data.msg);
+             if(res.data.code == 0) {
+               this.pearlCount=res.data.user_pearl;
+               this.energyCount=res.data.user_energy;
+               $(".pearlBox").eq(index).animate({top:"-200%"},1000);
+               setTimeout(function () {
+                 $(".pearlBox").eq(index).remove()
+               },1000)
+                if(res.data.is_new_round===true){
+                  this.startStyle();
+                }
+             }else {
+               this.imgDiv[index].isDisabled=false;
+             }
+           }.bind(this))
+             .catch(function(err) {
+               this.imgDiv[index].isDisabled=false;
+               this.$layer.msg("系统异常，请稍后再试");
+             }.bind(this))
+   },
+
     cookies(){
       const that = this;
       $(function () {
@@ -169,17 +256,19 @@ export default {
           var cookievalTop = localStorage.getItem(ck);
           var cookievalLeft = localStorage.getItem(cl);
           if (cookievalTop == "" || cookievalLeft == "" || cookievalTop == null || cookievalLeft == null || cookievalTop == undefined || cookievalLeft == undefined||cookievalTop == null||cookievalLeft == null) {
-            cookievalTop = parseInt((($(window).height() - 200) * 0.7 * Math.random()*10 + $(window).height() * 0.3) / 12);
-            cookievalLeft = parseInt(($(window).width() - 100) * 0.8 * Math.random()*10 / 12);
-            $(".float-container" + index).css({top: cookievalTop + 'rem', left: cookievalLeft + 'rem'});
+            cookievalTop = parseInt(($(window).height() - $(window).height()*0.3-200) * Math.random()+150);
+            cookievalLeft = parseInt(($(window).width() - 200) * Math.random());
+            $(".float-container" + index).css({top: cookievalTop + 'px', left: cookievalLeft + 'px'});
             localStorage.setItem(ck, cookievalTop);
             localStorage.setItem(cl, cookievalLeft);
           } else {
-            $(".float-container" + index).css({top: cookievalTop + 'rem', left: cookievalLeft + 'rem'});
+            $(".float-container" + index).css({top: cookievalTop + 'px', left: cookievalLeft + 'px'});
           }
         }
       })
     },
+
+
     animation(e,index,arr){
       for(let i in arr){
         (function(i){
@@ -214,9 +303,7 @@ export default {
 
       this.imgSum+=this.imgDiv[index].imgCount;
       let divSelf = e.currentTarget;
-      // setTimeout(function(){
-      //   $(".float-container").eq(index).animate({marginTop:'-150%'},500)
-      // },2000);
+
       setTimeout(function(){
         divSelf.remove();
         localStorage.removeItem("float-container-left-" + index);
@@ -286,6 +373,7 @@ export default {
     position: absolute;
     top: 72vh;
     color: #fff;
+    z-index: 999;
   }
   .option2{
     right: 1rem;
@@ -308,15 +396,89 @@ export default {
     font-size: 2.5rem;
   }
   #pearlContainer{
-    display: none;
+    position: relative;
+    width: 100vw;
+    height: 50vh;
   }
   .float-container {
-    width: 4.2rem;
-    height: 4.2rem;
+    width: 8rem;
+    height: 8rem;
     position: absolute;
     /*box-shadow: 0.1rem 0.1rem 0.1rem #112941;*/
     animation: myfirst 2s infinite;
+    text-align: center;
+  }
+  .float-container img{
+    width: 100%;
+  }
 
+  p{
+    margin-bottom: 0;
+  }
+  .tips{
+      width: 0.6rem;height: 0.6rem;display: inline-block;background: #FC0506;position: absolute;right: 1.2rem;margin-top:0.2rem;border-radius: 50%;
+      display: none;
+  }
+  .pearlBox{
+    border: none;
+    width: 4.5rem;
+    height: 8rem;
+    position: absolute;
+    animation: myfirst 2s infinite;
+  }
+  .pearlBox:nth-child(1){
+    top: 20vh;
+    left: 40vw;
+  }
+  .pearlBox:nth-child(2){
+    top: 5vh;
+    left: 41vw;
+  }
+  .pearlBox:nth-child(3){
+    top: 10vh;
+    left: 5vw;
+  }
+  .pearlBox:nth-child(4){
+    top: 0;
+    left: 20vw;
+  }
+  .pearlBox:nth-child(5){
+    top: 0;
+    left: 70vw;
+  }
+  .pearlBox:nth-child(6){
+    top: 15vh;
+    left: 70vw;
+  }
+  .pearlBox:nth-child(7){
+    top: 25vh;
+    left: 8vw;
+  }
+  .pearlBox:nth-child(8){
+    top: 35vh;
+    left: 28vw;
+  }
+  .pearlBox:nth-child(9){
+    top: 30vh;
+    left: 58vw;
+  }
+  .pearlBox:nth-child(10){
+    top: -10vh;
+    left: 55vw;
+  }
+  .waitingContainer{
+    position: relative;
+    margin-top: 13vh;
+    font-size: 1.5rem;
+  }
+  .waiting{
+    width: 6rem;
+    height: 6rem;
+    animation: myfirst 2s infinite;
+    margin:1rem auto;
+  }
+  .waiting img{
+    width: 100%;
   }
   @keyframes myfirst {
     0% {
@@ -328,16 +490,5 @@ export default {
     100% {
       transform: translate(0, 0);
     }
-  }
-  .float-container img{
-    width: 200%;
-  }
-
-  p{
-    margin-bottom: 0;
-  }
-  .tips{
-      width: 0.6rem;height: 0.6rem;display: inline-block;background: #FC0506;position: absolute;right: 1.2rem;margin-top:0.2rem;border-radius: 50%;
-      display: none;
   }
 </style>

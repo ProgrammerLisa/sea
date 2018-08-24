@@ -30,7 +30,7 @@
 				<div class="group_input">
 					<input id="ipwd" v-model="inppwd" v-on:input="ipwdshow()" :type="types" placeholder="请输入密码" maxlength="16" is-type="sendcode" />
 					<img id="group_input_img" @click="Alt" :src="imgs" />
-					<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 55px;">
+					<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position: relative;top: -32px;right: 40px;">
           			  <img src="../../assets/images/x.png" />
           			</button>
 				</div>
@@ -488,10 +488,10 @@
 
 	#group_input_img {
 		position: relative;
-		margin-top: -55px;
+		margin-top: -35px;
 		float: right;
 		font-size: 1.2rem;
-		height: 55px;
+		height: 30px;
 	}
 
 	.group_input {
@@ -592,11 +592,11 @@
 	}
 
 	#btn_login_normal:disabled {
-		background: #C0C0C0;
+		background: #D9D9D9;
 	}
 
 	#btn_login_sms:disabled {
-		background: #C0C0C0;
+		background: #D9D9D9;
 	}
 
 	button#btn_login_normal.weui-btn.weui-btn_primary {

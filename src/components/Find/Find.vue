@@ -92,7 +92,7 @@
             }).then(function(res){
                 this.$layer.msg(res.data.msg);
                 if(res.data.code==0){
-                  this.signIn=true
+                  this.signIn = true
                 }
             }.bind(this))
               .catch(function(err){

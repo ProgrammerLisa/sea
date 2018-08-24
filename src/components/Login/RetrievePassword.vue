@@ -28,7 +28,7 @@
 					<div style="padding-top: 30px;">
 						<input id="passwordModel_image" v-on:input="ipwdshow()" :type="types" style="font-size: 1.5rem;" v-model="passwordModel" placeholder="请输入新密码" maxlength="16" is-type="sendcode" calss="btns"></input>
 						<img id="group_input_img" @click="Alt()" :src="imgs" />
-						<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right: 5%;">
+						<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right: 25%;">
           			  		<img src="../../assets/images/x.png" style="position: absolute;" />
           				</button>
 						<!--<span>@{{passwordValidate.errorText}}</span>-->
@@ -426,7 +426,8 @@
 
 	#group_input_img {
 		position: relative;
-		margin-top: -55px;
+		margin-top: -35px;
+		height: 30px;
 		float: right;
 	}
 
@@ -487,7 +488,7 @@
 	}
 
 	#pwsbtn:disabled {
-		background: #C0C0C0;
+		background: #D9D9D9;
 	}
 
 	#pwsbtn:active {

@@ -65,7 +65,7 @@
 				nickname: '好友昵称',
 				friend_uid: 123456789,
 				resume: '这个人很懒，还没有签名。',
-        hasPic:false
+        		hasPic:false
 			}
 		},
 		mounted() {
@@ -117,11 +117,11 @@
               }else{
                 this.gender = '♀'
                 this.bcColor='background: #FC8484;';
-              }
-              if(res.data.data.picture.length>0){
-                this.hasPic=true;
-                for(let i=0;i<res.data.data.picture.length;i++){
-                  this.pic.push({"src":res.data.data.picture[i]})
+}
+if(res.data.data.picture.length > 0) {
+	this.hasPic = true;
+	for(let i = 0; i < res.data.data.picture.length; i++) {
+		this.pic.push({"src":res.data.data.picture[i]})
                 }
               }else {
                 this.hasPic=false;

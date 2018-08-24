@@ -17,7 +17,7 @@
 
 			<center>
 				<div id="agree">
-					<check-icon :value.sync="demo1"></check-icon><span>我同意</span>
+					<span>注册则表示您已同意</span>
 					<a id="agree_a" href="#"><span>《夺宝行动使用协议》</span></a>
 				</div>
 			</center>
@@ -44,9 +44,8 @@
 			return {
 				masrc: back,
 				verif: '',
+				nickname:'',
 				check: '',
-				demo1: false,
-				demo2: true,
         phone:'',
         password:'',
       }
@@ -55,6 +54,7 @@
       this.phone = this.$route.params.phone;
       this.password = this.$route.params.password;
       this.verify_code = this.$route.params.verify_code;
+      this.nickname = this.$route.params.nickname;
     },
 		methods: {
 			evers() {
@@ -69,12 +69,9 @@
 			accomplish() {
 				event.preventDefault();
 				if(this.verif == '') {
-					this.$layer.msg('邀请码不能为空哦');
+					this.$layer.msg('邀请码不能为空');
 					return;
-				} else if(this.check == this.demo1) {
-					this.$layer.msg('请同意协议');
-					return;
-				} else {
+				}else {
           this.$http({
             method: "post",
             url: "/users/register",
@@ -86,7 +83,8 @@
               phone: this.phone,
               password: this.password,
               verify_code: this.verify_code,
-              invite_code: this.verif
+              invite_code: this.verif,
+              nickname: this.nickname
             }
           }).then(function(res) {
             if(res.data.code == 0) {
@@ -131,11 +129,24 @@
 </script>
 
 <style scoped>
+	input:-webkit-autofill,
+	textarea:-webkit-autofill,
+	select:-webkit-autofill {
+		-webkit-box-shadow: 0 0 0px 1000px #fff inset;
+	}
+	/*焦点时也加上，不加会出现黄色背景闪动一下*/
+
+	input[type=text]:focus,
+	input[type=password]:focus,
+	textarea:focus {
+		-webkit-box-shadow: 0 0 0 1000px white inset;
+	}
+	
 	.content {
 		overflow: hidden;
 		color: #666;
 		width: 100vw;
-		height: 100vh;
+		height: auto;
 	}
 
 	.panel {
@@ -174,14 +185,14 @@
 		border-top: 0;
 		border-left: 0;
 		border-right: 0;
-		margin-top: 30%;
+		margin-top: 25%;
 		padding-left: 1rem;
 		font-size: 1.5rem;
 		border-bottom: 0.1rem solid #F5F5F5;
 		width: 70%;
 		outline: none;
 	}
-
+	
 	#agree {
 		margin-top: 80%;
 		font-size: 1rem;

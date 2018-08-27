@@ -10,19 +10,19 @@
       <div class="income" id="nav2">
         <div class="today">
           <div class="incomeTitle">今日收益</div>
-          <div style="font-size: 34px; font-weight: 300;">{{today}}</div>
+          <div style="font-size: 34px; font-weight: 300;">{{today_pearl_reward}}</div>
         </div>
         <div style="display: flex">
           <div class="text-center" style="width: 50%;">
             <div class="grid-cell">
               <div class="incomeTitle">昨日收益</div>
-              <div>{{yesterday}}</div>
+              <div>{{yesterday_pearl_reward}}</div>
             </div>
           </div>
           <div class="text-center" style="width: 50%;">
             <div class="grid-cell">
               <div class="incomeTitle">累计收益</div>
-              <div>{{total}}</div>
+              <div>{{total_pearl_reward}}</div>
             </div>
           </div>
         </div>
@@ -39,19 +39,24 @@
     </div>
 
     <mu-paper id="dataBox" :z-depth="2">
-      <mu-list class="mu-list">
-            <mu-list-item class="mu-list-item" v-for="(i,index) in data" :key="index">
-              <mu-list-item-content>
-                <mu-list-item-title>Photos</mu-list-item-title>
-                <mu-list-item-sub-title class="dateText">Jan 9, 2014</mu-list-item-sub-title>
-              </mu-list-item-content>
-              <mu-list-item-action>
-                <mu-list-item-title class="count">+300</mu-list-item-title>
-              </mu-list-item-action>
-            </mu-list-item>
+      <mu-container ref="container" class="demo-loadmore-content">
+        <mu-load-more @refresh="refresh" :refreshing="refreshing" :loading="loading" @load="load">
+          <mu-list class="mu-list">
+                <mu-list-item class="mu-list-item" v-for="(i,index) in data" :key="index">
+                  <mu-list-item-content>
+                    <mu-list-item-title>获取{{i.pearl_type}}</mu-list-item-title>
+                    <mu-list-item-sub-title class="dateText">{{i.handled_at}}</mu-list-item-sub-title>
+                  </mu-list-item-content>
+                  <mu-list-item-action>
+                    <mu-list-item-title class="count">+{{i.hand_out_reward}}</mu-list-item-title>
+                  </mu-list-item-action>
+                </mu-list-item>
 
-      </mu-list>
+          </mu-list>
+        </mu-load-more>
+      </mu-container>
     </mu-paper>
+    <div class="noMore" v-show="noMore">没有更多信息了</div>
 
 
   </div>
@@ -65,24 +70,70 @@
         data(){
           return{
             masrc: back,
+            refreshing: false,
+            loading: false,
             isBlack:true,
-            today:'',
-            yesterday:'',
-            total:'',
-            data:[1,2,3,4,5,6,7,8]
-
+            today_pearl_reward:0,
+            total_pearl_reward:0,
+            yesterday_pearl_reward:0,
+            data:[],
+            mobile:{id:'',handled_at:'',hand_out_reward:'',pearl_type:''},
+            pearl_type:[],
+            next:"/play-record",
+            noMore:false
           }
         },
       mounted(){
-        let height=$("#nav1").height()+$("#nav2").height()+$("#nav3").height();
-        console.log(height)
-        $("#navBox").css({height:height+'px'});
-        $("#dataBox").css({marginTop:height+'px'});
         this.$nextTick(function() {
-				this.myrankings();
-			})
+          this.rankingStyle()
+          this.ranking()
+
+        })
       },
       methods: {
+        rankingStyle(){
+          $("#dataBox").css({marginTop:$("#navBox").height()+'px'})
+
+        },
+        ranking(){
+          this.$http({
+            method: "post",
+            url: this.next,
+            headers: {
+              "device": "android",
+              "uid": localStorage.getItem("uid"),
+              "Access-Control-Allow-Origin": "*"
+            }
+          }).then(function(res) {
+            this.loading = false;
+            console.log(res.data);
+            if(res.data.code === 0) {
+              this.next=res.data.data.pearls.next;
+              this.today_pearl_reward=res.data.data.today_pearl_reward;
+              this.total_pearl_reward=res.data.data.total_pearl_reward;
+              this.yesterday_pearl_reward=res.data.data.yesterday_pearl_reward;
+              if(res.data.data.pearls.items.length>0){
+                for (let i in res.data.data.pearls.items) {
+                  if(res.data.data.pearls.items[i].pearl_type==="NORMAL"){
+                    this.mobile.pearl_type="珍珠";
+                  }else{
+                    this.mobile.pearl_type="海洋之心";
+                  }
+                  this.mobile.handled_at=res.data.data.pearls.items[i].handled_at;
+                  this.mobile.hand_out_reward=res.data.data.pearls.items[i].hand_out_reward;
+                  this.mobile.id=res.data.data.pearls.items[i].id;
+                  this.data.push(this.mobile);
+                  this.mobile={id:'',handled_at:'',hand_out_reward:'',pearl_type:''}
+                }
+
+              }
+            }
+          }.bind(this))
+            .catch(function(err) {
+              this.loading = false;
+              this.$layer.msg("系统异常，请稍后再试");
+            }.bind(this))
+        },
         evers() {
           this.masrc = backs;
         },
@@ -92,32 +143,33 @@
         goBack() {
           this.$router.go(-1);
         },
-          myrankings(){
-          	this.$http({
-						method: "post",
-						url: "/play-record",
-						headers: {
-							"device": "android",
-							"uid": localStorage.getItem("uid"),
-							"Access-Control-Allow-Origin": "*"
-						},
-						data: {}
-					}).then(function(res) {
-						
-						if(res.data.code == 0) {
-							this.today = res.data.data.today_pearl_reward;
-							this.total = res.data.data.total_pearl_reward;
-							this.yesterday = res.data.data.yesterday_pearl_reward;
-						} else {
-							this.$layer.msg(res.data.msg);
-						}
-					}.bind(this))
-					.catch(function(err) {
-						this.$layer.msg("系统异常，请稍后再试");
-					}.bind(this))
+        refresh () {
+          this.refreshing = true;
+          this.$refs.container.scrollTop = 0;
+          this.data=[];
+          this.next="/play-record";
+          $(".mu-infinite-scroll").css({display:"block",textAlign:'center',paddingTop:'12px'});
+          $(".mu-circle-wrapper").css({verticalAlign:'middle'});
+          this.noMore=false;
+          this.ranking();
+          setTimeout(() => {
+            this.refreshing = false;
+          }, 1000)
+        },
+        load () {
+          this.loading = true;
+          if(this.next===""){
+            setTimeout(() => {
+              this.loading = false;
+              $(".mu-infinite-scroll").css({display:"none"})
+              this.noMore=true;
+            },3000)
+          }else {
+            this.ranking()
           }
       }
     }
+  }
 </script>
 
 <style scoped>
@@ -138,16 +190,9 @@
   .content::-webkit-scrollbar {
     display:none
   }
-
-  .titleText{
-    font-size: 17px;
-  }
-  .back{
-    position: absolute;
-    left:0.5rem;
-  }
-  .back img {
-    height: 30px;
+  .container{
+    padding-left: 0;
+    padding-right: 0;
   }
   .income{
     background: #09a2d6;
@@ -172,7 +217,6 @@
   }
   .mu-list{
     border-bottom: 1px solid #eee;
-
   }
   .mu-list-item{
     padding: 0.5rem 0;
@@ -184,67 +228,15 @@
   .dateText{
     font-size: 1rem;
   }
-  .mu-divider{
-    background: #eee;
-  }
-  .dataList:last-child>.mu-divider{
-    display: none;
-  }
   .count{
     color: #09a2d6;
+    padding-right: 16px;
   }
-
-
-
-  .table{
-    text-align: center;
-  }
-  .table tr{
+  .noMore{
+    width: 100%;
     line-height: 4rem;
-    border-bottom: 0.1rem solid #efefef;
-  }
-  .bcfff{
+    color: #666;
+    text-align: center;
     background: #fff;
-  }
-
-  .text-left{
-    padding-left: 1rem;
-  }
-  .text-right{
-    padding-right: 1rem;
-    color: #09A2D6;
-  }
-  .pearl-count{
-    color: #09A2D6;
-  }
-  .decorate{
-    display: inline-block;
-    background: #09A2D6 ;
-    width: 0.3rem;
-    height: 1.6rem;
-    margin: 0 1rem;
-    vertical-align: middle;
-  }
-  .decorate-title{
-    font-size: 1.5rem;
-    text-align: left;
-    color: #444;
-    padding: 0.5rem 0;
-  }
-  #ranking{
-    width:30%;
-  }
-  #listTitle{
-    padding: 1rem;
-    height:4rem;
-    display: block;
-    background: #fff;
-    border-bottom: 1px solid #eee;
-  }
-  #listTitle:active{
-    background: #ddd;
-  }
-  .myData td{
-    padding:0 2rem ;
   }
 </style>

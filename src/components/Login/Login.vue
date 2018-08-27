@@ -86,6 +86,7 @@
 	import eye from '@/assets/images/eye.png'
 	import eyeclick from '@/assets/images/eyeclick.png'
 
+
 	export default {
 		name: "login",
 		components: {
@@ -121,7 +122,6 @@
 
 			})
 			$('.weui-cells').attr('id', 'm-weui-cells');
-			//			$("#weui-cells").before("border-top","none");
 			$('#weui-cells').css({
 				borderTop: "none"
 			});

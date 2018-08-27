@@ -42,7 +42,7 @@
 		data() {
 			return {
 				masrc: back,
-				bh: bh,
+				bh: defaultPearl,
         friend_pearl: 0,
 				id: '',
         friend_avatar:pic1,
@@ -229,6 +229,7 @@
     height: 8rem;
     position: absolute;
     animation: myfirst 2s infinite;
+    outline: none;
   }
   .pearlBox1{
     top: 35vh;

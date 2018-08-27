@@ -659,6 +659,10 @@
     border-right: 1px solid #ddd;
     color: #09a2d6;
   }
+  
+  div.mu-item-title{
+  	width: 50px;
+  }
 
 </style>
 

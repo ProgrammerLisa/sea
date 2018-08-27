@@ -25,14 +25,7 @@
 				</div>
 				<mu-container>
 					<mu-flex class="demo-linear-progress">
-<<<<<<< HEAD
-
-						<mu-linear-progress style="width: 90%;margin:0 auto;border-radius: 8rem" mode="determinate" color="#FFFFFF" size="7" :max="1000"></mu-linear-progress>
-=======
 						<mu-linear-progress style="width: 90%;margin:0 auto;border-radius: 8rem" mode="determinate" color="#FFFFFF" size="7" :max="1000" :value='energ'></mu-linear-progress>
->>>>>>> 4340bf157b03a6775e6ec9dcef060270abcbfa13
-
-
 					</mu-flex>
 				</mu-container>
         <div style="padding:1rem 2rem;width: 100%;display: flex;">

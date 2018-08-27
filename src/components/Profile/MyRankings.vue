@@ -10,19 +10,19 @@
       <div class="income" id="nav2">
         <div class="today">
           <div class="incomeTitle">今日收益</div>
-          <div style="font-size: 34px; font-weight: 300;">8.6666</div>
+          <div style="font-size: 34px; font-weight: 300;">{{today}}</div>
         </div>
         <div style="display: flex">
           <div class="text-center" style="width: 50%;">
             <div class="grid-cell">
               <div class="incomeTitle">昨日收益</div>
-              <div>6.666</div>
+              <div>{{yesterday}}</div>
             </div>
           </div>
           <div class="text-center" style="width: 50%;">
             <div class="grid-cell">
               <div class="incomeTitle">累计收益</div>
-              <div>6.666</div>
+              <div>{{total}}</div>
             </div>
           </div>
         </div>
@@ -66,27 +66,21 @@
           return{
             masrc: back,
             isBlack:true,
-            data:[1,2,3,4,5,6,7,8],
+            today:'',
+            yesterday:'',
+            total:'',
+            data:[1,2,3,4,5,6,7,8]
 
-            RankingTitle:'得宝数据',
-            RankingSwitch:'综合排名',
-            RankingListBlack:[
-              {title:'我的排名',count:66},
-              {title:'今日得宝数',count:75},
-              {title:'全民累计得宝数',count:75}
-            ],
-            RankingListForce:[
-              {level:1,name:'yizhisheng',count:1000},
-              {level:2,name:'yizhisheng',count:100},
-              {level:3,name:'yizhisheng',count:10}
-            ]
           }
         },
       mounted(){
         let height=$("#nav1").height()+$("#nav2").height()+$("#nav3").height();
         console.log(height)
         $("#navBox").css({height:height+'px'});
-        $("#dataBox").css({marginTop:height+'px'})
+        $("#dataBox").css({marginTop:height+'px'});
+        this.$nextTick(function() {
+				this.myrankings();
+			})
       },
       methods: {
         evers() {
@@ -98,17 +92,30 @@
         goBack() {
           this.$router.go(-1);
         },
-        rankings(){
-          if(this.isBlack){
-            this.isBlack=false;
-            this.RankingTitle='综合排名';
-            this.RankingSwitch='得宝数据';
-          }else {
-            this.isBlack=true;
-            this.RankingTitle='得宝数据';
-            this.RankingSwitch='综合排名';
+          myrankings(){
+          	this.$http({
+						method: "post",
+						url: "/play-record",
+						headers: {
+							"device": "android",
+							"uid": localStorage.getItem("uid"),
+							"Access-Control-Allow-Origin": "*"
+						},
+						data: {}
+					}).then(function(res) {
+						
+						if(res.data.code == 0) {
+							this.today = res.data.data.today_pearl_reward;
+							this.total = res.data.data.total_pearl_reward;
+							this.yesterday = res.data.data.yesterday_pearl_reward;
+						} else {
+							this.$layer.msg(res.data.msg);
+						}
+					}.bind(this))
+					.catch(function(err) {
+						this.$layer.msg("系统异常，请稍后再试");
+					}.bind(this))
           }
-        }
       }
     }
 </script>

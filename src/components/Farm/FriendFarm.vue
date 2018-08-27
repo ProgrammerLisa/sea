@@ -228,6 +228,7 @@
     height: 8rem;
     position: absolute;
     animation: myfirst 2s infinite;
+
   }
   .pearlBox1{
     top: 35vh;

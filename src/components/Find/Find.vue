@@ -73,10 +73,10 @@
 
             }).then(function(res){
               if (res.data.code==0){
-                if (res.data.data.has_signed){
-                  this.signIn=false
-                } else {
+                if (res.data.has_signed){
                   this.signIn=true
+                } else {
+                  this.signIn=false
                 }
               }
             }.bind(this))

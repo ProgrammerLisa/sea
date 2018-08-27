@@ -4,9 +4,7 @@ import VueRouter from 'vue-router'
 import App from './App'
 import layer from 'vue-layer'
 import VueClipboard from 'vue-clipboard2'
-import VueScroller from 'vue-scroller'
 import VueDND from 'awe-dnd'
-// import  VueResource  from 'vue-resource'
 import axios from 'axios'
 import Croppa from 'vue-croppa'
 import 'vue-croppa/dist/vue-croppa.css'
@@ -23,7 +21,6 @@ Vue.use(VueRouter);
 Vue.use(VueClipboard);
 Vue.use(Croppa);
 Vue.use(MuseUI);
-// Vue.use(VueResource)
 theme.use('light');
 
 FastClick.attach(document.body);

@@ -55,7 +55,6 @@ import nengliang from '@/assets/images/nengliang.png'
 
 import defaultPearl from '@/assets/images/zhenzhu.png'
 import defaultOcean from '@/assets/images/haiyangzhixin.png'
-import bh from '@/assets/images/bihe.png'
 
 import ocean1 from '@/assets/images/haiyangzhixin3x/hailanzhixin1@3x.png'
 import ocean2 from '@/assets/images/haiyangzhixin3x/hailanzhixin2@3x.png'
@@ -91,7 +90,7 @@ export default {
       energyCount:0,
       marquee:'',
       hasPearl:false,
-      bh:bh,
+      bh:defaultPearl,
       zhenzhuIcon:zhenzhuIcon,
       nengliangIcon:nengliang,
       pearl:[pearl1,pearl2,pearl3,pearl4,pearl5,pearl6,pearl7,pearl8,pearl9],

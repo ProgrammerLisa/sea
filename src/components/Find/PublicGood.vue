@@ -126,6 +126,7 @@
     height: 100vh;
     overflow-x: hidden;
     overflow-y: scroll;
+    padding-bottom: 3rem;
   }
   .content::-webkit-scrollbar {
     display: none;

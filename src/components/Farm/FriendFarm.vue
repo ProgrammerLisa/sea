@@ -133,38 +133,7 @@
 			},
       getPearl(){
         this.$layer.msg("此功能暂未开放");
-//				this.imgDiv[index].isDisabled = true;
-//				this.$http({
-//						method: "post",
-//						url: "/play",
-//						headers: {
-//							"device": "android",
-//							"uid": localStorage.getItem("uid"),
-//							"Access-Control-Allow-Origin": "*"
-//						},
-//						data: {
-//							pearl_id: id
-//						}
-//					}).then(function(res) {
-//						if(res.data.code == 0) {
-//							this.pearlCount = res.data.user_pearl;
-//							this.energyCount = res.data.user_energy;
-//							$(".pearlBox").eq(index).animate({
-//								top: "-200%"
-//							}, 1000);
-//
-//							if(res.data.is_new_round === true) {
-//								this.startStyle();
-//							}
-//						} else {
-//							this.$layer.msg(res.data.msg);
-//							this.imgDiv[index].isDisabled = false;
-//						}
-//					}.bind(this))
-//					.catch(function(err) {
-//						this.imgDiv[index].isDisabled = false;
-//						this.$layer.msg("系统异常，请稍后再试");
-//					}.bind(this))
+//			
       },
 			LeavingMessage() {
 				this.$router.push({

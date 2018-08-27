@@ -7,8 +7,10 @@
       照片墙
     </mu-appbar>
     <div class="photoContainer">
-        <div class="d-flex flex-row justify-content-start align-items-center flex-wrapper"  >
-          <div class="d-flex flex-row justify-content-center align-items-end flex-demo" v-for="(p,index) in photo" > <img :src="p"  @click="openSimpleDialog(p)"></div>
+        <div class="d-flex flex-row justify-content-start align-items-center flex-wrapper" v-for="(p,index) in photo"  >
+        	<div class="d-flex flex-row justify-content-center align-items-end flex-demo" v-for="(s,i) in p.src" > 
+        		<img :src="s.src"  @click="openSimpleDialog(s.src)">
+        	</div>
         </div>
         <!--<div v-for="item in photo">
         		<img :src="item">
@@ -44,26 +46,20 @@
         },
         methods:{
           photoFunc(){
-//          this.photoList=this.$route.params.dataObj;
-//          this.src=this.photoList[0].src;
-	 this.photoList=this.$route.params.dataObj;
-	           console.log(this.$route.params.dataObj)
-	         	this.photoList.forEach(element=>{
-	         			console.log(element.src);
-	         			this.photo.push(element.src);
-           })
-//          if(this.photoList.length>3){
-//            if(this.photoList.length%3===0){
-//              for (let i=0;i<this.photoList.length/3;i++){
-//                this.photo.push({src:this.photoList.slice(3*i,3*i+3),position:['start','center','end']})
-//              }
-//            }else {
-//              for (let i=0;i<parseInt(this.photoList.length/3);i++){
-//                this.photo.push({src:this.photoList.slice(3*i,3*i+3),position:['start','center','end']})
-//              }
-//              this.photo.push({src:this.photoList.slice(parseInt(this.photoList.length/3)*3,this.photoList.length),position:['start','center','end']})
-//            }
-//          }
+            this.photoList=this.$route.params.dataObj;
+            this.src=this.photoList[0].src;
+            if(this.photoList.length>0){
+              if(this.photoList.length%3===0){
+                for (let i=0;i<this.photoList.length/3;i++){
+                  this.photo.push({src:this.photoList.slice(3*i,3*i+3),position:['start','center','end']})
+                }
+              }else {
+                for (let i=0;i<parseInt(this.photoList.length/3);i++){
+                  this.photo.push({src:this.photoList.slice(3*i,3*i+3),position:['start','center','end']})
+                }
+                this.photo.push({src:this.photoList.slice(parseInt(this.photoList.length/3)*3,this.photoList.length),position:['start','center','end']})
+              }
+            }
           },
           evers() {
             this.masrc = backs;

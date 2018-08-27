@@ -6,7 +6,7 @@
 		</div>
     <div id="loginModeTitle">
       <div class="loginMode" @click="sort(1)">
-        <a id="a_common">普通登录</a>
+        <a id="a_common">账号登录</a>
         <div id="a_common_animation"></div>
       </div>
 

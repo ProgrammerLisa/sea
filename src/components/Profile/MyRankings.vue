@@ -167,9 +167,9 @@
           }else {
             this.ranking()
           }
-        }
       }
     }
+  }
 </script>
 
 <style scoped>

@@ -10,7 +10,7 @@
           系统消息
         </span>
       </mu-appbar>
-      <div class="media">
+      <div class="media contentMarginTop">
 
         <p class="text-center"><span class="DialogDate">{{created_at}}</span></p>
 

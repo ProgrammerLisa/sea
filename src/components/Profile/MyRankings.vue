@@ -199,6 +199,7 @@
     text-align: center;
     width: 100%;
     color: #fff;
+    margin-top: 56px;
   }
   .incomeTitle{
     font-size: 1.5rem;

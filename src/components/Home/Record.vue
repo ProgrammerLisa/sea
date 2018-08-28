@@ -6,20 +6,21 @@
       </mu-button>
       <span class="navTitleText">我的战绩</span>
     </mu-appbar>
-    <div class="demo-container">
+      <div class="demo-container ">
         <div class="counts">
           <div class="grid-cell">
             <h4>今日偷取</h4>
             <div class="count">{{mycount}} 颗</div>
           </div>
         </div>
-      <div class="counts">
+        <div class="counts">
           <div class="grid-cell">
-            <h4>被偷数量</h4>
+            <h4>今日被偷</h4>
             <div class="count">{{becount}} 颗</div>
           </div>
+        </div>
       </div>
-    </div>
+
     <div class="visitorContainer">
       <div class="visitorTitle">
         <span class="sign"></span>访客
@@ -29,77 +30,86 @@
       </mu-row>
       <div class="text-center" v-else style="padding: 1rem;color: #555;font-size: 1.6rem">暂无访客</div>
     </div>
-    <div class="contentMarginTop">
-      <mu-container>
-        <mu-tabs :value.sync="active2" color="#fff" indicator-color="#09a2d6" full-width >
-          <mu-tab style="color:#555;font-size: 1.6rem">最新动态</mu-tab>
-          <mu-tab style="color:#555;font-size: 1.6rem">小偷留言</mu-tab>
-        </mu-tabs>
-        <div class="demo-text" v-if="active2 === 0">
-          <div  v-if="hasNews"  style="padding-top: 1rem">
-            <div v-for="(s,index) in stealer" class="stealerList">
+
+    <mu-tabs :value.sync="active1" inverse color="#fff" text-color="rgba(0, 0, 0, .54)"  center id="muTabs" indicator-color="#09a2b6">
+      <mu-tab class="myTabs">最新动态</mu-tab>
+      <mu-tab class="myTabs">小偷留言</mu-tab>
+    </mu-tabs>
+    <div class="demo-text" v-if="active1 === 0">
+      <div style="margin-top: 1rem">
+        <mu-container>
+          <mu-tabs :value.sync="active2" color="#fff" indicator-color="#09a2d6" full-width >
+            <mu-tab style="color:#555;font-size: 1.6rem">谁偷了我</mu-tab>
+            <mu-tab style="color:#555;font-size: 1.6rem">我偷了谁</mu-tab>
+          </mu-tabs>
+          <div class="demo-text" v-if="active2 === 0">
+            <div  v-if="hasNews"  style="padding-top: 1rem">
+              <div v-for="(s,index) in stealer" class="stealerList">
                 <div class="stealerLeft">
                   <div class="stealerTitle">
                     {{s.nickname}} <span class="stealerText">偷取了你的珍珠</span>
                   </div>
-                    <div class="stealerDate">{{s.stolen_time}}</div>
+                  <div class="stealerDate">{{s.stolen_time}}</div>
                 </div>
                 <div class="stealerRight">
                   <div class="text-right">
                     <mu-button @click="goFriendFarm(s.thief_uid)" small color="#fff" textColor="#09a2d6" flat class="vBtn">去复仇</mu-button>
                   </div>
                 </div>
+              </div>
             </div>
+            <div v-else class="text-center" style="padding: 5rem;font-size: 1.6rem;color:#777">暂无最新动态</div>
           </div>
-          <div v-else class="text-center" style="padding: 5rem;font-size: 1.6rem;color:#777">暂无最新动态</div>
-        </div>
-        <div class="demo-text" v-if="active2 === 1">
-          <div v-if="hasMessage" style="padding-top: 2rem">
-            <div class="media" v-for="(m,index) in message" >
-              <div class="media-left">
-                <img class="media-object" :src="m.from_user_avatar"/>
-              </div>
-              <div class="media-body">
-                <h4 class="media-heading">{{m.from_user}}</h4>
-                <div style="color: #666;font-size: small;width: 100%" class="stealerTitle">{{m.created_at}}</div>
+          <div class="demo-text" v-if="active2 === 1">
 
-              </div>
-              <div class="media-right leaveMessage">
-                <mu-button small color="#fff" textColor="#09a2d6" @click="openLeaveMessage(index)" flat style="border: solid 1px #09a2d6;height: 3rem;margin-top: 0.5rem">回复</mu-button>
-                <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="m.openMessage">
-                <div class="publicDialogTitle" style="height: 110px;padding-top: 1rem">
+          </div>
+
+        </mu-container>
+      </div>
+    </div>
+    <div class="demo-text" v-if="active1 === 1">
+      <div v-if="hasMessage" style="margin:1rem 0;padding:1rem 1rem;background: #fff">
+        <div class="media" v-for="(m,index) in message" >
+          <div class="media-left">
+            <img class="media-object" :src="m.from_user_avatar"/>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">{{m.from_user}}</h4>
+            <div style="color: #666;font-size: small;width: 100%" class="stealerTitle">{{m.created_at}}</div>
+
+          </div>
+          <div class="media-right leaveMessage">
+            <mu-button small color="#fff" textColor="#09a2d6" @click="openLeaveMessage(index)" flat style="border: solid 1px #09a2d6;height: 3rem;margin-top: 0.5rem">回复</mu-button>
+            <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="m.openMessage">
+              <div class="publicDialogTitle" style="height: 110px;padding-top: 1rem">
                 <mu-text-field type="text" label="回复小偷" v-model="leavemessage" placeholder="请输入回复内容"  full-width style="margin-bottom: 0;"></mu-text-field>
                 <mu-slide-top-transition v-show="messageMsgShow">
-                <div class="mu-transition-box mu-inverse" style="color: #EF5350;font-size: small" v-show="messageMsgShow">{{messageMsg}}</div>
+                  <div class="mu-transition-box mu-inverse" style="color: #EF5350;font-size: small" v-show="messageMsgShow">{{messageMsg}}</div>
                 </mu-slide-top-transition>
-                </div>
-
-                <mu-button slot="actions" flat color="primary" @click="leaveMessage(index,m.mid)">发送 </mu-button>
-                <mu-button slot="actions" flat color="#555" @click="closeLeaveMessage(index)">取消</mu-button>
-
-                </mu-dialog>
               </div>
-              <div class="panel-group" id="accordion">
-                <div class="panel panel-default">
-                  <div class="panel-heading" style="background: #FAFAFA">
-                    <a data-toggle="collapse" data-parent="#accordion" :href="m.href"> <h4 class="panel-title"> <span class="glyphicon glyphicon-chevron-down" style="color: #777" v-show="m.hasMsg"></span> {{m.content}}</h4></a>
-                  </div>
-                  <div :id="m.item" v-show="m.hasMsg" class="panel-collapse collapse in" style="background: #f5f5f5;min-width:100%">
-                    <div class="panel-body" v-for="(r,item) in m.reply" style="border: none;padding:0.5rem 1rem;font-size: 1.5rem"><span style="color: #09a2d6">我</span>：{{r[1]}}</div>
-                  </div>
-                </div>
+
+              <mu-button slot="actions" flat color="primary" @click="leaveMessage(index,m.mid)">发送 </mu-button>
+              <mu-button slot="actions" flat color="#555" @click="closeLeaveMessage(index)">取消</mu-button>
+
+            </mu-dialog>
+          </div>
+          <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+              <div class="panel-heading" style="background: #FAFAFA">
+                <a data-toggle="collapse" data-parent="#accordion" :href="m.href"> <h4 class="panel-title"> <span class="glyphicon glyphicon-chevron-down" style="color: #777" v-show="m.hasMsg"></span> {{m.content}}</h4></a>
+              </div>
+              <div :id="m.item" v-show="m.hasMsg" class="panel-collapse collapse in" style="background: #f5f5f5;min-width:100%">
+                <div class="panel-body" v-for="(r,item) in m.reply" style="border: none;padding:0.5rem 1rem;font-size: 1.5rem"><span style="color: #09a2d6">我</span>：{{r[1]}}</div>
               </div>
             </div>
           </div>
-
-
-
-
-          <div v-else class="text-center" style="padding: 5rem;font-size: 1.6rem;color:#777">暂无留言</div>
         </div>
+      </div>
 
-      </mu-container>
+      <div v-else class="text-center" style="padding: 5rem;font-size: 1.6rem;color:#777">暂无留言</div>
     </div>
+
+
   </div>
 </template>
 
@@ -116,6 +126,7 @@
             hasVisitor:false,
             hasNews:false,
             hasMessage:false,
+            active1: 0,
             active2: 0,
             open: '',
             visitor:[],
@@ -134,6 +145,7 @@
         },
         methods:{
           gain(){
+            //
             this.$http({
               method: "post",
               url: "/users/gain",
@@ -143,6 +155,7 @@
                 "Access-Control-Allow-Origin": "*"
               }
             }).then(function(res) {
+              console.log(res.data)
               //偷取数量
               if(res.data.code===0){
                 this.mycount=res.data.data.today_steal;
@@ -310,6 +323,9 @@
   .count{
     color: #09a2d6;
   }
+  .myNavTitle{
+    position: relative;
+  }
   .visitorContainer{
     background: #fff;
     padding: 0 5%;
@@ -318,6 +334,15 @@
     font-size: 1.7rem;
     border-bottom: 1px solid #f5f5f5;
     padding: 1rem 0;
+  }
+  #muTabs{
+    padding-top: 1rem;
+  }
+  .myTabs{
+    border: 1px solid #09a2d6;
+  }
+  #muTabs .mu-tab-active{
+    background: #09a2d6;
   }
   .sign{
     background: #09a2d6;
@@ -364,7 +389,6 @@
   }
   #accordion{
     margin-left: 6.5rem;
-    margin-top: -2rem;
   }
   .media{
     border-bottom: 1px solid #eee;
@@ -378,7 +402,7 @@
     width: 6rem;
   }
   .media-object{
-    width: 6rem;
+    width: 3.1rem;
     border-radius: 50%;
   }
   a{

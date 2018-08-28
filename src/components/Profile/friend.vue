@@ -6,6 +6,7 @@
 			</mu-button>
 			<span class="navTitleText">我的好友</span>
 		</mu-appbar>
+
 		<div class="contentMarginTop">
 			<div v-if="noFriend" class="addressNone">
 				<img :src="noFriendImg" />
@@ -14,7 +15,7 @@
 			</div>
 			<div class="media friends" v-for="f in friends" v-else @click="friendData(f.uid)">
 				<div class="media-left">
-					<img class="media-object" :src="f.avatar" alt="...">
+					<img class="media-object" :src="f.avatar">
 				</div>
 				<div class="media-body">
 					<h4 class="media-heading">

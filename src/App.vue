@@ -90,24 +90,21 @@ a:hover, a:focus ,a:visited,a:active{
   text-decoration: none;
 }
   .myNavTitle{
-    text-align: center;
     border-bottom: 1px solid #eee;
-    height: 4rem;
-    margin-left: -48px;
+    width: 100%;padding: 4px;position:fixed;top: 0
   }
 
   .getBack{
-    position: relative;
-    left:48px;
+    vertical-align: middle
   }
   .getBack img {
     height: 2.5rem;
   }
   .navTitleText{
-    font-size: 1.8rem;
+    font-size: 1.8rem;position: absolute;width: 60%;text-align: center;top: 0;left: 20%;line-height: 56px
   }
   .contentMarginTop{
-    margin-top: 0.6rem;
+    margin-top: 60px;
   }
   .publicDialogTitle{
     padding: 2rem;

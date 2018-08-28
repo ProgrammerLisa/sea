@@ -17,7 +17,7 @@
 		<div class="farmBack" >
       <div id="pearlContainer" v-if="hasPearl">
       <button :class="t.divClass" v-for="(t,index) in imgDiv" @click="getPearl(index,t.id) " :disabled="t.isDisabled" :style="'background: url('+t.href+');background-repeat: no-repeat;background-size: 4.5rem 4.5rem ;'">
-        <div class="text-center" style="margin-top: 5rem;font-size: smaller" >{{t.imgCount}}</div>
+        <div class="text-center" style="margin-top: 4rem;font-size: smaller" >{{t.imgCount}}</div>
       </button>
     </div>
 			<div class="waitingContainer" v-else>
@@ -88,7 +88,6 @@
 							friend_uid: localStorage.getItem("friend_uid")
 						}
 					}).then(function(res) {
-
 						if(res.data.code == 0) {
               this.friend_pearl=res.data.friend_pearl;
               if(res.data.friend_avatar===null||res.data.friend_avatar===undefined||res.data.friend_avatar===""){
@@ -114,7 +113,7 @@
                     //海洋之心
                     this.PearlLevel2.id=res.data.pearls[i].id;
                     this.PearlLevel2.imgCount=res.data.pearls[i].reward;
-                    this.PearlLevel1.divClass='pearlBox pearlBox'+res.data.pearls[i].today_num%10;
+                    this.PearlLevel2.divClass='pearlBox pearlBox'+res.data.pearls[i].today_num%10;
                     this.imgDiv.push(this.PearlLevel2)
                     this.PearlLevel2={ imgCount:'', divClass:'',href:defaultOcean, animation:'', level:2, id:'',isDisabled:false}
                   }
@@ -131,40 +130,39 @@
 						this.$layer.msg("系统异常，请稍后再试");
 					}.bind(this))
 			},
-      getPearl(){
-        this.$layer.msg("此功能暂未开放");
-//				this.imgDiv[index].isDisabled = true;
-//				this.$http({
-//						method: "post",
-//						url: "/play",
-//						headers: {
-//							"device": "android",
-//							"uid": localStorage.getItem("uid"),
-//							"Access-Control-Allow-Origin": "*"
-//						},
-//						data: {
-//							pearl_id: id
-//						}
-//					}).then(function(res) {
-//						if(res.data.code == 0) {
-//							this.pearlCount = res.data.user_pearl;
-//							this.energyCount = res.data.user_energy;
-//							$(".pearlBox").eq(index).animate({
-//								top: "-200%"
-//							}, 1000);
-//
-//							if(res.data.is_new_round === true) {
-//								this.startStyle();
-//							}
-//						} else {
-//							this.$layer.msg(res.data.msg);
-//							this.imgDiv[index].isDisabled = false;
-//						}
-//					}.bind(this))
-//					.catch(function(err) {
-//						this.imgDiv[index].isDisabled = false;
-//						this.$layer.msg("系统异常，请稍后再试");
-//					}.bind(this))
+      getPearl(index,id){
+				this.$http({
+						method: "post",
+						url: "/steal",
+						headers: {
+							"device": "android",
+							"uid": localStorage.getItem("uid"),
+							"Access-Control-Allow-Origin": "*"
+						},
+						data: {
+							pearl_id: id,
+              friend_uid:this.id
+            }
+					}).then(function(res) {
+						if(res.data.code == 0) {
+              this.$layer.msg(res.data.msg);
+              console.log(res.data)
+						// 	this.pearlCount = res.data.user_pearl;
+						// 	this.energyCount = res.data.user_energy;
+						// 	$(".pearlBox").eq(index).animate({
+						// 		top: "-200%"
+						// 	}, 1000);
+                        //
+						// 	if(res.data.is_new_round === true) {
+						// 		this.startStyle();
+						// 	}
+						// } else {
+						// 	this.$layer.msg(res.data.msg);
+						}
+					}.bind(this))
+					.catch(function(err) {
+						this.$layer.msg("系统异常，请稍后再试");
+					}.bind(this))
       },
 			LeavingMessage() {
 				this.$router.push({
@@ -200,7 +198,8 @@
 	}
 
 	#farmNav {
-		background: rgba(255, 255, 255, 0.3);
+		background: transparent;
+    border: none;
 		color: #fff;
 	}
 
@@ -263,43 +262,43 @@
     outline: none;
   }
   .pearlBox1{
-    top: 35vh;
+    top: 50vh;
     left: 40vw;
   }
   .pearlBox2{
-    top: 20vh;
+    top:35vh;
     left: 41vw;
   }
   .pearlBox3{
-    top: 25vh;
+    top: 40vh;
     left: 5vw;
   }
   .pearlBox4{
-    top: 15vh;
+    top: 30vh;
     left: 20vw;
   }
   .pearlBox5{
-    top: 15vh;
-    left: 70vw;
-  }
-  .pearlBox6{
     top: 30vh;
     left: 70vw;
   }
+  .pearlBox6{
+    top: 45vh;
+    left: 70vw;
+  }
   .pearlBox7{
-    top: 40vh;
+    top: 55vh;
     left: 8vw;
   }
   .pearlBox8{
-    top: 50vh;
+    top: 65vh;
     left: 28vw;
   }
   .pearlBox9{
-    top: 45vh;
+    top: 60vh;
     left: 58vw;
   }
   .pearlBox0{
-    top: 5vh;
+    top: 20vh;
     left: 55vw;
   }
 

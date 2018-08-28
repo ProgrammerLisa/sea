@@ -163,7 +163,7 @@
 										//海洋之心
 										this.PearlLevel2.id = res.data.data.pearls[i].id;
 										this.PearlLevel2.imgCount = res.data.data.pearls[i].reward;
-										this.PearlLevel1.divClass = 'pearlBox pearlBox' + res.data.data.pearls[i].today_num % 10;
+										this.PearlLevel2.divClass = 'pearlBox pearlBox' + res.data.data.pearls[i].today_num % 10;
 										this.imgDiv.push(this.PearlLevel2)
 										this.PearlLevel2 = {
 											imgCount: '',
@@ -259,11 +259,7 @@
 				this.imgSum += this.imgDiv[index].imgCount;
 				let divSelf = e.currentTarget;
 
-				setTimeout(function() {
-					divSelf.remove();
-					localStorage.removeItem("float-container-left-" + index);
-					localStorage.removeItem("float-container-top-" + index);
-				}, 3000);
+
 			}
 
 		}

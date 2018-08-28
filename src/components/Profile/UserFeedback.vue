@@ -6,7 +6,7 @@
       </mu-button>
       <span class="navTitleText">提意见</span>
     </mu-appbar>
-		<div class="text">
+		<div class="text contentMarginTop">
 			<textarea class="form-control" rows="12" placeholder="请将您的意见或建议留言发给我们，收到后我们会立即处理并给予回复哦~" v-model="text"></textarea>
       <mu-button color="#09a2d6" @click="submitBtn" class="submitBtn">提交</mu-button>
 		</div>

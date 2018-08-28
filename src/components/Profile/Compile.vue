@@ -38,21 +38,21 @@
 				</div>
 				<div class="controlContainer">
 					<div class="controlScroll">
-            <div v-if="show">
-              <div class="controlContent" v-for="(p,index) in timg" >
-                <img @touchstart="rem(p,index)" @touchend="js()" class="media-object graph" :src="p" @click="changeActive(index)" />
-              </div>
-              <div class="chart-to" @click="openPhDialog">
-                <img class="media-object sheet" src="../../assets/images/tianjia.png" />
-              </div>
-            </div>
+						<div v-if="show">
+							<div class="controlContent" v-for="(p,index) in timg">
+								<img @touchstart="rem(p,index)" @touchend="js()" class="media-object graph" :src="p" @click="changeActive(index)" />
+							</div>
+							<div class="chart-to" @click="openPhDialog">
+								<img class="media-object sheet" src="../../assets/images/tianjia.png" />
+							</div>
+						</div>
 
-            <div class="lds-css ng-scope" v-else>
-              <div style="width:100%;height:100%" class="lds-ripple">
-                <div></div>
-                <div></div>
-              </div>
-            </div>
+						<div class="lds-css ng-scope" v-else>
+							<div style="width:100%;height:100%" class="lds-ripple">
+								<div></div>
+								<div></div>
+							</div>
+						</div>
 
 					</div>
 				</div>
@@ -60,7 +60,7 @@
 
 			<mu-paper :z-depth="0" class="demo-list-wrap marginTop">
 				<mu-list>
-					<mu-list-item to="/nickname" avatar button class="mu-list-item">
+					<mu-list-item @click='oname()' avatar button class="mu-list-item">
 						<mu-list-item-title>昵称</mu-list-item-title>
 						<mu-list-item-action class="listRight">
 							<div>{{nickname}}<img :src="more" class="moreImg" /></div>
@@ -88,7 +88,7 @@
 						</mu-list-item-action>
 					</mu-list-item>
 					<mu-divider class="mu-divider" style="margin-top: 0.6rem"></mu-divider>
-					<mu-list-item to="/Sdfs" avatar button class="mu-list-item">
+					<mu-list-item @click='sign()' avatar button class="mu-list-item">
 						<mu-list-item-title>个性签名</mu-list-item-title>
 						<mu-list-item-action class="listRight">
 							<div>{{signature}}<img :src="more" class="moreImg" /></div>
@@ -171,38 +171,38 @@
 		data() {
 			return {
 				active: 0,
-        chooseFile: '',
-        count:0,
-        extensions: '',
-        haveHeadImg: '',
+				chooseFile: '',
+				count: 0,
+				extensions: '',
+				haveHeadImg: '',
 				headImg: headImg,
-        houzhuiming: '',
-        i: '',
-        IDcode: '',
-        Iurl: '',
-        loading2:false,
-        masrc: back,
-        more: more,
-        nickname: '',
-        openAlert: false,
-        openHi: false,
-        openPh: false,
-        openScroll: false,
-        options: [
-          '男',
-          '女'
-        ],
-        phtoImg: '',
-        pmid: '',
-        rank: '',
-        ringtone: '',
-        show:true,
-        signature: 'hahaha',
+				houzhuiming: '',
+				i: '',
+				IDcode: '',
+				Iurl: '',
+				loading2: false,
+				masrc: back,
+				more: more,
+				nickname: '',
+				openAlert: false,
+				openHi: false,
+				openPh: false,
+				openScroll: false,
+				options: [
+					'男',
+					'女'
+				],
+				phtoImg: '',
+				pmid: '',
+				rank: '',
+				ringtone: '',
+				show: true,
+				signature: 'hahaha',
 				timg: [],
 			}
 		},
 
-    mounted: function() {
+		mounted: function() {
 			this.$nextTick(function() {
 				this.compile();
 
@@ -278,7 +278,7 @@
 						} else {
 							this.haveHeadImg = false
 							this.phtoImg = false
-              this.show=true;
+							this.show = true;
 							this.$layer.msg(res.data.msg);
 						}
 					}.bind(this))
@@ -289,6 +289,7 @@
 					}.bind(this))
 
 			},
+
 			changeActive(index) {
 				this.active = index;
 			},
@@ -337,7 +338,6 @@
 						}
 					})
 				};
-
 			},
 			photoImg(c) {
 				let that = this;
@@ -353,7 +353,8 @@
 						params: {
 							name: 'name',
 							dataObj: e.target.result,
-							extensions: that.chooseFile.name.split('.')[1]
+							extensions: that.chooseFile.name.split('.')[1],
+
 						}
 					})
 				};
@@ -433,98 +434,124 @@
 					.catch(function(err) {
 						this.$layer.msg("系统异常，请稍后再试" + err);
 					}.bind(this))
+			},
+			oname() {
+				this.$router.push({
+						path: '/nickname',
+						name:'nickname',
+						params: {
+							name: 'name',
+							dataObj: {
+								nickname:this.nickname
+							}
+						}
+					})
+			},
+			sign() {
+				this.$router.push({
+					path:'/sdfs',
+					name:'sdfs',
+					params: {
+						name: 'name',
+						dataObj:{
+							signature: this.signature
+						}
+					}
+				})
 			}
-
 		}
 	}
 </script>
 
 <style scoped>
-  @keyframes lds-ripple {
-    0% {
-      top: 96px;
-      left: 96px;
-      width: 0;
-      height: 0;
-      opacity: 1;
-    }
-    100% {
-      top: 18px;
-      left: 18px;
-      width: 156px;
-      height: 156px;
-      opacity: 0;
-    }
-  }
-  @-webkit-keyframes lds-ripple {
-    0% {
-      top: 96px;
-      left: 96px;
-      width: 0;
-      height: 0;
-      opacity: 1;
-    }
-    100% {
-      top: 18px;
-      left: 18px;
-      width: 156px;
-      height: 156px;
-      opacity: 0;
-    }
-  }
-  .lds-ripple {
-    position: relative;
-    margin: auto;
-  }
-  .lds-ripple div {
-    box-sizing: content-box;
-    position: absolute;
-    border-width: 4px;
-    border-style: solid;
-    opacity: 1;
-    border-radius: 50%;
-    -webkit-animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-    animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-  }
-  .lds-ripple div:nth-child(1) {
-    border-color: #09a2d6;
-  }
-  .lds-ripple div:nth-child(2) {
-    border-color: #32a0da;
-    -webkit-animation-delay: -0.5s;
-    animation-delay: -0.5s;
-  }
-  .lds-ripple {
-    width: 200px !important;
-    height: 200px !important;
-    -webkit-transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
-    transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
-  }
-
-
-
-
-	.mu-item-action{
+	@keyframes lds-ripple {
+		0% {
+			top: 96px;
+			left: 96px;
+			width: 0;
+			height: 0;
+			opacity: 1;
+		}
+		100% {
+			top: 18px;
+			left: 18px;
+			width: 156px;
+			height: 156px;
+			opacity: 0;
+		}
+	}
+	
+	@-webkit-keyframes lds-ripple {
+		0% {
+			top: 96px;
+			left: 96px;
+			width: 0;
+			height: 0;
+			opacity: 1;
+		}
+		100% {
+			top: 18px;
+			left: 18px;
+			width: 156px;
+			height: 156px;
+			opacity: 0;
+		}
+	}
+	
+	.lds-ripple {
+		position: relative;
+		margin: auto;
+	}
+	
+	.lds-ripple div {
+		box-sizing: content-box;
+		position: absolute;
+		border-width: 4px;
+		border-style: solid;
+		opacity: 1;
+		border-radius: 50%;
+		-webkit-animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+		animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+	}
+	
+	.lds-ripple div:nth-child(1) {
+		border-color: #09a2d6;
+	}
+	
+	.lds-ripple div:nth-child(2) {
+		border-color: #32a0da;
+		-webkit-animation-delay: -0.5s;
+		animation-delay: -0.5s;
+	}
+	
+	.lds-ripple {
+		width: 200px !important;
+		height: 200px !important;
+		-webkit-transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+		transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+	}
+	
+	.mu-item-action {
 		min-width: 3.0rem;
 	}
-
+	
 	.chart-to {
 		width: 20vw;
-		height:20vw;
+		height: 20vw;
 		background-color: #F5F5F5;
-    margin: 1vw;
+		margin: 1vw;
 		display: inline-block;
 		white-space: nowrap;
 	}
-
+	
 	.sheet {
-		vertical-align:middle;
+		vertical-align: middle;
 		text-align: center;
 		width: 10vw;
-		height:10vw;
+		height: 10vw;
 		margin: 25%;
 	}
-
+	
 	.content {
 		overflow-x: hidden;
 		background-color: #f5f5f5;
@@ -533,52 +560,55 @@
 		overflow-y: scroll;
 		padding-bottom: 2rem;
 	}
-
+	
 	.content::-webkit-scrollbar {
 		display: none
 	}
-
+	
 	.media {
 		background: #fff;
 		padding: 1rem 1.1rem;
 		border-bottom: 0.1rem solid #f5f5f5;
 		margin-top: 0.6rem;
 	}
-
+	
 	.media-body {
 		vertical-align: middle;
 	}
-
+	
 	.headImg {
 		width: 4rem;
 		height: 4rem;
 		border-radius: 50%;
-    border: 1px solid #f5f5f5;
+		border: 1px solid #f5f5f5;
 	}
-  .myHeadImg{
-    padding: 1rem 0;
-  }
+	
+	.myHeadImg {
+		padding: 1rem 0;
+	}
+	
 	.graph {
 		width: 4rem;
 		height: 4rem;
 		margin-top: 10px;
 	}
-
+	
 	.listRight {
 		width: 50%
 	}
+	
 	.mu-list {
 		padding: 0;
 	}
-
+	
 	.mu-list {
 		padding: 0;
 	}
-
+	
 	#ImgModal .modal-content {
 		height: 14vh;
 	}
-
+	
 	.headImgChoose {
 		position: relative;
 		display: inline-block;
@@ -595,7 +625,7 @@
 		border-radius: 0;
 		outline: none;
 	}
-
+	
 	.headImgChoose input {
 		position: absolute;
 		right: 0;
@@ -604,69 +634,66 @@
 		-ms-filter: 'alpha(opacity=0)';
 		font-size: 100%;
 	}
-
-
+	
 	.moreImg {
 		height: 3rem;
 	}
-
+	
 	#hint {
 		float: right;
 		color: #888;
 		font-size: 0.05rem;
 		padding-right: 1.5rem;
 	}
-
+	
 	.mu-divider {
 		background: #f5f5f5;
 	}
+	
 	.marginTop {
 		margin-top: 0.6rem;
 		background: #f5f5f5;
 	}
-
+	
 	.mu-list-item {
 		background: #fff;
 	}
-
+	
 	.controlContainer {
 		overflow-x: scroll;
 	}
-
+	
 	.controlContainer::-webkit-scrollbar {
 		display: none
 	}
-
+	
 	.controlContent {
 		display: inline-block;
 		white-space: nowrap;
 	}
-
+	
 	.controlContent img {
 		width: 20vw;
 		height: 20vw;
 		margin: 1vw;
 	}
-
+	
 	.controlScroll {
 		width: auto;
 	}
-  .delBtn{
-    border-top: 1px solid #ddd;width: 50%;
-    color: #555;
-  }
-  .delBtn:first-child{
-    border-right: 1px solid #ddd;
-    color: #09a2d6;
-  }
-  
-  div.mu-item-title{
-  	width: 50px;
-  }
-
+	
+	.delBtn {
+		border-top: 1px solid #ddd;
+		width: 50%;
+		color: #555;
+	}
+	
+	.delBtn:first-child {
+		border-right: 1px solid #ddd;
+		color: #09a2d6;
+	}
+	
+	div.mu-item-title {
+		width: 50px;
+	}
 </style>
-
-
-
-
-

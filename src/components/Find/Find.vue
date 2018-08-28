@@ -18,8 +18,8 @@
 			<div class="taskList">
 				<span class="glyphicon glyphicon-link taskIcon"></span>
 				<div class="taskTitle">邀请10名好友</div>
-				<div class="taskBody">邀请好友+10能量</div>
-				<div class="taskBtn">+5能量</div>
+				<div class="taskBody">邀请好友+20能量</div>
+				<div class="taskBtn"  @click="signInHy">+20能量</div>
 			</div>
 			<div class="taskList">
 				<span class="glyphicon glyphicon-globe taskIcon"></span>
@@ -55,7 +55,8 @@
 		data() {
 			return {
 				time: Date.now(),
-				signIn: ''
+				signIn: '',
+				signIns:''
 			}
 		},
 		mounted() {
@@ -102,7 +103,25 @@
 					}).then(function(res) {
 						this.$layer.msg(res.data.msg);
 						if(res.data.code == 0) {
-							this.signIn = true
+						}
+					}.bind(this))
+					.catch(function(err) {
+						this.$layer.msg("系统异常，请稍后再试");
+					}.bind(this));
+			},
+			signInHy() {
+				this.$http({
+						method: "post",
+						url: "/tasks/invite-friends",
+						headers: {
+							"device": "android",
+							"uid": localStorage.getItem("uid"),
+							"Access-Control-Allow-Origin": "*"
+						},
+					}).then(function(res) {
+						this.$layer.msg(res.data.msg);
+						this.$router.replace('/ask');
+						if(res.data.code == 0) {
 						}
 					}.bind(this))
 					.catch(function(err) {
@@ -123,24 +142,24 @@
 		overflow-x: hidden;
 		overflow-y: scroll;
 	}
-
+	
 	.content::-webkit-scrollbar {
 		display: none;
 	}
-
+	
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-
+	
 	.panel-body {
 		padding: 1rem;
 	}
-
+	
 	.shoppingPanel {
 		padding: 0 1rem;
 	}
-
+	
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -150,16 +169,16 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-
+	
 	.TitleImg img {
 		width: 100%;
 	}
-
+	
 	.task {
 		margin-bottom: 0;
 		margin-top: 1rem;
 	}
-
+	
 	.task1 {
 		border-top: 1px solid #f7f7f7;
 		border-bottom: 1px solid #f7f7f7;
@@ -167,29 +186,29 @@
 		text-align: center;
 		display: flex;
 	}
-
+	
 	.taskList {
 		width: 33%;
 		border-right: 0.1rem solid #eee;
 		padding: 0.5rem 0;
 	}
-
+	
 	.taskListLast {
 		padding: 0.5rem 0;
 		border-right: none;
 	}
-
+	
 	.taskIcon {
 		color: #09a2d6;
 		font-size: 2.5rem;
 		margin: 1rem 0;
 	}
-
+	
 	.taskBody {
 		font-size: 0.5rem;
 		color: #666;
 	}
-
+	
 	.taskBtn {
 		background: #09a2d6;
 		color: #fff;
@@ -197,18 +216,18 @@
 		margin: 1rem auto;
 		border-radius: 2rem;
 	}
-
+	
 	.taskSuccess {
 		margin: 1rem 0;
 	}
-
+	
 	.glyphicon-ok {
 		background: #20C779;
 		color: #fff;
 		padding: 0.4rem;
 		border-radius: 50%;
 	}
-
+	
 	.decorate {
 		color: #09a2d6;
 		transform: rotate(90deg);

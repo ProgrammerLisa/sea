@@ -40,6 +40,9 @@
               haveData:false
             }
         },
+        mounted(){
+        	this.form.input = this.$route.params.dataObj.signature;
+        },
         methods:{
           evers() {
             this.masrc = backs;

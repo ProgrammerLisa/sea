@@ -14,11 +14,11 @@
 			<p>留言板</p>
 		</div>
 
-		<div class="farmBack" >
+		<div class="farmBack">
       <div id="pearlContainer" v-if="hasPearl">
       <button :class="t.divClass" v-for="(t,index) in imgDiv" @click="getPearl(index,t.id) " :disabled="t.isDisabled" :style="'background: url('+t.href+');background-repeat: no-repeat;background-size: 4.5rem 4.5rem ;'">
-        <div class="text-center" style="margin-top: 4rem;font-size: smaller" >{{t.imgCount}}</div>
-      </button>
+        <div class="text-center animateCount" style="margin-top: 4rem;font-size: smaller">{{t.imgCount}}</div>
+        </button>
     </div>
 			<div class="waitingContainer" v-else>
 				<div class="waiting">
@@ -56,6 +56,7 @@
           level:1,
           id:'',
           isDisabled:false,
+          hasStolen:true
         },
         PearlLevel2:{
           imgCount:'',
@@ -65,6 +66,7 @@
           level:2,
           id:'',
           isDisabled:false,
+          hasStolen:true
         }
 			}
 		},
@@ -76,6 +78,7 @@
 		},
 		methods: {
 			friendfarm() {
+			  this.imgDiv=[];
 				this.$http({
 						method: "post",
 						url: "/users/plant",
@@ -88,7 +91,7 @@
 							friend_uid: localStorage.getItem("friend_uid")
 						}
 					}).then(function(res) {
-						if(res.data.code == 0) {
+						if(res.data.code === 0) {
               this.friend_pearl=res.data.friend_pearl;
               if(res.data.friend_avatar===null||res.data.friend_avatar===undefined||res.data.friend_avatar===""){
                 this.friend_avatar=pic1
@@ -104,8 +107,12 @@
 
                     //普通珍珠
                     this.PearlLevel1.id=res.data.pearls[i].id;
-                    this.PearlLevel1.imgCount=res.data.pearls[i].reward;
                     this.PearlLevel1.divClass='pearlBox pearlBox'+res.data.pearls[i].today_num%10;
+                    if(res.data.pearls[i].has_stolen){
+                      this.PearlLevel1.imgCount="已摘取"
+                    }else {
+                      this.PearlLevel1.imgCount=res.data.pearls[i].reward;
+                    }
                     this.imgDiv.push(this.PearlLevel1)
                     this.PearlLevel1={ imgCount:'', divClass:'',href:defaultPearl, animation:'', level:1, id:'',isDisabled:false}
 
@@ -131,6 +138,7 @@
 					}.bind(this))
 			},
       getPearl(index,id){
+
 				this.$http({
 						method: "post",
 						url: "/steal",
@@ -141,24 +149,17 @@
 						},
 						data: {
 							pearl_id: id,
-              friend_uid:this.id
+              friend_uid:localStorage.getItem("friend_uid")
             }
 					}).then(function(res) {
-						if(res.data.code == 0) {
-              this.$layer.msg(res.data.msg);
-              console.log(res.data)
-						// 	this.pearlCount = res.data.user_pearl;
-						// 	this.energyCount = res.data.user_energy;
-						// 	$(".pearlBox").eq(index).animate({
-						// 		top: "-200%"
-						// 	}, 1000);
-                        //
-						// 	if(res.data.is_new_round === true) {
-						// 		this.startStyle();
-						// 	}
-						// } else {
-						// 	this.$layer.msg(res.data.msg);
-						}
+						if(res.data.code === 0) {
+              $(".animateCount").eq(index).text('+'+res.data.stolen_reward).animate({color:"#12dd99",opacity:0,marginTop:'-100%'},1000);
+              setTimeout(()=>{
+                this.friendfarm()
+              },1000)
+            }else {
+              this.$layer.msg("偷过啦");
+            }
 					}.bind(this))
 					.catch(function(err) {
 						this.$layer.msg("系统异常，请稍后再试");

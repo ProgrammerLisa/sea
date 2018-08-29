@@ -19,9 +19,9 @@
 				</div>
 				<div class="media-body">
 					<h4 class="media-heading">
-			            {{f.nickname}}
-			            <span class="sex" v-bind:style="f.bcColor">{{f.gender}}</span>
-          			</h4> ID：{{f.uid}}
+            {{f.nickname}}
+            <span class="sex" v-bind:style="f.bcColor">{{f.gender}}</span>
+          </h4> ID：{{f.uid}}
 				</div>
 			</div>
 		</div>

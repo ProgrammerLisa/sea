@@ -6,27 +6,32 @@
       </mu-button>
       <span class="navTitleText">我的战绩</span>
     </mu-appbar>
+    <div class="contentMarginTop">
       <div class="demo-container ">
         <div class="counts">
           <div class="grid-cell">
             <h4>今日偷取</h4>
-            <div class="count">{{mycount}} 颗</div>
+            <div class="count">{{today_steal_pearl}} 颗</div>
+            <div class="allCount"><span>累计偷取</span> <span class="allCountFont">{{total_steal_pearl}}颗</span></div>
           </div>
         </div>
         <div class="counts">
           <div class="grid-cell">
             <h4>今日被偷</h4>
-            <div class="count">{{becount}} 颗</div>
+            <div class="count">{{today_stolen_pearl}} 颗</div>
+            <div class="allCount"><span>累计被偷</span> <span class="allCountFont">{{total_stolen_pearl}}颗</span></div>
           </div>
         </div>
       </div>
+    </div>
+
 
     <div class="visitorContainer">
       <div class="visitorTitle">
         <span class="sign"></span>访客
       </div>
       <mu-row v-if="hasVisitor">
-        <mu-col span="2" v-for="(v,index) in visitor" :key="index"><div class="grid-cell visitor"><img :src="v.avatar"/></div></mu-col>
+        <mu-col span="2" v-for="(v,index) in visitor" :key="index"><div class="grid-cell visitor"><img :src="v.avatar" @click="goFriendData(v.uid)"/></div></mu-col>
       </mu-row>
       <div class="text-center" v-else style="padding: 1rem;color: #555;font-size: 1.6rem">暂无访客</div>
     </div>
@@ -44,24 +49,49 @@
           </mu-tabs>
           <div class="demo-text" v-if="active2 === 0">
             <div  v-if="hasNews"  style="padding-top: 1rem">
-              <div v-for="(s,index) in stealer" class="stealerList">
-                <div class="stealerLeft">
-                  <div class="stealerTitle">
-                    {{s.nickname}} <span class="stealerText">偷取了你的珍珠</span>
+              <mu-container ref="container" class="demo-loadmore-content" style="padding: 0">
+                <mu-load-more :refreshing="refreshingStolen" :loading="loadingStolen" @load="loadStolen">
+                  <div v-for="(s,index) in stolens" class="stealerList">
+                    <div class="stealerLeft">
+                      <div class="stealerTitle">
+                        {{s.thief.nickname}} <span class="stealerText">偷取了你的珍珠</span>
+                      </div>
+                      <div class="stealerDate">{{s.thief.logined_at}}</div>
+                    </div>
+                    <div class="stealerRight">
+                      <div class="text-right">
+                        <mu-button @click="goFriendFarm(s.thief.uid)" small color="#fff" textColor="#09a2d6" flat class="vBtn">去复仇</mu-button>
+                      </div>
+                    </div>
                   </div>
-                  <div class="stealerDate">{{s.stolen_time}}</div>
-                </div>
-                <div class="stealerRight">
-                  <div class="text-right">
-                    <mu-button @click="goFriendFarm(s.thief_uid)" small color="#fff" textColor="#09a2d6" flat class="vBtn">去复仇</mu-button>
-                  </div>
-                </div>
-              </div>
+                </mu-load-more>
+              </mu-container>
+              <div class="noMore" v-show="noMoreStolen">没有更多信息了</div>
             </div>
-            <div v-else class="text-center" style="padding: 5rem;font-size: 1.6rem;color:#777">暂无最新动态</div>
+            <div v-else class="text-center" style="padding-top: 4rem;font-size: 1.6rem;color:#777">暂无最新动态</div>
           </div>
           <div class="demo-text" v-if="active2 === 1">
-
+            <div  v-if="hasSteal"  style="padding-top: 1rem">
+              <mu-container ref="container" class="demo-loadmore-content" style="padding: 0">
+                <mu-load-more :refreshing="refreshingSteal" :loading="loadingSteal" @load="loadSteal">
+                  <div v-for="(s,index) in steals" class="stealerList">
+                    <div class="stealerLeft">
+                      <div class="stealerTitle">
+                        <span class="stealerText">你偷取了</span>{{s.thief.nickname}}<span class="stealerText">的珍珠</span>
+                      </div>
+                      <div class="stealerDate">{{s.pearl.updated_at}}</div>
+                    </div>
+                    <div class="stealerRight">
+                      <div class="text-right">
+                        <mu-button @click="goFriendFarm(s.thief.uid)" small color="#fff" textColor="#09a2d6" flat class="vBtn">去挑衅</mu-button>
+                      </div>
+                    </div>
+                  </div>
+                </mu-load-more>
+              </mu-container>
+              <div class="noMore" v-show="noMoreSteal">没有更多信息了</div>
+            </div>
+            <div v-else class="text-center" style="padding-top: 4rem;font-size: 1.6rem;color:#777">暂无最新动态</div>
           </div>
 
         </mu-container>
@@ -106,7 +136,7 @@
         </div>
       </div>
 
-      <div v-else class="text-center" style="padding: 5rem;font-size: 1.6rem;color:#777">暂无留言</div>
+      <div v-else class="text-center" style="padding-top: 5rem;font-size: 1.6rem;color:#777">暂无留言</div>
     </div>
 
 
@@ -121,17 +151,29 @@
         data(){
           return{
             masrc: back,
-            mycount:'',
-            becount:'',
+            today_steal_pearl:0,
+            today_stolen_pearl:0,
+            total_steal_pearl:0,
+            total_stolen_pearl:0,
             hasVisitor:false,
             hasNews:false,
+            hasSteal:false,
             hasMessage:false,
             active1: 0,
             active2: 0,
             open: '',
             visitor:[],
-            stealer:[],
+            stolens:[],
+            steals:[],
             message:[],
+            refreshingSteal:false,
+            loadingSteal:false,
+            refreshingStolen:false,
+            loadingStolen:false,
+            nextSteal:"/steal-record",
+            nextStolen:"/stolen-record",
+            noMoreSteal:false,
+            noMoreStolen:false,
             leavemessage:'',
             messageMsg:'',
             messageMsgShow:false
@@ -141,11 +183,12 @@
           this.$nextTick(function () {
             this.gain();
             this.board();
+            this.stolen();
+            this.steal()
           })
         },
         methods:{
           gain(){
-            //
             this.$http({
               method: "post",
               url: "/users/gain",
@@ -155,27 +198,25 @@
                 "Access-Control-Allow-Origin": "*"
               }
             }).then(function(res) {
-              console.log(res.data)
               //偷取数量
               if(res.data.code===0){
-                this.mycount=res.data.data.today_steal;
-                this.becount=res.data.data.today_stolen;
+                this.today_steal_pearl=res.data.data.today_steal_pearl;
+                this.today_stolen_pearl=res.data.data.today_stolen_pearl;
+                this.total_steal_pearl = res.data.data.total_steal_pearl;
+                this.total_stolen_pearl = res.data.data.total_stolen_pearl;
               }
               //访客（最多六人）
               if(res.data.data.visitor_list.length!==0){
                 this.hasVisitor=true;
                 this.visitor=res.data.data.visitor_list;
               }
-              //最新动态
-              if(res.data.data.news.length!==0){
-                this.hasNews=true;
-                this.stealer=res.data.data.news
-              }
+
             }.bind(this))
               .catch(function(err) {
                 this.$layer.msg("系统异常，请稍后再试");
               }.bind(this))
           },
+          //留言板
           board(){
             this.$http({
               method: "post",
@@ -208,15 +249,106 @@
                 this.$layer.msg("系统异常，请稍后再试");
               }.bind(this))
           },
-          openLeaveMessage(index){
-            this.message[index].openMessage = true;
+          //谁偷了我
+          stolen(){
+            this.$http({
+              method: "post",
+              url: this.nextStolen,
+              headers: {
+                "device": "android",
+                "uid": localStorage.getItem("uid"),
+                "Access-Control-Allow-Origin": "*"
+              }
+            }).then(function(res) {
+              if(res.data.code===0){
+                if(res.data.data.items.length!==0){
+                  this.hasNews=true;
+                  for (let i in res.data.data.items){
+                    this.stolens.push(res.data.data.items[i])
+                  }
+                }else {
+                  this.hasNews=false
+                }
+                if(res.data.data.next!==""){
+                  this.nextStolen = res.data.data.next
+                }else {
+                  this.nextStolen=""
+                }
+              }else {
+                this.nextStolen=""
+              }
+
+            }.bind(this))
+              .catch(function(err) {
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this))
           },
-          closeLeaveMessage(index){
-            this.leavemessage='';
-            this.messageMsgShow=false;
-            this.message[index].openMessage = false;
-            console.log(this.message[index].openMessage)
+          //我偷了谁
+          steal(){
+            this.$http({
+              method: "post",
+              url:this.nextSteal,
+              headers: {
+                "device": "android",
+                "uid": localStorage.getItem("uid"),
+                "Access-Control-Allow-Origin": "*"
+              }
+            }).then(function(res) {
+              this.loadingSteal = false;
+              if(res.data.code===0){
+                if(res.data.data.items.length!==0){
+                  this.hasSteal=true;
+                  for (let i in res.data.data.items){
+                    this.steals.push(res.data.data.items[i])
+                  }
+                }else {
+                  this.hasSteal=false;
+                }
+                if(res.data.data.next!==""){
+                  this.nextSteal = res.data.data.next
+                }else {
+                  this.nextSteal=""
+                }
+              }else {
+                this.nextSteal=""
+              }
+
+            }.bind(this))
+              .catch(function(err) {
+                this.loadingSteal = false;
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this))
           },
+
+          loadSteal(){
+            if(this.nextSteal===""){
+                this.loadingSteal = false;
+                this.noMoreSteal=true;
+            }else {
+              this.loadingSteal = true;
+              this.steal()
+            }
+          },
+          loadStolen(){
+            if(this.nextStolen===""){
+              this.loadingStolen = false;
+              this.noMoreStolen=true;
+            }else {
+              this.loadingStolen = true;
+              this.Stolen()
+            }
+          },
+          goFriendData(f){
+            localStorage.setItem("friend_uid",f);
+            this.$router.push({
+              path: '/frienddata',
+              name: 'frienddata',
+              params: {
+                name: 'name'
+              }
+            })
+          },
+          //回复留言
           leaveMessage(index,mid){
             let res = new RegExp("^[ ]+$");
             if(this.leavemessage===''||res.test(this.leavemessage)===true){
@@ -250,6 +382,7 @@
                 }.bind(this))
             }
           },
+          //跳转到好友养殖场
           goFriendFarm(id){
             this.$http({
               method: "post",
@@ -281,6 +414,15 @@
                 this.$layer.msg("系统异常，请稍后再试");
               }.bind(this))
 
+          },
+          openLeaveMessage(index){
+            this.message[index].openMessage = true;
+          },
+          closeLeaveMessage(index){
+            this.leavemessage='';
+            this.messageMsgShow=false;
+            this.message[index].openMessage = false;
+            console.log(this.message[index].openMessage)
           },
           evers() {
             this.masrc = backs;
@@ -323,8 +465,8 @@
   .count{
     color: #09a2d6;
   }
-  .myNavTitle{
-    position: relative;
+  .contentMarginTop{
+    margin-top: 68px;
   }
   .visitorContainer{
     background: #fff;
@@ -340,6 +482,7 @@
   }
   .myTabs{
     border: 1px solid #09a2d6;
+    color: #444;
   }
   #muTabs .mu-tab-active{
     background: #09a2d6;
@@ -439,5 +582,20 @@
   .messageMsg{
     color: #ff2424;
     font-size: small;
+  }
+  .noMore{
+    width: 100%;
+    line-height: 4rem;
+    color: #666;
+    text-align: center;
+    background: #fff;
+    margin-top: -4rem;
+  }
+  .allCount{
+    font-size: small;
+    margin-top: 1rem;
+  }
+  .allCountFont{
+    color:#666;
   }
 </style>

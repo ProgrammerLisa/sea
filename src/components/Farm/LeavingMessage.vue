@@ -1,3 +1,4 @@
+
 <template>
   <div class="content">
     <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0">
@@ -7,7 +8,7 @@
       <span class="navTitleText">留言板</span>
     </mu-appbar>
     <div class="text contentMarginTop">
-      <textarea class="form-control" rows="12" placeholder="给Ta下个战书吧~" v-model="text"></textarea>
+      <textarea class="form-control" rows="5" placeholder="给Ta下个战书吧~" v-model="text"></textarea>
       <mu-button color="#09a2d6" @click="submitBtn" class="submitBtn">提交</mu-button>
     </div>
   </div>
@@ -43,7 +44,7 @@
             headers:{"device":"android","uid":localStorage.getItem("uid"),"Access-Control-Allow-Origin":"*"},
             data: {
               content:this.text,
-              to_user:this.id
+              to_user:localStorage.getItem("friend_uid")
             }
           }).then(function(res){
             this.$layer.msg(res.data.msg)

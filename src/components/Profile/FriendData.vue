@@ -43,7 +43,7 @@
     <div v-else class="more">
       暂无相册
     </div>
-		<mu-button @click="goFriendFarm" full-width large color="#09A2D6" style="position: fixed;bottom: 0">进入好友主页</mu-button>
+		<mu-button @click="goFriendFarm" full-width large color="#09A2D6" style="position: fixed;bottom: 0">进入好友养殖场</mu-button>
 	</div>
 </template>
 
@@ -63,12 +63,13 @@
 				bcColor: 'background:#5CB3FC',
 				level: 0,
 				nickname: '好友昵称',
-				friend_uid: 123456789,
+				friend_uid: "",
 				resume: '这个人很懒，还没有签名。',
         		hasPic:false
 			}
 		},
 		mounted() {
+
 			this.$nextTick(function() {
 				this.FriendData();
 			})

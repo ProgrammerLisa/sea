@@ -106,7 +106,6 @@
             }
           }).then(function(res) {
             this.loading = false;
-            console.log(res.data);
             if(res.data.code === 0) {
               this.next=res.data.data.pearls.next;
               this.today_pearl_reward=res.data.data.today_pearl_reward;

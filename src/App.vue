@@ -101,7 +101,8 @@ a:hover, a:focus ,a:visited,a:active{
     height: 2.5rem;
   }
   .navTitleText{
-    font-size: 1.8rem;position: absolute;width: 60%;text-align: center;top: 0;left: 20%;line-height: 56px
+    font-size: 1.8rem;position: absolute;width: 60%;text-align: center;top: 0;left: 20%;line-height: 56px;
+    z-index: 999;
   }
   .contentMarginTop{
     margin-top: 60px;

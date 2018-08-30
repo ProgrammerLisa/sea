@@ -5,7 +5,7 @@
 			<mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
 				<img :src="masrc" />
 			</mu-button>
-			<span class="navTitleText">编辑资料</span>
+			<span class="navTitleText">个人资料</span>
 		</mu-appbar>
 		<div class="contentMarginTop">
 			<mu-paper :z-depth="0" class="demo-list-wrap">

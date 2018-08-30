@@ -141,12 +141,12 @@
 						},
 						data: {
 							pearl_id: id,
-              friend_uid:this.id
+              				friend_uid:this.id
             }
 					}).then(function(res) {
 						if(res.data.code == 0) {
-              this.$layer.msg(res.data.msg);
-              console.log(res.data)
+              				this.$layer.msg(res.data.msg);
+              				console.log(res.data)
 						// 	this.pearlCount = res.data.user_pearl;
 						// 	this.energyCount = res.data.user_energy;
 						// 	$(".pearlBox").eq(index).animate({
@@ -158,6 +158,8 @@
 						// 	}
 						// } else {
 						// 	this.$layer.msg(res.data.msg);
+						}else{
+							this.$layer.msg(res.data.msg);
 						}
 					}.bind(this))
 					.catch(function(err) {

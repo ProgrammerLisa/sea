@@ -23,13 +23,11 @@
     data(){
       return {
         masrc: back,
-        text:'',
-        id:''
+        text:''
       }
     },
     mounted(){
-      this.id=this.$route.params.dataObj;
-      console.log(this.id)
+
     },
     methods: {
       submitBtn(){

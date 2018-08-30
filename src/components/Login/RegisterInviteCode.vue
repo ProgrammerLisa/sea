@@ -141,12 +141,13 @@
 	textarea:focus {
 		-webkit-box-shadow: 0 0 0 1000px white inset;
 	}
-	
+
 	.content {
 		overflow: hidden;
 		color: #666;
 		width: 100vw;
-		height: auto;
+    height: 100vh;
+    background: #fff;
 	}
 
 	.panel {
@@ -192,9 +193,12 @@
 		width: 70%;
 		outline: none;
 	}
-	
+
 	#agree {
-		margin-top: 80%;
+		position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 2rem 0;
 		font-size: 1rem;
 	}
 

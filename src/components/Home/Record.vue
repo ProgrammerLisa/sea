@@ -54,7 +54,7 @@
                   <div v-for="(s,index) in stolens" class="stealerList">
                     <div class="stealerLeft">
                       <div class="stealerTitle">
-                        {{s.thief.nickname}} <span class="stealerText">偷取了你的珍珠</span>
+                        <span style="color: #09a2d6">"{{s.thief.nickname}}"</span><span class="stealerText">偷取了你的珍珠</span>
                       </div>
                       <div class="stealerDate">{{s.thief.logined_at}}</div>
                     </div>
@@ -77,13 +77,13 @@
                   <div v-for="(s,index) in steals" class="stealerList">
                     <div class="stealerLeft">
                       <div class="stealerTitle">
-                        <span class="stealerText">你偷取了</span>{{s.thief.nickname}}<span class="stealerText">的珍珠</span>
+                        <span class="stealerText">你偷取了</span><span style="color: #09a2d6">"{{s.user.nickname}}"</span><span class="stealerText">的珍珠</span>
                       </div>
                       <div class="stealerDate">{{s.pearl.updated_at}}</div>
                     </div>
                     <div class="stealerRight">
                       <div class="text-right">
-                        <mu-button @click="goFriendFarm(s.thief.uid)" small color="#fff" textColor="#09a2d6" flat class="vBtn">去挑衅</mu-button>
+                        <mu-button @click="goFriendFarm(s.user.uid)" small color="#fff" textColor="#09a2d6" flat class="vBtn">去挑衅</mu-button>
                       </div>
                     </div>
                   </div>
@@ -98,8 +98,10 @@
       </div>
     </div>
     <div class="demo-text" v-if="active1 === 1">
-      <div v-if="hasMessage" style="margin:1rem 0;padding:1rem 1rem;background: #fff">
-        <div class="media" v-for="(m,index) in message" >
+      <div v-if="hasMessage" style="margin-top:1rem;padding:1rem 1rem 0;background: #fff">
+        <mu-container ref="container" class="demo-loadmore-content" style="padding: 0">
+          <mu-load-more :refreshing="refreshingMessage" :loading="loadingMessage" @load="loadMessage">
+            <div class="media" v-for="(m,index) in message" >
           <div class="media-left">
             <img class="media-object" :src="m.from_user_avatar"/>
           </div>
@@ -134,6 +136,9 @@
             </div>
           </div>
         </div>
+          </mu-load-more>
+        </mu-container>
+        <div class="noMore" v-show="noMoreMessage">没有更多信息了</div>
       </div>
 
       <div v-else class="text-center" style="padding-top: 5rem;font-size: 1.6rem;color:#777">暂无留言</div>
@@ -170,10 +175,14 @@
             loadingSteal:false,
             refreshingStolen:false,
             loadingStolen:false,
+            refreshingMessage:false,
+            loadingMessage:false,
             nextSteal:"/steal-record",
             nextStolen:"/stolen-record",
+            nextMessage:"/messages/message-board",
             noMoreSteal:false,
             noMoreStolen:false,
+            noMoreMessage:false,
             leavemessage:'',
             messageMsg:'',
             messageMsgShow:false
@@ -227,22 +236,32 @@
                 "Access-Control-Allow-Origin": "*"
               }
             }).then(function(res) {
-              if(res.data.data.length!==0){
-                this.message=[];
-                this.hasMessage=true;
-                let data=res.data.data;
-                for (let i in data) {
-                  data[i].openMessage=false;
-                  if(data[i].reply.length!==0){
-                    data[i].hasMsg=true;
-                    data[i].item = 'item'+i;
-                    data[i].href='#item'+i;
-                    this.message.push(data[i])
-                  }else {
-                    data[i].hasMsg=false;
-                    this.message.push(data[i])
+              this.loadingMessage = false;
+              if(res.data.code===0){
+                if(res.data.data.length!==0){
+                  this.message=[];
+                  this.hasMessage=true;
+                  let data=res.data.data;
+                  for (let i in data) {
+                    data[i].openMessage=false;
+                    if(data[i].reply.length!==0){
+                      data[i].hasMsg=true;
+                      data[i].item = 'item'+i;
+                      data[i].href='#item'+i;
+                      this.message.push(data[i])
+                    }else {
+                      data[i].hasMsg=false;
+                      this.message.push(data[i])
+                    }
                   }
                 }
+                if(res.data.next!==""){
+                  this.nextMessage = res.data.next
+                }else {
+                  this.nextMessage=""
+                }
+              }else {
+                this.nextMessage=""
               }
             }.bind(this))
               .catch(function(err) {
@@ -260,6 +279,8 @@
                 "Access-Control-Allow-Origin": "*"
               }
             }).then(function(res) {
+
+              this.loadingStolen = false;
               if(res.data.code===0){
                 if(res.data.data.items.length!==0){
                   this.hasNews=true;
@@ -294,6 +315,7 @@
                 "Access-Control-Allow-Origin": "*"
               }
             }).then(function(res) {
+
               this.loadingSteal = false;
               if(res.data.code===0){
                 if(res.data.data.items.length!==0){
@@ -338,6 +360,15 @@
               this.Stolen()
             }
           },
+          loadMessage(){
+            if(this.nextMessage===""){
+              this.loadingMessage = false;
+              this.noMoreMessage=true;
+            }else {
+              this.loadingMessage = true;
+              this.board()
+            }
+          },
           goFriendData(f){
             localStorage.setItem("friend_uid",f);
             this.$router.push({
@@ -371,6 +402,7 @@
                 }
               }).then(function(res) {
                 this.message[index].openMessage = false;
+                this.leavemessage='';
                 this.$layer.msg(res.data.msg);
                 this.board();
                 if(res.data.code===0){
@@ -422,7 +454,6 @@
             this.leavemessage='';
             this.messageMsgShow=false;
             this.message[index].openMessage = false;
-            console.log(this.message[index].openMessage)
           },
           evers() {
             this.masrc = backs;

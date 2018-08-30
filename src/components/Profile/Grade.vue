@@ -141,8 +141,8 @@
 					},
 					data: {}
 				}).then(function(res) {
-
-					if(res.data.code == 0) {
+          console.log(res.data)
+					if(res.data.code === 0) {
 //						this.rank = res.data.data.level;
 //						this.signature = res.data.data.resume;
 						this.energ = res.data.data.energy;
@@ -150,7 +150,7 @@
 						this.level = res.data.data.level;
 						this.need = res.data.data.up_level_needed;
 
-						if(res.data.data.avatar == "") {
+						if(res.data.data.avatar === ""||res.data.data.avatar === null|| res.data.data.avatar === undefined) {
 							this.headImg = headImg;
 							this.haveHeadImg = false
 						} else {
@@ -217,6 +217,7 @@
 		text-align: center;
 		width: 100%;
 		color: #fff;
+    margin-top: 56px;
 	}
   .GradeMsg{
     border-bottom: 1px solid #eee;

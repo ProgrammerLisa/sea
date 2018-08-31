@@ -54,13 +54,13 @@
                   <div v-for="(s,index) in stolens" class="stealerList">
                     <div class="stealerLeft">
                       <div class="stealerTitle">
-                        <span style="color: #09a2d6">"{{s.thief.nickname}}"</span><span class="stealerText">偷取了你的珍珠</span>
+                        <span style="color: #09a2d6">"{{s.thief_name}}"</span><span class="stealerText">偷取了你的珍珠</span><span style="color: #09a2d6">{{s.stolen_total}}</span>
                       </div>
-                      <div class="stealerDate">{{s.thief.logined_at}}</div>
+                      <div class="stealerDate">{{s.time}}</div>
                     </div>
                     <div class="stealerRight">
                       <div class="text-right">
-                        <mu-button @click="goFriendFarm(s.thief.uid)" small color="#fff" textColor="#09a2d6" flat class="vBtn">去复仇</mu-button>
+                        <mu-button @click="goFriendFarm(s.thief_uid)" small color="#fff" textColor="#09a2d6" flat class="vBtn">去复仇</mu-button>
                       </div>
                     </div>
                   </div>
@@ -77,13 +77,13 @@
                   <div v-for="(s,index) in steals" class="stealerList">
                     <div class="stealerLeft">
                       <div class="stealerTitle">
-                        <span class="stealerText">你偷取了</span><span style="color: #09a2d6">"{{s.user.nickname}}"</span><span class="stealerText">的珍珠</span>
+                        <span class="stealerText">你偷取了</span><span style="color: #09a2d6">"{{s.friend_name}}"</span><span class="stealerText">的珍珠</span><span style="color: #09a2d6">{{s.steal_total}}</span>
                       </div>
-                      <div class="stealerDate">{{s.pearl.updated_at}}</div>
+                      <div class="stealerDate">{{s.time}}</div>
                     </div>
                     <div class="stealerRight">
                       <div class="text-right">
-                        <mu-button @click="goFriendFarm(s.user.uid)" small color="#fff" textColor="#09a2d6" flat class="vBtn">去挑衅</mu-button>
+                        <mu-button @click="goFriendFarm(s.friend_uid)" small color="#fff" textColor="#09a2d6" flat class="vBtn">去挑衅</mu-button>
                       </div>
                     </div>
                   </div>
@@ -189,6 +189,7 @@
           }
         },
         mounted(){
+          localStorage.removeItem("friend_uid");
           this.$nextTick(function () {
             this.gain();
             this.board();
@@ -279,19 +280,18 @@
                 "Access-Control-Allow-Origin": "*"
               }
             }).then(function(res) {
-
               this.loadingStolen = false;
               if(res.data.code===0){
-                if(res.data.data.items.length!==0){
+                if(res.data.data.length>0){
                   this.hasNews=true;
-                  for (let i in res.data.data.items){
-                    this.stolens.push(res.data.data.items[i])
+                  for (let i in res.data.data){
+                    this.stolens.push(res.data.data[i])
                   }
                 }else {
                   this.hasNews=false
                 }
-                if(res.data.data.next!==""){
-                  this.nextStolen = res.data.data.next
+                if(res.data.next!==""){
+                  this.nextStolen = res.data.next
                 }else {
                   this.nextStolen=""
                 }
@@ -318,16 +318,16 @@
 
               this.loadingSteal = false;
               if(res.data.code===0){
-                if(res.data.data.items.length!==0){
+                if(res.data.data.length>0){
                   this.hasSteal=true;
-                  for (let i in res.data.data.items){
-                    this.steals.push(res.data.data.items[i])
+                  for (let i in res.data.data){
+                    this.steals.push(res.data.data[i])
                   }
                 }else {
                   this.hasSteal=false;
                 }
-                if(res.data.data.next!==""){
-                  this.nextSteal = res.data.data.next
+                if(res.data.next!==""){
+                  this.nextSteal = res.data.next
                 }else {
                   this.nextSteal=""
                 }
@@ -428,14 +428,14 @@
                 friend_uid:id
               }
             }).then(function(res) {
+              localStorage.setItem("friend_uid",id);
+              if(res.data.code === 0) {
 
-              if(res.data.code == 0) {
                 this.$router.push({
                   path:'/friendfarm',
                   name:'friendfarm',
                   params: {
-                    name: 'name',
-                    dataObj: id
+                    name: 'name'
                   }
                 })
               } else {

@@ -20,17 +20,20 @@
 		<form v-if="isShow">
 			<div style="padding:0 30px;">
 				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
-					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: -5px;right: 7%;">
-           			  <img src="../../assets/images/x.png" style="position:absolute;"/>
+					<!--<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: 25px;right: 7%;">
+           			  <img src="../../assets/images/x.png" style="position:absolute;top: -20px;"/>
+          			</button>-->
+          			
+					<mu-text-field required="required" class="phone" ref="mobile" v-on:input="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" :max-length="11" keyboard="number" is-type="china-mobile" />
+					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top:-22%;right: 7%;">
+          			  <img src="../../assets/images/x.png" style="position: absolute;" />
           			</button>
-					<input required="required" class="phone" ref="mobile" v-on:input="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" />
-
 				</div>
 
-				<div class="group_input">
-					<input id="ipwd" v-model="inppwd" v-on:input="ipwdshow()" :type="types" placeholder="请输入密码" maxlength="16" is-type="sendcode" />
+				<div class="group_input" style="width: 100%;">
+					<mu-text-field id="ipwd"  v-on:input="ipwdshow()"  v-model="inppwd" :type="types" placeholder="请输入密码" :max-length="16" :full-width="100" is-type="sendcode" />
 					<img id="group_input_img" @click="Alt" :src="imgs" />
-					<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position: relative;top: -32px;right: 40px;">
+					<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top:-22%;right: 14%;">
           			  <img src="../../assets/images/x.png" />
           			</button>
 				</div>
@@ -51,15 +54,15 @@
 		<form v-else>
 			<div style="padding: 0 30px;">
 				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
-					<input class="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
-					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 7%;">
-            			<img src="../../assets/images/x.png" style="position: absolute;"/>
-         			 </button>
+					<mu-text-field required="required" class="phone" ref="mobile" v-on:input="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" :max-length="11" keyboard="number" is-type="china-mobile" />
+					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top:-22%;right: 7%;">
+          			  <img src="../../assets/images/x.png" style="position: absolute;" />
+          			</button>
 				</div>
 
 				<div id="div_ipwd">
-					<input id="verifica" v-on:input="verifshow()" v-model="verif" maxlength="4" placeholder="请输入短信验证码" />
-					<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</x-button>
+					<mu-text-field id="verifica" :full-width="100"  v-on:input="verifshow()" v-model="verif" maxlength="4" placeholder="请输入短信验证码" />
+					<mu-button flat color="primary" id="verbtn" slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</mu-button>
 					<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 120px;">
             			<img src="../../assets/images/x.png" style="position: relative;"/>
           			</button>
@@ -389,6 +392,8 @@
 
 	input[type=text]:focus,
 	input[type=password]:focus,
+	
+	input.mu-text-field-input,
 	textarea:focus {
 		-webkit-box-shadow: 0 0 0 1000px white inset;
 	}
@@ -404,7 +409,7 @@
 
 	#login {
 		width: 100vw;
-		height: 100vh;
+		height: 101vh;
 		background: #fff;
 		overflow: hidden;
 	}
@@ -417,15 +422,19 @@
 		border-right: 0;
 		font-size: 1.5rem;
 		border-bottom: 1px solid #F5F5F5;
-		margin-top: 3rem;
+		margin-top: 30%;
 		width: 100%;
 		outline: none;
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
+	
+	div#div_ipwd{
+		padding-top:10px ;
+	}
 
 	#ipwd .vux-x-input .weui-cell {
-		width: 80%;
+		width: 100%;
 	}
 
 	.weui-btn::after {
@@ -434,7 +443,7 @@
 
 	#verbtn {
 		position: relative;
-		margin-top: -44px;
+		margin-top: -68px;
 		margin-bottom: 1px;
 		width: 25%;
 		min-width: 100px;
@@ -453,7 +462,7 @@
 		border-right: 0;
 		/*padding-left: 1.2rem;*/
 		font-size: 1.5rem;
-		border-bottom: 1px solid #F5F5F5;
+		/*border-bottom: 1px solid #F5F5F5;*/
 		width: 100%;
 		outline: none;
 		letter-spacing: 0.05rem;
@@ -469,12 +478,22 @@
 	}
 
 	#ipwd {
-		border-top: 0;
+		/*border-top: 0;
 		border-left: 0;
 		border-right: 0;
 		font-size: 1.5rem;
 		border-bottom: 1px solid #F5F5F5;
 		margin-top: 2rem;
+		width: 100%;
+		outline: none;
+		letter-spacing: 0.05rem;
+		padding-bottom: 0.5rem;*/
+		border-top: 0;
+		border-left: 0;
+		border-right: 0;
+		/*padding-left: 1.2rem;*/
+		font-size: 1.5rem;
+		/*border-bottom: 1px solid #F5F5F5;*/
 		width: 100%;
 		outline: none;
 		letter-spacing: 0.05rem;
@@ -488,7 +507,7 @@
 
 	#group_input_img {
 		position: relative;
-		margin-top: -35px;
+		margin-top: -68px;
 		float: right;
 		font-size: 1.2rem;
 		height: 30px;
@@ -606,4 +625,14 @@
 	button#btn_login_sms.weui-btn.weui-btn_primary {
 		width: 100%;
 	}
+	
+	#login,#LoginTitle{
+		background: url(../../assets/images/bglu.png);
+	}
+	
+	input#ipwd.mu-text-field-input{
+		width: 100px;
+	}
+	
+	
 </style>

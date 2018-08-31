@@ -1,5 +1,6 @@
 <template>
 	<div id="content">
+    <audio style="display: none;" id="pearlAudio" src="../../assets/audio/zhenzhu.mp3"></audio>
 		<div class="landscape"></div>
 		<div class="filter"></div>
 		<canvas id="canvas"></canvas>
@@ -32,8 +33,9 @@
 			<p>邀请好友</p>
 		</router-link>
 		<div id="pearlContainer" v-if="hasPearl">
-			<button :class="t.divClass" v-for="(t,index) in imgDiv" @click="getPearl(index,t.id) " :disabled="t.isDisabled" :style="'background: url('+t.href+');background-repeat: no-repeat;background-size: 4.5rem 4.5rem ;'">
-        <div class="text-center" style="margin-top: 5rem;font-size: smaller" >{{t.imgCount}}</div>
+			<button :class="t.divClass" v-for="(t,index) in imgDiv" @click="getPearl(index,t.id) " :disabled="t.isDisabled">
+        <div><img :src="t.href" class="divImg"/></div>
+        <div class="text-center divCount">{{t.imgCount}}</div>
       </button>
 		</div>
 		<div class="waitingContainer" v-else>
@@ -54,6 +56,30 @@
 	import defaultPearl from '@/assets/images/zhenzhu.png'
 	import defaultOcean from '@/assets/images/haiyangzhixin.png'
 
+  import p1 from '@/assets/images/zhenzhu3x/zhenzhu1@3x.png'
+  import p2 from '@/assets/images/zhenzhu3x/zhenzhu2@3x.png'
+  import p3 from '@/assets/images/zhenzhu3x/zhenzhu3@3x.png'
+  import p4 from '@/assets/images/zhenzhu3x/zhenzhu4@3x.png'
+  import p5 from '@/assets/images/zhenzhu3x/zhenzhu5@3x.png'
+  import p6 from '@/assets/images/zhenzhu3x/zhenzhu6@3x.png'
+  import p7 from '@/assets/images/zhenzhu3x/zhenzhu7@3x.png'
+  import p8 from '@/assets/images/zhenzhu3x/zhenzhu8@3x.png'
+  import p9 from '@/assets/images/zhenzhu3x/zhenzhu9@3x.png'
+  import p10 from '@/assets/images/zhenzhu3x/zhenzhu10@3x.png'
+  import p11 from '@/assets/images/zhenzhu3x/zhenzhu11@3x.png'
+
+  import o1 from '@/assets/images/haiyangzhixin3x/hailanzhixin1@3x.png'
+  import o2 from '@/assets/images/haiyangzhixin3x/hailanzhixin2@3x.png'
+  import o3 from '@/assets/images/haiyangzhixin3x/hailanzhixin3@3x.png'
+  import o4 from '@/assets/images/haiyangzhixin3x/hailanzhixin4@3x.png'
+  import o5 from '@/assets/images/haiyangzhixin3x/hailanzhixin5@3x.png'
+  import o6 from '@/assets/images/haiyangzhixin3x/hailanzhixin6@3x.png'
+  import o7 from '@/assets/images/haiyangzhixin3x/hailanzhixin7@3x.png'
+  import o8 from '@/assets/images/haiyangzhixin3x/hailanzhixin8@3x.png'
+  import o9 from '@/assets/images/haiyangzhixin3x/hailanzhixin9@3x.png'
+  import o10 from '@/assets/images/haiyangzhixin3x/hailanzhixin10@3x.png'
+  import o11 from '@/assets/images/haiyangzhixin3x/hailanzhixin11@3x.png'
+
 
 	export default {
 		components: {
@@ -72,6 +98,8 @@
 				bh: defaultPearl,
 				zhenzhuIcon: zhenzhuIcon,
 				nengliangIcon: nengliang,
+        p:[p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11],
+        o:[o1,o2,o3,o4,o5,o6,o7,o8,o9,o10,o11],
 				imgDiv: [],
 				PearlLevel1: {
 					imgCount: '',
@@ -172,7 +200,8 @@
 
 			},
 			getPearl(index, id) {
-				this.imgDiv[index].isDisabled = true;
+        let pearlAudio = document.getElementById('pearlAudio');
+        pearlAudio.play();
 				this.$http({
 						method: "post",
 						url: "/play",
@@ -186,14 +215,47 @@
 						}
 					}).then(function(res) {
 						if(res.data.code === 0) {
+              this.imgDiv[index].isDisabled = true;
 							this.pearlCount = res.data.user_pearl;
 							this.energyCount = res.data.user_energy;
-							$(".pearlBox").eq(index).animate({
-								top: "-200%"
-							}, 1000);
-							// if(res.data.is_new_round === true) {
-							// 	this.startStyle();
-							// }
+              let that = this;
+              let i = 0;
+              if(that.imgDiv[index].href===defaultPearl){
+                let timer =  setInterval(()=>{
+                  if(i<that.p.length){
+                    that.imgDiv[index].href =that.p[i];
+                    $(".divImg").eq(index).css({width:"150%",marginLeft:"-25%",marginTop:'-1rem'});
+                    $(".divCount").eq(index).css({marginTop:"-0.6rem"});
+
+                    i++
+                  }else {
+                    clearInterval(timer);
+                    $(".pearlBox").eq(index).animate({top: "-200%"}, 1000);
+
+                  }
+
+                },200)
+              }else if(that.imgDiv[index].href===defaultOcean){
+                let timer =  setInterval(()=>{
+                  if(i<that.o.length){
+                    that.imgDiv[index].href =that.o[i];
+                    $(".divImg").eq(index).css({width:"150%",marginLeft:"-25%"});
+                    $(".divCount").eq(index).css({marginTop:"-0.5rem"});
+
+                    i++
+                  }else {
+                    clearInterval(timer);
+                    $(".pearlBox").eq(index).animate({top: "-200%"}, 1000);
+
+                  }
+
+                },200)
+              }
+              if(res.data.pearls.length===0){
+                setTimeout(()=>{
+                  that.hasPearl = false;
+                },3500)
+              }
 						} else {
 							this.$layer.msg(res.data.msg);
 							this.imgDiv[index].isDisabled = false;
@@ -203,45 +265,6 @@
 						this.imgDiv[index].isDisabled = false;
 						this.$layer.msg("系统异常，请稍后再试");
 					}.bind(this))
-			},
-
-			animation(e, index, arr) {
-				for(let i in arr) {
-					(function(i) {
-						setTimeout(function() {
-							e.target.src = arr[i];
-							if(i == arr.length - 1) {
-								console.log(true)
-								$(".float-container").eq(index).animate({
-									marginTop: '-150%'
-								}, 500)
-							}
-						}, i * 200);
-
-					})(i);
-
-				}
-			},
-			accumulative(e, index) {
-				let that = this;
-				let imgArr = [];
-				switch(parseInt(e.currentTarget.dataset.level)) {
-					case 1:
-						imgArr = that.pearl;
-						that.animation(e, index, imgArr);
-						that.$layer.msg("普通珍珠");
-						break;
-					case 2:
-						imgArr = that.ocean;
-						that.animation(e, index, imgArr);
-						that.$layer.msg("恭喜获得 海洋之心");
-						break;
-				}
-
-				this.imgSum += this.imgDiv[index].imgCount;
-				let divSelf = e.currentTarget;
-
-
 			}
 
 		}
@@ -354,19 +377,6 @@
 		height: 50vh;
 	}
 
-	.float-container {
-		width: 8rem;
-		height: 8rem;
-		position: absolute;
-		/*box-shadow: 0.1rem 0.1rem 0.1rem #112941;*/
-		animation: myfirst 2s infinite;
-		text-align: center;
-	}
-
-	.float-container img {
-		width: 100%;
-	}
-
 	p {
 		margin-bottom: 0;
 	}
@@ -390,6 +400,7 @@
 		position: absolute;
 		outline: none;
 		animation: myfirst 2s infinite;
+    background: none;
 	}
 
 	.pearlBox1 {
@@ -441,7 +452,12 @@
 		top: -10vh;
 		left: 55vw;
 	}
-
+  .divImg{
+    width: 100%;
+  }
+  .divCount{
+    margin-top: 0.5rem;font-size: smaller
+  }
 	.waitingContainer {
 		position: relative;
 		margin-top: 13vh;

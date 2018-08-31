@@ -4,15 +4,16 @@
       <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
         <img :src="masrc"/>
       </mu-button>
-      <span class="titleText">邀请码</span>
+      <span class="navTitleText">邀请码</span>
     </mu-appbar>
-		<div class="code">
+		<div class="code contentMarginTop">
 			<div class="title">我的专属邀请码</div>
 			<div id="ask_invite" v-model="ask_invite">{{ask_invite}}</div>
-      <div style="margin-top: 1rem">
-        <mu-button large color="#09a2d6" v-clipboard:copy="ask_invite" v-clipboard:success="onCopy" v-clipboard:error="onError">复制邀请码</mu-button>
-      </div>
       <div class="msgText">每邀请一位好友下载并注册，你和好友都将获得同等奖励</div>
+      <div>
+        <mu-button full-width large color="#09a2d6" v-clipboard:copy="ask_invite" v-clipboard:success="onCopy" v-clipboard:error="onError">复制邀请码</mu-button>
+      </div>
+
 		</div>
     <div class="inviteCodeImg">
       <img :src="erweima"/>
@@ -129,7 +130,7 @@
     color: #777;
     font-size: smaller;
     text-align: center;
-    padding: 1rem 0;
+    padding: 2rem 0 1rem;
   }
 
   .inviteCodeImg{

@@ -6,6 +6,7 @@
       </mu-button>
       <span class="navTitleText">爱心捐助</span>
     </mu-appbar>
+    <div class="contentMarginTop"></div>
     <mu-carousel hide-controls>
       <mu-carousel-item>
         <img :src="carouselImg1">
@@ -134,5 +135,8 @@
     padding: 1rem;
     text-align: center;
     z-index: 999;
+  }
+  .contentMarginTop{
+    margin-top: 56px;
   }
 </style>

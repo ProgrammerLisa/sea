@@ -1,5 +1,6 @@
 <template>
 	<div class="content">
+    <audio style="display: none;" id="pearlAudio" src="../../assets/audio/zhenzhu.mp3"></audio>
 		<mu-appbar class="myNavTitle" textColor="#fff" z-depth="0" id="farmNav">
 			<mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
 				<img :src="masrc" />
@@ -44,7 +45,6 @@
 				masrc: back,
 				bh: defaultPearl,
         friend_pearl: 0,
-				id: '',
         friend_avatar:pic1,
         hasPearl:false,
         imgDiv:[],
@@ -71,7 +71,6 @@
 			}
 		},
 		mounted() {
-			this.id = this.$route.params.dataObj;
 			this.$nextTick(function() {
 				this.friendfarm();
 			})
@@ -138,7 +137,6 @@
 					}.bind(this))
 			},
       getPearl(index,id){
-
 				this.$http({
 						method: "post",
 						url: "/steal",
@@ -153,9 +151,21 @@
             }
 					}).then(function(res) {
 						if(res.data.code === 0) {
+              let pearlAudio = document.getElementById('pearlAudio');
+              pearlAudio.play();
+              for(let i=0;i<res.data.pearls.length;i++){
+                  this.imgDiv[i].id=res.data.pearls[i].id;
+                  if(res.data.pearls[i].has_stolen){
+                    this.imgDiv[i].imgCount="已摘取"
+                  }else {
+                    this.imgDiv[i].imgCount=res.data.pearls[i].reward;
+                  }
+
+              }
+
               $(".animateCount").eq(index).text('+'+res.data.stolen_reward).animate({color:"#12dd99",opacity:0,marginTop:'-100%'},1000);
               setTimeout(()=>{
-                this.friendfarm()
+                $(".animateCount").eq(index).text(this.imgDiv[index].imgCount).animate({color:"#fff",opacity:1,marginTop:'4rem'},100)
               },1000)
             }else {
               this.$layer.msg("偷过啦");
@@ -170,8 +180,7 @@
 					path: '/leavingmessage',
 					name: 'leavingmessage',
 					params: {
-						name: 'name',
-						dataObj: this.id
+						name: 'name'
 					}
 				})
 			},

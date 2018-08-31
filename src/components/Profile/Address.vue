@@ -12,40 +12,43 @@
 					<img :src="addressNone" />
 					<p>一个地址都没有哦</p>
 				</div>
-				<table v-else class="table address" v-for="(a,index) in myAddress">
-					<tr>
-						<td class="text-left">收货人</td>
-						<td class="text-right">{{a.msg.consignee}}</td>
-					</tr>
-					<tr>
-						<td class="text-left">联系电话</td>
-						<td class="text-right">{{a.msg.phone}}</td>
-					</tr>
-					<tr>
-						<td class="text-left">收货地址</td>
-						<td class="text-right">{{a.msg.address}}</td>
-					</tr>
-					<tr>
+        <div style="margin-bottom: 6rem" v-else >
+          <table class="table address" v-for="(a,index) in myAddress">
+            <tr>
+              <td class="text-left">收货人</td>
+              <td class="text-right">{{a.msg.consignee}}</td>
+            </tr>
+            <tr>
+              <td class="text-left">联系电话</td>
+              <td class="text-right">{{a.msg.phone}}</td>
+            </tr>
+            <tr>
+              <td class="text-left">收货地址</td>
+              <td class="text-right">{{a.msg.address}}</td>
+            </tr>
+            <tr>
 
-						<td class="col-xs-5" style="padding-right: 0;padding-top: 1rem">
-							<mu-radio @click="choose(index)" v-model="form.radio" textColor="#555" :value="a.id" :label="a.label"></mu-radio>
-						</td>
-						<td class="col-xs-7 text-right">
-							<div class="del" @click="editor(index)">
-								<img src="../../assets/images/editor.png" /> 编辑
-							</div>
-							<div class="del" @click="openAlertDialog(index)">
-								<img src="../../assets/images/del.png" /> 删除
-							</div>
+              <td class="col-xs-5" style="padding-right: 0;padding-top: 1rem">
+                <mu-radio @click="choose(index)" v-model="form.radio" textColor="#555" :value="a.id" :label="a.label"></mu-radio>
+              </td>
+              <td class="col-xs-7 text-right">
+                <div class="del" @click="editor(index)">
+                  <img src="../../assets/images/editor.png" /> 编辑
+                </div>
+                <div class="del" @click="openAlertDialog(index)">
+                  <img src="../../assets/images/del.png" /> 删除
+                </div>
 
-						</td>
-					</tr>
-				</table>
-				<mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert" style="text-align: center">
-					<div class="publicDialogTitle">确认要删除吗，删除后不能恢复</div>
-					<mu-button slot="actions" flat color="primary" @click="del" class="loginOutBtn">确定</mu-button>
-					<mu-button slot="actions" flat color="primary" @click="closeAlertDialog" class="loginOutBtn">取消</mu-button>
-				</mu-dialog>
+              </td>
+            </tr>
+          </table>
+          <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert" style="text-align: center">
+            <div class="publicDialogTitle">确认要删除吗，删除后不能恢复</div>
+            <mu-button slot="actions" flat color="primary" @click="del" class="loginOutBtn">确定</mu-button>
+            <mu-button slot="actions" flat color="primary" @click="closeAlertDialog" class="loginOutBtn">取消</mu-button>
+          </mu-dialog>
+        </div>
+
 
 			</div>
 		</div>
@@ -245,74 +248,74 @@
 	.content {
 		overflow-x: hidden;
 		color: #666;
-		padding-bottom: 6rem;
 		background-color: #f5f5f5;
 		width: 100vw;
+
 		font-size: 1.6rem;
 	}
-	
+
 	.myAddress {
 		height: 100vh;
 		overflow-y: scroll;
 	}
-	
+
 	.myAddress::-webkit-scrollbar {
 		display: none
 	}
-	
+
 	.table {
 		margin-bottom: 0.6rem;
 	}
-	
+
 	.copyreader {
 		float: right;
 	}
-	
+
 	.copyreader img {
 		height: 2.5rem;
 	}
-	
+
 	.address {
 		background: #fff;
 	}
-	
+
 	.address tr {
 		line-height: 40px;
 		border-bottom: 1px solid #f5f5f5;
 	}
-	
+
 	.address td {
 		padding: 0 16px;
 	}
-	
+
 	.text-left {
 		color: #555;
 		font-size: 1.6rem;
 	}
-	
+
 	.del {
 		display: inline-block;
 	}
-	
+
 	.del:last-child {
 		margin-left: 1rem;
 	}
-	
+
 	.del img {
 		width: 2rem;
 	}
-	
+
 	.addressNone {
 		text-align: center;
 		padding-top: 18vh;
 		color: #999;
 	}
-	
+
 	.addressNone img {
 		width: 40%;
 		margin-bottom: 1rem;
 	}
-	
+
 	.newAddress {
 		position: fixed;
 		bottom: 0;
@@ -321,20 +324,20 @@
 		padding: 1rem;
 		text-align: center;
 	}
-	
+
 	.large {
 		font-size: larger;
 	}
-	
+
 	.loginOutBtn {
 		border-top: 1px solid #ddd;
 		width: 50%;
 	}
-	
+
 	.loginOutBtn:first-child {
 		border-right: 1px solid #ddd;
 	}
-	
+
 	.loginOutBtn:last-child {
 		color: #555;
 	}

@@ -8,8 +8,8 @@
       <span class="navTitleText">留言板</span>
     </mu-appbar>
     <div class="text contentMarginTop">
-      <textarea class="form-control" rows="5" placeholder="给Ta下个战书吧~" v-model="text"></textarea>
-      <mu-button color="#09a2d6" @click="submitBtn" class="submitBtn">提交</mu-button>
+      <textarea class="form-control" rows="10" placeholder="给Ta下个战书吧~" v-model="text"></textarea>
+      <mu-button color="#09a2d6" large @click="submitBtn" class="submitBtn">提交</mu-button>
     </div>
   </div>
 </template>

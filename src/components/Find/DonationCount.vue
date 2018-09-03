@@ -6,6 +6,7 @@
       </mu-button>
       <span class="navTitleText">捐赠信息</span>
     </mu-appbar>
+    <div class="contentMarginTop"></div>
     <mu-text-field v-model="count"  full-width class="countInput"></mu-text-field>
     <mu-flex justify-content="center" align-items="center">
       <mu-button large full-width color="#09A2D6" class="countBtn">立即捐赠</mu-button>

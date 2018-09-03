@@ -6,7 +6,8 @@
       </mu-button>
       <span class="navTitleText">修改地址</span>
     </mu-appbar>
-    <mu-container style="border-top: 0.6rem solid #f5f5f5">
+    <div class="contentMarginTop"></div>
+    <mu-container >
       <mu-form ref="form" :model="validateForm" class="mu-demo-form" >
         <mu-form-item prop="username" :rules="usernameRules">
           <mu-text-field v-model="validateForm.username" prop="username" placeholder="请填写收货人姓名"></mu-text-field>
@@ -24,7 +25,7 @@
       </mu-form>
 
     </mu-container>
-    <mu-button color="#09a2d6" @click="keepSubmit" class="submitBtn">提交</mu-button>
+    <mu-button color="#09a2d6" large @click="keepSubmit" class="submitBtn">提交</mu-button>
     <div class="modal fade" style="z-index: 999" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">

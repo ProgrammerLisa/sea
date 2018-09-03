@@ -6,6 +6,9 @@
       </mu-button>
       <span class="navTitleText">公益慈善</span>
     </mu-appbar>
+    <div class="contentMarginTop">
+
+    </div>
    <div class="input-group search">
     <div class="input-group-addon searchIcon"><mu-icon value="search" ></mu-icon></div>
       <input class="form-control searchInput" v-model="search" placeholder="查询公益项目"/>

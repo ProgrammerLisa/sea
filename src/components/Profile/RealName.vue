@@ -14,7 +14,7 @@
       <div v-if="inputbox">
         <form class="form-horizontal">
           <div class="form-group">
-              <input type="number" class="form-control" id="number" placeholder="请输入本人身份证号">
+              <input type="text" class="form-control" id="number" placeholder="请输入本人身份证号">
           </div>
           <div class="form-group">
               <input type="text" class="form-control" id="name" placeholder="请输入真实姓名">
@@ -27,7 +27,7 @@
         </form>
         <div class="changePsw">
           <mu-flex justify-content="center" class="submitBtn" align-items="center">
-            <mu-button full-width color="#09A2D6" @click="submit">发消息</mu-button>
+            <mu-button full-width large color="#09A2D6" @click="submit">发消息</mu-button>
           </mu-flex>
         </div>
       </div>
@@ -160,35 +160,7 @@
     width: 100vw;
     position: fixed;
     top: 0;
-	}
-
-	.panel {
-		border: none;
-		border-radius: 0;
-	}
-
-	.panel-body {
-		padding: 0 10px;
-	}
-
-	.BlackTitle {
-		text-align: center;
-		letter-spacing: 0.05rem;
-    background: #09a2d6;
-    color: #fff;
-		font-size: 1.5rem;
-    margin-bottom: 0;
-		height: 4.1rem;
-		line-height: 4.1rem;
-		border-bottom: 1px solid #f5f5f5;
-	}
-
-	.back {
-		float: left;
-	}
-	.back img {
-		height: 2.5rem;
-		font-size: 2.5rem;
+    font-size: 1.6rem;
 	}
 
 	.table {

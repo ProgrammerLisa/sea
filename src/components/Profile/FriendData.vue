@@ -160,14 +160,35 @@ if(res.data.data.picture.length > 0) {
 				})
 			},
       goFriendFarm(){
-        this.$router.push({
-          path: '/friendfarm',
-          name: 'friendfarm',
-          params: {
-            name: 'name',
-            dataObj: this.friend_uid
+        this.$http({
+          method: "post",
+          url: "/users/plant",
+          headers: {
+            "device": "android",
+            "uid": localStorage.getItem("uid"),
+            "Access-Control-Allow-Origin": "*"
+          },
+          data: {
+            friend_uid:this.friend_uid
           }
-        })
+        }).then(function(res) {
+
+          if(res.data.code === 0) {
+            this.$router.push({
+              path:'/friendfarm',
+              name:'friendfarm',
+              params: {
+                name: 'name',
+                dataObj: this.friend_uid
+              }
+            })
+          } else {
+            this.$layer.msg(res.data.msg);
+          }
+        }.bind(this))
+          .catch(function(err) {
+            this.$layer.msg("系统异常，请稍后再试");
+          }.bind(this))
       }
 		}
 	}

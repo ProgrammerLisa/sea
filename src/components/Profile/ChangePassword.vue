@@ -27,7 +27,7 @@
       </mu-form>
 
     </mu-container>
-    <mu-button  color="#09a2d6" @click="changePsw" class="changePsw">提交</mu-button>
+    <mu-button large color="#09a2d6" @click="changePsw" class="changePsw">提交</mu-button>
 	</div>
 </template>
 

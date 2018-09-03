@@ -106,7 +106,7 @@ a:hover, a:focus ,a:visited,a:active{
     z-index: 999;
   }
   .contentMarginTop{
-    margin-top: 60px;
+    margin-top: 65px;
   }
   .publicDialogTitle{
     padding: 2rem;

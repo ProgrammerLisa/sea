@@ -19,7 +19,11 @@
 					<div style="padding-top: 0px;display: inline-table; width: 100%;">
 						<mu-text-field style="font-size: 1.5rem;" :full-width="100" v-on:input="verifshow()" id="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码"/>
 						<mu-button  id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxtes}}</mu-button >
+<<<<<<< HEAD
 						</input>
+=======
+
+>>>>>>> f3996f333b208407f326f0adf465ecc4a4ef7672
 						<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right:45%;">
             				<img src="../../assets/images/x.png" style="position: absolute;" />
          			 	</button>
@@ -538,7 +542,11 @@
 	button#pwsbtn.weui-btn.weui-btn_primary {
 		width: 100%;
 	}
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> f3996f333b208407f326f0adf465ecc4a4ef7672
 	#retrieve{
 		background: url(../../assets/images/bglu.png);
 	}

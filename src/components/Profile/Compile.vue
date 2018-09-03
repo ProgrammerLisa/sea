@@ -221,7 +221,8 @@
 						},
 						data: {}
 					}).then(function(res) {
-						if(res.data.code == 0) {
+						if(res.data.code === 0) {
+
 							let rank = res.data.data.level;
 							if(rank) {
 								this.rank = res.data.data.level;
@@ -231,13 +232,6 @@
 							this.signature = res.data.data.resume;
 							this.IDcode = res.data.data.phone;
 							this.pmid = localStorage.getItem("uid");
-							if(res.data.data.gender == "UNKNOWN") {
-								this.ringtone = "保密"
-							} else if(res.data.data.gender == "MALE") {
-								this.ringtone = "男"
-							} else if(res.data.data.gender == "FEMALE") {
-								this.ringtone = "女"
-							}
 							if(res.data.data.nickname == "") {
 								this.nickname = localStorage.getItem("uid");
 							} else {
@@ -251,7 +245,6 @@
 							if(res.data.data.ringtone == "") {
 								this.ringtone = ringtone;
 							} else {
-								this.ringtone = res.data.data.gender;
 								if(res.data.data.gender == "UNKNOWN") {
 									this.ringtone = "保密"
 								} else if(this.ringtone == 'MALE') {
@@ -263,7 +256,7 @@
 							}
 
 							if(res.data.data.pictures == "") {
-								this.timg = [timg];
+								this.timg = [];
 							} else {
 								this.timg = res.data.data.pictures;
 							}
@@ -480,7 +473,7 @@
 			opacity: 0;
 		}
 	}
-	
+
 	@-webkit-keyframes lds-ripple {
 		0% {
 			top: 96px;
@@ -497,12 +490,12 @@
 			opacity: 0;
 		}
 	}
-	
+
 	.lds-ripple {
 		position: relative;
 		margin: auto;
 	}
-	
+
 	.lds-ripple div {
 		box-sizing: content-box;
 		position: absolute;
@@ -513,28 +506,28 @@
 		-webkit-animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 		animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 	}
-	
+
 	.lds-ripple div:nth-child(1) {
 		border-color: #09a2d6;
 	}
-	
+
 	.lds-ripple div:nth-child(2) {
 		border-color: #32a0da;
 		-webkit-animation-delay: -0.5s;
 		animation-delay: -0.5s;
 	}
-	
+
 	.lds-ripple {
 		width: 200px !important;
 		height: 200px !important;
 		-webkit-transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
 		transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
 	}
-	
+
 	.mu-item-action {
 		min-width: 3.0rem;
 	}
-	
+
 	.chart-to {
 		width: 20vw;
 		height: 20vw;
@@ -543,7 +536,7 @@
 		display: inline-block;
 		white-space: nowrap;
 	}
-	
+
 	.sheet {
 		vertical-align: middle;
 		text-align: center;
@@ -551,7 +544,7 @@
 		height: 10vw;
 		margin: 25%;
 	}
-	
+
 	.content {
 		overflow-x: hidden;
 		background-color: #f5f5f5;
@@ -560,55 +553,55 @@
 		overflow-y: scroll;
 		padding-bottom: 2rem;
 	}
-	
+
 	.content::-webkit-scrollbar {
 		display: none
 	}
-	
+
 	.media {
 		background: #fff;
 		padding: 1rem 1.1rem;
 		border-bottom: 0.1rem solid #f5f5f5;
 		margin-top: 0.6rem;
 	}
-	
+
 	.media-body {
 		vertical-align: middle;
 	}
-	
+
 	.headImg {
 		width: 4rem;
 		height: 4rem;
 		border-radius: 50%;
 		border: 1px solid #f5f5f5;
 	}
-	
+
 	.myHeadImg {
 		padding: 1rem 0;
 	}
-	
+
 	.graph {
 		width: 4rem;
 		height: 4rem;
 		margin-top: 10px;
 	}
-	
+
 	.listRight {
 		width: 50%
 	}
-	
+
 	.mu-list {
 		padding: 0;
 	}
-	
+
 	.mu-list {
 		padding: 0;
 	}
-	
+
 	#ImgModal .modal-content {
 		height: 14vh;
 	}
-	
+
 	.headImgChoose {
 		position: relative;
 		display: inline-block;
@@ -625,7 +618,7 @@
 		border-radius: 0;
 		outline: none;
 	}
-	
+
 	.headImgChoose input {
 		position: absolute;
 		right: 0;
@@ -634,65 +627,65 @@
 		-ms-filter: 'alpha(opacity=0)';
 		font-size: 100%;
 	}
-	
+
 	.moreImg {
 		height: 3rem;
 	}
-	
+
 	#hint {
 		float: right;
 		color: #888;
 		font-size: 0.05rem;
 		padding-right: 1.5rem;
 	}
-	
+
 	.mu-divider {
 		background: #f5f5f5;
 	}
-	
+
 	.marginTop {
 		margin-top: 0.6rem;
 		background: #f5f5f5;
 	}
-	
+
 	.mu-list-item {
 		background: #fff;
 	}
-	
+
 	.controlContainer {
 		overflow-x: scroll;
 	}
-	
+
 	.controlContainer::-webkit-scrollbar {
 		display: none
 	}
-	
+
 	.controlContent {
 		display: inline-block;
 		white-space: nowrap;
 	}
-	
+
 	.controlContent img {
 		width: 20vw;
 		height: 20vw;
 		margin: 1vw;
 	}
-	
+
 	.controlScroll {
 		width: auto;
 	}
-	
+
 	.delBtn {
 		border-top: 1px solid #ddd;
 		width: 50%;
 		color: #555;
 	}
-	
+
 	.delBtn:first-child {
 		border-right: 1px solid #ddd;
 		color: #09a2d6;
 	}
-	
+
 	div.mu-item-title {
 		width: 50px;
 	}

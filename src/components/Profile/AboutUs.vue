@@ -6,7 +6,7 @@
       </mu-button>
       <span class="navTitleText">关于我们</span>
     </mu-appbar>
-		<div class="about">
+		<div class="about contentMarginTop">
 			<img :src="logo" class="logo" />
 			<h4>夺宝行动1.11</h4>
 			<p class="agreement">《用户使用协议和隐私条款》</p>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-	import logo from '@/assets/images/bg.png'
+	import logo from '@/assets/images/logo_android.png'
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
 
@@ -51,40 +51,10 @@
     top: 0;
 		height: 100vh;
 	}
-
-	.panel {
-		border: none;
-		border-radius: 0;
-	}
-
-	.panel-body {
-		padding: 0 10px;
-	}
-
-	.BlackTitle {
-		text-align: center;
-		letter-spacing: 0.05rem;
-    background: #09a2d6;
-    color: #fff;
-		font-size: 1.5rem;
-    margin-bottom: 0;
-		height: 4.1rem;
-		line-height: 4.1rem;
-	}
-
-	.back {
-		float: left;
-	}
-
-	.back img {
-		height: 2.5rem;
-		font-size: 2.5rem;
-	}
-
 	.about {
 		text-align: center;
 		color: #444;
-		margin-top: 12rem;
+		margin-top: 35vh;
 	}
 
 	.logo {

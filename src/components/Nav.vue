@@ -1,13 +1,14 @@
 <template>
   <div class="content">
+    <audio id="snd" src="../assets/audio/ajy.mp3" style="display: none;"></audio>
 
     <div class="myNav">
         <mu-bottom-nav :value="bottomNav" @change="handleChange">
           <!--<mu-bottom-nav-item :title="item.title" v-for="(item,index) in navItem" :key="index" :icon="item.icon" @click="nav(index)"></mu-bottom-nav-item>-->
-          <mu-bottom-nav-item title="首页" to="/home" value="首页" icon=" " v-bind:iconClass="{selected:bottomNav=='首页'}"  @click="goHome"></mu-bottom-nav-item>
-          <mu-bottom-nav-item title="发现" to="/find" value="发现" icon=" " v-bind:iconClass="{selected:bottomNav=='发现'}"  @click="goFind"></mu-bottom-nav-item>
-          <mu-bottom-nav-item title="商城" to="#" value="商城" icon=" " v-bind:iconClass="{selected:bottomNav=='商城'}"  @click="goShopping"></mu-bottom-nav-item>
-          <mu-bottom-nav-item title="我的" to="/personal" value="我的" icon=" " v-bind:iconClass="{selected:bottomNav=='我的'}"  @click="goMine"></mu-bottom-nav-item>
+          <mu-bottom-nav-item title="首页" to="/home" value="首页" icon=" " v-bind:iconClass="{selected:bottomNav=='首页'}"  ></mu-bottom-nav-item>
+          <mu-bottom-nav-item title="发现" to="/find" value="发现" icon=" " v-bind:iconClass="{selected:bottomNav=='发现'}"  ></mu-bottom-nav-item>
+          <mu-bottom-nav-item title="商城" to="#" value="商城" icon=" " v-bind:iconClass="{selected:bottomNav=='商城'}"  ></mu-bottom-nav-item>
+          <mu-bottom-nav-item title="我的" to="/personal" value="我的" icon=" " v-bind:iconClass="{selected:bottomNav=='我的'}"  ></mu-bottom-nav-item>
         </mu-bottom-nav>
 
     </div>
@@ -15,9 +16,7 @@
       <div class="publicDialogTitle">商场即将上线</div>
       <mu-button slot="actions" style="width: 100%;border-top: 1px solid #eee" flat color="primary" @click="closeSimpleDialog">知道了</mu-button>
     </mu-dialog>
-    
     <router-view></router-view>
-    <embed id="audioPlay" src='@/assets/audio/aj.mp3'></embed> 
   </div>
 
 </template>
@@ -52,11 +51,12 @@
     },
     methods:{
       begin(){
-        if(this.$route.path=='/'||this.$route.path=='/Home'){
+
+        if(this.$route.path==='/'||this.$route.path==='/home'){
           this.bottomNav='首页'
-        }else if(this.$route.path=='/find'){
+        }else if(this.$route.path==='/find'){
           this.bottomNav='发现'
-        }else if(this.$route.path=='/personal'){
+        }else if(this.$route.path==='/personal'){
           this.bottomNav='我的'
         }
         let that = this;
@@ -78,38 +78,24 @@
         }
 
       },
-      handleChange(val){
+      handleChange(val,src){
         this.bottomNav = val;
-        if(this.bottomNav=='商城'){
+        let a = document.getElementById('snd');
+        a.play();
+        if(this.bottomNav==='商城'){
           this.config()
         }
-      },
-      goHome(){
-        var autio = document.getElementById('audioPlay');
-        $("#audioPlay").play();
-        alert("音频元素："+autio);
-//      this.$router.replace({path: '/home'});
-      },
-      goFind(){
-        this.$router.replace({path: '/find'});
-      },
-      goShopping(){
-        this.config()
-      },
-      goMine(){
-        this.$router.replace({path: '/personal'})
       },
       config() {
         this.openSimple = true;
       },
       closeSimpleDialog () {
         this.openSimple = false;
-        if(this.$route.path=='/'||this.$route.path=='/Home'){
+        if(this.$route.path==='/'||this.$route.path==='/home'){
           this.bottomNav='首页'
-          
-        }else if(this.$route.path=='/find'){
+        }else if(this.$route.path==='/find'){
           this.bottomNav='发现'
-        }else if(this.$route.path=='/personal'){
+        }else if(this.$route.path==='/personal'){
           this.bottomNav='我的'
         }
       }

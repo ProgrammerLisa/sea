@@ -10,25 +10,25 @@
 			<form id="form_password">
 				<div style="padding: 45px 30px">
 					<div style="padding-top: 30px;">
-						<input style="font-size: 1.5rem;" v-on:input="show()" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
-						<button v-if="btnShow" @click="bnns" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right: 15%;">
+						<mu-text-field style="font-size: 1.5rem;" :full-width="100" v-on:input="show()" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></mu-text-field>
+						<button v-if="btnShow" @click="bnns" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right: 7%;">
             				<img src="../../assets/images/x.png" style="position: absolute;" />
          			 	</button>
 					</div>
 
-					<div style="padding-top: 30px;display: inline-table; width: 100%;">
-						<input style="font-size: 1.5rem;" v-on:input="verifshow()" id="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码">
-						<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxtes}}</x-button>
+					<div style="padding-top: 0px;display: inline-table; width: 100%;">
+						<mu-text-field style="font-size: 1.5rem;" :full-width="100" v-on:input="verifshow()" id="verification" maxlength="4" v-model="verif" placeholder="请输入短信验证码"/>
+						<mu-button  id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxtes}}</mu-button >
 						</input>
-						<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right:45%;">
+						<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right:45%;">
             				<img src="../../assets/images/x.png" style="position: absolute;" />
          			 	</button>
 					</div>
 
-					<div style="padding-top: 30px;">
-						<input id="passwordModel_image" v-on:input="ipwdshow()" :type="types" style="font-size: 1.5rem;" v-model="passwordModel" placeholder="请输入新密码" maxlength="16" is-type="sendcode" calss="btns"></input>
+					<div style="padding-top: 0px;">
+						<mu-text-field :full-width="100" id="passwordModel_image" v-on:input="ipwdshow()" :type="types" style="font-size: 1.5rem;" v-model="passwordModel" placeholder="请输入新密码" maxlength="16" is-type="sendcode" calss="btns"></mu-text-field>
 						<img id="group_input_img" @click="Alt()" :src="imgs" />
-						<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right: 25%;">
+						<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="margin-top: -20.5%;margin-right: 25%;">
           			  		<img src="../../assets/images/x.png" style="position: absolute;" />
           				</button>
 						<!--<span>@{{passwordValidate.errorText}}</span>-->
@@ -426,7 +426,7 @@
 
 	#group_input_img {
 		position: relative;
-		margin-top: -35px;
+		margin-top: -65px;
 		height: 30px;
 		float: right;
 	}
@@ -510,10 +510,10 @@
 
 	#verbtn {
 		position: relative;
-		margin-top: -47px;
+		margin-top: -70px;
 		margin-bottom: 2px;
 		width: 25%;
-		min-width: 90px;
+		min-width: 100px;
 		height: 40px;
 		float: right;
 		background-color: #F8F8F8;
@@ -537,5 +537,9 @@
 
 	button#pwsbtn.weui-btn.weui-btn_primary {
 		width: 100%;
+	}
+	
+	#retrieve{
+		background: url(../../assets/images/bglu.png);
 	}
 </style>

@@ -52,6 +52,7 @@ export default {
 <style lang="less">
 @import '~vux/src/styles/reset.less';
 
+
 html{
   background: #f5f5f5;
 }

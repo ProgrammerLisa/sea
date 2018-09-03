@@ -16,6 +16,7 @@ import 'muse-ui/dist/muse-ui.css'
 import '@/assets/iconfont/material-icons.css'
 import theme from 'muse-ui/lib/theme'
 
+
 Vue.use(VueDND);
 Vue.use(VueRouter);
 Vue.use(VueClipboard);
@@ -33,6 +34,9 @@ const instance = axios.create({
   baseURL: host
 })
 Vue.prototype.$http = instance
+
+
+
 //Vue.prototype.$http= axios;
 /* eslint-disable no-new */
 new Vue({

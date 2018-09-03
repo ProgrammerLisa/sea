@@ -7,47 +7,47 @@
       <span class="navTitleText" style="font-size: 1.6rem">注册</span>
     </mu-appbar>
 		<form id="form_register">
-			<div style="padding: 45px 30px">
+			<div style="padding: 70px 30px">
 				<div style="padding-top: 3.5rem;">
-					<input id="phone" v-on:input="show()" ref="phone" name="phone" v-model="phone" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
-					<button v-if="btnShow" @click="bnns" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right: 8%;">
+					<mu-text-field id="phone" :full-width="100" :max-length="11" v-on:input="show()" ref="phone" name="phone" v-model="phone" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></mu-text-field>
+					<button v-if="btnShow" @click="bnns" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right: 7%;">
             				<img src="../../assets/images/x.png" style="position: absolute;" />
          			</button>
 				</div>
 
-				<div style="padding-top: 30px; display: inline-table; width: 100%;">
-					<input id="verification" v-on:input="verifshow()" name="verification" maxlength="4" v-model="verify_code" placeholder="请输入短信验证码" />
-					<x-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxts}}</x-button>
-					<button v-if="btnVer" @click="ver" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right:45%;">
+				<div style="padding-top: 10px; display: inline-table; width: 100%;">
+					<mu-text-field :full-width="100" id="verification" v-on:input="verifshow()" name="verification" :max-length="4" v-model="verify_code" placeholder="请输入短信验证码" />
+					<mu-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxts}}</mu-button>
+					<button v-if="btnVer" @click="ver" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right:45%;">
             			<img src="../../assets/images/x.png" style="position: absolute;" />
          			</button>
 				</div>
 
-				<div style="padding-top: 30px;">
-					<input :type="types" v-on:input="pwdshow()" style="font-size: 1.5rem;border-bottom: 0.1rem solid #F5F5F5;" v-model="password" placeholder="请输入密码" maxlength="16" is-type="sendcode" id="btns"></input>
+				<div style="padding-top: 10px;">
+					<mu-text-field :full-width="100" :type="types" v-on:input="pwdshow()" style="font-size: 1.5rem;" v-model="password" placeholder="请输入密码" maxlength="16" is-type="sendcode" id="btns"></mu-text-field>
 					<!--<span>@{{passwordValidate.errorText}}</span>-->
 					<img id="group_input_img" @click="Alt()" :src="imgs" />
-					<button v-if="pwdeShow" @click="pwde" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right: 25%;">
+					<button v-if="pwdeShow" @click="pwde" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right: 25%;">
             				<img src="../../assets/images/x.png" style="position: absolute;" />
          			</button>
 				</div>
-				<div style="padding-top: 30px;">
-					<input :type="typeis" v-on:input="pwdeshow()" style="font-size: 1.5rem;border-bottom: 0.1rem solid #F5F5F5;" v-model="passwordcheckModel" placeholder="请再次输入密码" maxlength="16" is-type="sendcode" id="btn"></input>
+				<div style="padding-top: 10px;">
+					<mu-text-field :full-width="100" :type="typeis" v-on:input="pwdeshow()" style="font-size: 1.5rem;" v-model="passwordcheckModel" placeholder="请再次输入密码" maxlength="16" is-type="sendcode" id="btn"></mu-text-field>
 					<!--<span>@{{passwordCheckValidate.errorText}}</span>-->
 					<img id="group_input_imgs" @click="Alte()" :src="imges" />
-					<button v-if="pwdebtn" @click="pwdes" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right: 25%;">
+					<button v-if="pwdebtn" @click="pwdes" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right: 25%;">
             				<img src="../../assets/images/x.png" style="position: absolute;" />
          			</button>
 				</div>
 				
-				<div style="padding-top: 30px;">
-					<input id="phone" v-on:input="names()" ref="name" name="name" v-model="nickname" placeholder="请输入昵称" maxlength="11" keyboard="number" is-type="china-mobile" required></input>
-					<button v-if="namebtn" @click="nick" type="button" class="close" data-dismiss="modal" style="margin-top: -30px;margin-right: 10%;">
+				<div style="padding-top: 10px;">
+					<mu-text-field :full-width="100" id="phone" v-on:input="names()" ref="name" name="name" v-model="nickname" placeholder="请输入昵称" maxlength="11" keyboard="number" is-type="china-mobile" required></mu-text-field>
+					<button v-if="namebtn" @click="nick" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right: 10%;">
             				<img src="../../assets/images/x.png" style="position: absolute;" />
          			</button>
 				</div>
 
-				<div style="padding-top:30px;">
+				<div style="padding-top:10px;">
 					<x-button :disabled="!phone || !verify_code || !password || !passwordcheckModel || !nickname" id="pwsbtn" @click.native="submitData" type="primary">下一步</x-button>
 				</div>
 			</div>
@@ -424,13 +424,13 @@
 		position: relative;
 		height: 30px;
 		float: right;
-		margin-top: -35px;
+		margin-top: -65px;
 		margin-left: 75%;
 	}
 
 	#group_input_img {
 		position: relative;
-		margin-top: -35px;
+		margin-top: -65px;
 		height: 30px;
 		float: right;
 	}
@@ -514,10 +514,10 @@
 
 	#verbtn {
 		position: relative;
-		margin-top: -47px;
+		margin-top: -69px;
 		margin-bottom: 2px;
 		width: 25%;
-		min-width: 90px;
+		min-width: 100px;
 		height: 40px;
 		float: right;
 		background-color: #F8F8F8;
@@ -597,5 +597,13 @@
 		width: 100%;
 		margin-top: 20px;
 		/*margin-left: -1rem;*/
+	}
+	
+	.mu-input-help{
+		display: none;
+	}
+	
+	#register{
+		background: url(../../assets/images/bglu.png);
 	}
 </style>

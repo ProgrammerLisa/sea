@@ -15,8 +15,9 @@
       <div class="publicDialogTitle">商场即将上线</div>
       <mu-button slot="actions" style="width: 100%;border-top: 1px solid #eee" flat color="primary" @click="closeSimpleDialog">知道了</mu-button>
     </mu-dialog>
-    <!--<audio id="audioPlay" src="@/assets/audio/475.mp3"></audio>-->
+    
     <router-view></router-view>
+    <embed id="audioPlay" src='@/assets/audio/aj.mp3'></embed> 
   </div>
 
 </template>
@@ -84,10 +85,13 @@
         }
       },
       goHome(){
-        this.$router.replace({path: '/home'})
+        var autio = document.getElementById('audioPlay');
+        $("#audioPlay").play();
+        alert("音频元素："+autio);
+//      this.$router.replace({path: '/home'});
       },
       goFind(){
-        this.$router.replace({path: '/find'})
+        this.$router.replace({path: '/find'});
       },
       goShopping(){
         this.config()
@@ -102,6 +106,7 @@
         this.openSimple = false;
         if(this.$route.path=='/'||this.$route.path=='/Home'){
           this.bottomNav='首页'
+          
         }else if(this.$route.path=='/find'){
           this.bottomNav='发现'
         }else if(this.$route.path=='/personal'){

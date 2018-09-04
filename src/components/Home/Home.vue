@@ -6,7 +6,7 @@
 		<canvas id="canvas"></canvas>
 
 		<div id="notice">
-			<marquee style="line-height: 2rem; height: 30px; position: relative;" scrollamount="5" scrolldelay="1"><span style=" font-size: 1.5rem;color: #fff;vertical-align:middle;">{{marquee}}</span></marquee>
+			<marquee style="line-height: 2rem; height: 30px; position: relative;" scrollamount="5" scrolldelay="1"><span style=" font-size: 1.5rem;color: #fff;vertical-align:middle;padding-top: 3px;display: inline-block">{{marquee}}</span></marquee>
 		</div>
 		<div class="topOption option1">
 			<div class="icon">
@@ -200,8 +200,7 @@
 
 			},
 			getPearl(index, id) {
-        let pearlAudio = document.getElementById('pearlAudio');
-        pearlAudio.play();
+
 				this.$http({
 						method: "post",
 						url: "/play",
@@ -215,6 +214,8 @@
 						}
 					}).then(function(res) {
 						if(res.data.code === 0) {
+              let pearlAudio = document.getElementById('pearlAudio');
+              pearlAudio.play();
               this.imgDiv[index].isDisabled = true;
 							this.pearlCount = res.data.user_pearl;
 							this.energyCount = res.data.user_energy;
@@ -332,11 +333,11 @@
 	.option2,
 	.option3,
 	.option4 {
-		width: 7rem;
+		width:6.5rem;
 		float: right;
 		text-align: center;
 		position: absolute;
-		top: 72vh;
+		bottom: 66px;
 		color: #fff;
 		z-index: 999;
 	}
@@ -346,8 +347,7 @@
 	}
 
 	.option3 {
-		top: 55vh;
-		right: 1rem;
+		left: 7rem;
 	}
 
 	.option2 img,
@@ -395,7 +395,7 @@
 
 	.pearlBox {
 		border: none;
-		width: 4.5rem;
+		width: 4rem;
 		height: 8rem;
 		position: absolute;
 		outline: none;
@@ -404,53 +404,53 @@
 	}
 
 	.pearlBox1 {
-		top: 20vh;
-		left: 40vw;
+    top: 12vh;
+    left:44vw;
 	}
 
 	.pearlBox2 {
-		top: 5vh;
-		left: 41vw;
+		top: 29vh;
+		left: 42vw;
 	}
 
 	.pearlBox3 {
-		top: 10vh;
-		left: 5vw;
+		top: 23vh;
+		left:70vw;
 	}
 
 	.pearlBox4 {
-		top: 0;
-		left: 20vw;
+		top: 10vh;
+		left:14vw;
 	}
 
 	.pearlBox5 {
-		top: 0;
-		left: 70vw;
+		top: 29vh;
+		left: 3rem;
 	}
 
 	.pearlBox6 {
-		top: 15vh;
-		left: 70vw;
+		top: 45vh;
+		left:46vw;
 	}
 
 	.pearlBox7 {
-		top: 25vh;
-		left: 8vw;
+		top: 37vh;
+		left: 80vw;
 	}
 
 	.pearlBox8 {
-		top: 35vh;
-		left: 28vw;
+		top: 8vh;
+		left: 80vw;
 	}
 
 	.pearlBox9 {
-		top: 30vh;
-		left: 58vw;
+		top: -3vh;
+		left: 32vw;
 	}
 
 	.pearlBox0 {
-		top: -10vh;
-		left: 55vw;
+		top:-8vh;
+		left: 62vw;
 	}
   .divImg{
     width: 100%;

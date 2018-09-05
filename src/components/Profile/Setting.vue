@@ -183,36 +183,35 @@
 <style scoped>
 	.content {
 		overflow-x: hidden;
-		color: #666;
+		color: #555;
 		background-color: #f5f5f5;
 		width: 100vw;
 		height: 100vh;
 		position: fixed;
 		top: 0;
 	}
-	
+
 	.mu-list {
 		padding: 0;
 	}
-	
+
 	.listTitle {
-		color: #555;
 		font-size: 1.5rem;
 	}
-	
+
 	.mu-divider {
 		background: #f5f5f5;
 	}
-	
+
 	.mu-item-action {
 		min-width: 50%;
 	}
-	
+
 	.more {
 		height: 3rem;
 		margin-right: 15px
 	}
-	
+
 	.loginOut {
 		background: #fff;
 		text-align: center;
@@ -226,19 +225,18 @@
 		border-top: 0.1rem solid #eee;
 		border-radius: 0;
 	}
-	
+
 	.loginOut:active {
 		color: red;
 		border: none;
 	}
-	
+
 	.loginOutBtn {
 		border-top: 1px solid #ddd;
 		width: 50%;
 	}
-	
+
 	.loginOutBtn:first-child {
 		border-right: 1px solid #ddd;
-		color: #555;
 	}
 </style>

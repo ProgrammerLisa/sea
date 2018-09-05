@@ -8,7 +8,7 @@
     </mu-appbar>
 		<div class="text contentMarginTop">
 			<textarea class="form-control" rows="12" placeholder="请将您的意见或建议留言发给我们，收到后我们会立即处理并给予回复哦~" v-model="text"></textarea>
-      <mu-button color="#09a2d6" @click="submitBtn" class="submitBtn">提交</mu-button>
+      <mu-button flat @click="submitBtn" class="submitBtn publicButton">提交</mu-button>
 		</div>
 	</div>
 </template>
@@ -108,12 +108,11 @@
 	}
 
 	.submitBtn {
-		background: #09a2d6;
-		color: #fff;
 		width: 100%;
 		border-radius: 0;
 		font-size: large;
 		margin-top: 4rem;
+    height: 3.5rem;
 	}
 	.submitBtn:active{
 		background: #009ACD;

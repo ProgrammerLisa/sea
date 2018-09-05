@@ -9,28 +9,35 @@
       <div class="carousel">
         <img :src="carousel"/>
       </div>
-      <!--<div class="media" v-for="(goods,index) in commodity">-->
-        <!--<div @click="sendParams(index)">-->
-          <!--<div class="media-left">-->
-            <!--<img class="media-object" :src="goods.commodityImg" alt="...">-->
-          <!--</div>-->
-          <!--<div class="media-body">-->
-            <!--<p class="media-heading">{{goods.commodityTitle}}</p>-->
-            <!--<div class="commodityPrice">{{goods.commodityPrice}}</div>-->
-            <!--<div class="goodsMessage">成交价 ( 钻石量 )</div>-->
-            <!--<div>-->
-              <!--<span class="goodsMessage">兑换次数：{{goods.commodityNumber}} </span>-->
-              <!--<button class="btn enchangeBtnEnd" v-if="goods.isEnd">-->
-                <!--已结束-->
-              <!--</button>-->
-              <!--<button class="btn enchangeBtn" v-else>-->
-                <!--立即兑换-->
-              <!--</button>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
+      <div class="media" v-for="(goods,index) in commodity">
+        <div @click="sendParams(index)">
+          <div class="media-left">
+            <img class="media-object" :src="goods.commodityImg" alt="...">
+          </div>
+          <div class="media-body">
+            <p class="media-heading">{{goods.commodityTitle}}</p>
+            <div class="commodityPrice">{{goods.commodityPrice}} <span class="goodsMessage" style="color: #555"> ( 珍珠 ) </span> </div>
+            <div ></div>
+            <div>
+              <span class="goodsMessage">库存：{{goods.commodityNumber}} 件</span>
+              <button class="btn enchangeBtnEnd" v-if="goods.isEnd">
+                已结束
+              </button>
+              <button class="btn enchangeBtn" v-else>
+                立即兑换
+              </button>
+            </div>
+          </div>
+        </div>
 
-      <!--</div>-->
+      </div>
+      <mu-dialog width="360" :open.sync="openSimple">
+        <div class="text-center overAlert" >活动已结束</div>
+        <div class="text-center">
+          <mu-button flat class="overBtn" @click="closeSimpleDialog">确 定</mu-button>
+        </div>
+
+      </mu-dialog>
     </div>
 </template>
 
@@ -42,83 +49,73 @@
         data(){
           return{
             carousel:carousel,
-            commodity:[
-              {
-                commodityImg:commodityImg,
-                commodityTitle:'品质生活 博朗榨汁机果汁机1',
-                commodityPropaganda:'博朗家用电动大功率榨汁机。 快速榨汁系统。 使维他命不流失，口感俱佳。',
-                commodityPrice:106.2266,
-                commodityCount:50,
-                commodityNumber:28,
-                isEnd:false
-              },
-              {
-                commodityImg:commodityImg,
-                commodityTitle:'品质生活 博朗榨汁机果汁机2',
-                commodityPropaganda:'博朗家用电动大功率榨汁机。 快速榨汁系统。 使维他命不流失，口感俱佳。',
-                commodityPrice:106.2266,
-                commodityCount:50,
-                commodityNumber:28,
-                isEnd:true
-              },
-              {
-                commodityImg:commodityImg,
-                commodityTitle:'品质生活 博朗榨汁机果汁机3',
-                commodityPropaganda:'博朗家用电动大功率榨汁机。 快速榨汁系统。 使维他命不流失，口感俱佳。',
-                commodityPrice:106.2266,
-                commodityCount:50,
-                commodityNumber:28,
-                isEnd:true
-              },
-              {
-                commodityImg:commodityImg,
-                commodityTitle:'品质生活 博朗榨汁机果汁机4',
-                commodityPropaganda:'博朗家用电动大功率榨汁机。 快速榨汁系统。 使维他命不流失，口感俱佳。',
-                commodityPrice:106.2266,
-                commodityCount:50,
-                commodityNumber:28,
-                isEnd:true
-              },
-              {
-                commodityImg:commodityImg,
-                commodityTitle:'品质生活 博朗榨汁机果汁机5',
-                commodityPropaganda:'博朗家用电动大功率榨汁机。 快速榨汁系统。 使维他命不流失，口感俱佳。',
-                commodityPrice:106.2266,
-                commodityCount:50,
-                commodityNumber:28,
-                isEnd:true
-              },
-            ]
+            commodity:[],
+            openSimple: false,
+            model:{
+              commodityImg:'',
+              commodityTitle:'',
+              commodityPropaganda:'',
+              commodityPrice:'',
+              commodityCount:'',
+              commodityNumber:'',
+              isEnd:'',
+              id:''
+            }
           }
         },
       mounted(){
-          let that = this;
+        this.$nextTick(function() {
+          this.getStore();
+        })
 
       },
       methods:{
+        getStore(){
+          this.$http({
+            method: "post",
+            url: "/store",
+            headers: {
+              "device": "android",
+              "uid": localStorage.getItem("uid"),
+              "Access-Control-Allow-Origin": "*"
+            },
+            data: {}
+          }).then(function(res) {
+            console.log(res.data)
+            if(res.data.code === 0) {
+              if(res.data.data.data.items.length>0){
+                for (let i in res.data.data.data.items) {
+                  this.model.commodityImg = res.data.data.data.items[i].image;
+                  this.model.commodityTitle =  res.data.data.data.items[i].name;
+                  this.model.commodityPropaganda = res.data.data.data.items[i].desc;
+                  this.model.isEnd = !res.data.data.data.items[i].enable;
+                  this.model.id = res.data.data.data.items[i].id;
+                  this.model.commodityPrice = res.data.data.data.items[i].price;
+                  this.model.commodityNumber = res.data.data.data.items[i].stock;
+
+                  this.commodity.push(this.model)
+                  this.model={
+                    commodityImg:'',
+                    commodityTitle:'',
+                    commodityPropaganda:'',
+                    commodityPrice:'',
+                    commodityCount:'',
+                    commodityNumber:'',
+                    isEnd:'',
+                    id:''
+                  }
+                }
+              }
+            }
+          }.bind(this))
+            .catch(function(err) {
+              this.$layer.msg("系统异常，请稍后再试");
+            }.bind(this));
+        },
         sendParams (index) {
           const that = this;
           if(that.commodity[index].isEnd){
-            this.$layer.alert('活动已结束', {
-              type: 0, //0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-              title: '温馨提示',
-              content: '',
-              area: 'auto',
-              offset: 'auto',
-              icon: -1,
-              btn: '确定',
-              time: 0,
-              shade: true,
-              yes: '',
-              cancel: '',
-              tips: [3,'#c00'],//支持上右下左四个方向，通过1-4进行方向设定,可以设定tips: [1, '#c00']
-              tipsMore: false,//是否允许多个tips
-              shadeClose: false,
-            });
-            $(".vl-notice-title").css({display:'none'});
-            $(".vl-notify-btns").css({textAlign:'center',paddingBottom:'1rem'});
-            $(".vl-notify-content").css({textAlign:'center'});
-            $(".notify-btn-primary").css({background:'#09a2d6',borderRadius:0,padding:'0.2rem 1.5rem',margin:'0 1rem'});
+            this.openSimple=true
           }else {
             that.$router.push({
               path: '/commoditydetails',
@@ -132,6 +129,9 @@
             })
           }
 
+        },
+        closeSimpleDialog () {
+          this.openSimple = false;
         }
       }
     }
@@ -146,6 +146,7 @@
     width: 100vw;
     position: fixed;
     top: 0;
+    font-size: 1.6rem;
   }
 
   .panel{
@@ -154,13 +155,15 @@
   }
   .panel-body {
     padding:0 1rem;
+    background: #fff;
+    color: #333;
   }
   .BlackTitle{
     text-align: center;
     letter-spacing: 0.05rem;
     background: #fff;
     color: #555;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     margin-bottom: 0;
     height: 4.1rem;
     line-height: 4.1rem;
@@ -169,7 +172,7 @@
     width: 100%;
   }
   .media{
-    padding: 1.5rem 1rem;
+    padding: 1rem 1rem 1rem;
     margin: 0;
     border-bottom: 0.1rem solid #f5f5f5;
     background: #fff;
@@ -182,14 +185,12 @@
   .media-heading{
     color: #555;
     margin-bottom: 1rem;
-    font-size: 1.5rem;
   }
   .commodityPrice{
-    font-size: 1.5rem;
     color: #09a2d6;
   }
   .goodsMessage{
-    font-size: smaller;
+    font-size: small;
   }
   .enchangeBtn{
     float: right;
@@ -198,10 +199,22 @@
     border: 0.1rem solid #09a2d6;
     color: #09a2d6;
     padding: 0.5rem;
+    margin-top: -1.5rem;
   }
   .enchangeBtnEnd{
     float: right;
     border-radius: 0;
     background: #f5f5f5;
+  }
+  .overAlert{
+    padding: 1rem 0;
+    color: #333
+  }
+  .overBtn{
+    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
+    color: white;
+    height: 3rem;
+    margin: 1rem 0 1.5rem;
+    padding: 0 1rem;
   }
 </style>

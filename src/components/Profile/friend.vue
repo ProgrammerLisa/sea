@@ -11,7 +11,7 @@
 			<div v-if="noFriend" class="addressNone">
 				<img :src="noFriendImg" />
 				<p>您还没有好友，去邀请好友吧</p>
-				<mu-button color="#09a2d6" @click="goAsk">去邀请</mu-button>
+				<mu-button class="publicButton" flat @click="goAsk">去邀请</mu-button>
 			</div>
 			<div class="media friends" v-for="f in friends" v-else @click="friendData(f.uid)">
 				<div class="media-left">
@@ -172,7 +172,7 @@
 	}
 
 	.media-left img {
-		border: 0.1rem solid #09a2d6;
+		border: 0.1rem solid #f5f5f5;
 		border-radius: 50%;
 		width: 4rem;
 		margin-right: 0.5rem;

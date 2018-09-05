@@ -111,4 +111,12 @@ a:hover, a:focus ,a:visited,a:active{
   .publicDialogTitle{
     padding: 2rem;
   }
+  .publicButton{
+    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
+    color: #fff;
+    border-radius: 3px;
+  }
+  .mu-dialog{
+    border-radius: 3px;
+  }
 </style>

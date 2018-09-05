@@ -56,7 +56,7 @@
 		<div class="newAddress">
 			<router-link to="/newaddress" tag="div">
 				<mu-flex justify-content="center" align-items="center">
-					<mu-button full-width color="#09a2d6">
+					<mu-button flat class="publicButton">
 						<mu-icon value="add"></mu-icon>新建地址</mu-button>
 				</mu-flex>
 			</router-link>
@@ -321,7 +321,7 @@
 		bottom: 0;
 		background: #f5f5f5;
 		width: 100%;
-		padding: 1rem;
+		padding: 0.8rem 0;
 		text-align: center;
 	}
 
@@ -341,4 +341,8 @@
 	.loginOutBtn:last-child {
 		color: #555;
 	}
+  .publicButton{
+    width: 90%;
+    height: 3.5rem;
+  }
 </style>

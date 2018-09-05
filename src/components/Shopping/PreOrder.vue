@@ -1,11 +1,11 @@
 <template>
     <div class="content">
-      <div class="panel panel-default BlackTitle">
-        <div class="panel-body">
-          <router-link tag="span" to="shopping" class="back"> <img src="../../assets/images/back.png"/></router-link>
-          商城
-        </div>
-      </div>
+      <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0" id="nav1">
+        <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
+          <img :src="masrc"/>
+        </mu-button>
+        <span class="navTitleText">商城</span>
+      </mu-appbar>
       <div class="chooseAdd text-center"><span class="glyphicon glyphicon-plus chooseIcon"></span> 选择收货地址</div>
 
       <div class="media">
@@ -25,17 +25,21 @@
 
       </div>
       <div class="exchange">
-        <button class="exchangeBtn" disabled="disabled" v-if="isDisabled">确认兑换</button>
-        <button class="exchangeBtn noDisabled" v-else>确认兑换</button>
+        <mu-button flat class=" exchangeBtn" disabled="disabled" v-if="isDisabled">确认兑换</mu-button>
+        <mu-button flat class=" exchangeBtn publicButton" v-else>确认兑换</mu-button>
+
       </div>
     </div>
 </template>
 
 <script>
+  import back from '@/assets/images/back.png'
+  import backs from '@/assets/images/backs.png'
     export default {
         name: "preorder",
         data(){
           return{
+            masrc: back,
             commodityImg:'',
             commodityTitle:'',
             commodityPrice:'',
@@ -56,7 +60,15 @@
           }
         },
         methods:{
-
+          evers() {
+            this.masrc = backs;
+          },
+          lat() {
+            this.masrc = back;
+          },
+          goBack() {
+            this.$router.go(-1);
+          }
         }
     }
 </script>
@@ -134,17 +146,15 @@
   }
   .enchangeBtn{
     float: right;
-    border-radius: 0;
+    border-radius: 3px;
     color: #fff;
-    border: 0.1rem solid #09a2d6;
-    background: #09a2d6;
-    padding: 0.2rem 0.8rem;
+    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
+    padding: 0.5rem 1rem;
     vertical-align: middle;
     margin-top: -1.5rem;
+    border: none;
   }
-  .enchangeBtn:active{
-  	background: #009ACD;
-  }
+
   .enchangeBtn:focus{
   	outline: 0;
   }

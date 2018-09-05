@@ -27,7 +27,7 @@
         </form>
         <div class="changePsw">
           <mu-flex justify-content="center" class="submitBtn" align-items="center">
-            <mu-button full-width large color="#09A2D6" @click="submit">发消息</mu-button>
+            <mu-button flat large class="publicButton" @click="submit">发消息</mu-button>
           </mu-flex>
         </div>
       </div>
@@ -203,6 +203,11 @@
 		padding: 1rem 2rem;
 		background: #fff;
 	}
+  .prompt span{
+    background: linear-gradient(to right,#0BA5D7, #38E7F8 , #0BA5D7);
+    -webkit-background-clip: text;
+    color: transparent;
+  }
 
 	.changePsw {
 		background: #f5f5f5;
@@ -228,4 +233,7 @@
 		width: 40%;
 		margin-bottom: 1rem;
 	}
+  .publicButton{
+    width: 95%;
+  }
 </style>

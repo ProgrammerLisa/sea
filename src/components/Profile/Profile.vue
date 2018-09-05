@@ -447,10 +447,10 @@
 	}
 	
 	.level {
-		background: #09A2D6;
+    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
 		color: #fff;
 		font-size: 1rem;
-		border-radius: 1rem;
+		border-radius: 10px;
 		padding: 0 0.5rem;
 		margin-top: -20px;
 		position: absolute;

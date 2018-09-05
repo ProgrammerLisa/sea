@@ -172,7 +172,7 @@
 	}
 
 	.media-left img {
-		border: 0.1rem solid #09a2d6;
+		border: 0.1rem solid #f5f5f5;
 		border-radius: 50%;
 		width: 4rem;
 		margin-right: 0.5rem;

@@ -31,7 +31,7 @@
       </mu-carousel-item>
     </mu-carousel>
     <div v-for="(data,index) in datas" >
-      <div style="font-size: 1.7rem;padding: 1rem 2.5%;color: #444"><div class="sign"></div>{{data.title}}</div>
+      <div style="font-size: 1.7rem;padding: 1rem 1rem;color: #444"><div class="sign"></div>{{data.title}}</div>
       <div class="goodUl">
         <div v-for="(flex,item) in data.data" class="goodList">
           <div @click="goDonation(flex.path,flex.name,flex.id)">
@@ -182,7 +182,7 @@
     color: #666;font-size: smaller
   }
   .sign{
-    background: #09a2d6;
+    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
     width: 0.3rem;
     height:1.5rem;
     margin-right:0.5rem;

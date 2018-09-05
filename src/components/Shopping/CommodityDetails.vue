@@ -15,7 +15,7 @@
 		</div>
 		<div class="commodityPrice">
 			<span class="nowPrice">当前价：<span class="priceNumber">{{commodityPrice}}</span></span>
-			<span class="commodityCount">库存：{{commodityCount}}件 <span class="commodityNumber">兑换：{{commodityNumber}}次</span></span>
+			<!--<span class="commodityCount">库存：{{commodityCount}}件 <span class="commodityNumber">兑换：{{commodityNumber}}次</span></span>-->
 			<div>( 成交价：钻石量 )</div>
 		</div>
 		<div class="considerations">
@@ -26,7 +26,7 @@
 			</ul>
 		</div>
 		<div class="exchange">
-			<button class="btn exchangeBtn" @click="preOrder">立即兑换</button>
+			<mu-button flat class="btn exchangeBtn publicButton" @click="preOrder">立即兑换</mu-button>
 		</div>
 		{{msg}}
 	</div>
@@ -113,40 +113,15 @@
 	.content {
 		overflow-x: hidden;
 		color: #666;
-		padding-bottom: 6rem;
     width: 100vw;
+    height: 100vh;
+    overflow-y: scroll;
     position: fixed;
     top: 0;
 	}
-
-	.panel {
-		border: none;
-		border-radius: 0;
-	}
-
-	.panel-body {
-		padding: 0 1rem;
-	}
-
-	.BlackTitle {
-		text-align: center;
-		letter-spacing: 0.05rem;
-    background: #09a2d6;
-    color: #fff;
-		font-size: 1.5rem;
-		margin-bottom: 0;
-		height: 4.1rem;
-		line-height: 4.1rem;
-	}
-
-	.back {
-		float: left;
-	}
-
-	.back img {
-		height: 2.5rem;
-	}
-
+  .content::-webkit-scrollbar{
+    display: none;
+  }
 	.commodityImg {
 		background: #f5f5f5;
 		text-align: center;
@@ -159,9 +134,10 @@
 	}
 
 	.commodityTitle {
-		padding: 0 1rem;
+		padding: 1rem 1rem 0;
 		border-bottom: 0.1rem solid #f5f5f5;
 		color: #555;
+    background: #fff;
 	}
 
 	.commodityPropaganda {
@@ -172,6 +148,7 @@
 	.commodityPrice {
 		padding: 1rem;
 		border-bottom: 0.5rem solid #f5f5f5;
+    background: #fff;
 	}
 
 	.nowPrice {
@@ -181,16 +158,10 @@
 	.priceNumber {
 		font-size: 1.8rem;
 	}
-
-	.commodityCount {
-		float: right;
-		color: #555;
-	}
-
-	.commodityNumber {
-		margin-left: 0.5rem;
-	}
-
+  .considerations{
+    background: #fff;
+    padding-bottom: 6rem;
+  }
 	.considerationsTitle {
 		color: #555;
 		padding: 1rem;
@@ -211,22 +182,18 @@
 	.exchange {
 		border-top: 0.1rem solid #f5f5f5;
 		text-align: center;
-		padding: 1rem;
+		padding: 1rem 0;
 		position: fixed;
 		bottom: 0;
 		width: 100%;
-		background: #fff;
+    background: #fff;
 	}
 
 	.exchangeBtn {
-		background: #09a2d6;
-		border-radius: 0;
-		color: #fff;
+    height: 3rem;
 		width: 75%;
 	}
-	.exchangeBtn:active{
-		background: #009ACD;
-	}
+
 	.exchangeBtn:focus{
 		outline: 0;
 	}

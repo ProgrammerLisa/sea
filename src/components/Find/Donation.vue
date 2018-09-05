@@ -23,7 +23,7 @@
     </mu-carousel>
     <mu-card-title title="Content Title" sub-title="Content Title"></mu-card-title>
     <mu-flex class="demo-linear-progress" style="line-height: 1.6rem">
-      <mu-linear-progress mode="determinate" :value="75" :size="10" color="#09a2d6" style="width: 80%;border-radius: 2rem;margin-left: 1.3rem;"></mu-linear-progress><span style="margin:-0.5rem 0 0 1rem;color: #09a2d6">75%</span>
+      <mu-linear-progress mode="determinate" :value="75" :size="10" color="#17B7E0" class="myProgress"></mu-linear-progress><span style="margin:-0.5rem 0 0 1rem;color: #09a2d6">75%</span>
     </mu-flex>
     <div style="display: flex">
         <div class="contentTitle text-center">
@@ -59,7 +59,7 @@
     </mu-container>
     <div class="newAddress">
       <mu-flex justify-content="center" align-items="center">
-        <mu-button full-width color="#09a2d6" textColor="#fff" to="/donationcount"> 捐珍珠</mu-button>
+        <mu-button flat class="publicButton" textColor="#fff" to="/donationcount"> 捐珍珠</mu-button>
       </mu-flex>
     </div>
   </div>
@@ -138,5 +138,14 @@
   }
   .contentMarginTop{
     margin-top: 56px;
+  }
+  .myProgress{
+    width: 80%;border-radius: 2rem;margin-left: 1.3rem;
+  }
+  .publicButton{
+    width: 100%;
+    height: 3.5rem;
+    font-size: 1.6rem;
+    letter-spacing: 1px;
   }
 </style>

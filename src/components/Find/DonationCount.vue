@@ -9,7 +9,7 @@
     <div class="contentMarginTop"></div>
     <mu-text-field v-model="count"  full-width class="countInput"></mu-text-field>
     <mu-flex justify-content="center" align-items="center">
-      <mu-button large full-width color="#09A2D6" class="countBtn">立即捐赠</mu-button>
+      <mu-button large flat class="publicButton">立即捐赠</mu-button>
     </mu-flex>
   </div>
 </template>
@@ -55,7 +55,7 @@
     border-bottom: none;
     padding: 0;
   }
-  .countBtn{
+  .publicButton{
     width: 90%;
     letter-spacing: 2px;
   }

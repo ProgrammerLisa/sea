@@ -136,7 +136,7 @@
 	.content {
 		padding-bottom: 6rem;
 		background-color: #f5f5f5;
-		color: #666;
+		color: #555;
 		width: 100vw;
 		height: 100vh;
 		overflow-x: hidden;
@@ -158,13 +158,14 @@
 
 	.shoppingPanel {
 		padding: 0 1rem;
+    background: #fff;
+    color: #333;
 	}
 
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
-		color: #555;
-		font-size: 1.5rem;
+		font-size: 1.8rem;
 		margin-bottom: 0;
 		height: 4.1rem;
 		line-height: 4.1rem;
@@ -177,6 +178,7 @@
 	.task {
 		margin-bottom: 0;
 		margin-top: 1rem;
+    color: #333;
 	}
 
 	.task1 {

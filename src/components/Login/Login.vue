@@ -49,7 +49,7 @@
 						<div class="group_input" style="width: 100%;">
 							<mu-text-field id="ipwd" v-on:input="ipwdshow()" v-model="inppwd" :type="types" placeholder="请输入密码" :max-length="16" :full-width="100" is-type="sendcode" />
 							<img id="group_input_img" @click="Alt" :src="imgs" />
-							<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top:-25%;right: 14%;">
+							<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top:-28%;right: 14%;">
           			  <img src="../../assets/images/x.png" />
           			</button>
 						</div>
@@ -87,7 +87,7 @@
 						<div id="div_ipwd">
 							<mu-text-field id="verifica" :full-width="100" v-on:input="verifshow()" v-model="verif" maxlength="4" placeholder="请输入验证码" />
 							<mu-button flat color="primary" id="verbtn" slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</mu-button>
-							<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top: -22%;right: 120px;">
+							<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top: -28%;right: 120px;">
             			<img src="../../assets/images/x.png" style="position: relative;"/>
           			</button>
 						</div>

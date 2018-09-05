@@ -83,8 +83,8 @@
 			}
 		},
 		data() {
-			return {
-			  data:'',
+			return { 
+				data: '',
 				autonym: autonym,
 				wallet: wallet,
 				nickName: '',
@@ -145,7 +145,7 @@
 				isLogin: true,
 				newsCount: false,
 				haveHeadImg: false,
-        level:''
+				level: ''
 			}
 		},
 		mounted() {
@@ -167,11 +167,11 @@
 						data: {}
 					}).then(function(res) {
 						if(res.data.code == 0) {
-						  this.data=res.data.data;
+							this.data = res.data.data;
 							var nikename = res.data.data.nickname;
 							var headimg = res.data.data.avatar;
-							this.phone = res.data.data.phone;
 							this.level = res.data.data.level;
+							this.phone = res.data.data.phone;
 							if(nikename == "") {
 								this.nickName = localStorage.getItem("uid");
 							} else {
@@ -184,6 +184,31 @@
 								this.headPortrait = res.data.data.avatar;
 								this.haveHeadImg = true;
 							}
+							//存操作
+							var srcu = localStorage.getItem("src2") || [];
+							
+							if(typeof srcu == "string") {
+								console.log(1);
+								srcu = srcu.split(",")
+								var i;
+								for(i = 0; i < srcu.length; i++) {
+									console.log(srcu[i])
+									console.log(this.headPortrait)
+									if(srcu[i] == this.headPortrait) {
+										break;
+									}
+								}
+								if(i == srcu.length) {
+									srcu.push(this.headPortrait)
+									localStorage.setItem("src2", srcu);
+								}
+							} else {
+								console.log(2);
+								srcu.push(this.headPortrait)
+								localStorage.setItem("src2", srcu);
+								console.log(localStorage.getItem("src2"));
+							}
+							
 						} else {
 							this.headPortrait = headImg;
 							this.headDefault = false;
@@ -193,7 +218,6 @@
 					.catch(function(err) {
 						this.$layer.msg("系统异常，请稍后再试");
 					}.bind(this));
-
 				//消息
 				this.$http({
 						method: "post",
@@ -246,16 +270,16 @@
 						this.$layer.msg("系统异常，请稍后再试");
 					}.bind(this));
 			},
-      goCompile(){
-        this.$router.push({
-          path: '/compile',
-          name: 'compile',
-          params: {
-            name: 'name',
-            data:this.data
-          }
-        })
-      },
+			goCompile() {
+				this.$router.push({
+					path: '/compile',
+					name: 'compile',
+					params: {
+						name: 'name',
+						data: this.data
+					}
+				})
+			},
 			profileAll(c, n) {
 				this.$router.push({
 					path: c,
@@ -265,6 +289,7 @@
 					}
 				})
 			}
+
 		}
 	}
 </script>
@@ -278,38 +303,38 @@
 		height: 100vh;
 		overflow-y: scroll;
 	}
-
+	
 	.content::-webkit-scrollbar {
 		display: none
 	}
-
+	
 	.personal {
 		background: url("../../assets/images/blue.png") no-repeat #fff;
 		background-size: 100% 75%;
 		text-align: right;
 		padding-bottom: 0.5rem;
 	}
-
+	
 	.news {
 		display: flex;
 		flex-direction: row-reverse;
 		padding: 0.4rem 0;
 	}
-
+	
 	.badgePositionRed {
 		width: 5rem;
 		height: 3rem;
 		background: url("../../assets/images/new.png") no-repeat;
 		background-size: 60% 100%;
 	}
-
+	
 	.badgePosition {
 		width: 5rem;
 		height: 3rem;
 		background: url("../../assets/images/news.png") no-repeat;
 		background-size: 60% 100%;
 	}
-
+	
 	.personalMessage {
 		width: 90vw;
 		background: #fff;
@@ -322,85 +347,86 @@
 		text-align: center;
 		box-shadow: 0 0.3rem 0.3rem #ddd;
 	}
-
+	
 	.personalMessageLeft {
 		padding: 0;
 		text-align: center;
 		width: 50%;
 	}
-
+	
 	.wallet {
 		width: 0.1rem;
 		height: 1.6rem;
 		background: #ddd;
 		margin-top: 1.2rem;
 	}
-
+	
 	.msgBox {
 		display: flex;
 	}
-
+	
 	.HeadPortrait img {
 		width: 6rem;
 		height: 6rem;
 		border: 0.1rem solid #f5f5f5;
 		border-radius: 50%;
 	}
-
-	.HeadPortrait{
+	
+	.HeadPortrait {
 		width: 90%;
 		margin: auto;
 		position: relative;
 	}
-
+	
 	.nickName {
 		padding-top: 1rem;
 		margin: 0;
 	}
+	
 	.personalIcon {
 		width: 3.2rem;
 	}
-
+	
 	.personalText {
 		padding-left: 0;
 	}
-
+	
 	.mu-paper-round {
 		border-radius: 0;
 	}
-
+	
 	.mu-elevation-1 {
 		box-shadow: none;
 	}
-
+	
 	.images {
 		padding: 0.8rem;
 	}
-
+	
 	@media screen and (min-height: 560px) and (max-height: 700px) {
 		.images {
 			width: 8vh
 		}
 	}
-
+	
 	@media screen and (min-height: 700px) and (max-height: 850px) {
 		.images {
 			width: 7vh
 		}
 	}
-
+	
 	@media screen and (min-height: 850px) and (max-height: 1024px) {
 		.images {
 			width: 7vh
 		}
 	}
-
+	
 	@media screen and (min-height:1025px) and (max-height: 2000px) {
 		.images {
 			width: 5vh
 		}
 	}
-
+	
 	.msg {
 		color: #ff2424;
 		background: transparent;
@@ -408,18 +434,18 @@
 		padding: 0.5rem;
 		line-height: 0;
 	}
-
+	
 	.inviteCode {
 		font-size: 1.5rem;
-    position: relative;
-    right: 6px
+		position: relative;
+		right: 6px
 	}
-
+	
 	.mu-list {
 		background: #f5f5f5;
 		padding-top: 0;
 	}
-
+	
 	.level {
 		background: #09A2D6;
 		color: #fff;
@@ -428,28 +454,28 @@
 		padding: 0 0.5rem;
 		margin-top: -20px;
 		position: absolute;
-    border: 1px solid #fff;
+		border: 1px solid #fff;
 	}
-
+	
 	a:hover,
 	a:focus {
 		color: #23527c;
 		text-decoration: none;
 	}
-
+	
 	.mu-divider {
 		background-color: #f5f5f5;
 	}
-
+	
 	.mylist {
 		background: #fff;
 		border-bottom: 1px solid #f5f5f5;
 	}
-
+	
 	.mylist:nth-child(2) {
 		padding-right: 2rem;
 	}
-
+	
 	.mylist:nth-child(4),
 	.mylist:nth-child(6) {
 		margin-bottom: 0.7rem;

@@ -1,94 +1,121 @@
 <template>
 
-	<div id="login">
-		<div id="nav">
+	<div id="login1" >
+		<div id="login">
+			<!--<div id="nav">
 			<div id="LoginTitle">登 录</div>
-		</div>
-    <div id="loginModeTitle">
-      <div class="loginMode" @click="sort(1)">
-        <a id="a_common">账号登录</a>
-        <div id="a_common_animation"></div>
-      </div>
+		</div>-->
+			<!--<div id="loginModeTitle">-->
+			<div class="loginMode" @click="sort(1)">
+				<a id="a_common">账号登录</a>
+				<!--<div id="a_common_animation"></div>-->
+			</div>
 
-      <div class="loginMode"  @click="sort(0)">
-        <a id="a_sms">短信登录</a>
-        <div id="a_sms_animation"></div>
-      </div>
-    </div>
+			<div class="loginMode" @click="sort(0)">
+				<a id="a_sms">短信登录</a>
+				<!--<div id="a_sms_animation"></div>-->
+			</div>
+			<!--</div>-->
 
-		<!--这是我要隐藏的  -->
-		<form v-if="isShow">
-			<div style="padding:0 30px;">
-				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
-					<!--<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: 25px;right: 7%;">
+			<div @click="goCompile" v-if="headDefault">
+				<div class="HeadPortrait">
+					<img :src="`${headPortrait+'?'+now}`" v-if="haveHeadImg" />
+					<img :src="headPortrait" v-else/>
+				</div>
+				<!--<p class="userId">ID：{{phone}}</p>-->
+			</div>
+			<router-link v-else tag="div" to="/login">
+				<div class="HeadPortrait">
+					<img :src="headPortrait" />
+				</div>
+			</router-link>
+
+			<!--这是我要隐藏的  -->
+			<!--<div class="container personalMessage">-->
+			<form v-if="isShow">
+				<div class="bjt">
+					<div style="padding:0 30px;">
+						<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
+							<!--<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: 25px;right: 7%;">
            			  <img src="../../assets/images/x.png" style="position:absolute;top: -20px;"/>
           			</button>-->
-          			
-					<mu-text-field required="required" class="phone" ref="mobile" v-on:input="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" :max-length="11" keyboard="number" is-type="china-mobile" />
-					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top:-22%;right: 7%;">
-          			  <img src="../../assets/images/x.png" style="position: absolute;" />
-          			</button>
-				</div>
 
-				<div class="group_input" style="width: 100%;">
-					<mu-text-field id="ipwd"  v-on:input="ipwdshow()"  v-model="inppwd" :type="types" placeholder="请输入密码" :max-length="16" :full-width="100" is-type="sendcode" />
-					<img id="group_input_img" @click="Alt" :src="imgs" />
-					<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top:-22%;right: 14%;">
+							<mu-text-field @input="tou" required="required" class="phone" ref="mobile" v-on:input="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" :max-length="11" keyboard="number" is-type="china-mobile" />
+							<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top:-22%;right: 7%;">
+          			  			<img src="../../assets/images/x.png" style="position: absolute;" />
+          					</button>
+						</div>
+
+						<div class="group_input" style="width: 100%;">
+							<mu-text-field id="ipwd" v-on:input="ipwdshow()" v-model="inppwd" :type="types" placeholder="请输入密码" :max-length="16" :full-width="100" is-type="sendcode" />
+							<img id="group_input_img" @click="Alt" :src="imgs" />
+							<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top:-25%;right: 14%;">
           			  <img src="../../assets/images/x.png" />
           			</button>
-				</div>
+						</div>
 
-				<div class="hyperlink" style="right: 9%; position: absolute;">
+						<!--<div class="hyperlink" style="right: 9%; position: absolute;">
 					<router-link class="a_hyperlink" tag='a' :to="'/retrieve'">找回密码</router-link> &nbsp;&nbsp;<span style="color: #8C8C8C;">|</span>&nbsp;&nbsp;
 
 					<router-link class="a_hyperlink" tag='a' :to="'/register'">注册账号</router-link>
-				</div>
+				</div>-->
+						<div class="hyperlink">
+							<div align="center" style="padding-top:0px;">
+								<x-button :disabled="!mobile || !inppwd" id="btn_login_normal" @click.native="submitData" type="primary">登 录</x-button>
+							</div>
+							<div align="center" class="hyperlink">
+								<router-link class="a_hyperlink" tag='a' :to="'/retrieve'">找回密码</router-link> &nbsp;&nbsp;<span style="color: #8C8C8C;">|</span>&nbsp;&nbsp;
 
-				<div align="center" style="padding-top:30px;">
-					<x-button :disabled="!mobile || !inppwd" id="btn_login_normal" @click.native="submitData" type="primary">登 录</x-button>
+								<router-link class="a_hyperlink" tag='a' :to="'/register'">注册账号</router-link>
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
-		</form>
+			</form>
 
-		<!--这是我要隐藏的  -->
-		<form v-else>
-			<div style="padding: 0 30px;">
-				<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
-					<mu-text-field required="required" class="phone" ref="mobile" v-on:input="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" :max-length="11" keyboard="number" is-type="china-mobile" />
-					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top:-22%;right: 7%;">
+			<!--这是我要隐藏的  -->
+			<form v-else>
+				<div class="bjt">
+					<div style="padding: 0 30px;">
+						<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
+							<mu-text-field required="required" class="phone" ref="mobile" v-on:input="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" :max-length="11" keyboard="number" is-type="china-mobile" />
+							<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top:-22%;right: 7%;">
           			  <img src="../../assets/images/x.png" style="position: absolute;" />
           			</button>
-				</div>
+						</div>
 
-				<div id="div_ipwd">
-					<mu-text-field id="verifica" :full-width="100"  v-on:input="verifshow()" v-model="verif" maxlength="4" placeholder="请输入短信验证码" />
-					<mu-button flat color="primary" id="verbtn" slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</mu-button>
-					<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="position: relative;top: -35px;right: 120px;">
+						<div id="div_ipwd">
+							<mu-text-field id="verifica" :full-width="100" v-on:input="verifshow()" v-model="verif" maxlength="4" placeholder="请输入验证码" />
+							<mu-button flat color="primary" id="verbtn" slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</mu-button>
+							<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top: -22%;right: 120px;">
             			<img src="../../assets/images/x.png" style="position: relative;"/>
           			</button>
+						</div>
+
+						<div align="center" style="padding-top:0px;">
+							<x-button :disabled="!mobile || !verif" id="btn_login_sms" @click.native="btnveif" type="primary">登 录</x-button>
+						</div>
+
+						<!--<div class='hyperlink_da'>-->
+						<div class="hyperlink">
+							<router-link class="a_hyperlink" tag='a' :to="'/retrieve'">找回密码</router-link> &nbsp;&nbsp;<span style="color: #8C8C8C;">|</span>&nbsp;&nbsp;
+
+							<router-link class="a_hyperlink" tag='a' :to="'/register'">注册账号</router-link>
+						</div>
+						<!--</div>-->
+					</div>
 				</div>
+			</form>
 
-				<div class="hyperlink">
-					<router-link class="a_hyperlink" tag='a' :to="'/retrieve'">找回密码</router-link> &nbsp;&nbsp;<span style="color: #8C8C8C;">|</span>&nbsp;&nbsp;
-
-					<router-link class="a_hyperlink" tag='a' :to="'/register'">注册账号</router-link>
-				</div>
-
-				<div align="center" style="padding-top:30px;">
-					<x-button :disabled="!mobile || !verif" id="btn_login_sms" @click.native="btnveif" type="primary">登 录</x-button>
-				</div>
-			</div>
-		</form>
-
+		</div>
 	</div>
-
 </template>
 
 <script>
 	import { XInput, Group, XButton } from 'vux'
 	import eye from '@/assets/images/eye.png'
 	import eyeclick from '@/assets/images/eyeclick.png'
-
+	import headImg from '@/assets/images/chushi.png'
 
 	export default {
 		name: "login",
@@ -116,9 +143,11 @@
 				time: '',
 				btnShow: false,
 				btnShow1: false,
-				btnverShow: false
+				btnverShow: false,
+				headPortrait: headImg
 			}
 		},
+
 		mounted: function() {
 			const that = this;
 			this.$nextTick(() => {
@@ -153,7 +182,9 @@
 		Trim(str) {
 			return str.replace(/(^\s+)|(s+$)/g, "");
 		},
+
 		methods: {
+
 			show() {
 				if(this.mobile === '') {} else {
 					this.btnShow = true;
@@ -176,27 +207,36 @@
 				let that = this;
 				if(index == 1) {
 					that.isShow = true;
-					$("#a_common").css({
-						color: '#09A2D6'
-					});
-					$("#a_sms").css({
-						color: '#666'
-					});
-          $("#a_sms_animation").animate({opacity:0}, 500);
-          $("#a_common_animation").animate({opacity:1}, 500);
+					$("#a_common").css(
+						'display', 'none'
+					);
+					$("#a_sms").css(
+						'display', 'block'
+					);
+					$("#a_sms_animation").animate({
+						opacity: 0
+					}, 500);
+					$("#a_common_animation").animate({
+						opacity: 1
+					}, 500);
 				}
 				if(index == 0) {
 					that.isShow = false;
-					$("#a_common").css({
-						color: '#666'
-					});
-					$("#a_sms").css({
-						color: '#09A2D6'
-					});
-          $("#a_sms_animation").animate({opacity:1}, 500);
-          $("#a_common_animation").animate({opacity:0}, 500);
+					$("#a_common").css(
+						'display', 'block'
+					);
+					$("#a_sms").css(
+						'display', 'none'
+					);
+					$("#a_sms_animation").animate({
+						opacity: 1
+					}, 500);
+					$("#a_common_animation").animate({
+						opacity: 0
+					}, 500);
 				}
 			},
+
 			bnn() {
 				if(this.mobile == '') {
 
@@ -266,8 +306,24 @@
 									password: this.inppwd
 								}
 							}).then(function(res) {
-								console.log(res.data)
 								if(res.data.code == 0) {
+									var pho = localStorage.getItem("phone2") || [];
+									if(typeof pho == "string") {
+										pho = pho.split(",")
+										var i;
+										for(i = 0; i < pho.length; i++) {
+											if(pho[i] == this.mobile) {
+												break;
+											}
+										}
+										if(i == pho.length) {
+											pho.push(this.mobile)
+											localStorage.setItem("phone2", pho);
+										}
+									} else {
+										pho.push(this.mobile)
+										localStorage.setItem("phone2", pho);
+									}
 									this.$layer.msg('登录成功');
 									localStorage.setItem('uid', res.data.data.uid);
 									this.$router.replace('/home');
@@ -377,6 +433,22 @@
 				} else {
 					this.$layer.msg('手机号码格式错误');
 				}
+			},
+			tou() {
+				var pho = localStorage.getItem("phone2");
+				var srcu = localStorage.getItem("src2");
+				pho = pho.split(",")
+				srcu = srcu.split(",")
+				//				console.log(pho)
+				var i;
+				for(i = 0; i < pho.length; i++) {
+					//					console.log(pho[i]+"=="+this.mobile)
+					if(pho[i] == this.mobile) {
+						this.headPortrait = srcu[i];
+						this.haveHeadImg = false;
+						break;
+					}
+				}
 			}
 		}
 	}
@@ -389,33 +461,37 @@
 		-webkit-box-shadow: 0 0 0px 1000px #fff inset;
 	}
 	/*焦点时也加上，不加会出现黄色背景闪动一下*/
-
+	
 	input[type=text]:focus,
 	input[type=password]:focus,
-	
 	input.mu-text-field-input,
 	textarea:focus {
 		-webkit-box-shadow: 0 0 0 1000px white inset;
 	}
-
+	
 	button.weui-btn.weui-btn_primary {
 		background-color: #09A2D6;
 		border-radius: 0;
 	}
-
+	
 	button.weui-btn.weui-btn_primary:active {
 		background-color: #09A2D6;
 	}
-
+	#login1{
+		background:rgba(255,255,255,1);
+	}
+	
 	#login {
 		width: 100vw;
-		height: 101vh;
+		height: 100vh;
 		background: #fff;
 		overflow: hidden;
 	}
-  #LoginTitle{
-    padding: 1rem;
-  }
+	
+	#LoginTitle {
+		padding: 1rem;
+	}
+	
 	#verifica {
 		border-top: 0;
 		border-left: 0;
@@ -429,18 +505,18 @@
 		padding-bottom: 0.5rem;
 	}
 	
-	div#div_ipwd{
-		padding-top:10px ;
+	div#div_ipwd {
+		padding-top: 10px;
 	}
-
+	
 	#ipwd .vux-x-input .weui-cell {
 		width: 100%;
 	}
-
+	
 	.weui-btn::after {
 		border-radius: 0;
 	}
-
+	
 	#verbtn {
 		position: relative;
 		margin-top: -68px;
@@ -455,7 +531,7 @@
 		border-radius: 0;
 		border: none;
 	}
-
+	
 	.phone {
 		border-top: 0;
 		border-left: 0;
@@ -468,15 +544,15 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-
+	
 	input::-ms-clear {
 		display: none;
 	}
-
+	
 	.phone:valid+.close {
 		display: inline;
 	}
-
+	
 	#ipwd {
 		/*border-top: 0;
 		border-left: 0;
@@ -499,12 +575,12 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-
+	
 	.group_inputs {
 		width: 100%;
-		padding-top: 10rem;
+		padding-top: 2rem;
 	}
-
+	
 	#group_input_img {
 		position: relative;
 		margin-top: -68px;
@@ -512,7 +588,7 @@
 		font-size: 1.2rem;
 		height: 30px;
 	}
-
+	
 	.group_input {
 		/*margin: -40px;*/
 		/*margin: 10px;*/
@@ -521,29 +597,25 @@
 		/*padding: 40px;*/
 		/*margin-left: -14px;*/
 	}
-
+	
 	.weui-cells:before {
 		border-top: 0px!important;
 	}
-
-	.hyperlink {
-		right: 9%;
-		margin-top: 2rem;
-		position: absolute;
-	}
-
+	
+	
+	
 	.a_hyperlink {
 		color: #8C8C8C;
 	}
-
+	
 	a {
 		color: #353535;
 	}
-
+	
 	a:hover {
 		text-decoration: none;
 	}
-
+	
 	#nav {
 		width: 100%;
 		font-size: 1.8rem;
@@ -552,87 +624,138 @@
 		color: #333;
 		border-bottom: 1px solid #f6f6f6;
 	}
-  #loginModeTitle{
-    width: 100%;
-    height: 4.3rem;
-    padding: 0;
-    margin: 0;
-    border-bottom: 1px solid #f6f6f6;
-  }
-  .loginMode{
-    width: 50%;
-    text-align: center;
-    line-height: 4rem;
-    overflow: hidden;
-    float: left;
-  }
-
+	
+	#loginModeTitle {
+		width: 100%;
+		height: 4.3rem;
+		padding: 0;
+		margin: 0;
+		border-bottom: 1px solid #f6f6f6;
+	}
+	
+	.loginMode {
+		width: 100%;
+		text-align: right;
+		line-height: 4rem;
+		padding-right: 1rem;
+		overflow: hidden;
+		float: left;
+	}
+	
 	#a_common {
-		/*text-decoration:none;*/
+		text-decoration: none;
 		/*border-bottom:3px solid #09A2D6;  #ccc换成链接的颜色*/
 		display: inline-block;
-    color: #09a2d6;
+		/*color: #09a2d6;*/
+		display: none;
+		font-size: 1.5rem;
+		color: white;
 		/*margin-bottom:-3px;  这里设置你要空的距离*/
 	}
-
+	
 	#a_sms {
-		width: 100%;
 		text-decoration: none;
 		display: inline-block;
+		font-size: 1.5rem;
+		color: white;
 	}
-
-
+	
 	#a_common_animation {
 		width: 50%;
 		background: #09A2D6;
 		height: 0.3rem;
 		margin-left: 25%;
 	}
-
+	
 	#a_sms_animation {
 		width: 50%;
 		background: #09A2D6;
 		height: 0.3rem;
 		margin-left: 25%;
-    opacity: 0;
+		/*opacity: 0;*/
 	}
-
+	
 	.weui-btn:after,
 	#btn_login_normal:after,
 	#btn_login_sms:after,
 	#verbtn:after {
 		border: none;
 	}
-
+	
 	#btn_login_normal,
 	#btn_login_sms {
 		width: 100%;
 		margin-top: 30px;
 	}
-
+	
 	#btn_login_normal:disabled {
 		background: #D9D9D9;
 	}
-
+	
 	#btn_login_sms:disabled {
 		background: #D9D9D9;
 	}
-
+	
 	button#btn_login_normal.weui-btn.weui-btn_primary {
 		width: 100%;
 	}
-
+	
 	button#btn_login_sms.weui-btn.weui-btn_primary {
 		width: 100%;
 	}
-	
-	#login,#LoginTitle{
+	/*div.router-link-exact-active.router-link-exact-active{
 		background: url(../../assets/images/bglu.png);
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		height: 310px;
+	}*/
+	
+	#login {
+		background: url(../../assets/images/bglu.png);
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		background-size: 100% 40%;
+		/*height: 310px;*/
 	}
 	
-	input#ipwd.mu-text-field-input{
+	input#ipwd.mu-text-field-input {
 		width: 100px;
 	}
 	
+	.bjt {
+		/*background: #fff;*/
+		width: 81%;
+		margin-top: 16%;
+		margin: 0 9vw;
+		/*border-radius: 1rem;*/
+		background: url(../../assets/images/bai.png);
+		
+		background-repeat: no-repeat ;
+		background-size: 100%;
+		/*margin: top right bottom left;*/
+		
+	}
+	
+	.hyperlink {
+		margin-top: 1rem;
+		text-align: center;
+		left: 0;
+		bottom: 0;
+		right: 0;
+	}
+	
+	.HeadPortrait img {
+		width: 7rem;
+		height: 7rem;
+		border-radius: 50%;
+		margin-top: 10%;
+		margin-bottom: 30%;
+	}
+	
+	.HeadPortrait {
+		width: 50%;
+		margin: auto;
+		text-align: center;
+	}
 	
 </style>

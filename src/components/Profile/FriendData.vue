@@ -6,7 +6,7 @@
 			</mu-button>
 		</div>
 
-		<mu-carousel v-show="hasPic" transition="fade" class="picContainer" interval="5000" :cycle="false" hide-controls hide-indicators :active="active">
+		<mu-carousel transition="fade" class="picContainer" interval="5000" :cycle="false" hide-controls hide-indicators :active="active">
 			<mu-carousel-item v-for="(p,index) in pic" :key="index">
 				<img :src="p.src"  />
 			</mu-carousel-item>
@@ -17,9 +17,7 @@
 			</template>
 		</mu-carousel>
 		<div class="text-center">
-
-			<img v-if="hasPic" :src="avatar" style="width: 8rem;border-radius: 50%;border: 0.5rem solid #fff;position: relative;margin-top: -4rem" />
-      <img v-else :src="avatar" style="width: 8rem;border-radius: 50%;border: 0.5rem solid #fff;position: relative;margin-top: 2rem" />
+			<img :src="avatar" style="width: 8rem;border-radius: 50%;border: 0.5rem solid #fff;position: relative;margin-top: -4rem" />
 		</div>
 		<div class="dataContainer text-center">
 			<div class="title">{{nickname}} <span class="sex" v-bind:style="bcColor">{{gender}}</span></div>
@@ -30,7 +28,7 @@
 
 		</div>
     <div v-if="hasPic">
-      <div class="title" style="padding: 1rem 5vw 0">相册</div>
+      <div class="title" style="padding: 1rem 1.5rem 0">相册</div>
       <div class="controlContainer">
         <div class="controlScroll">
           <div class="controlContent" v-for="(p,index) in pic">
@@ -40,10 +38,12 @@
       </div>
       <div class="more"><span @click="photowall">查看更多图片<img src="../../assets/images/more.png"/></span></div>
     </div>
-    <div v-else class="more">
+    <div v-else class="more" style="margin-top: 1rem">
       暂无相册
     </div>
-		<mu-button @click="goFriendFarm" full-width large color="#09A2D6" style="position: fixed;bottom: 0">进入好友养殖场</mu-button>
+    <div class="buttonContainer">
+      <mu-button @click="goFriendFarm" flat large class="publicButton">进入好友养殖场</mu-button>
+    </div>
 	</div>
 </template>
 
@@ -51,6 +51,7 @@
 	import pic1 from "@/assets/images/chushi.png"
 	import back from '@/assets/images/return.png'
 	import backs from '@/assets/images/backs.png'
+  import tupian from '@/assets/images/tupian.png'
 	export default {
 		name: "FriendData",
 		data() {
@@ -118,13 +119,14 @@
               }else{
                 this.gender = '♀'
                 this.bcColor='background: #FC8484;';
-}
-if(res.data.data.picture.length > 0) {
-	this.hasPic = true;
-	for(let i = 0; i < res.data.data.picture.length; i++) {
-		this.pic.push({"src":res.data.data.picture[i]})
+              }
+              if(res.data.data.picture.length > 0) {
+                this.hasPic = true;
+                for(let i = 0; i < res.data.data.picture.length; i++) {
+                  this.pic.push({"src":res.data.data.picture[i]})
                 }
               }else {
+                this.pic.push({"src":tupian})
                 this.hasPic=false;
               }
 
@@ -246,7 +248,7 @@ if(res.data.data.picture.length > 0) {
 
 	.controlContainer {
 		overflow-x: scroll;
-		padding: 1vw 5vw;
+		padding: 1rem 1rem;
 	}
 
 	.controlContainer::-webkit-scrollbar {
@@ -309,7 +311,7 @@ if(res.data.data.picture.length > 0) {
 	}
 
 	.level {
-		background: #09A2D6;
+    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
 		color: #fff;
 		font-size: 1rem;
 		border-radius: 0.8rem;
@@ -337,10 +339,19 @@ if(res.data.data.picture.length > 0) {
 		text-align: center;
 		font-size: 1.5rem;
 		color: #646464;
-		margin-top: 1rem;
+    margin-bottom: 1rem;
 	}
 
 	.more img {
 		width: 2.5rem;
 	}
+  .buttonContainer{
+    position: fixed;bottom: 0;
+    background: #f5f5f5;
+    padding: 0.5rem 1rem;
+    width: 100%;
+  }
+  .publicButton{
+    width: 100%;
+  }
 </style>

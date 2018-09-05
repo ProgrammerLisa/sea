@@ -10,10 +10,10 @@
       <div v-if="OrderNone" class="OrderNone">
         <img :src="OrderNoneImg" />
         <p>还没有订单哦</p>
-        <mu-button color="#09a2d6" @click="openSimpleDialog">去逛逛</mu-button>
+        <mu-button flat class="publicButton" @click="openSimpleDialog">去逛逛</mu-button>
         <mu-dialog  width="360" :open.sync="openSimple" style="text-align: center">
           <div class="publicDialogTitle">商场即将上线</div>
-          <mu-button slot="actions" style="width: 100%;border-top: 1px solid #eee" flat color="primary" @click="closeSimpleDialog">知道了</mu-button>
+          <mu-button slot="actions" style="width: 100%;border-top: 1px solid #eee" flat @click="closeSimpleDialog">知道了</mu-button>
         </mu-dialog>
       </div>
 
@@ -176,35 +176,6 @@
     top: 0;
 	}
 
-	.panel {
-		border: none;
-		border-radius: 0;
-	}
-
-	.panel-body {
-		padding: 0 1rem;
-	}
-
-	.BlackTitle {
-		text-align: center;
-		letter-spacing: 0.05rem;
-    background: #09a2d6;
-    color: #fff;
-		font-size: 1.5rem;
-    margin-bottom: 0;
-		height: 4.1rem;
-		line-height: 4.1rem;
-	}
-
-	.back {
-		float: left;
-	}
-
-	.back img {
-		height: 2.5rem;
-		font-size: 2.5rem;
-	}
-
 	.media {
 		padding: 1.5rem 1rem;
 		margin: 0;
@@ -226,7 +197,9 @@
 
 	.commodityPrice {
 		font-size: 1.5rem;
-		color: #09a2d6;
+    background: linear-gradient(to right,#0BA5D7, #38E7F8 , #0BA5D7);
+    -webkit-background-clip: text;
+    color: transparent;
 	}
 
 	.goodsMessage {
@@ -235,7 +208,7 @@
 
 	.enchangeBtn {
 		float: right;
-		border-radius: 0;
+		border-radius: 3px;
 		background: #fff;
 		border: 0.1rem solid #09a2d6;
 		color: #09a2d6;
@@ -244,9 +217,10 @@
 
 	.enchangeBtnEnd {
 		float: right;
-		border-radius: 0;
-		background: #09a2d6;
+		border-radius: 3px;
+    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
 		color: #fff;
+    border: none;
 	}
 
 	.OrderNone {
@@ -260,17 +234,10 @@
 		margin-bottom: 1rem;
 	}
 
-	.goShopping {
-		text-align: center;
-		background: #09a2d6;
-		color: #fff;
-		padding: 0.5rem 3rem;
-		display: inline-block;
-		margin-top: 1.5rem;
-	}
-
-	.goShopping:active {
-		background: #009ACD;
-	}
+  .publicButton{
+    padding:0 2rem;
+    height: 2.5rem;
+    margin-top: 1rem;
+  }
 
 </style>

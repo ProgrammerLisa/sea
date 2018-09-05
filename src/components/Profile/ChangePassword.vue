@@ -27,7 +27,7 @@
       </mu-form>
 
     </mu-container>
-    <mu-button large color="#09a2d6" @click="changePsw" class="changePsw">提交</mu-button>
+    <mu-button flat @click="changePsw" class="changePsw publicButton">提交</mu-button>
 	</div>
 </template>
 
@@ -132,16 +132,16 @@
 		padding: 1rem;
 		background: #fff;
 	}
-
-	.changePsw {
-		background: #f5f5f5;
-		border: none;
-		text-align: center;
-	}
-
+  .prompt span{
+    background: linear-gradient(to right,#0BA5D7, #38E7F8 , #0BA5D7);
+    -webkit-background-clip: text;
+    color: transparent;
+  }
   .changePsw{
     width: 90%;
     margin: 2rem 5%;
+    text-align: center;
+    height: 3.5rem;
   }
   .mu-form-item{
     margin-bottom: 0;

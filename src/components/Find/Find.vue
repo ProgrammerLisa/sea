@@ -142,24 +142,24 @@
 		overflow-x: hidden;
 		overflow-y: scroll;
 	}
-	
+
 	.content::-webkit-scrollbar {
 		display: none;
 	}
-	
+
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 1rem;
 	}
-	
+
 	.shoppingPanel {
 		padding: 0 1rem;
 	}
-	
+
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -169,16 +169,16 @@
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-	
+
 	.TitleImg img {
 		width: 100%;
 	}
-	
+
 	.task {
 		margin-bottom: 0;
 		margin-top: 1rem;
 	}
-	
+
 	.task1 {
 		border-top: 1px solid #f7f7f7;
 		border-bottom: 1px solid #f7f7f7;
@@ -186,48 +186,48 @@
 		text-align: center;
 		display: flex;
 	}
-	
+
 	.taskList {
 		width: 33%;
 		border-right: 0.1rem solid #eee;
 		padding: 0.5rem 0;
 	}
-	
+
 	.taskListLast {
 		padding: 0.5rem 0;
 		border-right: none;
 	}
-	
+
 	.taskIcon {
 		color: #09a2d6;
 		font-size: 2.5rem;
 		margin: 1rem 0;
 	}
-	
+
 	.taskBody {
 		font-size: 0.5rem;
 		color: #666;
 	}
-	
+
 	.taskBtn {
-		background: #09a2d6;
+    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
 		color: #fff;
 		width: 80%;
 		margin: 1rem auto;
 		border-radius: 2rem;
 	}
-	
+
 	.taskSuccess {
 		margin: 1rem 0;
 	}
-	
+
 	.glyphicon-ok {
 		background: #20C779;
 		color: #fff;
 		padding: 0.4rem;
 		border-radius: 50%;
 	}
-	
+
 	.decorate {
 		color: #09a2d6;
 		transform: rotate(90deg);

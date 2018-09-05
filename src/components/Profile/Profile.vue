@@ -375,30 +375,7 @@
 
 	.images {
 		padding: 0.8rem;
-	}
-
-	@media screen and (min-height: 560px) and (max-height: 700px) {
-		.images {
-			width: 8vh
-		}
-	}
-
-	@media screen and (min-height: 700px) and (max-height: 850px) {
-		.images {
-			width: 7vh
-		}
-	}
-
-	@media screen and (min-height: 850px) and (max-height: 1024px) {
-		.images {
-			width: 7vh
-		}
-	}
-
-	@media screen and (min-height:1025px) and (max-height: 2000px) {
-		.images {
-			width: 5vh
-		}
+    width: 4rem;
 	}
 
 	.msg {
@@ -421,10 +398,10 @@
 	}
 
 	.level {
-		background: #09A2D6;
+    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
 		color: #fff;
 		font-size: 1rem;
-		border-radius: 1rem;
+		border-radius: 10px;
 		padding: 0 0.5rem;
 		margin-top: -20px;
 		position: absolute;

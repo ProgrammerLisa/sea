@@ -24,7 +24,7 @@
       </mu-form>
 
     </mu-container>
-    <mu-button color="#09a2d6" large @click="submit" class="submitBtn">提交</mu-button>
+    <mu-button flat @click="submit" class="submitBtn publicButton">提交</mu-button>
 		<div class="modal fade" style="z-index: 999" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -297,6 +297,7 @@
   .submitBtn{
     width: 90%;
     margin: 2rem 5%;
+    height: 3.5rem;
   }
 
 </style>

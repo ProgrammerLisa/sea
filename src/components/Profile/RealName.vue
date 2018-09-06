@@ -70,6 +70,10 @@
 			}
 		},
 		mounted() {
+      let that = this;
+      mui.back = function(){
+        that.$router.go(-1);
+      };
 			this.$http({
 					method: "get",
 					url: "/users/info",

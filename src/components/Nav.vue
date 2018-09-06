@@ -7,7 +7,7 @@
           <!--<mu-bottom-nav-item :title="item.title" v-for="(item,index) in navItem" :key="index" :icon="item.icon" @click="nav(index)"></mu-bottom-nav-item>-->
           <mu-bottom-nav-item title="首页" to="/home" value="首页" icon=" " v-bind:iconClass="{selected:bottomNav=='首页'}"  ></mu-bottom-nav-item>
           <mu-bottom-nav-item title="发现" to="/find" value="发现" icon=" " v-bind:iconClass="{selected:bottomNav=='发现'}"  ></mu-bottom-nav-item>
-          <mu-bottom-nav-item title="商城" to="#" value="商城" icon=" " v-bind:iconClass="{selected:bottomNav=='商城'}"  ></mu-bottom-nav-item>
+          <mu-bottom-nav-item title="商城" to="/shopping" value="商城" icon=" " v-bind:iconClass="{selected:bottomNav=='商城'}"  ></mu-bottom-nav-item>
           <mu-bottom-nav-item title="我的" to="/personal" value="我的" icon=" " v-bind:iconClass="{selected:bottomNav=='我的'}"  ></mu-bottom-nav-item>
         </mu-bottom-nav>
 
@@ -56,6 +56,8 @@
           this.bottomNav='首页'
         }else if(this.$route.path==='/find'){
           this.bottomNav='发现'
+        }else if(this.$route.path==='/shopping'){
+          this.bottomNav='商城'
         }else if(this.$route.path==='/personal'){
           this.bottomNav='我的'
         }
@@ -82,9 +84,9 @@
         this.bottomNav = val;
         let a = document.getElementById('snd');
         a.play();
-        if(this.bottomNav==='商城'){
-          this.config()
-        }
+        // if(this.bottomNav==='商城'){
+        //   this.config()
+        // }
       },
       config() {
         this.openSimple = true;
@@ -95,6 +97,8 @@
           this.bottomNav='首页'
         }else if(this.$route.path==='/find'){
           this.bottomNav='发现'
+        }else if(this.$route.path==='/shopping'){
+          this.bottomNav='商城'
         }else if(this.$route.path==='/personal'){
           this.bottomNav='我的'
         }

@@ -16,6 +16,7 @@
           </div>
           <div class="media-body">
             <p class="media-heading">{{goods.commodityTitle}}</p>
+            <p class="commodityPropaganda">{{goods.commodityPropaganda}}</p>
             <div class="commodityPrice">{{goods.commodityPrice}} <span class="goodsMessage" style="color: #555"> ( 珍珠 ) </span> </div>
             <div ></div>
             <div>
@@ -64,6 +65,20 @@
           }
         },
       mounted(){
+        let clickNum = 0;
+        mui.back = function(){
+          clickNum++;
+          if(clickNum > 1) {
+            plus.runtime.quit();
+          } else {
+            mui.toast("再按一次退出应用");
+          }
+          setTimeout(function() {
+            clickNum = 0
+          }, 2000);
+          return false;
+
+        };
         this.$nextTick(function() {
           this.getStore();
         })
@@ -81,7 +96,6 @@
             },
             data: {}
           }).then(function(res) {
-            console.log(res.data)
             if(res.data.code === 0) {
               if(res.data.data.data.items.length>0){
                 for (let i in res.data.data.data.items) {
@@ -117,16 +131,8 @@
           if(that.commodity[index].isEnd){
             this.openSimple=true
           }else {
-            that.$router.push({
-              path: '/commoditydetails',
-              name: 'commoditydetails',
-              params: {
-                name:'name',
-                dataObj:that.commodity[index]
-
-              }
-
-            })
+            localStorage.setItem("goods_id",that.commodity[index].id);
+            that.$router.push({path: '/commoditydetails'})
           }
 
         },
@@ -140,13 +146,16 @@
 <style scoped>
   .content{
     overflow-x: hidden;
-    color: #666;
+    color: #444;
     padding-bottom: 6rem;
-    background: #f5f5f5;
+    background: #fff;
     width: 100vw;
-    position: fixed;
-    top: 0;
+    height: 100vh;
+    overflow-y: scroll;
     font-size: 1.6rem;
+  }
+  .content::-webkit-scrollbar{
+    display: none;
   }
 
   .panel{
@@ -162,7 +171,6 @@
     text-align: center;
     letter-spacing: 0.05rem;
     background: #fff;
-    color: #555;
     font-size: 1.8rem;
     margin-bottom: 0;
     height: 4.1rem;
@@ -178,13 +186,24 @@
     background: #fff;
   }
   .media-left img{
-    width: 8rem;
-    height: 8rem;
+    width: 11rem;
+    height: 11rem;
     margin-right: 1rem;
   }
   .media-heading{
+    width: 50vw;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;word-wrap: break-word;
+    color: #222;
+    font-weight: 400;
+  }
+  .media-body{
+    position: relative;
+  }
+  .commodityPropaganda{
+    font-size: small;
+    height: 3.5rem;
+    overflow: hidden;
     color: #555;
-    margin-bottom: 1rem;
+    /*width: 50vw;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;word-wrap: break-word;*/
   }
   .commodityPrice{
     color: #09a2d6;

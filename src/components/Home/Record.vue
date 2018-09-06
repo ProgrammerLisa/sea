@@ -196,6 +196,10 @@
         },
         mounted(){
           localStorage.removeItem("friend_uid");
+          let that = this;
+          mui.back = function(){
+            that.$router.go(-1);
+          };
           this.$nextTick(function () {
             this.gain();
             this.board();

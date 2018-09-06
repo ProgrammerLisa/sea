@@ -105,6 +105,12 @@
 				]
 			}
 		},
+    mounted(){
+      let that = this;
+      mui.back = function(){
+        that.$router.go(-1);
+      };
+    },
 		methods: {
       openSimpleDialog () {
         this.openSimple = true;

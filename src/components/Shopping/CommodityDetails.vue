@@ -6,7 +6,7 @@
       </mu-button>
       <span class="navTitleText">商城</span>
     </mu-appbar>
-		<div class="commodityImg">
+		<div class="commodityImg contentMarginTop">
 			<img :src="commodityImg" />
 		</div>
 		<div class="commodityTitle">
@@ -15,7 +15,7 @@
 		</div>
 		<div class="commodityPrice">
 			<span class="nowPrice">当前价：<span class="priceNumber">{{commodityPrice}}</span></span>
-			<!--<span class="commodityCount">库存：{{commodityCount}}件 <span class="commodityNumber">兑换：{{commodityNumber}}次</span></span>-->
+      <span class="commodityCount">库存：{{commodityNumber}} 件</span>
 			<div>( 成交价：钻石量 )</div>
 		</div>
 		<div class="considerations">
@@ -28,7 +28,58 @@
 		<div class="exchange">
 			<mu-button flat class="btn exchangeBtn publicButton" @click="preOrder">立即兑换</mu-button>
 		</div>
-		{{msg}}
+    <mu-bottom-sheet :open.sync="open">
+      <div @item-click="closeBottomSheet">
+        <div class="sheetContainer">
+          <div class="flexContainer sheetHead">
+            <div class="sheetGoodsImg"> <img :src="commodityImg" /></div>
+            <div class="sheetGoodsStyle">
+              <div>珍珠：<span class="priceNumber">{{commodityPrice}}</span></div>
+              <div>库存：{{commodityNumber}} 件</div>
+              <div v-if="size!==''||color!==''">已选：{{color}} {{size}}</div>
+              <div v-else>请选择商品属性</div>
+            </div>
+            <div class="closeBtn">
+              <mu-icon value="highlight_off" color="grey600" @click="closeBottomSheet"></mu-icon>
+            </div>
+          </div>
+          <div class="sheetBody">
+            <div class="sheetTitle">尺码</div>
+            <div class="listBorder">
+              <mu-radio v-model="size" style="margin-right: 16px;" value="&quot;S码&quot; " label="S"></mu-radio>
+              <mu-radio v-model="size" style="margin-right: 16px;" value="&quot;M码&quot;" label="M"></mu-radio>
+              <mu-radio v-model="size" style="margin-right: 16px;" value="&quot;L码&quot;" label="L"></mu-radio>
+            </div>
+          </div>
+          <div class="sheetBody">
+            <div class="sheetTitle">颜色</div>
+            <div class="listBorder">
+              <mu-radio v-model="color" style="margin-right: 16px;" value="&quot;黑色&quot;" label="黑色"></mu-radio>
+              <mu-radio v-model="color" style="margin-right: 16px;" value="&quot;白色&quot;" label="白色"></mu-radio>
+              <mu-radio v-model="color" style="margin-right: 16px;" value="&quot;红色&quot;" label="红色"></mu-radio>
+            </div>
+          </div>
+          <div class="sheetBody flexContainer countList">
+            <div class="countStyle text-left countHalf sheetTitle">购买数量</div>
+            <div class="flexContainer text-right countHalf" style="display: flex;flex-direction:row-reverse">
+              <mu-button fab small color="teal" class="rightCount" @click="countAdd(commodityNumber)">
+                <mu-icon value="add" ></mu-icon>
+              </mu-button>
+              <div class="countStyle">{{count}}</div>
+              <mu-button fab small color="teal" class="leftCount" @click="countRemove">
+                <mu-icon value="remove" ></mu-icon>
+              </mu-button>
+            </div>
+          </div>
+          <div class="sheetBody">
+            <mu-button flat class="publicButton" @click="goPreOrder">确定</mu-button>
+          </div>
+        </div>
+        <mu-dialog width="360" :open.sync="openTips">
+          <div class="tips">{{tips}}</div>
+        </mu-dialog>
+      </div>
+    </mu-bottom-sheet>
 	</div>
 </template>
 
@@ -41,13 +92,18 @@
 		data() {
 			return {
 				masrc: back,
-				msg: '',
+        open: false,
+        openTips:false,
+        tips:'',
 				commodityImg: '',
 				commodityTitle: '',
 				commodityPropaganda: '',
 				commodityPrice: '',
 				commodityCount: '',
 				commodityNumber: '',
+        color:'',
+        size:'',
+        count:1,
 				commodityConsiderations: [{
 						considerations: '请仔细核对你的地址，参加后不可修改；'
 					},
@@ -70,16 +126,41 @@
 			}
 		},
 		mounted() {
+      let that = this;
+      mui.back = function(){
+        that.$router.go(-1);
+      };
+      this.$nextTick(function() {
+        this.getGoods()
+      })
 
-			let routerParams = this.$route.params.dataObj;
-			this.commodityImg = routerParams.commodityImg;
-			this.commodityTitle = routerParams.commodityTitle;
-			this.commodityPropaganda = routerParams.commodityPropaganda;
-			this.commodityPrice = routerParams.commodityPrice;
-			this.commodityCount = routerParams.commodityCount;
-			this.commodityNumber = routerParams.commodityNumber;
 		},
 		methods: {
+		  getGoods(){
+        this.$http({
+          method: "post",
+          url: "/goods/detail",
+          headers: {
+            "device": "android",
+            "uid": localStorage.getItem("uid"),
+            "Access-Control-Allow-Origin": "*"
+          },
+          data: {
+            goods_id:localStorage.getItem("goods_id")
+          }
+        }).then(function(res) {
+          if(res.data.code === 0) {
+            this.commodityImg = res.data.data.image;
+            this.commodityTitle = res.data.data.name;
+            this.commodityPropaganda = res.data.data.desc;
+            this.commodityPrice = res.data.data.price;
+            this.commodityNumber = res.data.data.stock;
+          }
+        }.bind(this))
+          .catch(function(err) {
+            this.$layer.msg("系统异常，请稍后再试");
+          }.bind(this));
+      },
 			evers() {
 				this.masrc = backs;
 			},
@@ -87,37 +168,126 @@
 				this.masrc = back;
 			},
 			goBack() {
+		    localStorage.removeItem("goods_id");
+		    localStorage.removeItem("addressId");
 				this.$router.go(-1);
 			},
 			preOrder() {
-				this.$router.push({
-					path: '/preorder',
-					name: 'preorder',
-					params: {
-						name: 'name',
-						dataObj: {
-							commodityImg: this.commodityImg,
-							commodityTitle: this.commodityTitle,
-							commodityPrice: this.commodityPrice
-						}
-
-					}
-
-				})
-			}
+        this.open = true;
+			},
+      closeBottomSheet () {
+        this.open = false;
+      },
+      countRemove(){
+		    if(this.count>0){
+		      this.count--
+        }
+      },
+      countAdd(max){
+		    if(this.count<parseInt(max))
+        this.count++;
+      },
+      goPreOrder(){
+		    if(this.size===""||this.size===null||this.size===undefined){
+          this.openTipsFuc("请选择尺码")
+        }else if(this.color===""||this.color==null||this.color==undefined){
+          this.openTipsFuc("请选择颜色")
+        }else if(this.count===0){
+          this.openTipsFuc("请选择商品数量")
+        }else {
+          this.$router.push({path: '/preorder'})
+        }
+      },
+      openTipsFuc(tips){
+        this.openTips=true;
+        this.tips=tips
+        setTimeout(()=>{
+          this.openTips=false;
+        },1000)
+      }
 		}
 	}
 </script>
 
 <style scoped>
+  .sheetHead{
+    background: #fefefe;
+  }
+  .sheetBody{
+    margin-top: 1rem;
+  }
+  .sheetContainer{
+    padding: 1rem;
+    font-size: 1.6rem;
+  }
+  .flexContainer{
+    display: flex;
+  }
+  .sheetTitle{
+    font-size: 1.7rem;
+    color: #222;
+  }
+  .sheetGoodsImg{
+    width: 11rem;
+    height: 11rem;
+    background: #fff;
+    margin-top: -3rem;
+    padding: 0.5rem;
+    border-radius: 3px;
+  }
+  .sheetGoodsImg img{
+    width: 100%;
+    height: 100%;
+  }
+  .sheetGoodsStyle{
+    margin-left: 1rem;
+  }
+  .closeBtn{
+    position: absolute;
+    right: 1rem;
+  }
+  .listBorder{
+    border-bottom: 1px solid #f5f5f5;
+    padding: 1rem 0;
+  }
+  .countList{
+    padding-bottom: 4rem;
+    border-bottom: 1px solid #f5f5f5;
+  }
+  .countHalf{
+    width: 50%;
+  }
+  .countStyle{
+    line-height: 40px;
+  }
+  .leftCount{
+    margin-right: 1rem;
+    background: linear-gradient(to right, #0BA5D7 , #38E7F8);
+  }
+  .rightCount{
+    margin-left: 1rem;
+    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
+  }
+  .publicButton{
+    width: 100%;
+    height: 3rem;
+  }
+  .tips{
+    width: 100%;
+    text-align: center;
+    padding: 1.5rem 0;
+  }
+
+
 	.content {
 		overflow-x: hidden;
-		color: #666;
+		color: #555;
     width: 100vw;
     height: 100vh;
     overflow-y: scroll;
     position: fixed;
     top: 0;
+    font-size: 1.6rem;
 	}
   .content::-webkit-scrollbar{
     display: none;
@@ -136,12 +306,12 @@
 	.commodityTitle {
 		padding: 1rem 1rem 0;
 		border-bottom: 0.1rem solid #f5f5f5;
-		color: #555;
+		color: #333;
     background: #fff;
 	}
 
 	.commodityPropaganda {
-		color: #777;
+		color: #444;
 		font-size: small;
 	}
 
@@ -150,14 +320,13 @@
 		border-bottom: 0.5rem solid #f5f5f5;
     background: #fff;
 	}
-
-	.nowPrice {
-		color: #09a2d6;
-	}
-
 	.priceNumber {
 		font-size: 1.8rem;
+    color: #09a2d6;
 	}
+  .commodityCount{
+    float: right;
+  }
   .considerations{
     background: #fff;
     padding-bottom: 6rem;

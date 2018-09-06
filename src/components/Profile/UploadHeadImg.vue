@@ -24,6 +24,10 @@
       }
     },
     mounted(){
+      let that = this;
+      mui.back = function(){
+        that.$router.go(-1);
+      };
       this.imageSrc=this.$route.params.dataObj;
       this.houzhuiming=this.$route.params.houzhuiming;
     },

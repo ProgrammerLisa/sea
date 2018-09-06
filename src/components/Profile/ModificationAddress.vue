@@ -111,6 +111,11 @@
 			}
 		},
 		mounted() {
+      let that = this;
+      mui.back = function(){
+        that.$router.go(-1);
+      };
+
 			this.addressTd = this.$route.params.dataObj.id;
 			this.validateForm.username=this.$route.params.dataObj.username;
       this.validateForm.phone=this.$route.params.dataObj.phone;

@@ -31,6 +31,12 @@
 				masrc: back
 			}
 		},
+    mounted(){
+      let that = this;
+      mui.back = function(){
+        that.$router.go(-1);
+      };
+    },
 		methods: {
 			evers() {
 				this.masrc = backs;

@@ -56,7 +56,10 @@
           }
         },
         mounted(){
-          const that = this;
+          let that = this;
+          mui.back = function(){
+            that.$router.go(-1);
+          };
           for (var i=0;i<that.Service.length;i++){
             if( that.Service[i].isMyself){
               that.Service[i].DialogStyle = 'float:right;background:#09a2d6;color:#fff'

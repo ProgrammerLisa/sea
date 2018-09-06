@@ -203,6 +203,11 @@
 		},
 
 		mounted: function() {
+      let that = this;
+      mui.back = function(){
+        that.$router.go(-1);
+      };
+
 			this.$nextTick(function() {
 				this.compile();
 

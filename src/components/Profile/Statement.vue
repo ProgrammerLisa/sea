@@ -117,6 +117,10 @@
 			}
 		},
 		mounted() {
+      let that = this;
+      mui.back = function(){
+        that.$router.go(-1);
+      };
       $(".myNav").css({width:$(window).width()+48+'px'})
 		},
 		methods: {

@@ -4,9 +4,15 @@
         <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
           <img :src="masrc"/>
         </mu-button>
-        <span class="navTitleText">商城</span>
+        <span class="navTitleText">确认订单</span>
       </mu-appbar>
-      <div class="chooseAdd text-center"><span class="glyphicon glyphicon-plus chooseIcon"></span> 选择收货地址</div>
+      <router-link class="contentMarginTop chooseAdd" v-if="hasAddress" tag="div" to="/chooseaddress">
+          <div class="AddressUser">
+            <div class="text-left AddressName">收货人：{{address.consignee}}</div><div class="text-right AddressPhone">{{address.phone}}</div>
+          </div>
+          <div class="Address"><span class="defaultAddress" v-show="address.is_default">[ 默认地址 ]</span> <mu-icon v-show="!address.is_default" size="20" value="room" color="grey800" style="vertical-align:bottom"></mu-icon> 收货地址：{{address.address}}</div>
+      </router-link>
+      <router-link tag="div" to="/newaddress" class="chooseAdd text-center contentMarginTop" v-else><span class="glyphicon glyphicon-plus chooseIcon"></span> 选择收货地址</router-link>
 
       <div class="media">
           <div class="media-left">
@@ -14,18 +20,18 @@
           </div>
           <div class="media-body">
             <p class="media-heading">{{commodityTitle}}</p>
-            <div class="commodityPrice">所需：<span class="commodityPrice commodityPriceNum">{{commodityPrice}}</span></div>
+            <div class="commodityPrice">所需珍珠：<span class="commodityPrice commodityPriceNum">{{commodityPrice}}</span></div>
             <div class="myCount">您的： <span class=" commodityPriceNum">{{myCount}}</span></div>
             <div>
-              <button class="btn enchangeBtn">
+              <mu-button flat class="enchangeBtn" @click="goFind">
                 做任务
-              </button>
+              </mu-button>
             </div>
           </div>
 
       </div>
       <div class="exchange">
-        <mu-button flat class=" exchangeBtn" disabled="disabled" v-if="isDisabled">确认兑换</mu-button>
+        <mu-button flat class=" exchangeBtn" disabled="disabled" v-if="!isDisabled">余额不足</mu-button>
         <mu-button flat class=" exchangeBtn publicButton" v-else>确认兑换</mu-button>
 
       </div>
@@ -40,6 +46,8 @@
         data(){
           return{
             masrc: back,
+            hasAddress:false,
+            address:'',
             commodityImg:'',
             commodityTitle:'',
             commodityPrice:'',
@@ -48,18 +56,69 @@
           }
         },
         mounted(){
-          let routerParams=this.$route.params.dataObj;
-          this.commodityImg = routerParams.commodityImg;
-          this.commodityTitle = routerParams.commodityTitle;
-          this.commodityPrice = routerParams.commodityPrice;
-
+          let that = this;
+          mui.back = function(){
+            that.$router.go(-1);
+          };
           if(parseInt(this.myCount)<parseInt(this.commodityPrice)){
             this.isDisabled=true
           }else {
             this.isDisabled=false
           }
+          this.$nextTick(function() {
+            this.getGoods()
+            this.getAddress()
+          })
         },
         methods:{
+          getGoods(){
+            this.$http({
+              method: "post",
+              url: "/goods/detail",
+              headers: {
+                "device": "android",
+                "uid": localStorage.getItem("uid"),
+                "Access-Control-Allow-Origin": "*"
+              },
+              data: {
+                goods_id:localStorage.getItem("goods_id")
+              }
+            }).then(function(res) {
+              if(res.data.code === 0) {
+                this.commodityImg = res.data.data.image;
+                this.commodityTitle = res.data.data.name;
+                this.commodityPrice = res.data.data.price;
+              }
+            }.bind(this))
+              .catch(function(err) {
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this));
+          },
+          getAddress(){
+            this.$http({
+              method: "post",
+              url: "/display-address",
+              headers: {
+                "device": "android",
+                "uid": localStorage.getItem("uid"),
+                "Access-Control-Allow-Origin": "*"
+              },
+              data: {
+                addr_id:localStorage.getItem("addressId")
+              }
+            }).then(function(res) {
+              if(res.data.code === 0) {
+                this.hasAddress=true;
+                this.address = res.data.data
+              }
+            }.bind(this))
+              .catch(function(err) {
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this));
+          },
+          goFind(){
+            this.$router.replace('/find')
+          },
           evers() {
             this.masrc = backs;
           },
@@ -76,44 +135,36 @@
 <style scoped>
   .content{
     overflow-x: hidden;
-    color: #666;
+    color: #555;
     width: 100vw;
     position: fixed;
     top: 0;
+    font-size: 1.6rem;
     background: #f5f5f5;
   }
 
-  .panel{
-    border:none;
-    border-radius: 0;
-  }
-  .panel-body {
-    padding:0 1rem;
-  }
-  .BlackTitle{
-    text-align: center;
-    letter-spacing: 0.05rem;
-    background: #09a2d6;
-    color: #fff;
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    height: 4.1rem;
-    line-height: 4.1rem;
-  }
-  .back{
-    position: absolute;
-    left: 1rem;
-  }
-  .back img {
-    height: 2.5rem;
-  }
   .chooseAdd{
-    line-height: 4rem;
     background: #fff;
     margin-bottom: 1rem;
+    padding:1rem 3rem;
+    color: #333;
   }
   .chooseAdd:active{
     background: #f1f1f1;
+  }
+  .AddressUser{
+    display: flex;
+  }
+  .AddressName,.AddressPhone{
+    width: 50%;
+    font-size: 1.7rem;
+  }
+  .Address{
+    font-size:1.5rem;
+    margin-top: 0.5rem;
+  }
+  .defaultAddress{
+    color: #e57373;
   }
   .chooseIcon{
     color: #09a2d6;
@@ -132,10 +183,9 @@
   .media-heading{
     color: #555;
     margin-bottom: 1.2rem;
-    font-size: 1.5rem;
   }
   .commodityPrice{
-    font-size: 1.5rem;
+
   }
   .commodityPriceNum{
     color: #09a2d6;
@@ -149,10 +199,10 @@
     border-radius: 3px;
     color: #fff;
     background: linear-gradient(to right, #38E7F8 , #0BA5D7);
-    padding: 0.5rem 1rem;
     vertical-align: middle;
-    margin-top: -1.5rem;
+    margin-top: -3rem;
     border: none;
+    height: 3rem;
   }
 
   .enchangeBtn:focus{
@@ -170,17 +220,7 @@
     width: 80%;
     height: 3rem;
     margin:1rem 10%;
+    font-size: 1.6rem;
+  }
 
-  }
-  .noDisabled{
-    background: #09a2d6;
-    color: #fff;
-    display: inline-block;
-  }
-  .noDisabled:active{
-  	background: #009ACD;
-  }
-  .noDisabled:focus{
-  	outline: 0;
-  }
 </style>

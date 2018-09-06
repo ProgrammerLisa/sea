@@ -29,7 +29,7 @@
             <tr>
 
               <td class="col-xs-5" style="padding-right: 0;padding-top: 1rem">
-                <mu-radio @click="choose(index)" v-model="form.radio" textColor="#555" :value="a.id" :label="a.label"></mu-radio>
+                <mu-radio @click="choose(index,a.msg.addr_id)" v-model="form.radio" textColor="#555" :value="a.msg.addr_id" :label="a.label"></mu-radio>
               </td>
               <td class="col-xs-7 text-right">
                 <div class="del" @click="editor(index)">
@@ -84,7 +84,6 @@
 					radio: ''
 				},
 				mobile: {
-					id: '',
 					msg: '',
 					label: ''
 				}
@@ -92,7 +91,12 @@
 		},
 
 		mounted() {
-			this.$nextTick(function() {
+		  let that = this;
+      mui.back = function(){
+        that.$router.go(-1);
+      };
+
+      this.$nextTick(function() {
 				this.getList();
 			})
 		},
@@ -108,16 +112,15 @@
 						},
 						data: {}
 					}).then(function(res) {
-						if(res.data.code == 0) {
-							if(JSON.stringify(res.data.data) == "{}") {
+					  console.log(res.data)
+						if(res.data.code === 0) {
+							if(res.data.data.length===0) {
 								this.noAddress = true
 							} else {
 								this.noAddress = false;
 
 								let myJson = res.data.data;
 								for(let p in myJson) { //遍历json对象的每个key/value对,p为key
-
-									this.mobile.id = p;
 									this.mobile.msg = myJson[p];
 									if(myJson[p].is_default) {
 										this.form.radio = p;
@@ -127,13 +130,7 @@
 									}
 									this.myAddress.push(this.mobile);
 									this.mobile = {
-										id: '',
-										msg: {
-											name: '',
-											phoneNumber: '',
-											address: '',
-											is_default: ''
-										},
+										msg: '',
 										label: ''
 									};
 								}
@@ -156,7 +153,7 @@
 			closeAlertDialog() {
 				this.openAlert = false;
 			},
-			choose(index) {
+			choose(index,id) {
 				this.$http({
 						method: "post",
 						url: "/users/delivery_address/set-default",
@@ -166,7 +163,7 @@
 							"Access-Control-Allow-Origin": "*"
 						},
 						data: {
-							id: this.myAddress[index].id
+              addr_id: id
 						}
 					}).then(function(res) {
 
@@ -323,10 +320,6 @@
 		width: 100%;
 		padding: 0.8rem 0;
 		text-align: center;
-	}
-
-	.large {
-		font-size: larger;
 	}
 
 	.loginOutBtn {

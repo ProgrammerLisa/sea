@@ -174,7 +174,7 @@ export default new Router({
     {
       path:'/newaddress',
       name:'newaddress',
-      meta:{index:3},
+      meta:{index:5},
       component:  resolve => require(['@/components/Profile/NewAddress'], resolve)
     },
     {
@@ -305,6 +305,11 @@ export default new Router({
       name:'leavingmessage',
       meta:{index:5},
       component:  resolve => require(['@/components/Farm/LeavingMessage'], resolve)
+    },{
+      path:'/chooseaddress',
+      name:'chooseaddress',
+      meta:{index:4},
+      component:  resolve => require(['@/components/Shopping/ChooseAddress'], resolve)
     }
 
 

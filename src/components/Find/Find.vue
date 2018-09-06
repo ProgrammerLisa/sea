@@ -60,7 +60,22 @@
 			}
 		},
 		mounted() {
-			this.$nextTick(function() {
+      let clickNum = 0;
+      mui.back = function(){
+        clickNum++;
+        if(clickNum > 1) {
+          plus.runtime.quit();
+        } else {
+          mui.toast("再按一次退出应用");
+        }
+        setTimeout(function() {
+          clickNum = 0
+        }, 2000);
+        return false;
+
+      };
+
+      this.$nextTick(function() {
 				this.isSignIn();
 			})
 		},

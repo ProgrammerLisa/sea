@@ -39,6 +39,10 @@
           }
         },
         mounted(){
+          let that = this;
+          mui.back = function(){
+            that.$router.go(-1);
+          };
           let routerParams=this.$route.params.dataObj;
           this.$http({
             method: "post",

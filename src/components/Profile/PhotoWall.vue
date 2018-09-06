@@ -8,7 +8,7 @@
     </mu-appbar>
     <div class="photoContainer">
         <div class="d-flex flex-row justify-content-start align-items-center flex-wrapper" v-for="(p,index) in photo"  >
-        	<div class="d-flex flex-row justify-content-center align-items-end flex-demo" v-for="(s,i) in p.src" > 
+        	<div class="d-flex flex-row justify-content-center align-items-end flex-demo" v-for="(s,i) in p.src" >
         		<img :src="s.src"  @click="openSimpleDialog(s.src)">
         	</div>
         </div>
@@ -40,6 +40,10 @@
           }
         },
         mounted(){
+          let that = this;
+          mui.back = function(){
+            that.$router.go(-1);
+          };
           this.$nextTick(function() {
             this.photoFunc();
           })

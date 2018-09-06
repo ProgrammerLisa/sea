@@ -37,10 +37,14 @@
 				},
 				visibility: false,
 				haveData: false
-				
+
 			}
 		},
 		mounted() {
+      let that = this;
+      mui.back = function(){
+        that.$router.go(-1);
+      };
 			this.form.input = this.$route.params.dataObj.nickname;
 		},
 		methods: {

@@ -23,7 +23,7 @@
 					<!--<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: 25px;right: 7%;">
            			  <img src="../../assets/images/x.png" style="position:absolute;top: -20px;"/>
           			</button>-->
-          			
+
 					<mu-text-field required="required" class="phone" ref="mobile" v-on:input="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" :max-length="11" keyboard="number" is-type="china-mobile" />
 					<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top:-22%;right: 7%;">
           			  <img src="../../assets/images/x.png" style="position: absolute;" />
@@ -121,6 +121,20 @@
 		},
 		mounted: function() {
 			const that = this;
+      let clickNum = 0;
+      mui.back = function(){
+        clickNum++;
+        if(clickNum > 1) {
+          plus.runtime.quit();
+        } else {
+          mui.toast("再按一次退出应用");
+        }
+        setTimeout(function() {
+          clickNum = 0
+        }, 2000);
+        return false;
+
+      };
 			this.$nextTick(() => {
 
 			})
@@ -392,7 +406,7 @@
 
 	input[type=text]:focus,
 	input[type=password]:focus,
-	
+
 	input.mu-text-field-input,
 	textarea:focus {
 		-webkit-box-shadow: 0 0 0 1000px white inset;
@@ -428,7 +442,7 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-	
+
 	div#div_ipwd{
 		padding-top:10px ;
 	}
@@ -625,14 +639,14 @@
 	button#btn_login_sms.weui-btn.weui-btn_primary {
 		width: 100%;
 	}
-	
+
 	#login,#LoginTitle{
 		background: url(../../assets/images/bglu.png);
 	}
-	
+
 	input#ipwd.mu-text-field-input{
 		width: 100px;
 	}
-	
-	
+
+
 </style>

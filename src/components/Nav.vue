@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <audio id="snd" src="../assets/audio/ajy.mp3" style="display: none;"></audio>
+    <audio id="snd"src="../assets/audio/ajy.mp3" style="display: none;"></audio>
 
     <div class="myNav">
         <mu-bottom-nav :value="bottomNav" @change="handleChange">
@@ -81,7 +81,9 @@
       handleChange(val,src){
         this.bottomNav = val;
         let a = document.getElementById('snd');
+        a.volume = 0.2;
         a.play();
+//				a.defaultPlaybackRate = 2.0;
         if(this.bottomNav==='商城'){
           this.config()
         }

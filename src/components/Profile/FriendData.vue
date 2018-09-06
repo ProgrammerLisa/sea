@@ -171,7 +171,8 @@
             "Access-Control-Allow-Origin": "*"
           },
           data: {
-            friend_uid:this.friend_uid
+            friend_uid:this.friend_uid,
+            nickname:this.nickname
           }
         }).then(function(res) {
 

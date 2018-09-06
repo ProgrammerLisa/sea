@@ -188,12 +188,12 @@
 							var srcu = localStorage.getItem("src2") || [];
 							
 							if(typeof srcu == "string") {
-								console.log(1);
+//								console.log(1);
 								srcu = srcu.split(",")
 								var i;
 								for(i = 0; i < srcu.length; i++) {
-									console.log(srcu[i])
-									console.log(this.headPortrait)
+//									console.log(srcu[i])
+//									console.log(this.headPortrait)
 									if(srcu[i] == this.headPortrait) {
 										break;
 									}
@@ -203,7 +203,7 @@
 									localStorage.setItem("src2", srcu);
 								}
 							} else {
-								console.log(2);
+//								console.log(2);
 								srcu.push(this.headPortrait)
 								localStorage.setItem("src2", srcu);
 								console.log(localStorage.getItem("src2"));

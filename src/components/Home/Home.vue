@@ -1,6 +1,6 @@
 <template>
 	<div id="content">
-    <audio style="display: none;" id="pearlAudio" src="../../assets/audio/zhenzhu.mp3"></audio>
+		<audio style="display: none;" id="pearlAudio" src="../../assets/audio/zhenzhu.mp3"></audio>
 		<div class="landscape"></div>
 		<div class="filter"></div>
 		<canvas id="canvas"></canvas>
@@ -56,30 +56,29 @@
 	import defaultPearl from '@/assets/images/zhenzhu.png'
 	import defaultOcean from '@/assets/images/haiyangzhixin.png'
 
-  import p1 from '@/assets/images/zhenzhu3x/zhenzhu1@3x.png'
-  import p2 from '@/assets/images/zhenzhu3x/zhenzhu2@3x.png'
-  import p3 from '@/assets/images/zhenzhu3x/zhenzhu3@3x.png'
-  import p4 from '@/assets/images/zhenzhu3x/zhenzhu4@3x.png'
-  import p5 from '@/assets/images/zhenzhu3x/zhenzhu5@3x.png'
-  import p6 from '@/assets/images/zhenzhu3x/zhenzhu6@3x.png'
-  import p7 from '@/assets/images/zhenzhu3x/zhenzhu7@3x.png'
-  import p8 from '@/assets/images/zhenzhu3x/zhenzhu8@3x.png'
-  import p9 from '@/assets/images/zhenzhu3x/zhenzhu9@3x.png'
-  import p10 from '@/assets/images/zhenzhu3x/zhenzhu10@3x.png'
-  import p11 from '@/assets/images/zhenzhu3x/zhenzhu11@3x.png'
+	import p1 from '@/assets/images/zhenzhu3x/zhenzhu1@3x.png'
+	import p2 from '@/assets/images/zhenzhu3x/zhenzhu2@3x.png'
+	import p3 from '@/assets/images/zhenzhu3x/zhenzhu3@3x.png'
+	import p4 from '@/assets/images/zhenzhu3x/zhenzhu4@3x.png'
+	import p5 from '@/assets/images/zhenzhu3x/zhenzhu5@3x.png'
+	import p6 from '@/assets/images/zhenzhu3x/zhenzhu6@3x.png'
+	import p7 from '@/assets/images/zhenzhu3x/zhenzhu7@3x.png'
+	import p8 from '@/assets/images/zhenzhu3x/zhenzhu8@3x.png'
+	import p9 from '@/assets/images/zhenzhu3x/zhenzhu9@3x.png'
+	import p10 from '@/assets/images/zhenzhu3x/zhenzhu10@3x.png'
+	import p11 from '@/assets/images/zhenzhu3x/zhenzhu11@3x.png'
 
-  import o1 from '@/assets/images/haiyangzhixin3x/hailanzhixin1@3x.png'
-  import o2 from '@/assets/images/haiyangzhixin3x/hailanzhixin2@3x.png'
-  import o3 from '@/assets/images/haiyangzhixin3x/hailanzhixin3@3x.png'
-  import o4 from '@/assets/images/haiyangzhixin3x/hailanzhixin4@3x.png'
-  import o5 from '@/assets/images/haiyangzhixin3x/hailanzhixin5@3x.png'
-  import o6 from '@/assets/images/haiyangzhixin3x/hailanzhixin6@3x.png'
-  import o7 from '@/assets/images/haiyangzhixin3x/hailanzhixin7@3x.png'
-  import o8 from '@/assets/images/haiyangzhixin3x/hailanzhixin8@3x.png'
-  import o9 from '@/assets/images/haiyangzhixin3x/hailanzhixin9@3x.png'
-  import o10 from '@/assets/images/haiyangzhixin3x/hailanzhixin10@3x.png'
-  import o11 from '@/assets/images/haiyangzhixin3x/hailanzhixin11@3x.png'
-
+	import o1 from '@/assets/images/haiyangzhixin3x/hailanzhixin1@3x.png'
+	import o2 from '@/assets/images/haiyangzhixin3x/hailanzhixin2@3x.png'
+	import o3 from '@/assets/images/haiyangzhixin3x/hailanzhixin3@3x.png'
+	import o4 from '@/assets/images/haiyangzhixin3x/hailanzhixin4@3x.png'
+	import o5 from '@/assets/images/haiyangzhixin3x/hailanzhixin5@3x.png'
+	import o6 from '@/assets/images/haiyangzhixin3x/hailanzhixin6@3x.png'
+	import o7 from '@/assets/images/haiyangzhixin3x/hailanzhixin7@3x.png'
+	import o8 from '@/assets/images/haiyangzhixin3x/hailanzhixin8@3x.png'
+	import o9 from '@/assets/images/haiyangzhixin3x/hailanzhixin9@3x.png'
+	import o10 from '@/assets/images/haiyangzhixin3x/hailanzhixin10@3x.png'
+	import o11 from '@/assets/images/haiyangzhixin3x/hailanzhixin11@3x.png'
 
 	export default {
 		components: {
@@ -98,8 +97,8 @@
 				bh: defaultPearl,
 				zhenzhuIcon: zhenzhuIcon,
 				nengliangIcon: nengliang,
-        p:[p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11],
-        o:[o1,o2,o3,o4,o5,o6,o7,o8,o9,o10,o11],
+				p: [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11],
+				o: [o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11],
 				imgDiv: [],
 				PearlLevel1: {
 					imgCount: '',
@@ -214,49 +213,73 @@
 						}
 					}).then(function(res) {
 						if(res.data.code === 0) {
-              let pearlAudio = document.getElementById('pearlAudio');
-              pearlAudio.play();
-              this.imgDiv[index].isDisabled = true;
+							//            let pearlAudio = document.getElementById('pearlAudio');
+							//            pearlAudio.play();
+
+							//			  pearlAudio.playbackRate = 2;
+							//			  pearlAudio.play();
+							//			  alert(pearlAudio.playbackRate);
+
+							this.imgDiv[index].isDisabled = true;
 							this.pearlCount = res.data.user_pearl;
 							this.energyCount = res.data.user_energy;
-              let that = this;
-              let i = 0;
-              if(that.imgDiv[index].href===defaultPearl){
-                let timer =  setInterval(()=>{
-                  if(i<that.p.length){
-                    that.imgDiv[index].href =that.p[i];
-                    $(".divImg").eq(index).css({width:"150%",marginLeft:"-25%",marginTop:'-1rem'});
-                    $(".divCount").eq(index).css({marginTop:"-0.6rem"});
+							let that = this;
+							let i = 0;
+							if(that.imgDiv[index].href === defaultPearl) {
+								let timer = setInterval(() => {
 
-                    i++
-                  }else {
-                    clearInterval(timer);
-                    $(".pearlBox").eq(index).animate({top: "-200%"}, 1000);
+									let pearlAudio = document.getElementById('pearlAudio');
+									pearlAudio.play();
 
-                  }
+									if(i < that.p.length) {
+										that.imgDiv[index].href = that.p[i];
+										$(".divImg").eq(index).css({
+											width: "150%",
+											marginLeft: "-25%",
+											marginTop: '-1rem'
+										});
+										$(".divCount").eq(index).css({
+											marginTop: "-0.6rem"
+										});
 
-                },200)
-              }else if(that.imgDiv[index].href===defaultOcean){
-                let timer =  setInterval(()=>{
-                  if(i<that.o.length){
-                    that.imgDiv[index].href =that.o[i];
-                    $(".divImg").eq(index).css({width:"150%",marginLeft:"-25%"});
-                    $(".divCount").eq(index).css({marginTop:"-0.5rem"});
+										i++
+									} else {
+										clearInterval(timer);
+										$(".pearlBox").eq(index).animate({
+											top: "-200%"
+										}, 1000);
 
-                    i++
-                  }else {
-                    clearInterval(timer);
-                    $(".pearlBox").eq(index).animate({top: "-200%"}, 1000);
+									}
 
-                  }
+								}, 200)
+							} else if(that.imgDiv[index].href === defaultOcean) {
+								let timer = setInterval(() => {
+									if(i < that.o.length) {
+										that.imgDiv[index].href = that.o[i];
+										$(".divImg").eq(index).css({
+											width: "150%",
+											marginLeft: "-25%"
+										});
+										$(".divCount").eq(index).css({
+											marginTop: "-0.5rem"
+										});
 
-                },200)
-              }
-              if(res.data.pearls.length===0){
-                setTimeout(()=>{
-                  that.hasPearl = false;
-                },3500)
-              }
+										i++
+									} else {
+										clearInterval(timer);
+										$(".pearlBox").eq(index).animate({
+											top: "-200%"
+										}, 1000);
+
+									}
+
+								}, 200)
+							}
+							if(res.data.pearls.length === 0) {
+								setTimeout(() => {
+									that.hasPearl = false;
+								}, 3500)
+							}
 						} else {
 							this.$layer.msg(res.data.msg);
 							this.imgDiv[index].isDisabled = false;
@@ -283,7 +306,7 @@
 		/*background:linear-gradient(to bottom,#3198D3 0%,#2E6EA1 100%);*/
 		background: #1A3B57;
 	}
-
+	
 	.landscape {
 		position: absolute;
 		left: 0;
@@ -295,7 +318,7 @@
 		background-repeat: repeat-x;
 		background-position: center bottom;
 	}
-
+	
 	#notice {
 		position: absolute;
 		top: 2rem;
@@ -304,36 +327,36 @@
 		font-size: 1.01rem;
 		background: rgba(255, 255, 255, 0.1);
 	}
-
+	
 	.icon {
 		background: rgba(0, 0, 0, 0.2);
 		border-radius: 2rem;
 		padding: 0.1rem 1.5rem 0.1rem 0.5rem;
 		margin-bottom: 1rem;
 	}
-
+	
 	.icon img {
 		width: 2rem;
 	}
-
+	
 	.topOption {
 		position: absolute;
 	}
-
+	
 	.option1 {
 		left: 1rem;
 		top: 6.5rem;
 	}
-
+	
 	.invitation-friends {
 		border-radius: 50%;
 		padding: 0.4rem;
 	}
-
+	
 	.option2,
 	.option3,
 	.option4 {
-		width:6.5rem;
+		width: 6.5rem;
 		float: right;
 		text-align: center;
 		position: absolute;
@@ -341,46 +364,46 @@
 		color: #fff;
 		z-index: 999;
 	}
-
+	
 	.option2 {
 		right: 1rem;
 	}
-
+	
 	.option3 {
 		left: 7rem;
 	}
-
+	
 	.option2 img,
 	.option3 img,
 	.option4 img {
 		width: 70%;
 	}
-
+	
 	.option2:active img,
 	.option3:active img,
 	.option4:active img {
 		transform: scale3d(0.8, 0.8, 0.8);
 		transition: 0.1s;
 	}
-
+	
 	.option4 {
 		left: 1rem;
 	}
-
+	
 	.option4-Icon span {
 		font-size: 2.5rem;
 	}
-
+	
 	#pearlContainer {
 		position: relative;
 		width: 100vw;
 		height: 50vh;
 	}
-
+	
 	p {
 		margin-bottom: 0;
 	}
-
+	
 	.tips {
 		width: 0.6rem;
 		height: 0.6rem;
@@ -392,7 +415,7 @@
 		border-radius: 50%;
 		display: none;
 	}
-
+	
 	.pearlBox {
 		border: none;
 		width: 4rem;
@@ -400,81 +423,85 @@
 		position: absolute;
 		outline: none;
 		animation: myfirst 2s infinite;
-    background: none;
+		background: none;
 	}
-
+	
 	.pearlBox1 {
-    top: 12vh;
-    left:44vw;
+		top: 12vh;
+		left: 44vw;
 	}
-
+	
 	.pearlBox2 {
 		top: 29vh;
 		left: 42vw;
 	}
-
+	
 	.pearlBox3 {
 		top: 23vh;
-		left:70vw;
+		left: 70vw;
 	}
-
+	
 	.pearlBox4 {
 		top: 10vh;
-		left:14vw;
+		left: 14vw;
 	}
-
+	
 	.pearlBox5 {
 		top: 29vh;
 		left: 3rem;
 	}
-
+	
 	.pearlBox6 {
 		top: 45vh;
-		left:46vw;
+		left: 46vw;
 	}
-
+	
 	.pearlBox7 {
 		top: 37vh;
 		left: 80vw;
 	}
-
+	
 	.pearlBox8 {
 		top: 8vh;
 		left: 80vw;
 	}
-
+	
 	.pearlBox9 {
 		top: -3vh;
 		left: 32vw;
 	}
-
+	
 	.pearlBox0 {
-		top:-8vh;
+		top: -8vh;
 		left: 62vw;
 	}
-  .divImg{
-    width: 100%;
-  }
-  .divCount{
-    margin-top: 0.5rem;font-size: smaller
-  }
+	
+	.divImg {
+		width: 100%;
+	}
+	
+	.divCount {
+		margin-top: 0.5rem;
+		font-size: smaller
+	}
+	
 	.waitingContainer {
 		position: relative;
 		margin-top: 13vh;
 		font-size: 1.5rem;
 	}
-
+	
 	.waiting {
 		width: 6rem;
 		height: 6rem;
 		animation: myfirst 2s infinite;
 		margin: 1rem auto;
 	}
-
+	
 	.waiting img {
 		width: 100%;
 	}
-
+	
 	@keyframes myfirst {
 		0% {
 			transform: translate(0, 0);

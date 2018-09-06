@@ -13,7 +13,7 @@
 				<p>您还没有好友，去邀请好友吧</p>
 				<mu-button class="publicButton" flat @click="goAsk">去邀请</mu-button>
 			</div>
-			<div class="media friends" v-for="f in friends" v-else @click="friendData(f.uid)">
+			<div class="media friends" v-for="f in friends" v-else @click="friendData(f.uid,d=f.nickname)">
 				<div class="media-left">
 					<img class="media-object" :src="f.avatar">
 				</div>
@@ -34,7 +34,7 @@
 	import noFriendImg from '@/assets/images/myfriend.png'
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
-
+	
 	export default {
 		name: "friend",
 		data() {
@@ -43,23 +43,22 @@
 				noFriend: true,
 				noFriendImg: noFriendImg,
 				friends: [{
-						avatar: '123',
-						nickname: '11',
-						uid:'123456',
-						gender:'♀' ,
-//						'♀''♂'
-						color: '#FC8484',
-						bcColor: 'background: #FC8484;'
-					},{
-						avatar: '123',
-						nickname: '11',
-						uid:'123456',
-						gender:'♂' ,
-//						'♀''♂'
-						color: '#5CB3FC',
-						bcColor: 'background: #5CB3FC;'
-					}
-				]
+					avatar: '123',
+					nickname: '11',
+					uid: '123456',
+					gender: '♀',
+					//						'♀''♂'
+					color: '#FC8484',
+					bcColor: 'background: #FC8484;'
+				}, {
+					avatar: '123',
+					nickname: '11',
+					uid: '123456',
+					gender: '♂',
+					//						'♀''♂'
+					color: '#5CB3FC',
+					bcColor: 'background: #5CB3FC;'
+				}]
 			}
 		},
 		mounted() {
@@ -91,24 +90,24 @@
 								this.noFriend = true;
 							} else {
 								this.noFriend = false;
-								for(let i=0;i<res.data.data.length;i++){
-									if(res.data.data[i].avatar == ""){
+								for(let i = 0; i < res.data.data.length; i++) {
+									if(res.data.data[i].avatar == "") {
 										res.data.data[i].avatar = headImg;
 									}
-									if(res.data.data[i].gender!="FEMALE"){
-										res.data.data[i].color='#5CB3FC';
-										res.data.data[i].bcColor='background: #5CB3FC;';
-										res.data.data[i].gender='♂';
-									}else{
-										res.data.data[i].color='#FC8484;';
-										res.data.data[i].bcColor='background: #FC8484;';
-										res.data.data[i].gender='♀';
+									if(res.data.data[i].gender != "FEMALE") {
+										res.data.data[i].color = '#5CB3FC';
+										res.data.data[i].bcColor = 'background: #5CB3FC;';
+										res.data.data[i].gender = '♂';
+									} else {
+										res.data.data[i].color = '#FC8484;';
+										res.data.data[i].bcColor = 'background: #FC8484;';
+										res.data.data[i].gender = '♀';
 									}
-									if(res.data.data[i].nickname==""){
-                    res.data.data[i].nickname=res.data.data[i].uid
-                  }
+									if(res.data.data[i].nickname == "") {
+										res.data.data[i].nickname = res.data.data[i].uid
+									}
 								}
-								this.friends=res.data.data;
+								this.friends = res.data.data;
 
 							}
 						}
@@ -126,9 +125,9 @@
 			goBack() {
 				this.$router.go(-1);
 			},
-			friendData(f) {
-				localStorage.setItem("friend_uid",f)
-
+			friendData(f,d) {
+				localStorage.setItem("friend_uid", f);
+				localStorage.setItem('nickname',d)
 				this.$router.push({
 					path: '/frienddata',
 					name: 'frienddata',
@@ -156,56 +155,58 @@
 		position: fixed;
 		top: 0;
 	}
-  .content::-webkit-scrollbar{
-    display: none;
-  }
+	
+	.content::-webkit-scrollbar {
+		display: none;
+	}
+	
 	.friends {
 		background: #fff;
 		margin-top: 0;
 		border-bottom: 0.1rem solid #f5f5f5;
 		padding: 1rem;
 	}
-
+	
 	.friends:active {
 		background: #f5f5f5;
 	}
-
+	
 	.media-heading {
 		margin-top: 0.3rem;
 		margin-bottom: 5px;
 		font-size: 1.5rem;
 	}
-
+	
 	.media-left img {
 		border: 0.1rem solid #f5f5f5;
 		border-radius: 50%;
 		width: 4rem;
 		margin-right: 0.5rem;
 	}
-
+	
 	.sex {
 		color: #fff;
 		border-radius: 50%;
 		display: inline-block;
-    width: 1.5rem;
-    line-height: 1.5rem;
+		width: 1.5rem;
+		line-height: 1.5rem;
 		font-size: smaller;
 		text-align: center;
 		margin: 0 1rem;
 		vertical-align: top;
 	}
-
+	
 	.addressNone {
 		text-align: center;
 		padding-top: 18vh;
 		color: #999;
 	}
-
+	
 	.addressNone img {
 		width: 40%;
 		margin-bottom: 1rem;
 	}
-
+	
 	.goInvite {
 		text-align: center;
 		background: #09a2d6;
@@ -214,7 +215,7 @@
 		display: inline-block;
 		margin-top: 1.5rem;
 	}
-
+	
 	.goInvite:active {
 		background: #009ACD;
 	}

@@ -37,6 +37,9 @@ const instance = axios.create({
   baseURL: host
 })
 Vue.prototype.$http = instance
+
+
+
 //Vue.prototype.$http= axios;
 /* eslint-disable no-new */
 new Vue({

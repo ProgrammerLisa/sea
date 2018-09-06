@@ -6,7 +6,7 @@
 				<img :src="masrc" />
 			</mu-button>
 			<span class="navTitleText">
-          好友养殖场
+          {{nickname}}的养殖场
         </span>
 		</mu-appbar>
 		<div class="icon"><img :src="friend_avatar" /> <span style="vertical-align: middle">珍珠 {{friend_pearl}}</span></div>
@@ -78,10 +78,15 @@
 			this.$nextTick(function() {
 				this.friendfarm();
 			})
+			if (localStorage.getItem('nickname') == '') {
+				this.nickname = localStorage.getItem('friend_uid')
+			} else {
+				this.nickname = localStorage.getItem('nickname')
+			}
 		},
 		methods: {
 			friendfarm() {
-			  this.imgDiv=[];
+			  this.imgDiv = [];
 				this.$http({
 						method: "post",
 						url: "/users/plant",

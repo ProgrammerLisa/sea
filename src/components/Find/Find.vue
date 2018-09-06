@@ -118,6 +118,11 @@
 					}).then(function(res) {
 						this.$layer.msg(res.data.msg);
 						if(res.data.code == 0) {
+							if(res.data.has_signed) {
+								this.signIn = false
+							} else {
+								this.signIn = true
+							}
 						}
 					}.bind(this))
 					.catch(function(err) {
@@ -134,7 +139,7 @@
 							"Access-Control-Allow-Origin": "*"
 						},
 					}).then(function(res) {
-						this.$layer.msg(res.data.msg);
+//						this.$layer.msg(res.data.msg);
 						this.$router.replace('/ask');
 						if(res.data.code == 0) {
 						}

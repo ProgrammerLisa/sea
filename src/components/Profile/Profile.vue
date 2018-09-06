@@ -84,7 +84,7 @@
 		},
 		data() {
 			return {
-			  data:'',
+				data: '',
 				autonym: autonym,
 				wallet: wallet,
 				nickName: '',
@@ -145,7 +145,7 @@
 				isLogin: true,
 				newsCount: false,
 				haveHeadImg: false,
-        level:''
+				level: ''
 			}
 		},
 		mounted() {
@@ -181,11 +181,11 @@
 						data: {}
 					}).then(function(res) {
 						if(res.data.code == 0) {
-						  this.data=res.data.data;
+							this.data = res.data.data;
 							var nikename = res.data.data.nickname;
 							var headimg = res.data.data.avatar;
-							this.phone = res.data.data.phone;
 							this.level = res.data.data.level;
+							this.phone = res.data.data.phone;
 							if(nikename == "") {
 								this.nickName = localStorage.getItem("uid");
 							} else {
@@ -198,6 +198,31 @@
 								this.headPortrait = res.data.data.avatar;
 								this.haveHeadImg = true;
 							}
+							//存操作
+							var srcu = localStorage.getItem("src2") || [];
+
+							if(typeof srcu == "string") {
+//								console.log(1);
+								srcu = srcu.split(",")
+								var i;
+								for(i = 0; i < srcu.length; i++) {
+//									console.log(srcu[i])
+//									console.log(this.headPortrait)
+									if(srcu[i] == this.headPortrait) {
+										break;
+									}
+								}
+								if(i == srcu.length) {
+									srcu.push(this.headPortrait)
+									localStorage.setItem("src2", srcu);
+								}
+							} else {
+//								console.log(2);
+								srcu.push(this.headPortrait)
+								localStorage.setItem("src2", srcu);
+								console.log(localStorage.getItem("src2"));
+							}
+
 						} else {
 							this.headPortrait = headImg;
 							this.headDefault = false;
@@ -207,7 +232,6 @@
 					.catch(function(err) {
 						this.$layer.msg("系统异常，请稍后再试");
 					}.bind(this));
-
 				//消息
 				this.$http({
 						method: "post",
@@ -260,16 +284,16 @@
 						this.$layer.msg("系统异常，请稍后再试");
 					}.bind(this));
 			},
-      goCompile(){
-        this.$router.push({
-          path: '/compile',
-          name: 'compile',
-          params: {
-            name: 'name',
-            data:this.data
-          }
-        })
-      },
+			goCompile() {
+				this.$router.push({
+					path: '/compile',
+					name: 'compile',
+					params: {
+						name: 'name',
+						data: this.data
+					}
+				})
+			},
 			profileAll(c, n) {
 				this.$router.push({
 					path: c,
@@ -279,6 +303,7 @@
 					}
 				})
 			}
+
 		}
 	}
 </script>
@@ -361,7 +386,7 @@
 		border-radius: 50%;
 	}
 
-	.HeadPortrait{
+	.HeadPortrait {
 		width: 90%;
 		margin: auto;
 		position: relative;
@@ -371,6 +396,7 @@
 		padding-top: 1rem;
 		margin: 0;
 	}
+
 	.personalIcon {
 		width: 3.2rem;
 	}
@@ -389,7 +415,30 @@
 
 	.images {
 		padding: 0.8rem;
-    width: 3.5rem;
+	}
+
+	@media screen and (min-height: 560px) and (max-height: 700px) {
+		.images {
+			width: 8vh
+		}
+	}
+
+	@media screen and (min-height: 700px) and (max-height: 850px) {
+		.images {
+			width: 7vh
+		}
+	}
+
+	@media screen and (min-height: 850px) and (max-height: 1024px) {
+		.images {
+			width: 7vh
+		}
+	}
+
+	@media screen and (min-height:1025px) and (max-height: 2000px) {
+		.images {
+			width: 5vh
+		}
 	}
 
 	.msg {
@@ -402,8 +451,8 @@
 
 	.inviteCode {
 		font-size: 1.5rem;
-    position: relative;
-    right: 6px
+		position: relative;
+		right: 6px
 	}
 
 	.mu-list {
@@ -419,7 +468,7 @@
 		padding: 0 0.5rem;
 		margin-top: -20px;
 		position: absolute;
-    border: 1px solid #fff;
+		border: 1px solid #fff;
 	}
 
 	a:hover,

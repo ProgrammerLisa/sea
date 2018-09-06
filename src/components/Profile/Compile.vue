@@ -63,7 +63,7 @@
 					<mu-list-item @click='oname()' avatar button class="mu-list-item">
 						<mu-list-item-title>昵称</mu-list-item-title>
 						<mu-list-item-action class="listRight">
-							<div>{{nickname}}<img :src="more" class="moreImg" /></div>
+							<div class="masu">{{nickname}}<img :src="more" class="moreImg" /></div>
 						</mu-list-item-action>
 					</mu-list-item>
 					<mu-divider class="mu-divider"></mu-divider>
@@ -91,7 +91,7 @@
 					<mu-list-item @click='sign()' avatar button class="mu-list-item">
 						<mu-list-item-title>个性签名</mu-list-item-title>
 						<mu-list-item-action class="listRight">
-							<div>{{signature}}<img :src="more" class="moreImg" /></div>
+							<div class="masu">{{signature}}<img :src="more" class="moreImg" /></div>
 						</mu-list-item-action>
 					</mu-list-item>
 					<mu-divider class="mu-divider" style="margin-top: 0.6rem"></mu-divider>
@@ -592,9 +592,14 @@
 	}
 
 	.listRight {
-		width: 50%
+		width: 50%;
+		/*overflow: hidden;text-overflow: ellipsis;white-space: nowrap*/
 	}
-
+	
+	.masu{
+		overflow: hidden;text-overflow: ellipsis;white-space: nowrap
+	}
+	
 	.mu-list {
 		padding: 0;
 	}
@@ -634,6 +639,7 @@
 	}
 
 	.moreImg {
+		position: relative;
 		height: 3rem;
 	}
 

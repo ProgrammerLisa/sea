@@ -14,7 +14,9 @@
       <div class="contentMarginTop">
         <mu-form :model="form" class="mu-demo-form" :label-position="labelPosition" label-width="100">
           <mu-form-item prop="input" >
-            <mu-text-field @focus="inputFocus" @blur="inputFocus" :action-icon="haveData?'highlight_off':''" :action-click="clearInput" style="background: #fff;border-top: 1px solid #eee;" color="#09a2d6" v-model="form.input" placeholder="编辑个性签名"  ></mu-text-field>
+            <mu-text-field @focus="inputFocus" @blur="inputFocus" :action-icon="haveData?'highlight_off':''" 
+            	:action-click="clearInput"  style="background: #fff;border-top: 1px solid #eee;" color="#09a2d6" v-model="form.input" placeholder="编辑个性签名" :max-length="30" >
+            </mu-text-field>
           </mu-form-item>
         </mu-form>
       </div>
@@ -72,9 +74,7 @@
           submit() {
             if(this.form.input== '') {
               this.$layer.msg('请输入你的签名');
-            } else if(this.form.input.length < 4) {
-              this.$layer.msg('签名不符合要求');
-            } else if(this.form.input.length > 10) {
+            } else if(this.form.input.length > 30) {
               this.$layer.msg('签名不符合要求');
             } else {
               this.isDisabled = true;

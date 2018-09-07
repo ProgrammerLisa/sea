@@ -60,22 +60,7 @@
 			}
 		},
 		mounted() {
-      let clickNum = 0;
-      mui.back = function(){
-        clickNum++;
-        if(clickNum > 1) {
-          plus.runtime.quit();
-        } else {
-          mui.toast("再按一次退出应用");
-        }
-        setTimeout(function() {
-          clickNum = 0
-        }, 2000);
-        return false;
-
-      };
-
-      this.$nextTick(function() {
+			this.$nextTick(function() {
 				this.isSignIn();
 			})
 		},
@@ -118,11 +103,6 @@
 					}).then(function(res) {
 						this.$layer.msg(res.data.msg);
 						if(res.data.code == 0) {
-							if(res.data.has_signed) {
-								this.signIn = false
-							} else {
-								this.signIn = true
-							}
 						}
 					}.bind(this))
 					.catch(function(err) {
@@ -139,7 +119,7 @@
 							"Access-Control-Allow-Origin": "*"
 						},
 					}).then(function(res) {
-//						this.$layer.msg(res.data.msg);
+						this.$layer.msg(res.data.msg);
 						this.$router.replace('/ask');
 						if(res.data.code == 0) {
 						}
@@ -156,51 +136,49 @@
 	.content {
 		padding-bottom: 6rem;
 		background-color: #f5f5f5;
-		color: #555;
+		color: #666;
 		width: 100vw;
 		height: 100vh;
 		overflow-x: hidden;
 		overflow-y: scroll;
 	}
-
+	
 	.content::-webkit-scrollbar {
 		display: none;
 	}
-
+	
 	.panel {
 		border: none;
 		border-radius: 0;
 	}
-
+	
 	.panel-body {
 		padding: 1rem;
 	}
-
+	
 	.shoppingPanel {
 		padding: 0 1rem;
-    background: #fff;
-    color: #333;
 	}
-
+	
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
-		font-size: 1.8rem;
+		color: #555;
+		font-size: 1.5rem;
 		margin-bottom: 0;
 		height: 4.1rem;
 		line-height: 4.1rem;
 	}
-
+	
 	.TitleImg img {
 		width: 100%;
 	}
-
+	
 	.task {
 		margin-bottom: 0;
 		margin-top: 1rem;
-    color: #333;
 	}
-
+	
 	.task1 {
 		border-top: 1px solid #f7f7f7;
 		border-bottom: 1px solid #f7f7f7;
@@ -208,48 +186,48 @@
 		text-align: center;
 		display: flex;
 	}
-
+	
 	.taskList {
 		width: 33%;
 		border-right: 0.1rem solid #eee;
 		padding: 0.5rem 0;
 	}
-
+	
 	.taskListLast {
 		padding: 0.5rem 0;
 		border-right: none;
 	}
-
+	
 	.taskIcon {
 		color: #09a2d6;
 		font-size: 2.5rem;
 		margin: 1rem 0;
 	}
-
+	
 	.taskBody {
 		font-size: 0.5rem;
 		color: #666;
 	}
-
+	
 	.taskBtn {
-    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
+		background: #09a2d6;
 		color: #fff;
 		width: 80%;
 		margin: 1rem auto;
 		border-radius: 2rem;
 	}
-
+	
 	.taskSuccess {
 		margin: 1rem 0;
 	}
-
+	
 	.glyphicon-ok {
 		background: #20C779;
 		color: #fff;
 		padding: 0.4rem;
 		border-radius: 50%;
 	}
-
+	
 	.decorate {
 		color: #09a2d6;
 		transform: rotate(90deg);

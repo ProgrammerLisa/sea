@@ -11,7 +11,7 @@
 			<div id="ask_invite" v-model="ask_invite">{{ask_invite}}</div>
       <div class="msgText">每邀请一位好友下载并注册，你和好友都将获得同等奖励</div>
       <div>
-        <mu-button flat large class="publicButton" v-clipboard:copy="ask_invite" v-clipboard:success="onCopy" v-clipboard:error="onError">复制邀请码</mu-button>
+        <mu-button flat class="publicButton" v-clipboard:copy="ask_invite" v-clipboard:success="onCopy" v-clipboard:error="onError">复制邀请码</mu-button>
       </div>
 
 		</div>
@@ -138,6 +138,9 @@
     padding: 2rem 0 1rem;
   }
   .publicButton{
+    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
+    color: #fff;
+    border-radius: 3px;
     font-size: 1.8rem;
     letter-spacing: 1px;
     width: 95%;

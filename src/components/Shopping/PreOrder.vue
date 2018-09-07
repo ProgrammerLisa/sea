@@ -20,19 +20,36 @@
           </div>
           <div class="media-body">
             <p class="media-heading">{{commodityTitle}}</p>
-            <div class="commodityPrice">所需珍珠：<span class="commodityPrice commodityPriceNum">{{commodityPrice}}</span></div>
-            <div class="myCount">您的： <span class=" commodityPriceNum">{{myCount}}</span></div>
+            <p style="font-size: small"><span>颜色分类:{{color}}</span> &nbsp;<span>尺码:{{size}}</span></p>
+            <div class="commodityPrice">所需珍珠：<span class="commodityPrice commodityPriceNum">{{commodityPrice}}</span> <span style="float: right">×{{count}}</span></div>
             <div>
-              <mu-button flat class="enchangeBtn" @click="goFind">
-                做任务
-              </mu-button>
+              <!--<mu-button flat class="enchangeBtn" @click="goFind">-->
+                <!--做任务-->
+              <!--</mu-button>-->
             </div>
           </div>
 
       </div>
+      <div class="countChoose">
+        <div class="countBtn text-left">购买数量</div>
+        <div class="countBtn countRight">
+          <mu-button fab small color="teal" class="rightCount" @click="countAdd(maxNum)">
+            <mu-icon value="add" ></mu-icon>
+          </mu-button>
+          <div class="countStyle">{{count}}</div>
+          <mu-button fab small color="teal" class="leftCount" @click="countRemove">
+            <mu-icon value="remove" ></mu-icon>
+          </mu-button>
+        </div>
+      </div>
+      <div class="countChoose">
+        <div>买家留言： </div><div><input type="text" class="commodityMessage " v-model="commodityMessage" placeholder="选填：填写内容已与卖家协商确认"/></div>
+      </div>
+      <div class="countChoose countRight" style="margin-bottom: 7rem">
+        <div class="sum">小计：<span class="commodityPriceNum">{{commodityPrice*count}}</span></div> <div class="sum">共{{count}}件商品</div>
+      </div>
       <div class="exchange">
-        <mu-button flat class=" exchangeBtn" disabled="disabled" v-if="!isDisabled">余额不足</mu-button>
-        <mu-button flat class=" exchangeBtn publicButton" v-else>确认兑换</mu-button>
+        <mu-button flat class=" exchangeBtn publicButton" @click="submitOrder">确认兑换</mu-button>
 
       </div>
     </div>
@@ -50,8 +67,12 @@
             address:'',
             commodityImg:'',
             commodityTitle:'',
+            color:localStorage.getItem("goodsColor"),
+            size:localStorage.getItem("goodsSize"),
             commodityPrice:'',
-            myCount:110,
+            count:localStorage.getItem("goodsNum"),
+            maxNum:localStorage.getItem("maxNum"),
+            commodityMessage:'',
             isDisabled:''
           }
         },
@@ -116,6 +137,42 @@
                 this.$layer.msg("系统异常，请稍后再试");
               }.bind(this));
           },
+          countRemove(){
+            if(this.count>1){
+              this.count--
+            }
+          },
+          countAdd(max){
+            if(this.count<parseInt(max))
+              this.count++;
+          },
+          submitOrder(){
+            this.$http({
+              method: "post",
+              url: "/submit-order",
+              headers: {
+                "device": "android",
+                "uid": localStorage.getItem("uid"),
+                "Access-Control-Allow-Origin": "*"
+              },
+              data: {
+                goods_id:localStorage.getItem("goods_id"),
+                address_id:this.address.addr_id,
+                message:this.commodityMessage,
+                color:this.color,
+                size:this.size,
+                num:this.count
+              }
+            }).then(function(res) {
+              this.$layer.msg(res.data.media);
+              if(res.data.code === 0) {
+
+              }
+            }.bind(this))
+              .catch(function(err) {
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this));
+          },
           goFind(){
             this.$router.replace('/find')
           },
@@ -146,7 +203,7 @@
   .chooseAdd{
     background: #fff;
     margin-bottom: 1rem;
-    padding:1rem 3rem;
+    padding:1rem;
     color: #333;
   }
   .chooseAdd:active{
@@ -164,7 +221,7 @@
     margin-top: 0.5rem;
   }
   .defaultAddress{
-    color: #e57373;
+    color: #09a2d6;
   }
   .chooseIcon{
     color: #09a2d6;
@@ -181,36 +238,49 @@
     margin-right: 1rem;
   }
   .media-heading{
-    color: #555;
-    margin-bottom: 1.2rem;
-  }
-  .commodityPrice{
+    color: #222;
 
+    margin-bottom: 1.2rem;
   }
   .commodityPriceNum{
     color: #09a2d6;
   }
-  .myCount{
-    margin-top: 0.3rem;
-    vertical-align: middle;
+  .countChoose{
+    background: #fff;
+    padding: 1rem;
+    display: flex;
+    color: #333;
+    border-bottom: 1px solid #f5f5f5;
   }
-  .enchangeBtn{
-    float: right;
-    border-radius: 3px;
-    color: #fff;
+  .countBtn{
+    width: 50%;
+    line-height: 40px;
+  }
+  .countRight{
+    display: flex;
+    flex-direction:row-reverse
+  }
+  .leftCount{
+    margin-right: 1rem;
+    background: linear-gradient(to right, #0BA5D7 , #38E7F8);
+  }
+  .rightCount{
+    margin-left: 1rem;
     background: linear-gradient(to right, #38E7F8 , #0BA5D7);
-    vertical-align: middle;
-    margin-top: -3rem;
-    border: none;
-    height: 3rem;
   }
-
-  .enchangeBtn:focus{
-  	outline: 0;
+  .commodityMessage{
+    border: none;
+    box-shadow: none;
+    cursor: none;
+    outline: none;
+    width: 65vw;
+  }
+  .commodityMessage::-webkit-input-placeholder {
+    color: #999;
+    font-size:small;
   }
   .exchange{
     width: 100vw;
-    height: 5rem;
     background: #fff;
     position: fixed;
     bottom: 0;
@@ -218,9 +288,10 @@
   .exchangeBtn{
     border: none;
     width: 80%;
-    height: 3rem;
     margin:1rem 10%;
     font-size: 1.6rem;
   }
-
+  .sum{
+    margin-left: 1.5rem;
+  }
 </style>

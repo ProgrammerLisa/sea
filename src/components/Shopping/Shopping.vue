@@ -80,6 +80,12 @@
 
         };
         this.$nextTick(function() {
+          localStorage.removeItem("goods_id");
+          localStorage.removeItem("addressId");
+          localStorage.removeItem("goodsSize");
+          localStorage.removeItem("goodsColor");
+          localStorage.removeItem("goodsNum");
+          localStorage.removeItem("maxNum");
           this.getStore();
         })
 
@@ -185,11 +191,23 @@
     border-bottom: 0.1rem solid #f5f5f5;
     background: #fff;
   }
-  .media-left img{
-    width: 11rem;
-    height: 11rem;
-    margin-right: 1rem;
+
+  @media screen and (min-width: 300px) and (max-width: 350px) {
+    .media-left img{
+      width: 9rem;
+      height: 9rem;
+      margin-right: 1rem;
+    }
   }
+
+  @media screen and (min-width: 350px) and (max-width: 2000px) {
+    .media-left img{
+      width: 11rem;
+      height: 11rem;
+      margin-right: 1rem;
+    }
+  }
+
   .media-heading{
     width: 50vw;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;word-wrap: break-word;
     color: #222;
@@ -213,16 +231,17 @@
   }
   .enchangeBtn{
     float: right;
-    border-radius: 0;
+    border-radius: 3px;
     background: #fff;
-    border: 0.1rem solid #09a2d6;
+    border: 1px solid #09a2d6;
     color: #09a2d6;
     padding: 0.5rem;
     margin-top: -1.5rem;
+    box-shadow: none;
   }
   .enchangeBtnEnd{
     float: right;
-    border-radius: 0;
+    border-radius: 3px;
     background: #f5f5f5;
   }
   .overAlert{

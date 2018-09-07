@@ -415,31 +415,32 @@
 
 	.images {
 		padding: 0.8rem;
+    width: 4rem;
 	}
 
-	@media screen and (min-height: 560px) and (max-height: 700px) {
-		.images {
-			width: 8vh
-		}
-	}
+	/*@media screen and (min-height: 560px) and (max-height: 750px) {*/
+		/*.images {*/
+			/*width: 7vh*/
+		/*}*/
+	/*}*/
 
-	@media screen and (min-height: 700px) and (max-height: 850px) {
-		.images {
-			width: 7vh
-		}
-	}
+	/*@media screen and (min-height: 750px) and (max-height: 850px) {*/
+		/*.images {*/
+			/*width: 5.5vh*/
+		/*}*/
+	/*}*/
 
-	@media screen and (min-height: 850px) and (max-height: 1024px) {
-		.images {
-			width: 7vh
-		}
-	}
+	/*@media screen and (min-height: 850px) and (max-height: 1024px) {*/
+		/*.images {*/
+			/*width: 6vh*/
+		/*}*/
+	/*}*/
 
-	@media screen and (min-height:1025px) and (max-height: 2000px) {
-		.images {
-			width: 5vh
-		}
-	}
+	/*@media screen and (min-height:1025px) and (max-height: 2000px) {*/
+		/*.images {*/
+			/*width: 5vh*/
+		/*}*/
+	/*}*/
 
 	.msg {
 		color: #ff2424;

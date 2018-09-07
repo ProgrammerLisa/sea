@@ -149,8 +149,10 @@
     width: 80%;border-radius: 2rem;margin-left: 1.3rem;
   }
   .publicButton{
+    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
+    color: #fff;
+    border-radius: 3px;
     width: 100%;
-    height: 3.5rem;
     font-size: 1.6rem;
     letter-spacing: 1px;
   }

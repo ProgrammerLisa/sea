@@ -335,7 +335,9 @@
 		color: #555;
 	}
   .publicButton{
+    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
+    color: #fff;
+    border-radius: 3px;
     width: 90%;
-    height: 3.5rem;
   }
 </style>

@@ -213,12 +213,8 @@
 						}
 					}).then(function(res) {
 						if(res.data.code === 0) {
-							//            let pearlAudio = document.getElementById('pearlAudio');
-							//            pearlAudio.play();
-
-							//			  pearlAudio.playbackRate = 2;
-							//			  pearlAudio.play();
-							//			  alert(pearlAudio.playbackRate);
+             let pearlAudio = document.getElementById('pearlAudio');
+             pearlAudio.play();
 
 							this.imgDiv[index].isDisabled = true;
 							this.pearlCount = res.data.user_pearl;
@@ -227,9 +223,6 @@
 							let i = 0;
 							if(that.imgDiv[index].href === defaultPearl) {
 								let timer = setInterval(() => {
-
-									let pearlAudio = document.getElementById('pearlAudio');
-									pearlAudio.play();
 
 									if(i < that.p.length) {
 										that.imgDiv[index].href = that.p[i];
@@ -306,7 +299,7 @@
 		/*background:linear-gradient(to bottom,#3198D3 0%,#2E6EA1 100%);*/
 		background: #1A3B57;
 	}
-	
+
 	.landscape {
 		position: absolute;
 		left: 0;
@@ -318,7 +311,7 @@
 		background-repeat: repeat-x;
 		background-position: center bottom;
 	}
-	
+
 	#notice {
 		position: absolute;
 		top: 2rem;
@@ -327,32 +320,32 @@
 		font-size: 1.01rem;
 		background: rgba(255, 255, 255, 0.1);
 	}
-	
+
 	.icon {
 		background: rgba(0, 0, 0, 0.2);
 		border-radius: 2rem;
 		padding: 0.1rem 1.5rem 0.1rem 0.5rem;
 		margin-bottom: 1rem;
 	}
-	
+
 	.icon img {
 		width: 2rem;
 	}
-	
+
 	.topOption {
 		position: absolute;
 	}
-	
+
 	.option1 {
 		left: 1rem;
 		top: 6.5rem;
 	}
-	
+
 	.invitation-friends {
 		border-radius: 50%;
 		padding: 0.4rem;
 	}
-	
+
 	.option2,
 	.option3,
 	.option4 {
@@ -364,46 +357,46 @@
 		color: #fff;
 		z-index: 999;
 	}
-	
+
 	.option2 {
 		right: 1rem;
 	}
-	
+
 	.option3 {
-		left: 7rem;
+		left: 8rem;
 	}
-	
+
 	.option2 img,
 	.option3 img,
 	.option4 img {
-		width: 70%;
+		width: 90%;
 	}
-	
+
 	.option2:active img,
 	.option3:active img,
 	.option4:active img {
 		transform: scale3d(0.8, 0.8, 0.8);
 		transition: 0.1s;
 	}
-	
+
 	.option4 {
 		left: 1rem;
 	}
-	
+
 	.option4-Icon span {
 		font-size: 2.5rem;
 	}
-	
+
 	#pearlContainer {
 		position: relative;
 		width: 100vw;
 		height: 50vh;
 	}
-	
+
 	p {
 		margin-bottom: 0;
 	}
-	
+
 	.tips {
 		width: 0.6rem;
 		height: 0.6rem;
@@ -415,93 +408,93 @@
 		border-radius: 50%;
 		display: none;
 	}
-	
+
 	.pearlBox {
 		border: none;
-		width: 4rem;
+		width: 6rem;
 		height: 8rem;
 		position: absolute;
 		outline: none;
 		animation: myfirst 2s infinite;
 		background: none;
 	}
-	
+
 	.pearlBox1 {
 		top: 12vh;
 		left: 44vw;
 	}
-	
+
 	.pearlBox2 {
 		top: 29vh;
 		left: 42vw;
 	}
-	
+
 	.pearlBox3 {
 		top: 23vh;
 		left: 70vw;
 	}
-	
+
 	.pearlBox4 {
 		top: 10vh;
 		left: 14vw;
 	}
-	
+
 	.pearlBox5 {
 		top: 29vh;
 		left: 3rem;
 	}
-	
+
 	.pearlBox6 {
 		top: 45vh;
 		left: 46vw;
 	}
-	
+
 	.pearlBox7 {
 		top: 37vh;
 		left: 80vw;
 	}
-	
+
 	.pearlBox8 {
 		top: 8vh;
 		left: 80vw;
 	}
-	
+
 	.pearlBox9 {
 		top: -3vh;
 		left: 32vw;
 	}
-	
+
 	.pearlBox0 {
 		top: -8vh;
 		left: 62vw;
 	}
-	
+
 	.divImg {
 		width: 100%;
 	}
-	
+
 	.divCount {
 		margin-top: 0.5rem;
 		font-size: smaller
 	}
-	
+
 	.waitingContainer {
 		position: relative;
 		margin-top: 13vh;
 		font-size: 1.5rem;
 	}
-	
+
 	.waiting {
 		width: 6rem;
 		height: 6rem;
 		animation: myfirst 2s infinite;
 		margin: 1rem auto;
 	}
-	
+
 	.waiting img {
 		width: 100%;
 	}
-	
+
 	@keyframes myfirst {
 		0% {
 			transform: translate(0, 0);

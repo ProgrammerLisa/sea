@@ -241,8 +241,10 @@
 	}
 
   .publicButton{
+    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
+    color: #fff;
+    border-radius: 3px;
     padding:0 2rem;
-    height: 2.5rem;
     margin-top: 1rem;
   }
 

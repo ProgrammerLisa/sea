@@ -27,7 +27,7 @@
         </form>
         <div class="changePsw">
           <mu-flex justify-content="center" class="submitBtn" align-items="center">
-            <mu-button flat large class="publicButton" @click="submit">发消息</mu-button>
+            <mu-button flat class="publicButton" @click="submit">发消息</mu-button>
           </mu-flex>
         </div>
       </div>
@@ -238,6 +238,9 @@
 		margin-bottom: 1rem;
 	}
   .publicButton{
+    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
+    color: #fff;
+    border-radius: 3px;
     width: 95%;
   }
 </style>

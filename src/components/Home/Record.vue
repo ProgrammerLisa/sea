@@ -115,7 +115,7 @@
 
             </div>
             <div class="media-right leaveMessage">
-              <mu-button small color="#fff" textColor="#09a2d6" @click="openLeaveMessage(index)" flat class="vBtn">回复</mu-button>
+              <mu-button color="#fff" textColor="#09a2d6" @click="openLeaveMessage(index)" flat class="callBack">回复</mu-button>
               <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="m.openMessage">
                 <div class="publicDialogTitle" style="height: 110px;padding-top: 1rem">
                   <mu-text-field type="text" label="回复小偷" v-model="leavemessage" placeholder="请输入回复内容"  full-width style="margin-bottom: 0;"></mu-text-field>
@@ -490,6 +490,7 @@
   }
   .demo-container{
     background: url("../../assets/images/zhanjibeijing.png") 100% 100% no-repeat;
+    background-size: 100% 100%;
     width: 100%;
     margin: 0;
     display: flex;
@@ -661,5 +662,10 @@
     font-size: small;
     margin-top: 1rem;
   }
-
+  .callBack{
+    height: 3.5rem;
+    line-height: 3.5rem;
+    border: solid 1px #23C8E8;
+    width: 2rem;
+  }
 </style>

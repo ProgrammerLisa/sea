@@ -1,42 +1,67 @@
 <template>
 	<div class="content">
-		<div id="navTopMargin" style="background: #eee;"></div>
-		<div class="panel panel-default BlackTitle" style="background: #eee;">
-			<div class="panel-body shoppingPanel">
+		<div class="BlackTitle">
 				发现
-			</div>
 		</div>
-		<div class="TitleImg">
-			<img src="../../assets/images/banner.png" />
-		</div>
-		<div class="panel panel-default task">
-			<div class="panel-body">
-				<span class="glyphicon glyphicon-minus decorate"></span>基础任务
-			</div>
-		</div>
-		<div class="task1">
-			<div class="taskList">
-				<span class="glyphicon glyphicon-link taskIcon"></span>
-				<div class="taskTitle">邀请10名好友</div>
-				<div class="taskBody">邀请好友+20能量</div>
-				<div class="taskBtn"  @click="signInHy">+20能量</div>
-			</div>
-			<div class="taskList">
-				<span class="glyphicon glyphicon-globe taskIcon"></span>
-				<div class="taskTitle">公益慈善</div>
-				<div class="taskBody">爱心捐助+10能量</div>
-				<router-link to="/publicgood" tag="div" class="taskBtn">+10能量</router-link>
-			</div>
+    <div>
+      <mu-tabs :value.sync="active1" inverse indicator-color="#fff" color="#09A2D6" text-color="rgba(0, 0, 0, .54)"  center style="background: #fff">
+        <mu-tab class="tabTitle">基础任务</mu-tab>
+        <mu-tab class="tabTitle">独家任务</mu-tab>
+      </mu-tabs>
+      <div class="demo-text" v-if="active1 === 0">
+          <h4 class="text-center tipTitle">任务越多能量值越高</h4>
+          <div class="text-center loginBox">
+            <p><img src="../../assets/images/indent.png" style="width: 3rem"/></p>
+            <div style="color: #333">每日登陆</div>
+            <p style="font-size: small;margin-top: 5px">可获得能量值 <span style="color: #09a2d6">+1</span></p>
+            <mu-button flat class="loginBtn">签到</mu-button>
+          </div>
+        <div class="thoseBox">
+              22
+        </div>
+      </div>
+      <div class="demo-text" v-if="active1 === 1">
+        <p>“我的心从来没有这么坚定过，所以我会为了补偿而死，也可以为了补偿而死……一辈子，急辈子都无所谓，我绝不后退！”</p>
+        <p>“如果我后退呢？如果我想要死呢？我不想你再次背对着我逃跑了……”</p>
+        <p>“那么就去地狱找到你，我绝对不逃！”</p>
+        <p>“白痴，你也哭了？因为那些软弱拖累你的脚步？”</p>
+      </div>
+    </div>
 
-			<div class="taskListLast taskList">
-				<span class="glyphicon glyphicon-calendar taskIcon"></span>
-				<div class="taskTitle">每日登录</div>
-				<div class="taskBody">登录获取能量值</div>
-				<div class="taskSuccess" v-show="signIn"><span class="glyphicon glyphicon-ok"></span> 已完成</div>
-				<div class="taskBtn" v-show="!signIn" @click="signInFc">+1能量</div>
-			</div>
-		</div>
-		<div id="time" style="display: none">{{time | formatDate}}</div>
+  <div>
+      <div class="TitleImg">
+        <img src="../../assets/images/banner.png" />
+      </div>
+      <div class="panel panel-default task">
+        <div class="panel-body">
+          <span class="glyphicon glyphicon-minus decorate"></span>基础任务
+        </div>
+      </div>
+      <div class="task1">
+        <div class="taskList">
+          <span class="glyphicon glyphicon-link taskIcon"></span>
+          <div class="taskTitle">邀请10名好友</div>
+          <div class="taskBody">邀请好友+20能量</div>
+          <div class="taskBtn"  @click="signInHy">+20能量</div>
+        </div>
+        <div class="taskList">
+          <span class="glyphicon glyphicon-globe taskIcon"></span>
+          <div class="taskTitle">公益慈善</div>
+          <div class="taskBody">爱心捐助+10能量</div>
+          <router-link to="/publicgood" tag="div" class="taskBtn">+10能量</router-link>
+        </div>
+
+        <div class="taskListLast taskList">
+          <span class="glyphicon glyphicon-calendar taskIcon"></span>
+          <div class="taskTitle">每日登录</div>
+          <div class="taskBody">登录获取能量值</div>
+          <div class="taskSuccess" v-show="signIn"><span class="glyphicon glyphicon-ok"></span> 已完成</div>
+          <div class="taskBtn" v-show="!signIn" @click="signInFc">+1能量</div>
+        </div>
+      </div>
+      <div id="time" style="display: none">{{time | formatDate}}</div>
+
+  </div>
 
 	</div>
 </template>
@@ -56,7 +81,8 @@
 			return {
 				time: Date.now(),
 				signIn: '',
-				signIns:''
+				signIns:'',
+        active1:0
 			}
 		},
 		mounted() {
@@ -155,33 +181,19 @@
 <style scoped>
 	.content {
 		padding-bottom: 6rem;
-		background-color: #f5f5f5;
 		color: #555;
 		width: 100vw;
 		height: 100vh;
 		overflow-x: hidden;
-		overflow-y: scroll;
+		overflow-y: hidden;
+    background-image: url("../../assets/images/faxianbg.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    font-size: 1.6rem;
 	}
-
 	.content::-webkit-scrollbar {
 		display: none;
 	}
-
-	.panel {
-		border: none;
-		border-radius: 0;
-	}
-
-	.panel-body {
-		padding: 1rem;
-	}
-
-	.shoppingPanel {
-		padding: 0 1rem;
-    background: #fff;
-    color: #333;
-	}
-
 	.BlackTitle {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -189,69 +201,24 @@
 		margin-bottom: 0;
 		height: 4.1rem;
 		line-height: 4.1rem;
-	}
-
-	.TitleImg img {
-		width: 100%;
-	}
-
-	.task {
-		margin-bottom: 0;
-		margin-top: 1rem;
+    background: #fff;
     color: #333;
+    border-bottom: 1px solid #f5f5f5;
 	}
-
-	.task1 {
-		border-top: 1px solid #f7f7f7;
-		border-bottom: 1px solid #f7f7f7;
-		background: #fff;
-		text-align: center;
-		display: flex;
-	}
-
-	.taskList {
-		width: 33%;
-		border-right: 0.1rem solid #eee;
-		padding: 0.5rem 0;
-	}
-
-	.taskListLast {
-		padding: 0.5rem 0;
-		border-right: none;
-	}
-
-	.taskIcon {
-		color: #09a2d6;
-		font-size: 2.5rem;
-		margin: 1rem 0;
-	}
-
-	.taskBody {
-		font-size: 0.5rem;
-		color: #666;
-	}
-
-	.taskBtn {
-    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
-		color: #fff;
-		width: 80%;
-		margin: 1rem auto;
-		border-radius: 2rem;
-	}
-
-	.taskSuccess {
-		margin: 1rem 0;
-	}
-
-	.glyphicon-ok {
-		background: #20C779;
-		color: #fff;
-		padding: 0.4rem;
-		border-radius: 50%;
-	}
-
-	.decorate {
-		color: #09a2d6;
-		transform: rotate(90deg);
-	}
+  .tabTitle{
+    font-size: 1.6rem;
+    padding:0.8rem 1.5rem;
+  }
+  .tipTitle{
+    color: #fff;margin: 1.5rem 0
+  }
+  .loginBox{
+    border:1px solid #eee;padding-top:1rem;width: 17.5rem;height: 12rem;background: #fff;border-radius: 8px;margin: auto
+  }
+  .loginBtn{
+    border: #0BA5D7 1px solid;color: #09a2d6;width: 6rem;height: 2.5rem;border-radius: 3px;
+  }
+  .thoseBox{
+    width: 90%;height: 33rem;background: #fff;margin:-6rem 5% 0;border-radius: 8px;padding: 8rem 1rem 1rem
+  }
 </style>

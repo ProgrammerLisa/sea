@@ -302,7 +302,10 @@
   .submitBtn{
     width: 90%;
     margin: 2rem 5%;
-    height: 3.5rem;
   }
-
+  .publicButton{
+    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
+    color: #fff;
+    border-radius: 3px;
+  }
 </style>

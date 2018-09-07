@@ -231,7 +231,7 @@
     border-bottom: none;
   }
   .dateText{
-    font-size: 1rem;
+    font-size:small;
   }
   .count{
     color: #09a2d6;

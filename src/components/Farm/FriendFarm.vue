@@ -51,14 +51,28 @@
 	import p9 from '@/assets/images/zhenzhu3x/zhenzhu9@3x.png'
 	import p10 from '@/assets/images/zhenzhu3x/zhenzhu10@3x.png'
 	import p11 from '@/assets/images/zhenzhu3x/zhenzhu11@3x.png'
+	
+	import o1 from '@/assets/images/haiyangzhixin3x/hailanzhixin1@3x.png'
+	import o2 from '@/assets/images/haiyangzhixin3x/hailanzhixin2@3x.png'
+	import o3 from '@/assets/images/haiyangzhixin3x/hailanzhixin3@3x.png'
+	import o4 from '@/assets/images/haiyangzhixin3x/hailanzhixin4@3x.png'
+	import o5 from '@/assets/images/haiyangzhixin3x/hailanzhixin5@3x.png'
+	import o6 from '@/assets/images/haiyangzhixin3x/hailanzhixin6@3x.png'
+	import o7 from '@/assets/images/haiyangzhixin3x/hailanzhixin7@3x.png'
+	import o8 from '@/assets/images/haiyangzhixin3x/hailanzhixin8@3x.png'
+	import o9 from '@/assets/images/haiyangzhixin3x/hailanzhixin9@3x.png'
+	import o10 from '@/assets/images/haiyangzhixin3x/hailanzhixin10@3x.png'
+	import o11 from '@/assets/images/haiyangzhixin3x/hailanzhixin11@3x.png'
 
 	export default {
 		name: "friendfarm",
 		data() {
 			return {
 				masrc: back,
+				nickname:'',
 				bh: defaultPearl,
 				p: [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11],
+				o: [o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11],
 				friend_pearl: 0,
 				friend_avatar: pic1,
 				hasPearl: false,
@@ -208,7 +222,7 @@
 									if(i < that.p.length) {
 										that.imgDiv[index].href = that.p[i];
 										$(".divImg").eq(index).css({
-											width: "100%",
+											width: "150%",
 											marginLeft: "-25%",
 											marginTop: '-1rem'
 										});
@@ -217,6 +231,34 @@
 										});
 
 										i++
+									}else {
+										clearInterval(timer);
+										$(".pearlBox").eq(index).animate({
+											top: "-200%"
+										}, 1000);
+
+									}
+
+								}, 200)
+							}else if(that.imgDiv[index].href === defaultOcean) {
+								let timer = setInterval(() => {
+									if(i < that.o.length) {
+										that.imgDiv[index].href = that.o[i];
+										$(".divImg").eq(index).css({
+											width: "150%",
+											marginLeft: "-25%"
+										});
+										$(".divCount").eq(index).css({
+											marginTop: "-0.6rem"
+										});
+
+										i++
+									} else {
+										clearInterval(timer);
+										$(".pearlBox").eq(index).animate({
+											top: "-200%"
+										}, 1000);
+
 									}
 
 								}, 200)
@@ -245,8 +287,6 @@
 									marginTop: '4rem'
 								}, 100)
 							}, 1000)
-						} else {
-							this.$layer.msg("偷过啦");
 						}
 					}.bind(this))
 					.catch(function(err) {

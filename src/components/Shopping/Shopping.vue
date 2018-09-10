@@ -25,7 +25,7 @@
                 已结束
               </button>
               <button class="btn enchangeBtn" v-else>
-                立即兑换
+                                                立即兑换
               </button>
             </div>
           </div>

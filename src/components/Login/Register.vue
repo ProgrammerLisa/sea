@@ -9,7 +9,7 @@
 		<form id="form_register">
 			<div style="padding: 45px 30px">
 				<div style="padding-top: 3.5rem;">
-					<mu-text-field id="phone" :full-width="100" :max-length="11" v-on:input="show()" ref="phone" name="phone" v-model="phone" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></mu-text-field>
+					<mu-text-field :full-width="100" :max-length="11" v-on:input="show()" ref="phone" name="phone" v-model="phone" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></mu-text-field>
 					<button v-if="btnShow" @click="bnns" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right: 7%;">
             				<img src="../../assets/images/x.png" style="position: absolute;" />
          			</button>
@@ -514,7 +514,7 @@
 
 	#verbtn {
 		position: relative;
-		margin-top: -69px;
+		margin-top: -72px;
 		margin-bottom: 2px;
 		width: 25%;
 		min-width: 100px;

@@ -31,7 +31,7 @@
         <mu-list style="padding: 0">
           <mu-list-item>
             <mu-list-item-content>
-              <mu-list-item-title><span  style="color: #09a2d6;margin-right: 0.6rem;font-weight: 700">|</span>夺宝记录</mu-list-item-title>
+              <mu-list-item-title><span  style="color: #38E7F8;margin-right: 0.6rem;font-weight: 700">|</span>夺宝记录</mu-list-item-title>
             </mu-list-item-content>
           </mu-list-item>
         </mu-list>
@@ -199,9 +199,9 @@
     padding-right: 0;
   }
   .income{
-    background: #09a2d6;
+  	background: url(../../assets/images/duobaojilu.png);
     text-align: center;
-    width: 100%;
+    background-size: 100% 100%;
     color: #fff;
     margin-top: 56px;
   }

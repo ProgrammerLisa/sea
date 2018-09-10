@@ -17,7 +17,7 @@
 			</div>
 			<!--</div>-->
 
-			<div @click="goCompile" v-if="headDefault">
+			<div v-if="headDefault">
 				<div class="HeadPortrait">
 					<img :src="`${headPortrait+'?'+now}`" v-if="haveHeadImg" />
 					<img :src="headPortrait" v-else/>
@@ -47,14 +47,14 @@
 						</div>
 
 						<div class="group_input" style="width: 100%;">
-							<mu-text-field id="ipwd" v-on:input="ipwdshow()" v-model="inppwd" :type="types" placeholder="请输入密码" :max-length="16" :full-width="100" is-type="sendcode" />
+							<mu-text-field :full-width="100" id="ipwd" v-on:input="ipwdshow()" v-model="inppwd" :type="types" placeholder="请输入密码" :max-length="16" is-type="sendcode" />
 							<img id="group_input_img" @click="Alt" :src="imgs" />
 							<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top:-65px;right: 14%;">
           			  <img src="../../assets/images/x.png" />
           			</button>
 						</div>
 
-						<!--<div class="hyperlink" style="right: 9%; position: absolute;">
+						<!--<div class="hyperlink" style="right: 9%; positdion: absolute;">
 					<router-link class="a_hyperlink" tag='a' :to="'/retrieve'">找回密码</router-link> &nbsp;&nbsp;<span style="color: #8C8C8C;">|</span>&nbsp;&nbsp;
 
 					<router-link class="a_hyperlink" tag='a' :to="'/register'">注册账号</router-link>
@@ -144,6 +144,8 @@
 				btnShow: false,
 				btnShow1: false,
 				btnverShow: false,
+				headDefault: true,
+				haveHeadImg:false,
 				headPortrait: headImg
 			}
 		},
@@ -235,6 +237,7 @@
 					}, 500);
 				}
 				if(index == 0) {
+					that.headDefault = false;
 					that.isShow = false;
 					$("#a_common").css(
 						'display', 'block'
@@ -466,6 +469,7 @@
 			}
 		}
 	}
+	
 </script>
 
 <style scoped>
@@ -726,8 +730,10 @@
 	#login {
 		background: url(../../assets/images/bglu.png);
 		background-repeat: no-repeat;
-		background-attachment: fixed;
-		background-size: 100% 40%;
+		/*background-attachment: fixed;*/
+		/*position: fixed;*/
+		background-size: 100%;
+		/*width: 100%;*/
 		/*height: 310px;*/
 	}
 	input#ipwd.mu-text-field-input {

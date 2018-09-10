@@ -178,12 +178,6 @@ export default new Router({
       component:  resolve => require(['@/components/Profile/NewAddress'], resolve)
     },
     {
-      path:'/statement',
-      name:'statement',
-      meta:{index:3},
-      component:  resolve => require(['@/components/Profile/Statement'], resolve)
-    },
-    {
       path:'/changepassword',
       name:'changepassword',
       meta:{index:3},
@@ -218,12 +212,6 @@ export default new Router({
       name:'uploadphotoimg',
       meta:{index:3},
       component:  resolve => require(['@/components/Profile/UploadPhotoImg'], resolve)
-    },
-    {
-      path:'/mypearl',
-      name:'mypearl',
-      meta:{index:3},
-      component:  resolve => require(['@/components/Profile/MyPearl'], resolve)
     },
     {
       path:'/preorder',

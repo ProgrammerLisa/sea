@@ -294,4 +294,7 @@
   .sum{
     margin-left: 1.5rem;
   }
+  .publicButton{
+    background: linear-gradient(to right, #38E7F8 , #0BA5D7);color: white;
+  }
 </style>

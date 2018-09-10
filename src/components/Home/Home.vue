@@ -411,7 +411,7 @@
 
 	.pearlBox {
 		border: none;
-		width: 6rem;
+		width: 5rem;
 		height: 8rem;
 		position: absolute;
 		outline: none;

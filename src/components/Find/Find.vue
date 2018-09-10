@@ -14,54 +14,39 @@
             <p><img src="../../assets/images/indent.png" style="width: 3rem"/></p>
             <div style="color: #333">每日登陆</div>
             <p style="font-size: small;margin-top: 5px">可获得能量值 <span style="color: #09a2d6">+1</span></p>
-            <mu-button flat class="loginBtn">签到</mu-button>
+            <mu-button flat class="publicButton" v-if="signIn">已签到</mu-button>
+            <mu-button flat class="loginBtn"  v-else @click="signInFc">签到</mu-button>
           </div>
         <div class="thoseBox">
-              22
+          <div class="thoseBoxContainer">
+            <div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>
+            <div class="thoseBoxCenter">
+              <div style="color: #333">邀请10名好友</div>
+              <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+1</span></div>
+            </div>
+            <div class="thoseBoxRight">
+              <mu-button flat class="loginBtn" @click="signInHy">去邀请</mu-button>
+            </div>
+          </div>
+          <div class="thoseBoxContainer">
+            <div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>
+            <div class="thoseBoxCenter">
+              <div style="color: #333">公益慈善</div>
+              <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+1</span></div>
+            </div>
+            <div class="thoseBoxRight">
+              <mu-button flat class="loginBtn" to="/publicgood">去完成</mu-button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="demo-text" v-if="active1 === 1">
-        <p>“我的心从来没有这么坚定过，所以我会为了补偿而死，也可以为了补偿而死……一辈子，急辈子都无所谓，我绝不后退！”</p>
-        <p>“如果我后退呢？如果我想要死呢？我不想你再次背对着我逃跑了……”</p>
-        <p>“那么就去地狱找到你，我绝对不逃！”</p>
-        <p>“白痴，你也哭了？因为那些软弱拖累你的脚步？”</p>
+        <p class="text-center" style="background: white;margin: 35vh auto;padding: 1rem;border-radius: 8px;width: 50%">即将上线 敬请期待</p>
+
       </div>
     </div>
 
-  <div>
-      <div class="TitleImg">
-        <img src="../../assets/images/banner.png" />
-      </div>
-      <div class="panel panel-default task">
-        <div class="panel-body">
-          <span class="glyphicon glyphicon-minus decorate"></span>基础任务
-        </div>
-      </div>
-      <div class="task1">
-        <div class="taskList">
-          <span class="glyphicon glyphicon-link taskIcon"></span>
-          <div class="taskTitle">邀请10名好友</div>
-          <div class="taskBody">邀请好友+20能量</div>
-          <div class="taskBtn"  @click="signInHy">+20能量</div>
-        </div>
-        <div class="taskList">
-          <span class="glyphicon glyphicon-globe taskIcon"></span>
-          <div class="taskTitle">公益慈善</div>
-          <div class="taskBody">爱心捐助+10能量</div>
-          <router-link to="/publicgood" tag="div" class="taskBtn">+10能量</router-link>
-        </div>
 
-        <div class="taskListLast taskList">
-          <span class="glyphicon glyphicon-calendar taskIcon"></span>
-          <div class="taskTitle">每日登录</div>
-          <div class="taskBody">登录获取能量值</div>
-          <div class="taskSuccess" v-show="signIn"><span class="glyphicon glyphicon-ok"></span> 已完成</div>
-          <div class="taskBtn" v-show="!signIn" @click="signInFc">+1能量</div>
-        </div>
-      </div>
-      <div id="time" style="display: none">{{time | formatDate}}</div>
-
-  </div>
 
 	</div>
 </template>
@@ -166,7 +151,7 @@
 						},
 					}).then(function(res) {
 //						this.$layer.msg(res.data.msg);
-						this.$router.replace('/ask');
+						this.$router.push('/ask');
 						if(res.data.code == 0) {
 						}
 					}.bind(this))
@@ -216,9 +201,27 @@
     border:1px solid #eee;padding-top:1rem;width: 17.5rem;height: 12rem;background: #fff;border-radius: 8px;margin: auto
   }
   .loginBtn{
-    border: #0BA5D7 1px solid;color: #09a2d6;width: 6rem;height: 2.5rem;border-radius: 3px;
+    border: #0BA5D7 1px solid;color: #09a2d6;width: 6rem;height: 3rem;border-radius: 3px;
   }
   .thoseBox{
-    width: 90%;height: 33rem;background: #fff;margin:-6rem 5% 0;border-radius: 8px;padding: 8rem 1rem 1rem
+    width: 90%;height: 100%;background: #fff;margin:-6rem 5% 0;border-radius: 8px;padding: 8rem 1rem 12rem
+  }
+  .publicButton{
+    width: 6rem;height:3rem;background: linear-gradient(to right, #38E7F8 , #0BA5D7);color: white;
+  }
+  .thoseBoxContainer{
+    display: flex;border-bottom: 1px solid #f5f5f5;padding: 1rem 0
+  }
+  .thoseBoxLeft{
+    height: 100%;padding: 1rem 0
+  }
+  .thoseBoxLeft img{
+    width: 3rem;height:100%;display: block;margin: auto
+  }
+  .thoseBoxCenter{
+    margin-left: 1rem
+  }
+  .thoseBoxRight{
+    padding: 0.5rem 0;position: absolute;right: 2.5rem
   }
 </style>

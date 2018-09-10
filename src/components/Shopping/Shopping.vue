@@ -251,7 +251,6 @@
   .overBtn{
     background: linear-gradient(to right, #38E7F8 , #0BA5D7);
     color: white;
-    height: 3rem;
     margin: 1rem 0 1.5rem;
     padding: 0 1rem;
   }

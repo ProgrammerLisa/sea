@@ -4,10 +4,13 @@
       <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
         <img :src="masrc"/>
       </mu-button>
-      <span class="navTitleText">确认订单</span>
+      <span class="navTitleText">选择收货地址</span>
     </mu-appbar>
-    <div class="addressTitle contentMarginTop text-center">请选择收货地址</div>
-    <div class="addressList" v-for="a in address" @click="chooseAddress(a.addr_id)">
+    <!--<div class="addressTitle contentMarginTop text-center">请选择收货地址</div>-->
+    <div class="contentMarginTop">
+
+    </div>
+    <div class="addressList " v-for="a in address" @click="chooseAddress(a.addr_id)">
       <div class="addressUser">
         <div class="addressName text-left">{{a.consignee}}</div>
         <div class="addressPhone text-right">{{a.phone}}</div>
@@ -114,6 +117,9 @@
     font-size: 1.6rem;
     color: #444;
     padding-bottom: 6rem;
+  }
+  .contentMarginTop{
+    margin-top: 56px;
   }
   .addressTitle{
     border-bottom: 0.6rem solid #f5f5f5;

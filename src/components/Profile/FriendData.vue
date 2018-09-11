@@ -66,7 +66,7 @@
 				nickname: '好友昵称',
 				friend_uid: "",
 				resume: '这个人很懒，还没有签名。',
-        		hasPic:false
+        hasPic:false
 			}
 		},
 		mounted() {
@@ -93,30 +93,29 @@
 						}
 					}).then(function(res) {
 
-
-						if(res.data.code == 0) {
+						if(res.data.code === 0) {
               this.level = res.data.data.level;
               this.friend_uid = res.data.data.uid;
-              if(res.data.data.avatar==""){
+              if(res.data.data.avatar===""){
                 this.avatar = pic1
               }else {
                 this.avatar = res.data.data.avatar;
 						  }
-						  if(res.data.data.nickname==""){
+						  if(res.data.data.nickname===""){
 						    this.nickname=res.data.data.uid;
               }else {
                 this.nickname = res.data.data.nickname;
               }
-              if(res.data.data.resume==""){
+              if(res.data.data.resume===""){
                 this.resume="这个人很懒，还没有签名。"
               }else {
 
                 this.resume = res.data.data.resume;
               }
-              if(res.data.data.gender == "MALE") {
+              if(res.data.data.gender === "MALE") {
                 this.gender = '♂'
                 this.bcColor='background: #5CB3FC;';
-              } else if(res.data.data.gender=="UNKNOWN"){
+              } else if(res.data.data.gender==="UNKNOWN"){
                 this.gender = '?'
                 this.bcColor='background: #ddd;';
               }else{

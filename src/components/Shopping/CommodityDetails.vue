@@ -15,7 +15,7 @@
 		</div>
 		<div class="commodityPrice">
 			<span class="nowPrice">当前价：<span class="priceNumber">{{commodityPrice}}</span></span>
-      <span class="commodityCount">库存：{{commodityNumber}} 件</span>
+      <span class="commodityCount">已兑换：{{commodityNumber}} 件</span>
 			<div>( 成交价：钻石量 )</div>
 		</div>
 		<div class="considerations">
@@ -149,12 +149,13 @@
             goods_id:localStorage.getItem("goods_id")
           }
         }).then(function(res) {
+          console.log(res.data)
           if(res.data.code === 0) {
             this.commodityImg = res.data.data.image;
             this.commodityTitle = res.data.data.name;
             this.commodityPropaganda = res.data.data.desc;
             this.commodityPrice = res.data.data.price;
-            this.commodityNumber = res.data.data.stock;
+            this.commodityNumber = res.data.data.sales;
           }
         }.bind(this))
           .catch(function(err) {
@@ -182,8 +183,7 @@
 		      this.count--
         }
       },
-      countAdd(max){
-		    if(this.count<parseInt(max))
+      countAdd(){
         this.count++;
       },
       goPreOrder(){
@@ -300,6 +300,7 @@
 		background: #f5f5f5;
 		text-align: center;
 		height: 29vh;
+    margin-top: 56px;
 	}
 
 	.commodityImg img {

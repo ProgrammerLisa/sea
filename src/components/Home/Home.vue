@@ -369,7 +369,7 @@
 	.option2 img,
 	.option3 img,
 	.option4 img {
-		width: 90%;
+		width: 80%;
 	}
 
 	.option2:active img,

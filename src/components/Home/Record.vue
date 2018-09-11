@@ -72,7 +72,7 @@
             </mu-container>
             <div class="noMore" v-show="noMoreStolen">没有更多信息了</div>
           </div>
-          <div v-else class="text-center" style="padding-top: 4rem;font-size: 1.6rem;color:#777">暂无最新动态</div>
+          <div v-else class="text-center" style="padding: 3rem 0;font-size: 1.6rem;color:#777">暂无最新动态</div>
         </div>
         <div class="demo-text" v-if="active2 === 1">
           <div  v-if="hasSteal"  style="padding-top: 1rem">
@@ -87,7 +87,8 @@
                   </div>
                   <div class="stealerRight">
                     <div class="text-right">
-                      <mu-button @click="goFriendFarm(s.friend_uid)" small color="#fff" textColor="#09a2d6" flat class="vBtn">去挑衅</mu-button>
+                      <mu-button @click="goFriendFarm(s.friend_uid)" color="#fff" textColor="#09a2d6" flat class="vBtn">去挑衅</mu-button>
+
                     </div>
                   </div>
                 </div>
@@ -95,7 +96,7 @@
             </mu-container>
             <div class="noMore" v-show="noMoreSteal">没有更多信息了</div>
           </div>
-          <div v-else class="text-center" style="padding-top: 4rem;font-size: 1.6rem;color:#777">暂无最新动态</div>
+          <div v-else class="text-center" style="padding: 3rem 0;font-size: 1.6rem;color:#777">暂无最新动态</div>
         </div>
 
       </mu-container>
@@ -145,7 +146,7 @@
       <div class="noMore" v-show="noMoreMessage">没有更多信息了</div>
     </div>
 
-    <div v-else class="text-center" style="padding-top: 5rem;font-size: 1.6rem;color:#777">暂无留言</div>
+    <div v-else class="text-center" style="padding: 3rem 0;font-size: 1.6rem;color:#777">暂无留言</div>
   </div>
 
 
@@ -594,6 +595,7 @@
   .stealerDate{
     font-size: small;
     color: #666;
+    margin: 0.3rem 0;
   }
   #accordion{
     margin-left: 4rem;
@@ -629,7 +631,7 @@
   }
   .vBtn{
     border: solid 1px #23C8E8;margin-top:0.7rem;
-    width: 2rem;height: 2.5rem
+    width: 2rem;height: 2.5rem;
   }
 
   .leaveMessage{

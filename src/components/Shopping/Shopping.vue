@@ -10,22 +10,22 @@
         <img :src="carousel"/>
       </div>
       <div class="media" v-for="(goods,index) in commodity">
-        <div @click="sendParams(index)">
+        <div @click="sendParams(goods.enable,goods.id)">
           <div class="media-left">
-            <img class="media-object" :src="goods.commodityImg" alt="...">
+            <img class="media-object" :src="goods.image" alt="...">
           </div>
           <div class="media-body">
-            <p class="media-heading">{{goods.commodityTitle}}</p>
-            <p class="commodityPropaganda">{{goods.commodityPropaganda}}</p>
-            <div class="commodityPrice">{{goods.commodityPrice}} <span class="goodsMessage" style="color: #555"> ( 珍珠 ) </span> </div>
+            <p class="media-heading">{{goods.name}}</p>
+            <p class="commodityPropaganda">{{goods.desc}}</p>
+            <div class="commodityPrice">{{goods.price}} <span class="goodsMessage" style="color: #555"> ( 珍珠 ) </span> </div>
             <div ></div>
             <div>
-              <span class="goodsMessage">库存：{{goods.commodityNumber}} 件</span>
-              <button class="btn enchangeBtnEnd" v-if="goods.isEnd">
+              <span class="goodsMessage">兑换次数：{{goods.sales}} 件</span>
+              <button class="btn enchangeBtnEnd" v-if="!goods.enable">
                 已结束
               </button>
               <button class="btn enchangeBtn" v-else>
-                                                立即兑换
+                立即兑换
               </button>
             </div>
           </div>
@@ -51,17 +51,7 @@
           return{
             carousel:carousel,
             commodity:[],
-            openSimple: false,
-            model:{
-              commodityImg:'',
-              commodityTitle:'',
-              commodityPropaganda:'',
-              commodityPrice:'',
-              commodityCount:'',
-              commodityNumber:'',
-              isEnd:'',
-              id:''
-            }
+            openSimple: false
           }
         },
       mounted(){
@@ -104,27 +94,7 @@
           }).then(function(res) {
             if(res.data.code === 0) {
               if(res.data.data.data.items.length>0){
-                for (let i in res.data.data.data.items) {
-                  this.model.commodityImg = res.data.data.data.items[i].image;
-                  this.model.commodityTitle =  res.data.data.data.items[i].name;
-                  this.model.commodityPropaganda = res.data.data.data.items[i].desc;
-                  this.model.isEnd = !res.data.data.data.items[i].enable;
-                  this.model.id = res.data.data.data.items[i].id;
-                  this.model.commodityPrice = res.data.data.data.items[i].price;
-                  this.model.commodityNumber = res.data.data.data.items[i].stock;
-
-                  this.commodity.push(this.model)
-                  this.model={
-                    commodityImg:'',
-                    commodityTitle:'',
-                    commodityPropaganda:'',
-                    commodityPrice:'',
-                    commodityCount:'',
-                    commodityNumber:'',
-                    isEnd:'',
-                    id:''
-                  }
-                }
+                this.commodity=res.data.data.data.items;
               }
             }
           }.bind(this))
@@ -132,12 +102,12 @@
               this.$layer.msg("系统异常，请稍后再试");
             }.bind(this));
         },
-        sendParams (index) {
+        sendParams (enable,id) {
           const that = this;
-          if(that.commodity[index].isEnd){
+          if(!enable){
             this.openSimple=true
           }else {
-            localStorage.setItem("goods_id",that.commodity[index].id);
+            localStorage.setItem("goods_id",id);
             that.$router.push({path: '/commoditydetails'})
           }
 
@@ -238,11 +208,14 @@
     padding: 0.5rem;
     margin-top: -1.5rem;
     box-shadow: none;
+    outline: none;
   }
   .enchangeBtnEnd{
     float: right;
     border-radius: 3px;
     background: #f5f5f5;
+    box-shadow: none;
+    outline: none;
   }
   .overAlert{
     padding: 1rem 0;

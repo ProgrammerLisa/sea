@@ -263,15 +263,15 @@
 
 								}, 200)
 							}
-							for(let i = 0; i < res.data.pearls.length; i++) {
-								this.imgDiv[i].id = res.data.pearls[i].id;
-								if(res.data.pearls[i].has_stolen) {
-									this.imgDiv[i].imgCount = "已摘取"
-								} else {
-									this.imgDiv[i].imgCount = res.data.pearls[i].reward;
-								}
-
-							}
+//							for(let i = 0; i < res.data.pearls.length; i++) {
+//								this.imgDiv[i].id = res.data.pearls[i].id;
+//								if(res.data.pearls[i].has_stolen) {
+//									this.imgDiv[i].imgCount = "已摘取"
+//								} else {
+//									this.imgDiv[i].imgCount = res.data.pearls[i].reward;
+//								}
+//
+//							}
 							
 							
 
@@ -287,6 +287,8 @@
 									marginTop: '4rem'
 								}, 100)
 							}, 1000)
+						}else{
+							this.$layer.msg(res.data.msg);
 						}
 					}.bind(this))
 					.catch(function(err) {

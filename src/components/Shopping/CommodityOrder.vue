@@ -15,7 +15,7 @@
       </mu-tabs>
 
       <div class="demo-text" v-if="active === 0">
-         <div v-if="!AllOrderNone" class="OrderNone">
+         <div v-if="AllOrderNone" class="OrderNone">
             <img :src="OrderNoneImg" />
             <p>还没有订单哦</p>
             <mu-button flat class="publicButton" @click="openSimpleDialog">去逛逛</mu-button>
@@ -24,7 +24,7 @@
               <mu-button slot="actions" style="width: 100%;border-top: 1px solid #eee" flat @click="closeSimpleDialog">知道了</mu-button>
             </mu-dialog>
           </div>
-          <div v-else class="orderContainer">
+          <div v-else class="orderContainer" :style="height">
             <div class="orderList" v-for="i in AllOrderList">
               <div class="orderTop">
                 <div class="orderNumber">订单号: 34111111111 <span class="orderNumberCopy">复制</span></div>
@@ -60,7 +60,7 @@
           <mu-button flat class="publicButton" @click="openSimpleDialog">去逛逛</mu-button>
         </div>
 
-        <div v-else class="orderContainer">
+        <div v-else class="orderContainer" :style="height">
           <div class="orderList" v-for="i in WaitingPayList">
             <div class="orderTop">
               <div class="orderNumber">订单号: 34111111111 <span class="orderNumberCopy">复制</span></div>
@@ -95,7 +95,7 @@
           <mu-button flat class="publicButton" @click="openSimpleDialog">去逛逛</mu-button>
         </div>
 
-        <div v-else class="orderContainer">
+        <div v-else class="orderContainer" :style="height">
           <div class="orderList" v-for="i in WaitingDeliverList">
             <div class="orderTop">
               <div class="orderNumber">订单号: 34111111111 <span class="orderNumberCopy">复制</span></div>
@@ -130,7 +130,7 @@
           <mu-button flat class="publicButton" @click="openSimpleDialog">去逛逛</mu-button>
         </div>
 
-        <div v-else class="orderContainer">
+        <div v-else class="orderContainer" :style="height">
           <div class="orderList" v-for="i in WaitingRecieveList">
             <div class="orderTop">
               <div class="orderNumber">订单号: 34111111111 <span class="orderNumberCopy">复制</span></div>
@@ -178,59 +178,14 @@
         WaitingPayNone:true,
         WaitingDeliverNone:true,
         WaitingRecieveNone:true,
-        AllOrderList:[1,2,3,4,5,6,7,8,9],
+        AllOrderList:[],
         WaitingPayList:[1,2,3,4,],
         WaitingDeliverList:[1,2,],
         WaitingRecieveList:[1,2,3,4,5],
 				OrderNoneImg: OrderNoneImg,
         openSimple: false,
         active:0,
-				commodity: [{
-						commodityImg: commodityImg,
-						commodityTitle: '品质生活 博朗榨汁机果汁机1',
-						commodityPropaganda: '博朗家用电动大功率榨汁机。 快速榨汁系统。 使维他命不流失，口感俱佳。',
-						commodityPrice: 106.2266,
-						commodityCount: 50,
-						commodityNumber: 28,
-						isEnd: true
-					},
-					{
-						commodityImg: commodityImg,
-						commodityTitle: '品质生活 博朗榨汁机果汁机2',
-						commodityPropaganda: '博朗家用电动大功率榨汁机。 快速榨汁系统。 使维他命不流失，口感俱佳。',
-						commodityPrice: 106.2266,
-						commodityCount: 50,
-						commodityNumber: 28,
-						isEnd: false
-					},
-					{
-						commodityImg: commodityImg,
-						commodityTitle: '品质生活 博朗榨汁机果汁机3',
-						commodityPropaganda: '博朗家用电动大功率榨汁机。 快速榨汁系统。 使维他命不流失，口感俱佳。',
-						commodityPrice: 106.2266,
-						commodityCount: 50,
-						commodityNumber: 28,
-						isEnd: false
-					},
-					{
-						commodityImg: commodityImg,
-						commodityTitle: '品质生活 博朗榨汁机果汁机4',
-						commodityPropaganda: '博朗家用电动大功率榨汁机。 快速榨汁系统。 使维他命不流失，口感俱佳。',
-						commodityPrice: 106.2266,
-						commodityCount: 50,
-						commodityNumber: 28,
-						isEnd: true
-					},
-					{
-						commodityImg: commodityImg,
-						commodityTitle: '品质生活 博朗榨汁机果汁机5',
-						commodityPropaganda: '博朗家用电动大功率榨汁机。 快速榨汁系统。 使维他命不流失，口感俱佳。',
-						commodityPrice: 106.2266,
-						commodityCount: 50,
-						commodityNumber: 28,
-						isEnd: false
-					},
-				]
+        height:''
 			}
 		},
     mounted(){
@@ -248,7 +203,8 @@
     },
 		methods: {
 		  orederStyle(){
-		    $(".orderContainer").css({height:$(window).innerHeight()-($(".myNavTitle").innerHeight()+$(".orderTab").innerHeight())})
+		    let height = $(window).innerHeight()-($(".myNavTitle").innerHeight()+$(".orderTab").innerHeight());
+		    this.height='height:'+height+'px';
       },
 		  //全部订单
       AllOrder(){
@@ -266,6 +222,7 @@
               this.AllOrderNone = true;
             } else {
               this.AllOrderNone=false;
+              this.AllOrderList = res.data.data.items;
               console.log("全部订单,",res.data.data)
             }
           }

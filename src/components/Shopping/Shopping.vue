@@ -92,6 +92,7 @@
             },
             data: {}
           }).then(function(res) {
+            console.log(res.data)
             if(res.data.code === 0) {
               if(res.data.data.data.items.length>0){
                 this.commodity=res.data.data.data.items;

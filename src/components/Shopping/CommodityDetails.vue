@@ -36,7 +36,7 @@
             <div class="sheetGoodsStyle">
               <div class="marginBottom">珍珠：<span class="priceNumber">{{commodityPrice*count}}</span></div>
               <div class="marginBottom">库存：{{commodityNumber}} 件</div>
-              <div v-if="size!==''||color!==''">已选：{{color}} {{size}}</div>
+              <div v-if="size!==''||color!==''">已选：<span style="color: #09a2d6">{{color}} {{size}}</span></div>
               <div v-else>请选择商品属性</div>
             </div>
             <div class="closeBtn">
@@ -46,17 +46,21 @@
           <div class="sheetBody">
             <div class="sheetTitle">尺码</div>
             <div class="listBorder">
-              <mu-radio v-model="size" style="margin-right: 16px;" value="&quot;S码&quot; " label="S"></mu-radio>
-              <mu-radio v-model="size" style="margin-right: 16px;" value="&quot;M码&quot;" label="M"></mu-radio>
-              <mu-radio v-model="size" style="margin-right: 16px;" value="&quot;L码&quot;" label="L"></mu-radio>
+              <mu-radio v-for="(s,item) in sizeList" :key="item" v-model="size" style="margin-right: 16px;" :value="s" :label="s"></mu-radio>
+
+              <!--<mu-radio v-model="size" style="margin-right: 16px;" value="&quot;S码&quot; " label="S"></mu-radio>-->
+              <!--<mu-radio v-model="size" style="margin-right: 16px;" value="&quot;M码&quot;" label="M"></mu-radio>-->
+              <!--<mu-radio v-model="size" style="margin-right: 16px;" value="&quot;L码&quot;" label="L"></mu-radio>-->
             </div>
           </div>
           <div class="sheetBody">
             <div class="sheetTitle">颜色</div>
             <div class="listBorder">
-              <mu-radio v-model="color" style="margin-right: 16px;" value="&quot;黑色&quot;" label="黑色"></mu-radio>
-              <mu-radio v-model="color" style="margin-right: 16px;" value="&quot;白色&quot;" label="白色"></mu-radio>
-              <mu-radio v-model="color" style="margin-right: 16px;" value="&quot;红色&quot;" label="红色"></mu-radio>
+              <mu-radio v-for="(c,item) in colorList" :key="item" v-model="color" style="margin-right: 16px;" :value="c" :label="c"></mu-radio>
+
+              <!--<mu-radio v-model="color" style="margin-right: 16px;" value="&quot;黑色&quot;" label="黑色"></mu-radio>-->
+              <!--<mu-radio v-model="color" style="margin-right: 16px;" value="&quot;白色&quot;" label="白色"></mu-radio>-->
+              <!--<mu-radio v-model="color" style="margin-right: 16px;" value="&quot;红色&quot;" label="红色"></mu-radio>-->
             </div>
           </div>
           <div class="sheetBody flexContainer countList">
@@ -102,7 +106,9 @@
 				commodityCount: '',
 				commodityNumber: '',
         color:'',
+        colorList:[],
         size:'',
+        sizeList:[],
         count:1,
 				commodityConsiderations: [{
 						considerations: '请仔细核对你的地址，参加后不可修改；'
@@ -156,6 +162,8 @@
             this.commodityPropaganda = res.data.data.desc;
             this.commodityPrice = res.data.data.price;
             this.commodityNumber = res.data.data.sales;
+            this.colorList=res.data.data.color_choices;
+            this.sizeList=res.data.data.size_choices;
           }
         }.bind(this))
           .catch(function(err) {
@@ -192,8 +200,8 @@
         }else if(this.color===""||this.color==null||this.color==undefined){
           this.openTipsFuc("请选择颜色")
         }else {
-          localStorage.setItem("goodsSize",this.size.split("\"")[1].split("\"")[0]);
-          localStorage.setItem("goodsColor",this.color.split("\"")[1].split("\"")[0]);
+          localStorage.setItem("goodsSize",this.size);
+          localStorage.setItem("goodsColor",this.color);
           localStorage.setItem("goodsNum",this.count);
           localStorage.setItem("maxNum",this.commodityNumber);
 

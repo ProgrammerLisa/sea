@@ -298,6 +298,11 @@ export default new Router({
       name:'chooseaddress',
       meta:{index:4},
       component:  resolve => require(['@/components/Shopping/ChooseAddress'], resolve)
+    },{
+      path:'/paysuccess',
+      name:'paysuccess',
+      meta:{index:4},
+      component:  resolve => require(['@/components/Shopping/paySuccess'], resolve)
     }
 
 

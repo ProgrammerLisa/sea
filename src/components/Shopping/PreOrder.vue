@@ -50,8 +50,12 @@
       </div>
       <div class="exchange">
         <mu-button flat class=" exchangeBtn publicButton" @click="submitOrder">确认兑换</mu-button>
-
       </div>
+      <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert" class="text-center">
+        <div class="publicDialogTitle">确认支付</div>
+        <mu-button slot="actions" flat color="primary" @click="pay" class="loginOutBtn">确定</mu-button>
+        <mu-button slot="actions" flat color="#555" @click="nopay" class="loginOutBtn">取消</mu-button>
+      </mu-dialog>
     </div>
 </template>
 
@@ -63,6 +67,7 @@
         data(){
           return{
             masrc: back,
+            openAlert:false,
             hasAddress:false,
             address:'',
             commodityImg:'',
@@ -73,7 +78,8 @@
             count:localStorage.getItem("goodsNum"),
             maxNum:localStorage.getItem("maxNum"),
             commodityMessage:'',
-            isDisabled:''
+            isDisabled:'',
+            orderID:''
           }
         },
         mounted(){
@@ -147,31 +153,66 @@
               this.count++;
           },
           submitOrder(){
+
+            if(this.address.addr_id===undefined){
+              this.$layer.msg("请选择收货地址");
+            }else {
+              this.$http({
+                method: "post",
+                url: "/submit-order",
+                headers: {
+                  "device": "android",
+                  "uid": localStorage.getItem("uid"),
+                  "Access-Control-Allow-Origin": "*"
+                },
+                data: {
+                  goods_id:localStorage.getItem("goods_id"),
+                  address_id:this.address.addr_id,
+                  message:this.commodityMessage,
+                  color:this.color,
+                  size:this.size,
+                  num:this.count
+                }
+              }).then(function(res) {
+                if(res.data.code === 0) {
+                  this.orderID = res.data.data.id;
+                  this.openAlert=true;
+                }else {
+                  this.$layer.msg(res.data.msg);
+                }
+              }.bind(this))
+                .catch(function(err) {
+                  this.$layer.msg("系统异常，请稍后再试");
+                }.bind(this));
+            }
+
+          },
+          pay(){
             this.$http({
               method: "post",
-              url: "/submit-order",
+              url: "/exchange",
               headers: {
                 "device": "android",
                 "uid": localStorage.getItem("uid"),
                 "Access-Control-Allow-Origin": "*"
               },
               data: {
-                goods_id:localStorage.getItem("goods_id"),
-                address_id:this.address.addr_id,
-                message:this.commodityMessage,
-                color:this.color,
-                size:this.size,
-                num:this.count
+                order_id:this.orderID
               }
             }).then(function(res) {
-              this.$layer.msg(res.data.media);
+              this.openAlert=false;
               if(res.data.code === 0) {
-
+                  this.$router.push('/paysuccess')
+              }else {
+                this.$layer.msg(res.data.msg);
               }
             }.bind(this))
               .catch(function(err) {
                 this.$layer.msg("系统异常，请稍后再试");
               }.bind(this));
+          },
+          nopay(){
+            this.openAlert=false
           },
           goFind(){
             this.$router.replace('/find')
@@ -203,7 +244,7 @@
   .chooseAdd{
     background: #fff;
     margin-bottom: 1rem;
-    padding:1rem;
+    padding:1rem 1.5rem;
     color: #333;
   }
   .chooseAdd:active{
@@ -212,8 +253,11 @@
   .AddressUser{
     display: flex;
   }
-  .AddressName,.AddressPhone{
-    width: 50%;
+  .AddressName{
+    width: 100%;
+  }
+  .AddressPhone{
+    width: 40%;
     font-size: 1.7rem;
   }
   .Address{
@@ -296,5 +340,13 @@
   }
   .publicButton{
     background: linear-gradient(to right, #38E7F8 , #0BA5D7);color: white;
+  }
+  .loginOutBtn {
+    border-top: 1px solid #ddd;
+    width: 50%;
+  }
+
+  .loginOutBtn:first-child {
+    border-right: 1px solid #ddd;
   }
 </style>

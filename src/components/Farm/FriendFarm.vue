@@ -19,8 +19,8 @@
 			<div id="pearlContainer" v-if="hasPearl">
 				<button :class="t.divClass" v-for="(t,index) in imgDiv" @click="getPearl(index,t.id) " :disabled="t.isDisabled">
         <div><img :src="t.href" class="divImg"/></div>
-        <div class="text-center divCount" v-if="hasPearl">{{t.imgCount}}</div>
-        <div class="text-center divtime" v-else><div class="txt">还剩</div>{{t.remain}}分钟</div>
+        <div class="text-center divCount" v-if="hasPearl1">{{t.imgCount}}</div>
+        <div class="text-center divtime" v-else><div class="txt">还剩</div>{{t.remain}}分</div>
         
       </button>
 			</div>
@@ -78,6 +78,7 @@
 				friend_pearl: 0,
 				friend_avatar: pic1,
 				hasPearl: false,
+				hasPearl1: false,
 				imgDiv: [],
 				PearlLevel1: {
 					remain: '',
@@ -146,7 +147,7 @@
 								for(let i = 0; i < res.data.pearls.length; i++) {
 									//是否可偷
 									if(res.data.pearls[i].is_locked === 0) {
-
+										this.hasPearl1 = true;
 										if(res.data.pearls[i].pearl_type === "NORMAL") {
 											//普通珍珠
 											this.PearlLevel1.id = res.data.pearls[i].id;
@@ -222,7 +223,8 @@
 									}
 								}
 							} else {
-								this.hasPearl = false
+								this.hasPearl = false;
+								this.hasPearl1 = false;
 							}
 						} else {
 							this.$layer.msg(res.data.msg);

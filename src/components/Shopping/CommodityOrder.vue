@@ -25,30 +25,57 @@
             </mu-dialog>
           </div>
           <div v-else class="orderContainer" :style="height">
-            <div class="orderList" v-for="i in AllOrderList">
-              <div class="orderTop">
-                <div class="orderNumber">订单号: 34111111111 <span class="orderNumberCopy">复制</span></div>
-                <div class="orderTips text-right">待付款</div>
-              </div>
-              <div class="orderCenter">
-                <div class="orderContent">
-                  <div class="orderLeft">
-                    <img src="../../assets/images/noorder.png"/>
+            <mu-load-more @refresh="refreshAll" :refreshing="refreshingAll" :loading="loadingAll" @load="loadAll">
+              <div class="orderList" v-for="i in AllOrderList">
+                <div class="orderTop">
+                  <div class="orderNumber">订单号: {{i.id}} <span class="orderNumberCopy">复制</span></div>
+                  <!--<div class="orderTips text-right">待付款</div>-->
+                </div>
+                <div class="orderCenter">
+                  <div class="orderContent">
+                    <div class="orderLeft">
+                      <img :src="i.goods.image"/>
+                    </div>
+                    <div class="orderRight">
+                      <div class="orderTitle">{{i.goods.name}}</div>
+                      <div class="orderDesc">{{i.goods.desc}}</div>
+                    </div>
                   </div>
-                  <div class="orderRight">
-                    <div class="orderTitle">品质生活 博朗榨汁机果汁机</div>
-                    <div class="orderDesc">品质生活 博朗榨汁机果汁机品质生活 博朗榨汁机果汁机</div>
+                  <div class="orderPrice text-right">
+                    <div class="created_at">{{i.created_at}}</div><span>总计:</span><span style="color: #09a2d6">￥{{i.cost}}</span><span style="font-size: small">（珍珠）</span>
                   </div>
                 </div>
-                <div class="orderPrice text-right">
-                  <span>总计:</span><span style="color: #09a2d6">￥106.2266</span><span style="font-size: small">（珍珠）</span>
+                <div class="orderBottom text-right" v-show="i.status=='WAITING_PAY'">
+                  <div class="status">等待兑换</div>
+                  <mu-button class="cancellationOrder" flat> 取消订单 </mu-button>
+                  <mu-button class="payBtn" flat  @click="submitAllOrder(i.id)"> 兑换 </mu-button>
+                </div>
+                <div class="orderBottom text-right" v-show="i.status=='WAITING_DELIVER'">
+                  <div class="status">等待发货</div>
+                  <mu-button class="cancellationOrder" flat> 查看详情 </mu-button>
+                </div>
+                <div class="orderBottom text-right" v-show="i.status=='WAITING_RECIEVE'">
+                  <div class="status">等待收货</div>
+                  <mu-button class="cancellationOrder" flat> 查看详情 </mu-button>
+                  <mu-button class="payBtn" flat> 确认收货 </mu-button>
+                </div>
+                <div class="orderBottom text-right" v-show="i.status=='FINISHED'">
+                  <div class="status">完成兑换</div>
+                  <mu-button class="cancellationOrder" flat> 删除 </mu-button>
+                  <mu-button class="payBtn" flat> 查看详情 </mu-button>
+                </div>
+                <div class="orderBottom text-right" v-show="i.status=='EXPIRED'">
+                  <div class="status">已过期</div>
+                  <mu-button class="cancellationOrder" flat> 删除 </mu-button>
                 </div>
               </div>
-              <div class="orderBottom text-right">
-                <mu-button class="cancellationOrder" flat> 取消订单 </mu-button>
-                <mu-button class="payBtn" flat> 去支付 </mu-button>
-              </div>
-            </div>
+            </mu-load-more>
+            <div class="noMore" v-show="noMoreAll">没有更多信息了</div>
+            <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAll" class="text-center">
+              <div class="publicDialogTitle">确认支付</div>
+              <mu-button slot="actions" flat color="primary" @click="pay" class="loginOutBtn">确定</mu-button>
+              <mu-button slot="actions" flat color="#555" @click="closeAll" class="loginOutBtn">取消</mu-button>
+            </mu-dialog>
           </div>
 
       </div>
@@ -61,30 +88,38 @@
         </div>
 
         <div v-else class="orderContainer" :style="height">
-          <div class="orderList" v-for="i in WaitingPayList">
+          <mu-load-more @refresh="refreshWaitingPay" :refreshing="refreshingWaitingPay" :loading="loadingWaitingPay" @load="loadWaitingPay">
+            <div class="orderList" v-for="i in WaitingPayList">
             <div class="orderTop">
-              <div class="orderNumber">订单号: 34111111111 <span class="orderNumberCopy">复制</span></div>
-              <div class="orderTips text-right">待付款</div>
+              <div class="orderNumber">订单号: {{i.id}} <span class="orderNumberCopy">复制</span></div>
             </div>
             <div class="orderCenter">
               <div class="orderContent">
                 <div class="orderLeft">
-                  <img src="../../assets/images/noorder.png"/>
+                  <img :src="i.goods.image"/>
                 </div>
                 <div class="orderRight">
-                  <div class="orderTitle">品质生活 博朗榨汁机果汁机</div>
-                  <div class="orderDesc">品质生活 博朗榨汁机果汁机品质生活 博朗榨汁机果汁机</div>
+                  <div class="orderTitle">{{i.goods.name}}</div>
+                  <div class="orderDesc">{{i.goods.desc}}</div>
                 </div>
               </div>
               <div class="orderPrice text-right">
-                <span>总计:</span><span style="color: #09a2d6">￥106.2266</span><span style="font-size: small">（珍珠）</span>
+                <div class="created_at">{{i.created_at}}</div><span>总计:</span><span style="color: #09a2d6">￥{{i.cost}}</span><span style="font-size: small">（珍珠）</span>
               </div>
             </div>
             <div class="orderBottom text-right">
+              <div class="status">等待付款</div>
               <mu-button class="cancellationOrder" flat> 取消订单 </mu-button>
-              <mu-button class="payBtn" flat> 去支付 </mu-button>
+              <mu-button class="payBtn" flat  @click="submitPayOrder(i.id)"> 支付 </mu-button>
             </div>
           </div>
+          </mu-load-more>
+          <div class="noMore" v-show="noMoreWaitingPay">没有更多信息了</div>
+          <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openPay" class="text-center">
+            <div class="publicDialogTitle">确认支付</div>
+            <mu-button slot="actions" flat color="primary" @click="pay" class="loginOutBtn">确定</mu-button>
+            <mu-button slot="actions" flat color="#555" @click="closePay" class="loginOutBtn">取消</mu-button>
+          </mu-dialog>
         </div>
       </div>
 
@@ -174,14 +209,37 @@
 		data() {
 			return {
 				masrc: back,
+        AllOrderID:'',
         AllOrderNone: true,
         WaitingPayNone:true,
         WaitingDeliverNone:true,
         WaitingRecieveNone:true,
+        AllOrderUrl:"/order",
+        WaitingPayUrl:'',
+        WaitingDeliverUrl:'',
+        WaitingRecieveUrl:'',
         AllOrderList:[],
-        WaitingPayList:[1,2,3,4,],
+        WaitingPayList:[],
         WaitingDeliverList:[1,2,],
         WaitingRecieveList:[1,2,3,4,5],
+        AllOrderNext:"",
+        WaitingPayNext:"",
+        WaitingDeliverNext:"",
+        WaitingRecieveNext:"",
+        noMoreAll:false,
+        noMoreWaitingPay:false,
+        noMoreWaitingDeliver:false,
+        noMoreWaitingRecieve:false,
+        refreshingAll:false,
+        loadingAll:false,
+        refreshingWaitingPay:false,
+        loadingWaitingPay:false,
+        refreshingWaitingDeliver:false,
+        loadingWaitingDeliver:false,
+        refreshingWaitingRecieve:false,
+        loadingWaitingRecieve:false,
+        openAll:false,
+        openPay:false,
 				OrderNoneImg: OrderNoneImg,
         openSimple: false,
         active:0,
@@ -191,7 +249,7 @@
     mounted(){
       let that = this;
       mui.back = function(){
-        that.$router.go(-1);
+        that.$router.push('/personal');
       };
       this.$nextTick(function () {
         this.orederStyle();
@@ -210,27 +268,55 @@
       AllOrder(){
         this.$http({
           method: "post",
-          url: "/order",
+          url: this.AllOrderUrl,
           headers: {
             "device": "android",
             "uid": localStorage.getItem("uid"),
             "Access-Control-Allow-Origin": "*"
           }
         }).then(function(res) {
+          setTimeout(()=>{
+            this.refreshingAll=false;
+            this.loadingAll = false;
+          },500);
           if(res.data.code===0){
             if (res.data.data===undefined){
               this.AllOrderNone = true;
             } else {
               this.AllOrderNone=false;
-              this.AllOrderList = res.data.data.items;
-              console.log("全部订单,",res.data.data)
+              for (let i in res.data.data.items){
+                this.AllOrderList.push(res.data.data.items[i])
+              }
             }
+
+            this.AllOrderNext = res.data.data.next;
+          }else {
+            this.$layer.msg(res.data.msg);
           }
 
         }.bind(this))
           .catch(function(err) {
+            this.refreshingAll=false;
+            this.loadingAll = false;
             this.$layer.msg("系统异常，请稍后再试");
           }.bind(this))
+      },
+      //重新加载全部订单
+      refreshAll(){
+		    this.refreshingAll=true;
+        this.AllOrderUrl="/order";
+        this.AllOrderList=[];
+        this.AllOrder();
+      },
+      //加载订单分页
+      loadAll(){
+        this.loadingAll = true;
+        if (this.AllOrderNext===""){
+          this.loadingAll = false;
+          this.noMoreAll=true;
+        }else {
+          this.AllOrder();
+        }
       },
       //待付款订单
       WaitingPay(){
@@ -248,15 +334,26 @@
               this.WaitingPayNone = true;
             } else {
               this.WaitingPayNone=false;
-              console.log("待付款订单,",res.data)
+              for (let i in res.data.data.items){
+                this.WaitingPayList.push(res.data.data.items[i])
+              }
             }
-
+          }else {
+            this.$layer.msg(res.data.msg);
           }
 
         }.bind(this))
           .catch(function(err) {
             this.$layer.msg("系统异常，请稍后再试");
           }.bind(this))
+      },
+      //重新加载支付订单
+      refreshWaitingPay(){
+
+      },
+      //加载订单分页
+      loadWaitingPay(){
+
       },
       //待发货订单
       WaitingDeliver(){
@@ -283,6 +380,14 @@
             this.$layer.msg("系统异常，请稍后再试");
           }.bind(this))
       },
+      //重新加载发货订单
+      refreshWaitingDeliver(){
+
+      },
+      //加载订单分页
+      loadWaitingDeliver(){
+
+      },
       //待收货订单
       WaitingRecieve(){
         this.$http({
@@ -308,9 +413,55 @@
             this.$layer.msg("系统异常，请稍后再试");
           }.bind(this))
       },
+      //重新加载收货订单
+      refreshWaitingRecieve(){
+
+      },
+      //加载订单分页
+      loadWaitingRecieve(){
+
+      },
       openSimpleDialog () {
-        this.$router.push('/shopping')
-        // this.openSimple = true;
+        this.$router.push('/shopping');
+      },
+      //确认兑换
+      submitAllOrder(id){
+		    this.AllOrderID = id;
+		    this.openAll = true;
+      },
+      submitPayOrder(id){
+        this.AllOrderID = id;
+        this.openPay = true;
+      },
+      pay(){
+        this.$http({
+          method: "post",
+          url: "/exchange",
+          headers: {
+            "device": "android",
+            "uid": localStorage.getItem("uid"),
+            "Access-Control-Allow-Origin": "*"
+          },
+          data: {
+            order_id:this.AllOrderID
+          }
+        }).then(function(res) {
+          this.openAlert=false;
+          if(res.data.code === 0) {
+            this.$router.push('/paysuccess')
+          }else {
+            this.$layer.msg(res.data.msg);
+          }
+        }.bind(this))
+          .catch(function(err) {
+            this.$layer.msg("系统异常，请稍后再试");
+          }.bind(this));
+      },
+      closeAll(){
+		    this.openAll=false;
+      },
+      closePay(){
+        this.openPay=false;
       },
       closeSimpleDialog () {
         this.openSimple = false;
@@ -322,7 +473,7 @@
 				this.masrc = back;
 			},
 			goBack() {
-				this.$router.go(-1);
+				this.$router.push('/personal');
 			}
 		}
 	}
@@ -395,7 +546,6 @@
     padding:1px 10px;
     border-radius: 12px;
     font-size: small;
-    margin-left: 1rem;
   }
   .orderContent{
     display: flex;
@@ -408,6 +558,7 @@
   }
   .orderLeft img{
      width: 100%;
+    border-radius: 3px;
    }
   .orderRight{
     vertical-align: middle;
@@ -423,10 +574,19 @@
   .orderBottom{
     padding:1rem;
   }
+  .status{
+    float: left;
+    line-height: 3rem;
+    color: #09a2d6;
+  }
+  .created_at{
+    color: #555;
+    font-size: small;
+    float: left;
+  }
   .cancellationOrder{
     border: 1px solid #999999;
     height: 3rem;
-    margin-right: 1rem;
     border-radius: 3px;
   }
   .payBtn{
@@ -434,6 +594,7 @@
     color: #09a2d6;
     height: 3rem;
     border-radius: 3px;
+    margin-left: 1rem;
   }
 
   .publicButton{
@@ -443,5 +604,20 @@
     padding:0 2rem;
     margin-top: 1rem;
   }
+  .noMore{
+    width: 100%;
+    line-height: 4rem;
+    color: #666;
+    text-align: center;
+    background: #fff;
+    margin-top: -4rem;
+  }
+  .loginOutBtn {
+    border-top: 1px solid #ddd;
+    width: 50%;
+  }
 
+  .loginOutBtn:first-child {
+    border-right: 1px solid #ddd;
+  }
 </style>

@@ -17,11 +17,13 @@
 
 		<div class="farmBack">
 			<div id="pearlContainer" v-if="hasPearl">
-			<button :class="t.divClass" v-for="(t,index) in imgDiv" @click="getPearl(index,t.id) " :disabled="t.isDisabled">
+				<button :class="t.divClass" v-for="(t,index) in imgDiv" @click="getPearl(index,t.id) " :disabled="t.isDisabled">
         <div><img :src="t.href" class="divImg"/></div>
-        <div class="text-center divCount">{{t.imgCount}}</div>
+        <div class="text-center divCount" v-if="hasPearl1">{{t.imgCount}}</div>
+        <div class="text-center divtime" v-else><div class="txt">还剩</div>{{t.remain}}分</div>
+        
       </button>
-		</div>
+			</div>
 			<div class="waitingContainer" v-else>
 				<div class="waiting">
 					<img :src="bh" />
@@ -51,7 +53,7 @@
 	import p9 from '@/assets/images/zhenzhu3x/zhenzhu9@3x.png'
 	import p10 from '@/assets/images/zhenzhu3x/zhenzhu10@3x.png'
 	import p11 from '@/assets/images/zhenzhu3x/zhenzhu11@3x.png'
-	
+
 	import o1 from '@/assets/images/haiyangzhixin3x/hailanzhixin1@3x.png'
 	import o2 from '@/assets/images/haiyangzhixin3x/hailanzhixin2@3x.png'
 	import o3 from '@/assets/images/haiyangzhixin3x/hailanzhixin3@3x.png'
@@ -69,15 +71,17 @@
 		data() {
 			return {
 				masrc: back,
-				nickname:'',
+				nickname: '',
 				bh: defaultPearl,
 				p: [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11],
 				o: [o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11],
 				friend_pearl: 0,
 				friend_avatar: pic1,
 				hasPearl: false,
+				hasPearl1: false,
 				imgDiv: [],
 				PearlLevel1: {
+					remain: '',
 					imgCount: '',
 					href: defaultPearl,
 					divClass: '',
@@ -88,6 +92,7 @@
 					hasStolen: true
 				},
 				PearlLevel2: {
+					remain: '',
 					imgCount: '',
 					href: defaultOcean,
 					divClass: '',
@@ -140,50 +145,93 @@
 								this.imgDiv = [];
 
 								for(let i = 0; i < res.data.pearls.length; i++) {
-									if(res.data.pearls[i].pearl_type === "NORMAL") {
+									//是否可偷
+									if(res.data.pearls[i].is_locked === 0) {
+										this.hasPearl1 = true;
+										if(res.data.pearls[i].pearl_type === "NORMAL") {
+											//普通珍珠
+											this.PearlLevel1.id = res.data.pearls[i].id;
+											this.PearlLevel1.divClass = 'pearlBox pearlBox' + res.data.pearls[i].today_num % 10;
 
-										//普通珍珠
-										this.PearlLevel1.id = res.data.pearls[i].id;
-										this.PearlLevel1.divClass = 'pearlBox pearlBox' + res.data.pearls[i].today_num % 10;
-										if(res.data.pearls[i].has_stolen) {
-											this.PearlLevel1.imgCount = "已摘取"
-										} else {
+											//											this.PearlLevel1.remain = res.data.pearls[i].is_locked;
 											this.PearlLevel1.imgCount = res.data.pearls[i].reward;
-										}
-										this.imgDiv.push(this.PearlLevel1)
-										this.PearlLevel1 = {
-											imgCount: '',
-											divClass: '',
-											href: defaultPearl,
-											animation: '',
-											level: 1,
-											id: '',
-											isDisabled: false
-										}
 
-									} else if(res.data.pearls[i].pearl_type === "LUCK") {
-										//海洋之心
-										this.PearlLevel2.id = res.data.pearls[i].id;
-										this.PearlLevel2.imgCount = res.data.pearls[i].reward;
-										this.PearlLevel2.divClass = 'pearlBox pearlBox' + res.data.pearls[i].today_num % 10;
-										this.imgDiv.push(this.PearlLevel2)
-										this.PearlLevel2 = {
-											imgCount: '',
-											divClass: '',
-											href: defaultOcean,
-											animation: '',
-											level: 2,
-											id: '',
-											isDisabled: false
+											this.imgDiv.push(this.PearlLevel1)
+											this.PearlLevel1 = {
+												remain: '',
+												imgCount: '',
+												divClass: '',
+												href: defaultPearl,
+												animation: '',
+												level: 1,
+												id: '',
+												isDisabled: false
+											}
+
+										} else if(res.data.pearls[i].pearl_type === "LUCK") {
+											//海洋之心
+											this.PearlLevel2.id = res.data.pearls[i].id;
+											this.PearlLevel2.imgCount = res.data.pearls[i].reward;
+											this.PearlLevel2.divClass = 'pearlBox pearlBox' + res.data.pearls[i].today_num % 10;
+											this.imgDiv.push(this.PearlLevel2)
+											this.PearlLevel2 = {
+												remain: '',
+												imgCount: '',
+												divClass: '',
+												href: defaultOcean,
+												animation: '',
+												level: 2,
+												id: '',
+												isDisabled: false
+											}
+										}
+									} else {
+										this.PearlLevel1.remain = res.data.pearls[i].is_locked;
+										if(res.data.pearls[i].pearl_type === "NORMAL") {
+											//普通珍珠
+											this.PearlLevel1.id = res.data.pearls[i].id;
+											this.PearlLevel1.divClass = 'pearlBox pearlBox' + res.data.pearls[i].today_num % 10;
+
+											this.imgDiv.push(this.PearlLevel1)
+											this.PearlLevel1 = {
+												remain: '',
+												imgCount: '',
+												divClass: '',
+												href: defaultPearl,
+												animation: '',
+												level: 1,
+												id: '',
+												isDisabled: false
+											}
+										} else if(res.data.pearls[i].pearl_type === "LUCK") {
+											//海洋之心
+											this.PearlLevel2.id = res.data.pearls[i].id;
+											this.PearlLevel2.imgCount = res.data.pearls[i].reward;
+											this.PearlLevel2.divClass = 'pearlBox pearlBox' + res.data.pearls[i].today_num % 10;
+											this.imgDiv.push(this.PearlLevel2)
+											this.PearlLevel2 = {
+												remain: '',
+												imgCount: '',
+												divClass: '',
+												href: defaultOcean,
+												animation: '',
+												level: 2,
+												id: '',
+												isDisabled: false
+											}
 										}
 									}
-
 								}
 							} else {
-								this.hasPearl = false
+								this.hasPearl = false;
+								this.hasPearl1 = false;
 							}
 						} else {
 							this.$layer.msg(res.data.msg);
+							//							this.PearlLevel1.imgCount = res.data.pearls[i].reward;
+							//							this.PearlLevel1.remain = res.data.remain_time;
+							//							console.log(this.PearlLevel1.remain)
+
 						}
 					}.bind(this))
 					.catch(function(err) {
@@ -205,7 +253,7 @@
 						}
 					}).then(function(res) {
 						if(res.data.code === 0) {
-							
+
 							let pearlAudio = document.getElementById('pearlAudio');
 							pearlAudio.play();
 							this.imgDiv[index].isDisabled = true;
@@ -216,8 +264,8 @@
 							if(that.imgDiv[index].href === defaultPearl) {
 								let timer = setInterval(() => {
 
-//									let pearlAudio = document.getElementById('pearlAudio');
-//									pearlAudio.play();
+									//									let pearlAudio = document.getElementById('pearlAudio');
+									//									pearlAudio.play();remain
 
 									if(i < that.p.length) {
 										that.imgDiv[index].href = that.p[i];
@@ -231,7 +279,7 @@
 										});
 
 										i++
-									}else {
+									} else {
 										clearInterval(timer);
 										$(".pearlBox").eq(index).animate({
 											top: "-200%"
@@ -240,7 +288,7 @@
 									}
 
 								}, 200)
-							}else if(that.imgDiv[index].href === defaultOcean) {
+							} else if(that.imgDiv[index].href === defaultOcean) {
 								let timer = setInterval(() => {
 									if(i < that.o.length) {
 										that.imgDiv[index].href = that.o[i];
@@ -263,17 +311,6 @@
 
 								}, 200)
 							}
-//							for(let i = 0; i < res.data.pearls.length; i++) {
-//								this.imgDiv[i].id = res.data.pearls[i].id;
-//								if(res.data.pearls[i].has_stolen) {
-//									this.imgDiv[i].imgCount = "已摘取"
-//								} else {
-//									this.imgDiv[i].imgCount = res.data.pearls[i].reward;
-//								}
-//
-//							}
-							
-							
 
 							$(".animateCount").eq(index).text('+' + res.data.stolen_reward).animate({
 								color: "#12dd99",
@@ -287,8 +324,12 @@
 									marginTop: '4rem'
 								}, 100)
 							}, 1000)
-						}else{
+						} else {
 							this.$layer.msg(res.data.msg);
+							//							this.PearlLevel1.remain = res.data.pearls[i].remain_time;
+							this.imgDiv[index].remain = res.data.remain_time;
+							//							this.imgDiv[index].imgCount = '';
+							console.log(res.data.remain_time)
 						}
 					}.bind(this))
 					.catch(function(err) {
@@ -475,5 +516,17 @@
 	
 	.divImg {
 		width: 100%;
+	}
+	
+	.divtime {
+		position: absolute;
+		/*margin-top: -45px;*/
+		margin-left: 8px;
+		font-size: smaller;
+		/*color:#DCDCDC;*/
+	}
+	
+	.txt {
+		font-size: inherit;
 	}
 </style>

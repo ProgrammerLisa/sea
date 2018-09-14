@@ -303,6 +303,11 @@ export default new Router({
       name:'paysuccess',
       meta:{index:4},
       component:  resolve => require(['@/components/Shopping/paySuccess'], resolve)
+    },{
+      path:'/orderdetails',
+      name:'orderdetails',
+      meta:{index:3},
+      component:  resolve => require(['@/components/Profile/orderDetails'], resolve)
     }
 
 

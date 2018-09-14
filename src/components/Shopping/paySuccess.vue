@@ -1,9 +1,9 @@
 <template>
     <div class="content">
-      <div class="TitleNav text-center">支付</div>
+      <div class="TitleNav text-center">兑换</div>
       <div class="text-center payContainer">
         <mu-icon value="check_circle" color="#04C208" size="64"></mu-icon>
-        <p class="paySuccess">支付成功</p>
+        <p class="paySuccess">兑换成功</p>
         <mu-button flat class="goShopping" to="/shopping">回到商城</mu-button>
       </div>
     </div>

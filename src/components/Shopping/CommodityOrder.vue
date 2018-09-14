@@ -47,12 +47,12 @@
                 </div>
                 <div class="orderBottom text-right" v-show="i.status=='WAITING_PAY'">
                   <div class="status">等待兑换</div>
-                  <mu-button class="cancellationOrder" flat> 取消订单 </mu-button>
+                  <mu-button class="cancellationOrder" flat @click="openNoPayAlert(i.id)"> 取消订单 </mu-button>
                   <mu-button class="payBtn" flat  @click="submitAllOrder(i.id)"> 兑换 </mu-button>
                 </div>
                 <div class="orderBottom text-right" v-show="i.status=='WAITING_DELIVER'">
                   <div class="status">等待发货</div>
-                  <mu-button class="cancellationOrder" flat> 查看详情 </mu-button>
+                  <mu-button class="cancellationOrder" flat @click="goDetail(i.id)"> 查看详情 </mu-button>
                 </div>
                 <div class="orderBottom text-right" v-show="i.status=='WAITING_RECIEVE'">
                   <div class="status">等待收货</div>
@@ -61,12 +61,12 @@
                 </div>
                 <div class="orderBottom text-right" v-show="i.status=='FINISHED'">
                   <div class="status">完成兑换</div>
-                  <mu-button class="cancellationOrder" flat> 删除 </mu-button>
-                  <mu-button class="payBtn" flat> 查看详情 </mu-button>
+                  <mu-button class="cancellationOrder" flat @click="removeOrder(i.id)"> 删除 </mu-button>
+                  <mu-button class="payBtn" flat @click="goDetail(i.id)"> 查看详情 </mu-button>
                 </div>
                 <div class="orderBottom text-right" v-show="i.status=='EXPIRED'">
                   <div class="status">已过期</div>
-                  <mu-button class="cancellationOrder" flat> 删除 </mu-button>
+                  <mu-button class="cancellationOrder" flat @click="removeOrder(i.id)"> 删除 </mu-button>
                 </div>
               </div>
             </mu-load-more>
@@ -75,6 +75,16 @@
               <div class="publicDialogTitle">确认支付</div>
               <mu-button slot="actions" flat color="primary" @click="pay" class="loginOutBtn">确定</mu-button>
               <mu-button slot="actions" flat color="#555" @click="closeAll" class="loginOutBtn">取消</mu-button>
+            </mu-dialog>
+            <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openNoPay" class="text-center">
+              <div class="publicDialogTitle">取消订单</div>
+              <mu-button slot="actions" flat color="primary" @click="noPay" class="loginOutBtn">确定</mu-button>
+              <mu-button slot="actions" flat color="#555" @click="closeNoPay" class="loginOutBtn">取消</mu-button>
+            </mu-dialog>
+            <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openRemove" class="text-center">
+              <div class="publicDialogTitle">删除订单</div>
+              <mu-button slot="actions" flat color="primary" @click="yesRemove" class="loginOutBtn">确定</mu-button>
+              <mu-button slot="actions" flat color="#555" @click="noRemove" class="loginOutBtn">取消</mu-button>
             </mu-dialog>
           </div>
 			</div>
@@ -108,8 +118,8 @@
             </div>
             <div class="orderBottom text-right">
               <div class="status">等待付款</div>
-              <mu-button class="cancellationOrder" flat> 取消订单 </mu-button>
-              <mu-button class="payBtn" flat  @click="submitPayOrder(i.id)"> 支付 </mu-button>
+              <mu-button class="cancellationOrder" flat @click="openNoPayAlert(i.id)"> 取消订单 </mu-button>
+              <mu-button class="payBtn" flat  @click="submitPayOrder(i.id)"> 兑换 </mu-button>
             </div>
           </div>
           </mu-load-more>
@@ -118,6 +128,11 @@
             <div class="publicDialogTitle">确认支付</div>
             <mu-button slot="actions" flat color="primary" @click="pay" class="loginOutBtn">确定</mu-button>
             <mu-button slot="actions" flat color="#555" @click="closePay" class="loginOutBtn">取消</mu-button>
+          </mu-dialog>
+          <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openNoPay" class="text-center">
+            <div class="publicDialogTitle">取消订单</div>
+            <mu-button slot="actions" flat color="primary" @click="noPay" class="loginOutBtn">确定</mu-button>
+            <mu-button slot="actions" flat color="#555" @click="closeNoPay" class="loginOutBtn">取消</mu-button>
           </mu-dialog>
         </div>
       </div>
@@ -130,30 +145,31 @@
 				</div>
 
 				<div v-else class="orderContainer" :style="height">
-					<div class="orderList" v-for="i in WaitingDeliverList">
+          <mu-load-more @refresh="refreshWaitingDeliver" :refreshing="refreshingWaitingDeliver" :loading="loadingWaitingDeliver" @load="loadWaitingDeliver">
+            <div class="orderList" v-for="i in WaitingDeliverList">
 						<div class="orderTop">
-							<div class="orderNumber">订单号: 34111111111 <span class="orderNumberCopy">复制</span></div>
-							<div class="orderTips text-right">待付款</div>
+							<div class="orderNumber">订单号: {{i.id}} <span class="orderNumberCopy">复制</span></div>
 						</div>
 						<div class="orderCenter">
 							<div class="orderContent">
 								<div class="orderLeft">
-									<img src="../../assets/images/noorder.png" />
+                  <img :src="i.goods.image"/>
 								</div>
 								<div class="orderRight">
-									<div class="orderTitle">品质生活 博朗榨汁机果汁机</div>
-									<div class="orderDesc">品质生活 博朗榨汁机果汁机品质生活 博朗榨汁机果汁机</div>
+									<div class="orderTitle">{{i.goods.name}}</div>
+									<div class="orderDesc">{{i.goods.desc}}</div>
 								</div>
 							</div>
 							<div class="orderPrice text-right">
-								<span>总计:</span><span style="color: #09a2d6">￥106.2266</span><span style="font-size: small">（珍珠）</span>
+                <div class="created_at">{{i.created_at}}</div><span>总计:</span><span style="color: #09a2d6">￥{{i.cost}}</span><span style="font-size: small">（珍珠）</span>
 							</div>
 						</div>
 						<div class="orderBottom text-right">
-							<mu-button class="cancellationOrder" flat> 取消订单 </mu-button>
-							<mu-button class="payBtn" flat> 去支付 </mu-button>
+              <mu-button class="cancellationOrder" flat @click="goDetail(i.id)"> 查看详情 </mu-button>
 						</div>
 					</div>
+          </mu-load-more>
+          <div class="noMore" v-show="noMoreWaitingDeliver">没有更多信息了</div>
 				</div>
 			</div>
 
@@ -165,30 +181,32 @@
 				</div>
 
 				<div v-else class="orderContainer" :style="height">
-					<div class="orderList" v-for="i in WaitingRecieveList">
+          <mu-load-more @refresh="refreshWaitingRecieve" :refreshing="refreshingWaitingRecieve" :loading="loadingWaitingRecieve" @load="loadWaitingRecieve">
+					  <div class="orderList" v-for="i in WaitingRecieveList">
 						<div class="orderTop">
-							<div class="orderNumber">订单号: 34111111111 <span class="orderNumberCopy">复制</span></div>
-							<div class="orderTips text-right">待付款</div>
+							<div class="orderNumber">订单号: {{i.id}} <span class="orderNumberCopy">复制</span></div>
 						</div>
 						<div class="orderCenter">
 							<div class="orderContent">
 								<div class="orderLeft">
-									<img src="../../assets/images/noorder.png" />
+                  <img :src="i.goods.image"/>
 								</div>
 								<div class="orderRight">
-									<div class="orderTitle">品质生活 博朗榨汁机果汁机</div>
-									<div class="orderDesc">品质生活 博朗榨汁机果汁机品质生活 博朗榨汁机果汁机</div>
+                  <div class="orderTitle">{{i.goods.name}}</div>
+                  <div class="orderDesc">{{i.goods.desc}}</div>
 								</div>
 							</div>
 							<div class="orderPrice text-right">
-								<span>总计:</span><span style="color: #09a2d6">￥106.2266</span><span style="font-size: small">（珍珠）</span>
+                <div class="created_at">{{i.created_at}}</div><span>总计:</span><span style="color: #09a2d6">￥{{i.cost}}</span><span style="font-size: small">（珍珠）</span>
 							</div>
 						</div>
 						<div class="orderBottom text-right">
-							<mu-button class="cancellationOrder" flat> 取消订单 </mu-button>
-							<mu-button class="payBtn" flat> 去支付 </mu-button>
+              <mu-button class="cancellationOrder" flat @click="goDetail(i.id)"> 查看详情 </mu-button>
+							<mu-button class="payBtn" flat> 确认收货 </mu-button>
 						</div>
 					</div>
+          </mu-load-more>
+          <div class="noMore" v-show="noMoreWaitingRecieve">没有更多信息了</div>
 				</div>
 			</div>
 
@@ -197,7 +215,6 @@
 </template>
 
 <script>
-	import commodityImg from '@/assets/images/bg.png'
 	import OrderNoneImg from '@/assets/images/noorder.png'
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
@@ -213,17 +230,13 @@
         WaitingDeliverNone:true,
         WaitingRecieveNone:true,
         AllOrderUrl:"/order",
-        WaitingPayUrl:'',
-        WaitingDeliverUrl:'',
-        WaitingRecieveUrl:'',
+        WaitingPayUrl: "/order/waiting-pay",
+        WaitingDeliverUrl:"/order/waiting-deliver",
+        WaitingRecieveUrl: "/order/waiting-recieve",
         AllOrderList:[],
         WaitingPayList:[],
-        WaitingDeliverList:[1,2,],
-        WaitingRecieveList:[1,2,3,4,5],
-        AllOrderNext:"",
-        WaitingPayNext:"",
-        WaitingDeliverNext:"",
-        WaitingRecieveNext:"",
+        WaitingDeliverList:[],
+        WaitingRecieveList:[],
         noMoreAll:false,
         noMoreWaitingPay:false,
         noMoreWaitingDeliver:false,
@@ -238,6 +251,8 @@
         loadingWaitingRecieve:false,
         openAll:false,
         openPay:false,
+        openNoPay:false,
+        openRemove:false,
 				OrderNoneImg: OrderNoneImg,
 				openSimple: false,
 				active: 0,
@@ -259,6 +274,7 @@
     },
 		methods: {
 		  orederStyle(){
+		    localStorage.removeItem("order_id");
 		    let height = $(window).innerHeight()-($(".myNavTitle").innerHeight()+$(".orderTab").innerHeight());
 		    this.height='height:'+height+'px';
       },
@@ -285,9 +301,9 @@
               for (let i in res.data.data.items){
                 this.AllOrderList.push(res.data.data.items[i])
               }
+              this.AllOrderUrl = res.data.data.next;
             }
 
-            this.AllOrderNext = res.data.data.next;
           }else {
             this.$layer.msg(res.data.msg);
           }
@@ -309,7 +325,7 @@
       //加载订单分页
       loadAll(){
         this.loadingAll = true;
-        if (this.AllOrderNext===""){
+        if (this.AllOrderUrl===""){
           this.loadingAll = false;
           this.noMoreAll=true;
         }else {
@@ -320,13 +336,17 @@
       WaitingPay(){
         this.$http({
           method: "post",
-          url: "/order/waiting-pay",
+          url: this.WaitingPayUrl,
           headers: {
             "device": "android",
             "uid": localStorage.getItem("uid"),
             "Access-Control-Allow-Origin": "*"
           }
         }).then(function(res) {
+          setTimeout(()=>{
+            this.refreshingWaitingPay=false;
+          },500)
+          this.loadingWaitingPay=false;
           if(res.data.code===0){
             if (res.data.data===undefined){
               this.WaitingPayNone = true;
@@ -335,6 +355,7 @@
               for (let i in res.data.data.items){
                 this.WaitingPayList.push(res.data.data.items[i])
               }
+              this.WaitingPayUrl = res.data.data.next;
             }
           }else {
             this.$layer.msg(res.data.msg);
@@ -342,82 +363,133 @@
 
         }.bind(this))
           .catch(function(err) {
+            this.refreshingWaitingPay=false;
+            this.loadingWaitingPay = false;
             this.$layer.msg("系统异常，请稍后再试");
           }.bind(this))
       },
       //重新加载支付订单
       refreshWaitingPay(){
-
+		    this.refreshingWaitingPay=true;
+        this.WaitingPayUrl= "/order/waiting-pay";
+        this.WaitingPayList = [];
+        this.WaitingPay();
       },
       //加载订单分页
       loadWaitingPay(){
-
+        this.loadingWaitingPay = true;
+        if (this.WaitingPayUrl===""){
+          this.loadingWaitingPay = false;
+          this.noMoreWaitingPay=true;
+        }else {
+          this.WaitingPay();
+        }
       },
       //待发货订单
       WaitingDeliver(){
         this.$http({
           method: "post",
-          url: "/order/waiting-deliver",
+          url: this.WaitingDeliverUrl,
           headers: {
             "device": "android",
             "uid": localStorage.getItem("uid"),
             "Access-Control-Allow-Origin": "*"
           }
         }).then(function(res) {
+          setTimeout(()=>{
+            this.refreshingWaitingDeliver=false;
+          },500)
+          this.loadingWaitingDeliver=false;
           if(res.data.code===0){
             if (res.data.data===undefined){
               this.WaitingDeliverNone = true;
             } else {
               this.WaitingDeliverNone=false;
-              console.log("待发货订单,",res.data)
+              for (let i in res.data.data.items){
+                this.WaitingDeliverList.push(res.data.data.items[i])
+              }
+              this.WaitingDeliverUrl = res.data.data.next;
             }
+          }else {
+            this.$layer.msg(res.data.msg);
           }
 
         }.bind(this))
           .catch(function(err) {
+            this.refreshingWaitingDeliver=false;
+            this.loadingWaitingDeliver = false;
             this.$layer.msg("系统异常，请稍后再试");
           }.bind(this))
       },
       //重新加载发货订单
       refreshWaitingDeliver(){
-
+        this.refreshingWaitingDeliver=true;
+        this.WaitingDeliverUrl= "/order/waiting-deliver";
+        this.WaitingDeliverList = [];
+        this.WaitingDeliver();
       },
       //加载订单分页
       loadWaitingDeliver(){
-
+        this.loadingWaitingDeliver = true;
+        if (this.WaitingDeliverUrl===""){
+          this.loadingWaitingDeliver = false;
+          this.noMoreWaitingDeliver=true;
+        }else {
+          this.WaitingDeliver();
+        }
       },
       //待收货订单
       WaitingRecieve(){
         this.$http({
           method: "post",
-          url: "/order/waiting-recieve",
+          url: this.WaitingRecieveUrl,
           headers: {
             "device": "android",
             "uid": localStorage.getItem("uid"),
             "Access-Control-Allow-Origin": "*"
           }
         }).then(function(res) {
+          setTimeout(()=>{
+            this.refreshingWaitingRecieve=false;
+          },500)
+          this.loadingWaitingRecieve=false;
           if(res.data.code===0){
             if (res.data.data===undefined){
               this.WaitingRecieveNone = true;
             } else {
               this.WaitingRecieveNone=false;
-              console.log("待收货订单,",res.data)
+              this.WaitingRecieveUrl = res.data.data.next;
+              for (let i in res.data.data.items){
+                this.WaitingRecieveList.push(res.data.data.items[i])
+              }
             }
+          }else {
+            this.$layer.msg(res.data.msg);
           }
 
         }.bind(this))
           .catch(function(err) {
+            this.refreshingWaitingRecieve=false;
+            this.loadingWaitingRecieve = false;
             this.$layer.msg("系统异常，请稍后再试");
           }.bind(this))
       },
       //重新加载收货订单
       refreshWaitingRecieve(){
-
+        this.refreshingWaitingRecieve=true;
+        this.WaitingRecieveUrl= "/order/waiting-recieve";
+        this.WaitingRecieveList = [];
+        this.WaitingRecieve();
       },
       //加载订单分页
       loadWaitingRecieve(){
-
+        this.loadingWaitingRecieve = true;
+        if (this.WaitingRecieveUrl===""){
+          this.loadingWaitingRecieve = false;
+          this.noMoreWaitingRecieve=true;
+        }else {
+          this.WaitingRecieve();
+        }
       },
       openSimpleDialog () {
         this.$router.push('/shopping');
@@ -444,7 +516,7 @@
             order_id:this.AllOrderID
           }
         }).then(function(res) {
-          this.openAlert=false;
+          this.openPay=false;
           if(res.data.code === 0) {
             this.$router.push('/paysuccess')
           }else {
@@ -461,8 +533,96 @@
       closePay(){
         this.openPay=false;
       },
+      openNoPayAlert(id){
+        this.AllOrderID = id;
+		    this.openNoPay=true;
+      },
+      noPay(){
+        this.$http({
+          method: "post",
+          url: "/cancel-order",
+          headers: {
+            "device": "android",
+            "uid": localStorage.getItem("uid"),
+            "Access-Control-Allow-Origin": "*"
+          },
+          data: {
+            order_id:this.AllOrderID
+          }
+        }).then(function(res) {
+          this.openNoPay=false;
+          this.$layer.msg(res.data.msg);
+          if(res.data.code === 0) {
+              this.AllOrderUrl="/order";
+              this.WaitingPayUrl= "/order/waiting-pay";
+              this.WaitingDeliverUrl="/order/waiting-deliver";
+              this.WaitingRecieveUrl= "/order/waiting-recieve";
+              this.AllOrderList=[];
+              this.WaitingPayList=[];
+              this.WaitingDeliverList=[];
+              this.WaitingRecieveList=[];
+              this.AllOrder();
+              this.WaitingPay();
+              this.WaitingDeliver();
+              this.WaitingRecieve();
+
+          }
+        }.bind(this))
+          .catch(function(err) {
+            this.$layer.msg("系统异常，请稍后再试");
+          }.bind(this));
+      },
+      closeNoPay(){
+        this.openNoPay=false;
+      },
       closeSimpleDialog () {
         this.openSimple = false;
+      },
+      goDetail(id){
+		    localStorage.setItem("order_id",id);
+		    this.$router.push("/orderdetails");
+      },
+      removeOrder(id){
+        this.AllOrderID = id;
+        this.openRemove=true;
+      },
+      yesRemove(){
+        this.$http({
+          method: "post",
+          url: "/delete-order",
+          headers: {
+            "device": "android",
+            "uid": localStorage.getItem("uid"),
+            "Access-Control-Allow-Origin": "*"
+          },
+          data: {
+            order_id:this.AllOrderID
+          }
+        }).then(function(res) {
+          this.openRemove=false;
+          this.$layer.msg(res.data.msg);
+          if(res.data.code === 0) {
+            this.AllOrderUrl="/order";
+            this.WaitingPayUrl= "/order/waiting-pay";
+            this.WaitingDeliverUrl="/order/waiting-deliver";
+            this.WaitingRecieveUrl= "/order/waiting-recieve";
+            this.AllOrderList=[];
+            this.WaitingPayList=[];
+            this.WaitingDeliverList=[];
+            this.WaitingRecieveList=[];
+            this.AllOrder();
+            this.WaitingPay();
+            this.WaitingDeliver();
+            this.WaitingRecieve();
+
+          }
+        }.bind(this))
+          .catch(function(err) {
+            this.$layer.msg("系统异常，请稍后再试");
+          }.bind(this));
+      },
+      noRemove(){
+        this.openRemove=false;
       },
 			evers() {
 				this.masrc = backs;
@@ -581,6 +741,7 @@
     color: #555;
     font-size: small;
     float: left;
+    line-height: 2rem;
   }
   .cancellationOrder{
     border: 1px solid #999999;

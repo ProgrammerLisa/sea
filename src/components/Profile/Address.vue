@@ -123,8 +123,9 @@
 								for(let p in myJson) { //遍历json对象的每个key/value对,p为key
 									this.mobile.msg = myJson[p];
 									if(myJson[p].is_default) {
-										this.form.radio = p;
+										this.form.radio = myJson[p].addr_id;
 										this.mobile.label = '已设为默认地址';
+
 									} else {
 										this.mobile.label = '默认地址';
 									}

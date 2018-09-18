@@ -96,14 +96,6 @@
 						imfLeft: friend
 					},
 					{
-						title: '我的邀请者',
-						PersonalHref: '',
-						PersonalName: '',
-						imfLeft: inviter,
-						noRouter: true,
-						myInvite: ''
-					},
-					{
 						title: '邀请奖励',
 						PersonalHref: 'ask',
 						PersonalName: 'ask',
@@ -260,29 +252,29 @@
 					}.bind(this));
 
 				//邀请人id
-				this.$http({
-						method: "post",
-						url: "/users/following",
-						headers: {
-							"device": "android",
-							"uid": localStorage.getItem("uid"),
-							"Access-Control-Allow-Origin": "*"
-						},
-						data: {}
-					}).then(function(res) {
-						if(res.data.code === 401) {
-							//      		this.$layer.alert('登录操作  请登录');
-							this.$router.replace('/login');
-						}
-						if(res.data.code == 0) {
-							this.Personal[1].myInvite = res.data.data.inviter_code
-						} else {
-							this.Personal[1].myInvite = "无";
-						}
-					}.bind(this))
-					.catch(function(err) {
-						this.$layer.msg("系统异常，请稍后再试");
-					}.bind(this));
+				// this.$http({
+				// 		method: "post",
+				// 		url: "/users/following",
+				// 		headers: {
+				// 			"device": "android",
+				// 			"uid": localStorage.getItem("uid"),
+				// 			"Access-Control-Allow-Origin": "*"
+				// 		},
+				// 		data: {}
+				// 	}).then(function(res) {
+				// 		if(res.data.code === 401) {
+				// 			//      		this.$layer.alert('登录操作  请登录');
+				// 			this.$router.replace('/login');
+				// 		}
+				// 		if(res.data.code == 0) {
+				// 			this.Personal[1].myInvite = res.data.data.inviter_code
+				// 		} else {
+				// 			this.Personal[1].myInvite = "无";
+				// 		}
+				// 	}.bind(this))
+				// 	.catch(function(err) {
+				// 		this.$layer.msg("系统异常，请稍后再试");
+				// 	}.bind(this));
 			},
 			goCompile() {
 				this.$router.push({
@@ -487,12 +479,12 @@
 		border-bottom: 1px solid #f5f5f5;
 	}
 
-	.mylist:nth-child(2) {
-		padding-right: 2rem;
-	}
+	/*.mylist:nth-child(2) {*/
+		/*padding-right: 2rem;*/
+	/*}*/
 
-	.mylist:nth-child(4),
-	.mylist:nth-child(6) {
+	.mylist:nth-child(3),
+	.mylist:nth-child(5) {
 		margin-bottom: 0.7rem;
 	}
 </style>

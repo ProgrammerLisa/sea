@@ -87,6 +87,28 @@
           };
         },
         methods:{
+          getData(){
+            this.$http({
+              method: "post",
+              url: "/tasks/charity",
+              headers: {
+                "device": "android",
+                "uid": localStorage.getItem("uid"),
+                "Access-Control-Allow-Origin": "*"
+              },
+              data: {
+                "charity_id": localStorage.getItem("charity_id")
+              }
+            }).then(function(res) {
+              if(res.data.code === 0) {
+               console.log(res.data)
+              }
+
+            }.bind(this))
+              .catch(function(err) {
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this));
+          },
           evers() {
             this.masrc = backs;
           },

@@ -155,7 +155,6 @@
             goods_id:localStorage.getItem("goods_id")
           }
         }).then(function(res) {
-          console.log(res.data)
           if(res.data.code === 0) {
             this.commodityImg = res.data.data.image;
             this.commodityTitle = res.data.data.name;

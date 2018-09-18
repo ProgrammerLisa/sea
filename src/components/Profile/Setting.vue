@@ -10,7 +10,7 @@
 
 			<mu-paper :z-depth="0" class="demo-list-wrap">
 				<mu-list>
-					<mu-list-item button>
+					<mu-list-item button style="padding: 1rem 0">
 						<mu-list-item-title class="listTitle"> 账户</mu-list-item-title>
 						<mu-list-item-action>
 							<span style="font-size: 1.5rem;margin-right: 16px">{{IDcode}}</span>
@@ -44,7 +44,7 @@
 						</mu-list-item-action>
 					</mu-list-item>
 					<mu-divider class="mu-divider"></mu-divider>
-					<mu-list-item button>
+					<mu-list-item button style="padding: 1rem 0">
 						<mu-list-item-title class="listTitle"> 版本更新</mu-list-item-title>
 						<mu-list-item-action>
 							<span style="margin-right: 16px">已是最新版本</span>

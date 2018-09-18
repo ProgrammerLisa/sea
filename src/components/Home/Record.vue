@@ -417,7 +417,7 @@
                 this.$layer.msg(res.data.msg);
                 this.board();
                 if(res.data.code===0){
-                 console.log(res.data)
+
                 }
               }.bind(this))
                 .catch(function(err) {

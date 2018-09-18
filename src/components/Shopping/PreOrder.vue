@@ -213,6 +213,7 @@
           },
           nopay(){
             this.openAlert=false
+            this.$router.replace('/commodityorder')
           },
           goFind(){
             this.$router.replace('/find')

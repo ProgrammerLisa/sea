@@ -10,27 +10,30 @@
       <div class="titleTab">
         <div class="tabHalf" style="margin-top: 0.5rem">
           <span>珍珠余额</span>
-          <h1 class="fontColor h1Style">2.6122</h1>
+          <h1 class="fontColor h1Style">{{my_pearls}}</h1>
         </div>
         <div class="tabHalf">
-          <div class="tabHeightHalf">今日消费 <span class="fontColor">100.2222</span></div>
-          <div class="tabHeightHalf">累计消费 <span class="fontColor">200.3666</span></div>
+          <div class="tabHeightHalf">今日消费 <span class="fontColor">{{today_pearl_cost}}</span></div>
+          <div class="tabHeightHalf">累计消费 <span class="fontColor">{{total_pearl_cost}}</span></div>
         </div>
       </div>
     </div>
     <div class="walletUL">
       <div class="walletTitle"><span class="leftIcon"></span>支出记录</div>
-      <div class="walletList">
+      <div class="walletList"  v-if="hasData">
         <mu-load-more @refresh="refresh" :refreshing="refreshing" :loading="loading" @load="load">
           <div class="walletListItem" v-for="i in list">
             <div class="itemLeft text-left">
-              <div class="itemLeftTitle">兑换订单</div>
-              <div class="itemLeftData">2018-05-18  10:56:16</div>
+              <div class="itemLeftTitle">{{i.goods}}</div>
+              <div class="itemLeftData">{{i.updated_at}}</div>
             </div>
-            <h4 class="fontColor itemRight text-right">-5</h4>
+            <h4 class="fontColor itemRight text-right">-{{i.cost}}</h4>
           </div>
         </mu-load-more>
         <div class="noMore" v-show="noMoreMessage">没有更多信息了</div>
+      </div>
+      <div class="nothing" v-else>
+        暂无消费记录
       </div>
     </div>
 
@@ -48,7 +51,12 @@
         refreshing: false,
         loading: false,
         noMoreMessage:false,
-        list:[1,2,3,1,1,1,1,1,1,1]
+        my_pearls:0,
+        today_pearl_cost:0,
+        total_pearl_cost:0,
+        walletUrl:"/wallet",
+        list:[],
+        hasData:false
 			}
 		},
     mounted(){
@@ -57,23 +65,55 @@
         that.$router.go(-1);
       };
        $(".walletList").css({height:$(window).innerHeight()-($(".myNavTitle").innerHeight()+$(".contentMarginTop").innerHeight()+$(".walletTitle").innerHeight()+33)+'px',overflow:"scroll"})
-
+      this.$nextTick(function () {
+        this.getData();
+      })
     },
 		methods: {
+		  getData(){
+        this.$http({
+          method: "post",
+          url: this.walletUrl,
+          headers: {
+            "device": "android",
+            "uid": localStorage.getItem("uid"),
+            "Access-Control-Allow-Origin": "*"
+          }
+        }).then(function(res) {
+          setTimeout(()=>{
+            this.refreshing = false;
+          },500);
+          if(res.data.code === 0) {
+            this.walletUrl=res.data.data.next;
+            this.my_pearls = res.data.data.my_pearls;
+            this.today_pearl_cost = res.data.data.today_pearl_cost;
+            this.total_pearl_cost = res.data.data.total_pearl_cost;
+            if(res.data.data.cost_records.length>0){
+              this.hasData = true;
+              for (let i in res.data.data.cost_records) {
+                this.list.push(res.data.data.cost_records[i])
+              }
+            }
+          }
+        }.bind(this))
+          .catch(function(err) {
+            this.$layer.msg("系统异常，请稍后再试");
+          }.bind(this));
+      },
       refresh () {
         this.refreshing = true;
-        setTimeout(() => {
-          this.refreshing = false;
-          this.noMoreMessage=false;
-        }, 1000)
+        this.noMoreMessage=false;
+        this.list=[];
+        this.walletUrl="/wallet";
+        this.getData();
       },
       load () {
-        if(!this.noMoreMessage){
+
+        if(this.walletUrl===""){
+          this.noMoreMessage=true;
+        }else {
           this.loading = true;
-          setTimeout(() => {
-            this.loading = false;
-            this.noMoreMessage=true;
-          }, 1000)
+          this.getData();
         }
 
       },
@@ -97,6 +137,7 @@
 		color: #666;
 		background-color: #fff;
     width: 100vw;
+    height: 100vh;
     position: fixed;
     top: 0;
     font-size: 1.6rem;
@@ -116,6 +157,7 @@
   }
   .fontColor{
     color: #09a2d6;
+    margin-left: 0.5rem;
   }
   .tabHalf{
     width: 50%;
@@ -175,5 +217,9 @@
     text-align: center;
     background: #fff;
     margin-top: -4rem;
+  }
+  .nothing{
+    padding: 4rem 0;
+    text-align: center;
   }
 </style>

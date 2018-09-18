@@ -1,10 +1,17 @@
 <template>
 	<div id="content">
-		<audio style="display: none;" id="pearlAudio" src="../../assets/audio/zhenzhu.mp3"></audio>
-		<div class="landscape"></div>
-		<div class="filter"></div>
-		<canvas id="canvas"></canvas>
 
+		<audio style="display: none;" id="pearlAudio" src="../../assets/audio/zhenzhu.mp3"></audio>
+		<div class="landscape" >
+			<!--<iframe style="position: absolute;" MARGINWIDTH=0 MARGINHEIGHT=0 HSPACE=0 VSPACE=0 FRAMEBORDER=0 SCROLLING=no sandbox="allow-scripts" src="static/texiao/shuimu.html" width=100% height=50%>
+  			</iframe>-->
+		</div>
+		<div class="filter" id="filter">
+		</div>
+		<canvas id="canvas" ></canvas>
+		
+		
+		
 		<div id="notice">
 			<marquee style="line-height: 2rem; height: 30px; position: relative;" scrollamount="5" scrolldelay="1"><span style=" font-size: 1.5rem;color: #fff;vertical-align:middle;padding-top: 3px;display: inline-block">{{marquee}}</span></marquee>
 		</div>
@@ -19,6 +26,7 @@
 				<span style="margin-left: 0.5rem">{{energyCount}}</span>
 			</div>
 		</div>
+
 		<div id="imgDiv"></div>
 		<router-link class="option2" to="/gamerules" tag="div">
 			<img src="../../assets/images/youxiguize.png" class="invitation-friends" />
@@ -32,6 +40,11 @@
 			<img src="../../assets/images/yaoqinghaoyou.png" class="invitation-friends" />
 			<p>邀请好友</p>
 		</router-link>
+
+		<!--<div id="Shuimu-ont" style="width: auto;height: 50%;position: relative;">-->
+		<!--<iframe style="position: absolute;" MARGINWIDTH=0 MARGINHEIGHT=0 HSPACE=0 VSPACE=0 FRAMEBORDER=0 SCROLLING=no sandbox="allow-scripts" src="../../static/shuimu.html" width=100% height=auto>
+  			</iframe>-->
+		<!--</div>-->
 		<div id="pearlContainer" v-if="hasPearl">
 			<button :class="t.divClass" v-for="(t,index) in imgDiv" @click="getPearl(index,t.id) " :disabled="t.isDisabled">
         <div><img :src="t.href" class="divImg"/></div>
@@ -50,6 +63,7 @@
 
 <script>
 	import { Group, Cell } from 'vux'
+	import sm from '@/assets/js/shuimu.js'
 	import zhenzhuIcon from '@/assets/images/zhenzhuHome.png'
 	import nengliang from '@/assets/images/nengliang.png'
 
@@ -90,6 +104,7 @@
 		},
 		data() {
 			return {
+//				sm:'',
 				pearlCount: 0,
 				energyCount: 0,
 				marquee: '',
@@ -123,6 +138,7 @@
 		mounted: function() {
 			this.$nextTick(function() {
 				this.startStyle();
+//				console.log(sm)
 			})
 		},
 		methods: {
@@ -213,8 +229,8 @@
 						}
 					}).then(function(res) {
 						if(res.data.code === 0) {
-             let pearlAudio = document.getElementById('pearlAudio');
-             pearlAudio.play();
+							let pearlAudio = document.getElementById('pearlAudio');
+							pearlAudio.play();
 
 							this.imgDiv[index].isDisabled = true;
 							this.pearlCount = res.data.user_pearl;
@@ -299,7 +315,7 @@
 		/*background:linear-gradient(to bottom,#3198D3 0%,#2E6EA1 100%);*/
 		background: #1A3B57;
 	}
-
+	
 	.landscape {
 		position: absolute;
 		left: 0;
@@ -311,7 +327,7 @@
 		background-repeat: repeat-x;
 		background-position: center bottom;
 	}
-
+	
 	#notice {
 		position: absolute;
 		top: 2rem;
@@ -320,32 +336,32 @@
 		font-size: 1.01rem;
 		background: rgba(255, 255, 255, 0.1);
 	}
-
+	
 	.icon {
 		background: rgba(0, 0, 0, 0.2);
 		border-radius: 2rem;
 		padding: 0.1rem 1.5rem 0.1rem 0.5rem;
 		margin-bottom: 1rem;
 	}
-
+	
 	.icon img {
 		width: 2rem;
 	}
-
+	
 	.topOption {
 		position: absolute;
 	}
-
+	
 	.option1 {
 		left: 1rem;
 		top: 6.5rem;
 	}
-
+	
 	.invitation-friends {
 		border-radius: 50%;
 		padding: 0.4rem;
 	}
-
+	
 	.option2,
 	.option3,
 	.option4 {
@@ -357,46 +373,46 @@
 		color: #fff;
 		z-index: 999;
 	}
-
+	
 	.option2 {
 		right: 1rem;
 	}
-
+	
 	.option3 {
 		left: 8rem;
 	}
-
+	
 	.option2 img,
 	.option3 img,
 	.option4 img {
 		width: 80%;
 	}
-
+	
 	.option2:active img,
 	.option3:active img,
 	.option4:active img {
 		transform: scale3d(0.8, 0.8, 0.8);
 		transition: 0.1s;
 	}
-
+	
 	.option4 {
 		left: 1rem;
 	}
-
+	
 	.option4-Icon span {
 		font-size: 2.5rem;
 	}
-
+	
 	#pearlContainer {
 		position: relative;
 		width: 100vw;
 		height: 50vh;
 	}
-
+	
 	p {
 		margin-bottom: 0;
 	}
-
+	
 	.tips {
 		width: 0.6rem;
 		height: 0.6rem;
@@ -408,7 +424,7 @@
 		border-radius: 50%;
 		display: none;
 	}
-
+	
 	.pearlBox {
 		border: none;
 		width: 5rem;
@@ -418,83 +434,83 @@
 		animation: myfirst 2s infinite;
 		background: none;
 	}
-
+	
 	.pearlBox1 {
 		top: 12vh;
 		left: 44vw;
 	}
-
+	
 	.pearlBox2 {
 		top: 29vh;
 		left: 42vw;
 	}
-
+	
 	.pearlBox3 {
 		top: 23vh;
 		left: 70vw;
 	}
-
+	
 	.pearlBox4 {
 		top: 10vh;
 		left: 14vw;
 	}
-
+	
 	.pearlBox5 {
 		top: 29vh;
 		left: 3rem;
 	}
-
+	
 	.pearlBox6 {
 		top: 45vh;
 		left: 46vw;
 	}
-
+	
 	.pearlBox7 {
 		top: 37vh;
 		left: 80vw;
 	}
-
+	
 	.pearlBox8 {
 		top: 8vh;
 		left: 80vw;
 	}
-
+	
 	.pearlBox9 {
 		top: -3vh;
 		left: 32vw;
 	}
-
+	
 	.pearlBox0 {
 		top: -8vh;
 		left: 62vw;
 	}
-
+	
 	.divImg {
 		width: 100%;
 	}
-
+	
 	.divCount {
 		margin-top: 0.5rem;
 		font-size: smaller
 	}
-
+	
 	.waitingContainer {
 		position: relative;
 		margin-top: 13vh;
 		font-size: 1.5rem;
 	}
-
+	
 	.waiting {
 		width: 6rem;
 		height: 6rem;
 		animation: myfirst 2s infinite;
 		margin: 1rem auto;
 	}
-
+	
 	.waiting img {
 		width: 100%;
 	}
-
+	
 	@keyframes myfirst {
 		0% {
 			transform: translate(0, 0);
@@ -505,5 +521,8 @@
 		100% {
 			transform: translate(0, 0);
 		}
+	}
+	#ourCanvas{
+		position: absolute;
 	}
 </style>

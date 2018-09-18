@@ -64,7 +64,7 @@
                   </div>
                   <div class="stealerRight">
                     <div class="text-right">
-                      <mu-button @click="goFriendFarm(s.thief_uid)" color="#fff" textColor="#09a2d6" flat class="vBtn">去复仇</mu-button>
+                      <mu-button @click="goFriendFarm(s.thief_uid,s.thief_name)" color="#fff" textColor="#09a2d6" flat class="vBtn">去复仇</mu-button>
                     </div>
                   </div>
                 </div>
@@ -87,7 +87,7 @@
                   </div>
                   <div class="stealerRight">
                     <div class="text-right">
-                      <mu-button @click="goFriendFarm(s.friend_uid)" color="#fff" textColor="#09a2d6" flat class="vBtn">去挑衅</mu-button>
+                      <mu-button @click="goFriendFarm(s.friend_uid,s.friend_name)" color="#fff" textColor="#09a2d6" flat class="vBtn">去挑衅</mu-button>
 
                     </div>
                   </div>
@@ -426,7 +426,7 @@
             }
           },
           //跳转到好友养殖场
-          goFriendFarm(id){
+          goFriendFarm(id,name){
             this.$http({
               method: "post",
               url: "/users/plant",
@@ -440,6 +440,7 @@
               }
             }).then(function(res) {
               localStorage.setItem("friend_uid",id);
+              localStorage.setItem("nickname",name);
               if(res.data.code === 0) {
 
                 this.$router.push({

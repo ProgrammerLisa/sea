@@ -6,8 +6,8 @@
 				<img :src="masrc" />
 			</mu-button>
 			<span class="navTitleText">
-          {{nickname}}的养殖场
-        </span>
+          		{{nickname}}的养殖场
+        	</span>
 		</mu-appbar>
 		<div class="icon"><img :src="friend_avatar" /> <span style="vertical-align: middle">珍珠 {{friend_pearl}}</span></div>
 		<div class="options" @click="LeavingMessage">
@@ -117,6 +117,7 @@
 			} else {
 				this.nickname = localStorage.getItem('nickname')
 			}
+			
 		},
 		methods: {
 			friendfarm() {
@@ -135,6 +136,8 @@
 					}).then(function(res) {
 						if(res.data.code === 0) {
 							this.friend_pearl = res.data.friend_pearl;
+							this.nickname = localStorage.getItem('thief_name');
+							this.nickname = localStorage.getItem('nickname')
 							if(res.data.friend_avatar === null || res.data.friend_avatar === undefined || res.data.friend_avatar === "") {
 								this.friend_avatar = pic1
 							} else {
@@ -376,7 +379,7 @@
 	
 	.farmBack {
 		width: 100%;
-		height: 100vh;
+		height: 110vh;
 		max-height: 730px;
 		overflow: hidden;
 		margin-top: -48px;

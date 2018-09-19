@@ -17,17 +17,8 @@
       <mu-button flat small v-for="(i,index) in key_words" :key="index">#{{i}} </mu-button>
     </div>
     <mu-carousel hide-controls>
-      <mu-carousel-item>
-        <img :src="carouselImg1">
-      </mu-carousel-item>
-      <mu-carousel-item>
-        <img :src="carouselImg2">
-      </mu-carousel-item>
-      <mu-carousel-item>
-        <img :src="carouselImg3">
-      </mu-carousel-item>
-      <mu-carousel-item>
-        <img :src="carouselImg4">
+      <mu-carousel-item v-for="p in display_pictures">
+        <img :src="p.url">
       </mu-carousel-item>
     </mu-carousel>
     <!--大病医疗-->
@@ -117,7 +108,8 @@
             ENVIRONMENT:[],
 
             POVERTY:[],
-            carouselImg1,carouselImg2,carouselImg3,carouselImg4
+            carouselImg1,carouselImg2,carouselImg3,carouselImg4,
+            display_pictures:[]
           }
         },
         mounted(){
@@ -143,6 +135,8 @@
             }).then(function(res) {
               console.log(res.data)
               if(res.data.code === 0) {
+              	
+              	this.display_pictures = res.data.display_pictures;
                 let data = res.data.data.key_words;
                 this.key_words = res.data.data.key_words;
                 for (let i=0;i<data.length;i++){

@@ -59,7 +59,8 @@
             <div style="font-size: small">成交价（珍珠）</div>
           </div>
           <div>
-            <mu-button class="publicButton" flat>查看物流</mu-button>
+            <mu-button class="publicButton" flat @click="goLogistics" v-if="datas.status">查看物流</mu-button>
+            <mu-button class="publicButton" flat v-else>等待发货</mu-button>
           </div>
         </div>
       </div>
@@ -89,7 +90,8 @@
               orderNumber:'',
               date:'',
               mode:'',
-              logistics:''
+              logistics:'',
+              status:''
             }
           }
         },
@@ -113,6 +115,7 @@
                 order_id:localStorage.getItem("order_id")
               }
             }).then(function(res) {
+              console.log(res.data)
               if(res.data.code === 0) {
                 this.datas.name=res.data.delivery_address.consignee;
                 this.datas.phone=res.data.delivery_address.phone;
@@ -126,6 +129,12 @@
                 // this.datas.freight=res.data.data.goods.image;
                 this.datas.orderNumber=res.data.data.id;
                 this.datas.date=res.data.data.created_at;
+                this.datas.status=res.data.data.status;
+                if (res.data.data.status==="WAITING_DELIVER"){
+                  this.datas.status=false;
+                }else if(res.data.data.status==="WAITING_RECIEVE"){
+                  this.datas.status=true;
+                }
                 if(res.data.data.express===""){
                   this.datas.mode="等待发货"
                 }else {
@@ -142,6 +151,21 @@
                 this.$layer.msg("系统异常，请稍后再试");
               }.bind(this));
 
+          },
+          goLogistics(){
+            this.$router.push({
+              path: '/logistics',
+              name: 'logistics',
+              params: {
+                name: 'name',
+                dataObj: {
+                  image: this.datas.image,
+                  orderNumber: this.datas.orderNumber,
+                  date: this.datas.date
+                }
+
+              }
+            })
           },
           evers() {
             this.masrc = backs;

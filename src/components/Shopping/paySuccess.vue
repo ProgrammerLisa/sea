@@ -31,7 +31,7 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    background: #f5f5f5;
+    background: #fff;
     color: #333;
     font-size: 1.6rem;
   }

@@ -90,7 +90,9 @@
           getData(){
             this.$http({
               method: "post",
+
               url: "/tasks/charity-detail",
+
               headers: {
                 "device": "android",
                 "uid": localStorage.getItem("uid"),
@@ -101,6 +103,7 @@
               }
             }).then(function(res) {
               if(res.data.code === 0) {
+
               	this.images = res.data.data.image;
 //            	console.log(this.images);
               	this.sponsor = res.data.data.sponsor;
@@ -117,6 +120,7 @@
               		this.completed = res.data.data.completed;
               	}
                 console.log(res.data)
+
               }
 
             }.bind(this))

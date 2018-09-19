@@ -28,7 +28,7 @@
             <mu-load-more @refresh="refreshAll" :refreshing="refreshingAll" :loading="loadingAll" @load="loadAll">
               <div class="orderList" v-for="i in AllOrderList">
                 <div class="orderTop">
-                  <div class="orderNumber">订单号: {{i.id}} <span class="orderNumberCopy">复制</span></div>
+                  <div class="orderNumber">订单号: {{i.id}} <span class="orderNumberCopy" v-clipboard:copy="i.id" v-clipboard:success="onCopy" v-clipboard:error="onError">复制</span></div>
                   <!--<div class="orderTips text-right">待付款</div>-->
                 </div>
                 <div class="orderCenter">
@@ -56,13 +56,13 @@
                 </div>
                 <div class="orderBottom text-right" v-show="i.status=='WAITING_RECIEVE'">
                   <div class="status">等待收货</div>
-                  <mu-button class="cancellationOrder" flat> 查看详情 </mu-button>
-                  <mu-button class="payBtn" flat> 确认收货 </mu-button>
+                  <mu-button class="cancellationOrder" flat @click="goDetail(i.id)"> 查看详情 </mu-button>
+                  <mu-button class="payBtn" flat @click="recieve(i.id)"> 确认收货 </mu-button>
                 </div>
                 <div class="orderBottom text-right" v-show="i.status=='FINISHED'">
                   <div class="status">完成兑换</div>
                   <mu-button class="cancellationOrder" flat @click="removeOrder(i.id)"> 删除 </mu-button>
-                  <mu-button class="payBtn" flat @click="goDetail(i.id)"> 查看详情 </mu-button>
+                  <!--<mu-button class="payBtn" flat @click="goDetail(i.id)"> 查看详情 </mu-button>-->
                 </div>
                 <div class="orderBottom text-right" v-show="i.status=='EXPIRED'">
                   <div class="status">已过期</div>
@@ -86,6 +86,11 @@
               <mu-button slot="actions" flat color="primary" @click="yesRemove" class="loginOutBtn">确定</mu-button>
               <mu-button slot="actions" flat color="#555" @click="noRemove" class="loginOutBtn">取消</mu-button>
             </mu-dialog>
+            <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openRecieve" class="text-center">
+              <div class="publicDialogTitle">确认收货</div>
+              <mu-button slot="actions" flat color="primary" @click="yesRecieve" class="loginOutBtn">确定</mu-button>
+              <mu-button slot="actions" flat color="#555" @click="noRecieve" class="loginOutBtn">取消</mu-button>
+            </mu-dialog>
           </div>
 			</div>
 
@@ -100,7 +105,7 @@
           <mu-load-more @refresh="refreshWaitingPay" :refreshing="refreshingWaitingPay" :loading="loadingWaitingPay" @load="loadWaitingPay">
             <div class="orderList" v-for="i in WaitingPayList">
             <div class="orderTop">
-              <div class="orderNumber">订单号: {{i.id}} <span class="orderNumberCopy">复制</span></div>
+              <div class="orderNumber">订单号: {{i.id}} <span class="orderNumberCopy" v-clipboard:copy="i.id" v-clipboard:success="onCopy" v-clipboard:error="onError">复制</span></div>
             </div>
             <div class="orderCenter">
               <div class="orderContent">
@@ -148,7 +153,7 @@
           <mu-load-more @refresh="refreshWaitingDeliver" :refreshing="refreshingWaitingDeliver" :loading="loadingWaitingDeliver" @load="loadWaitingDeliver">
             <div class="orderList" v-for="i in WaitingDeliverList">
 						<div class="orderTop">
-							<div class="orderNumber">订单号: {{i.id}} <span class="orderNumberCopy">复制</span></div>
+							<div class="orderNumber">订单号: {{i.id}} <span class="orderNumberCopy" v-clipboard:copy="i.id" v-clipboard:success="onCopy" v-clipboard:error="onError">复制</span></div>
 						</div>
 						<div class="orderCenter">
 							<div class="orderContent">
@@ -184,7 +189,7 @@
           <mu-load-more @refresh="refreshWaitingRecieve" :refreshing="refreshingWaitingRecieve" :loading="loadingWaitingRecieve" @load="loadWaitingRecieve">
 					  <div class="orderList" v-for="i in WaitingRecieveList">
 						<div class="orderTop">
-							<div class="orderNumber">订单号: {{i.id}} <span class="orderNumberCopy">复制</span></div>
+							<div class="orderNumber">订单号: {{i.id}} <span class="orderNumberCopy" v-clipboard:copy="i.id" v-clipboard:success="onCopy" v-clipboard:error="onError">复制</span></div>
 						</div>
 						<div class="orderCenter">
 							<div class="orderContent">
@@ -202,11 +207,16 @@
 						</div>
 						<div class="orderBottom text-right">
               <mu-button class="cancellationOrder" flat @click="goDetail(i.id)"> 查看详情 </mu-button>
-							<mu-button class="payBtn" flat> 确认收货 </mu-button>
+							<mu-button class="payBtn" flat @click="recieve(i.id)"> 确认收货 </mu-button>
 						</div>
 					</div>
           </mu-load-more>
           <div class="noMore" v-show="noMoreWaitingRecieve">没有更多信息了</div>
+          <mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openRecieve" class="text-center">
+            <div class="publicDialogTitle">删除订单</div>
+            <mu-button slot="actions" flat color="primary" @click="yesRecieve" class="loginOutBtn">确定</mu-button>
+            <mu-button slot="actions" flat color="#555" @click="noRecieve" class="loginOutBtn">取消</mu-button>
+          </mu-dialog>
 				</div>
 			</div>
 
@@ -253,6 +263,7 @@
         openPay:false,
         openNoPay:false,
         openRemove:false,
+        openRecieve:false,
 				OrderNoneImg: OrderNoneImg,
 				openSimple: false,
 				active: 0,
@@ -264,6 +275,7 @@
       mui.back = function(){
         that.$router.push('/personal');
       };
+      localStorage.removeItem("order_id");
       this.$nextTick(function () {
         this.orederStyle();
         this.AllOrder();
@@ -624,7 +636,55 @@
       noRemove(){
         this.openRemove=false;
       },
-			evers() {
+      recieve(id){
+        this.AllOrderID = id;
+		    this.openRecieve=true;
+      },
+      yesRecieve(){
+        this.$http({
+          method: "post",
+          url: "/finish-order",
+          headers: {
+            "device": "android",
+            "uid": localStorage.getItem("uid"),
+            "Access-Control-Allow-Origin": "*"
+          },
+          data: {
+            order_id:this.AllOrderID
+          }
+        }).then(function(res) {
+          this.openRemove=false;
+          this.$layer.msg(res.data.msg);
+          if(res.data.code === 0) {
+            this.AllOrderUrl="/order";
+            this.WaitingPayUrl= "/order/waiting-pay";
+            this.WaitingDeliverUrl="/order/waiting-deliver";
+            this.WaitingRecieveUrl= "/order/waiting-recieve";
+            this.AllOrderList=[];
+            this.WaitingPayList=[];
+            this.WaitingDeliverList=[];
+            this.WaitingRecieveList=[];
+            this.AllOrder();
+            this.WaitingPay();
+            this.WaitingDeliver();
+            this.WaitingRecieve();
+
+          }
+        }.bind(this))
+          .catch(function(err) {
+            this.$layer.msg("系统异常，请稍后再试");
+          }.bind(this));
+      },
+      noRecieve(){
+        this.openRecieve=false;
+      },
+      onCopy() {
+        this.$layer.msg('复制成功');
+      },
+      onError() {
+        this.$layer.msg('复制失败');
+      },
+      evers() {
 				this.masrc = backs;
 			},
 			lat() {

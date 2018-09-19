@@ -59,10 +59,17 @@
       </div>
     </div>
     <!--环境保护-->
+<<<<<<< HEAD
     <div v-show="hasENVIRONMENT">
       <div style="font-size: 1.7rem;padding: 1rem 1rem;color: #444"><div class="sign"></div>环境保护</div>
       <div class="goodUl">
         <div v-for="(i,index) in ENVIRONMENT" class="goodList">
+=======
+    <div v-show="hasENVIROMENT">
+      <div style="font-size: 1.7rem;padding: 1rem 1rem;color: #444"><div class="sign"></div>环境保护</div>
+      <div class="goodUl">
+        <div v-for="(i,index) in ENVIROMENT" class="goodList">
+>>>>>>> 414b7aae5748a25031135eab4f2a64c56bde5f95
           <div @click="goDonation(i.id)">
             <img :src="i.image.url" style="width: 100%;">
             <h5>{{i.name}}</h5>
@@ -108,11 +115,19 @@
             key_words:[],
             hasDISEASE:false,
             hasEDUCATION:false,
+<<<<<<< HEAD
             hasENVIRONMENT:false,
             hasPOVERTY:false,
             DISEASE:[],
             EDUCATION:[],
             ENVIRONMENT:[],
+=======
+            hasENVIROMENT:false,
+            hasPOVERTY:false,
+            DISEASE:[],
+            EDUCATION:[],
+            ENVIROMENT:[],
+>>>>>>> 414b7aae5748a25031135eab4f2a64c56bde5f95
             POVERTY:[],
             carouselImg1,carouselImg2,carouselImg3,carouselImg4
           }
@@ -147,7 +162,11 @@
                     data[i]="大病医疗"
                   }else if (data[i]==="EDUCATION") {
                     data[i]="爱心助学"
+<<<<<<< HEAD
                   }else if (data[i]==="ENVIRONMENT") {
+=======
+                  }else if (data[i]==="ENVIROMENT") {
+>>>>>>> 414b7aae5748a25031135eab4f2a64c56bde5f95
                     data[i]="环境保护"
                   }else if (data[i]==="POVERTY") {
                     data[i]="爱心扶贫"
@@ -161,9 +180,15 @@
                   this.hasEDUCATION=true;
                   this.EDUCATION=res.data.data.EDUCATION;
                 }
+<<<<<<< HEAD
                 if (res.data.data.ENVIRONMENT.length>0){
                   this.hasENVIRONMENT=true;
                   this.ENVIRONMENT=res.data.data.ENVIRONMENT;
+=======
+                if (res.data.data.ENVIROMENT.length>0){
+                  this.hasENVIROMENT=true;
+                  this.ENVIROMENT=res.data.data.ENVIROMENT;
+>>>>>>> 414b7aae5748a25031135eab4f2a64c56bde5f95
                 }
                 if (res.data.data.POVERTY.length>0){
                   this.hasPOVERTY=true;

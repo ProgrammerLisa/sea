@@ -14,7 +14,7 @@
       <input class="form-control searchInput" v-model="search" placeholder="查询公益项目"/>
     </div>
     <div style="text-align: center">
-      <mu-button flat small>#白血病 </mu-button><mu-button flat small>#大病医疗</mu-button><mu-button flat small>#教育助学</mu-button><mu-button flat small>#教育助学</mu-button>
+      <mu-button flat small v-for="(i,index) in key_words" :key="index">#{{i}} </mu-button>
     </div>
     <mu-carousel hide-controls>
       <mu-carousel-item>
@@ -30,19 +30,61 @@
         <img :src="carouselImg4">
       </mu-carousel-item>
     </mu-carousel>
-    <div v-for="(data,index) in datas" >
-      <div style="font-size: 1.7rem;padding: 1rem 1rem;color: #444"><div class="sign"></div>{{data.title}}</div>
+    <!--大病医疗-->
+    <div v-show="hasDISEASE">
+      <div style="font-size: 1.7rem;padding: 1rem 1rem;color: #444"><div class="sign"></div>大病医疗</div>
       <div class="goodUl">
-        <div v-for="(flex,item) in data.data" class="goodList">
-          <div @click="goDonation(flex.path,flex.name,flex.id)">
-            <img :src="flex.img" style="width: 100%">
-            <h5>{{flex.title}}</h5>
-            <div class="fontStyle">{{flex.pitches}}</div>
-            <p class="fontStyle"><span style="color: #09a2d6">{{flex.count}}份</span>爱心</p>
+        <div v-for="(i,index) in DISEASE" class="goodList">
+          <div @click="goDonation(i.id)">
+            <img :src="i.image.url" style="width: 100%;">
+            <h5>{{i.name}}</h5>
+            <!--<div class="fontStyle">{{flex.pitches}}</div>-->
+            <p class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</p>
           </div>
         </div>
       </div>
-
+    </div>
+    <!--爱心助学-->
+    <div v-show="hasEDUCATION">
+      <div style="font-size: 1.7rem;padding: 1rem 1rem;color: #444"><div class="sign"></div>爱心助学</div>
+      <div class="goodUl">
+        <div v-for="(i,index) in EDUCATION" class="goodList">
+          <div @click="goDonation(i.id)">
+            <img :src="i.image.url" style="width: 100%;">
+            <h5>{{i.name}}</h5>
+            <!--<div class="fontStyle">{{flex.pitches}}</div>-->
+            <p class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--环境保护-->
+    <div v-show="hasENVIRONMENT">
+      <div style="font-size: 1.7rem;padding: 1rem 1rem;color: #444"><div class="sign"></div>环境保护</div>
+      <div class="goodUl">
+        <div v-for="(i,index) in ENVIRONMENT" class="goodList">
+          <div @click="goDonation(i.id)">
+            <img :src="i.image.url" style="width: 100%;">
+            <h5>{{i.name}}</h5>
+            <!--<div class="fontStyle">{{flex.pitches}}</div>-->
+            <p class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--爱心扶贫-->
+    <div v-show="hasPOVERTY">
+      <div style="font-size: 1.7rem;padding: 1rem 1rem;color: #444"><div class="sign"></div>爱心扶贫</div>
+      <div class="goodUl">
+        <div v-for="(i,index) in POVERTY" class="goodList">
+          <div @click="goDonation(i.id)">
+            <img :src="i.image.url" style="width: 100%;">
+            <h5>{{i.name}}</h5>
+            <!--<div class="fontStyle">{{flex.pitches}}</div>-->
+            <p class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -63,36 +105,16 @@
             masrc: back,
             labelPosition: 'top',
             search:'',
-            carouselImg1,carouselImg2,carouselImg3,carouselImg4,
-            datas:[
-              {
-                title: '教育助学',
-                data:[
-                  {id:'sdhfjui',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'donation'},
-                  {id:'czxdsad',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'donation'},
-                  {id:'hgfhsdf',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'donation'}
-                ]
-
-              },
-              {
-                title: '大病医疗',
-                data:[
-                  {id:'fdgasda',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'donation'},
-                  {id:'asfxzrf',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'donation'},
-                  {id:'vchbfdg',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'donation'}
-                ]
-
-              },
-              {
-                title: '公益慈善',
-                data:[
-                  {id:'wqewssf',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'donation'},
-                  {id:'hgjkhyj',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'donation'},
-                  {id:'vshsdfs',img:carouselImg5,title:'募捐慈善，助学成 长',pitches:'为孩子送上一份爱',count:4555,path:'donation',name:'donation'}
-                ]
-
-              },
-            ]
+            key_words:[],
+            hasDISEASE:false,
+            hasEDUCATION:false,
+            hasENVIRONMENT:false,
+            hasPOVERTY:false,
+            DISEASE:[],
+            EDUCATION:[],
+            ENVIRONMENT:[],
+            POVERTY:[],
+            carouselImg1,carouselImg2,carouselImg3,carouselImg4
           }
         },
         mounted(){
@@ -100,8 +122,60 @@
           mui.back = function(){
             that.$router.go(-1);
           };
+          this.$nextTick(function() {
+            this.getData();
+          })
         },
         methods: {
+          getData(){
+            localStorage.removeItem("charity_id");
+            this.$http({
+              method: "post",
+              url: "/tasks/charity",
+              headers: {
+                "device": "android",
+                "uid": localStorage.getItem("uid"),
+                "Access-Control-Allow-Origin": "*"
+              }
+            }).then(function(res) {
+              console.log(res.data)
+              if(res.data.code === 0) {
+                let data = res.data.data.key_words;
+                this.key_words = res.data.data.key_words;
+                for (let i=0;i<data.length;i++){
+                  if(data[i]==="DISEASE"){
+                    data[i]="大病医疗"
+                  }else if (data[i]==="EDUCATION") {
+                    data[i]="爱心助学"
+                  }else if (data[i]==="ENVIRONMENT") {
+                    data[i]="环境保护"
+                  }else if (data[i]==="POVERTY") {
+                    data[i]="爱心扶贫"
+                  }
+                }
+                if (res.data.data.DISEASE.length>0){
+                  this.hasDISEASE=true;
+                  this.DISEASE=res.data.data.DISEASE;
+                }
+                if (res.data.data.EDUCATION.length>0){
+                  this.hasEDUCATION=true;
+                  this.EDUCATION=res.data.data.EDUCATION;
+                }
+                if (res.data.data.ENVIRONMENT.length>0){
+                  this.hasENVIRONMENT=true;
+                  this.ENVIRONMENT=res.data.data.ENVIRONMENT;
+                }
+                if (res.data.data.POVERTY.length>0){
+                  this.hasPOVERTY=true;
+                  this.POVERTY=res.data.data.POVERTY;
+                }
+              }
+
+            }.bind(this))
+              .catch(function(err) {
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this));
+          },
           evers() {
             this.masrc = backs;
           },
@@ -111,16 +185,9 @@
           goBack() {
             this.$router.go(-1);
           },
-          goDonation(path,name,id){
-            this.$router.push({
-              path: path,
-              name:name,
-              params: {
-                name: 'name',
-                dataObj: id
-
-              }
-            })
+          goDonation(id){
+            localStorage.setItem("charity_id",id)
+            this.$router.push("/donation");
           }
         }
     }

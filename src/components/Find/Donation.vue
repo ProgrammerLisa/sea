@@ -4,56 +4,43 @@
       <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
         <img :src="masrc"/>
       </mu-button>
-      <span class="navTitleText">爱心捐助</span>
+      <span class="navTitleText">{{label}}</span>
     </mu-appbar>
     <div class="contentMarginTop"></div>
-    <mu-carousel hide-controls>
-      <mu-carousel-item>
-        <img :src="carouselImg1">
-      </mu-carousel-item>
-      <mu-carousel-item>
-        <img :src="carouselImg2">
-      </mu-carousel-item>
-      <mu-carousel-item>
-        <img :src="carouselImg3">
-      </mu-carousel-item>
-      <mu-carousel-item>
-        <img :src="carouselImg4">
+    <mu-carousel hide-controls >
+      <mu-carousel-item v-for="p in images">
+        <img :src="p.url">
       </mu-carousel-item>
     </mu-carousel>
-    <mu-card-title title="Content Title" sub-title="Content Title"></mu-card-title>
+    <!--<mu-card-title title="Content Title" sub-title="Content Title"></mu-card-title>-->
+    <div class="ciname">{{ciname}}</div>
     <mu-flex class="demo-linear-progress" style="line-height: 1.6rem">
-      <mu-linear-progress mode="determinate" :value="75" :size="10" color="#17B7E0" class="myProgress"></mu-linear-progress><span style="margin:-0.5rem 0 0 1rem;color: #09a2d6">75%</span>
+      <mu-linear-progress mode="determinate" :value='energ' :size="10" color="#17B7E0" class="myProgress"></mu-linear-progress><span style="margin:-0.5rem 0 0 1rem;color: #09a2d6">{{energ}}</span>
     </mu-flex>
     <div style="display: flex">
         <div class="contentTitle text-center">
           <div class="grid-cell">
-            <div style="color:#09a2d6">200,000.00</div>
+            <div style="color:#09a2d6">{{target}}</div>
             <div style="font-size: 1.5rem">目标爱心/颗</div>
           </div>
         </div>
         <div class="contentTitle text-center">
           <div class="grid-cell">
-            <div style="color:#09a2d6">140,000.65</div>
+            <div style="color:#09a2d6" >{{completed}}</div>
             <div>已筹/颗</div>
           </div>
         </div>
     </div>
     <mu-card-text style="border-bottom: 0.6rem solid #f5f5f5">
       <h4>项目详情 </h4>
-      <div style="text-indent:2.5rem;color: #444">
-         散落在指尖的阳光，我试着轻轻抓住光影的踪迹，它却在眉宇间投下一片淡淡的阴影。
-      调皮的阳光掀动了四月的心帘，温暖如约的歌声渐起。
-      似乎在诉说着，我也可以在漆黑的角落里，找到阴影背后的阳光，
-      找到阳光与阴影奏出和谐的旋律。我要用一颗敏感赤诚的心迎接每一缕滑过指尖的阳光！
-      </div>
+      <div style="text-indent:2.5rem;color: #444">{{desc}}</div>
 
     </mu-card-text>
     <mu-container style="color: #555;font-size: 1.5rem">
       <div style="width: 95%;border: 1px solid #ddd;padding: 1rem;margin: 1rem auto">
-        <div>发起机构：momomo</div>
-        <div>接受机构：momomo</div>
-        <div>备案号：momomomomo</div>
+        <div>发起机构：{{sponsor}}</div>
+        <div>接受机构：{{accepter}}</div>
+        <div>备案号：{{record_no}}</div>
       </div>
 
     </mu-container>
@@ -78,6 +65,16 @@
           return{
             masrc: back,
             carouselImg1,carouselImg2,carouselImg3,carouselImg4,
+            sponsor:'',
+            accepter:'',
+            record_no:'',
+            energ:'',
+            desc:'',
+            label:'',
+            target:'',
+            completed:'',
+            ciname:'',
+            images:[]
           }
         },
         mounted(){
@@ -85,8 +82,48 @@
           mui.back = function(){
             that.$router.go(-1);
           };
+          this.$nextTick(function() {
+            this.getData();
+          })
         },
         methods:{
+          getData(){
+            this.$http({
+              method: "post",
+              url: "/tasks/charity-detail",
+              headers: {
+                "device": "android",
+                "uid": localStorage.getItem("uid"),
+                "Access-Control-Allow-Origin": "*"
+              },
+              data: {
+                "charity_id": localStorage.getItem("charity_id")
+              }
+            }).then(function(res) {
+              if(res.data.code === 0) {
+              	this.images = res.data.data.image;
+//            	console.log(this.images);
+              	this.sponsor = res.data.data.sponsor;
+              	this.accepter = res.data.data.accepter;
+              	this.record_no = res.data.data.record_no;
+              	this.energ = res.data.data.completed_percent;
+              	this.desc = res.data.data.desc;
+              	this.label = res.data.data.label;
+              	this.target = res.data.data.target;
+              	this.ciname = res.data.data.name;
+              	if(res.data.data.completed == ''){
+              		this.completed = 0;
+              	}else{
+              		this.completed = res.data.data.completed;
+              	}
+                console.log(res.data)
+              }
+
+            }.bind(this))
+              .catch(function(err) {
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this));
+          },
           evers() {
             this.masrc = backs;
           },
@@ -155,5 +192,11 @@
     width: 100%;
     font-size: 1.6rem;
     letter-spacing: 1px;
+  }
+  
+  .ciname{
+  	font-size: 1.5rem;
+  	margin: 10px auto;
+  	margin-left: 12px;
   }
 </style>

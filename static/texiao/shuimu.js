@@ -25,8 +25,11 @@ var App = {};
 				var canvas = document.createElement('canvas');
 				canvas.height = window.innerHeight;
 				canvas.width = window.innerWidth;
-				canvas.id = 'ourCanvas';
-				document.body.appendChild(canvas);
+				canvas.style.cssText="width: 100%;height: 37%;position: absolute;"
+				document.getElementById("content").insertBefore(canvas,document.getElementById("filter"))
+				
+//				document.body.appendChild(canvas);
+//				$('.landscape').appendChild(canvas);
 				this.ctx = canvas.getContext('2d');
 				this.width = canvas.width;
 				this.height = canvas.height;
@@ -141,7 +144,8 @@ var App = {};
 				// Add transparent layer for trace effect
 				this.ctx.beginPath();
 				this.ctx.rect(0, 0, this.width, this.height);
-				this.ctx.fillStyle = '#2f7eb3';//背景
+				this.ctx.fillStyle = 'rgb(47, 129, 182)';//背景
+//				this.ctx.style.width = '100px';
 				this.ctx.fill();
 
 				// Draw target

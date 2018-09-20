@@ -38,6 +38,16 @@
               <mu-button flat class="loginBtn" to="/publicgood">去完成</mu-button>
             </div>
           </div>
+          <div class="thoseBoxContainer">
+            <div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>
+            <div class="thoseBoxCenter">
+              <div style="color: #333">新闻资讯</div>
+              <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+1</span></div>
+            </div>
+            <div class="thoseBoxRight">
+              <mu-button flat class="loginBtn">去完成</mu-button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="demo-text" v-if="active1 === 1">

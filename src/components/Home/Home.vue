@@ -1,7 +1,7 @@
 <template>
 	<div id="content">
 
-		<audio style="display: none;" id="pearlAudio" src="../../assets/audio/zhenzhu.mp3"></audio>
+		<audio style="display: none;" id="pearlAudio" src="../../assets/audio/zz.mp3"></audio>
 		<div class="landscape" >
 			<!--<iframe style="position: absolute;" MARGINWIDTH=0 MARGINHEIGHT=0 HSPACE=0 VSPACE=0 FRAMEBORDER=0 SCROLLING=no sandbox="allow-scripts" src="static/texiao/shuimu.html" width=100% height=50%>
   			</iframe>-->
@@ -63,7 +63,7 @@
 
 <script>
 	import { Group, Cell } from 'vux'
-	import sm from '@/assets/js/shuimu.js'
+//	import sm from '@/assets/js/shuimu.js'
 	import zhenzhuIcon from '@/assets/images/zhenzhuHome.png'
 	import nengliang from '@/assets/images/nengliang.png'
 

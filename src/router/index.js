@@ -67,9 +67,19 @@ export default new Router({
           path:'/personal',
           meta:{ index: 1},
           component: resolve => require(['@/components/Profile/Profile'], resolve)
-        }
+        },
+        {
+          path:'/journalism',
+          meta:{index:1},
+          component:resolve => require(['@/components/Find/journalism'], resolve)
+        },
       ]
     },
+    {
+          path:'/journalism',
+          meta:{index:1},
+          component:resolve => require(['@/components/Find/journalism'], resolve)
+        },
     {
       path:'/find',
       meta:{index:1},

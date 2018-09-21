@@ -139,31 +139,31 @@
     color: #555;
   }
   .mu-bottom-item-active:nth-child(1){
-    color: #09a2d6;
+    color: #323232;
   }
   .mu-bottom-item-active:nth-child(1) .mu-bottom-item-icon{
     background-image: url(../assets/images/home_pressed.png) ;
   }
   .mu-bottom-item-active:nth-child(2){
-    color: #09a2d6;
+    color: #323232;
   }
   .mu-bottom-item-active:nth-child(2) .mu-bottom-item-icon{
     background-image: url(../assets/images/discovery_pressed.png) ;
   }
   .mu-bottom-item-active:nth-child(3){
-    color: #09a2d6;
+    color: #323232;
   }
   .mu-bottom-item-active:nth-child(3) .mu-bottom-item-icon{
     background-image: url(../assets/images/redianxinwen.png) ;
   }
   .mu-bottom-item-active:nth-child(4){
-    color: #09a2d6;
+    color: #323232;
   }
   .mu-bottom-item-active:nth-child(4) .mu-bottom-item-icon{
     background-image: url(../assets/images/store_pressed.png) ;
   }
   .mu-bottom-item-active:nth-child(5){
-    color: #09a2d6;
+    color: #323232;
   }
   .mu-bottom-item-active:nth-child(5) .mu-bottom-item-icon{
     background-image: url(../assets/images/profile.png) ;

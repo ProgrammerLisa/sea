@@ -7,9 +7,9 @@
       <span class="navTitleText">捐赠信息</span>
     </mu-appbar>
     <div class="contentMarginTop"></div>
-    <mu-text-field v-model="count"  full-width class="countInput"></mu-text-field>
+    <mu-text-field v-model="count" color="#2CD5EF" type="number"  full-width class="countInput" placeholder="请输入捐赠珍珠数量"></mu-text-field>
     <mu-flex justify-content="center" align-items="center">
-      <mu-button large flat class="publicButton">立即捐赠</mu-button>
+      <mu-button large flat class="publicButton" @click="donation">立即捐赠</mu-button>
     </mu-flex>
   </div>
 </template>
@@ -32,6 +32,35 @@
           };
         },
         methods:{
+          donation(){
+            if (this.count!==""&&this.count!==null&&this.count!==NaN&&this.count!==undefined){
+              this.$http({
+                method: "post",
+                url: "/tasks/donation",
+                headers: {
+                  "device": "android",
+                  "uid": localStorage.getItem("uid"),
+                  "Access-Control-Allow-Origin": "*"
+                },
+                data: {
+                  "charity_id": localStorage.getItem("charity_id"),
+                  "donation":this.count
+                }
+              }).then(function(res) {
+                this.$layer.msg(res.data.msg);
+                if(res.data.code === 0) {
+                  this.$router.go(-1);
+                }
+
+              }.bind(this))
+                .catch(function(err) {
+                  this.$layer.msg("系统异常，请稍后再试");
+                }.bind(this));
+            } else {
+              this.$layer.msg("请输入正确的数量");
+            }
+
+          },
           evers() {
             this.masrc = backs;
           },

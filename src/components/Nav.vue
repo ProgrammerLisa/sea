@@ -21,15 +21,7 @@
 
 </template>
 <script>
-  import home from '@/assets/images/home.png'
-  import discovery from '@/assets/images/discovery.png'
-  import store from '@/assets/images/store.png'
-  import mine from '@/assets/images/profile_pressed.png'
 
-  import home1 from '@/assets/images/home_pressed.png'
-  import discovery1 from '@/assets/images/discovery_pressed.png'
-  import store1 from '@/assets/images/store_pressed.png'
-  import mine1 from '@/assets/images/profile.png'
 
   export default {
     name: "HelloWorld",

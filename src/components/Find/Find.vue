@@ -25,7 +25,7 @@
               <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+1</span></div>
             </div>
             <div class="thoseBoxRight">
-              <mu-button flat class="loginBtn" @click="signInHy">去邀请</mu-button>
+              <mu-button flat class="loginBtn goThose" @click="signInHy">去邀请</mu-button>
             </div>
           </div>
           <div class="thoseBoxContainer">
@@ -35,7 +35,7 @@
               <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+1</span></div>
             </div>
             <div class="thoseBoxRight">
-              <mu-button flat class="loginBtn" to="/publicgood">去完成</mu-button>
+              <mu-button flat class="loginBtn goThose" to="/publicgood">去完成</mu-button>
             </div>
           </div>
         </div>
@@ -201,10 +201,13 @@
     border:1px solid #eee;padding-top:1rem;width: 17.5rem;height: 12rem;background: #fff;border-radius: 8px;margin: auto
   }
   .loginBtn{
-    border: #0BA5D7 1px solid;color: #09a2d6;width: 6rem;height: 3rem;border-radius: 3px;
+    border: #20C2E6 1px solid;color: #20C2E6;width: 6rem;height: 3rem;border-radius: 3px;
+  }
+  .goThose{
+    margin-top: 5px;
   }
   .thoseBox{
-    width: 90%;height: 100%;background: #fff;margin:-6rem 5% 0;border-radius: 8px;padding: 8rem 1rem 12rem
+    width: 90%;height: 100vh;background: #fff;margin:-6rem 5% 0;border-radius: 8px;padding: 9rem 1rem 12rem
   }
   .publicButton{
     width: 6rem;height:3rem;background: linear-gradient(to right, #38E7F8 , #0BA5D7);color: white;

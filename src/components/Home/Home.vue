@@ -9,9 +9,9 @@
 		<div class="filter" id="filter">
 		</div>
 		<canvas id="canvas" ></canvas>
-		
-		
-		
+
+
+
 		<div id="notice">
 			<marquee style="line-height: 2rem; height: 30px; position: relative;" scrollamount="5" scrolldelay="1"><span style=" font-size: 1.5rem;color: #fff;vertical-align:middle;padding-top: 3px;display: inline-block">{{marquee}}</span></marquee>
 		</div>
@@ -70,29 +70,41 @@
 	import defaultPearl from '@/assets/images/zhenzhu.png'
 	import defaultOcean from '@/assets/images/haiyangzhixin.png'
 
-	import p1 from '@/assets/images/zhenzhu3x/zhenzhu1@3x.png'
-	import p2 from '@/assets/images/zhenzhu3x/zhenzhu2@3x.png'
-	import p3 from '@/assets/images/zhenzhu3x/zhenzhu3@3x.png'
-	import p4 from '@/assets/images/zhenzhu3x/zhenzhu4@3x.png'
-	import p5 from '@/assets/images/zhenzhu3x/zhenzhu5@3x.png'
-	import p6 from '@/assets/images/zhenzhu3x/zhenzhu6@3x.png'
-	import p7 from '@/assets/images/zhenzhu3x/zhenzhu7@3x.png'
-	import p8 from '@/assets/images/zhenzhu3x/zhenzhu8@3x.png'
-	import p9 from '@/assets/images/zhenzhu3x/zhenzhu9@3x.png'
-	import p10 from '@/assets/images/zhenzhu3x/zhenzhu10@3x.png'
-	import p11 from '@/assets/images/zhenzhu3x/zhenzhu11@3x.png'
+	import p1 from '@/assets/images/zhenzhu3x/zhenzhu1.png'
+	import p2 from '@/assets/images/zhenzhu3x/zhenzhu2.png'
+	import p3 from '@/assets/images/zhenzhu3x/zhenzhu3.png'
+	import p4 from '@/assets/images/zhenzhu3x/zhenzhu4.png'
+	import p5 from '@/assets/images/zhenzhu3x/zhenzhu5.png'
+	import p6 from '@/assets/images/zhenzhu3x/zhenzhu6.png'
+	import p7 from '@/assets/images/zhenzhu3x/zhenzhu7.png'
+	import p8 from '@/assets/images/zhenzhu3x/zhenzhu8.png'
+	import p9 from '@/assets/images/zhenzhu3x/zhenzhu9.png'
+	import p10 from '@/assets/images/zhenzhu3x/zhenzhu10.png'
+	import p11 from '@/assets/images/zhenzhu3x/zhenzhu11.png'
 
-	import o1 from '@/assets/images/haiyangzhixin3x/hailanzhixin1@3x.png'
-	import o2 from '@/assets/images/haiyangzhixin3x/hailanzhixin2@3x.png'
-	import o3 from '@/assets/images/haiyangzhixin3x/hailanzhixin3@3x.png'
-	import o4 from '@/assets/images/haiyangzhixin3x/hailanzhixin4@3x.png'
-	import o5 from '@/assets/images/haiyangzhixin3x/hailanzhixin5@3x.png'
-	import o6 from '@/assets/images/haiyangzhixin3x/hailanzhixin6@3x.png'
-	import o7 from '@/assets/images/haiyangzhixin3x/hailanzhixin7@3x.png'
-	import o8 from '@/assets/images/haiyangzhixin3x/hailanzhixin8@3x.png'
-	import o9 from '@/assets/images/haiyangzhixin3x/hailanzhixin9@3x.png'
-	import o10 from '@/assets/images/haiyangzhixin3x/hailanzhixin10@3x.png'
-	import o11 from '@/assets/images/haiyangzhixin3x/hailanzhixin11@3x.png'
+	import o1 from '@/assets/images/haiyangzhixin3x/haiyangzhixin1.png'
+	import o2 from '@/assets/images/haiyangzhixin3x/haiyangzhixin2.png'
+	import o3 from '@/assets/images/haiyangzhixin3x/haiyangzhixin3.png'
+	import o4 from '@/assets/images/haiyangzhixin3x/haiyangzhixin4.png'
+	import o5 from '@/assets/images/haiyangzhixin3x/haiyangzhixin5.png'
+	import o6 from '@/assets/images/haiyangzhixin3x/haiyangzhixin6.png'
+	import o7 from '@/assets/images/haiyangzhixin3x/haiyangzhixin7.png'
+	import o8 from '@/assets/images/haiyangzhixin3x/haiyangzhixin8.png'
+	import o9 from '@/assets/images/haiyangzhixin3x/haiyangzhixin9.png'
+	import o10 from '@/assets/images/haiyangzhixin3x/haiyangzhixin10.png'
+	import o11 from '@/assets/images/haiyangzhixin3x/haiyangzhixin11.png'
+  import o12 from '@/assets/images/haiyangzhixin3x/haiyangzhixin12.png'
+  import o13 from '@/assets/images/haiyangzhixin3x/haiyangzhixin13.png'
+  import o14 from '@/assets/images/haiyangzhixin3x/haiyangzhixin14.png'
+  import o15 from '@/assets/images/haiyangzhixin3x/haiyangzhixin15.png'
+  import o16 from '@/assets/images/haiyangzhixin3x/haiyangzhixin16.png'
+  import o17 from '@/assets/images/haiyangzhixin3x/haiyangzhixin17.png'
+  import o18 from '@/assets/images/haiyangzhixin3x/haiyangzhixin18.png'
+  import o19 from '@/assets/images/haiyangzhixin3x/haiyangzhixin19.png'
+  import o20 from '@/assets/images/haiyangzhixin3x/haiyangzhixin20.png'
+  import o21 from '@/assets/images/haiyangzhixin3x/haiyangzhixin21.png'
+  import o22 from '@/assets/images/haiyangzhixin3x/haiyangzhixin22.png'
+  import o23 from '@/assets/images/haiyangzhixin3x/haiyangzhixin23.png'
 
 	export default {
 		components: {
@@ -113,13 +125,13 @@
 				zhenzhuIcon: zhenzhuIcon,
 				nengliangIcon: nengliang,
 				p: [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11],
-				o: [o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11],
+				o: [o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11,o12,o13,o14,o15,o16,o17,o18,o19,o20,o21,o22,o23],
 				imgDiv: [],
 				PearlLevel1: {
 					imgCount: '',
 					href: defaultPearl,
 					divClass: '',
-					animation: '',
+          pearl_type: '',
 					level: 1,
 					id: '',
 					isDisabled: false,
@@ -128,7 +140,7 @@
 					imgCount: '',
 					href: defaultOcean,
 					divClass: '',
-					animation: '',
+          pearl_type: '',
 					level: 2,
 					id: '',
 					isDisabled: false,
@@ -138,7 +150,6 @@
 		mounted: function() {
 			this.$nextTick(function() {
 				this.startStyle();
-//				console.log(sm)
 			})
 		},
 		methods: {
@@ -172,9 +183,10 @@
 
 										//普通珍珠
 										this.PearlLevel1.id = res.data.data.pearls[i].id;
+                    this.PearlLevel1.pearl_type="NORMAL";
 										this.PearlLevel1.imgCount = res.data.data.pearls[i].reward;
 										this.PearlLevel1.divClass = 'pearlBox pearlBox' + res.data.data.pearls[i].today_num % 10;
-										this.imgDiv.push(this.PearlLevel1)
+										this.imgDiv.push(this.PearlLevel1);
 										this.PearlLevel1 = {
 											imgCount: '',
 											divClass: '',
@@ -188,9 +200,10 @@
 									} else if(res.data.data.pearls[i].pearl_type === "LUCK") {
 										//海洋之心
 										this.PearlLevel2.id = res.data.data.pearls[i].id;
+                    this.PearlLevel2.pearl_type="LUCK";
 										this.PearlLevel2.imgCount = res.data.data.pearls[i].reward;
 										this.PearlLevel2.divClass = 'pearlBox pearlBox' + res.data.data.pearls[i].today_num % 10;
-										this.imgDiv.push(this.PearlLevel2)
+										this.imgDiv.push(this.PearlLevel2);
 										this.PearlLevel2 = {
 											imgCount: '',
 											divClass: '',
@@ -201,7 +214,6 @@
 											id: ''
 										}
 									}
-
 								}
 
 							} else {
@@ -216,7 +228,7 @@
 			},
 			getPearl(index, id) {
 
-				this.$http({
+          this.$http({
 						method: "post",
 						url: "/play",
 						headers: {
@@ -237,14 +249,14 @@
 							this.energyCount = res.data.user_energy;
 							let that = this;
 							let i = 0;
-							if(that.imgDiv[index].href === defaultPearl) {
+							if(that.imgDiv[index].pearl_type === "NORMAL") {
 								let timer = setInterval(() => {
 
 									if(i < that.p.length) {
 										that.imgDiv[index].href = that.p[i];
 										$(".divImg").eq(index).css({
 											width: "150%",
-											marginLeft: "-25%",
+                      marginLeft: "-25%",
 											marginTop: '-1rem'
 										});
 										$(".divCount").eq(index).css({
@@ -261,13 +273,13 @@
 									}
 
 								}, 200)
-							} else if(that.imgDiv[index].href === defaultOcean) {
+							} else if(that.imgDiv[index].pearl_type === "LUCK") {
+                $(".pearlBox").eq(index).animate({width:"10rem"},500);
 								let timer = setInterval(() => {
 									if(i < that.o.length) {
 										that.imgDiv[index].href = that.o[i];
 										$(".divImg").eq(index).css({
-											width: "150%",
-											marginLeft: "-25%"
+											width: "100%"
 										});
 										$(".divCount").eq(index).css({
 											marginTop: "-0.5rem"
@@ -278,7 +290,7 @@
 										clearInterval(timer);
 										$(".pearlBox").eq(index).animate({
 											top: "-200%"
-										}, 1000);
+										}, 2200);
 
 									}
 
@@ -315,7 +327,7 @@
 		/*background:linear-gradient(to bottom,#3198D3 0%,#2E6EA1 100%);*/
 		background: #1A3B57;
 	}
-	
+
 	.landscape {
 		position: absolute;
 		left: 0;
@@ -327,7 +339,7 @@
 		background-repeat: repeat-x;
 		background-position: center bottom;
 	}
-	
+
 	#notice {
 		position: absolute;
 		top: 2rem;
@@ -336,32 +348,32 @@
 		font-size: 1.01rem;
 		background: rgba(255, 255, 255, 0.1);
 	}
-	
+
 	.icon {
 		background: rgba(0, 0, 0, 0.2);
 		border-radius: 2rem;
 		padding: 0.1rem 1.5rem 0.1rem 0.5rem;
 		margin-bottom: 1rem;
 	}
-	
+
 	.icon img {
 		width: 2rem;
 	}
-	
+
 	.topOption {
 		position: absolute;
 	}
-	
+
 	.option1 {
 		left: 1rem;
 		top: 6.5rem;
 	}
-	
+
 	.invitation-friends {
 		border-radius: 50%;
 		padding: 0.4rem;
 	}
-	
+
 	.option2,
 	.option3,
 	.option4 {
@@ -373,46 +385,46 @@
 		color: #fff;
 		z-index: 999;
 	}
-	
+
 	.option2 {
 		right: 1rem;
 	}
-	
+
 	.option3 {
 		left: 8rem;
 	}
-	
+
 	.option2 img,
 	.option3 img,
 	.option4 img {
 		width: 80%;
 	}
-	
+
 	.option2:active img,
 	.option3:active img,
 	.option4:active img {
 		transform: scale3d(0.8, 0.8, 0.8);
 		transition: 0.1s;
 	}
-	
+
 	.option4 {
 		left: 1rem;
 	}
-	
+
 	.option4-Icon span {
 		font-size: 2.5rem;
 	}
-	
+
 	#pearlContainer {
 		position: relative;
 		width: 100vw;
 		height: 50vh;
 	}
-	
+
 	p {
 		margin-bottom: 0;
 	}
-	
+
 	.tips {
 		width: 0.6rem;
 		height: 0.6rem;
@@ -424,93 +436,93 @@
 		border-radius: 50%;
 		display: none;
 	}
-	
+
 	.pearlBox {
 		border: none;
-		width: 5rem;
+		width: 4.8rem;
 		height: 8rem;
 		position: absolute;
 		outline: none;
 		animation: myfirst 2s infinite;
 		background: none;
 	}
-	
+
 	.pearlBox1 {
 		top: 12vh;
 		left: 44vw;
 	}
-	
+
 	.pearlBox2 {
 		top: 29vh;
 		left: 42vw;
 	}
-	
+
 	.pearlBox3 {
 		top: 23vh;
 		left: 70vw;
 	}
-	
+
 	.pearlBox4 {
 		top: 10vh;
 		left: 14vw;
 	}
-	
+
 	.pearlBox5 {
 		top: 29vh;
 		left: 3rem;
 	}
-	
+
 	.pearlBox6 {
 		top: 45vh;
 		left: 46vw;
 	}
-	
+
 	.pearlBox7 {
 		top: 37vh;
 		left: 80vw;
 	}
-	
+
 	.pearlBox8 {
 		top: 8vh;
 		left: 80vw;
 	}
-	
+
 	.pearlBox9 {
 		top: -3vh;
 		left: 32vw;
 	}
-	
+
 	.pearlBox0 {
 		top: -8vh;
 		left: 62vw;
 	}
-	
+
 	.divImg {
 		width: 100%;
 	}
-	
+
 	.divCount {
 		margin-top: 0.5rem;
 		font-size: smaller
 	}
-	
+
 	.waitingContainer {
 		position: relative;
 		margin-top: 13vh;
 		font-size: 1.5rem;
 	}
-	
+
 	.waiting {
 		width: 6rem;
 		height: 6rem;
 		animation: myfirst 2s infinite;
 		margin: 1rem auto;
 	}
-	
+
 	.waiting img {
 		width: 100%;
 	}
-	
+
 	@keyframes myfirst {
 		0% {
 			transform: translate(0, 0);

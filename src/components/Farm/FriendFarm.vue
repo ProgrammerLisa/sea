@@ -21,7 +21,7 @@
         <div><img :src="t.href" class="divImg"/></div>
         <div class="text-center divCount" v-if="hasPearl1">{{t.imgCount}}</div>
         <div class="text-center divtime" v-else><div class="txt">还剩</div>{{t.remain}}分</div>
-        
+
       </button>
 			</div>
 			<div class="waitingContainer" v-else>
@@ -37,34 +37,45 @@
 <script>
 	import back from '@/assets/images/return.png'
 	import backs from '@/assets/images/backs.png'
-	import bh from '@/assets/images/bihe.png'
 	import pic1 from "@/assets/images/chushi.png"
 	import defaultPearl from '@/assets/images/zhenzhu.png'
 	import defaultOcean from '@/assets/images/haiyangzhixin.png'
 
-	import p1 from '@/assets/images/zhenzhu3x/zhenzhu1@3x.png'
-	import p2 from '@/assets/images/zhenzhu3x/zhenzhu2@3x.png'
-	import p3 from '@/assets/images/zhenzhu3x/zhenzhu3@3x.png'
-	import p4 from '@/assets/images/zhenzhu3x/zhenzhu4@3x.png'
-	import p5 from '@/assets/images/zhenzhu3x/zhenzhu5@3x.png'
-	import p6 from '@/assets/images/zhenzhu3x/zhenzhu6@3x.png'
-	import p7 from '@/assets/images/zhenzhu3x/zhenzhu7@3x.png'
-	import p8 from '@/assets/images/zhenzhu3x/zhenzhu8@3x.png'
-	import p9 from '@/assets/images/zhenzhu3x/zhenzhu9@3x.png'
-	import p10 from '@/assets/images/zhenzhu3x/zhenzhu10@3x.png'
-	import p11 from '@/assets/images/zhenzhu3x/zhenzhu11@3x.png'
+	import p1 from '@/assets/images/zhenzhu3x/zhenzhu1.png'
+	import p2 from '@/assets/images/zhenzhu3x/zhenzhu2.png'
+	import p3 from '@/assets/images/zhenzhu3x/zhenzhu3.png'
+	import p4 from '@/assets/images/zhenzhu3x/zhenzhu4.png'
+	import p5 from '@/assets/images/zhenzhu3x/zhenzhu5.png'
+	import p6 from '@/assets/images/zhenzhu3x/zhenzhu6.png'
+	import p7 from '@/assets/images/zhenzhu3x/zhenzhu7.png'
+	import p8 from '@/assets/images/zhenzhu3x/zhenzhu8.png'
+	import p9 from '@/assets/images/zhenzhu3x/zhenzhu9.png'
+	import p10 from '@/assets/images/zhenzhu3x/zhenzhu10.png'
+	import p11 from '@/assets/images/zhenzhu3x/zhenzhu11.png'
 
-	import o1 from '@/assets/images/haiyangzhixin3x/hailanzhixin1@3x.png'
-	import o2 from '@/assets/images/haiyangzhixin3x/hailanzhixin2@3x.png'
-	import o3 from '@/assets/images/haiyangzhixin3x/hailanzhixin3@3x.png'
-	import o4 from '@/assets/images/haiyangzhixin3x/hailanzhixin4@3x.png'
-	import o5 from '@/assets/images/haiyangzhixin3x/hailanzhixin5@3x.png'
-	import o6 from '@/assets/images/haiyangzhixin3x/hailanzhixin6@3x.png'
-	import o7 from '@/assets/images/haiyangzhixin3x/hailanzhixin7@3x.png'
-	import o8 from '@/assets/images/haiyangzhixin3x/hailanzhixin8@3x.png'
-	import o9 from '@/assets/images/haiyangzhixin3x/hailanzhixin9@3x.png'
-	import o10 from '@/assets/images/haiyangzhixin3x/hailanzhixin10@3x.png'
-	import o11 from '@/assets/images/haiyangzhixin3x/hailanzhixin11@3x.png'
+  import o1 from '@/assets/images/haiyangzhixin3x/haiyangzhixin1.png'
+  import o2 from '@/assets/images/haiyangzhixin3x/haiyangzhixin2.png'
+  import o3 from '@/assets/images/haiyangzhixin3x/haiyangzhixin3.png'
+  import o4 from '@/assets/images/haiyangzhixin3x/haiyangzhixin4.png'
+  import o5 from '@/assets/images/haiyangzhixin3x/haiyangzhixin5.png'
+  import o6 from '@/assets/images/haiyangzhixin3x/haiyangzhixin6.png'
+  import o7 from '@/assets/images/haiyangzhixin3x/haiyangzhixin7.png'
+  import o8 from '@/assets/images/haiyangzhixin3x/haiyangzhixin8.png'
+  import o9 from '@/assets/images/haiyangzhixin3x/haiyangzhixin9.png'
+  import o10 from '@/assets/images/haiyangzhixin3x/haiyangzhixin10.png'
+  import o11 from '@/assets/images/haiyangzhixin3x/haiyangzhixin11.png'
+  import o12 from '@/assets/images/haiyangzhixin3x/haiyangzhixin12.png'
+  import o13 from '@/assets/images/haiyangzhixin3x/haiyangzhixin13.png'
+  import o14 from '@/assets/images/haiyangzhixin3x/haiyangzhixin14.png'
+  import o15 from '@/assets/images/haiyangzhixin3x/haiyangzhixin15.png'
+  import o16 from '@/assets/images/haiyangzhixin3x/haiyangzhixin16.png'
+  import o17 from '@/assets/images/haiyangzhixin3x/haiyangzhixin17.png'
+  import o18 from '@/assets/images/haiyangzhixin3x/haiyangzhixin18.png'
+  import o19 from '@/assets/images/haiyangzhixin3x/haiyangzhixin19.png'
+  import o20 from '@/assets/images/haiyangzhixin3x/haiyangzhixin20.png'
+  import o21 from '@/assets/images/haiyangzhixin3x/haiyangzhixin21.png'
+  import o22 from '@/assets/images/haiyangzhixin3x/haiyangzhixin22.png'
+  import o23 from '@/assets/images/haiyangzhixin3x/haiyangzhixin23.png'
 
 	export default {
 		name: "friendfarm",
@@ -74,7 +85,7 @@
 				nickname: '',
 				bh: defaultPearl,
 				p: [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11],
-				o: [o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11],
+        o: [o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11,o12,o13,o14,o15,o16,o17,o18,o19,o20,o21,o22,o23],
 				friend_pearl: 0,
 				friend_avatar: pic1,
 				hasPearl: false,
@@ -117,7 +128,7 @@
 			} else {
 				this.nickname = localStorage.getItem('nickname')
 			}
-			
+
 		},
 		methods: {
 			friendfarm() {
@@ -292,12 +303,12 @@
 
 								}, 200)
 							} else if(that.imgDiv[index].href === defaultOcean) {
+                $(".pearlBox").eq(index).animate({width:"10rem"},500);
 								let timer = setInterval(() => {
 									if(i < that.o.length) {
 										that.imgDiv[index].href = that.o[i];
 										$(".divImg").eq(index).css({
-											width: "150%",
-											marginLeft: "-25%"
+											width: "100%"
 										});
 										$(".divCount").eq(index).css({
 											marginTop: "-0.6rem"
@@ -308,7 +319,7 @@
 										clearInterval(timer);
 										$(".pearlBox").eq(index).animate({
 											top: "-200%"
-										}, 1000);
+										}, 2200);
 
 									}
 
@@ -370,13 +381,13 @@
 		overflow: hidden;
 		background-color: #1A3B57;
 	}
-	
+
 	#farmNav {
 		background: transparent;
 		border: none;
 		color: #fff;
 	}
-	
+
 	.farmBack {
 		width: 100%;
 		height: 110vh;
@@ -388,7 +399,7 @@
 		background-repeat: repeat-x;
 		background-position: center top;
 	}
-	
+
 	.icon {
 		position: absolute;
 		left: 1rem;
@@ -398,12 +409,12 @@
 		padding: 0.3rem 1.5rem 0.3rem 0.5rem;
 		font-size: 1.5rem;
 	}
-	
+
 	.icon img {
 		width: 2.5rem;
 		border-radius: 50%;
 	}
-	
+
 	.options {
 		width: 6rem;
 		text-align: center;
@@ -412,23 +423,23 @@
 		right: 0;
 		color: #fff;
 	}
-	
+
 	.options img {
 		width: 80%;
 	}
-	
+
 	.options img:active {
 		transform: scale3d(0.8, 0.8, 0.8);
 		transition: 0.1s;
 	}
-	
+
 	#pearlContainer {
 		position: relative;
 		width: 100vw;
 		height: 50vh;
 		margin-top: 10vh;
 	}
-	
+
 	.pearlBox {
 		border: none;
 		width: 4rem;
@@ -438,73 +449,73 @@
 		animation: myfirst 2s infinite;
 		background: none;
 	}
-	
+
 	.pearlBox1 {
 		top: 50vh;
 		left: 40vw;
 	}
-	
+
 	.pearlBox2 {
 		top: 35vh;
 		left: 41vw;
 	}
-	
+
 	.pearlBox3 {
 		top: 40vh;
 		left: 5vw;
 	}
-	
+
 	.pearlBox4 {
 		top: 30vh;
 		left: 20vw;
 	}
-	
+
 	.pearlBox5 {
 		top: 30vh;
 		left: 70vw;
 	}
-	
+
 	.pearlBox6 {
 		top: 45vh;
 		left: 70vw;
 	}
-	
+
 	.pearlBox7 {
 		top: 55vh;
 		left: 8vw;
 	}
-	
+
 	.pearlBox8 {
 		top: 65vh;
 		left: 28vw;
 	}
-	
+
 	.pearlBox9 {
 		top: 60vh;
 		left: 58vw;
 	}
-	
+
 	.pearlBox0 {
 		top: 20vh;
 		left: 55vw;
 	}
-	
+
 	.waitingContainer {
 		margin-top: 40vh;
 		font-size: 1.5rem;
 	}
-	
+
 	.waiting {
 		width: 6rem;
 		height: 6rem;
 		animation: myfirst 2s infinite;
 		margin: 1rem auto;
 	}
-	
+
 	.waiting img {
 		width: 100%;
 	}
-	
+
 	@keyframes myfirst {
 		0% {
 			transform: translate(0, 0);
@@ -516,11 +527,11 @@
 			transform: translate(0, 0);
 		}
 	}
-	
+
 	.divImg {
 		width: 100%;
 	}
-	
+
 	.divtime {
 		position: absolute;
 		/*margin-top: -45px;*/
@@ -528,7 +539,7 @@
 		font-size: smaller;
 		/*color:#DCDCDC;*/
 	}
-	
+
 	.txt {
 		font-size: inherit;
 	}

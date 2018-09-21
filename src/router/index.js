@@ -271,12 +271,12 @@ export default new Router({
     },{
       path:'/donation',
       name:'donation',
-      meta:{index:3},
+      meta:{index:4},
       component:  resolve => require(['@/components/Find/Donation'], resolve)
     },{
       path:'/donationcount',
       name:'donationcount',
-      meta:{index:4},
+      meta:{index:5},
       component:  resolve => require(['@/components/Find/DonationCount'], resolve)
     },{
       path:'/record',
@@ -313,6 +313,11 @@ export default new Router({
       name:'logistics',
       meta:{index:4},
       component:  resolve => require(['@/components/Shopping/Logistics'], resolve)
+    },{
+      path:'/search',
+      name:'search',
+      meta:{index:3},
+      component:  resolve => require(['@/components/Find/Search'], resolve)
     }
 
 

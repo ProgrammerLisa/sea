@@ -8,33 +8,24 @@
     </mu-appbar>
     <div class="contentMarginTop"></div>
     <mu-carousel hide-controls>
-      <mu-carousel-item>
-        <img :src="carouselImg1">
-      </mu-carousel-item>
-      <mu-carousel-item>
-        <img :src="carouselImg2">
-      </mu-carousel-item>
-      <mu-carousel-item>
-        <img :src="carouselImg3">
-      </mu-carousel-item>
-      <mu-carousel-item>
-        <img :src="carouselImg4">
+      <mu-carousel-item v-for="(i,index) in datas.image" :key="index">
+        <img :src="i.url">
       </mu-carousel-item>
     </mu-carousel>
-    <mu-card-title title="Content Title" sub-title="Content Title"></mu-card-title>
+    <mu-card-title :title="datas.name" :sub-title="datas.label"></mu-card-title>
     <mu-flex class="demo-linear-progress" style="line-height: 1.6rem">
-      <mu-linear-progress mode="determinate" :value="75" :size="10" color="#17B7E0" class="myProgress"></mu-linear-progress><span style="margin:-0.5rem 0 0 1rem;color: #09a2d6">75%</span>
+      <mu-linear-progress mode="determinate" :value="completed_percent" :size="10" color="#17B7E0" class="myProgress"></mu-linear-progress><span style="margin:-0.5rem 0 0 1rem;color: #09a2d6">{{datas.completed_percent}}</span>
     </mu-flex>
     <div style="display: flex">
         <div class="contentTitle text-center">
           <div class="grid-cell">
-            <div style="color:#09a2d6">200,000.00</div>
+            <div style="color:#09a2d6">{{datas.target}}</div>
             <div style="font-size: 1.5rem">目标爱心/颗</div>
           </div>
         </div>
         <div class="contentTitle text-center">
           <div class="grid-cell">
-            <div style="color:#09a2d6">140,000.65</div>
+            <div style="color:#09a2d6">{{completed}}</div>
             <div>已筹/颗</div>
           </div>
         </div>
@@ -42,18 +33,15 @@
     <mu-card-text style="border-bottom: 0.6rem solid #f5f5f5">
       <h4>项目详情 </h4>
       <div style="text-indent:2.5rem;color: #444">
-         散落在指尖的阳光，我试着轻轻抓住光影的踪迹，它却在眉宇间投下一片淡淡的阴影。
-      调皮的阳光掀动了四月的心帘，温暖如约的歌声渐起。
-      似乎在诉说着，我也可以在漆黑的角落里，找到阴影背后的阳光，
-      找到阳光与阴影奏出和谐的旋律。我要用一颗敏感赤诚的心迎接每一缕滑过指尖的阳光！
+         {{datas.desc}}
       </div>
 
     </mu-card-text>
     <mu-container style="color: #555;font-size: 1.5rem">
       <div style="width: 95%;border: 1px solid #ddd;padding: 1rem;margin: 1rem auto">
-        <div>发起机构：momomo</div>
-        <div>接受机构：momomo</div>
-        <div>备案号：momomomomo</div>
+        <div>发起机构：{{datas.sponsor}}</div>
+        <div>接受机构：{{datas.accepter}}</div>
+        <div>备案号：{{datas.id}}</div>
       </div>
 
     </mu-container>
@@ -78,6 +66,9 @@
           return{
             masrc: back,
             carouselImg1,carouselImg2,carouselImg3,carouselImg4,
+            datas:'',
+            completed:'',
+            completed_percent:0
           }
         },
         mounted(){
@@ -85,12 +76,15 @@
           mui.back = function(){
             that.$router.go(-1);
           };
+          this.$nextTick(function() {
+            this.getData();
+          })
         },
         methods:{
           getData(){
             this.$http({
               method: "post",
-              url: "/tasks/charity",
+              url: "/tasks/charity-detail",
               headers: {
                 "device": "android",
                 "uid": localStorage.getItem("uid"),
@@ -101,7 +95,11 @@
               }
             }).then(function(res) {
               if(res.data.code === 0) {
-               console.log(res.data)
+                this.datas=res.data.data;
+                this.completed_percent=parseFloat(this.datas.completed_percent.split("%")[0]);
+                this.completed=this.completed_percent*this.datas.target;
+              }else {
+                this.$layer.msg(res.data.msg);
               }
 
             }.bind(this))

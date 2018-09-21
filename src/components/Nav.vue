@@ -7,7 +7,7 @@
           <!--<mu-bottom-nav-item :title="item.title" v-for="(item,index) in navItem" :key="index" :icon="item.icon" @click="nav(index)"></mu-bottom-nav-item>-->
           <mu-bottom-nav-item title="首页" to="/home" value="首页" icon=" " v-bind:iconClass="{selected:bottomNav=='首页'}"  ></mu-bottom-nav-item>
           <mu-bottom-nav-item title="发现" to="/find" value="发现" icon=" " v-bind:iconClass="{selected:bottomNav=='发现'}"  ></mu-bottom-nav-item>
-          <mu-bottom-nav-item title="热点" to="/journalism" value="热点" icon=" " v-bind:iconClass="{selected:bottomNav=='热点'}"  ></mu-bottom-nav-item>
+          <mu-bottom-nav-item class='redian' to="/journalism"  icon=" " v-bind:iconClass="{selected:bottomNav=='热点'}"  ></mu-bottom-nav-item>
           <mu-bottom-nav-item title="商城" to="/shopping" value="商城" icon=" " v-bind:iconClass="{selected:bottomNav=='商城'}"  ></mu-bottom-nav-item>
           <mu-bottom-nav-item title="我的" to="/personal" value="我的" icon=" " v-bind:iconClass="{selected:bottomNav=='我的'}"  ></mu-bottom-nav-item>
         </mu-bottom-nav>
@@ -130,6 +130,7 @@
   }
   a:nth-child(3){
     color: #555;
+    height: 7rem;
   }
   a:nth-child(4){
     color: #555;
@@ -153,7 +154,7 @@
     color: #09a2d6;
   }
   .mu-bottom-item-active:nth-child(3) .mu-bottom-item-icon{
-    background-image: url(../assets/images/store_pressed.png) ;
+    background-image: url(../assets/images/redianxinwen.png) ;
   }
   .mu-bottom-item-active:nth-child(4){
     color: #09a2d6;
@@ -193,7 +194,7 @@
   position: absolute;
   right: 1.2rem;
 }
-  a:nth-child(1) .mu-bottom-item-icon,a:nth-child(2) .mu-bottom-item-icon,a:nth-child(3) .mu-bottom-item-icon,a:nth-child(4) .mu-bottom-item-icon,a:nth-child(5) .mu-bottom-item-icon{
+  a:nth-child(1) .mu-bottom-item-icon,a:nth-child(2) .mu-bottom-item-icon,a:nth-child(4) .mu-bottom-item-icon,a:nth-child(5) .mu-bottom-item-icon{
     background-repeat:no-repeat;
     width:2.5rem;
     height:2.5rem;
@@ -201,6 +202,15 @@
      padding-top: 0;
      padding-bottom:0;
   }
+  .mu-bottom-item-active:nth-child(3) .mu-bottom-item-icon{
+  	width:5.5rem;
+    height:5.5rem;
+    background-size:auto 5.5rem;
+    background-repeat:no-repeat;
+  }
+  /*.redian{
+  	width: 3.5rem;
+  }*/
   a:nth-child(1) .mu-bottom-item-icon{
     background-image: url(../assets/images/home.png) ;
   }
@@ -208,7 +218,11 @@
     background-image: url(../assets/images/discovery.png) ;
   }
   a:nth-child(3) .mu-bottom-item-icon{
-    background-image: url(../assets/images/store.png) ;
+    background-image: url(../assets/images/redianxinwen.png) ;
+    width:5.5rem;
+    height:5.5rem;
+    background-size:auto 5.5rem;
+    background-repeat:no-repeat;
   }
 
   a:nth-child(4) .mu-bottom-item-icon {

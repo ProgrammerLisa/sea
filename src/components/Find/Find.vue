@@ -25,7 +25,7 @@
               <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+1</span></div>
             </div>
             <div class="thoseBoxRight">
-              <mu-button flat class="loginBtn" @click="signInHy">去邀请</mu-button>
+              <mu-button flat class="loginBtn goThose" @click="signInHy">去邀请</mu-button>
             </div>
           </div>
           <div class="thoseBoxContainer">
@@ -203,18 +203,18 @@
 	}
 	.BlackTitle {
 		text-align: center;
-		letter-spacing: 0.05rem;
-		font-size: 1.8rem;
-		margin-bottom: 0;
-		height: 4.1rem;
-		line-height: 4.1rem;
+		letter-spacing: 2px;
+		font-size: 1.7rem;
+    font-weight: bold;
+		line-height: 50px;
     background: #fff;
-    color: #333;
+    color: #323232;
     border-bottom: 1px solid #f5f5f5;
 	}
   .tabTitle{
     font-size: 1.6rem;
     padding:0.8rem 1.5rem;
+    color: #323232;
   }
   .tipTitle{
     color: #fff;margin: 1.5rem 0
@@ -223,10 +223,13 @@
     border:1px solid #eee;padding-top:1rem;width: 17.5rem;height: 12rem;background: #fff;border-radius: 8px;margin: auto
   }
   .loginBtn{
-    border: #0BA5D7 1px solid;color: #09a2d6;width: 6rem;height: 3rem;border-radius: 3px;
+    border: #20C2E6 1px solid;color: #20C2E6;width: 6rem;height: 3rem;border-radius: 3px;
+  }
+  .goThose{
+    margin-top: 5px;
   }
   .thoseBox{
-    width: 90%;height: 100%;background: #fff;margin:-6rem 5% 0;border-radius: 8px;padding: 8rem 1rem 12rem
+    width: 90%;height: 100vh;background: #fff;margin:-6rem 5% 0;border-radius: 8px;padding: 9rem 1rem 12rem
   }
   .publicButton{
     width: 6rem;height:3rem;background: linear-gradient(to right, #38E7F8 , #0BA5D7);color: white;

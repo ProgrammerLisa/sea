@@ -7,40 +7,41 @@
       <span class="navTitleText">{{label}}</span>
     </mu-appbar>
     <div class="contentMarginTop"></div>
-    <mu-carousel hide-controls >
-      <mu-carousel-item v-for="p in images">
-        <img :src="p.url">
+    <mu-carousel hide-controls>
+      <mu-carousel-item v-for="(i,index) in datas.image" :key="index">
+        <img :src="i.url">
       </mu-carousel-item>
     </mu-carousel>
-    <!--<mu-card-title title="Content Title" sub-title="Content Title"></mu-card-title>-->
-    <div class="ciname">{{ciname}}</div>
+    <mu-card-title :title="datas.name" :sub-title="datas.label"></mu-card-title>
     <mu-flex class="demo-linear-progress" style="line-height: 1.6rem">
-      <mu-linear-progress mode="determinate" :value='energ' :size="10" color="#17B7E0" class="myProgress"></mu-linear-progress><span style="margin:-0.5rem 0 0 1rem;color: #09a2d6">{{energ}}</span>
+      <mu-linear-progress mode="determinate" :value="completed_percent" :size="10" color="#17B7E0" class="myProgress"></mu-linear-progress><span style="margin:-0.5rem 0 0 1rem;color: #09a2d6">{{datas.completed_percent}}</span>
     </mu-flex>
     <div style="display: flex">
         <div class="contentTitle text-center">
           <div class="grid-cell">
-            <div style="color:#09a2d6">{{target}}</div>
+            <div style="color:#09a2d6">{{datas.target}}</div>
             <div style="font-size: 1.5rem">目标爱心/颗</div>
           </div>
         </div>
         <div class="contentTitle text-center">
           <div class="grid-cell">
-            <div style="color:#09a2d6" >{{completed}}</div>
+            <div style="color:#09a2d6">{{completed}}</div>
             <div>已筹/颗</div>
           </div>
         </div>
     </div>
     <mu-card-text style="border-bottom: 0.6rem solid #f5f5f5">
       <h4>项目详情 </h4>
-      <div style="text-indent:2.5rem;color: #444">{{desc}}</div>
+      <div style="text-indent:2.5rem;color: #444">
+         {{datas.desc}}
+      </div>
 
     </mu-card-text>
     <mu-container style="color: #555;font-size: 1.5rem">
       <div style="width: 95%;border: 1px solid #ddd;padding: 1rem;margin: 1rem auto">
-        <div>发起机构：{{sponsor}}</div>
-        <div>接受机构：{{accepter}}</div>
-        <div>备案号：{{record_no}}</div>
+        <div>发起机构：{{datas.sponsor}}</div>
+        <div>接受机构：{{datas.accepter}}</div>
+        <div>备案号：{{datas.id}}</div>
       </div>
 
     </mu-container>
@@ -65,16 +66,9 @@
           return{
             masrc: back,
             carouselImg1,carouselImg2,carouselImg3,carouselImg4,
-            sponsor:'',
-            accepter:'',
-            record_no:'',
-            energ:'',
-            desc:'',
-            label:'',
-            target:'',
+            datas:'',
             completed:'',
-            ciname:'',
-            images:[]
+            completed_percent:0
           }
         },
         mounted(){
@@ -90,9 +84,7 @@
           getData(){
             this.$http({
               method: "post",
-
               url: "/tasks/charity-detail",
-
               headers: {
                 "device": "android",
                 "uid": localStorage.getItem("uid"),
@@ -103,24 +95,11 @@
               }
             }).then(function(res) {
               if(res.data.code === 0) {
-
-              	this.images = res.data.data.image;
-//            	console.log(this.images);
-              	this.sponsor = res.data.data.sponsor;
-              	this.accepter = res.data.data.accepter;
-              	this.record_no = res.data.data.record_no;
-              	this.energ = res.data.data.completed_percent;
-              	this.desc = res.data.data.desc;
-              	this.label = res.data.data.label;
-              	this.target = res.data.data.target;
-              	this.ciname = res.data.data.name;
-              	if(res.data.data.completed == ''){
-              		this.completed = 0;
-              	}else{
-              		this.completed = res.data.data.completed;
-              	}
-                console.log(res.data)
-
+                this.datas=res.data.data;
+                this.completed_percent=parseFloat(this.datas.completed_percent.split("%")[0]);
+                this.completed=this.completed_percent*this.datas.target;
+              }else {
+                this.$layer.msg(res.data.msg);
               }
 
             }.bind(this))
@@ -197,7 +176,7 @@
     font-size: 1.6rem;
     letter-spacing: 1px;
   }
-  
+
   .ciname{
   	font-size: 1.5rem;
   	margin: 10px auto;

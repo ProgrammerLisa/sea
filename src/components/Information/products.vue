@@ -13,21 +13,11 @@
 					<p class="media-heading">{{title}}</p>
 					<p class="commodityPropaganda">{{source}}<span class="commodityPropaganda-span">{{published_at}}</span></p>
 				</div>
-				<div id='aaaa'>
-					{{content}}
+				<div>
+					<dl v-html="content"> 
+					  {{content}} 
+					 </dl> 
 				</div>
-				<!--<p>
-					随着现代科技的发展，基础教育的逐渐健全，曾经困 扰着人类的一些未解之谜都在科学的发展下一一解开， 现今几乎任何现象都可以用科学进行合理的解释，但 尽管如此，至今依然尚存着一些神秘事件，未得到确 切的科学解释。
-				</p>-->
-				<!--<div class="Topstarnews">
-					<img class="Topstarnews-img" src="../../assets/images/test/u=1498947469,1572939960&fm=27&gp=0.jpg" />
-				</div>-->
-				<!--<p>
-					例如发生在50年代末，前苏联的深山中的发生的一起 神秘的集体死亡事件，也称迪亚特洛夫事件，这个至 今未曾得到解释，令人不寒而栗的事件于2013年，被 改编为一部伪纪录恐怖片，甚至在2015年还发布了一 款依照事件改编的恐怖游戏《乌拉尔山》，今天就带 大家一起来了解一下，这个至今未解的迪亚特洛夫事 件。
-				</p>-->
-				<!--<p>
-					1959年1月，一个由十名登山队员组成的探险小队， 正准备前往海拔1234.2米的奥托藤山探险，这座山峰 位于乌拉尔山脉的北部，虽不算太高，但这里在冬季 可以达到零下40度的低温，并且地势险要，在登山困 难指数中处于最困难的第三等级。
-				</p>-->
 				<div>
 					<span class="author">原作者:&nbsp;&nbsp;&nbsp;&nbsp;{{author}}</span><br />
 					<span class="author">来源地址:&nbsp;&nbsp;&nbsp;&nbsp;{{url}}</span>

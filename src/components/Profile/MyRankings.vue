@@ -27,15 +27,9 @@
           </div>
         </div>
       </div>
-      <mu-paper id="nav3" :z-depth="0">
-        <mu-list style="padding: 0">
-          <mu-list-item>
-            <mu-list-item-content>
-              <mu-list-item-title><span  style="color: #38E7F8;margin-right: 0.6rem;font-weight: 700">|</span>夺宝记录</mu-list-item-title>
-            </mu-list-item-content>
-          </mu-list-item>
-        </mu-list>
-      </mu-paper>
+      <div class="rankingTitle">
+        <span class="rankingIcon">|</span>夺宝记录
+      </div>
     </div>
 
     <mu-paper id="dataBox" :z-depth="2">
@@ -193,10 +187,7 @@
   .content::-webkit-scrollbar {
     display:none
   }
-  .container{
-    padding-left: 0;
-    padding-right: 0;
-  }
+
   .income{
   	background: url(../../assets/images/duobaojilu.png);
     text-align: center;
@@ -242,5 +233,14 @@
     color: #666;
     text-align: center;
     background: #fff;
+  }
+  .rankingTitle{
+    border-bottom: 1px solid #eee;
+    padding: 1rem;
+    font-size: 1.7rem;
+  }
+  .rankingIcon{
+
+    color: #38E7F8;margin-right: 0.6rem;font-weight: 700;
   }
 </style>

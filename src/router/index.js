@@ -71,19 +71,9 @@ export default new Router({
         {
           path:'/journalism',
           meta:{index:1},
-          component:resolve => require(['@/components/Find/journalism'], resolve)
+          component:resolve => require(['@/components/Information/journalism'], resolve)
         },
       ]
-    },
-    {
-          path:'/journalism',
-          meta:{index:1},
-          component:resolve => require(['@/components/Find/journalism'], resolve)
-        },
-    {
-      path:'/find',
-      meta:{index:1},
-      component: resolve => require(['@/components/Find/Find'], resolve)
     },
     {
       path: '/register',
@@ -107,6 +97,12 @@ export default new Router({
       name:'ask',
       meta:{index:3},
       component:  resolve => require(['@/components/Profile/Invite'], resolve)
+    },
+    {
+      path:'/journalismsearch',
+      name:'journalismsearch',
+      meta:{index:2},
+      component: resolve => require(['@/components/Information/journalismSearch'], resolve)
     },
     {
       path:'/friend',
@@ -281,12 +277,12 @@ export default new Router({
     },{
       path:'/donation',
       name:'donation',
-      meta:{index:3},
+      meta:{index:4},
       component:  resolve => require(['@/components/Find/Donation'], resolve)
     },{
       path:'/donationcount',
       name:'donationcount',
-      meta:{index:4},
+      meta:{index:5},
       component:  resolve => require(['@/components/Find/DonationCount'], resolve)
     },{
       path:'/record',
@@ -326,13 +322,17 @@ export default new Router({
     },{
       path:'/products',
       name:'products',
-      meta:{index:4},
-      component:  resolve => require(['@/components/Find/products'], resolve)
+      meta:{index:2},
+      component:  resolve => require(['@/components/Information/products'], resolve)
+    },{
+    	 path:'/search',
+      name:'search',
+      meta:{index:3},
+      component:  resolve => require(['@/components/Find/Search'], resolve)
     }
 
 
   ]
 })
-
 
 

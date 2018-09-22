@@ -10,14 +10,14 @@
 
     </div>
    <div class="input-group search">
-    <div class="input-group-addon searchIcon"><mu-icon value="search" ></mu-icon></div>
+    <div class="input-group-addon searchIcon"><mu-icon value="search" @click="searchFuc"></mu-icon></div>
       <input class="form-control searchInput" v-model="search" placeholder="查询公益项目"/>
     </div>
     <div style="text-align: center">
-      <mu-button flat small v-for="(i,index) in key_words" :key="index">#{{i}} </mu-button>
+      <mu-button flat small v-for="(i,index) in key_words" :key="index" @click="goSearch(i)">#{{i}} </mu-button>
     </div>
     <mu-carousel hide-controls>
-      <mu-carousel-item v-for="p in display_pictures">
+      <mu-carousel-item v-for="(p,index) in display_pictures" :key="index">
         <img :src="p.url">
       </mu-carousel-item>
     </mu-carousel>
@@ -54,7 +54,6 @@
       <div style="font-size: 1.7rem;padding: 1rem 1rem;color: #444"><div class="sign"></div>环境保护</div>
       <div class="goodUl">
         <div v-for="(i,index) in ENVIRONMENT" class="goodList">
-
           <div @click="goDonation(i.id)">
             <img :src="i.image" style="width: 100%;">
             <h5>{{i.name}}</h5>
@@ -100,13 +99,11 @@
             key_words:[],
             hasDISEASE:false,
             hasEDUCATION:false,
-
             hasENVIRONMENT:false,
             hasPOVERTY:false,
             DISEASE:[],
             EDUCATION:[],
             ENVIRONMENT:[],
-
             POVERTY:[],
             carouselImg1,carouselImg2,carouselImg3,carouselImg4,
             display_pictures:[]
@@ -124,6 +121,7 @@
         methods: {
           getData(){
             localStorage.removeItem("charity_id");
+            localStorage.removeItem("searchKey");
             this.$http({
               method: "post",
               url: "/tasks/charity",
@@ -135,7 +133,7 @@
             }).then(function(res) {
               console.log(res.data)
               if(res.data.code === 0) {
-              	
+
               	this.display_pictures = res.data.display_pictures;
                 let data = res.data.data.key_words;
                 this.key_words = res.data.data.key_words;
@@ -144,9 +142,7 @@
                     data[i]="大病医疗"
                   }else if (data[i]==="EDUCATION") {
                     data[i]="爱心助学"
-
                   }else if (data[i]==="ENVIRONMENT") {
-
                     data[i]="环境保护"
                   }else if (data[i]==="POVERTY") {
                     data[i]="爱心扶贫"
@@ -160,11 +156,9 @@
                   this.hasEDUCATION=true;
                   this.EDUCATION=res.data.data.EDUCATION;
                 }
-
                 if (res.data.data.ENVIRONMENT.length>0){
                   this.hasENVIRONMENT=true;
                   this.ENVIRONMENT=res.data.data.ENVIRONMENT;
-
                 }
                 if (res.data.data.POVERTY.length>0){
                   this.hasPOVERTY=true;
@@ -177,6 +171,24 @@
                 this.$layer.msg("系统异常，请稍后再试");
               }.bind(this));
           },
+          searchFuc(){
+            let regu = "^[ ]+$";
+            let re = new RegExp(regu);
+            if(this.search.length>0&&!re.test(this.search)){
+              localStorage.setItem("searchKey",this.search);
+              this.$router.push("/search");
+            }else {
+              this.$layer.msg("搜索内容不能为空");
+            }
+          },
+          goSearch(i){
+            localStorage.setItem("searchKey",i);
+            this.$router.push("/search");
+          },
+          goDonation(id){
+            localStorage.setItem("charity_id",id)
+            this.$router.push("/donation");
+          },
           evers() {
             this.masrc = backs;
           },
@@ -185,10 +197,6 @@
           },
           goBack() {
             this.$router.go(-1);
-          },
-          goDonation(id){
-            localStorage.setItem("charity_id",id)
-            this.$router.push("/donation");
           }
         }
     }

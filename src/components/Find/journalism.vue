@@ -8,43 +8,18 @@
       </div>
       
       
-      <div class="media" >
-        <div @click="sendParams" >
+      <div class="media" v-for="(goods,index) in press">
+        <div @click="sendParams(goods.id)" >
           <div class="media-left">
-            <img class="media-object" :src="doman" alt="...">
+            <img class="media-object" :src="goods.image" alt="...">
           </div>
           <div class="media-body">
-            <p class="media-heading">世界未解之谜的乌拉尔山事件，难道真的是超自然事件？</p>
-            <p class="commodityPropaganda">分钟知晓天下事<span style="margin-left: 20%;">20分钟前</span></p>
+            <p class="media-heading">{{goods.title}}</p>
+            <p class="commodityPropaganda">{{goods.source}}<span style="margin-left: 20%;">{{goods.published_at}}</span></p>
             <div ></div>
           </div>
         </div>
       </div>
-      <div class="media" >
-        <div @click="sendParams" >
-          <div class="media-left">
-            <img class="media-object" :src="doman" alt="...">
-          </div>
-          <div class="media-body">
-            <p class="media-heading">世界未解之谜的乌拉尔山事件，难道真的是超自然事件？</p>
-            <p class="commodityPropaganda">分钟知晓天下事<span style="margin-left: 20%;">20分钟前</span></p>
-            <div ></div>
-          </div>
-        </div>
-      </div>
-      <div class="media" >
-        <div @click="sendParams" >
-          <div class="media-left">
-            <img class="media-object" :src="doman" alt="...">
-          </div>
-          <div class="media-body">
-            <p class="media-heading">世界未解之谜的乌拉尔山事件，难道真的是超自然事件？</p>
-            <p class="commodityPropaganda">分钟知晓天下事<span style="margin-left: 20%;">20分钟前</span></p>
-            <div ></div>
-          </div>
-        </div>
-      </div>
-
     </div>
 </template>
 
@@ -55,19 +30,42 @@
         name: "journalism",
         data(){
           return{
-          	doman:doman
-//          commodity:[],
+//        	doman:doman,
+            press:[]
           }
         },
       mounted(){
         this.$nextTick(function() {
-          
+          this.message();
         })
 
       },
       methods:{
-        sendParams(){
-        	this.$layer.msg('即将上线,敬请期待');
+      	message(){
+            this.$http({
+              method: "post",
+              url: "/tasks/news",
+              headers: {
+                "device": "android",
+                "uid": localStorage.getItem("uid"),
+                "Access-Control-Allow-Origin": "*"
+              }
+            }).then(function(res) {
+              if(res.data.code === 0) {
+              this.titles = res.data.title;
+              if(res.data.data.items.length>0){
+                this.press=res.data.data.items;
+              }
+            }
+
+            }.bind(this))
+              .catch(function(err) {
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this))
+          },
+        sendParams(id){
+        	this.$router.push({path: '/products'})
+        	localStorage.setItem("post_id",id);
         }
         
       }
@@ -99,7 +97,7 @@
     color: #333;
   }
   .BlackTitle{
-    text-align: center;
+    text-align: center;.
     letter-spacing: 0.05rem;
     background: #fff;
     font-size: 1.8rem;

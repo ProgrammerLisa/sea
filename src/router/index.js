@@ -323,6 +323,11 @@ export default new Router({
       name:'logistics',
       meta:{index:4},
       component:  resolve => require(['@/components/Shopping/Logistics'], resolve)
+    },{
+      path:'/products',
+      name:'products',
+      meta:{index:4},
+      component:  resolve => require(['@/components/Find/products'], resolve)
     }
 
 

@@ -42,7 +42,7 @@
                     <mu-list-item-sub-title class="dateText">{{i.handled_at}}</mu-list-item-sub-title>
                   </mu-list-item-content>
                   <mu-list-item-action>
-                    <mu-list-item-title class="count">+{{i.hand_out_reward}}</mu-list-item-title>
+                    <mu-list-item-title class="count">+{{i.reward}}</mu-list-item-title>
                   </mu-list-item-action>
                 </mu-list-item>
 
@@ -71,7 +71,7 @@
             total_pearl_reward:0,
             yesterday_pearl_reward:0,
             data:[],
-            mobile:{id:'',handled_at:'',hand_out_reward:'',pearl_type:''},
+            mobile:{id:'',handled_at:'',reward:'',pearl_type:''},
             pearl_type:[],
             next:"/play-record",
             noMore:false
@@ -118,12 +118,11 @@
                     this.mobile.pearl_type="海洋之心";
                   }
                   this.mobile.handled_at=res.data.data.pearls.items[i].handled_at;
-                  this.mobile.hand_out_reward=res.data.data.pearls.items[i].hand_out_reward;
+                  this.mobile.reward=res.data.data.pearls.items[i].reward;
                   this.mobile.id=res.data.data.pearls.items[i].id;
                   this.data.push(this.mobile);
-                  this.mobile={id:'',handled_at:'',hand_out_reward:'',pearl_type:''}
+                  this.mobile={id:'',handled_at:'',reward:'',pearl_type:''}
                 }
-
               }
             }
           }.bind(this))

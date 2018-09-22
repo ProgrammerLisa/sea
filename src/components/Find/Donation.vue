@@ -4,7 +4,7 @@
       <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
         <img :src="masrc"/>
       </mu-button>
-      <span class="navTitleText">爱心捐助</span>
+      <span class="navTitleText">{{label}}</span>
     </mu-appbar>
     <div class="contentMarginTop"></div>
     <mu-carousel hide-controls>
@@ -175,5 +175,11 @@
     width: 100%;
     font-size: 1.6rem;
     letter-spacing: 1px;
+  }
+
+  .ciname{
+  	font-size: 1.5rem;
+  	margin: 10px auto;
+  	margin-left: 12px;
   }
 </style>

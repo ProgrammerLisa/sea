@@ -67,13 +67,13 @@ export default new Router({
           path:'/personal',
           meta:{ index: 1},
           component: resolve => require(['@/components/Profile/Profile'], resolve)
-        }
+        },
+        {
+          path:'/journalism',
+          meta:{index:1},
+          component:resolve => require(['@/components/Information/journalism'], resolve)
+        },
       ]
-    },
-    {
-      path:'/find',
-      meta:{index:1},
-      component: resolve => require(['@/components/Find/Find'], resolve)
     },
     {
       path: '/register',
@@ -97,6 +97,12 @@ export default new Router({
       name:'ask',
       meta:{index:3},
       component:  resolve => require(['@/components/Profile/Invite'], resolve)
+    },
+    {
+      path:'/journalismsearch',
+      name:'journalismsearch',
+      meta:{index:2},
+      component: resolve => require(['@/components/Information/journalismSearch'], resolve)
     },
     {
       path:'/friend',

@@ -38,6 +38,16 @@
               <mu-button flat class="loginBtn goThose" to="/publicgood">去完成</mu-button>
             </div>
           </div>
+          <div class="thoseBoxContainer">
+            <div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>
+            <div class="thoseBoxCenter">
+              <div style="color: #333">新闻资讯</div>
+              <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+1</span></div>
+            </div>
+            <div class="thoseBoxRight">
+              <mu-button flat class="loginBtn">去完成</mu-button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="demo-text" v-if="active1 === 1">
@@ -181,18 +191,18 @@
 	}
 	.BlackTitle {
 		text-align: center;
-		letter-spacing: 0.05rem;
-		font-size: 1.8rem;
-		margin-bottom: 0;
-		height: 4.1rem;
-		line-height: 4.1rem;
+		letter-spacing: 2px;
+		font-size: 1.7rem;
+    font-weight: bold;
+		line-height: 50px;
     background: #fff;
-    color: #333;
+    color: #323232;
     border-bottom: 1px solid #f5f5f5;
 	}
   .tabTitle{
     font-size: 1.6rem;
     padding:0.8rem 1.5rem;
+    color: #323232;
   }
   .tipTitle{
     color: #fff;margin: 1.5rem 0

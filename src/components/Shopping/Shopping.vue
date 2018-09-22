@@ -1,11 +1,9 @@
 <template>
     <div class="content">
-      <div id="navTopMargin" style="background: #eee;"></div>
-      <div class="panel panel-default BlackTitle" style="background: #eee;">
-        <div class="panel-body">
-          商城
-        </div>
+      <div class="BlackTitle">
+        商城
       </div>
+
       <div class="carousel">
         <img :src="carousel"/>
       </div>
@@ -135,23 +133,15 @@
     display: none;
   }
 
-  .panel{
-    border:none;
-    border-radius: 0;
-  }
-  .panel-body {
-    padding:0 1rem;
-    background: #fff;
-    color: #333;
-  }
   .BlackTitle{
     text-align: center;
-    letter-spacing: 0.05rem;
+    letter-spacing: 2px;
+    font-size: 1.7rem;
+    font-weight: bold;
+    line-height: 50px;
     background: #fff;
-    font-size: 1.8rem;
-    margin-bottom: 0;
-    height: 4.1rem;
-    line-height: 4.1rem;
+    color: #323232;
+    border-bottom: 1px solid #f5f5f5;
   }
   .carousel img{
     width: 100%;

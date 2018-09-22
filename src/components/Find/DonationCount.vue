@@ -10,6 +10,7 @@
     <mu-text-field v-model="count" color="#2CD5EF" type="number"  full-width class="countInput" placeholder="请输入捐赠珍珠数量"></mu-text-field>
     <mu-flex justify-content="center" align-items="center">
       <mu-button large flat class="publicButton" @click="donation">立即捐赠</mu-button>
+
     </mu-flex>
   </div>
 </template>
@@ -69,7 +70,36 @@
           },
           goBack() {
             this.$router.go(-1);
-          }
+          },
+          getData(){
+            this.$http({
+              method: "post",
+              url: "/tasks/donation",
+              headers: {
+                "device": "android",
+                "uid": localStorage.getItem("uid"),
+                "Access-Control-Allow-Origin": "*"
+              },
+              data: {
+                "charity_id": localStorage.getItem("charity_id"),
+                'donation': Math.ceil(this.count)
+//              Math.ceil    parseFloat
+              }
+            }).then(function(res) {
+
+              if(res.data.code === 0) {
+              	this.$layer.msg(res.data.msg);
+              	this.$router.go(-1);
+                console.log(res.data)
+              }else{
+              	this.$layer.msg(res.data.msg);
+              }
+
+            }.bind(this))
+              .catch(function(err) {
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this));
+          },
         }
     }
 </script>

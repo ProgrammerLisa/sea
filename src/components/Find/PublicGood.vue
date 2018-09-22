@@ -27,7 +27,7 @@
       <div class="goodUl">
         <div v-for="(i,index) in DISEASE" class="goodList">
           <div @click="goDonation(i.id)">
-            <img :src="i.image.url" style="width: 100%;">
+            <img :src="i.image" style="width: 100%;">
             <h5>{{i.name}}</h5>
             <!--<div class="fontStyle">{{flex.pitches}}</div>-->
             <p class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</p>
@@ -41,7 +41,7 @@
       <div class="goodUl">
         <div v-for="(i,index) in EDUCATION" class="goodList">
           <div @click="goDonation(i.id)">
-            <img :src="i.image.url" style="width: 100%;">
+            <img :src="i.image" style="width: 100%;">
             <h5>{{i.name}}</h5>
             <!--<div class="fontStyle">{{flex.pitches}}</div>-->
             <p class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</p>
@@ -55,7 +55,7 @@
       <div class="goodUl">
         <div v-for="(i,index) in ENVIRONMENT" class="goodList">
           <div @click="goDonation(i.id)">
-            <img :src="i.image.url" style="width: 100%;">
+            <img :src="i.image" style="width: 100%;">
             <h5>{{i.name}}</h5>
             <!--<div class="fontStyle">{{flex.pitches}}</div>-->
             <p class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</p>

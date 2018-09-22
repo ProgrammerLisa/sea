@@ -320,7 +320,12 @@ export default new Router({
       meta:{index:4},
       component:  resolve => require(['@/components/Shopping/Logistics'], resolve)
     },{
-      path:'/search',
+      path:'/products',
+      name:'products',
+      meta:{index:2},
+      component:  resolve => require(['@/components/Information/products'], resolve)
+    },{
+    	 path:'/search',
       name:'search',
       meta:{index:3},
       component:  resolve => require(['@/components/Find/Search'], resolve)
@@ -329,6 +334,5 @@ export default new Router({
 
   ]
 })
-
 
 

@@ -6,14 +6,14 @@
       </div>
 
       <div>
-        <div class="list" v-for="(i,index) in list">
-          <img :src="doman" class="image"/>
+        <div class="list" v-for="(goods,index) in press" @click="sendParams(goods.id)">
+          <img :src="goods.image" class="image"/>
           <div class="list-item">
-            <div class="title">世界未解之谜的乌拉尔山事件， 难道真的是超自然事件？</div>
+            <div class="title">{{goods.title}}</div>
             <div class="footer">
-              <div class="listlabel">分钟知晓天下事</div>
+              <div class="listlabel">{{goods.source}}</div>
               <div class="prominent">推荐</div>
-              <div class="time">20分钟前</div>
+              <div class="time">{{goods.published_at}}</div>
             </div>
           </div>
         </div>
@@ -29,7 +29,8 @@
         data(){
           return{
           	doman:doman,
-            list:[1,2,3,1,4,4]
+            list:[1,2,3,1,4,4],
+            press:[]
           }
         },
       mounted(){
@@ -48,13 +49,36 @@
 
         };
         this.$nextTick(function() {
-
+			this.message();
         })
 
       },
       methods:{
-        sendParams(){
-        	this.$layer.msg('即将上线,敬请期待');
+      	message(){
+            this.$http({
+              method: "post",
+              url: "/tasks/news",
+              headers: {
+                "device": "android",
+                "uid": localStorage.getItem("uid"),
+                "Access-Control-Allow-Origin": "*"
+              }
+            }).then(function(res) {
+              if(res.data.code === 0) {
+              this.titles = res.data.title;
+              if(res.data.data.items.length>0){
+                this.press=res.data.data.items;
+              }
+            }
+
+            }.bind(this))
+              .catch(function(err) {
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this))
+          },
+        sendParams(id){
+        	this.$router.push({path: '/products'})
+        	localStorage.setItem("post_id",id);
         },
         goSearch(){
           this.$router.push('/journalismsearch')

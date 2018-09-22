@@ -35,7 +35,8 @@
               <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+1</span></div>
             </div>
             <div class="thoseBoxRight">
-              <mu-button flat class="loginBtn goThose" to="/publicgood">去完成</mu-button>
+              <mu-button flat class="publicButton" to="/publicgood" v-if="signto">已完成</mu-button>
+              <mu-button flat class="loginBtn" to="/publicgood" v-else>去完成</mu-button>
             </div>
           </div>
           <div class="thoseBoxContainer">
@@ -45,7 +46,8 @@
               <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+1</span></div>
             </div>
             <div class="thoseBoxRight">
-              <mu-button flat class="loginBtn">去完成</mu-button>
+              <mu-button flat class="publicButton" to="/journalism" v-if="signthree">已完成</mu-button>
+              <mu-button flat class="loginBtn" to="/journalism">去完成</mu-button>
             </div>
           </div>
         </div>
@@ -77,7 +79,7 @@
 				time: Date.now(),
 				signIn: '',
 				signIns:'',
-        active1:0
+        		active1:0
 			}
 		},
 		mounted() {
@@ -120,6 +122,16 @@
 								this.signIn = true
 							} else {
 								this.signIn = false
+							}
+							if(res.data.has_donated) {
+								this.signto = true
+							} else {
+								this.signto = false
+							}
+							if(res.data.has_read) {
+								this.signthree = true
+							} else {
+								this.signthree = false
 							}
 						}
 					}.bind(this))

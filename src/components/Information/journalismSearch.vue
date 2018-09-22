@@ -12,6 +12,8 @@
       <div class="inputContainer">
         <input v-model="searchContent" class="searchInput" @input="character" placeholder="搜索你想知道的"/>
       </div>
+      <div v-if="showSearch"><mu-button flat @click="cancel">取消</mu-button></div>
+      <div v-else><mu-button flat @click="searchNews">搜索</mu-button></div>
     </div>
     <div class="searchContainer" v-if="showSearch">
       <div class="list" v-for="(i,index) in list">
@@ -83,6 +85,10 @@
           searchDefault(i){
             this.showSearch=true
           },
+          cancel(){
+            this.searchContent='';
+            this.showSearch=false;
+          },
           evers() {
             this.masrc = backs;
           },
@@ -129,11 +135,11 @@
   .searchIcon{
     background: #f5f5f5;
     padding: 3.5px 10px;
-    border-radius:2rem 0 0 2rem;
+    border-radius:3px 0 0 3px;
   }
   .searchInput{
-    width: 65vw;
-    border-radius:0 2rem 2rem 0;
+    width: 50vw;
+    border-radius:0 3px 3px 0;
     box-shadow: none;
     border:1px solid #f5f5f5;
     outline: none;

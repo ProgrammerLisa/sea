@@ -12,24 +12,31 @@
       <div class="inputContainer">
         <input v-model="searchContent" class="searchInput" @input="character" placeholder="搜索你想知道的"/>
       </div>
+      <div v-if="showSearch"><mu-button flat @click="cancel">取消</mu-button></div>
+      <div v-else><mu-button flat @click="searchNews">搜索</mu-button></div>
     </div>
     <div class="searchContainer" v-if="showSearch">
-      <div class="list" v-for="(i,index) in list">
-        <img :src="doman" class="image"/>
-        <div class="list-item">
-          <div class="title">世界未解之谜的乌拉尔山事件， 难道真的是超自然事件？</div>
-          <div class="footer">
-            <div class="listlabel">分钟知晓天下事</div>
-            <div class="prominent">推荐</div>
-            <div class="time">20分钟前</div>
+      <div v-if="hasData">
+        <div class="list" v-for="(i,index) in list" @click="sendParams(i.id)">
+          <img :src="i.image" class="image" style="width:35%;"/>
+          <div class="list-item">
+            <div class="title">{{i.title}}</div>
+            <div class="footer">
+              <div class="listlabel">{{i.source}}</div>
+              <div class="prominent" v-show="i.is_paid">推荐</div>
+              <div class="time">{{i.published_at}}</div>
+            </div>
           </div>
         </div>
+      </div>
+      <div v-else class="nothing">
+        没有搜索到这个内容
       </div>
     </div>
     <div class="searchContainer searchDefault" v-else>
       <div>热门搜索</div>
       <div class="searchButton">
-        <mu-button round class="roundBtn" v-for="(i,index) in searchButton" :key="index" @click="searchDefault(i)">{{i}}</mu-button>
+        <mu-button round class="roundBtn" v-for="(i,index) in searchButton" :key="index" @click="searchHot(i)">{{i}}</mu-button>
       </div>
     </div>
 
@@ -39,49 +46,134 @@
 <script>
   import back from '@/assets/images/back.png'
   import backs from '@/assets/images/backs.png'
-  import doman from '@/assets/images/test/timg.jpg'
     export default {
         name: "journalismSearch",
         data(){
           return{
             masrc: back,
-            doman:doman,
             searchContent:'',
             showSearch:false,
-            list:[1,2,3,1,4,4],
-            searchButton:['乌拉山','乌拉山Wu','wu乌拉山','乌拉山','乌拉']
+            list:[],
+            item:{
+              author:'',
+              category:'',
+              id:'',
+              image:'',
+              is_paid:'',
+              published_at:'',
+              source:'',
+              tags:'',
+              title:''
+            },
+            searchButton:JSON.parse(localStorage.getItem('hotkeys')),
+            hasData:'',
           }
         },
         mounted(){
           let that = this;
-          mui.back = function(){
-            that.$router.go(-1);
-          };
+          if(that.showSearch){
+            mui.back = function(){
+              that.searchContent='';
+              that.showSearch=false;
+              that.list=[];
+            };
+          }else {
+            mui.back = function(){
+              that.$router.go(-1);
+            };
+          }
+
           this.$nextTick(function() {
 
           })
         },
         methods:{
+          getSearch(data){
+            this.$http({
+              method: "post",
+              url: "/tasks/news/search",
+              headers: {
+                "device": "android",
+                "uid": localStorage.getItem("uid"),
+                "Access-Control-Allow-Origin": "*"
+              },
+              data:{
+                keyword:data
+              }
+            }).then(function(res) {
+              this.showSearch=true;
+              console.log(res.data)
+              if (res.data.code===0){
+                if (res.data.data.length===0){
+                  this.hasData=false;
+                } else {
+                  this.hasData=true;
+                  for (let i=0;i<res.data.data.length;i++){
+                    this.item.author=res.data.data[i].author;
+                    this.item.category=res.data.data[i].category;
+                    this.item.id=res.data.data[i].id;
+                    this.item.image=res.data.data[i].image;
+                    this.item.is_paid=res.data.data[i].is_paid;
+                    this.item.published_at=res.data.data[i].published_at;
+                    this.item.source=res.data.data[i].source;
+                    this.item.tags=res.data.data[i].tags;
+                    this.item.title=res.data.data[i].title;
+                    this.list.push(this.item);
+                    this.item={
+                      author:'',
+                      category:'',
+                      id:'',
+                      image:'',
+                      is_paid:'',
+                      published_at:'',
+                      source:'',
+                      tags:'',
+                      title:''
+                    };
+                  }
+                }
+              }else {
+                this.hasData=false;
+              }
+
+            }.bind(this))
+              .catch(function(err) {
+                this.showSearch=true;
+                this.hasData=false;
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this));
+
+          },
           character(){
             if (this.searchContent.length===0) {
               this.showSearch=false;
+              this.list=[];
             }
-
           },
           searchNews(){
             if (this.searchContent.length>0){
-              let regu = "^[ ]+$";
-              let re = new RegExp(regu);
-              if (re.test(this.searchContent)) {
-                console.log(1)
+              if (this.searchContent.indexOf(" ")===-1) {
+                this.list=[];
+                this.getSearch(this.searchContent);
+                this.showSearch=true;
               }else {
-                console.log(2)
+                this.showSearch=true;
+                this.hasData=false;
               }
-              this.showSearch=true;
             }
           },
-          searchDefault(i){
-            this.showSearch=true
+          searchHot(i){
+            this.list=[];
+            this.getSearch(i);
+          },
+          cancel(){
+            this.searchContent='';
+            this.showSearch=false;
+            this.list=[];
+          },
+          sendParams(id){
+            this.$router.push({path: '/products'})
+            localStorage.setItem("post_id",id);
           },
           evers() {
             this.masrc = backs;
@@ -129,11 +221,11 @@
   .searchIcon{
     background: #f5f5f5;
     padding: 3.5px 10px;
-    border-radius:2rem 0 0 2rem;
+    border-radius:3px 0 0 3px;
   }
   .searchInput{
-    width: 65vw;
-    border-radius:0 2rem 2rem 0;
+    width: 50vw;
+    border-radius:0 3px 3px 0;
     box-shadow: none;
     border:1px solid #f5f5f5;
     outline: none;
@@ -148,7 +240,6 @@
     padding: 2rem 1rem;
   }
   .searchButton{
-
     display: flex;
     flex-wrap: wrap;
   }
@@ -158,20 +249,20 @@
     margin: 1rem 1rem 0 0;
   }
   .list{
+    height: 11rem;
     padding: 1rem;
     border-top: 1px solid #f5f5f5;
     background: #fff;
     display: flex;
-    justify-content: space-between;
   }
   .list .image{
-    width: 9rem;
+    width: 11rem;
     height: 100%;
     margin-right: 1rem;
   }
   @media screen and (min-width: 300px) and (max-width: 350px) {
     .list .image{
-      width: 7rem;
+      width: 9rem;
     }
   }
   .list .list-item{
@@ -190,18 +281,26 @@
     width: 100%;
     color: #646464;
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
     position: absolute;
     bottom: 0;
     font-size: small;
   }
   .list-item .listlabel{
-
+    margin-right: 1rem;
   }
   .list-item .prominent{
     border: 1px solid #25CBEA;
     border-radius: 1rem;
     padding: 0 0.5rem;
     color: #09a2d6;
+    margin-right: 1rem;
+  }
+  .nothing{
+    margin: 35vh auto 0;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #888;
   }
 </style>

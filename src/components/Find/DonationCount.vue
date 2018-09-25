@@ -7,7 +7,7 @@
       <span class="navTitleText">捐赠信息</span>
     </mu-appbar>
     <div class="contentMarginTop"></div>
-    <mu-text-field v-model="count" color="#2CD5EF" type="number"  full-width class="countInput" placeholder="请输入捐赠珍珠数量"></mu-text-field>
+    <mu-text-field v-model="count" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"  full-width class="countInput" help-text="捐赠数量只能为整数哦"></mu-text-field>
     <mu-flex justify-content="center" align-items="center">
       <mu-button large flat class="publicButton" @click="donation">立即捐赠</mu-button>
 

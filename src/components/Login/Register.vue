@@ -540,12 +540,12 @@
 	#pwsbtn {
 		margin-top: -11px;
 		width: 100%;
-		background-color: #09A2D6;
+		background-color: #38E7F8;
 		border-radius: 0;
 	}
 
 	#pwsbtn:active {
-		background-color: #09A2D6;
+		background-color: #38E7F8;
 	}
 
 	#pwsbtn:disabled {

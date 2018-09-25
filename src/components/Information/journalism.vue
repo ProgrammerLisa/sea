@@ -1,36 +1,52 @@
 <template>
     <div class="content">
-      <div class="text-center navTop">
+      <div class="text-center navTop" id="nav">
         <span class="navTitle">新闻资讯</span>
         <mu-icon size="30" value="search" class="navIcon" @click="goSearch"></mu-icon>
       </div>
 
-      <div>
-        <div class="list" v-for="(goods,index) in press" @click="sendParams(goods.id)">
-          <img :src="goods.image" class="image"/>
-          <div class="list-item">
-            <div class="title">{{goods.title}}</div>
-            <div class="footer">
-              <div class="listlabel">{{goods.source}}</div>
-              <div class="prominent">推荐</div>
-              <div class="time">{{goods.published_at}}</div>
+      <div id="scroll">
+        <mu-load-more @refresh="refresh" :refreshing="refreshing" :loading="loading" @load="load">
+          <div class="list" v-for="(i,index) in press" @click="sendParams(i.id)">
+            <img :src="i.image" class="image" style="width:35%;"/>
+            <div class="list-item">
+              <div class="title">{{i.title}}</div>
+              <div class="footer">
+                <div class="listlabel">{{i.source}}</div>
+                <div class="prominent" v-show="i.is_paid">推荐</div>
+                <div class="time">{{i.published_at}}</div>
+              </div>
             </div>
           </div>
-        </div>
+        </mu-load-more>
+        <div class="noMore" v-show="noMore">没有更多信息了</div>
       </div>
+
     </div>
+
 </template>
 
 <script>
-    import doman from '@/assets/images/test/timg.jpg'
-    import commodityImg from '@/assets/images/bg.png'
     export default {
         name: "journalism",
         data(){
           return{
-          	doman:doman,
-            list:[1,2,3,1,4,4],
-            press:[]
+            refreshing:false,
+            loading:false,
+            next:'/tasks/news',
+            noMore:false,
+            press:[],
+            item:{
+              author:'',
+              category:'',
+              id:'',
+              image:'',
+              is_paid:'',
+              published_at:'',
+              source:'',
+              tags:'',
+              title:''
+            }
           }
         },
       mounted(){
@@ -49,7 +65,9 @@
 
         };
         this.$nextTick(function() {
-			this.message();
+          $("#scroll").css({height:$(window).height()-$("#nav").height()-50+'px'});
+          localStorage.removeItem("post_id")
+			    this.message();
         })
 
       },
@@ -57,22 +75,50 @@
       	message(){
             this.$http({
               method: "post",
-              url: "/tasks/news",
+              url: this.next,
               headers: {
                 "device": "android",
                 "uid": localStorage.getItem("uid"),
                 "Access-Control-Allow-Origin": "*"
               }
             }).then(function(res) {
+              this.loading=false;
               if(res.data.code === 0) {
-              this.titles = res.data.title;
-              if(res.data.data.items.length>0){
-                this.press=res.data.data.items;
+                localStorage.setItem("hotkeys",JSON.stringify(res.data.hotkeys));
+                this.next=res.data.data.next;
+                if(res.data.data.items.length>0){
+                  for (let i=0;i<res.data.data.items.length;i++){
+                    this.item.author=res.data.data.items[i].author;
+                    this.item.category=res.data.data.items[i].category;
+                    this.item.id=res.data.data.items[i].id;
+                    this.item.image=res.data.data.items[i].image;
+                    this.item.is_paid=res.data.data.items[i].is_paid;
+                    this.item.published_at=res.data.data.items[i].published_at;
+                    this.item.source=res.data.data.items[i].source;
+                    this.item.tags=res.data.data.items[i].tags;
+                    this.item.title=res.data.data.items[i].title;
+                    this.press.push(this.item);
+                    this.item={
+                      author:'',
+                      category:'',
+                      id:'',
+                      image:'',
+                      is_paid:'',
+                      published_at:'',
+                      source:'',
+                      tags:'',
+                      title:''
+                    };
+                  }
+                }
+              }else if (res.data.code===401) {
+                this.$layer.msg(res.data.msg);
+                this.$router.replace("/login")
               }
-            }
 
             }.bind(this))
               .catch(function(err) {
+                this.loading=false;
                 this.$layer.msg("系统异常，请稍后再试");
               }.bind(this))
           },
@@ -82,8 +128,30 @@
         },
         goSearch(){
           this.$router.push('/journalismsearch')
-        }
+        },
+        refresh(){
+          this.refreshing=true;
+          this.press=[];
+          this.next="/tasks/news";
+          this.noMore=false;
+          this.message();
+          setTimeout(() => {
+            this.refreshing = false;
+          }, 1000)
+        },
+        load(){
+          this.loading=true;
+      	  if (this.next===""){
+            this.noMore=false;
+            setTimeout(()=>{
+              this.noMore=true;
+              this.loading=false;
+            },1500);
+          }else {
+      	    this.message();
 
+          }
+        }
       }
     }
 </script>
@@ -92,14 +160,17 @@
   .content{
     overflow-x: hidden;
     color: #444;
-    padding-bottom: 6rem;
+    padding-bottom: 60px;
     background: #f5f5f5;
     width: 100vw;
     height: 100vh;
-    overflow-y: scroll;
+    overflow-y: hidden;
     font-size: 1.5rem;
   }
-  .content::-webkit-scrollbar{
+  #scroll{
+    overflow-y: scroll;
+  }
+  #scroll::-webkit-scrollbar{
     display: none;
   }
   .navTop{
@@ -112,22 +183,22 @@
     float: right;margin-top: 10px;
   }
   .list{
+    height: 11rem;
     padding: 1rem;
     border-top: 1px solid #f5f5f5;
     background: #fff;
     display: flex;
-    justify-content: space-between;
   }
-  .list .image{
-    width: 9rem;
+  .image{
+    width:37%;
     height: 100%;
     margin-right: 1rem;
   }
-  @media screen and (min-width: 300px) and (max-width: 350px) {
-    .list .image{
-      width: 7rem;
-    }
-  }
+  /*@media screen and (min-width: 300px) and (max-width: 350px) {*/
+    /*.image{*/
+      /*width:37%;*/
+    /*}*/
+  /*}*/
   .list .list-item{
     position: relative;
   }
@@ -144,21 +215,27 @@
     width: 100%;
     color: #646464;
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
     position: absolute;
     bottom: 0;
     font-size: small;
   }
   .list-item .listlabel{
-
+    margin-right: 1rem;
   }
   .list-item .prominent{
     border: 1px solid #25CBEA;
     border-radius: 1rem;
     padding: 0 0.5rem;
     color: #09a2d6;
+    margin-right: 1rem;
   }
-  .list-item .time{
-
+  .noMore{
+    width: 100%;
+    line-height: 4rem;
+    color: #666;
+    text-align: center;
+    background: #f5f5f5;
+    margin-top: -4rem;
   }
 </style>

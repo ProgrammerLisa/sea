@@ -14,20 +14,20 @@
 					<p class="commodityPropaganda">{{source}}<span class="commodityPropaganda-span">{{published_at}}</span></p>
 				</div>
 				<div>
-					<dl v-html="content"> 
-					  {{content}} 
-					 </dl> 
-				</div>
+					<dl v-html="content">
+					  {{content}}
+					 </dl>
+       </div>
 				<div>
-					<span class="author">原作者:&nbsp;&nbsp;&nbsp;&nbsp;{{author}}</span><br />
-					<span class="author">来源地址:&nbsp;&nbsp;&nbsp;&nbsp;{{url}}</span>
+					<div class="author">原作者:&nbsp;&nbsp;&nbsp;&nbsp;{{author}}</div>
+					<div class="author">来源地址:&nbsp;&nbsp;&nbsp;&nbsp;{{url}}</div>
 				</div>
 			</div>
 		</div>
 		<div class="protext">
-			<span><span class="spancolor">一</span> 最新评论区 <span class="spancolor">一</span> </span>			
+			<span><span class="spancolor">一</span> 最新评论区 <span class="spancolor">一</span> </span>
 		</div>
-			<div class="demo-text" v-if="active1 === 0">
+    <div class="demo-text" v-if="active1 === 0">
 				<div v-if="hasMessage" style="margin-top:1rem;padding:1rem 1rem 0;background: #fff">
 					<mu-container ref="container" class="demo-loadmore-content" style="padding: 0">
 						<mu-load-more :refreshing="refreshingMessage" :loading="loadingMessage" @load="loadMessage">
@@ -61,13 +61,11 @@
 			</div>
 	</div>
 
-	</div>
 </template>
 
 <script>
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
-	 import img from '@/assets/images/test/timg.jpg'
 	export default {
 		name: "record",
 		data() {
@@ -75,7 +73,6 @@
 				title:'',
 				source:'',
 				published_at:'',
-				img:img,
 				content:'',
 				url:'',
 				author:'',
@@ -132,6 +129,7 @@
                 this.content = res.data.data.content;
                 this.url = res.data.data.url;
                 this.author = res.data.data.author;
+                $("img").css({maxWidth:'100%'})
               }
             }.bind(this))
               .catch(function(err) {
@@ -157,83 +155,76 @@
 			}
 		}
 	}
-	
+
 </script>
 
 <style scoped>
 	.contentMarginTop {
 		margin-top: 56px;
 	}
-	.visitor {
-		text-align: center;
-		padding: 1.2rem 0.5rem;
-	}
-	
-	.visitor img {
-		width: 100%;
-		border-radius: 50%;
-	}
-	
+  a img{
+    max-width: 100vw;
+  }
 	.stealerTitle {
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		word-wrap: break-word;
 	}
-	
+
 	#accordion {
 		margin-left: 4rem;
 	}
-	
+
 	.media {
 		border-bottom: 1px solid #eee;
 	}
-	
+
 	.media-heading {
 		font-size: 1.6rem;
 		color: #3c3c3c;
 	}
-	
+
 	.media-left {
 		border-radius: 50%;
 		width: 6rem;
 	}
-	
+
 	.media-object {
 		width: 3.1rem;
 		border-radius: 50%;
 	}
-	
+
 	a {
 		color: #333;
 	}
-	
+
 	.panel {
 		box-shadow: none;
 		border: none;
 		background: #FAFAFA;
 	}
-	
+
 	.panel-heading {
 		padding-left: 0;
 	}
-	
+
 	.panel-title {
 		font-size: 1.5rem;
 	}
-	
+
 	.leaveMessage {
 		padding-left: 0;
 	}
 	.list:last-child .mu-divider {
 		display: none;
 	}
-	
+
 	.messageMsg {
 		color: #ff2424;
 		font-size: small;
 	}
-	
+
 	.noMore {
 		width: 100%;
 		line-height: 4rem;
@@ -242,7 +233,7 @@
 		background: #fff;
 		margin-top: -4rem;
 	}
-	
+
 	.products {
 		overflow-x: hidden;
 		color: #444;
@@ -252,71 +243,64 @@
 		overflow-y: scroll;
 		font-size: 1.6rem;
 	}
-	
-	.BlackTitle {
-		text-align: left;
-		letter-spacing: 0.05rem;
-		background: #09a2d6;
-		color: #fff;
-		font-size: 1.8rem;
-		margin-bottom: 0;
-		height: 4.1rem;
-		line-height: 4.1rem;
-		border: 0;
-	}
-	
+  .products::-webkit-scrollbar{
+    display: none;
+  }
+
 	.panel {
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
-	
+
 	.contentMarginTop {
 		padding: 1rem 1rem 2rem;
 	}
-	
+
 	.media-heading {
 		font-weight: bold;
 		font-size: 2rem;
 	}
-	
+
 	.commodityPropaganda {
 		font-size: 1rem;
 		color: #646464;
 		text-align: left;
 	}
-	
+
 	.commodityPropaganda-span {
 		margin-left: 10%;
 		font-size: 1rem;
 		color: #646464;
 	}
-	
+
 	p {
 		color: #323232;
 		font-size: 1.5rem;
 	}
-	
+
 	.Topstarnews-img {
 		width: 100%;
 		padding: 1rem 0rem 1rem;
 	}
-	
+
 	.author {
 		color: #646464;
-		font-size: 1rem;
-	}
-	
+		font-size: 1.5rem;
+    width: 100%;
+    word-wrap:break-word;
+  }
+
 	.contentBody {
 		margin: 1rem 1rem;
 		box-shadow: 2px 2px 10px #E3EFF3;

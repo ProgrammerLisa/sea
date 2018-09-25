@@ -322,7 +322,7 @@ export default new Router({
     },{
       path:'/products',
       name:'products',
-      meta:{index:2},
+      meta:{index:3},
       component:  resolve => require(['@/components/Information/products'], resolve)
     },{
     	 path:'/search',

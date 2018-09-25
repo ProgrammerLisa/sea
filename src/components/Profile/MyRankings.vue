@@ -160,7 +160,7 @@
               this.loading = false;
               $(".mu-infinite-scroll").css({display:"none"})
               this.noMore=true;
-            },3000)
+            },2000)
           }else {
             this.ranking()
           }

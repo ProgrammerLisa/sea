@@ -79,6 +79,8 @@
 				time: Date.now(),
 				signIn: '',
 				signIns:'',
+				signto:'',
+				signthree:'',
         		active1:0
 			}
 		},

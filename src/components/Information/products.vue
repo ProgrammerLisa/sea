@@ -20,8 +20,8 @@
 				</div>
 
 				<div>
-					<div class="author">原作者:&nbsp;&nbsp;&nbsp;&nbsp;{{author}}</div>
-					<div class="author">来源地址:&nbsp;&nbsp;&nbsp;&nbsp;{{url}}</div>
+					<div class="author">原作者:&nbsp;&nbsp;{{author}}</div>
+					<div class="author">来源地址:&nbsp;&nbsp;{{url}}</div>
 				</div>
 			</div>
 		</div>
@@ -29,27 +29,28 @@
 			<span><span class="spancolor">一</span> 最新评论区 <span class="spancolor">一</span> </span>
 		</div>
 
-    <div class="demo-text" v-if="active1 === 0">
-				<div v-if="hasMessage" style="margin-top:1rem;padding:1rem 1rem 0;background: #fff">
-					<mu-container ref="container" class="demo-loadmore-content" style="padding: 0">
-						<mu-load-more :refreshing="refreshingMessage" :loading="loadingMessage" @load="loadMessage">
-							<div class="media" v-for="(m,index) in message">
-								<div class="media-left">
-									<img class="media-object" :src="m.from_user_avatar" />
-								</div>
-								<div class="media-body">
-									<h4 class="media-heading">{{m.from_user}}</h4>
-									<div style="color: #666;font-size: small;width: 100%" class="stealerTitle">{{m.created_at}}</div>
+		<div class="demo-text" v-if="active1 === 0">
+			<div v-if="hasMessage" style="margin-top:1rem;padding:1rem 1rem 0;background: #fff">
+				<mu-container ref="container" class="demo-loadmore-content" style="padding: 0">
+					<mu-load-more :refreshing="refreshingMessage" :loading="loadingMessage" @load="loadMessage">
+						<div class="media" v-for="(m,index) in message">
+							<div class="media-left">
+								<img class="media-object" :src="m.from_user_avatar" />
+							</div>
+							<div class="media-body">
+								<h4 class="media-heading">{{m.from_user}}</h4>
+								<div style="color: #666;font-size: small;width: 100%" class="stealerTitle">{{m.created_at}}</div>
 
 							</div>
 							<div class="panel-group" id="accordion">
 								<div class="panel panel-default">
 									<div class="panel-heading" style="background: #fff">
 										<a data-toggle="collapse" data-parent="#accordion" :href="m.href">
-											<h4 class="panel-title" @click="openLeaveMessage(index)"> {{m.content}} <span class="glyphicon glyphicon-chevron-down" style="color: #999" v-show="m.hasMsg"></span> </h4> </a>
+											<h4 class="panel-title" @click="openLeaveMessage(index)"> {{m.content}} </h4><span class="glyphicon glyphicon-chevron-down" style="color: #999" v-show="m.hasMsg"></span>  </a>
 									</div>
 									<div :id="m.item" v-show="m.hasMsg" class="panel-collapse collapse in" style="background: #f5f5f5;min-width:100%">
-										<div class="panel-body" v-for="(r,item) in m.reply" style="border: none; padding:0.5rem 1rem;font-size: 1.5rem"><span style="color: #09a2d6">我</span>：{{r.content}}</div>
+										<!--<div class="panel-body" v-for="(r,item) in m.reply" style="border: none; padding:0.5rem 1rem;font-size: 1.5rem"><span style="color: #09a2d6">{{r.from_user}}</span>：{{r.content}}</div>-->
+										<div class="panel-body" v-for="(r,item) in m.reply" style="border: none; padding:0.5rem 1rem;font-size: 1.5rem"><span style="color: #09a2d6">{{r.from_user}}</span><span style="color: black"> 回复 </span><span style="color: #09a2d6">{{m.from_user}}</span>: {{r.content}}</div>
 									</div>
 								</div>
 							</div>
@@ -98,12 +99,12 @@
 		name: "record",
 		data() {
 			return {
-				title:'',
-				source:'',
-				published_at:'',
-				content:'',
-				url:'',
-				author:'',
+				title: '',
+				source: '',
+				published_at: '',
+				content: '',
+				url: '',
+				author: '',
 				masrc: back,
 				hasMessage: false,
 				active1: 0,
@@ -214,7 +215,7 @@
 						}.bind(this))
 				}
 			},
-			revert(index,id) {
+			revert(index, id) {
 				let res = new RegExp("^[ ]+$");
 				if(this.reverts === '' || res.test(this.reverts) === true) {
 					this.$layer.msg("回复内容不能为空");
@@ -228,8 +229,8 @@
 								"Access-Control-Allow-Origin": "*"
 							},
 							data: {
-								message_id:id,
-								content:this.reverts
+								message_id: id,
+								content: this.reverts
 							}
 						}).then(function(res) {
 							this.reverts = '';
@@ -253,15 +254,15 @@
 				this.message[index].openMessage = false;
 			},
 
-			loadMessage(){
-            if(this.nextMessage===""){
-              this.loadingMessage = false;
-              this.noMoreMessage=true;
-            }else {
-//            this.loadingMessage = true;
-this.noMoreMessage=true;
-            }
-          },
+			loadMessage() {
+				if(this.nextMessage === "") {
+					this.loadingMessage = false;
+					this.noMoreMessage = true;
+				} else {
+					//            this.loadingMessage = true;
+					this.noMoreMessage = true;
+				}
+			},
 			evers() {
 				this.masrc = backs;
 			},
@@ -290,57 +291,58 @@ this.noMoreMessage=true;
 		border-radius: 50%;
 	}
 	
-  a img{
-    max-width: 100vw;
-  }
+	a img {
+		max-width: 100vw;
+	}
+	
 	.stealerTitle {
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		word-wrap: break-word;
 	}
-
+	
 	#accordion {
 		margin-left: 4rem;
 	}
-
+	
 	.media {
 		border-bottom: 1px solid #eee;
 	}
-
+	
 	.media-heading {
 		font-size: 1.6rem;
 		color: #3c3c3c;
 	}
-
+	
 	.media-left {
 		border-radius: 50%;
 		width: 6rem;
 	}
-
+	
 	.media-object {
 		width: 3.1rem;
 		border-radius: 50%;
 	}
-
+	
 	a {
 		color: #333;
 	}
-
+	
 	.panel {
 		box-shadow: none;
 		border: none;
 		background: #FAFAFA;
 	}
-
+	
 	.panel-heading {
 		padding-left: 0;
 	}
-
+	
 	.panel-title {
 		font-size: 1.5rem;
 	}
-
+	
 	.leaveMessage {
 		padding-left: 0;
 	}
@@ -348,12 +350,12 @@ this.noMoreMessage=true;
 	.list:last-child .mu-divider {
 		display: none;
 	}
-
+	
 	.messageMsg {
 		color: #ff2424;
 		font-size: small;
 	}
-
+	
 	.noMore {
 		width: 100%;
 		line-height: 4rem;
@@ -362,7 +364,7 @@ this.noMoreMessage=true;
 		background: #fff;
 		margin-top: -4rem;
 	}
-
+	
 	.products {
 		overflow-x: hidden;
 		color: #444;
@@ -372,64 +374,72 @@ this.noMoreMessage=true;
 		overflow-y: scroll;
 		font-size: 1.6rem;
 	}
-  .products::-webkit-scrollbar{
-    display: none;
-  }
-
+	
+	.products::-webkit-scrollbar {
+		display: none;
+	}
+	
 	.panel {
 		border-radius: 0;
 	}
-
+	
 	.panel-body {
 		padding: 0 10px;
 	}
-
+	
 	.back {
 		float: left;
 	}
-
+	
 	.back img {
 		height: 2.5rem;
 	}
-
+	
 	.contentMarginTop {
 		padding: 1rem 1rem 2rem;
 	}
-
+	
 	.media-heading {
 		font-weight: bold;
 		font-size: 2rem;
 	}
-
+	
 	.commodityPropaganda {
 		font-size: 1rem;
 		color: #646464;
 		text-align: left;
 	}
-
+	
 	.commodityPropaganda-span {
 		margin-left: 10%;
 		font-size: 1rem;
 		color: #646464;
 	}
-
+	
 	p {
 		color: #323232;
 		font-size: 1.5rem;
 	}
-
+	
 	.Topstarnews-img {
 		width: 100%;
 		padding: 1rem 0rem 1rem;
 	}
-
+	
 	.author {
 		color: #646464;
 		font-size: 1.5rem;
-    width: 100%;
-    word-wrap:break-word;
-  }
-
+		width: 100%;
+		word-wrap: break-word;
+		display:block;
+		word-break: break-all;
+	}
+	
+	.glyphicon{
+		float: right;
+		margin-top: -1.1rem;
+	}
+	
 	.contentBody {
 		margin: 1rem 1rem;
 		box-shadow: 2px 2px 10px #E3EFF3;
@@ -463,8 +473,8 @@ this.noMoreMessage=true;
 		/*padding-bottom: 0px;
 	    padding-top: 0px;
 	    margin-bottom: 3px;*/
-		margin: 10px;
 		/*border: 1px solid black;*/
+		margin: 5px;
 		background: #F5F5F5;
 		padding: 0px;
 	}
@@ -476,7 +486,6 @@ this.noMoreMessage=true;
 	.mu-text-field-input {
 		margin: 0;
 	}
-	
 	div.mu-input-line {
 		background-color: none;
 	}
@@ -486,12 +495,12 @@ this.noMoreMessage=true;
 	}
 	
 	.callBack {
-		height: 4.1rem;
-		line-height: 5rem;
+		height: 4rem;
+		line-height: 4.5rem;
 		border: solid 1px #23C8E8;
 		width: 5rem;
 		position: fixed;
-		margin: 0.2rem;
+		margin: 0.3rem;
 		bottom: 0;
 		margin-right: 8px;
 	}

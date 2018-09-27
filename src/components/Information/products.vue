@@ -17,7 +17,7 @@
 					<dl v-html="content">
 					  {{content}}
 					 </dl>
-       </div>
+        </div>
 				<div>
 					<div class="author">原作者:&nbsp;&nbsp;&nbsp;&nbsp;{{author}}</div>
 					<div class="author">来源地址:&nbsp;&nbsp;&nbsp;&nbsp;{{url}}</div>
@@ -123,13 +123,16 @@
             }).then(function(res) {
               //偷取数量
               if(res.data.code===0){
+                var content=res.data.data.content
                 this.title = res.data.data.title;
                 this.source = res.data.data.source;
                 this.published_at = res.data.data.published_at;
-                this.content = res.data.data.content;
                 this.url = res.data.data.url;
                 this.author = res.data.data.author;
-                $("img").css({maxWidth:'100%'})
+                this.content = content+'<style type="text/css">' +
+                  'img {max-width: 100%; }' +
+                  '<\/style>';
+
               }
             }.bind(this))
               .catch(function(err) {
@@ -162,8 +165,8 @@
 	.contentMarginTop {
 		margin-top: 56px;
 	}
-  a img{
-    max-width: 100vw;
+  img{
+   width: 100%;
   }
 	.stealerTitle {
 		overflow: hidden;

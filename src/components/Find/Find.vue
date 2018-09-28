@@ -11,7 +11,7 @@
       <div class="demo-text" v-if="active1 === 0">
           <h4 class="text-center tipTitle">任务越多能量值越高</h4>
           <div class="text-center loginBox">
-            <p><img src="../../assets/images/indent.png" style="width: 3rem"/></p>
+            <!--<p><img src="../../assets/images/indent.png" style="width: 3rem"/></p>-->
             <div style="color: #333">每日登陆</div>
             <p style="font-size: small;margin-top: 5px">可获得能量值 <span style="color: #09a2d6">+1</span></p>
             <mu-button flat class="publicButton" v-if="signIn">已签到</mu-button>
@@ -19,7 +19,7 @@
           </div>
         <div class="thoseBox">
           <div class="thoseBoxContainer">
-            <div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>
+            <!--<div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>-->
             <div class="thoseBoxCenter">
               <div style="color: #333">邀请10名好友</div>
               <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+1</span></div>
@@ -29,7 +29,7 @@
             </div>
           </div>
           <div class="thoseBoxContainer">
-            <div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>
+            <!--<div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>-->
             <div class="thoseBoxCenter">
               <div style="color: #333">公益慈善</div>
               <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+1</span></div>
@@ -40,7 +40,7 @@
             </div>
           </div>
           <div class="thoseBoxContainer">
-            <div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>
+            <!--<div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>-->
             <div class="thoseBoxCenter">
               <div style="color: #333">新闻资讯</div>
               <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+1</span></div>
@@ -79,6 +79,8 @@
 				time: Date.now(),
 				signIn: '',
 				signIns:'',
+				signto:'',
+				signthree:'',
         		active1:0
 			}
 		},
@@ -229,7 +231,7 @@
     margin-top: 5px;
   }
   .thoseBox{
-    width: 90%;height: 100vh;background: #fff;margin:-6rem 5% 0;border-radius: 8px;padding: 9rem 1rem 12rem
+    width: 90%;height: 100vh;background: #fff;margin:-6rem 5% 0;border-radius: 8px;padding: 4rem 1rem 12rem
   }
   .publicButton{
     width: 6rem;height:3rem;background: linear-gradient(to right, #38E7F8 , #0BA5D7);color: white;

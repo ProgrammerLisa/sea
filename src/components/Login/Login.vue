@@ -488,12 +488,12 @@
 	}
 
 	button.weui-btn.weui-btn_primary {
-		background-color: #09A2D6;
+		background-color: #38E7F8;
 		border-radius: 0;
 	}
 
 	button.weui-btn.weui-btn_primary:active {
-		background-color: #09A2D6;
+		background-color: #38E7F8;
 	}
 	#login1{
 		background:rgba(255,255,255,1);

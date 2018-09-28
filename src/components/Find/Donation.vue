@@ -4,7 +4,7 @@
       <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
         <img :src="masrc"/>
       </mu-button>
-      <span class="navTitleText">{{label}}</span>
+      <span class="navTitleText">{{datas.label}}</span>
     </mu-appbar>
     <div class="contentMarginTop"></div>
     <mu-carousel hide-controls>
@@ -25,7 +25,7 @@
         </div>
         <div class="contentTitle text-center">
           <div class="grid-cell">
-            <div style="color:#09a2d6">{{completed}}</div>
+            <div style="color:#09a2d6">{{datas.completed}}</div>
             <div>已筹/颗</div>
           </div>
         </div>
@@ -97,7 +97,8 @@
               if(res.data.code === 0) {
                 this.datas=res.data.data;
                 this.completed_percent=parseFloat(this.datas.completed_percent.split("%")[0]);
-                this.completed=this.completed_percent*this.datas.target;
+//              this.completed=this.completed_percent*this.datas.target;
+								this.completed=this.completed_percent;
               }else {
                 this.$layer.msg(res.data.msg);
               }

@@ -340,9 +340,7 @@
 							}, 1000)
 						} else {
 							this.$layer.msg(res.data.msg);
-							//							this.PearlLevel1.remain = res.data.pearls[i].remain_time;
 							this.imgDiv[index].remain = res.data.remain_time;
-							//							this.imgDiv[index].imgCount = '';
 							console.log(res.data.remain_time)
 						}
 					}.bind(this))

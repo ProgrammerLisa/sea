@@ -484,7 +484,7 @@
 	}
 
 	#pwsbtn {
-		background-color: #09A2D6;
+		background-color: #38E7F8;
 	}
 
 	#pwsbtn:disabled {
@@ -492,7 +492,7 @@
 	}
 
 	#pwsbtn:active {
-		background-color: #09A2D6;
+		background-color: #38E7F8;
 	}
 
 	.btns {

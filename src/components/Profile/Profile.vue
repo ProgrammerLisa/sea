@@ -43,7 +43,7 @@
 
 			</div>
 
-			<mu-paper :z-depth="1" class="demo-list-wrap">
+			<mu-paper :z-depth="1" class="demo-list-wrap" style="padding-top: 1rem">
 				<mu-list>
 					<mu-list-item button v-for="(m,index) in Personal" class="mylist" :to="m.PersonalHref" :key="index">
 						<mu-list-item-action>
@@ -51,8 +51,10 @@
 						</mu-list-item-action>
 						<mu-list-item-title style="margin-left: 1.2rem">{{m.title}}</mu-list-item-title>
 						<mu-list-item-action>
-							<img v-if="!m.noRouter" class="images" src="../../assets/images/more.png" style="position: relative;right: 6px" />
-							<span v-else class="inviteCode">{{m.myInvite}}</span>
+              <div class="images">
+                <img src="../../assets/images/more.png" />
+              </div>
+							<span class="inviteCode">{{m.myInvite}}</span>
 						</mu-list-item-action>
 					</mu-list-item>
 
@@ -408,31 +410,34 @@
 	.images {
 		padding: 0.8rem;
     width: 4rem;
+    position: relative;right: 6px
+	}
+  .images img{
+    width: 100%;
+  }
+	@media screen and (min-height: 500px) and (max-height: 600px) {
+		.images {
+			width: 4rem
+		}
 	}
 
-	/*@media screen and (min-height: 560px) and (max-height: 750px) {*/
-		/*.images {*/
-			/*width: 7vh*/
-		/*}*/
-	/*}*/
+	@media screen and (min-height: 600px) and (max-height: 700px) {
+		.images {
+			width: 4.2rem
+		}
+	}
 
-	/*@media screen and (min-height: 750px) and (max-height: 850px) {*/
-		/*.images {*/
-			/*width: 5.5vh*/
-		/*}*/
-	/*}*/
+	@media screen and (min-height: 700px) and (max-height: 750px) {
+		.images {
+			width: 4rem
+		}
+	}
 
-	/*@media screen and (min-height: 850px) and (max-height: 1024px) {*/
-		/*.images {*/
-			/*width: 6vh*/
-		/*}*/
-	/*}*/
-
-	/*@media screen and (min-height:1025px) and (max-height: 2000px) {*/
-		/*.images {*/
-			/*width: 5vh*/
-		/*}*/
-	/*}*/
+	@media screen and (min-height:750px) and (max-height: 850px) {
+		.images {
+			width: 4rem
+		}
+	}
 
 	.msg {
 		color: #ff2424;

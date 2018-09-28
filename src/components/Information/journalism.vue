@@ -7,14 +7,33 @@
 
       <div id="scroll">
         <mu-load-more @refresh="refresh" :refreshing="refreshing" :loading="loading" @load="load">
-          <div class="list" v-for="(i,index) in press" @click="sendParams(i.id)">
-            <img :src="i.image" class="image" style="width:35%;"/>
-            <div class="list-item">
-              <div class="title">{{i.title}}</div>
-              <div class="footer">
-                <div class="listlabel">{{i.source}}</div>
-                <div class="prominent" v-show="i.is_paid">推荐</div>
-                <div class="time">{{i.published_at}}</div>
+          <div v-for="(i,index) in press" @click="sendParams(i.id)">
+            <div class="list" v-show="i.mod=='LESSPIC'">
+              <img :src="i.image" class="image"/>
+              <div class="list-item">
+                <div class="title">{{i.title}}</div>
+                <div class="footer">
+                  <div class="listlabel">{{i.source}} &nbsp;<mu-icon value="visibility" size="20" color="grey600" style="vertical-align: middle"></mu-icon> {{i.hits}}</div>
+                  <div class="prominent" v-show="i.is_paid">推荐</div>
+                  <div class="time">{{i.published_at}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="multipic" v-show="i.mod=='MULTIPIC'">
+              <div class="multipicTitle">{{i.title}}</div>
+              <div class="multipicImages">
+                <img :src="c" v-for="c in i.image"/>
+              </div>
+              <div class="multipicFooter">
+                <div class="Grid-cell u-1of6 flex">
+                  <div class="prominent" v-show="!i.is_paid">推荐</div>
+                  <div class="listlabel">{{i.source}}</div>
+                  <div><mu-icon value="visibility" size="20" color="grey600" style="vertical-align: middle"></mu-icon> {{i.hits}}</div>
+                </div>
+                <div>
+                  <div>{{i.published_at}}</div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -45,7 +64,9 @@
               published_at:'',
               source:'',
               tags:'',
-              title:''
+              title:'',
+              mod:'',
+              hits:''
             }
           }
         },
@@ -97,6 +118,8 @@
                     this.item.source=res.data.data.items[i].source;
                     this.item.tags=res.data.data.items[i].tags;
                     this.item.title=res.data.data.items[i].title;
+                    this.item.mod=res.data.data.items[i].mod;
+                    this.item.hits=res.data.data.items[i].hits;
                     this.press.push(this.item);
                     this.item={
                       author:'',
@@ -107,7 +130,9 @@
                       published_at:'',
                       source:'',
                       tags:'',
-                      title:''
+                      title:'',
+                      mod:'',
+                      hits:''
                     };
                   }
                 }
@@ -173,6 +198,9 @@
   #scroll::-webkit-scrollbar{
     display: none;
   }
+  .flex{
+    display: flex;
+  }
   .navTop{
     height:50px;line-height: 50px;background: #fff;font-weight: bold;padding: 0 1rem;
   }
@@ -183,21 +211,17 @@
     float: right;margin-top: 10px;
   }
   .list{
-    height: 11rem;
+    min-height: 33vw;
     padding: 1rem;
     border-top: 1px solid #f5f5f5;
     background: #fff;
     display: flex;
   }
-  .image{
-    width:37%;
-    height: 100%;
-    margin-right: 1rem;
-  }
+
   /*@media screen and (min-width: 300px) and (max-width: 350px) {*/
-    /*.image{*/
-      /*width:37%;*/
-    /*}*/
+  /*.image{*/
+  /*width:37%;*/
+  /*}*/
   /*}*/
   .list .list-item{
     position: relative;
@@ -220,15 +244,69 @@
     bottom: 0;
     font-size: small;
   }
-  .list-item .listlabel{
+   .listlabel{
     margin-right: 1rem;
   }
-  .list-item .prominent{
+  .prominent{
     border: 1px solid #25CBEA;
     border-radius: 1rem;
     padding: 0 0.5rem;
     color: #09a2d6;
     margin-right: 1rem;
+  }
+  .multipic{
+     padding: 1rem;
+     border-top: 1px solid #f5f5f5;
+     background: #fff;
+   }
+  .multipicTitle{
+    color: #323232;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+    padding-bottom: 1rem;
+  }
+  .multipicImages{
+    display: flex;
+    justify-content: space-between;
+  }
+  .multipicImages img{
+    width: 30%;
+    max-height: 26vw;
+  }
+  .multipicFooter{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+  .image{
+    width:35vw;
+    height: 100%;
+    margin-right: 1rem;
+  }
+  .Grid-cell {
+    flex: 1;
+  }
+  .u-full {
+    flex: 0 0 100%;
+  }
+
+  .u-1of2 {
+    flex: 0 0 50%;
+  }
+
+  .u-1of3 {
+    flex: 0 0 33.3333%;
+  }
+
+  .u-1of4 {
+    flex: 0 0 25%;
+  }
+  .u-1of6{
+    flex: 0 0 66.66666%;
   }
   .noMore{
     width: 100%;

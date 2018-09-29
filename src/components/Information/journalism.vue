@@ -13,8 +13,9 @@
               <div class="list-item">
                 <div class="title">{{i.title}}</div>
                 <div class="footer">
+                  <div class="prominent" v-show="i.label=='HOT'">推荐</div>
                   <div class="listlabel">{{i.source}} &nbsp;<mu-icon value="visibility" size="20" color="grey600" style="vertical-align: middle"></mu-icon> {{i.hits}}</div>
-                  <div class="prominent" v-show="i.is_paid">推荐</div>
+                  <div class="advertisement" v-show="i.label=='PAY'">广告</div>
                   <div class="time">{{i.published_at}}</div>
                 </div>
               </div>
@@ -26,7 +27,8 @@
               </div>
               <div class="multipicFooter">
                 <div class="Grid-cell u-1of6 flex">
-                  <div class="prominent" v-show="!i.is_paid">推荐</div>
+                  <div class="prominent" v-show="i.label=='HOT'">推荐</div>
+                  <div class="advertisement" v-show="i.label=='PAY'">广告</div>
                   <div class="listlabel">{{i.source}}</div>
                   <div><mu-icon value="visibility" size="20" color="grey600" style="vertical-align: middle"></mu-icon> {{i.hits}}</div>
                 </div>
@@ -60,7 +62,7 @@
               category:'',
               id:'',
               image:'',
-              is_paid:'',
+              label:'',
               published_at:'',
               source:'',
               tags:'',
@@ -113,7 +115,7 @@
                     this.item.category=res.data.data.items[i].category;
                     this.item.id=res.data.data.items[i].id;
                     this.item.image=res.data.data.items[i].image;
-                    this.item.is_paid=res.data.data.items[i].is_paid;
+                    this.item.label=res.data.data.items[i].label;
                     this.item.published_at=res.data.data.items[i].published_at;
                     this.item.source=res.data.data.items[i].source;
                     this.item.tags=res.data.data.items[i].tags;
@@ -126,7 +128,7 @@
                       category:'',
                       id:'',
                       image:'',
-                      is_paid:'',
+                      label:'',
                       published_at:'',
                       source:'',
                       tags:'',
@@ -252,6 +254,13 @@
     border-radius: 1rem;
     padding: 0 0.5rem;
     color: #09a2d6;
+    margin-right: 1rem;
+  }
+  .advertisement{
+    border: 1px solid #999;
+    border-radius: 1rem;
+    padding: 0 0.5rem;
+    color: #444;
     margin-right: 1rem;
   }
   .multipic{

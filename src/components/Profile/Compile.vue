@@ -243,7 +243,7 @@
 								this.nickname = res.data.data.nickname;
 							}
 							if(res.data.data.signature == "") {
-								this.signature = signature;
+								this.signature = "这个人很懒，还没有签名~";
 							} else {
 								this.signature = res.data.data.resume;
 							}
@@ -595,11 +595,11 @@
 		width: 50%;
 		/*overflow: hidden;text-overflow: ellipsis;white-space: nowrap*/
 	}
-	
+
 	.masu{
 		overflow: hidden;text-overflow: ellipsis;white-space: nowrap
 	}
-	
+
 	.mu-list {
 		padding: 0;
 	}

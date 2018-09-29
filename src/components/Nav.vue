@@ -176,6 +176,7 @@
     background: #fff;
     z-index: 99;
     padding-top: 3px;
+    border-top: 1px solid #f5f5f5;
   }
 .msg{
   color: #ff2424;

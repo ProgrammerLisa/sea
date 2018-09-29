@@ -7,27 +7,27 @@
 					<router-link to="/news" v-else tag="div" class="badgePosition"></router-link>
 				</div>
 				<div class="container personalMessage">
-					<div @click="goCompile" v-if="headDefault">
+					<div @click="goCompile" v-if="headDefault" class="flex">
 						<div class="HeadPortrait">
 							<img :src="`${headPortrait+'?'+now}`" v-if="haveHeadImg" />
 							<img :src="headPortrait" v-else/>
-							<div class="le">
-								<span class="level">Lv.{{level}}</span>
-							</div>
 						</div>
-						<p class="nickName">{{nickName}}</p>
-						<p style="margin: 0">
-							<mu-button flat style="height: 32px;line-height: 32px">
-								<mu-icon value="phone_iphone" left style="font-size: 1.6rem;margin: 0"></mu-icon>{{phone}}
-							</mu-button>
-						</p>
+            <div>
+
+              <p class=""><span class="marginRight nickName">{{nickName}}</span> <span class="sex marginRight" v-bind:style="bcColor">{{gender}}</span> <span class="level marginRight">Lv.{{level}}</span></p>
+              <p >
+                <mu-icon value="phone_iphone" left size="18" style="vertical-align: middle"></mu-icon>{{phone}}
+              </p>
+              <p class="autograph">{{autograph}}</p>
+            </div>
+
 						<!--<p class="userId">ID：{{phone}}</p>-->
 					</div>
-					<router-link v-else tag="div" to="/login">
+					<router-link v-else tag="div" to="/login" class="text-center">
 						<div class="HeadPortrait">
 							<img :src="headPortrait" />
 						</div>
-						<p class="nickName">点击登录</p>
+						<p class="nickName" >点击登录</p>
 					</router-link>
 
 					<div class="msgBox">
@@ -54,7 +54,6 @@
               <div class="images">
                 <img src="../../assets/images/more.png" />
               </div>
-							<span class="inviteCode">{{m.myInvite}}</span>
 						</mu-list-item-action>
 					</mu-list-item>
 
@@ -91,6 +90,7 @@
 				wallet: wallet,
 				nickName: '',
 				phone: '',
+        autograph:'',
 				Personal: [{
 						title: '我的好友',
 						PersonalHref: 'friend',
@@ -139,6 +139,8 @@
 				isLogin: true,
 				newsCount: false,
 				haveHeadImg: false,
+        gender:'',
+        bcColor:'',
 				level: ''
 			}
 		},
@@ -180,6 +182,21 @@
 							var headimg = res.data.data.avatar;
 							this.level = res.data.data.level;
 							this.phone = res.data.data.phone;
+              if (res.data.data.resume=="") {
+                this.autograph="这个人很懒，还没有签名~"
+              }else {
+                this.autograph = res.data.data.resume;
+              }
+              if(res.data.data.gender === "MALE") {
+                this.gender = '♂'
+                this.bcColor='background: #5CB3FC;';
+              } else if(res.data.data.gender==="UNKNOWN"){
+                this.gender = '?'
+                this.bcColor='background: #ddd;';
+              }else{
+                this.gender = '♀'
+                this.bcColor='background: #FC8484;';
+              }
 							if(nikename == "") {
 								this.nickName = localStorage.getItem("uid");
 							} else {
@@ -342,6 +359,11 @@
 		background: url("../../assets/images/news.png") no-repeat;
 		background-size: 60% 100%;
 	}
+  .flex{
+    display: flex;
+    text-align: left;
+    margin: 1rem 0;
+  }
 
 	.personalMessage {
 		width: 90vw;
@@ -350,9 +372,6 @@
 		padding: 1rem;
 		padding-bottom: 0.5rem;
 		border-radius: 0.5rem;
-		display: flex;
-		flex-direction: column;
-		text-align: center;
 		box-shadow: 0 0.3rem 0.3rem #ddd;
 	}
 
@@ -376,19 +395,18 @@
 	.HeadPortrait img {
 		width: 6rem;
 		height: 6rem;
-		border: 0.1rem solid #f5f5f5;
-		border-radius: 50%;
+		border-radius: 8px;
+    margin-right: 1rem;
 	}
 
 	.HeadPortrait {
-		width: 90%;
-		margin: auto;
+		margin: auto 1rem;
 		position: relative;
 	}
 
 	.nickName {
-		padding-top: 1rem;
-		margin: 0;
+    font-size: 1.6rem;
+    color: #323232;
 	}
 
 	.personalIcon {
@@ -398,7 +416,14 @@
 	.personalText {
 		padding-left: 0;
 	}
-
+  .autograph{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:1;
+    margin-bottom: 0
+  }
 	.mu-paper-round {
 		border-radius: 0;
 	}
@@ -457,15 +482,25 @@
 		background: #f5f5f5;
 		padding-top: 0;
 	}
-
+  .marginRight{
+    margin-right: 0.5rem;
+  }
+  .sex {
+    background: #FC7D7D;
+    color: #fff;
+    font-size: smaller;
+    display: inline-block;
+    width: 1.5rem;
+    line-height: 1.5rem;
+    text-align: center;
+    border-radius: 50%;
+  }
 	.level {
     background: linear-gradient(to right, #38E7F8 , #0BA5D7);
 		color: #fff;
 		font-size: 1rem;
 		border-radius: 10px;
 		padding: 0 0.5rem;
-		margin-top: -20px;
-		position: absolute;
 		border: 1px solid #fff;
 	}
 

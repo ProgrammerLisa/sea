@@ -1,9 +1,10 @@
 <template>
 	<div class="content">
+
 		<div class="BlackTitle">
 				发现
 		</div>
-    <div>
+    <div v-if="hasSignal">
       <mu-tabs :value.sync="active1" inverse indicator-color="#fff" color="#09A2D6" text-color="rgba(0, 0, 0, .54)"  center style="background: #fff">
         <mu-tab class="tabTitle">基础任务</mu-tab>
         <mu-tab class="tabTitle">独家任务</mu-tab>
@@ -57,7 +58,9 @@
 
       </div>
     </div>
-
+    <div v-else>
+      <nothing @again="again"></nothing>
+    </div>
 
 
 	</div>
@@ -65,6 +68,7 @@
 
 <script>
 	import { formatDate } from "../../assets/js/date";
+	import Nothing from '@/components/Nothing'
 
 	export default {
 		name: "GetForce",
@@ -74,9 +78,13 @@
 				return formatDate(data, 'yyyy-MM-dd hh:mm:ss')
 			}
 		},
+    components:{
+      'nothing':Nothing
+    },
 		data() {
 			return {
 				time: Date.now(),
+        hasSignal:true,
 				signIn: '',
 				signIns:'',
 				signto:'',
@@ -101,6 +109,7 @@
       };
 
       this.$nextTick(function() {
+        let that = this;
 				this.isSignIn();
 			})
 		},
@@ -120,6 +129,7 @@
 							this.$router.replace('/login');
 						}
 						if(res.data.code == 0) {
+						  this.hasSignal=true;
 							if(res.data.has_signed) {
 								this.signIn = true
 							} else {
@@ -135,10 +145,13 @@
 							} else {
 								this.signthree = false
 							}
-						}
+						}else {
+              this.hasSignal=false;
+            }
 					}.bind(this))
 					.catch(function(err) {
-						console.log(err)
+            this.$layer.msg("系统异常，请稍后再试");
+            this.hasSignal=false;
 					}.bind(this));
 			},
 			signInFc() {
@@ -182,7 +195,10 @@
 					.catch(function(err) {
 						this.$layer.msg("系统异常，请稍后再试");
 					}.bind(this));
-			}
+			},
+      again(){
+        this.isSignIn();
+      }
 		}
 	}
 </script>
@@ -251,4 +267,5 @@
   .thoseBoxRight{
     padding: 0.5rem 0;position: absolute;right: 2.5rem
   }
+
 </style>

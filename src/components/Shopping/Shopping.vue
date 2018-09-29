@@ -3,56 +3,89 @@
       <div class="BlackTitle">
         商城
       </div>
+      <div v-if="hasSignal">
+        <div class="carousel" id="nav">
+          <img :src="carousel"/>
+        </div>
+        <div id="scroll">
+          <mu-load-more @refresh="refresh" :refreshing="refreshing" :loading="loading" @load="load">
+            <div class="media" v-for="(goods,index) in commodity">
+              <div @click="sendParams(goods.enable,goods.id)">
+                <div class="media-left">
+                  <img class="media-object" :src="goods.image">
+                </div>
+                <div class="media-body">
+                  <p class="media-heading">{{goods.name}}</p>
+                  <p class="commodityPropaganda">{{goods.desc}}</p>
+                  <div class="commodityPrice">{{goods.price}} <span class="goodsMessage" style="color: #555"> ( 珍珠 ) </span> </div>
+                  <div ></div>
+                  <div>
+                    <span class="goodsMessage">兑换次数：{{goods.sales}} 件</span>
+                    <button class="btn enchangeBtnEnd" v-if="!goods.enable">
+                      已结束
+                    </button>
+                    <button class="btn enchangeBtn" v-else>
+                      立即兑换
+                    </button>
+                  </div>
+                </div>
+              </div>
 
-      <div class="carousel">
-        <img :src="carousel"/>
-      </div>
-      <div class="media" v-for="(goods,index) in commodity">
-        <div @click="sendParams(goods.enable,goods.id)">
-          <div class="media-left">
-            <img class="media-object" :src="goods.image" alt="...">
-          </div>
-          <div class="media-body">
-            <p class="media-heading">{{goods.name}}</p>
-            <p class="commodityPropaganda">{{goods.desc}}</p>
-            <div class="commodityPrice">{{goods.price}} <span class="goodsMessage" style="color: #555"> ( 珍珠 ) </span> </div>
-            <div ></div>
-            <div>
-              <span class="goodsMessage">兑换次数：{{goods.sales}} 件</span>
-              <button class="btn enchangeBtnEnd" v-if="!goods.enable">
-                已结束
-              </button>
-              <button class="btn enchangeBtn" v-else>
-                立即兑换
-              </button>
             </div>
-          </div>
+            <mu-dialog width="360" :open.sync="openSimple">
+              <div class="text-center overAlert" >活动已结束</div>
+              <div class="text-center">
+                <mu-button flat class="overBtn" @click="closeSimpleDialog">确 定</mu-button>
+              </div>
+
+            </mu-dialog>
+          </mu-load-more>
+          <div class="noMore" v-show="noMore">没有更多信息了</div>
         </div>
 
       </div>
-      <mu-dialog width="360" :open.sync="openSimple">
-        <div class="text-center overAlert" >活动已结束</div>
-        <div class="text-center">
-          <mu-button flat class="overBtn" @click="closeSimpleDialog">确 定</mu-button>
-        </div>
-
-      </mu-dialog>
+      <div v-else>
+        <nothing @again="again"></nothing>
+      </div>
 
     </div>
 </template>
 
 <script>
     import carousel from '@/assets/images/banner.png'
-    import commodityImg from '@/assets/images/bg.png'
+    import Nothing from '@/components/Nothing'
     export default {
         name: "shopping",
         data(){
           return{
+            hasSignal:true,
             carousel:carousel,
+            refreshing:false,
+            loading:false,
+            next:'/store',
+            noMore:false,
             commodity:[],
+            mobile:{
+              enable:'',
+              id:'',
+              image:'',
+              name:'',
+              desc:'',
+              price:'',
+              sales:'',
+
+            },
             openSimple: false
           }
         },
+      computed: {
+        now() {
+          return Date.now();
+        }
+      },
+      components:{
+        'nothing':Nothing
+      },
       mounted(){
         let clickNum = 0;
         mui.back = function(){
@@ -69,6 +102,7 @@
 
         };
         this.$nextTick(function() {
+          $("#scroll").css({height:$(window).height()-$("#nav").height()-50+'px'});
           localStorage.removeItem("goods_id");
           localStorage.removeItem("addressId");
           localStorage.removeItem("goodsSize");
@@ -80,10 +114,13 @@
 
       },
       methods:{
+        again(){
+          this.getStore();
+        },
         getStore(){
           this.$http({
             method: "post",
-            url: "/store",
+            url: this.next,
             headers: {
               "device": "android",
               "uid": localStorage.getItem("uid"),
@@ -91,15 +128,67 @@
             },
             data: {}
           }).then(function(res) {
+            this.loading=false;
+            if(res.data.code === 401) {
+              this.$layer.msg('请登录后再试！');
+              this.$router.replace('/login');
+            }
             if(res.data.code === 0) {
+              this.hasSignal=true;
+              this.next=res.data.data.next;
               if(res.data.data.data.items.length>0){
-                this.commodity=res.data.data.data.items;
+                for (var i in res.data.data.data.items){
+                  this.mobile.enable=res.data.data.data.items[i].enable;
+                  this.mobile.id=res.data.data.data.items[i].id;
+                  this.mobile.image=res.data.data.data.items[i].image[0];
+                  this.mobile.name=res.data.data.data.items[i].name;
+                  this.mobile.desc=res.data.data.data.items[i].desc;
+                  this.mobile.price=res.data.data.data.items[i].price;
+                  this.mobile.sales=res.data.data.data.items[i].sales;
+                  this.commodity.push(this.mobile);
+                  this.mobile={
+                    enable:'',
+                    id:'',
+                    image:'',
+                    name:'',
+                    desc:'',
+                    price:'',
+                    sales:'',
+                  }
+                }
               }
+            }else {
+              this.hasSignal=false;
             }
           }.bind(this))
             .catch(function(err) {
+              this.loading=false;
               this.$layer.msg("系统异常，请稍后再试");
+              this.hasSignal=false;
             }.bind(this));
+        },
+        refresh(){
+          this.refreshing=true;
+          this.commodity=[];
+          this.next="/store";
+          this.noMore=false;
+          this.getStore();
+          setTimeout(() => {
+            this.refreshing = false;
+          }, 1000)
+        },
+        load(){
+          this.loading=true;
+          if (this.next===""){
+            this.noMore=false;
+            setTimeout(()=>{
+              this.noMore=true;
+              this.loading=false;
+            },1500);
+          }else {
+            this.getStore();
+
+          }
         },
         sendParams (enable,id) {
           const that = this;
@@ -126,7 +215,7 @@
     background: #fff;
     width: 100vw;
     height: 100vh;
-    overflow-y: scroll;
+    overflow-y: hidden;
     font-size: 1.6rem;
   }
   .content::-webkit-scrollbar{
@@ -217,5 +306,11 @@
     color: white;
     margin: 1rem 0 1.5rem;
     padding: 0 1rem;
+  }
+  #scroll{
+    overflow-y: scroll;
+  }
+  #scroll::-webkit-scrollbar{
+    display: none;
   }
 </style>

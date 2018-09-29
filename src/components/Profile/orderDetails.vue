@@ -60,7 +60,7 @@
           </div>
           <div>
             <mu-button class="publicButton" flat @click="goLogistics" v-if="datas.status">查看物流</mu-button>
-            <mu-button class="publicButton" flat v-else>等待发货</mu-button>
+            <mu-button class="disabledBtn" flat v-else>暂无物流信息</mu-button>
           </div>
         </div>
       </div>
@@ -115,7 +115,6 @@
                 order_id:localStorage.getItem("order_id")
               }
             }).then(function(res) {
-              console.log(res.data)
               if(res.data.code === 0) {
                 this.datas.name=res.data.delivery_address.consignee;
                 this.datas.phone=res.data.delivery_address.phone;
@@ -130,13 +129,13 @@
                 this.datas.orderNumber=res.data.data.id;
                 this.datas.date=res.data.data.created_at;
                 this.datas.status=res.data.data.status;
-                if (res.data.data.status==="WAITING_DELIVER"){
-                  this.datas.status=false;
-                }else if(res.data.data.status==="WAITING_RECIEVE"){
+                if (res.data.data.status==="WAITING_RECIEVE"){
                   this.datas.status=true;
+                }else{
+                  this.datas.status=false;
                 }
                 if(res.data.data.express===""){
-                  this.datas.mode="等待发货"
+                  this.datas.mode="暂无物流信息"
                 }else {
                   this.datas.mode=res.data.data.express;
                 }
@@ -289,6 +288,13 @@
   .publicButton{
     background: linear-gradient(to right, #38E7F8 , #0BA5D7);
     color: #fff;
+    border-radius:0;
+    height: 100%;
+    font-size: 1.6rem;
+  }
+  .disabledBtn{
+    background:linear-gradient(to right, #ddd , #999);
+    color: #f7f7f7;
     border-radius:0;
     height: 100%;
     font-size: 1.6rem;

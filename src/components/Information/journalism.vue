@@ -5,7 +5,7 @@
         <mu-icon size="30" value="search" class="navIcon" @click="goSearch"></mu-icon>
       </div>
 
-      <div id="scroll">
+      <div v-if="hasSignal" id="scroll">
         <mu-load-more @refresh="refresh" :refreshing="refreshing" :loading="loading" @load="load">
           <div v-for="(i,index) in press" @click="sendParams(i.id)">
             <div class="list" v-show="i.mod=='LESSPIC'">
@@ -13,10 +13,13 @@
               <div class="list-item">
                 <div class="title">{{i.title}}</div>
                 <div class="footer">
-                  <div class="prominent" v-show="i.label=='HOT'">推荐</div>
-                  <div class="listlabel">{{i.source}} &nbsp;<mu-icon value="visibility" size="20" color="grey600" style="vertical-align: middle"></mu-icon> {{i.hits}}</div>
-                  <div class="advertisement" v-show="i.label=='PAY'">广告</div>
-                  <div class="time">{{i.published_at}}</div>
+                  <span class="prominent" v-show="i.label=='HOT'">推荐</span>
+                  <span class="advertisement" style="margin-right: 0.3rem" v-show="i.label=='PAY'">广告</span>
+                  <span class="listlabel">{{i.source}} &nbsp;</span>
+                  <mu-icon value="visibility" size="20" color="grey600" style="vertical-align: middle"></mu-icon>
+                  <span style="margin-right: 0.3rem"> {{i.hits}}</span>
+                  <span class="advertisement" v-show="i.label=='PAY'">广告</span>
+                  <span class="time">{{i.published_at}}</span>
                 </div>
               </div>
             </div>
@@ -27,9 +30,9 @@
               </div>
               <div class="multipicFooter">
                 <div class="Grid-cell u-1of6 flex">
-                  <div class="prominent" v-show="i.label=='HOT'">推荐</div>
-                  <div class="advertisement" v-show="i.label=='PAY'">广告</div>
-                  <div class="listlabel">{{i.source}}</div>
+                  <div class="prominent mR" v-show="i.label=='HOT'">推荐</div>
+                  <div class="advertisement mR" v-show="i.label=='PAY'">广告</div>
+                  <div class="mR">{{i.source}}</div>
                   <div><mu-icon value="visibility" size="20" color="grey600" style="vertical-align: middle"></mu-icon> {{i.hits}}</div>
                 </div>
                 <div>
@@ -42,16 +45,20 @@
         </mu-load-more>
         <div class="noMore" v-show="noMore">没有更多信息了</div>
       </div>
-
+      <div v-else>
+        <nothing @again="again"></nothing>
+      </div>
     </div>
 
 </template>
 
 <script>
+  import Nothing from '@/components/Nothing'
     export default {
         name: "journalism",
         data(){
           return{
+            hasSignal:true,
             refreshing:false,
             loading:false,
             next:'/tasks/news',
@@ -94,7 +101,13 @@
         })
 
       },
+      components:{
+        'nothing':Nothing
+      },
       methods:{
+        again(){
+          this.message();
+        },
       	message(){
             this.$http({
               method: "post",
@@ -106,7 +119,12 @@
               }
             }).then(function(res) {
               this.loading=false;
+              if(res.data.code === 401) {
+                this.$layer.msg('请登录后再试！');
+                this.$router.replace('/login');
+              }
               if(res.data.code === 0) {
+                this.hasSignal=true;
                 localStorage.setItem("hotkeys",JSON.stringify(res.data.hotkeys));
                 this.next=res.data.data.next;
                 if(res.data.data.items.length>0){
@@ -138,15 +156,15 @@
                     };
                   }
                 }
-              }else if (res.data.code===401) {
-                this.$layer.msg(res.data.msg);
-                this.$router.replace("/login")
+              }else {
+                this.hasSignal=false;
               }
 
             }.bind(this))
               .catch(function(err) {
                 this.loading=false;
                 this.$layer.msg("系统异常，请稍后再试");
+                this.hasSignal=false;
               }.bind(this))
           },
         sendParams(id){
@@ -213,7 +231,7 @@
     float: right;margin-top: 10px;
   }
   .list{
-    min-height: 33vw;
+    height: 33vw;
     padding: 1rem;
     border-top: 1px solid #f5f5f5;
     background: #fff;
@@ -240,21 +258,23 @@
   .list-item .footer{
     width: 100%;
     color: #646464;
-    display: flex;
-    flex-wrap: wrap;
     position: absolute;
     bottom: 0;
     font-size: small;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:1;
   }
    .listlabel{
-    margin-right: 1rem;
   }
   .prominent{
     border: 1px solid #25CBEA;
     border-radius: 1rem;
     padding: 0 0.5rem;
     color: #09a2d6;
-    margin-right: 1rem;
+    margin-right: 0.3rem;
   }
   .advertisement{
     border: 1px solid #999;
@@ -324,5 +344,8 @@
     text-align: center;
     background: #f5f5f5;
     margin-top: -4rem;
+  }
+  .mR{
+    margin-right: 1rem;
   }
 </style>

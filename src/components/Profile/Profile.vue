@@ -1,6 +1,6 @@
 <template>
 	<div class="content">
-		<div class="scroll">
+		<div v-if="hasSignal" class="scroll">
 			<div class="personal">
 				<div class="news">
 					<router-link to="/news" v-if="newsCount" tag="div" class="badgePositionRed"></router-link>
@@ -32,11 +32,11 @@
 
 					<div class="msgBox">
 						<router-link to="wallet" tag="div" class="personalMessageLeft">
-							<mu-button flat class="personalText"><img :src="wallet" class="personalIcon">我的钱包</mu-button>
+							<mu-button flat class="personalText"><img :src="wallet" class="personalIcon"> &nbsp;我的钱包</mu-button>
 						</router-link>
 						<div class="wallet"></div>
 						<router-link to="realname" tag="div" class="personalMessageLeft">
-							<mu-button flat class="personalText"> <img :src="autonym" class="personalIcon">实名信息</mu-button>
+							<mu-button flat class="personalText"> <img :src="autonym" class="personalIcon"> &nbsp;实名信息</mu-button>
 						</router-link>
 					</div>
 				</div>
@@ -60,10 +60,14 @@
 				</mu-list>
 			</mu-paper>
 		</div>
+    <div v-else>
+      <nothing @again="again"></nothing>
+    </div>
 	</div>
 </template>
 
 <script>
+  import Nothing from '@/components/Nothing'
 	import friend from '@/assets/images/friend.png'
 	import inviter from '@/assets/images/inviter.png'
 	import gift from '@/assets/images/gift.png'
@@ -83,8 +87,12 @@
 				return Date.now();
 			}
 		},
+    components:{
+      'nothing':Nothing
+    },
 		data() {
 			return {
+        hasSignal:true,
 				data: '',
 				autonym: autonym,
 				wallet: wallet,
@@ -164,6 +172,9 @@
 			})
 		},
 		methods: {
+      again(){
+        this.info();
+      },
 			info() {
 				//个人信息
 				this.$http({
@@ -176,7 +187,14 @@
 						},
 						data: {}
 					}).then(function(res) {
+          if(res.data.code === 401) {
+            this.$layer.msg('请登录后再试！');
+            this.$router.replace('/login');
+            this.headPortrait = headImg;
+            this.headDefault = false;
+          }
 						if(res.data.code == 0) {
+              this.hasSignal=true;
 							this.data = res.data.data;
 							var nikename = res.data.data.nickname;
 							var headimg = res.data.data.avatar;
@@ -213,12 +231,9 @@
 							var srcu = localStorage.getItem("src2") || [];
 
 							if(typeof srcu == "string") {
-//								console.log(1);
 								srcu = srcu.split(",")
 								var i;
 								for(i = 0; i < srcu.length; i++) {
-//									console.log(srcu[i])
-//									console.log(this.headPortrait)
 									if(srcu[i] == this.headPortrait) {
 										break;
 									}
@@ -228,20 +243,19 @@
 									localStorage.setItem("src2", srcu);
 								}
 							} else {
-//								console.log(2);
 								srcu.push(this.headPortrait)
 								localStorage.setItem("src2", srcu);
 								console.log(localStorage.getItem("src2"));
 							}
 
 						} else {
-							this.headPortrait = headImg;
-							this.headDefault = false;
+              this.hasSignal=false;
 							this.$layer.msg(res.data.msg);
 						}
 					}.bind(this))
 					.catch(function(err) {
 						this.$layer.msg("系统异常，请稍后再试");
+            this.hasSignal=false;
 					}.bind(this));
 				//消息
 				this.$http({
@@ -372,7 +386,7 @@
 		padding: 1rem;
 		padding-bottom: 0.5rem;
 		border-radius: 0.5rem;
-		box-shadow: 0 0.3rem 0.3rem #ddd;
+		box-shadow: 0 0.3rem 0.3rem #EAF6FB;
 	}
 
 	.personalMessageLeft {
@@ -405,12 +419,12 @@
 	}
 
 	.nickName {
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     color: #323232;
 	}
 
 	.personalIcon {
-		width: 3.2rem;
+		width: 2.8rem;
 	}
 
 	.personalText {

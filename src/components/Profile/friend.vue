@@ -15,7 +15,7 @@
 			</div>
 			<div class="media friends" v-for="f in friends" v-else @click="friendData(f.uid,d=f.nickname)">
 				<div class="media-left">
-					<img class="media-object" :src="f.avatar">
+					<img class="media-object" :src="`${f.avatar+'?'+now}`">
 				</div>
 				<div class="media-body">
 					<h4 class="media-heading">
@@ -34,31 +34,28 @@
 	import noFriendImg from '@/assets/images/myfriend.png'
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
-	
+
 	export default {
 		name: "friend",
+    computed: {
+      now() {
+        return Date.now();
+      }
+    },
 		data() {
 			return {
 				masrc: back,
 				noFriend: true,
 				noFriendImg: noFriendImg,
-				friends: [{
-					avatar: '123',
-					nickname: '11',
-					uid: '123456',
-					gender: '♀',
-					//						'♀''♂'
-					color: '#FC8484',
-					bcColor: 'background: #FC8484;'
-				}, {
-					avatar: '123',
-					nickname: '11',
-					uid: '123456',
-					gender: '♂',
-					//						'♀''♂'
-					color: '#5CB3FC',
-					bcColor: 'background: #5CB3FC;'
-				}]
+				friends: [],
+        model:{
+          avatar: headImg,
+          nickname: '',
+          uid: '',
+          gender: '',
+          color: '',
+          bcColor: ''
+        }
 			}
 		},
 		mounted() {
@@ -83,6 +80,7 @@
 							"Access-Control-Allow-Origin": "*"
 						},
 					}).then(function(res) {
+					  console.log(res.data)
 						if(res.data.code != 0) {
 							this.$layer.msg(res.data.msg);
 						} else {
@@ -91,23 +89,34 @@
 							} else {
 								this.noFriend = false;
 								for(let i = 0; i < res.data.data.length; i++) {
-									if(res.data.data[i].avatar == "") {
-										res.data.data[i].avatar = headImg;
+									if(res.data.data[i].avatar != "") {
+										 this.model.avatar= res.data.data[i].avatar;
 									}
 									if(res.data.data[i].gender != "FEMALE") {
-										res.data.data[i].color = '#5CB3FC';
-										res.data.data[i].bcColor = 'background: #5CB3FC;';
-										res.data.data[i].gender = '♂';
+                    this.model.color = '#5CB3FC';
+                    this.model.bcColor = 'background: #5CB3FC;';
+                    this.model.gender = '♂';
 									} else {
-										res.data.data[i].color = '#FC8484;';
-										res.data.data[i].bcColor = 'background: #FC8484;';
-										res.data.data[i].gender = '♀';
+                    this.model.color = '#FC8484;';
+                    this.model.bcColor = 'background: #FC8484;';
+                    this.model.gender = '♀';
 									}
 									if(res.data.data[i].nickname == "") {
-										res.data.data[i].nickname = res.data.data[i].uid
-									}
+                    this.model.nickname = res.data.data[i].uid
+									}else {
+                    this.model.nickname = res.data.data[i].nickname
+                  }
+                  this.model.uid = res.data.data[i].uid;
+                  this.friends.push(this.model);
+									this.model={
+                    avatar: headImg,
+                    nickname: '',
+                    uid: '',
+                    gender: '',
+                    color: '',
+                    bcColor: ''
+                  }
 								}
-								this.friends = res.data.data;
 
 							}
 						}
@@ -155,35 +164,35 @@
 		position: fixed;
 		top: 0;
 	}
-	
+
 	.content::-webkit-scrollbar {
 		display: none;
 	}
-	
+
 	.friends {
 		background: #fff;
 		margin-top: 0;
 		border-bottom: 0.1rem solid #f5f5f5;
 		padding: 1rem;
 	}
-	
+
 	.friends:active {
 		background: #f5f5f5;
 	}
-	
+
 	.media-heading {
 		margin-top: 0.3rem;
 		margin-bottom: 5px;
 		font-size: 1.5rem;
 	}
-	
+
 	.media-left img {
 		border: 0.1rem solid #f5f5f5;
 		border-radius: 50%;
 		width: 4rem;
 		margin-right: 0.5rem;
 	}
-	
+
 	.sex {
 		color: #fff;
 		border-radius: 50%;
@@ -195,18 +204,18 @@
 		margin: 0 1rem;
 		vertical-align: top;
 	}
-	
+
 	.addressNone {
 		text-align: center;
 		padding-top: 18vh;
 		color: #999;
 	}
-	
+
 	.addressNone img {
 		width: 40%;
 		margin-bottom: 1rem;
 	}
-	
+
 	.goInvite {
 		text-align: center;
 		background: #09a2d6;
@@ -215,7 +224,7 @@
 		display: inline-block;
 		margin-top: 1.5rem;
 	}
-	
+
 	.goInvite:active {
 		background: #009ACD;
 	}

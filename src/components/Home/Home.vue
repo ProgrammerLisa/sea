@@ -1,5 +1,5 @@
 <template>
-	<div id="content">
+	<div v-if="hasSignal" id="content">
 
 		<audio style="display: none;" id="pearlAudio" src="../../assets/audio/zz.mp3"></audio>
 		<div class="landscape" >
@@ -59,10 +59,14 @@
 		</div>
 
 	</div>
+  <div v-else>
+    <nothing @again="again"></nothing>
+  </div>
 </template>
 
 <script>
 	import { Group, Cell } from 'vux'
+  import Nothing from '@/components/Nothing'
 //	import sm from '@/assets/js/shuimu.js'
 	import zhenzhuIcon from '@/assets/images/zhenzhuHome.png'
 	import nengliang from '@/assets/images/nengliang.png'
@@ -109,14 +113,15 @@
 	export default {
 		components: {
 			Group,
-			Cell
+			Cell,
+      'nothing':Nothing
 		},
 		filters: {
 
 		},
 		data() {
 			return {
-//				sm:'',
+        hasSignal:true,
 				pearlCount: 0,
 				energyCount: 0,
 				marquee: '',
@@ -169,6 +174,7 @@
 							this.$router.replace('/login');
 						}
 						if(res.data.code === 0) {
+						  this.hasSignal=true;
 							this.pearlCount = res.data.data.user.pearl;
 							this.energyCount = res.data.data.user.energy;
 							let that = this;
@@ -219,10 +225,13 @@
 							} else {
 								that.hasPearl = false;
 							}
-						}
+						}else {
+              this.hasSignal=false;
+            }
 					}.bind(this))
 					.catch(function(err) {
-						this.$layer.msg("系统异常，请稍后再试");
+            this.$layer.msg("系统异常，请稍后再试");
+            this.hasSignal=false;
 					}.bind(this));
 
 			},
@@ -310,7 +319,10 @@
 						this.imgDiv[index].isDisabled = false;
 						this.$layer.msg("系统异常，请稍后再试");
 					}.bind(this))
-			}
+			},
+      again(){
+        this.startStyle();
+      }
 
 		}
 

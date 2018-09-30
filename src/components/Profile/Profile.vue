@@ -1,5 +1,5 @@
 <template>
-	<div class="content">
+	<div class="content" id="profile">
 		<div v-if="hasSignal" class="scroll">
 			<div class="personal">
 				<div class="news">
@@ -380,6 +380,7 @@
     text-align: left;
     margin: 0 0 2rem;
     color: #fff;
+    padding: 0 0.6rem;
   }
 
 	.personalMessage {
@@ -410,19 +411,22 @@
     box-shadow: 0 0 0.5rem #EAF6FB;
     border-radius: 8px;
     background: #fff;
-    border: 1px solid #EAF6FB;
+
+    /*border: 1px solid #EAF6FB;*/
 	}
 
 	.HeadPortrait img {
-		width: 7rem;
-		height: 7rem;
-		border-radius: 50%;
-    margin-right: 1rem;
+		width: 73px;
+		height: 73px;
+    border-radius: 50%;
 	}
 
 	.HeadPortrait {
 		margin: auto 1rem;
 		position: relative;
+    border-radius: 50%;
+    margin-right: 2.5rem;
+    border: 2.5px solid #fff;
 	}
 
 	.nickName {
@@ -536,10 +540,8 @@
 	}
   .list{
     margin:0 1rem;
-    box-shadow: 0 0 0.5rem #EAF6FB;
-    border-radius: 10px;
-    background: #fff;
-    border: 1px solid #EAF6FB;
+
+    /*border: 1px solid #EAF6FB;*/
   }
 	.mylist {
 		background: #fff;

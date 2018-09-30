@@ -9,17 +9,17 @@
       <div class="contentMarginTop">
         <div class="top">
           <div class="topTitle">您的订单还在配货中，请稍后...</div>
-          <div class="topUser"><span class="topName">{{datas.name}}</span><span>{{datas.phone}}</span></div>
+          <div class="topUser"><span class="topName">{{datas.consignee}}</span><span>{{datas.phone}}</span></div>
         </div>
         <div class="address">地址：{{datas.address}}</div>
         <div class="orderCenter">
           <div class="orderContent">
             <div class="orderLeft">
-              <img :src="datas.image"/>
+              <img :src="datas.goods_img" @click="goCommodityDetails(datas.goods_id)"/>
             </div>
             <div class="orderRight">
-              <div class="orderTitle">{{datas.title}}</div>
-              <div class="orderDesc">{{datas.desc}}</div>
+              <div class="orderTitle">{{datas.goods_name}}</div>
+              <div class="orderDesc">{{datas.goods_desc}}</div>
               <div class="text-right orderNum">× {{datas.num}}</div>
             </div>
           </div>
@@ -28,7 +28,7 @@
         <div class="orderDetails">
           <div class="orderDetailsList">
             <div class="orderDetailsTitle">商品金额:</div>
-            <div class="orderDetailsText">￥ {{datas.price}} （珍珠）</div>
+            <div class="orderDetailsText">￥ {{datas.cost}} （珍珠）</div>
           </div>
           <div class="orderDetailsList">
             <div class="orderDetailsTitle">运费:</div>
@@ -38,28 +38,28 @@
         <div class="orderDetails marginBottom">
           <div class="orderDetailsList">
             <div class="orderDetailsTitle">订单号:</div>
-            <div class="orderDetailsText">{{datas.orderNumber}}</div>
+            <div class="orderDetailsText">{{datas.id}}</div>
           </div>
           <div class="orderDetailsList">
             <div class="orderDetailsTitle">物流单号:</div>
-            <div class="orderDetailsText">{{datas.logistics}}</div>
+            <div class="orderDetailsText">{{datas.express_id==""?"暂无":datas.express_id}}</div>
           </div>
           <div class="orderDetailsList">
             <div class="orderDetailsTitle">下单时间:</div>
-            <div class="orderDetailsText">{{datas.date}}</div>
+            <div class="orderDetailsText">{{datas.created_at}}</div>
           </div>
           <div class="orderDetailsList">
             <div class="orderDetailsTitle">配送方式:</div>
-            <div class="orderDetailsText">{{datas.mode}}</div>
+            <div class="orderDetailsText">{{datas.express==""?"暂无物流信息":datas.express}}</div>
           </div>
         </div>
         <div class="footer text-right">
           <div class="footerText">
-            <div>总计: <span style="color: #09a2d6">￥ {{datas.priceAll}}</span></div>
+            <div>总计: <span style="color: #09a2d6">￥ {{datas.cost}}</span></div>
             <div style="font-size: small">成交价（珍珠）</div>
           </div>
           <div>
-            <mu-button class="publicButton" flat @click="goLogistics" v-if="datas.status">查看物流</mu-button>
+            <mu-button class="publicButton" flat @click="goLogistics" v-if="datas.status=='WAITING_RECIEVE'">查看物流</mu-button>
             <mu-button class="disabledBtn" flat v-else>暂无物流信息</mu-button>
           </div>
         </div>
@@ -76,23 +76,7 @@
           return{
             masrc: back,
             id:'',
-            datas:{
-              name:'',
-              phone:'',
-              address:'',
-              image:'',
-              title:'',
-              desc:'',
-              price:'',
-              priceAll:'',
-              num:'',
-              freight:'',
-              orderNumber:'',
-              date:'',
-              mode:'',
-              logistics:'',
-              status:''
-            }
+            datas:''
           }
         },
         mounted(){
@@ -115,35 +99,10 @@
                 order_id:localStorage.getItem("order_id")
               }
             }).then(function(res) {
+              console.log(res.data)
               if(res.data.code === 0) {
-                this.datas.name=res.data.delivery_address.consignee;
-                this.datas.phone=res.data.delivery_address.phone;
-                this.datas.address=res.data.delivery_address.address;
-                this.datas.image=res.data.data.goods.image;
-                this.datas.title=res.data.data.goods.name;
-                this.datas.desc=res.data.data.goods.desc;
-                this.datas.price=res.data.data.goods.price;
-                this.datas.priceAll=res.data.data.cost;
-                this.datas.num=res.data.data.num;
-                // this.datas.freight=res.data.data.goods.image;
-                this.datas.orderNumber=res.data.data.id;
-                this.datas.date=res.data.data.created_at;
-                this.datas.status=res.data.data.status;
-                if (res.data.data.status==="WAITING_RECIEVE"){
-                  this.datas.status=true;
-                }else{
-                  this.datas.status=false;
-                }
-                if(res.data.data.express===""){
-                  this.datas.mode="暂无物流信息"
-                }else {
-                  this.datas.mode=res.data.data.express;
-                }
-                if(res.data.data.express_id===""){
-                  this.datas.logistics="暂无"
-                }else {
-                  this.datas.logistics=res.data.data.express_id;
-                }
+                this.datas=res.data.data
+
               }
             }.bind(this))
               .catch(function(err) {
@@ -231,7 +190,7 @@
     padding: 1.5rem 1rem 0;
   }
   .orderLeft{
-    width: 40%;
+    width: 100%;
     margin-right: 2rem;
   }
   .orderLeft img{

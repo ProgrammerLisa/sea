@@ -298,7 +298,7 @@
     width: 50%;
   }
   .countStyle{
-    line-height: 30px;
+    line-height: 25px;
   }
   .leftCount{
     margin-right: 1rem;

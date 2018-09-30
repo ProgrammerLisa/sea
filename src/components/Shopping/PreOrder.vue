@@ -310,6 +310,9 @@
     display: flex;
     flex-direction:row-reverse
   }
+  .countStyle{
+    line-height: 25px;
+  }
   .leftCount{
     border-radius: 50%;
     color: #666;

@@ -253,6 +253,9 @@
 					}.bind(this))
 			},
 			getPearl(index, id) {
+        let pearlAudio = document.getElementById('pearlAudio');
+        pearlAudio.pause();
+        pearlAudio.currentTime=0;
 				this.$http({
 						method: "post",
 						url: "/steal",
@@ -268,7 +271,6 @@
 					}).then(function(res) {
 						if(res.data.code === 0) {
 
-							let pearlAudio = document.getElementById('pearlAudio');
 							pearlAudio.play();
 							this.imgDiv[index].isDisabled = true;
 							this.pearlCount = res.data.user_pearl;

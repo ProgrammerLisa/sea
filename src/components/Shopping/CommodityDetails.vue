@@ -21,7 +21,7 @@
 		<div class="commodityPrice">
 			<span class="nowPrice">当前价：<span class="priceNumber">{{commodityPrice}}</span></span>
       <span class="commodityCount">已兑换：{{commodityNumber}} 件</span>
-			<div>( 成交价：钻石量 )</div>
+			<div>( 成交价：珍珠数 )</div>
 		</div>
     <div>
       <h4 class="title">详 情</h4>
@@ -78,14 +78,14 @@
           <div class="sheetBody flexContainer countList">
             <div class="countStyle text-left countHalf sheetTitle">购买数量</div>
             <div class="flexContainer text-right countHalf" style="display: flex;flex-direction:row-reverse">
-              <span class="myIcons">
-                <mu-button fab small color="teal" class="rightCount" @click="countAdd(commodityNumber)">
+              <span class="myIcons-reduce">
+                <mu-button fab small class="rightCount" @click="countAdd(commodityNumber)">
                   <mu-icon value="add" ></mu-icon>
                 </mu-button>
               </span>
               <div class="countStyle">{{count}}</div>
-              <span class="myIcons">
-                <mu-button fab small color="teal" class="leftCount" @click="countRemove">
+              <span class="myIcons-add">
+                <mu-button fab small class="leftCount" @click="countRemove">
                   <mu-icon value="remove" ></mu-icon>
                 </mu-button>
               </span>
@@ -298,11 +298,16 @@
     width: 50%;
   }
   .countStyle{
-    line-height: 40px;
+    line-height: 30px;
   }
   .leftCount{
     margin-right: 1rem;
-    background: linear-gradient(to right, #0BA5D7 , #38E7F8);
+    /*background: linear-gradient(to right, #0BA5D7 , #38E7F8);*/
+    border-radius: 50%;
+    color: #666;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #999;
   }
   .rightCount{
     margin-left: 1rem;

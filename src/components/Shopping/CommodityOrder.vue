@@ -110,7 +110,7 @@
             <div class="orderCenter">
               <div class="orderContent" @click="goDetail(i.id)">
                 <div class="orderLeft">
-                  <img :src="i.goods_image"/>
+                  <img :src="i.goods_img"/>
                 </div>
                 <div class="orderRight">
                   <div class="orderTitle">{{i.goods_name}}</div>
@@ -158,7 +158,7 @@
 						<div class="orderCenter">
 							<div class="orderContent" @click="goDetail(i.id)">
 								<div class="orderLeft">
-                  <img :src="i.goods_image"/>
+                  <img :src="i.goods_img"/>
 								</div>
 								<div class="orderRight">
 									<div class="orderTitle">{{i.goods_name}}</div>
@@ -194,7 +194,7 @@
 						<div class="orderCenter">
 							<div class="orderContent" @click="goDetail(i.id)">
 								<div class="orderLeft">
-                  <img :src="i.goods_image"/>
+                  <img :src="i.goods_img"/>
 								</div>
 								<div class="orderRight">
                   <div class="orderTitle">{{i.goods_name}}</div>
@@ -301,7 +301,6 @@
             "Access-Control-Allow-Origin": "*"
           }
         }).then(function(res) {
-          console.log(res.data)
           setTimeout(()=>{
             this.refreshingAll=false;
             this.loadingAll = false;
@@ -772,8 +771,8 @@
     border-bottom: 1px solid #f5f5f5;
   }
   .orderLeft{
-    width: 40%;
-    margin-right: 2rem;
+    width: 100%;
+    margin-right: 1.5rem;
   }
   .orderLeft img{
      width: 100%;

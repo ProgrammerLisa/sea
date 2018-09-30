@@ -7,9 +7,9 @@
       <span class="navTitleText">{{datas.label}}</span>
     </mu-appbar>
     <div class="contentMarginTop"></div>
-    <mu-carousel hide-controls>
+    <mu-carousel hide-controls class="myCarousel">
       <mu-carousel-item v-for="(i,index) in datas.image" :key="index">
-        <img :src="i.url">
+        <img :src="i">
       </mu-carousel-item>
     </mu-carousel>
     <mu-card-title :title="datas.name" :sub-title="datas.label"></mu-card-title>

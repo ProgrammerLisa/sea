@@ -44,12 +44,12 @@
         <div class="sheetContainer">
           <div class="flexContainer sheetHead">
             <div class="sheetGoodsImg">
-              <!--<img :src="commodityImg" />-->
-              <mu-carousel transition="fade">
-                <mu-carousel-item v-for="(i,index) in commodityImg" :key="index">
-                  <img :src="i">
-                </mu-carousel-item>
-              </mu-carousel>
+              <img :src="commodityImg[0]" />
+              <!--<mu-carousel transition="fade">-->
+                <!--<mu-carousel-item v-for="(i,index) in commodityImg" :key="index">-->
+                  <!--<img :src="i">-->
+                <!--</mu-carousel-item>-->
+              <!--</mu-carousel>-->
             </div>
             <div class="sheetGoodsStyle">
               <div class="marginBottom">珍珠：<span class="priceNumber">{{commodityPrice*count}}</span></div>
@@ -78,13 +78,17 @@
           <div class="sheetBody flexContainer countList">
             <div class="countStyle text-left countHalf sheetTitle">购买数量</div>
             <div class="flexContainer text-right countHalf" style="display: flex;flex-direction:row-reverse">
-              <mu-button fab small color="teal" class="rightCount" @click="countAdd(commodityNumber)">
-                <mu-icon value="add" ></mu-icon>
-              </mu-button>
+              <span class="myIcons">
+                <mu-button fab small color="teal" class="rightCount" @click="countAdd(commodityNumber)">
+                  <mu-icon value="add" ></mu-icon>
+                </mu-button>
+              </span>
               <div class="countStyle">{{count}}</div>
-              <mu-button fab small color="teal" class="leftCount" @click="countRemove">
-                <mu-icon value="remove" ></mu-icon>
-              </mu-button>
+              <span class="myIcons">
+                <mu-button fab small color="teal" class="leftCount" @click="countRemove">
+                  <mu-icon value="remove" ></mu-icon>
+                </mu-button>
+              </span>
             </div>
           </div>
           <div class="sheetBody text-center">
@@ -356,7 +360,6 @@
 
 	.commodityPrice {
 		padding: 1rem;
-		border-bottom: 0.5rem solid #f5f5f5;
     background: #fff;
 	}
 	.priceNumber {

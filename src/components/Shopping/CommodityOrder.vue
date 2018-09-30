@@ -34,11 +34,11 @@
                 <div class="orderCenter">
                   <div class="orderContent" @click="goDetail(i.id)">
                     <div class="orderLeft">
-                      <img :src="i.goods.image"/>
+                      <img :src="i.goods_img"/>
                     </div>
                     <div class="orderRight">
-                      <div class="orderTitle">{{i.goods.name}}</div>
-                      <div class="orderDesc">{{i.goods.desc}}</div>
+                      <div class="orderTitle">{{i.goods_name}}</div>
+                      <div class="orderDesc">{{i.goods_desc}}</div>
                     </div>
                   </div>
                   <div class="orderPrice text-right">
@@ -110,11 +110,11 @@
             <div class="orderCenter">
               <div class="orderContent" @click="goDetail(i.id)">
                 <div class="orderLeft">
-                  <img :src="i.goods.image"/>
+                  <img :src="i.goods_image"/>
                 </div>
                 <div class="orderRight">
-                  <div class="orderTitle">{{i.goods.name}}</div>
-                  <div class="orderDesc">{{i.goods.desc}}</div>
+                  <div class="orderTitle">{{i.goods_name}}</div>
+                  <div class="orderDesc">{{i.goods_desc}}</div>
                 </div>
               </div>
               <div class="orderPrice text-right">
@@ -158,11 +158,11 @@
 						<div class="orderCenter">
 							<div class="orderContent" @click="goDetail(i.id)">
 								<div class="orderLeft">
-                  <img :src="i.goods.image"/>
+                  <img :src="i.goods_image"/>
 								</div>
 								<div class="orderRight">
-									<div class="orderTitle">{{i.goods.name}}</div>
-									<div class="orderDesc">{{i.goods.desc}}</div>
+									<div class="orderTitle">{{i.goods_name}}</div>
+									<div class="orderDesc">{{i.goods_desc}}</div>
 								</div>
 							</div>
 							<div class="orderPrice text-right">
@@ -194,11 +194,11 @@
 						<div class="orderCenter">
 							<div class="orderContent" @click="goDetail(i.id)">
 								<div class="orderLeft">
-                  <img :src="i.goods.image"/>
+                  <img :src="i.goods_image"/>
 								</div>
 								<div class="orderRight">
-                  <div class="orderTitle">{{i.goods.name}}</div>
-                  <div class="orderDesc">{{i.goods.desc}}</div>
+                  <div class="orderTitle">{{i.goods_name}}</div>
+                  <div class="orderDesc">{{i.goods_desc}}</div>
 								</div>
 							</div>
 							<div class="orderPrice text-right">
@@ -301,6 +301,7 @@
             "Access-Control-Allow-Origin": "*"
           }
         }).then(function(res) {
+          console.log(res.data)
           setTimeout(()=>{
             this.refreshingAll=false;
             this.loadingAll = false;

@@ -6,7 +6,7 @@
 					<router-link to="/news" v-if="newsCount" tag="div" class="badgePositionRed"></router-link>
 					<router-link to="/news" v-else tag="div" class="badgePosition"></router-link>
 				</div>
-				<div class="container personalMessage">
+				<div class="personalMessage">
 					<div @click="goCompile" v-if="headDefault" class="flex">
 						<div class="HeadPortrait">
 							<img :src="`${headPortrait+'?'+now}`" v-if="haveHeadImg" />
@@ -32,33 +32,35 @@
 
 					<div class="msgBox">
 						<router-link to="wallet" tag="div" class="personalMessageLeft">
-							<mu-button flat class="personalText"><img :src="wallet" class="personalIcon"> &nbsp;我的钱包</mu-button>
+              <img :src="wallet" class="personalIcon"><div flat class="personalText"> 我的钱包</div>
 						</router-link>
 						<div class="wallet"></div>
 						<router-link to="realname" tag="div" class="personalMessageLeft">
-							<mu-button flat class="personalText"> <img :src="autonym" class="personalIcon"> &nbsp;实名信息</mu-button>
+              <img :src="autonym" class="personalIcon"><div flat class="personalText">实名信息</div>
 						</router-link>
 					</div>
 				</div>
 
 			</div>
 
-			<mu-paper :z-depth="1" class="demo-list-wrap" style="padding-top: 1rem">
-				<mu-list>
-					<mu-list-item button v-for="(m,index) in Personal" class="mylist" :to="m.PersonalHref" :key="index">
-						<mu-list-item-action>
-							<img class="images" :src="m.imfLeft">
-						</mu-list-item-action>
-						<mu-list-item-title style="margin-left: 1.2rem">{{m.title}}</mu-list-item-title>
-						<mu-list-item-action>
-              <div class="images">
-                <img src="../../assets/images/more.png" />
-              </div>
-						</mu-list-item-action>
-					</mu-list-item>
+			<div class="list">
+        <mu-paper :z-depth="1" class="demo-list-wrap ">
+          <mu-list>
+            <mu-list-item button v-for="(m,index) in Personal" class="mylist" :to="m.PersonalHref" :key="index">
+              <mu-list-item-action>
+                <img class="images" :src="m.imfLeft">
+              </mu-list-item-action>
+              <mu-list-item-title style="margin-left: 1.2rem">{{m.title}}</mu-list-item-title>
+              <mu-list-item-action>
+                <div class="images">
+                  <img src="../../assets/images/more.png" />
+                </div>
+              </mu-list-item-action>
+            </mu-list-item>
 
-				</mu-list>
-			</mu-paper>
+          </mu-list>
+        </mu-paper>
+      </div>
 		</div>
     <div v-else>
       <nothing @again="again"></nothing>
@@ -348,10 +350,10 @@
 	}
 
 	.personal {
-		background: url("../../assets/images/blue.png") no-repeat #fff;
+		background: url("../../assets/images/wodebg.png") no-repeat #f5f5f5;
 		background-size: 100% 75%;
 		text-align: right;
-		padding-bottom: 0.5rem;
+		padding-bottom: 1rem;
 	}
 
 	.news {
@@ -376,40 +378,45 @@
   .flex{
     display: flex;
     text-align: left;
-    margin: 1rem 0;
+    margin: 0 0 2rem;
+    color: #fff;
   }
 
 	.personalMessage {
-		width: 90vw;
-		background: #fff;
-		margin: 0 5vw;
-		padding: 1rem;
-		padding-bottom: 0.5rem;
+		width:100%;
+		background: transparent;
 		border-radius: 0.5rem;
-		box-shadow: 0 0.3rem 0.3rem #EAF6FB;
+    padding: 0 1rem;
 	}
 
 	.personalMessageLeft {
-		padding: 0;
 		text-align: center;
 		width: 50%;
+    color: #323232;
+    padding: 1rem 0;
 	}
-
+  .personalMessageLeft:active{
+    background: #E5E5E5;
+  }
 	.wallet {
 		width: 0.1rem;
-		height: 1.6rem;
+		height: 3rem;
 		background: #ddd;
-		margin-top: 1.2rem;
+		margin-top: 2rem;
 	}
 
 	.msgBox {
 		display: flex;
+    box-shadow: 0 0 0.5rem #EAF6FB;
+    border-radius: 8px;
+    background: #fff;
+    border: 1px solid #EAF6FB;
 	}
 
 	.HeadPortrait img {
-		width: 6rem;
-		height: 6rem;
-		border-radius: 8px;
+		width: 7rem;
+		height: 7rem;
+		border-radius: 50%;
     margin-right: 1rem;
 	}
 
@@ -420,7 +427,6 @@
 
 	.nickName {
     font-size: 1.7rem;
-    color: #323232;
 	}
 
 	.personalIcon {
@@ -510,8 +516,9 @@
     border-radius: 50%;
   }
 	.level {
-    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
-		color: #fff;
+    /*background: linear-gradient(to right, #38E7F8 , #0BA5D7);*/
+		color: #09a2d6;
+    background: #fff;
 		font-size: 1rem;
 		border-radius: 10px;
 		padding: 0 0.5rem;
@@ -527,7 +534,13 @@
 	.mu-divider {
 		background-color: #f5f5f5;
 	}
-
+  .list{
+    margin:0 1rem;
+    box-shadow: 0 0 0.5rem #EAF6FB;
+    border-radius: 10px;
+    background: #fff;
+    border: 1px solid #EAF6FB;
+  }
 	.mylist {
 		background: #fff;
 		border-bottom: 1px solid #f5f5f5;

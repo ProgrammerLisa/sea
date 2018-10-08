@@ -18,7 +18,7 @@
     </div>
     <mu-carousel hide-controls>
       <mu-carousel-item v-for="(p,index) in display_pictures" :key="index">
-        <img :src="p.url">
+        <img :src="p">
       </mu-carousel-item>
     </mu-carousel>
     <!--大病医疗-->
@@ -27,8 +27,8 @@
       <div class="goodUl">
         <div v-for="(i,index) in DISEASE" class="goodList">
           <div @click="goDonation(i.id)">
-            <img :src="i.image" style="width: 100%;">
-            <h5>{{i.name}}</h5>
+            <img :src="i.image" style="width: 100%;height: 20vw;">
+            <h6>{{i.name}}</h6>
             <!--<div class="fontStyle">{{flex.pitches}}</div>-->
             <p class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</p>
           </div>
@@ -41,8 +41,8 @@
       <div class="goodUl">
         <div v-for="(i,index) in EDUCATION" class="goodList">
           <div @click="goDonation(i.id)">
-            <img :src="i.image" style="width: 100%;">
-            <h5>{{i.name}}</h5>
+            <img :src="i.image" style="width: 100%;height: 20vw;">
+            <h6>{{i.name}}</h6>
             <!--<div class="fontStyle">{{flex.pitches}}</div>-->
             <p class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</p>
           </div>
@@ -55,8 +55,8 @@
       <div class="goodUl">
         <div v-for="(i,index) in ENVIRONMENT" class="goodList">
           <div @click="goDonation(i.id)">
-            <img :src="i.image" style="width: 100%;">
-            <h5>{{i.name}}</h5>
+            <img :src="i.image" style="width: 100%;height: 20vw;">
+            <h6>{{i.name}}</h6>
             <!--<div class="fontStyle">{{flex.pitches}}</div>-->
             <p class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</p>
           </div>

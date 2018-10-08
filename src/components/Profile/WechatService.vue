@@ -14,6 +14,7 @@
 			<h4 class="serviceTitle">客服时间</h4>
 			<p class="serviceTime">工作日 9:00-21:00</p>
 			<p class="servicePrompt">如有问题请加微信联系客服</p>
+			<!--<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=375812877&site=qq&menu=yes"><img style="width: 90px;" border="0" src="http://wpa.qq.com/pa?p=2:1028253651:51" alt="点击这里给我发消息哦" title="点击这里给我发消息哦"/></a>-->
 			<img :src="wechatservice" />
 		</div>
 	</div>

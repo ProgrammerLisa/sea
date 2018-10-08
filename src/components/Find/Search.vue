@@ -9,7 +9,7 @@
       <div class="contentMarginTop">
         <div v-if="hasData">
           <div v-for="(i,index) in datas" class="flex">
-            <div class="flex_left"><img :src="i.image.url" @click="goDonation(i.id)"/></div>
+            <div class="flex_left"><img :src="i.image" @click="goDonation(i.id)"/></div>
             <div class="flex_Right">
               <div @click="goDonation(i.id)">{{i.name}}</div>
               <div @click="goDonation(i.id)">完成度：{{i.completed_percent}}</div>

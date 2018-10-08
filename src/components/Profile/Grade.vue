@@ -61,7 +61,7 @@
               <mu-list-item-sub-title class="dateText">日常任务</mu-list-item-sub-title>
             </mu-list-item-content>
             <mu-list-item-action>
-              <mu-list-item-title class="count"><span class="count-text">5 能量</span> / 无上限 / 日均</mu-list-item-title>
+              <mu-list-item-title class="count"><span class="count-text">1 能量</span> / 无上限 / 日均</mu-list-item-title>
             </mu-list-item-action>
           </mu-list-item>
           <mu-list-item class="mu-list-item">
@@ -70,7 +70,7 @@
               <mu-list-item-sub-title class="dateText">额外任务</mu-list-item-sub-title>
             </mu-list-item-content>
             <mu-list-item-action>
-              <mu-list-item-title class="count"><span class="count-text">5 能量</span> / 10 次上限 / 天</mu-list-item-title>
+              <mu-list-item-title class="count"><span class="count-text">20 能量</span> / 10 次上限 / 天</mu-list-item-title>
             </mu-list-item-action>
           </mu-list-item>
           <mu-list-item class="mu-list-item">
@@ -88,7 +88,7 @@
               <mu-list-item-sub-title class="dateText">日常任务</mu-list-item-sub-title>
             </mu-list-item-content>
             <mu-list-item-action>
-              <mu-list-item-title class="count"><span class="count-text">5 能量</span> / 5 次上限 / 天</mu-list-item-title>
+              <mu-list-item-title class="count"><span class="count-text">2 能量</span> / 5 次上限 / 天</mu-list-item-title>
             </mu-list-item-action>
           </mu-list-item>
           <mu-divider class="mu-divider" shallow-inset></mu-divider>

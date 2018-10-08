@@ -385,6 +385,11 @@
 		border: none;
 		color: #fff;
 	}
+	
+	.divCount {
+		margin-top: 0.5rem;
+		font-size: smaller
+	}
 
 	.farmBack {
 		width: 100%;

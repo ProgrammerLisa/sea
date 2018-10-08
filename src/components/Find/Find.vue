@@ -22,7 +22,7 @@
             <div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>
             <div class="thoseBoxCenter">
               <div style="color: #333">邀请10名好友</div>
-              <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+1</span></div>
+              <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+20</span></div>
             </div>
             <div class="thoseBoxRight">
               <mu-button flat class="loginBtn goThose" @click="signInHy">去邀请</mu-button>
@@ -32,7 +32,7 @@
             <div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>
             <div class="thoseBoxCenter">
               <div style="color: #333">公益慈善</div>
-              <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+1</span></div>
+              <div style="font-size: small;margin-top: 5px">可获得相应捐赠数 <span  style="color: #09a2d6"></span></div>
             </div>
             <div class="thoseBoxRight">
               <mu-button flat class="publicButton" to="/publicgood" v-if="signto">已完成</mu-button>
@@ -43,7 +43,7 @@
             <div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>
             <div class="thoseBoxCenter">
               <div style="color: #333">新闻资讯</div>
-              <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+1</span></div>
+              <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+2</span></div>
             </div>
             <div class="thoseBoxRight">
               <mu-button flat class="publicButton" to="/journalism" v-if="signthree">已完成</mu-button>

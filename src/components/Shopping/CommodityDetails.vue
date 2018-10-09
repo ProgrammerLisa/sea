@@ -255,13 +255,18 @@
   }
   .sheetBody{
     margin-top: 1rem;
+    padding:0 1rem ;
+  }
+  .sheetBody:last-child{
+    padding: 0;
   }
   .sheetContainer{
-    padding: 1rem;
+    padding: 1rem 0 0;
     font-size: 1.6rem;
   }
   .flexContainer{
     display: flex;
+    padding: 0 1rem;
   }
   .sheetTitle{
     font-size: 1.7rem;
@@ -291,14 +296,15 @@
     padding: 1rem 0;
   }
   .countList{
-    padding-bottom: 4rem;
+    padding-bottom: 1rem;
     border-bottom: 1px solid #f5f5f5;
+    margin-bottom: 4rem;
   }
   .countHalf{
     width: 50%;
   }
   .countStyle{
-    line-height: 25px;
+    line-height: 20px;
   }
   .leftCount{
     margin-right: 1rem;
@@ -316,8 +322,8 @@
   .publicButton{
     background: linear-gradient(to right, #38E7F8 , #0BA5D7);
     color: #fff;
-    border-radius: 3px;
-    width: 90%;
+    width: 100%;
+    border-radius: 0;
   }
   .tips{
     width: 100%;
@@ -398,7 +404,7 @@
 	.exchange {
 		border-top: 0.1rem solid #f5f5f5;
 		text-align: center;
-		padding: 1rem 0;
+		padding: 0;
 		position: fixed;
 		bottom: 0;
 		width: 100%;

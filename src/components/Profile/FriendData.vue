@@ -351,13 +351,12 @@
   .buttonContainer{
     position: fixed;bottom: 0;
     background: #f5f5f5;
-    padding: 0.5rem 1rem;
     width: 100%;
   }
   .publicButton{
     background: linear-gradient(to right, #38E7F8 , #0BA5D7);
     color: #fff;
-    border-radius: 3px;
     width: 100%;
+    border-radius: 0;
   }
 </style>

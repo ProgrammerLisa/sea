@@ -311,7 +311,7 @@
     flex-direction:row-reverse
   }
   .countStyle{
-    line-height: 25px;
+    line-height:35px;
   }
   .leftCount{
     border-radius: 50%;
@@ -345,8 +345,7 @@
   }
   .exchangeBtn{
     border: none;
-    width: 90%;
-    margin:1rem 5%;
+    width:100%;
     font-size: 1.6rem;
   }
   .sum{
@@ -354,6 +353,7 @@
   }
   .publicButton{
     background: linear-gradient(to right, #38E7F8 , #0BA5D7);color: white;
+    border-radius: 0;
   }
   .loginOutBtn {
     border-top: 1px solid #ddd;

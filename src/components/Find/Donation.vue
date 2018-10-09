@@ -130,6 +130,7 @@
     position: fixed;
     top: 0;
     background: #fff;
+    padding-bottom: 6rem;
   }
   .content::-webkit-scrollbar {
     display: none;
@@ -159,7 +160,8 @@
   .newAddress {
     background: #f5f5f5;
     width: 100%;
-    padding: 1rem;
+    position: fixed;
+    bottom: 0;
     text-align: center;
     z-index: 999;
   }
@@ -172,7 +174,7 @@
   .publicButton{
     background: linear-gradient(to right, #38E7F8 , #0BA5D7);
     color: #fff;
-    border-radius: 3px;
+    border-radius: 0;
     width: 100%;
     font-size: 1.6rem;
     letter-spacing: 1px;

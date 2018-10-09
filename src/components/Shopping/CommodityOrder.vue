@@ -16,13 +16,11 @@
 
       <div class="demo-text" v-if="active === 0">
          <div v-if="AllOrderNone" class="OrderNone">
-            <img :src="OrderNoneImg" />
-            <p>还没有订单哦</p>
-            <mu-button flat class="publicButton" @click="openSimpleDialog">去逛逛</mu-button>
-            <mu-dialog  width="360" :open.sync="openSimple" style="text-align: center">
-              <div class="publicDialogTitle">商场即将上线</div>
-              <mu-button slot="actions" style="width: 100%;border-top: 1px solid #eee" flat @click="closeSimpleDialog">知道了</mu-button>
-            </mu-dialog>
+           <mu-load-more @refresh="refreshAll" :refreshing="refreshingAll">
+             <img :src="OrderNoneImg" />
+             <p>还没有订单哦</p>
+             <mu-button flat class="publicButton" @click="openSimpleDialog">去逛逛</mu-button>
+           </mu-load-more>
           </div>
           <div v-else class="orderContainer" :style="height">
             <mu-load-more @refresh="refreshAll" :refreshing="refreshingAll" :loading="loadingAll" @load="loadAll">
@@ -96,9 +94,11 @@
 
 			<div class="demo-text" v-if="active === 1">
 				<div v-if="WaitingPayNone" class="OrderNone">
-					<img :src="OrderNoneImg" />
-					<p>还没有订单哦</p>
-					<mu-button flat class="publicButton" @click="openSimpleDialog">去逛逛</mu-button>
+          <mu-load-more @refresh="refreshWaitingPay" :refreshing="refreshingWaitingPay">
+            <img :src="OrderNoneImg" />
+            <p>还没有订单哦</p>
+            <mu-button flat class="publicButton" @click="openSimpleDialog">去逛逛</mu-button>
+          </mu-load-more>
 				</div>
 
         <div v-else class="orderContainer" :style="height">
@@ -122,7 +122,7 @@
               </div>
             </div>
             <div class="orderBottom text-right">
-              <div class="status">等待付款</div>
+              <div class="status">等待兑换</div>
               <mu-button class="cancellationOrder" flat @click="openNoPayAlert(i.id)"> 取消订单 </mu-button>
               <mu-button class="payBtn" flat  @click="submitPayOrder(i.id)"> 兑换 </mu-button>
             </div>
@@ -144,9 +144,11 @@
 
 			<div class="demo-text" v-if="active === 2">
 				<div v-if="WaitingDeliverNone" class="OrderNone">
-					<img :src="OrderNoneImg" />
-					<p>还没有订单哦</p>
-					<mu-button flat class="publicButton" @click="openSimpleDialog">去逛逛</mu-button>
+          <mu-load-more @refresh="refreshWaitingDeliver" :refreshing="refreshingWaitingDeliver">
+            <img :src="OrderNoneImg" />
+            <p>还没有订单哦</p>
+            <mu-button flat class="publicButton" @click="openSimpleDialog">去逛逛</mu-button>
+          </mu-load-more>
 				</div>
 
 				<div v-else class="orderContainer" :style="height">
@@ -180,9 +182,11 @@
 
 			<div class="demo-text" v-if="active === 3">
 				<div v-if="WaitingRecieveNone" class="OrderNone">
-					<img :src="OrderNoneImg" />
-					<p>还没有订单哦</p>
-					<mu-button flat class="publicButton" @click="openSimpleDialog">去逛逛</mu-button>
+          <mu-load-more @refresh="refreshWaitingRecieve" :refreshing="refreshingWaitingRecieve">
+            <img :src="OrderNoneImg" />
+            <p>还没有订单哦</p>
+            <mu-button flat class="publicButton" @click="openSimpleDialog">去逛逛</mu-button>
+          </mu-load-more>
 				</div>
 
 				<div v-else class="orderContainer" :style="height">
@@ -714,11 +718,11 @@
 
   .OrderNone{
     text-align: center;
-    padding-top: 18vh;
     color: #999;
   }
   .OrderNone img {
     width: 40%;
+    margin-top: 18vh;
     margin-bottom: 1rem;
   }
 

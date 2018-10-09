@@ -8,21 +8,28 @@
       <div v-if="hasSignal" id="scroll">
         <mu-load-more @refresh="refresh" :refreshing="refreshing" :loading="loading" @load="load">
           <div v-for="(i,index) in press" @click="sendParams(i.id)">
-            <div class="list" v-show="i.mod=='LESSPIC'">
-              <img :src="i.image" class="image"/>
-              <div class="list-item">
-                <div class="title">{{i.title}}</div>
-                <div class="footer">
-                  <span class="prominent" v-show="i.label=='HOT'">推荐</span>
-                  <span class="advertisement" style="margin-right: 0.3rem" v-show="i.label=='PAY'">广告</span>
-                  <span class="listlabel">{{i.source}} &nbsp;</span>
-                  <mu-icon value="visibility" size="20" color="grey600" style="vertical-align: middle"></mu-icon>
-                  <span style="margin-right: 0.3rem"> {{i.hits}}</span>
-                  <span class="advertisement" v-show="i.label=='PAY'">广告</span>
-                  <span class="time">{{i.published_at}}</span>
+            <div v-show="i.mod=='LESSPIC'" class="ul">
+              <div class="list">
+                <div>
+                  <img :src="i.image" class="image" style="width:35vw;"/>
                 </div>
+                <div class="list-item">
+                  <div class="title">{{i.title}}</div>
+                  <div class="footer">
+                    <div>
+                      <span class="time">{{i.published_at}}</span>
+                      <span class="listlabel">{{i.source}}</span>
+                    </div>
+
+                    <div> {{i.hits}}人阅读</div>
+                  </div>
+                </div>
+
               </div>
+              <div class="prominentContainer"><span class="prominent" v-show="i.label=='PAY'" style="">广告</span></div>
+              <div class="prominentContainer"> <span class="prominent" v-show="i.label=='HOT'">推荐</span></div>
             </div>
+
             <div class="multipic" v-show="i.mod=='MULTIPIC'">
               <div class="multipicTitle">{{i.title}}</div>
               <div class="multipicImages">
@@ -32,11 +39,11 @@
                 <div class="Grid-cell u-1of6 flex">
                   <div class="prominent mR" v-show="i.label=='HOT'">推荐</div>
                   <div class="advertisement mR" v-show="i.label=='PAY'">广告</div>
-                  <div class="mR">{{i.source}}</div>
-                  <div><mu-icon value="visibility" size="20" color="grey600" style="vertical-align: middle"></mu-icon> {{i.hits}}</div>
+                  <div class="mR">{{i.published_at}}</div>
+                  <div>{{i.source}}</div>
                 </div>
                 <div>
-                  <div>{{i.published_at}}</div>
+                  <div>{{i.hits}}人阅读</div>
                 </div>
 
               </div>
@@ -230,11 +237,13 @@
   .navIcon{
     float: right;margin-top: 10px;
   }
+  .ul{
+    background: #fff;
+  }
   .list{
     height: 33vw;
-    padding: 1rem;
+    padding:1.1rem 1rem;
     border-top: 1px solid #f5f5f5;
-    background: #fff;
     display: flex;
   }
 
@@ -245,6 +254,7 @@
   /*}*/
   .list .list-item{
     position: relative;
+    width: 100%;
   }
   .list-item .title{
     color: #323232;
@@ -257,24 +267,25 @@
   }
   .list-item .footer{
     width: 100%;
-    color: #646464;
+    color: #999999;
+    display: flex;
+    justify-content: space-between;
     position: absolute;
     bottom: 0;
     font-size: small;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display:-webkit-box;
-    -webkit-box-orient:vertical;
-    -webkit-line-clamp:1;
   }
    .listlabel{
   }
   .prominent{
     border: 1px solid #25CBEA;
-    border-radius: 1rem;
-    padding: 0 0.5rem;
+    border-radius: 3px;
+    padding: 0 0.3rem;
     color: #09a2d6;
     margin-right: 0.3rem;
+    margin-left: 1rem;
+    font-size: small;
+    margin-bottom: 1rem;
+    display: inline-block;
   }
   .advertisement{
     border: 1px solid #999;
@@ -287,6 +298,7 @@
      padding: 1rem;
      border-top: 1px solid #f5f5f5;
      background: #fff;
+    color: #999999;
    }
   .multipicTitle{
     color: #323232;
@@ -305,14 +317,16 @@
   .multipicImages img{
     width: 30%;
     max-height: 26vw;
+    border-radius: 5px;
   }
   .multipicFooter{
     display: flex;
     justify-content: space-between;
     margin-top: 1rem;
+    font-size: small;
   }
   .image{
-    width:35vw;
+    border-radius: 5px;
     height: 100%;
     margin-right: 1rem;
   }

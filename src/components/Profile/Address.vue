@@ -13,7 +13,7 @@
 					<p>一个地址都没有哦</p>
 				</div>
         <div style="margin-bottom: 6rem" v-else >
-          <table class="table address" v-for="(a,index) in myAddress">
+          <table class="table addressed" v-for="(a,index) in myAddress">
             <tr>
               <td class="text-left">收货人</td>
               <td class="text-right">{{a.msg.consignee}}</td>
@@ -32,10 +32,10 @@
                 <mu-radio @click="choose(index,a.msg.addr_id)" v-model="form.radio" textColor="#555" :value="a.msg.addr_id" :label="a.label"></mu-radio>
               </td>
               <td class="col-xs-7 text-right">
-                <div class="del" @click="editor(index)">
+                <div class="del" @click="editor(index,a.msg.addr_id)">
                   <img src="../../assets/images/editor.png" /> 编辑
                 </div>
-                <div class="del" @click="openAlertDialog(index)">
+                <div class="del" @click="openAlertDialog(index,a.msg.addr_id)">
                   <img src="../../assets/images/del.png" /> 删除
                 </div>
 
@@ -70,7 +70,7 @@
 	import backs from '@/assets/images/backs.png'
 
 	export default {
-		name: "address",
+		name: "addressed",
 		inject: ['reload'],
 		data() {
 			return {
@@ -80,6 +80,7 @@
 				myAddress: [],
 				openAlert: false,
 				item: '',
+        id:'',
 				form: {
 					radio: ''
 				},
@@ -112,7 +113,6 @@
 						},
 						data: {}
 					}).then(function(res) {
-					  console.log(res.data)
 						if(res.data.code === 0) {
 							if(res.data.data.length===0) {
 								this.noAddress = true
@@ -144,9 +144,10 @@
 						this.$layer.msg("系统异常，请稍后再试");
 					}.bind(this))
 			},
-			openAlertDialog(index) {
+			openAlertDialog(index,id) {
 				this.openAlert = true;
 				this.item = index;
+        this.id = id;
 				$(".mu-flat-button").css({
 					height: "48px"
 				})
@@ -201,9 +202,9 @@
 
 				})
 			},
-			del() {
+			del(index,id) {
 				let that = this;
-
+        that.closeAlertDialog();
 				that.$http({
 						method: "post",
 						url: "/users/delivery_address/delete",
@@ -213,12 +214,11 @@
 							"Access-Control-Allow-Origin": "*"
 						},
 						data: {
-							id: that.myAddress[that.item].id
-						}
+              addr_id: this.id
+            }
 					}).then(function(res) {
 						if(res.data.code == 0) {
 							that.$layer.msg(res.data.msg);
-							that.closeAlertDialog();
 							that.reload();
 						} else {
 							that.$layer.msg(res.data.msg);
@@ -273,16 +273,16 @@
 		height: 2.5rem;
 	}
 
-	.address {
+	.addressed {
 		background: #fff;
 	}
 
-	.address tr {
+	.addressed tr {
 		line-height: 40px;
 		border-bottom: 1px solid #f5f5f5;
 	}
 
-	.address td {
+	.addressed td {
 		padding: 0 16px;
 	}
 
@@ -319,7 +319,7 @@
 		bottom: 0;
 		background: #f5f5f5;
 		width: 100%;
-		padding: 0.8rem 0;
+		padding:0;
 		text-align: center;
 	}
 
@@ -338,7 +338,7 @@
   .publicButton{
     background: linear-gradient(to right, #38E7F8 , #0BA5D7);
     color: #fff;
-    border-radius: 3px;
-    width: 90%;
+    border-radius:0;
+    width: 100%;
   }
 </style>

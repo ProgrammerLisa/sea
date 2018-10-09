@@ -54,7 +54,10 @@
         </div>
       </div>
       <div class="demo-text" v-if="active1 === 1">
-        <p class="text-center" style="background: white;margin: 35vh auto;padding: 1rem;border-radius: 8px;width: 50%">即将上线 敬请期待</p>
+        <div class="kebi">
+          <p class="text-center" style="background: white;margin: 35vh auto;padding: 1rem;border-radius: 8px;width: 50%">即将上线 敬请期待</p>
+
+        </div>
 
       </div>
     </div>
@@ -267,5 +270,7 @@
   .thoseBoxRight{
     padding: 0.5rem 0;position: absolute;right: 2.5rem
   }
-
+  .kebi{
+    background: url("../../assets/images/faxiannone.png");width: 100%;height: 100%;border-top: 1px solid transparent;background-size: 100% 100%;
+  }
 </style>

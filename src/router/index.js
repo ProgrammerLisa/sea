@@ -118,7 +118,7 @@ export default new Router({
     },
     {
       path:'/address',
-      name:'address',
+      name:'addressed',
       meta:{index:2},
       component: resolve => require(['@/components/Profile/Address'], resolve)
     },

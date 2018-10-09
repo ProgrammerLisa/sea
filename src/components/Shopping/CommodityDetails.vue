@@ -151,7 +151,7 @@
 		mounted() {
       let that = this;
       mui.back = function(){
-        that.$router.go(-1);
+        that.$router.push('/shopping');
       };
       this.$nextTick(function() {
         this.getGoods()
@@ -173,7 +173,6 @@
           }
         }).then(function(res) {
           if(res.data.code === 0) {
-            console.log(res.data)
             this.commodityImg = res.data.data.image;
             this.commodityTitle = res.data.data.name;
             this.commodityPropaganda = res.data.data.desc;
@@ -198,8 +197,7 @@
 				this.masrc = back;
 			},
 			goBack() {
-
-				this.$router.go(-1);
+        this.$router.push('/shopping');
 			},
 			preOrder() {
         this.open = true;
@@ -255,13 +253,18 @@
   }
   .sheetBody{
     margin-top: 1rem;
+    padding:0 1rem ;
+  }
+  .sheetBody:last-child{
+    padding: 0;
   }
   .sheetContainer{
-    padding: 1rem;
+    padding: 1rem 0 0;
     font-size: 1.6rem;
   }
   .flexContainer{
     display: flex;
+    padding: 0 1rem;
   }
   .sheetTitle{
     font-size: 1.7rem;
@@ -291,14 +294,15 @@
     padding: 1rem 0;
   }
   .countList{
-    padding-bottom: 4rem;
+    padding-bottom: 1rem;
     border-bottom: 1px solid #f5f5f5;
+    margin-bottom: 4rem;
   }
   .countHalf{
     width: 50%;
   }
   .countStyle{
-    line-height: 25px;
+    line-height: 20px;
   }
   .leftCount{
     margin-right: 1rem;
@@ -316,8 +320,8 @@
   .publicButton{
     background: linear-gradient(to right, #38E7F8 , #0BA5D7);
     color: #fff;
-    border-radius: 3px;
-    width: 90%;
+    width: 100%;
+    border-radius: 0;
   }
   .tips{
     width: 100%;
@@ -342,7 +346,7 @@
 	.commodityImg {
 		background: #f5f5f5;
 		text-align: center;
-		height: 230px;
+		height: 250px;
     margin-top: 56px;
 	}
 
@@ -398,7 +402,7 @@
 	.exchange {
 		border-top: 0.1rem solid #f5f5f5;
 		text-align: center;
-		padding: 1rem 0;
+		padding: 0;
 		position: fixed;
 		bottom: 0;
 		width: 100%;
@@ -411,7 +415,7 @@
 <style lang="less">
   #commodityImgs{
     .mu-carousel{
-      height: 230px;
+      height: 250px;
     }
   }
 </style>

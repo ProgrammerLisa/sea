@@ -33,7 +33,7 @@
 
 			<div class="media Pictures" style="margin-top: 0">
 				<div class="media-body">
-					上传相册
+					<span style="font-size: 1.6rem">上传相册</span>
 					<span id="hint">长按图片可删除</span>
 				</div>
 				<div class="controlContainer">
@@ -42,7 +42,10 @@
 							<div class="controlContent" v-for="(p,index) in timg">
 								<img @touchstart="rem(p,index)" @touchend="js()" class="media-object graph" :src="p" @click="changeActive(index)" />
 							</div>
-							<div class="chart-to" @click="openPhDialog">
+              <div class="chart-to" @click="$layer.msg('相册已满，无法继续上传')" v-if="cantUpdate">
+                <img class="media-object sheet" src="../../assets/images/tianjia.png" />
+              </div>
+							<div class="chart-to" @click="openPhDialog" v-else>
 								<img class="media-object sheet" src="../../assets/images/tianjia.png" />
 							</div>
 						</div>
@@ -176,6 +179,7 @@
 				extensions: '',
 				haveHeadImg: '',
 				headImg: headImg,
+        cantUpdate:false,
 				houzhuiming: '',
 				i: '',
 				IDcode: '',
@@ -210,7 +214,6 @@
 
 			this.$nextTick(function() {
 				this.compile();
-
 			})
 		},
 
@@ -265,7 +268,9 @@
 							} else {
 								this.timg = res.data.data.pictures;
 							}
-
+              if (this.timg.length===10){
+                this.cantUpdate=true
+              }
 							if(res.data.data.avatar == "") {
 								this.headImg = headImg;
 								this.haveHeadImg = false
@@ -428,6 +433,11 @@
 							this.openAlert = false;
 						}
 						this.timg.splice(i, 1)
+            if (this.timg.length===10){
+              this.cantUpdate=true
+            }else {
+              this.cantUpdate=false
+            }
 					}.bind(this))
 					.catch(function(err) {
 						this.$layer.msg("系统异常，请稍后再试" + err);
@@ -646,7 +656,7 @@
 	#hint {
 		float: right;
 		color: #888;
-		font-size: 0.05rem;
+		font-size: small;
 		padding-right: 1.5rem;
 	}
 
@@ -684,6 +694,7 @@
 
 	.controlScroll {
 		width: auto;
+    margin-top: 1rem;
 	}
 
 	.delBtn {

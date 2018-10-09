@@ -120,7 +120,7 @@
 						imfLeft: invite
 					},
 					{
-						title: '商城订单',
+						title: '兑换记录',
 						PersonalHref: 'commodityorder',
 						PersonalName: 'CommodityOrder',
 						imfLeft: indent

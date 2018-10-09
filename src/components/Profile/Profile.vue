@@ -1,68 +1,75 @@
 <template>
-	<div class="content">
-		<div class="scroll">
+	<div class="content" id="profile">
+		<div v-if="hasSignal" class="scroll">
 			<div class="personal">
 				<div class="news">
 					<router-link to="/news" v-if="newsCount" tag="div" class="badgePositionRed"></router-link>
 					<router-link to="/news" v-else tag="div" class="badgePosition"></router-link>
 				</div>
-				<div class="container personalMessage">
-					<div @click="goCompile" v-if="headDefault">
+				<div class="personalMessage">
+					<div @click="goCompile" v-if="headDefault" class="flex">
 						<div class="HeadPortrait">
 							<img :src="`${headPortrait+'?'+now}`" v-if="haveHeadImg" />
 							<img :src="headPortrait" v-else/>
-							<div class="le">
-								<span class="level">Lv.{{level}}</span>
-							</div>
 						</div>
-						<p class="nickName">{{nickName}}</p>
-						<p style="margin: 0">
-							<mu-button flat style="height: 32px;line-height: 32px">
-								<mu-icon value="phone_iphone" left style="font-size: 1.6rem;margin: 0"></mu-icon>{{phone}}
-							</mu-button>
-						</p>
+            <div>
+
+              <p class=""><span class="marginRight nickName">{{nickName}}</span> <span class="sex marginRight" v-bind:style="bcColor">{{gender}}</span> <span class="level marginRight">Lv.{{level}}</span></p>
+              <p >
+                <mu-icon value="phone_iphone" left size="18" style="vertical-align: middle"></mu-icon>{{phone}}
+              </p>
+              <p class="autograph">{{autograph}}</p>
+            </div>
+
 						<!--<p class="userId">ID：{{phone}}</p>-->
 					</div>
-					<router-link v-else tag="div" to="/login">
+					<router-link v-else tag="div" to="/login" class="text-center">
 						<div class="HeadPortrait">
 							<img :src="headPortrait" />
 						</div>
-						<p class="nickName">点击登录</p>
+						<p class="nickName" >点击登录</p>
 					</router-link>
 
 					<div class="msgBox">
 						<router-link to="wallet" tag="div" class="personalMessageLeft">
-							<mu-button flat class="personalText"><img :src="wallet" class="personalIcon">我的钱包</mu-button>
+              <img :src="wallet" class="personalIcon"><div flat class="personalText"> 我的钱包</div>
 						</router-link>
 						<div class="wallet"></div>
 						<router-link to="realname" tag="div" class="personalMessageLeft">
-							<mu-button flat class="personalText"> <img :src="autonym" class="personalIcon">实名信息</mu-button>
+              <img :src="autonym" class="personalIcon"><div flat class="personalText">实名信息</div>
 						</router-link>
 					</div>
 				</div>
 
 			</div>
 
-			<mu-paper :z-depth="1" class="demo-list-wrap">
-				<mu-list>
-					<mu-list-item button v-for="(m,index) in Personal" class="mylist" :to="m.PersonalHref" :key="index">
-						<mu-list-item-action>
-							<img class="images" :src="m.imfLeft">
-						</mu-list-item-action>
-						<mu-list-item-title style="margin-left: 1.2rem">{{m.title}}</mu-list-item-title>
-						<mu-list-item-action>
-							<img v-if="!m.noRouter" class="images" src="../../assets/images/more.png" style="position: relative;right: 6px" />
-							<span v-else class="inviteCode">{{m.myInvite}}</span>
-						</mu-list-item-action>
-					</mu-list-item>
+			<div class="list">
+        <mu-paper :z-depth="1" class="demo-list-wrap ">
+          <mu-list>
+            <mu-list-item button v-for="(m,index) in Personal" class="mylist" :to="m.PersonalHref" :key="index">
+              <mu-list-item-action>
+                <img class="images" :src="m.imfLeft">
+              </mu-list-item-action>
+              <mu-list-item-title style="margin-left: 1.2rem">{{m.title}}</mu-list-item-title>
+              <mu-list-item-action>
+                <div class="images">
+                  <img src="../../assets/images/more.png" />
+                </div>
+              </mu-list-item-action>
+            </mu-list-item>
 
-				</mu-list>
-			</mu-paper>
+          </mu-list>
+        </mu-paper>
+      </div>
 		</div>
+    <div v-else>
+      <nothing @again="again"></nothing>
+    </div>
 	</div>
 </template>
 
 <script>
+  import Nothing from '@/components/Nothing'
 	import friend from '@/assets/images/friend.png'
 	import inviter from '@/assets/images/inviter.png'
 	import gift from '@/assets/images/gift.png'
@@ -82,13 +89,18 @@
 				return Date.now();
 			}
 		},
+    components:{
+      'nothing':Nothing
+    },
 		data() {
 			return {
+        hasSignal:true,
 				data: '',
 				autonym: autonym,
 				wallet: wallet,
 				nickName: '',
 				phone: '',
+        autograph:'',
 				Personal: [{
 						title: '我的好友',
 						PersonalHref: 'friend',
@@ -137,6 +149,8 @@
 				isLogin: true,
 				newsCount: false,
 				haveHeadImg: false,
+        gender:'',
+        bcColor:'',
 				level: ''
 			}
 		},
@@ -160,6 +174,9 @@
 			})
 		},
 		methods: {
+      again(){
+        this.info();
+      },
 			info() {
 				//个人信息
 				this.$http({
@@ -172,12 +189,34 @@
 						},
 						data: {}
 					}).then(function(res) {
+          if(res.data.code === 401) {
+            this.$layer.msg('请登录后再试！');
+            this.$router.replace('/login');
+            this.headPortrait = headImg;
+            this.headDefault = false;
+          }
 						if(res.data.code == 0) {
+              this.hasSignal=true;
 							this.data = res.data.data;
 							var nikename = res.data.data.nickname;
 							var headimg = res.data.data.avatar;
 							this.level = res.data.data.level;
 							this.phone = res.data.data.phone;
+              if (res.data.data.resume=="") {
+                this.autograph="这个人很懒，还没有签名~"
+              }else {
+                this.autograph = res.data.data.resume;
+              }
+              if(res.data.data.gender === "MALE") {
+                this.gender = '♂'
+                this.bcColor='background: #5CB3FC;';
+              } else if(res.data.data.gender==="UNKNOWN"){
+                this.gender = '?'
+                this.bcColor='background: #ddd;';
+              }else{
+                this.gender = '♀'
+                this.bcColor='background: #FC8484;';
+              }
 							if(nikename == "") {
 								this.nickName = localStorage.getItem("uid");
 							} else {
@@ -194,12 +233,9 @@
 							var srcu = localStorage.getItem("src2") || [];
 
 							if(typeof srcu == "string") {
-//								console.log(1);
 								srcu = srcu.split(",")
 								var i;
 								for(i = 0; i < srcu.length; i++) {
-//									console.log(srcu[i])
-//									console.log(this.headPortrait)
 									if(srcu[i] == this.headPortrait) {
 										break;
 									}
@@ -209,20 +245,19 @@
 									localStorage.setItem("src2", srcu);
 								}
 							} else {
-//								console.log(2);
 								srcu.push(this.headPortrait)
 								localStorage.setItem("src2", srcu);
 								console.log(localStorage.getItem("src2"));
 							}
 
 						} else {
-							this.headPortrait = headImg;
-							this.headDefault = false;
+              this.hasSignal=false;
 							this.$layer.msg(res.data.msg);
 						}
 					}.bind(this))
 					.catch(function(err) {
 						this.$layer.msg("系统异常，请稍后再试");
+            this.hasSignal=false;
 					}.bind(this));
 				//消息
 				this.$http({
@@ -315,10 +350,10 @@
 	}
 
 	.personal {
-		background: url("../../assets/images/blue.png") no-repeat #fff;
+		background: url("../../assets/images/wodebg.png") no-repeat #f5f5f5;
 		background-size: 100% 75%;
 		text-align: right;
-		padding-bottom: 0.5rem;
+		padding-bottom: 1rem;
 	}
 
 	.news {
@@ -340,63 +375,79 @@
 		background: url("../../assets/images/news.png") no-repeat;
 		background-size: 60% 100%;
 	}
+  .flex{
+    display: flex;
+    text-align: left;
+    margin: 0 0 2rem;
+    color: #fff;
+    padding: 0 0.6rem;
+  }
 
 	.personalMessage {
-		width: 90vw;
-		background: #fff;
-		margin: 0 5vw;
-		padding: 1rem;
-		padding-bottom: 0.5rem;
+		width:100%;
+		background: transparent;
 		border-radius: 0.5rem;
-		display: flex;
-		flex-direction: column;
-		text-align: center;
-		box-shadow: 0 0.3rem 0.3rem #ddd;
+    padding: 0 1rem;
 	}
 
 	.personalMessageLeft {
-		padding: 0;
 		text-align: center;
 		width: 50%;
+    color: #323232;
+    padding: 1rem 0;
 	}
-
+  .personalMessageLeft:active{
+    background: #E5E5E5;
+  }
 	.wallet {
 		width: 0.1rem;
-		height: 1.6rem;
+		height: 3rem;
 		background: #ddd;
-		margin-top: 1.2rem;
+		margin-top: 2rem;
 	}
 
 	.msgBox {
 		display: flex;
+    box-shadow: 0 0 0.5rem #EAF6FB;
+    border-radius: 8px;
+    background: #fff;
+
+    /*border: 1px solid #EAF6FB;*/
 	}
 
 	.HeadPortrait img {
-		width: 6rem;
-		height: 6rem;
-		border: 0.1rem solid #f5f5f5;
-		border-radius: 50%;
+		width: 73px;
+		height: 73px;
+    border-radius: 50%;
 	}
 
 	.HeadPortrait {
-		width: 90%;
-		margin: auto;
+		margin: auto 1rem;
 		position: relative;
+    border-radius: 50%;
+    margin-right: 2.5rem;
+    border: 2.5px solid #fff;
 	}
 
 	.nickName {
-		padding-top: 1rem;
-		margin: 0;
+    font-size: 1.7rem;
 	}
 
 	.personalIcon {
-		width: 3.2rem;
+		width: 2.8rem;
 	}
 
 	.personalText {
 		padding-left: 0;
 	}
-
+  .autograph{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:1;
+    margin-bottom: 0
+  }
 	.mu-paper-round {
 		border-radius: 0;
 	}
@@ -408,31 +459,34 @@
 	.images {
 		padding: 0.8rem;
     width: 4rem;
+    position: relative;right: 6px
+	}
+  .images img{
+    width: 100%;
+  }
+	@media screen and (min-height: 500px) and (max-height: 600px) {
+		.images {
+			width: 4rem
+		}
 	}
 
-	/*@media screen and (min-height: 560px) and (max-height: 750px) {*/
-		/*.images {*/
-			/*width: 7vh*/
-		/*}*/
-	/*}*/
+	@media screen and (min-height: 600px) and (max-height: 700px) {
+		.images {
+			width: 4.2rem
+		}
+	}
 
-	/*@media screen and (min-height: 750px) and (max-height: 850px) {*/
-		/*.images {*/
-			/*width: 5.5vh*/
-		/*}*/
-	/*}*/
+	@media screen and (min-height: 700px) and (max-height: 750px) {
+		.images {
+			width: 4rem
+		}
+	}
 
-	/*@media screen and (min-height: 850px) and (max-height: 1024px) {*/
-		/*.images {*/
-			/*width: 6vh*/
-		/*}*/
-	/*}*/
-
-	/*@media screen and (min-height:1025px) and (max-height: 2000px) {*/
-		/*.images {*/
-			/*width: 5vh*/
-		/*}*/
-	/*}*/
+	@media screen and (min-height:750px) and (max-height: 850px) {
+		.images {
+			width: 4rem
+		}
+	}
 
 	.msg {
 		color: #ff2424;
@@ -452,15 +506,26 @@
 		background: #f5f5f5;
 		padding-top: 0;
 	}
-
+  .marginRight{
+    margin-right: 0.5rem;
+  }
+  .sex {
+    background: #FC7D7D;
+    color: #fff;
+    font-size: smaller;
+    display: inline-block;
+    width: 1.5rem;
+    line-height: 1.5rem;
+    text-align: center;
+    border-radius: 50%;
+  }
 	.level {
-    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
-		color: #fff;
+    /*background: linear-gradient(to right, #38E7F8 , #0BA5D7);*/
+		color: #09a2d6;
+    background: #fff;
 		font-size: 1rem;
 		border-radius: 10px;
 		padding: 0 0.5rem;
-		margin-top: -20px;
-		position: absolute;
 		border: 1px solid #fff;
 	}
 
@@ -473,7 +538,11 @@
 	.mu-divider {
 		background-color: #f5f5f5;
 	}
+  .list{
+    margin:0 1rem;
 
+    /*border: 1px solid #EAF6FB;*/
+  }
 	.mylist {
 		background: #fff;
 		border-bottom: 1px solid #f5f5f5;

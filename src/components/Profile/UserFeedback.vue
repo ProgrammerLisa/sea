@@ -4,7 +4,7 @@
       <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
         <img :src="masrc"/>
       </mu-button>
-      <span class="navTitleText">提意见</span>
+      <span class="navTitleText">意见反馈</span>
     </mu-appbar>
 		<div class="text contentMarginTop">
 			<textarea class="form-control" rows="12" placeholder="请将您的意见或建议留言发给我们，收到后我们会立即处理并给予回复哦~" v-model="text"></textarea>
@@ -96,4 +96,9 @@
 	.submitBtn:focus{
 		outline: 0;
 	}
+  .publicButton{
+    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
+    color: #fff;
+    border-radius: 3px;
+  }
 </style>

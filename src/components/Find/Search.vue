@@ -18,7 +18,7 @@
           </div>
 
         </div>
-        <div class="text-center" style="margin-top: 40vh" v-else>没有搜索到"{{keys}}"一词</div>
+        <div class="text-center " style="background: #f5f5f5" v-else><div class="result">没有搜索到"{{keys}}"一词</div></div>
       </div>
     </div>
 </template>
@@ -55,6 +55,7 @@
                 "keyword":localStorage.getItem("searchKey")
               }
             }).then(function(res) {
+              console.log(res.data)
               if(res.data.code === 0) {
                 if (res.data.data.length===0){
                   this.hasData=false
@@ -105,5 +106,12 @@
   }
   .flex_Right{
     line-height: 2.5rem;
+  }
+  .result{
+    width: 80%;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 8px;
+    margin: 40vh auto 0;
   }
 </style>

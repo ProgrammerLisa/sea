@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="content" id="navVue">
     <audio id="snd"src="../assets/audio/ajy.mp3" style="display: none;"></audio>
 
     <div class="myNav">
@@ -102,126 +102,130 @@
 
 </script>
 
-<style>
-  .mu-bottom-nav{
-    height: 48px;
-  }
-  .mu-bottom-item{
-    padding: 0;
-  }
-  a:hover, a:focus ,a:visited,a:active{
-    text-decoration: none;
-    border: none;
-    outline: none;
-  }
-  a:nth-child(1){
-    color: #555;
-  }
-  a:nth-child(2){
-    color: #555;
-  }
-  a:nth-child(3){
-    color: #555;
-    height: 7rem;
-  }
-  a:nth-child(4){
-    color: #555;
-  }
-  a:nth-child(5){
-    color: #555;
-  }
-  .mu-bottom-item-active:nth-child(1){
-    color: #323232;
-  }
-  .mu-bottom-item-active:nth-child(1) .mu-bottom-item-icon{
-    background-image: url(../assets/images/home_pressed.png) ;
-  }
-  .mu-bottom-item-active:nth-child(2){
-    color: #323232;
-  }
-  .mu-bottom-item-active:nth-child(2) .mu-bottom-item-icon{
-    background-image: url(../assets/images/discovery_pressed.png) ;
-  }
-  .mu-bottom-item-active:nth-child(3){
-    color: #323232;
-  }
-  .mu-bottom-item-active:nth-child(3) .mu-bottom-item-icon{
-    background-image: url(../assets/images/redianxinwen.png) ;
-  }
-  .mu-bottom-item-active:nth-child(4){
-    color: #323232;
-  }
-  .mu-bottom-item-active:nth-child(4) .mu-bottom-item-icon{
-    background-image: url(../assets/images/store_pressed.png) ;
-  }
-  .mu-bottom-item-active:nth-child(5){
-    color: #323232;
-  }
-  .mu-bottom-item-active:nth-child(5) .mu-bottom-item-icon{
-    background-image: url(../assets/images/profile.png) ;
-  }
-  .mu-bottom-item-active:nth-child(1) .mu-bottom-item-icon,.mu-bottom-item-active:nth-child(2) .mu-bottom-item-icon,.mu-bottom-item-active:nth-child(3) .mu-bottom-item-icon,.mu-bottom-item-active:nth-child(4) .mu-bottom-item-icon{
-    background-repeat:no-repeat;
-    width:2.5rem;
-    height:2.5rem;
-    background-size:auto 2.5rem;
-    padding-top: 0;
-    padding-bottom:0;
+<style lang="less">
+  #navVue{
+    .mu-bottom-nav{
+      height: 48px;
+    }
+    .mu-bottom-item{
+      padding: 0;
+    }
+    a:hover, a:focus ,a:visited,a:active{
+      text-decoration: none;
+      border: none;
+      outline: none;
+    }
+    a:nth-child(1){
+      color: #999;
+    }
+    a:nth-child(2){
+      color: #999;
+    }
+    a:nth-child(3){
+      color: #999;
+      height: 7rem;
+    }
+    a:nth-child(4){
+      color: #999;
+    }
+    a:nth-child(5){
+      color: #999;
+    }
+    .mu-bottom-item-active:nth-child(1){
+      color: #333333;
+    }
+    .mu-bottom-item-active:nth-child(1) .mu-bottom-item-icon{
+      background-image: url(../assets/images/home_pressed.png) ;
+    }
+    .mu-bottom-item-active:nth-child(2){
+      color: #333333;
+    }
+    .mu-bottom-item-active:nth-child(2) .mu-bottom-item-icon{
+      background-image: url(../assets/images/discovery_pressed.png) ;
+    }
+    .mu-bottom-item-active:nth-child(3){
+      color: #333333;
+    }
+    .mu-bottom-item-active:nth-child(3) .mu-bottom-item-icon{
+      background-image: url(../assets/images/redianxinwen.png) ;
+    }
+    .mu-bottom-item-active:nth-child(4){
+      color: #333333;
+    }
+    .mu-bottom-item-active:nth-child(4) .mu-bottom-item-icon{
+      background-image: url(../assets/images/store_pressed.png) ;
+    }
+    .mu-bottom-item-active:nth-child(5){
+      color: #333333;
+    }
+    .mu-bottom-item-active:nth-child(5) .mu-bottom-item-icon{
+      background-image: url(../assets/images/profile.png) ;
+    }
+    .mu-bottom-item-active:nth-child(1) .mu-bottom-item-icon,.mu-bottom-item-active:nth-child(2) .mu-bottom-item-icon,.mu-bottom-item-active:nth-child(3) .mu-bottom-item-icon,.mu-bottom-item-active:nth-child(4) .mu-bottom-item-icon{
+      background-repeat:no-repeat;
+      width:2.5rem;
+      height:2.5rem;
+      background-size:auto 2.5rem;
+      padding-top: 0;
+      padding-bottom:0;
 
-  }
-  .myNav{
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: #fff;
-    z-index: 99;
-    padding-top: 3px;
-  }
-.msg{
-  color: #ff2424;
-  background: transparent;
-  font-size: xx-large;
-  padding: 0.5rem ;
-  line-height: 0;
-  position: absolute;
-  right: 1.2rem;
-}
-  a:nth-child(1) .mu-bottom-item-icon,a:nth-child(2) .mu-bottom-item-icon,a:nth-child(4) .mu-bottom-item-icon,a:nth-child(5) .mu-bottom-item-icon{
-    background-repeat:no-repeat;
-    width:2.5rem;
-    height:2.5rem;
-    background-size:auto 2.5rem;
-     padding-top: 0;
-     padding-bottom:0;
-  }
-  .mu-bottom-item-active:nth-child(3) .mu-bottom-item-icon{
-  	width:5.5rem;
-    height:5.5rem;
-    background-size:auto 5.5rem;
-    background-repeat:no-repeat;
-  }
-  /*.redian{
-  	width: 3.5rem;
-  }*/
-  a:nth-child(1) .mu-bottom-item-icon{
-    background-image: url(../assets/images/home.png) ;
-  }
-  a:nth-child(2) .mu-bottom-item-icon {
-    background-image: url(../assets/images/discovery.png) ;
-  }
-  a:nth-child(3) .mu-bottom-item-icon{
-    background-image: url(../assets/images/redianxinwen.png) ;
-    width:5.5rem;
-    height:5.5rem;
-    background-size:auto 5.5rem;
-    background-repeat:no-repeat;
+    }
+    .myNav{
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #fff;
+      z-index: 99;
+      padding-top: 3px;
+      border-top: 1px solid #f5f5f5;
+    }
+    .msg{
+      color: #ff2424;
+      background: transparent;
+      font-size: xx-large;
+      padding: 0.5rem ;
+      line-height: 0;
+      position: absolute;
+      right: 1.2rem;
+    }
+    a:nth-child(1) .mu-bottom-item-icon,a:nth-child(2) .mu-bottom-item-icon,a:nth-child(4) .mu-bottom-item-icon,a:nth-child(5) .mu-bottom-item-icon{
+      background-repeat:no-repeat;
+      width:2.5rem;
+      height:2.5rem;
+      background-size:auto 2.5rem;
+      padding-top: 0;
+      padding-bottom:0;
+    }
+    .mu-bottom-item-active:nth-child(3) .mu-bottom-item-icon{
+      width:5.5rem;
+      height:5.5rem;
+      background-size:auto 5.5rem;
+      background-repeat:no-repeat;
+    }
+    /*.redian{
+        width: 3.5rem;
+    }*/
+    a:nth-child(1) .mu-bottom-item-icon{
+      background-image: url(../assets/images/home.png) ;
+    }
+    a:nth-child(2) .mu-bottom-item-icon {
+      background-image: url(../assets/images/discovery.png) ;
+    }
+    a:nth-child(3) .mu-bottom-item-icon{
+      background-image: url(../assets/images/redianxinwen.png) ;
+      width:5.5rem;
+      height:5.5rem;
+      background-size:auto 5.5rem;
+      background-repeat:no-repeat;
+    }
+
+    a:nth-child(4) .mu-bottom-item-icon {
+      background-image: url(../assets/images/store.png) ;
+    }
+    a:nth-child(5) .mu-bottom-item-icon {
+      background-image: url(../assets/images/profile_pressed.png) ;
+    }
   }
 
-  a:nth-child(4) .mu-bottom-item-icon {
-     background-image: url(../assets/images/store.png) ;
-  }
-  a:nth-child(5) .mu-bottom-item-icon {
-    background-image: url(../assets/images/profile_pressed.png) ;
-  }
 </style>
 

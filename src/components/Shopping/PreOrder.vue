@@ -33,13 +33,18 @@
       <div class="countChoose">
         <div class="countBtn text-left">购买数量</div>
         <div class="countBtn countRight">
-          <mu-button fab small color="teal" class="rightCount" @click="countAdd(maxNum)">
-            <mu-icon value="add" ></mu-icon>
-          </mu-button>
+          <span class="myIcons-add">
+            <mu-button fab small class="rightCount" @click="countAdd(maxNum)">
+              <mu-icon value="add" style="margin: auto"></mu-icon>
+            </mu-button>
+          </span>
           <div class="countStyle">{{count}}</div>
-          <mu-button fab small color="teal" class="leftCount" @click="countRemove">
-            <mu-icon value="remove" ></mu-icon>
+          <span class="myIcons-reduce">
+             <mu-button fab small class="leftCount" @click="countRemove">
+            <mu-icon value="remove"></mu-icon>
           </mu-button>
+          </span>
+
         </div>
       </div>
       <div class="countChoose">
@@ -305,9 +310,17 @@
     display: flex;
     flex-direction:row-reverse
   }
+  .countStyle{
+    line-height: 25px;
+  }
   .leftCount{
+    border-radius: 50%;
+    color: #666;
+    text-align: center;
     margin-right: 1rem;
-    background: linear-gradient(to right, #0BA5D7 , #38E7F8);
+    /*background: linear-gradient(to right, #0BA5D7 , #38E7F8);*/
+    background: #fff;
+    border: 1px solid #999;
   }
   .rightCount{
     margin-left: 1rem;
@@ -332,8 +345,8 @@
   }
   .exchangeBtn{
     border: none;
-    width: 80%;
-    margin:1rem 10%;
+    width: 90%;
+    margin:1rem 5%;
     font-size: 1.6rem;
   }
   .sum{
@@ -351,3 +364,4 @@
     border-right: 1px solid #ddd;
   }
 </style>
+

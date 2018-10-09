@@ -32,13 +32,13 @@
                   <!--<div class="orderTips text-right">待付款</div>-->
                 </div>
                 <div class="orderCenter">
-                  <div class="orderContent">
+                  <div class="orderContent" @click="goDetail(i.id)">
                     <div class="orderLeft">
-                      <img :src="i.goods.image"/>
+                      <img :src="i.goods_img"/>
                     </div>
                     <div class="orderRight">
-                      <div class="orderTitle">{{i.goods.name}}</div>
-                      <div class="orderDesc">{{i.goods.desc}}</div>
+                      <div class="orderTitle">{{i.goods_name}}</div>
+                      <div class="orderDesc">{{i.goods_desc}}</div>
                     </div>
                   </div>
                   <div class="orderPrice text-right">
@@ -108,13 +108,13 @@
               <div class="orderNumber">订单号: {{i.id}} <span class="orderNumberCopy" v-clipboard:copy="i.id" v-clipboard:success="onCopy" v-clipboard:error="onError">复制</span></div>
             </div>
             <div class="orderCenter">
-              <div class="orderContent">
+              <div class="orderContent" @click="goDetail(i.id)">
                 <div class="orderLeft">
-                  <img :src="i.goods.image"/>
+                  <img :src="i.goods_img"/>
                 </div>
                 <div class="orderRight">
-                  <div class="orderTitle">{{i.goods.name}}</div>
-                  <div class="orderDesc">{{i.goods.desc}}</div>
+                  <div class="orderTitle">{{i.goods_name}}</div>
+                  <div class="orderDesc">{{i.goods_desc}}</div>
                 </div>
               </div>
               <div class="orderPrice text-right">
@@ -156,13 +156,13 @@
 							<div class="orderNumber">订单号: {{i.id}} <span class="orderNumberCopy" v-clipboard:copy="i.id" v-clipboard:success="onCopy" v-clipboard:error="onError">复制</span></div>
 						</div>
 						<div class="orderCenter">
-							<div class="orderContent">
+							<div class="orderContent" @click="goDetail(i.id)">
 								<div class="orderLeft">
-                  <img :src="i.goods.image"/>
+                  <img :src="i.goods_img"/>
 								</div>
 								<div class="orderRight">
-									<div class="orderTitle">{{i.goods.name}}</div>
-									<div class="orderDesc">{{i.goods.desc}}</div>
+									<div class="orderTitle">{{i.goods_name}}</div>
+									<div class="orderDesc">{{i.goods_desc}}</div>
 								</div>
 							</div>
 							<div class="orderPrice text-right">
@@ -192,13 +192,13 @@
 							<div class="orderNumber">订单号: {{i.id}} <span class="orderNumberCopy" v-clipboard:copy="i.id" v-clipboard:success="onCopy" v-clipboard:error="onError">复制</span></div>
 						</div>
 						<div class="orderCenter">
-							<div class="orderContent">
+							<div class="orderContent" @click="goDetail(i.id)">
 								<div class="orderLeft">
-                  <img :src="i.goods.image"/>
+                  <img :src="i.goods_img"/>
 								</div>
 								<div class="orderRight">
-                  <div class="orderTitle">{{i.goods.name}}</div>
-                  <div class="orderDesc">{{i.goods.desc}}</div>
+                  <div class="orderTitle">{{i.goods_name}}</div>
+                  <div class="orderDesc">{{i.goods_desc}}</div>
 								</div>
 							</div>
 							<div class="orderPrice text-right">
@@ -771,8 +771,8 @@
     border-bottom: 1px solid #f5f5f5;
   }
   .orderLeft{
-    width: 40%;
-    margin-right: 2rem;
+    width: 100%;
+    margin-right: 1.5rem;
   }
   .orderLeft img{
      width: 100%;

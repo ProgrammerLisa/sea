@@ -5,32 +5,60 @@
         <mu-icon size="30" value="search" class="navIcon" @click="goSearch"></mu-icon>
       </div>
 
-      <div id="scroll">
+      <div v-if="hasSignal" id="scroll">
         <mu-load-more @refresh="refresh" :refreshing="refreshing" :loading="loading" @load="load">
-          <div class="list" v-for="(i,index) in press" @click="sendParams(i.id)">
-            <img :src="i.image" class="image" style="width:35%;"/>
-            <div class="list-item">
-              <div class="title">{{i.title}}</div>
-              <div class="footer">
-                <div class="listlabel">{{i.source}}</div>
-                <div class="prominent" v-show="i.is_paid">推荐</div>
-                <div class="time">{{i.published_at}}</div>
+          <div v-for="(i,index) in press" @click="sendParams(i.id)">
+            <div class="list" v-show="i.mod=='LESSPIC'">
+              <img :src="i.image" class="image"/>
+              <div class="list-item">
+                <div class="title">{{i.title}}</div>
+                <div class="footer">
+                  <span class="prominent" v-show="i.label=='HOT'">推荐</span>
+                  <span class="advertisement" style="margin-right: 0.3rem" v-show="i.label=='PAY'">广告</span>
+                  <span class="listlabel">{{i.source}} &nbsp;</span>
+                  <mu-icon value="visibility" size="20" color="grey600" style="vertical-align: middle"></mu-icon>
+                  <span style="margin-right: 0.3rem"> {{i.hits}}</span>
+                  <span class="advertisement" v-show="i.label=='PAY'">广告</span>
+                  <span class="time">{{i.published_at}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="multipic" v-show="i.mod=='MULTIPIC'">
+              <div class="multipicTitle">{{i.title}}</div>
+              <div class="multipicImages">
+                <img :src="c" v-for="c in i.image"/>
+              </div>
+              <div class="multipicFooter">
+                <div class="Grid-cell u-1of6 flex">
+                  <div class="prominent mR" v-show="i.label=='HOT'">推荐</div>
+                  <div class="advertisement mR" v-show="i.label=='PAY'">广告</div>
+                  <div class="mR">{{i.source}}</div>
+                  <div><mu-icon value="visibility" size="20" color="grey600" style="vertical-align: middle"></mu-icon> {{i.hits}}</div>
+                </div>
+                <div>
+                  <div>{{i.published_at}}</div>
+                </div>
+
               </div>
             </div>
           </div>
         </mu-load-more>
         <div class="noMore" v-show="noMore">没有更多信息了</div>
       </div>
-
+      <div v-else>
+        <nothing @again="again"></nothing>
+      </div>
     </div>
 
 </template>
 
 <script>
+  import Nothing from '@/components/Nothing'
     export default {
         name: "journalism",
         data(){
           return{
+            hasSignal:true,
             refreshing:false,
             loading:false,
             next:'/tasks/news',
@@ -41,11 +69,13 @@
               category:'',
               id:'',
               image:'',
-              is_paid:'',
+              label:'',
               published_at:'',
               source:'',
               tags:'',
-              title:''
+              title:'',
+              mod:'',
+              hits:''
             }
           }
         },
@@ -71,7 +101,13 @@
         })
 
       },
+      components:{
+        'nothing':Nothing
+      },
       methods:{
+        again(){
+          this.message();
+        },
       	message(){
             this.$http({
               method: "post",
@@ -83,7 +119,12 @@
               }
             }).then(function(res) {
               this.loading=false;
+              if(res.data.code === 401) {
+                this.$layer.msg('请登录后再试！');
+                this.$router.replace('/login');
+              }
               if(res.data.code === 0) {
+                this.hasSignal=true;
                 localStorage.setItem("hotkeys",JSON.stringify(res.data.hotkeys));
                 this.next=res.data.data.next;
                 if(res.data.data.items.length>0){
@@ -92,34 +133,38 @@
                     this.item.category=res.data.data.items[i].category;
                     this.item.id=res.data.data.items[i].id;
                     this.item.image=res.data.data.items[i].image;
-                    this.item.is_paid=res.data.data.items[i].is_paid;
+                    this.item.label=res.data.data.items[i].label;
                     this.item.published_at=res.data.data.items[i].published_at;
                     this.item.source=res.data.data.items[i].source;
                     this.item.tags=res.data.data.items[i].tags;
                     this.item.title=res.data.data.items[i].title;
+                    this.item.mod=res.data.data.items[i].mod;
+                    this.item.hits=res.data.data.items[i].hits;
                     this.press.push(this.item);
                     this.item={
                       author:'',
                       category:'',
                       id:'',
                       image:'',
-                      is_paid:'',
+                      label:'',
                       published_at:'',
                       source:'',
                       tags:'',
-                      title:''
+                      title:'',
+                      mod:'',
+                      hits:''
                     };
                   }
                 }
-              }else if (res.data.code===401) {
-                this.$layer.msg(res.data.msg);
-                this.$router.replace("/login")
+              }else {
+                this.hasSignal=false;
               }
 
             }.bind(this))
               .catch(function(err) {
                 this.loading=false;
                 this.$layer.msg("系统异常，请稍后再试");
+                this.hasSignal=false;
               }.bind(this))
           },
         sendParams(id){
@@ -173,6 +218,9 @@
   #scroll::-webkit-scrollbar{
     display: none;
   }
+  .flex{
+    display: flex;
+  }
   .navTop{
     height:50px;line-height: 50px;background: #fff;font-weight: bold;padding: 0 1rem;
   }
@@ -183,21 +231,17 @@
     float: right;margin-top: 10px;
   }
   .list{
-    height: 11rem;
+    height: 33vw;
     padding: 1rem;
     border-top: 1px solid #f5f5f5;
     background: #fff;
     display: flex;
   }
-  .image{
-    width:37%;
-    height: 100%;
-    margin-right: 1rem;
-  }
+
   /*@media screen and (min-width: 300px) and (max-width: 350px) {*/
-    /*.image{*/
-      /*width:37%;*/
-    /*}*/
+  /*.image{*/
+  /*width:37%;*/
+  /*}*/
   /*}*/
   .list .list-item{
     position: relative;
@@ -214,21 +258,84 @@
   .list-item .footer{
     width: 100%;
     color: #646464;
-    display: flex;
-    flex-wrap: wrap;
     position: absolute;
     bottom: 0;
     font-size: small;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:1;
   }
-  .list-item .listlabel{
-    margin-right: 1rem;
+   .listlabel{
   }
-  .list-item .prominent{
+  .prominent{
     border: 1px solid #25CBEA;
     border-radius: 1rem;
     padding: 0 0.5rem;
     color: #09a2d6;
+    margin-right: 0.3rem;
+  }
+  .advertisement{
+    border: 1px solid #999;
+    border-radius: 1rem;
+    padding: 0 0.5rem;
+    color: #444;
     margin-right: 1rem;
+  }
+  .multipic{
+     padding: 1rem;
+     border-top: 1px solid #f5f5f5;
+     background: #fff;
+   }
+  .multipicTitle{
+    color: #323232;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+    padding-bottom: 1rem;
+  }
+  .multipicImages{
+    display: flex;
+    justify-content: space-between;
+  }
+  .multipicImages img{
+    width: 30%;
+    max-height: 26vw;
+  }
+  .multipicFooter{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+  .image{
+    width:35vw;
+    height: 100%;
+    margin-right: 1rem;
+  }
+  .Grid-cell {
+    flex: 1;
+  }
+  .u-full {
+    flex: 0 0 100%;
+  }
+
+  .u-1of2 {
+    flex: 0 0 50%;
+  }
+
+  .u-1of3 {
+    flex: 0 0 33.3333%;
+  }
+
+  .u-1of4 {
+    flex: 0 0 25%;
+  }
+  .u-1of6{
+    flex: 0 0 66.66666%;
   }
   .noMore{
     width: 100%;
@@ -237,5 +344,8 @@
     text-align: center;
     background: #f5f5f5;
     margin-top: -4rem;
+  }
+  .mR{
+    margin-right: 1rem;
   }
 </style>

@@ -1,9 +1,10 @@
 <template>
 	<div class="content">
+
 		<div class="BlackTitle">
 				发现
 		</div>
-    <div>
+    <div v-if="hasSignal">
       <mu-tabs :value.sync="active1" inverse indicator-color="#fff" color="#09A2D6" text-color="rgba(0, 0, 0, .54)"  center style="background: #fff">
         <mu-tab class="tabTitle">基础任务</mu-tab>
         <mu-tab class="tabTitle">独家任务</mu-tab>
@@ -11,7 +12,7 @@
       <div class="demo-text" v-if="active1 === 0">
           <h4 class="text-center tipTitle">任务越多能量值越高</h4>
           <div class="text-center loginBox">
-            <p><img src="../../assets/images/indent.png" style="width: 3rem"/></p>
+            <!--<p><img src="../../assets/images/indent.png" style="width: 3rem"/></p>-->
             <div style="color: #333">每日登陆</div>
             <p style="font-size: small;margin-top: 5px">可获得能量值 <span style="color: #09a2d6">+1</span></p>
             <mu-button flat class="publicButton" v-if="signIn">已签到</mu-button>
@@ -19,7 +20,7 @@
           </div>
         <div class="thoseBox">
           <div class="thoseBoxContainer">
-            <div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>
+            <!--<div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>-->
             <div class="thoseBoxCenter">
               <div style="color: #333">邀请10名好友</div>
               <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+20</span></div>
@@ -29,7 +30,7 @@
             </div>
           </div>
           <div class="thoseBoxContainer">
-            <div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>
+            <!--<div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>-->
             <div class="thoseBoxCenter">
               <div style="color: #333">公益慈善</div>
               <div style="font-size: small;margin-top: 5px">可获得相应捐赠数 <span  style="color: #09a2d6"></span></div>
@@ -40,7 +41,7 @@
             </div>
           </div>
           <div class="thoseBoxContainer">
-            <div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>
+            <!--<div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>-->
             <div class="thoseBoxCenter">
               <div style="color: #333">新闻资讯</div>
               <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+2</span></div>
@@ -57,7 +58,9 @@
 
       </div>
     </div>
-
+    <div v-else>
+      <nothing @again="again"></nothing>
+    </div>
 
 
 	</div>
@@ -65,6 +68,7 @@
 
 <script>
 	import { formatDate } from "../../assets/js/date";
+	import Nothing from '@/components/Nothing'
 
 	export default {
 		name: "GetForce",
@@ -74,9 +78,13 @@
 				return formatDate(data, 'yyyy-MM-dd hh:mm:ss')
 			}
 		},
+    components:{
+      'nothing':Nothing
+    },
 		data() {
 			return {
 				time: Date.now(),
+        hasSignal:true,
 				signIn: '',
 				signIns:'',
 				signto:'',
@@ -101,6 +109,7 @@
       };
 
       this.$nextTick(function() {
+        let that = this;
 				this.isSignIn();
 			})
 		},
@@ -120,6 +129,7 @@
 							this.$router.replace('/login');
 						}
 						if(res.data.code == 0) {
+						  this.hasSignal=true;
 							if(res.data.has_signed) {
 								this.signIn = true
 							} else {
@@ -135,10 +145,13 @@
 							} else {
 								this.signthree = false
 							}
-						}
+						}else {
+              this.hasSignal=false;
+            }
 					}.bind(this))
 					.catch(function(err) {
-						console.log(err)
+            this.$layer.msg("系统异常，请稍后再试");
+            this.hasSignal=false;
 					}.bind(this));
 			},
 			signInFc() {
@@ -182,7 +195,10 @@
 					.catch(function(err) {
 						this.$layer.msg("系统异常，请稍后再试");
 					}.bind(this));
-			}
+			},
+      again(){
+        this.isSignIn();
+      }
 		}
 	}
 </script>
@@ -231,7 +247,7 @@
     margin-top: 5px;
   }
   .thoseBox{
-    width: 90%;height: 100vh;background: #fff;margin:-6rem 5% 0;border-radius: 8px;padding: 9rem 1rem 12rem
+    width: 90%;height: 100vh;background: #fff;margin:-6rem 5% 0;border-radius: 8px;padding: 4rem 1rem 12rem
   }
   .publicButton{
     width: 6rem;height:3rem;background: linear-gradient(to right, #38E7F8 , #0BA5D7);color: white;
@@ -251,4 +267,5 @@
   .thoseBoxRight{
     padding: 0.5rem 0;position: absolute;right: 2.5rem
   }
+
 </style>

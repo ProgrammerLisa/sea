@@ -16,19 +16,19 @@
     <div style="text-align: center">
       <mu-button flat small v-for="(i,index) in key_words" :key="index" @click="goSearch(i)">#{{i}} </mu-button>
     </div>
-    <mu-carousel hide-controls>
+    <mu-carousel hide-controls class="myCarousel">
       <mu-carousel-item v-for="(p,index) in display_pictures" :key="index">
         <img :src="p">
       </mu-carousel-item>
     </mu-carousel>
     <!--大病医疗-->
-    <div v-show="hasDISEASE">
+    <div v-show="hasDISEASE" class="list">
       <div style="font-size: 1.7rem;padding: 1rem 1rem;color: #444"><div class="sign"></div>大病医疗</div>
       <div class="goodUl">
         <div v-for="(i,index) in DISEASE" class="goodList">
           <div @click="goDonation(i.id)">
-            <img :src="i.image" style="width: 100%;height: 20vw;">
-            <h6>{{i.name}}</h6>
+            <img :src="i.image" class="listImg">
+            <h5>{{i.name}}</h5>
             <!--<div class="fontStyle">{{flex.pitches}}</div>-->
             <p class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</p>
           </div>
@@ -36,13 +36,13 @@
       </div>
     </div>
     <!--爱心助学-->
-    <div v-show="hasEDUCATION">
+    <div v-show="hasEDUCATION" class="list">
       <div style="font-size: 1.7rem;padding: 1rem 1rem;color: #444"><div class="sign"></div>爱心助学</div>
       <div class="goodUl">
         <div v-for="(i,index) in EDUCATION" class="goodList">
           <div @click="goDonation(i.id)">
-            <img :src="i.image" style="width: 100%;height: 20vw;">
-            <h6>{{i.name}}</h6>
+            <img :src="i.image" class="listImg">
+            <h5>{{i.name}}</h5>
             <!--<div class="fontStyle">{{flex.pitches}}</div>-->
             <p class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</p>
           </div>
@@ -50,13 +50,13 @@
       </div>
     </div>
     <!--环境保护-->
-    <div v-show="hasENVIRONMENT">
+    <div v-show="hasENVIRONMENT" class="list" style="border-bottom: none">
       <div style="font-size: 1.7rem;padding: 1rem 1rem;color: #444"><div class="sign"></div>环境保护</div>
       <div class="goodUl">
         <div v-for="(i,index) in ENVIRONMENT" class="goodList">
           <div @click="goDonation(i.id)">
-            <img :src="i.image" style="width: 100%;height: 20vw;">
-            <h6>{{i.name}}</h6>
+            <img :src="i.image" class="listImg">
+            <h5>{{i.name}}</h5>
             <!--<div class="fontStyle">{{flex.pitches}}</div>-->
             <p class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</p>
           </div>
@@ -64,12 +64,12 @@
       </div>
     </div>
     <!--爱心扶贫-->
-    <div v-show="hasPOVERTY">
+    <div v-show="hasPOVERTY" class="list">
       <div style="font-size: 1.7rem;padding: 1rem 1rem;color: #444"><div class="sign"></div>爱心扶贫</div>
       <div class="goodUl">
         <div v-for="(i,index) in POVERTY" class="goodList">
           <div @click="goDonation(i.id)">
-            <img :src="i.image.url" style="width: 100%;">
+            <img :src="i.image.url" class="listImg">
             <h5>{{i.name}}</h5>
             <!--<div class="fontStyle">{{flex.pitches}}</div>-->
             <p class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</p>
@@ -131,7 +131,6 @@
                 "Access-Control-Allow-Origin": "*"
               }
             }).then(function(res) {
-              console.log(res.data)
               if(res.data.code === 0) {
 
               	this.display_pictures = res.data.display_pictures;
@@ -211,7 +210,6 @@
     height: 100vh;
     overflow-x: hidden;
     overflow-y: scroll;
-    padding-bottom: 3rem;
   }
   .content::-webkit-scrollbar {
     display: none;
@@ -270,5 +268,26 @@
     margin-right:0.5rem;
     display: inline-block;
     vertical-align: middle
+  }
+  .list{
+    border-bottom: 0.6rem solid #f5f5f5;
+    background: #fff;
+  }
+  .listImg{
+    width: 100%;
+    height: 6rem;
+  }
+</style>
+<style lang="less">
+  .myCarousel{
+    .mu-carousel-indicator-button{
+      margin: 0;
+      width: 25px;
+      height: 25px;
+    }
+    .mu-carousel-indicator-icon{
+      width: 10px;
+      height: 10px;
+    }
   }
 </style>

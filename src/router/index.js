@@ -76,6 +76,12 @@ export default new Router({
       ]
     },
     {
+      path: '/nothing',
+      name:'nothing',
+      meta:{index:1},
+      component:  resolve => require(['@/components/Nothing'], resolve)
+    },
+    {
       path: '/register',
       name:'register',
       meta:{index:2},

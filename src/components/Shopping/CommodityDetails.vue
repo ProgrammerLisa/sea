@@ -151,7 +151,7 @@
 		mounted() {
       let that = this;
       mui.back = function(){
-        that.$router.go(-1);
+        that.$router.push('/shopping');
       };
       this.$nextTick(function() {
         this.getGoods()
@@ -173,7 +173,6 @@
           }
         }).then(function(res) {
           if(res.data.code === 0) {
-            console.log(res.data)
             this.commodityImg = res.data.data.image;
             this.commodityTitle = res.data.data.name;
             this.commodityPropaganda = res.data.data.desc;
@@ -198,8 +197,7 @@
 				this.masrc = back;
 			},
 			goBack() {
-
-				this.$router.go(-1);
+        this.$router.push('/shopping');
 			},
 			preOrder() {
         this.open = true;
@@ -348,7 +346,7 @@
 	.commodityImg {
 		background: #f5f5f5;
 		text-align: center;
-		height: 230px;
+		height: 250px;
     margin-top: 56px;
 	}
 
@@ -417,7 +415,7 @@
 <style lang="less">
   #commodityImgs{
     .mu-carousel{
-      height: 230px;
+      height: 250px;
     }
   }
 </style>

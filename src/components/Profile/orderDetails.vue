@@ -13,9 +13,9 @@
         </div>
         <div class="address">地址：{{datas.address}}</div>
         <div class="orderCenter">
-          <div class="orderContent">
+          <div class="orderContent" @click="goGoods(datas.goods_id)">
             <div class="orderLeft">
-              <img :src="datas.goods_img" @click="goCommodityDetails(datas.goods_id)"/>
+              <img :src="datas.goods_img" />
             </div>
             <div class="orderRight">
               <div class="orderTitle">{{datas.goods_name}}</div>
@@ -99,7 +99,6 @@
                 order_id:localStorage.getItem("order_id")
               }
             }).then(function(res) {
-              console.log(res.data)
               if(res.data.code === 0) {
                 this.datas=res.data.data
 
@@ -124,6 +123,10 @@
 
               }
             })
+          },
+          goGoods(id){
+            localStorage.setItem("goods_id",id);
+            this.$router.push({path: '/commoditydetails'})
           },
           evers() {
             this.masrc = backs;

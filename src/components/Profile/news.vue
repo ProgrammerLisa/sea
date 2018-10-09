@@ -263,7 +263,7 @@
   }
 	.newsNone {
 		text-align: center;
-		padding-top: 18vh;
+		padding-top: 30vh;
 		color: #999;
 	}
 

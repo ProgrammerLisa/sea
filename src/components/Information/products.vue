@@ -513,6 +513,6 @@
 		margin-top:-16px;
 	}
 	div.mu-input-help{
-		top:50px;
+		top:50px ;
 	}
 </style>

@@ -89,9 +89,6 @@
     overflow: hidden;
   }
 
-  .media-body{
-    text-align: center;
-  }
   .serviceContent{
     width: 90%;
     background: #fff;

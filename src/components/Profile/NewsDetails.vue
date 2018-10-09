@@ -5,16 +5,13 @@
         <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
           <img :src="masrc"/>
         </mu-button>
-        <span class="navTitleText contentMarginTop">
-          <!--{{from_user}}-->
-          系统消息
-        </span>
+        <span class="navTitleText">系统消息</span>
       </mu-appbar>
       <div class="media contentMarginTop">
 
-        <p class="text-center"><span class="DialogDate">{{created_at}}</span></p>
+        <div class="text-center"><span class="DialogDate">{{created_at}}</span></div>
 
-        <div class="media-body">
+        <div class="text-center">
           <span class="serviceContent">
              {{content}}
           </span>
@@ -96,12 +93,14 @@
     text-align: center;
   }
   .serviceContent{
+    width: 90%;
     background: #fff;
     display: inline-block;
     padding: 1rem;
-    margin: 1rem;
+    margin: 1rem 0;
     border-radius: 0.5rem;
     box-shadow: 0.2rem 0.2rem 0.2rem #ddd;
     text-align: left;
+    word-wrap:break-word;
   }
 </style>

@@ -7,7 +7,7 @@
 			</mu-button>
 		</mu-appbar>
 
-		<div class="contentMarginTop">
+		<div class="contentMarginTop" @click="aaa">
 			<div>
 				<div class="media-body">
 					<p class="media-heading">{{title}}</p>
@@ -15,9 +15,9 @@
 				</div>
 				<div>
 					<dl v-html="content">
-					  {{content}}
-					 </dl>
-        </div>
+						{{content}}
+					</dl>
+				</div>
 				<div>
 					<div class="author">原作者:&nbsp;&nbsp;{{author}}</div>
 					<div class="author">来源地址:&nbsp;&nbsp;{{url}}</div>
@@ -45,16 +45,19 @@
 								<div class="panel panel-default">
 									<div class="panel-heading" style="background: #fff">
 										<a data-toggle="collapse" data-parent="#accordion" :href="m.href">
-											<h4 class="panel-title" @click="openLeaveMessage(index)"> {{m.content}} </h4><span class="glyphicon glyphicon-chevron-down" style="color: #999" v-show="m.hasMsg"></span>  </a>
+											<h4 class="panel-title" @click="getMessageId(index,m.id,m.from_user_uid)"> {{m.content}} </h4><span class="glyphicon glyphicon-chevron-down" style="color: #999" v-show="m.hasMsg"></span> </a>
 									</div>
 									<div :id="m.item" v-show="m.hasMsg" class="panel-collapse collapse in" style="background: #f5f5f5;min-width:100%">
 										<!--<div class="panel-body" v-for="(r,item) in m.reply" style="border: none; padding:0.5rem 1rem;font-size: 1.5rem"><span style="color: #09a2d6">{{r.from_user}}</span>：{{r.content}}</div>-->
-										<div class="panel-body" v-for="(r,item) in m.reply" style="border: none; padding:0.5rem 1rem;font-size: 1.5rem"><span style="color: #09a2d6">{{r.from_user}}</span><span style="color: black"> 回复 </span><span style="color: #09a2d6">{{m.from_user}}</span>: {{r.content}}</div>
+										<div class="panel-body" v-for="(r,item) in m.reply" style="border: none; padding:0.5rem 1rem;font-size: 1.5rem">
+											<span style="color: #09a2d6" @click="getUserId(item,m.id,r.from_user.uid)">{{r.from_user.nickname}}</span>
+											<span style="color: black"> 回复 </span>
+											<span style="color: #09a2d6" @click="getUserId(item,m.id,r.to_user.uid)">{{r.to_user.nickname}}</span>: {{r.content}}</div>
 									</div>
 								</div>
 							</div>
 
-							<div class="media-right leaveMessage">
+							<!--<div class="media-right leaveMessage" >
 								<mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="m.openMessage">
 									<div class="publicDialogTitle" style="height: 110px;padding-top: 1rem">
 										<mu-text-field type="text" label="回复评论" v-model="reverts" placeholder="请输入回复内容" full-width style="margin-bottom: 0;"></mu-text-field>
@@ -67,8 +70,16 @@
 									<mu-button slot="actions" flat color="#555" @click="closeLeaveMessage(index)">取消</mu-button>
 
 								</mu-dialog>
+							</div>-->
+
+							<div v-show="critichf" class="tardiv" style="width: 100%;height: 150px;background: #F2F2F2;position: fixed;bottom: 0;margin: -1rem -1rem 0;">
+										<div style="margin: 1.6rem; background: #FEFFFE;">
+										<mu-text-field solo v-model="reverts" placeholder="请输入回复内容" multi-line :rows="6" :max-length="60"></mu-text-field>
+										</div>
+									<button :disabled="!reverts" class="callBacks" @click="revert(index,m.id)">发送 </button>
 							</div>
 
+							
 						</div>
 
 					</mu-load-more>
@@ -78,16 +89,19 @@
 
 			<div v-else class="text-center" style="padding: 3rem 0;font-size: 1.6rem;color:#777">暂无评论</div>
 
-			<mu-appbar class="reply" color="#fff" textColor="#333" z-depth="0" id="nav1">
-				<mu-text-field v-model='critic' class="reply-input" underline-color="none" placeholder="说出你的想法" />
-				<mu-button color="#fff" textColor="#09a2d6" @click="leaveMessage" flat class="callBack">评论</mu-button>
+			<mu-appbar v-show="criticxf" class="reply" color="#fff" textColor="#333" z-depth="0" id="nav1">
+				<mu-text-field v-show="criticxf" @click="criticMessage" v-model='critic' class="reply-input" underline-color="none" placeholder="说出你的想法" />
+				<img src="../../assets/images/pinglun.png"></img>
 			</mu-appbar>
 
+			<div v-show="criticpl" class="tardiv" style="width: 100%;height: 150px;background: #F2F2F2;position: fixed;position: fixed;bottom: 0;">
+				<div style="margin: 1.6rem; background: #FEFFFE;">
+					<mu-text-field v-model='critic' solo placeholder="说出你的想法" multi-line :rows="6" :max-length="60"></mu-text-field><br/>
+				</div>
+				<button :disabled="!critic" class="callBacks" @click="leaveMessage">评论</button>
+			</div>
+
 		</div>
-		<!--<mu-appbar class="reply" color="#fff" textColor="#333" z-depth="0" id="nav1" >
-			<mu-text-field v-model='critic' class="reply-input" underline-color="none" placeholder="说出你的想法" />
-			<mu-button color="#fff" textColor="#09a2d6" @click="leaveMessage(index,m.post_id)" flat class="callBack">评论</mu-button>
-		</mu-appbar>-->
 	</div>
 </template>
 
@@ -123,9 +137,13 @@
 				noMoreMessage: false,
 				messageMsg: '',
 				critic: '',
-
+				id:'',
+				uid:'',
 				reverts: '',
 				messageMsgShow: false,
+				criticpl: false,
+				criticxf: true,
+				critichf:false
 			}
 		},
 		mounted() {
@@ -153,16 +171,17 @@
 							"post_id": localStorage.getItem("post_id"),
 						}
 					}).then(function(res) {
+						console.log(res.data)
 						if(res.data.code === 0) {
-              var content=res.data.data.content;
+							var content = res.data.data.content;
 							this.title = res.data.data.title;
 							this.source = res.data.data.source;
 							this.published_at = res.data.data.published_at;
 							this.url = res.data.data.url;
 							this.author = res.data.data.author;
-              this.content = content+'<style type="text/css">' +
-                'img {max-width: 100%; }' +
-                '<\/style>';
+							this.content = content + '<style type="text/css">' +
+								'img {max-width: 100%; }' +
+								'<\/style>';
 
 							if(res.data.data.length !== 0) {
 								this.message = [];
@@ -187,12 +206,21 @@
 						this.$layer.msg("系统异常，请稍后再试");
 					}.bind(this))
 			},
-
+			criticMessage() {
+				this.criticxf = false;
+				this.criticpl = true;
+			},
+			aaa() {
+				this.criticxf = true;
+				this.criticpl = false;
+				this.critichf = false;
+			},
 			leaveMessage() {
 				let res = new RegExp("^[ ]+$");
 				if(this.critic === '' || res.test(this.critic) === true) {
 					this.$layer.msg("评论内容不能为空");
 				} else {
+					this.criticpl = false;
 					this.$http({
 							method: "post",
 							url: "/tasks/news/comment",
@@ -218,29 +246,33 @@
 						}.bind(this))
 				}
 			},
-			revert(index, id) {
+			revert(index,id) { 
+				console.log(this.id,this.uid)
 				let res = new RegExp("^[ ]+$");
 				if(this.reverts === '' || res.test(this.reverts) === true) {
 					this.$layer.msg("回复内容不能为空");
 				} else {
+					this.critichf = false;
+					this.criticxf = true;
 					this.$http({
 							method: "post",
-							url: "/tasks//news/reply",
+							url: "/tasks/news/reply",
 							headers: {
 								"device": "android",
 								"uid": localStorage.getItem("uid"),
 								"Access-Control-Allow-Origin": "*"
 							},
 							data: {
-								message_id: id,
-								content: this.reverts
+								message_id: this.id,
+								content: this.reverts,
+								to_user_uid: this.uid,
 							}
 						}).then(function(res) {
 							this.reverts = '';
 							this.$layer.msg(res.data.msg);
 							this.gain();
 							if(res.data.code === 0) {
-
+								
 							}
 						}.bind(this))
 						.catch(function(err) {
@@ -248,9 +280,39 @@
 						}.bind(this))
 				}
 			},
-			openLeaveMessage(index) {
+			getMessageId(index,id,uid){
+				this.critichf = true;
+				this.criticxf = false;
+				this.id=id;
+				this.uid=uid;
 				this.message[index].openMessage = true;
 			},
+			getUserId(index,id,uid){
+				this.critichf = true;
+				this.criticxf = false;
+				this.id=id;
+				this.uid=uid;
+			},
+//			openLeaveMessage(index,mid,uid,reply) {
+//				console.log(mid);
+//				this.critichf = true;
+//				this.criticxf = false;
+//				if(reply){
+//					if(reply.length ==0){
+//						this.uid = mid;
+//					}else{
+//						if(uid){
+//							this.uid = uid	
+//						}
+//						
+//					}
+//				}else{
+//					if(uid){
+//						this.uid = uid	
+//					}
+//				}
+//				
+//			},
 			closeLeaveMessage(index) {
 				this.revert = '';
 				this.messageMsgShow = false;
@@ -283,60 +345,61 @@
 	.contentMarginTop {
 		margin-top: 56px;
 	}
+	
 	#accordion {
 		margin-left: 4rem;
 	}
-
+	
 	.media {
 		border-bottom: 1px solid #eee;
 	}
-
+	
 	.media-heading {
 		font-size: 1.6rem;
 		color: #3c3c3c;
 	}
-
+	
 	.media-left {
 		border-radius: 50%;
 		width: 6rem;
 	}
-
+	
 	.media-object {
 		width: 3.1rem;
 		border-radius: 50%;
 	}
-
+	
 	a {
 		color: #333;
 	}
-
+	
 	.panel {
 		box-shadow: none;
 		border: none;
 		background: #FAFAFA;
 	}
-
+	
 	.panel-heading {
 		padding-left: 0;
 	}
-
+	
 	.panel-title {
 		font-size: 1.5rem;
 	}
-
+	
 	.leaveMessage {
 		padding-left: 0;
 	}
-
+	
 	.list:last-child .mu-divider {
 		display: none;
 	}
-
+	
 	.messageMsg {
 		color: #ff2424;
 		font-size: small;
 	}
-
+	
 	.noMore {
 		width: 100%;
 		line-height: 4rem;
@@ -345,7 +408,7 @@
 		background: #fff;
 		margin-top: -4rem;
 	}
-
+	
 	.products {
 		overflow-x: hidden;
 		color: #444;
@@ -355,77 +418,77 @@
 		overflow-y: scroll;
 		font-size: 1.6rem;
 	}
-
+	
 	.products::-webkit-scrollbar {
 		display: none;
 	}
-
+	
 	.panel {
 		border-radius: 0;
 	}
-
+	
 	.panel-body {
 		padding: 0 10px;
 	}
-
+	
 	.back {
 		float: left;
 	}
-
+	
 	.back img {
 		height: 2.5rem;
 	}
-
+	
 	.contentMarginTop {
 		padding: 1rem 1rem 2rem;
 	}
-
+	
 	.media-heading {
 		font-weight: bold;
 		font-size: 2rem;
 	}
-
+	
 	.commodityPropaganda {
 		font-size: 1rem;
 		color: #646464;
 		text-align: left;
 	}
-
+	
 	.commodityPropaganda-span {
 		margin-left: 10%;
 		font-size: 1rem;
 		color: #646464;
 	}
-
+	
 	p {
 		color: #323232;
 		font-size: 1.5rem;
 	}
-
+	
 	.Topstarnews-img {
 		width: 100%;
 		padding: 1rem 0rem 1rem;
 	}
-
+	
 	.author {
 		color: #646464;
 		font-size: 1.5rem;
 		width: 100%;
 		word-wrap: break-word;
-		display:block;
+		display: block;
 		word-break: break-all;
 	}
-
-	.glyphicon{
+	
+	.glyphicon {
 		float: right;
 		margin-top: -1.1rem;
 	}
-
+	
 	.contentBody {
 		margin: 1rem 1rem;
 		box-shadow: 2px 2px 10px #E3EFF3;
 	}
-
+	
 	.protext {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -437,19 +500,20 @@
 		line-height: 4.1rem;
 		border-top: 1rem solid #F5F5F5;
 	}
-
+	
 	.spancolor {
 		color: #646464;
 	}
-
+	
 	.reply {
 		border-top: 1px solid #F5F5F5;
 		width: 100%;
 		/*padding: 4px;*/
 		position: fixed;
 		bottom: 0;
+		/*display: none;*/
 	}
-
+	
 	.reply-input {
 		/*padding-bottom: 0px;
 	    padding-top: 0px;
@@ -459,22 +523,23 @@
 		background: #F5F5F5;
 		padding: 0px;
 	}
-
+	
 	.mu-input {
 		height: 3rem;
 	}
-
+	
 	.mu-text-field-input {
 		margin: 0;
 	}
+	
 	div.mu-input-line {
 		background-color: none;
 	}
-
+	
 	.demo-text {
 		margin-bottom: 5rem;
 	}
-
+	
 	.callBack {
 		height: 4rem;
 		line-height: 4.5rem;
@@ -484,5 +549,18 @@
 		margin: 0.3rem;
 		bottom: 0;
 		margin-right: 8px;
+	}
+	
+	.callBacks {
+		width: 50px;
+		position: absolute;
+		margin-left: 80%;
+		margin-top: -11px;
+		border: none;
+		color: #FFFFFF;
+		background: #38E7F8;
+	}
+	.callBacks:disabled {
+		background: #D9D9D9;
 	}
 </style>

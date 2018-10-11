@@ -24,7 +24,7 @@
 				<mu-load-more @refresh="refresh" :refreshing="refreshing" :loading="loading" @load="load">
 					<div class="walletListItem" v-for="i in list">
 						<div class="itemLeft text-left">
-							<div class="itemLeftTitle">{{i.goods}}</div>
+							<div class="itemLeftTitle">{{i.name}}</div>
 							<div class="itemLeftData">{{i.updated_at}}</div>
 						</div>
 						<h4 class="fontColor itemRight text-right">-{{i.cost}}</h4>

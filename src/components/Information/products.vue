@@ -45,19 +45,19 @@
 								<div class="panel panel-default">
 									<div class="panel-heading" style="background: #fff">
 										<a data-toggle="collapse" data-parent="#accordion" :href="m.href">
-											<h4 class="panel-title" @click="openLeaveMessage(index,m.id)"> {{m.content}} </h4><span class="glyphicon glyphicon-chevron-down" style="color: #999" v-show="m.hasMsg"></span> </a>
+											<h4 class="panel-title" @click="getMessageId(index,m.id,m.from_user_uid)"> {{m.content}} </h4><span class="glyphicon glyphicon-chevron-down" style="color: #999" v-show="m.hasMsg"></span> </a>
 									</div>
 									<div :id="m.item" v-show="m.hasMsg" class="panel-collapse collapse in" style="background: #f5f5f5;min-width:100%">
 										<!--<div class="panel-body" v-for="(r,item) in m.reply" style="border: none; padding:0.5rem 1rem;font-size: 1.5rem"><span style="color: #09a2d6">{{r.from_user}}</span>：{{r.content}}</div>-->
 										<div class="panel-body" v-for="(r,item) in m.reply" style="border: none; padding:0.5rem 1rem;font-size: 1.5rem">
-											<span style="color: #09a2d6" @click="openLeaveMessage(index,r.mid,r.from_user.uid)">{{r.from_user.nickname}}</span>
+											<span style="color: #09a2d6" @click="getUserId(item,m.id,r.from_user.uid)">{{r.from_user.nickname}}</span>
 											<span style="color: black"> 回复 </span>
-											<span style="color: #09a2d6" @click="openLeaveMessage(index,m.id,r.from_user.uid)">{{r.to_user.nickname}}</span>: {{r.content}}</div>
+											<span style="color: #09a2d6" @click="getUserId(item,m.id,r.to_user.uid)">{{r.to_user.nickname}}</span>: {{r.content}}</div>
 									</div>
 								</div>
 							</div>
 
-							<div class="media-right leaveMessage" >
+							<!--<div class="media-right leaveMessage" >
 								<mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="m.openMessage">
 									<div class="publicDialogTitle" style="height: 110px;padding-top: 1rem">
 										<mu-text-field type="text" label="回复评论" v-model="reverts" placeholder="请输入回复内容" full-width style="margin-bottom: 0;"></mu-text-field>
@@ -70,8 +70,16 @@
 									<mu-button slot="actions" flat color="#555" @click="closeLeaveMessage(index)">取消</mu-button>
 
 								</mu-dialog>
+							</div>-->
+
+							<div v-show="critichf" class="tardiv" style="width: 100%;height: 150px;background: #F2F2F2;position: fixed;bottom: 0;margin: -1rem -1rem 0;">
+										<div style="margin: 1.6rem; background: #FEFFFE;">
+										<mu-text-field solo v-model="reverts" placeholder="请输入回复内容" multi-line :rows="6" :max-length="60"></mu-text-field>
+										</div>
+									<button :disabled="!reverts" class="callBacks" @click="revert(index,m.id)">发送 </button>
 							</div>
 
+							
 						</div>
 
 					</mu-load-more>
@@ -90,14 +98,10 @@
 				<div style="margin: 1.6rem; background: #FEFFFE;">
 					<mu-text-field v-model='critic' solo placeholder="说出你的想法" multi-line :rows="6" :max-length="60"></mu-text-field><br/>
 				</div>
-				<mu-button flat color="primary" textColor="#09a2d6" @click="leaveMessage" small class="callBacks">评论</mu-button>
+				<button :disabled="!critic" class="callBacks" @click="leaveMessage">评论</button>
 			</div>
 
 		</div>
-		<!--<mu-appbar class="reply" color="#fff" textColor="#333" z-depth="0" id="nav1" >
-			<mu-text-field v-model='critic' class="reply-input" underline-color="none" placeholder="说出你的想法" />
-			<mu-button color="#fff" textColor="#09a2d6" @click="leaveMessage(index,m.post_id)" flat class="callBack">评论</mu-button>
-		</mu-appbar>-->
 	</div>
 </template>
 
@@ -133,11 +137,13 @@
 				noMoreMessage: false,
 				messageMsg: '',
 				critic: '',
+				id:'',
 				uid:'',
 				reverts: '',
 				messageMsgShow: false,
 				criticpl: false,
-				criticxf: true
+				criticxf: true,
+				critichf:false
 			}
 		},
 		mounted() {
@@ -165,6 +171,7 @@
 							"post_id": localStorage.getItem("post_id"),
 						}
 					}).then(function(res) {
+						console.log(res.data)
 						if(res.data.code === 0) {
 							var content = res.data.data.content;
 							this.title = res.data.data.title;
@@ -206,6 +213,7 @@
 			aaa() {
 				this.criticxf = true;
 				this.criticpl = false;
+				this.critichf = false;
 			},
 			leaveMessage() {
 				let res = new RegExp("^[ ]+$");
@@ -239,10 +247,13 @@
 				}
 			},
 			revert(index,id) { 
+				console.log(this.id,this.uid)
 				let res = new RegExp("^[ ]+$");
 				if(this.reverts === '' || res.test(this.reverts) === true) {
 					this.$layer.msg("回复内容不能为空");
 				} else {
+					this.critichf = false;
+					this.criticxf = true;
 					this.$http({
 							method: "post",
 							url: "/tasks/news/reply",
@@ -252,7 +263,7 @@
 								"Access-Control-Allow-Origin": "*"
 							},
 							data: {
-								message_id: id,
+								message_id: this.id,
 								content: this.reverts,
 								to_user_uid: this.uid,
 							}
@@ -261,7 +272,7 @@
 							this.$layer.msg(res.data.msg);
 							this.gain();
 							if(res.data.code === 0) {
-
+								
 							}
 						}.bind(this))
 						.catch(function(err) {
@@ -269,15 +280,39 @@
 						}.bind(this))
 				}
 			},
-			openLeaveMessage(index, id,uid) {
-				console.log(uid);
-				if(uid){
-					this.uid = uid	
-				}
+			getMessageId(index,id,uid){
+				this.critichf = true;
+				this.criticxf = false;
+				this.id=id;
+				this.uid=uid;
 				this.message[index].openMessage = true;
-//				this.rid = id;
-				console.log(id)
 			},
+			getUserId(index,id,uid){
+				this.critichf = true;
+				this.criticxf = false;
+				this.id=id;
+				this.uid=uid;
+			},
+//			openLeaveMessage(index,mid,uid,reply) {
+//				console.log(mid);
+//				this.critichf = true;
+//				this.criticxf = false;
+//				if(reply){
+//					if(reply.length ==0){
+//						this.uid = mid;
+//					}else{
+//						if(uid){
+//							this.uid = uid	
+//						}
+//						
+//					}
+//				}else{
+//					if(uid){
+//						this.uid = uid	
+//					}
+//				}
+//				
+//			},
 			closeLeaveMessage(index) {
 				this.revert = '';
 				this.messageMsgShow = false;
@@ -519,7 +554,13 @@
 	.callBacks {
 		width: 50px;
 		position: absolute;
-		margin-left: 70%;
-		margin-top: -8px;
+		margin-left: 80%;
+		margin-top: -11px;
+		border: none;
+		color: #FFFFFF;
+		background: #38E7F8;
+	}
+	.callBacks:disabled {
+		background: #D9D9D9;
 	}
 </style>

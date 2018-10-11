@@ -346,7 +346,7 @@
 	.commodityImg {
 		background: #f5f5f5;
 		text-align: center;
-		height: 250px;
+		height: 300px;
     margin-top: 56px;
 	}
 
@@ -415,7 +415,7 @@
 <style lang="less">
   #commodityImgs{
     .mu-carousel{
-      height: 250px;
+      height: 300px;
     }
   }
 </style>

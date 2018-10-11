@@ -7,7 +7,7 @@
         </mu-button>
         <span class="navTitleText">系统消息</span>
       </mu-appbar>
-      <div class="media contentMarginTop">
+      <div style="margin-top: 65px">
 
         <div class="text-center"><span class="DialogDate">{{created_at}}</span></div>
 

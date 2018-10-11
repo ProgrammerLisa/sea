@@ -21,61 +21,63 @@
         <img :src="p">
       </mu-carousel-item>
     </mu-carousel>
+
     <!--大病医疗-->
     <div v-show="hasDISEASE" class="list">
-      <div style="font-size: 1.7rem;padding: 1rem 1rem;color: #444"><div class="sign"></div>大病医疗</div>
-      <div class="goodUl">
-        <div v-for="(i,index) in DISEASE" class="goodList">
-          <div @click="goDonation(i.id)">
-            <img :src="i.image" class="listImg">
-            <h5>{{i.name}}</h5>
-            <!--<div class="fontStyle">{{flex.pitches}}</div>-->
-            <p class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</p>
+      <div v-for="(i,index) in DISEASE">
+        <div @click="goDonation(i.id)" class="goodList">
+          <div class="listImg"><img :src="i.image"></div>
+          <div class="listContent">
+            <div class="listTitle">{{i.name}}</div>
+            <div class="listDesc">{{i.desc}}</div>
+            <div><span v-for="(c,item) in i.label" class="itemLabel">{{c}}</span></div>
+            <div class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</div>
           </div>
+
         </div>
       </div>
     </div>
     <!--爱心助学-->
     <div v-show="hasEDUCATION" class="list">
-      <div style="font-size: 1.7rem;padding: 1rem 1rem;color: #444"><div class="sign"></div>爱心助学</div>
-      <div class="goodUl">
-        <div v-for="(i,index) in EDUCATION" class="goodList">
-          <div @click="goDonation(i.id)">
-            <img :src="i.image" class="listImg">
-            <h5>{{i.name}}</h5>
-            <!--<div class="fontStyle">{{flex.pitches}}</div>-->
-            <p class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</p>
+        <div v-for="(i,index) in EDUCATION">
+          <div @click="goDonation(i.id)" class="goodList">
+            <div class="listImg"><img :src="i.image"></div>
+            <div class="listContent">
+              <div class="listTitle">{{i.name}}</div>
+              <div class="listDesc">{{i.desc}}</div>
+              <div><span v-for="(c,item) in i.label" class="itemLabel">{{c}}</span></div>
+              <div class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</div>
+            </div>
           </div>
         </div>
-      </div>
     </div>
     <!--环境保护-->
-    <div v-show="hasENVIRONMENT" class="list" style="border-bottom: none">
-      <div style="font-size: 1.7rem;padding: 1rem 1rem;color: #444"><div class="sign"></div>环境保护</div>
-      <div class="goodUl">
-        <div v-for="(i,index) in ENVIRONMENT" class="goodList">
-          <div @click="goDonation(i.id)">
-            <img :src="i.image" class="listImg">
-            <h5>{{i.name}}</h5>
-            <!--<div class="fontStyle">{{flex.pitches}}</div>-->
-            <p class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</p>
+    <div v-show="hasENVIRONMENT" class="list">
+        <div v-for="(i,index) in ENVIRONMENT">
+          <div @click="goDonation(i.id)" class="goodList">
+            <div class="listImg"><img :src="i.image"></div>
+            <div class="listContent">
+              <div class="listTitle">{{i.name}}</div>
+              <div class="listDesc">{{i.desc}}</div>
+              <div><span v-for="(c,item) in i.label" class="itemLabel">{{c}}</span></div>
+              <div class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</div>
+            </div>
           </div>
         </div>
-      </div>
     </div>
     <!--爱心扶贫-->
     <div v-show="hasPOVERTY" class="list">
-      <div style="font-size: 1.7rem;padding: 1rem 1rem;color: #444"><div class="sign"></div>爱心扶贫</div>
-      <div class="goodUl">
-        <div v-for="(i,index) in POVERTY" class="goodList">
-          <div @click="goDonation(i.id)">
-            <img :src="i.image.url" class="listImg">
-            <h5>{{i.name}}</h5>
-            <!--<div class="fontStyle">{{flex.pitches}}</div>-->
-            <p class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</p>
+        <div v-for="(i,index) in POVERTY">
+          <div @click="goDonation(i.id)" class="goodList">
+            <div class="listImg"><img :src="i.image"></div>
+            <div class="listContent">
+              <div class="listTitle">{{i.name}}</div>
+              <div class="listDesc">{{i.desc}}</div>
+              <div><span v-for="(c,item) in i.label" class="itemLabel">{{c}}</span></div>
+              <div class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</div>
+            </div>
           </div>
         </div>
-      </div>
     </div>
   </div>
 </template>
@@ -131,8 +133,8 @@
                 "Access-Control-Allow-Origin": "*"
               }
             }).then(function(res) {
+              console.log(res.data)
               if(res.data.code === 0) {
-
               	this.display_pictures = res.data.display_pictures;
                 let data = res.data.data.key_words;
                 this.key_words = res.data.data.key_words;
@@ -232,17 +234,10 @@
     width: 100%;
     height: 15rem;
   }
-  .goodUl{
-    display: flex;
-  }
   .goodList{
-    width: 30%;
-  }
-  .goodList:nth-child(1){
-    margin:0 0 0 2.5%;
-  }
-  .goodList:nth-child(2),.goodList:nth-child(3){
-    margin: 0 0 0 2.5%;
+    display: flex;
+    padding: 1rem;
+    border-bottom: 1px solid #f5f5f5;
   }
   .mu-carousel{
     height: 15rem;
@@ -270,24 +265,45 @@
     vertical-align: middle
   }
   .list{
-    border-bottom: 0.6rem solid #f5f5f5;
     background: #fff;
+
   }
   .listImg{
-    width: 100%;
-    height: 6rem;
+    width: 35vw;
+    max-width: 120px;
+    height: 90px;
+    margin-right: 1rem;
   }
-</style>
-<style lang="less">
-  .myCarousel{
-    .mu-carousel-indicator-button{
-      margin: 0;
-      width: 25px;
-      height: 25px;
-    }
-    .mu-carousel-indicator-icon{
-      width: 10px;
-      height: 10px;
-    }
+  .listImg img{
+    width: 100%;
+    height: 100%;
+    border-radius:5px;
+  }
+  .listContent{
+    width: 60vw;
+  }
+  .listTitle{
+    font-weight: bold;
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+  }
+  .listDesc{
+    color: #646464;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:1;
+    margin-bottom: 0.5rem;
+  }
+  .itemLabel{
+    display: inline-block;
+    border: 1px solid #D9D9D9;
+    font-size: smaller;
+    padding: 0 0.5rem;
+    margin:0 1rem 0.5rem 0;
+    border-radius: 3px;
+    color: #646564;
   }
 </style>

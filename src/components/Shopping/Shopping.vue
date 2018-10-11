@@ -102,7 +102,7 @@
 
         };
         this.$nextTick(function() {
-          $("#scroll").css({height:$(window).height()-$("#nav").height()-50+'px'});
+          $("#scroll").css({height:$(window).height()-$(".BlackTitle").height()-$("#nav").height()-50+'px'});
           localStorage.removeItem("goods_id");
           localStorage.removeItem("addressId");
           localStorage.removeItem("goodsSize");
@@ -135,7 +135,7 @@
             }
             if(res.data.code === 0) {
               this.hasSignal=true;
-              this.next=res.data.data.next;
+              this.next=res.data.data.data.next;
               if(res.data.data.data.items.length>0){
                 for (var i in res.data.data.data.items){
                   this.mobile.enable=res.data.data.data.items[i].enable;
@@ -179,8 +179,8 @@
         },
         load(){
           this.loading=true;
+          this.noMore=false;
           if (this.next===""){
-            this.noMore=false;
             setTimeout(()=>{
               this.noMore=true;
               this.loading=false;
@@ -312,5 +312,13 @@
   }
   #scroll::-webkit-scrollbar{
     display: none;
+  }
+  .noMore{
+    width: 100%;
+    line-height: 4rem;
+    color: #666;
+    text-align: center;
+    background: #fff;
+    margin-top: -4rem;
   }
 </style>

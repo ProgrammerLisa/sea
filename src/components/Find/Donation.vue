@@ -4,7 +4,7 @@
       <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">
         <img :src="masrc"/>
       </mu-button>
-      <span class="navTitleText">{{datas.label}}</span>
+      <span class="navTitleText">爱心慈善</span>
     </mu-appbar>
     <div class="contentMarginTop"></div>
     <mu-carousel hide-controls class="myCarousel">
@@ -37,7 +37,7 @@
       </div>
 
     </mu-card-text>
-    <mu-container style="color: #555;font-size: 1.5rem">
+    <mu-container style="color: #646464;font-size: 1.5rem">
       <div style="width: 95%;border: 1px solid #ddd;padding: 1rem;margin: 1rem auto">
         <div>发起机构：{{datas.sponsor}}</div>
         <div>接受机构：{{datas.accepter}}</div>
@@ -45,8 +45,17 @@
       </div>
 
     </mu-container>
+    <div class="mu-card-text">
+      <h4>温馨提示</h4>
+      <div style="color: #646464">夺宝公益在此只提供平台服务，用户的捐赠将直接进入具
+        有公开募捐的慈善组织账户中。</div>
+    </div>
     <div class="newAddress">
       <mu-flex justify-content="center" align-items="center">
+          <router-link tag="div" to="/ask" class="invitation">
+            <div><img src="../../assets/images/yaohaoyou.png"> </div>
+            邀好友一起捐
+          </router-link>
         <mu-button flat class="publicButton" textColor="#fff" to="/donationcount"> 捐珍珠</mu-button>
       </mu-flex>
     </div>
@@ -95,6 +104,7 @@
               }
             }).then(function(res) {
               if(res.data.code === 0) {
+                console.log(res.data)
                 this.datas=res.data.data;
                 this.completed_percent=parseFloat(this.datas.completed_percent.split("%")[0]);
 //              this.completed=this.completed_percent*this.datas.target;
@@ -164,6 +174,7 @@
     bottom: 0;
     text-align: center;
     z-index: 999;
+    border-top: 1px solid #f5f5f5;
   }
   .contentMarginTop{
     margin-top: 56px;
@@ -175,14 +186,19 @@
     background: linear-gradient(to right, #38E7F8 , #0BA5D7);
     color: #fff;
     border-radius: 0;
-    width: 100%;
+    width: 65%;
     font-size: 1.6rem;
     letter-spacing: 1px;
+    height: 55px;
   }
-
-  .ciname{
-  	font-size: 1.5rem;
-  	margin: 10px auto;
-  	margin-left: 12px;
+  .invitation{
+    width: 35%;
+    font-size: small;
+    height: 55px;
+    padding-top: 3px;
+    background: #fff;
+  }
+  .invitation img{
+    height: 30px;
   }
 </style>

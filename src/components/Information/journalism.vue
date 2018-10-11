@@ -38,7 +38,26 @@
               <div class="multipicFooter">
                 <div class="Grid-cell u-1of6 flex">
                   <div class="prominent mR" v-show="i.label=='HOT'">推荐</div>
-                  <div class="advertisement mR" v-show="i.label=='PAY'">广告</div>
+                  <div class="advertisement mR" v-show="i.label=='AD'">广告</div>
+                  <div class="mR">{{i.published_at}}</div>
+                  <div>{{i.source}}</div>
+                </div>
+                <div>
+                  <div>{{i.hits}}人阅读</div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="multipic" v-show="i.mod=='BIGPIC'">
+              <div class="multipicTitle">{{i.title}}</div>
+              <div class="bigpic">
+                <img :src="i.image"/>
+              </div>
+              <div class="multipicFooter">
+                <div class="Grid-cell u-1of6 flex">
+                  <div class="prominent mR" v-show="i.label=='HOT'">推荐</div>
+                  <div class="advertisement mR" v-show="i.label=='AD'">广告</div>
                   <div class="mR">{{i.published_at}}</div>
                   <div>{{i.source}}</div>
                 </div>
@@ -125,6 +144,7 @@
                 "Access-Control-Allow-Origin": "*"
               }
             }).then(function(res) {
+              console.log(res.data)
               this.loading=false;
               if(res.data.code === 401) {
                 this.$layer.msg('请登录后再试！');
@@ -291,7 +311,7 @@
     border: 1px solid #999;
     border-radius: 1rem;
     padding: 0 0.5rem;
-    color: #444;
+    color: #666;
     margin-right: 1rem;
   }
   .multipic{
@@ -316,7 +336,7 @@
   }
   .multipicImages img{
     width: 30%;
-    max-height: 26vw;
+    max-height: 25vw;
     border-radius: 5px;
   }
   .multipicFooter{
@@ -324,6 +344,15 @@
     justify-content: space-between;
     margin-top: 1rem;
     font-size: small;
+  }
+  .bigpic{
+    width: 100%;
+    max-height: 26vw;
+    overflow: hidden;
+    border-radius: 5px;
+  }
+  .bigpic img{
+    width: 100%;
   }
   .image{
     border-radius: 5px;

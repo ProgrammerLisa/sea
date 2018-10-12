@@ -9,20 +9,14 @@
     height: 8px;
   }
 }
-.myIcons-add{
-  .mu-fab-button{
+.myIconsReduce{
+  .mu-fab-button.mu-button-small{
     width: 20px;
     height: 20px;
     box-shadow: none;
   }
 }
-.myIcons-reduce{
-  .mu-fab-button{
-    width: 20px;
-    height: 20px;
-    box-shadow: none;
-  }
-}
+
 #profile{
   .mu-list{
     padding: 0;
@@ -49,4 +43,31 @@
     border-radius: 5px;
   }
 }
-
+.absolute{
+  height: 100vh;
+  overflow-y: scroll;
+  width: 100%;
+  padding-bottom: 6rem;
+}
+.absolute::-webkit-scrollbar {
+  display: none;
+}
+#commodityImgs{
+  .mu-carousel{
+    height: 300px;
+  }
+  .mu-carousel-item>img{
+    min-width: 0;
+  }
+  .mu-carousel-item{
+    background: #fff;
+  }
+  .mu-carousel-indicator-button{
+    width: 20px;
+    height: 20px;
+  }
+  .mu-carousel-indicator-icon{
+    width: 8px;
+    height: 8px;
+  }
+}

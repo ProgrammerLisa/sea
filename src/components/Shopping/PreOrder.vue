@@ -33,13 +33,13 @@
       <div class="countChoose">
         <div class="countBtn text-left">购买数量</div>
         <div class="countBtn countRight">
-          <span class="myIcons-add">
+          <span class="myIconsReduce">
             <mu-button fab small class="rightCount" @click="countAdd(maxNum)">
               <mu-icon value="add" style="margin: auto"></mu-icon>
             </mu-button>
           </span>
           <div class="countStyle">{{count}}</div>
-          <span class="myIcons-reduce">
+          <span class="myIconsReduce">
              <mu-button fab small class="leftCount" @click="countRemove">
             <mu-icon value="remove"></mu-icon>
           </mu-button>
@@ -364,4 +364,6 @@
     border-right: 1px solid #ddd;
   }
 </style>
+<style lang="less">
 
+</style>

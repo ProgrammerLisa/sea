@@ -5,11 +5,14 @@
 				发现
 		</div>
     <div v-if="hasSignal">
-      <mu-tabs :value.sync="active1" inverse indicator-color="#fff" color="#09A2D6" text-color="rgba(0, 0, 0, .54)"  center style="background: #fff">
+      <mu-tabs :value.sync="active1" class="cc" inverse full-width indicator-color="#fff" color="#09A2D6" text-color="rgba(0, 0, 0, .54)"  center style="background: #fff">
         <mu-tab class="tabTitle">基础任务</mu-tab>
         <mu-tab class="tabTitle">独家任务</mu-tab>
       </mu-tabs>
       <div class="demo-text" v-if="active1 === 0">
+        <div class="sanjiao1" :style="left">
+          <div class="sanjiao"></div>
+        </div>
           <h4 class="text-center tipTitle">任务越多能量值越高</h4>
           <div class="text-center loginBox">
             <!--<p><img src="../../assets/images/indent.png" style="width: 3rem"/></p>-->
@@ -36,7 +39,7 @@
               <div style="font-size: small;margin-top: 5px">可获得相应捐赠数 <span  style="color: #09a2d6"></span></div>
             </div>
             <div class="thoseBoxRight">
-              <mu-button flat class="publicButton" to="/publicgood" v-if="signto">已完成</mu-button>
+              <mu-button flat class="publicButton" to="/publicgood" v-if="signto" style="color: #fff">已完成</mu-button>
               <mu-button flat class="loginBtn" to="/publicgood" v-else>去完成</mu-button>
             </div>
           </div>
@@ -54,6 +57,9 @@
         </div>
       </div>
       <div class="demo-text" v-if="active1 === 1">
+        <div class="sanjiao2" :style="right">
+          <div class="sanjiao"></div>
+        </div>
         <div class="kebi">
           <p class="text-center" style="background: white;margin: 35vh auto;padding: 1rem;border-radius: 8px;width: 50%">即将上线 敬请期待</p>
 
@@ -92,7 +98,9 @@
 				signIns:'',
 				signto:'',
 				signthree:'',
-        		active1:0
+        active1:0,
+        left:'',
+        right:''
 			}
 		},
 		mounted() {
@@ -114,6 +122,10 @@
       this.$nextTick(function() {
         let that = this;
 				this.isSignIn();
+				var left=$(window).width()/4-8;
+        var right=$(window).width()/4-8;
+				this.left='left:'+left+'px';
+        this.right='right:'+right+'px';
 			})
 		},
 		methods: {
@@ -236,6 +248,19 @@
     font-size: 1.6rem;
     padding:0.8rem 1.5rem;
     color: #323232;
+  }
+  .sanjiao{
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    border-width: 8px;
+    border-color: transparent transparent #22C5E8 transparent;
+    border-style:  dashed dashed solid dashed;
+    z-index: 999;
+  }
+  .sanjiao1,.sanjiao2{
+    position: absolute;
+    top: 88px;
   }
   .tipTitle{
     color: #fff;margin: 1.5rem 0

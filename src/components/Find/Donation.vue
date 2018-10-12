@@ -32,8 +32,10 @@
     </div>
     <mu-card-text style="border-bottom: 0.6rem solid #f5f5f5">
       <h4>项目详情 </h4>
-      <div style="text-indent:2.5rem;color: #444">
-         {{datas.desc}}
+      <div style="color: #444;padding: 1rem 1rem 2rem;">
+      	<dl v-html="content">
+						{{content}}
+					</dl>
       </div>
 
     </mu-card-text>
@@ -77,7 +79,8 @@
             carouselImg1,carouselImg2,carouselImg3,carouselImg4,
             datas:'',
             completed:'',
-            completed_percent:0
+            completed_percent:0,
+            content:''
           }
         },
         mounted(){
@@ -105,7 +108,11 @@
             }).then(function(res) {
               if(res.data.code === 0) {
                 console.log(res.data)
+             
                 this.datas=res.data.data;
+                this.content=res.data.data.desc+'<style type="text/css">' +
+								'img {max-width: 100%; }' +
+								'<\/style>';
                 this.completed_percent=parseFloat(this.datas.completed_percent.split("%")[0]);
 //              this.completed=this.completed_percent*this.datas.target;
 								this.completed=this.completed_percent;
@@ -132,6 +139,7 @@
 </script>
 
 <style scoped>
+	
   .content{
     width: 100vw;
     height: 100vh;
@@ -201,4 +209,8 @@
   .invitation img{
     height: 30px;
   }
+  .Topstarnews-img {
+		width: 100%;
+		padding: 1rem 0rem 1rem;
+	}
 </style>

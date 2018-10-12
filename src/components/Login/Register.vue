@@ -10,7 +10,7 @@
 			<div style="padding: 45px 30px">
 				<div style="padding-top: 3.5rem;">
 					<mu-text-field :full-width="100" :max-length="11" v-on:input="show()" ref="phone" name="phone" v-model="phone" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></mu-text-field>
-					<button v-if="btnShow" @click="bnns" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right: 7%;">
+					<button v-if="phone!=''" @click="bnns" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right: 7%;">
             				<img src="../../assets/images/x.png" style="position: absolute;" />
          			</button>
 				</div>
@@ -18,31 +18,29 @@
 				<div style="padding-top: 0px; display: inline-table; width: 100%;">
 					<mu-text-field :full-width="100" id="verification" v-on:input="verifshow()" name="verification" :max-length="4" v-model="verify_code" placeholder="请输入短信验证码" />
 					<mu-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxts}}</mu-button>
-					<button v-if="btnVer" @click="ver" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right:45%;">
+					<button v-if="verify_code!=''" @click="ver" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right:45%;">
             			<img src="../../assets/images/x.png" style="position: absolute;" />
          			</button>
 				</div>
 
 				<div>
 					<mu-text-field :full-width="100" :type="types" v-on:input="pwdshow()" style="font-size: 1.5rem;" v-model="password" placeholder="请输入密码" maxlength="16" is-type="sendcode" id="btns"></mu-text-field>
-					<!--<span>@{{passwordValidate.errorText}}</span>-->
 					<img id="group_input_img" @click="Alt()" :src="imgs" />
-					<button v-if="pwdeShow" @click="pwde" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right: 25%;">
+					<button v-if="password!=''" @click="pwde" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right: 25%;">
             				<img src="../../assets/images/x.png" style="position: absolute;" />
          			</button>
 				</div>
 				<div>
 					<mu-text-field :full-width="100" :type="typeis" v-on:input="pwdeshow()" style="font-size: 1.5rem;" v-model="passwordcheckModel" placeholder="请再次输入密码" maxlength="16" is-type="sendcode" id="btn"></mu-text-field>
-					<!--<span>@{{passwordCheckValidate.errorText}}</span>-->
 					<img id="group_input_imgs" @click="Alte()" :src="imges" />
-					<button v-if="pwdebtn" @click="pwdes" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right: 25%;">
+					<button v-if="passwordcheckModel!=''" @click="pwdes" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right: 25%;">
             				<img src="../../assets/images/x.png" style="position: absolute;" />
          			</button>
 				</div>
 				
 				<div>
 					<mu-text-field :full-width="100" id="phone" v-on:input="names()" ref="name" name="name" v-model="nickname" placeholder="请输入昵称" maxlength="11" keyboard="number" is-type="china-mobile" required></mu-text-field>
-					<button v-if="namebtn" @click="nick" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right: 10%;">
+					<button v-if="nickname!=''" @click="nick" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right: 10%;">
             				<img src="../../assets/images/x.png" style="position: absolute;" />
          			</button>
 				</div>
@@ -103,11 +101,6 @@
 				typeis: "password",
 				imges: eye,
 				//Stime:null,
-				btnShow: false,
-				btnVer: false,
-				pwdeShow: false,
-				pwdebtn: false,
-				namebtn: false,
 				time: '',
 				form: {
 					phone: "",
@@ -153,69 +146,34 @@
 		},
 		methods: {
 			show() {
-				if(this.phone == '') {} else {
-					this.btnShow = true;
-				}
+				this.phone == ''
 			},
 			bnns() {
-				if(this.phone == '') {
-
-				} else {
-					this.phone = ''
-					this.btnShow = false;
-				}
+				this.phone = ''
 			},
 			verifshow() {
-				if(this.verify_code == '') {} else {
-					this.btnVer = true;
-				}
+				this.verify_code == ''
 			},
 			ver() {
-				if(this.verify_code == '') {} else {
-					this.verify_code = ''
-					this.btnVer = false;
-				}
+				this.verify_code = ''
 			},
 			pwdshow() {
-				if(this.password == '') {
-
-				} else {
-					this.pwdeShow = true;
-				}
+				this.password == ''
 			},
 			pwde() {
-				if(this.password == '') {} else {
-					this.password = ''
-					this.pwdeShow = false;
-				}
+				this.password = ''
 			},
 			pwdeshow() {
-				if(this.passwordcheckModel == '') {
-
-				} else {
-					this.pwdebtn = true;
-				}
+				this.passwordcheckModel == ''
 			},
 			names(){
-				if(this.nickname == ''){
-					
-				}else{
-					this.namebtn = true;
-				}
+				this.nickname == ''
 			},
 			nick(){
-				if(this.nickname == ''){
-					
-				}else{
-					this.nickname = ''
-					this.namebtn = false;
-				}
+				this.nickname = ''
 			},
 			pwdes() {
-				if(this.passwordcheckModel == '') {} else {
-					this.passwordcheckModel = ''
-					this.pwdebtn = false;
-				}
+				this.passwordcheckModel = ''
 			},
 			evers() {
 				this.masrc = backs;
@@ -591,6 +549,9 @@
 	.weui-btn:after {
 		border-radius: 0px;
 		border: none;
+	}
+	.close{
+		opacity:1;
 	}
 
 	button#pwsbtn.weui-btn.weui-btn_primary {

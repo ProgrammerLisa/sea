@@ -15,7 +15,7 @@
 			</div>
 			<div class="media friends" v-for="f in friends" v-else @click="friendData(f.uid,d=f.nickname)">
 				<div class="media-left">
-					<img class="media-object" :src="`${f.avatar+'?'+now}`">
+					<img class="media-object" :src="f.avatar==''?headImg:`${f.avatar+'?'+now}`">
 				</div>
 				<div class="media-body">
 					<h4 class="media-heading">
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-	import headImg from '@/assets/images/friend.png'
+	import headImg from '@/assets/images/chushi.png'
 	import noFriendImg from '@/assets/images/myfriend.png'
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
@@ -47,6 +47,7 @@
 				masrc: back,
 				noFriend: true,
 				noFriendImg: noFriendImg,
+        headImg:headImg,
 				friends: [],
         model:{
           avatar: headImg,
@@ -80,7 +81,6 @@
 							"Access-Control-Allow-Origin": "*"
 						},
 					}).then(function(res) {
-					  console.log(res.data)
 						if(res.data.code != 0) {
 							this.$layer.msg(res.data.msg);
 						} else {
@@ -91,7 +91,9 @@
 								for(let i = 0; i < res.data.data.length; i++) {
 									if(res.data.data[i].avatar != "") {
 										 this.model.avatar= res.data.data[i].avatar;
-									}
+									}else {
+                    this.model.avatar=''
+                  }
 									if(res.data.data[i].gender != "FEMALE") {
                     this.model.color = '#5CB3FC';
                     this.model.bcColor = 'background: #5CB3FC;';

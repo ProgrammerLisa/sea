@@ -11,15 +11,16 @@
 			<p>暂时还没有消息哦</p>
 		</div>
     <div class="contentMarginTop">
-      <div v-for="(n,index) in reverseData" class="newsContainer" @touchstart="touchStart($event,index)" @touchmove="touchMove($event,index)" @touchend="touchEnd($event,index)" :data-curid="n.id">
-        <mu-ripple class="mu-ripple-demo">
-          <div class="newsContent">
-            <div class="newsTitle">系统消息<span class="newsDate">{{n.msg.created_at}}</span></div>
-            <div class="newsText">{{n.msg.content}}</div>
-          </div>
-        </mu-ripple>
-        <div class="media-right" >
-        <span class="badge msg" v-show="!n.msg.is_read">·</span>
+      <mu-load-more @refresh="refresh" :refreshing="refreshing" :loading="loading" @load="load">
+        <div v-for="(n,index) in reverseData" class="newsContainer" @touchstart="touchStart($event,index)" @touchmove="touchMove($event,index)" @touchend="touchEnd($event,index)" :data-curid="n.id">
+          <mu-ripple class="mu-ripple-demo">
+            <div class="newsContent">
+              <div class="newsTitle">系统消息<span class="newsDate">{{n.msg.created_at}}</span></div>
+              <div class="newsText">{{n.msg.content}}</div>
+            </div>
+          </mu-ripple>
+          <div class="media-right" >
+          <span class="badge msg" v-show="!n.msg.is_read">·</span>
         </div>
         <transition name="slide-fade">
           <div class="del" v-show="n.show" @touchstart="openAlertDialog(index)">
@@ -32,6 +33,8 @@
         <mu-button slot="actions" flat color="primary" @click="closeAlertDialog(index)" class="loginOutBtn">取消</mu-button>
         </mu-dialog>
       </div>
+      </mu-load-more>
+      <div class="noMore" v-show="noMore">没有更多信息了</div>
     </div>
 
 	</div>
@@ -48,6 +51,10 @@
 		data() {
 			return {
 				masrc: back,
+        noMore:false,
+        refreshing:false,
+        loading:false,
+        next:"/messages/box",
 				newsNone: true,
 				newsNoneImg: newsNoneImg,
 				news: [],
@@ -95,7 +102,7 @@
 		  newsList(){
         this.$http({
           method: "post",
-          url: "/messages/box",
+          url: this.next,
           headers: {
             "device": "android",
             "uid": localStorage.getItem("uid"),
@@ -105,12 +112,13 @@
             "page":1
           }
         }).then(function(res) {
+          this.loading=false;
           if(res.data.code == 0) {
+            this.next=res.data.next;
             if(JSON.stringify(res.data.data) == "{}") {
               this.newsNone = true;
             } else {
               this.newsNone = false;
-              this.news=[];
               for(let n in res.data.data) {
                 this.mobile.id = n;
                 this.mobile.msg = res.data.data[n];
@@ -138,9 +146,33 @@
           }
         }.bind(this))
           .catch(function(err) {
+            this.loading=false;
             this.newsNone = true;
             this.$layer.msg("系统异常，请稍后再试");
           }.bind(this));
+      },
+      refresh(){
+        this.refreshing=true;
+        this.news=[];
+        this.next="/messages/box";
+        this.noMore=false;
+        this.newsList();
+        setTimeout(() => {
+          this.refreshing = false;
+        }, 1000)
+      },
+      load(){
+        this.loading=true;
+        if (this.next===""){
+          this.noMore=false;
+          setTimeout(()=>{
+            this.noMore=true;
+            this.loading=false;
+          },1500);
+        }else {
+          this.newsList();
+
+        }
       },
 			newsDetails(index) {
 				this.$router.push({
@@ -203,6 +235,8 @@
 					}).then(function(res) {
 						if(res.data.code == 0) {
 							this.$layer.msg(res.data.msg);
+              this.news=[];
+              this.next="/messages/box";
               this.newsList();
 						}
 					}.bind(this))
@@ -341,5 +375,13 @@
   }
   .loginOutBtn:first-child{
     border-right: 1px solid #ddd;
+  }
+  .noMore{
+    width: 100%;
+    line-height: 4rem;
+    color: #666;
+    text-align: center;
+    background: #f5f5f5;
+    margin-top: -4rem;
   }
 </style>

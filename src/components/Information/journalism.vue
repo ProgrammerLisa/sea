@@ -144,7 +144,6 @@
                 "Access-Control-Allow-Origin": "*"
               }
             }).then(function(res) {
-              console.log(res.data)
               this.loading=false;
               if(res.data.code === 401) {
                 this.$layer.msg('请登录后再试！');
@@ -261,7 +260,8 @@
     background: #fff;
   }
   .list{
-    height: 33vw;
+    height: 30vw;
+    overflow: hidden;
     padding:1.1rem 1rem;
     border-top: 1px solid #f5f5f5;
     display: flex;
@@ -355,8 +355,8 @@
     width: 100%;
   }
   .image{
-    border-radius: 5px;
     height: 100%;
+    border-radius: 5px;
     margin-right: 1rem;
   }
   .Grid-cell {

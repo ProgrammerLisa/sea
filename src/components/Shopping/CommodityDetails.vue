@@ -6,36 +6,39 @@
       </mu-button>
       <span class="navTitleText">商城</span>
     </mu-appbar>
-		<div class="commodityImg contentMarginTop" id="commodityImgs">
-      <!--<img :src="commodityImg" />-->
-      <mu-carousel transition="fade">
-        <mu-carousel-item v-for="(i,index) in commodityImg" :key="index">
-          <img :src="i">
-        </mu-carousel-item>
-      </mu-carousel>
-		</div>
-		<div class="commodityTitle">
-			<h4>{{commodityTitle}}</h4>
-			<p class="commodityPropaganda">{{commodityPropaganda}}</p>
-		</div>
-		<div class="commodityPrice">
-			<span class="nowPrice">当前价：<span class="priceNumber">{{commodityPrice}}</span></span>
-      <span class="commodityCount">已兑换：{{commodityNumber}} 件</span>
-			<div>( 成交价：珍珠数 )</div>
-		</div>
-    <div>
-      <h4 class="title">详 情</h4>
-      <dl v-html="commodityDetail">
-        {{commodityDetail}}
-      </dl>
+    <div class="absolute">
+      <div class="commodityImg contentMarginTop" id="commodityImgs">
+        <!--<img :src="commodityImg" />-->
+        <mu-carousel transition="fade"  hide-controls>
+          <mu-carousel-item v-for="(i,index) in commodityImg" :key="index">
+            <img :src="i">
+          </mu-carousel-item>
+        </mu-carousel>
+      </div>
+      <div class="commodityTitle">
+        <h4>{{commodityTitle}}</h4>
+        <p class="commodityPropaganda">{{commodityPropaganda}}</p>
+      </div>
+      <div class="commodityPrice">
+        <span class="nowPrice">当前价：<span class="priceNumber">{{commodityPrice}}</span></span>
+        <span class="commodityCount">已兑换：{{commodityNumber}} 件</span>
+        <div>( 成交价：珍珠数 )</div>
+      </div>
+      <div>
+        <h4 class="title">详 情</h4>
+        <dl v-html="commodityDetail">
+          {{commodityDetail}}
+        </dl>
+      </div>
+      <div class="considerations">
+        <h4 class="considerationsTitle">须 知</h4>
+        <ul class="commodityConsiderations">
+          <li>参与须知:</li>
+          <li v-for="c in commodityConsiderations">*{{c.considerations}}</li>
+        </ul>
+      </div>
     </div>
-		<div class="considerations">
-			<h4 class="considerationsTitle">须 知</h4>
-			<ul class="commodityConsiderations">
-				<li>参与须知:</li>
-				<li v-for="c in commodityConsiderations">*{{c.considerations}}</li>
-			</ul>
-		</div>
+
 		<div class="exchange">
 			<mu-button flat class="publicButton" @click="preOrder">立即兑换</mu-button>
 		</div>
@@ -78,13 +81,13 @@
           <div class="sheetBody flexContainer countList">
             <div class="countStyle text-left countHalf sheetTitle">购买数量</div>
             <div class="flexContainer text-right countHalf" style="display: flex;flex-direction:row-reverse">
-              <span class="myIcons-reduce">
+              <span class="myIconsReduce">
                 <mu-button fab small class="rightCount" @click="countAdd(commodityNumber)">
                   <mu-icon value="add" ></mu-icon>
                 </mu-button>
               </span>
               <div class="countStyle">{{count}}</div>
-              <span class="myIcons-add">
+              <span class="myIconsReduce">
                 <mu-button fab small class="leftCount" @click="countRemove">
                   <mu-icon value="remove" ></mu-icon>
                 </mu-button>
@@ -351,7 +354,6 @@
 	}
 
 	.commodityImg img {
-    width: 100%;
     height: 100%;
 	}
 
@@ -400,7 +402,6 @@
 	}
 
 	.exchange {
-		border-top: 0.1rem solid #f5f5f5;
 		text-align: center;
 		padding: 0;
 		position: fixed;
@@ -411,11 +412,11 @@
   .marginBottom{
     margin-bottom: 5px;
   }
+  .absolute{
+    padding-bottom: 0;
+  }
 </style>
 <style lang="less">
-  #commodityImgs{
-    .mu-carousel{
-      height: 300px;
-    }
-  }
+
+
 </style>

@@ -6,17 +6,18 @@
       </mu-button>
       <span class="navTitleText">爱心慈善</span>
     </mu-appbar>
-    <div class="contentMarginTop"></div>
-    <mu-carousel hide-controls class="myCarousel">
-      <mu-carousel-item v-for="(i,index) in datas.image" :key="index">
-        <img :src="i">
-      </mu-carousel-item>
-    </mu-carousel>
-    <mu-card-title :title="datas.name" :sub-title="datas.label"></mu-card-title>
-    <mu-flex class="demo-linear-progress" style="line-height: 1.6rem">
-      <mu-linear-progress mode="determinate" :value="completed_percent" :size="10" color="#17B7E0" class="myProgress"></mu-linear-progress><span style="margin:-0.5rem 0 0 1rem;color: #09a2d6">{{datas.completed_percent}}</span>
-    </mu-flex>
-    <div style="display: flex">
+    <div class="absolute">
+      <div class="contentMarginTop"></div>
+      <mu-carousel hide-controls class="myCarousel">
+        <mu-carousel-item v-for="(i,index) in datas.image" :key="index">
+          <img :src="i">
+        </mu-carousel-item>
+      </mu-carousel>
+      <mu-card-title :title="datas.name" :sub-title="datas.label"></mu-card-title>
+      <mu-flex class="demo-linear-progress" style="line-height: 1.6rem">
+        <mu-linear-progress mode="determinate" :value="completed_percent" :size="10" color="#17B7E0" class="myProgress"></mu-linear-progress><span style="margin:-0.5rem 0 0 1rem;color: #09a2d6">{{datas.completed_percent}}</span>
+      </mu-flex>
+      <div style="display: flex">
         <div class="contentTitle text-center">
           <div class="grid-cell">
             <div style="color:#09a2d6">{{datas.target}}</div>
@@ -29,29 +30,29 @@
             <div>已筹/颗</div>
           </div>
         </div>
-    </div>
-    <mu-card-text style="border-bottom: 0.6rem solid #f5f5f5">
-      <h4>项目详情 </h4>
-      <div style="color: #444;padding: 1rem 1rem 2rem;">
-      	<dl v-html="content">
-						{{content}}
-					</dl>
       </div>
+      <mu-card-text style="border-bottom: 0.6rem solid #f5f5f5">
+        <h4>项目详情 </h4>
+        <div style="text-indent:2.5rem;color: #444">
+          {{datas.desc}}
+        </div>
 
-    </mu-card-text>
-    <mu-container style="color: #646464;font-size: 1.5rem">
-      <div style="width: 95%;border: 1px solid #ddd;padding: 1rem;margin: 1rem auto">
-        <div>发起机构：{{datas.sponsor}}</div>
-        <div>接受机构：{{datas.accepter}}</div>
-        <div>备案号：{{datas.id}}</div>
+      </mu-card-text>
+      <mu-container style="color: #646464;font-size: 1.5rem">
+        <div style="width: 95%;border: 1px solid #ddd;padding: 1rem;margin: 1rem auto">
+          <div>发起机构：{{datas.sponsor}}</div>
+          <div>接受机构：{{datas.accepter}}</div>
+          <div>备案号：{{datas.id}}</div>
+        </div>
+
+      </mu-container>
+      <div class="mu-card-text">
+        <h4>温馨提示</h4>
+        <div style="color: #646464">夺宝公益在此只提供平台服务，用户的捐赠将直接进入具
+          有公开募捐的慈善组织账户中。</div>
       </div>
-
-    </mu-container>
-    <div class="mu-card-text">
-      <h4>温馨提示</h4>
-      <div style="color: #646464">夺宝公益在此只提供平台服务，用户的捐赠将直接进入具
-        有公开募捐的慈善组织账户中。</div>
     </div>
+
     <div class="newAddress">
       <mu-flex justify-content="center" align-items="center">
           <router-link tag="div" to="/ask" class="invitation">
@@ -142,17 +143,14 @@
 	
   .content{
     width: 100vw;
-    height: 100vh;
     overflow-x: hidden;
     overflow-y: scroll;
-    position: fixed;
-    top: 0;
     background: #fff;
-    padding-bottom: 6rem;
   }
   .content::-webkit-scrollbar {
     display: none;
   }
+
   .mu-carousel-item img{
     width: 100%;
     height: 18rem;

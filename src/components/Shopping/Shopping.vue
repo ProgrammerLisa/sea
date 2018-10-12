@@ -102,7 +102,7 @@
 
         };
         this.$nextTick(function() {
-          $("#scroll").css({height:$(window).height()-$(".BlackTitle").height()-$("#nav").height()-50+'px'});
+          $("#scroll").css({height:$(window).height()-$(".BlackTitle").height()-$(".carousel").height()-50+'px'});
           localStorage.removeItem("goods_id");
           localStorage.removeItem("addressId");
           localStorage.removeItem("goodsSize");
@@ -309,6 +309,7 @@
   }
   #scroll{
     overflow-y: scroll;
+    padding-top: 1rem;
   }
   #scroll::-webkit-scrollbar{
     display: none;

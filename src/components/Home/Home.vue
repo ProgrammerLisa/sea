@@ -236,6 +236,8 @@
 
 			},
 			getPearl(index, id) {
+			  const that =this;
+        this.imgDiv[index].isDisabled = true;
          let pearlAudio = document.getElementById('pearlAudio');
           pearlAudio.pause();
           pearlAudio.currentTime=0;
@@ -251,11 +253,20 @@
 							pearl_id: id
 						}
 					}).then(function(res) {
+
 						if(res.data.code === 0) {
-
 							pearlAudio.play();
+              if(res.data.pearls.length === 0&&res.data.is_new_round===false) {
+                setTimeout(() => {
+                  that.hasPearl = false;
+                }, 3500)
+              }else if (res.data.is_new_round===true){
+                setTimeout(() => {
+                  that.imgDiv=[];
+                  that.startStyle()
+                }, 3200)
 
-							this.imgDiv[index].isDisabled = true;
+              }
 							this.pearlCount = res.data.user_pearl;
 							this.energyCount = res.data.user_energy;
 							let that = this;
@@ -307,11 +318,7 @@
 
 								}, 200)
 							}
-							if(res.data.pearls.length === 0) {
-								setTimeout(() => {
-									that.hasPearl = false;
-								}, 3500)
-							}
+
 						} else {
 							this.$layer.msg(res.data.msg);
 							this.imgDiv[index].isDisabled = false;

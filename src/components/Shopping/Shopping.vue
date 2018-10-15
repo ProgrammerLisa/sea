@@ -4,8 +4,8 @@
         商城
       </div>
       <div v-if="hasSignal">
-        <div class="carousel" id="nav">
-          <img :src="carousel"/>
+        <div class="carousel">
+          <img :src="carousel" id="nav"/>
         </div>
         <div id="scroll">
           <mu-load-more @refresh="refresh" :refreshing="refreshing" :loading="loading" @load="load">
@@ -102,7 +102,6 @@
 
         };
         this.$nextTick(function() {
-          $("#scroll").css({height:$(window).height()-$(".BlackTitle").height()-$(".carousel").height()-50+'px'});
           localStorage.removeItem("goods_id");
           localStorage.removeItem("addressId");
           localStorage.removeItem("goodsSize");
@@ -110,6 +109,9 @@
           localStorage.removeItem("goodsNum");
           localStorage.removeItem("maxNum");
           this.getStore();
+          setTimeout(()=>{
+            $("#scroll").css({height:$(window).height()-$(".BlackTitle").height()-$("#nav").height()-50+'px'});
+          },1000)
         })
 
       },
@@ -241,11 +243,12 @@
     border-bottom: 0.1rem solid #f5f5f5;
     background: #fff;
   }
-
+  .media-left img{
+    max-height: 100%;
+  }
   @media screen and (min-width: 300px) and (max-width: 350px) {
     .media-left img{
       width: 9rem;
-      height: 9rem;
       margin-right: 1rem;
     }
   }
@@ -253,7 +256,6 @@
   @media screen and (min-width: 350px) and (max-width: 2000px) {
     .media-left img{
       width: 11rem;
-      height: 11rem;
       margin-right: 1rem;
     }
   }

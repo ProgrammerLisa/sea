@@ -29,7 +29,11 @@
           <div class="listImg"><img :src="i.image"></div>
           <div class="listContent">
             <div class="listTitle">{{i.name}}</div>
+<<<<<<< HEAD
             <div class="listDesc" >{{i.desc}}</div>
+=======
+            <div class="listDesc"></div>
+>>>>>>> b7e7c8ddcc3d79fd3d8bf70ad59e05084e3604a1
             <div><span v-for="(c,item) in i.label" class="itemLabel">{{c}}</span></div>
             <div class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</div>
           </div>
@@ -44,7 +48,7 @@
             <div class="listImg"><img :src="i.image"></div>
             <div class="listContent">
               <div class="listTitle">{{i.name}}</div>
-              <div class="listDesc">{{i.desc}}</div>
+              <div class="listDesc"></div>
               <div><span v-for="(c,item) in i.label" class="itemLabel">{{c}}</span></div>
               <div class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</div>
             </div>
@@ -58,7 +62,7 @@
             <div class="listImg"><img :src="i.image"></div>
             <div class="listContent">
               <div class="listTitle">{{i.name}}</div>
-              <div class="listDesc">{{i.desc}}</div>
+              <div class="listDesc"></div>
               <div><span v-for="(c,item) in i.label" class="itemLabel">{{c}}</span></div>
               <div class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</div>
             </div>
@@ -72,7 +76,7 @@
             <div class="listImg"><img :src="i.image"></div>
             <div class="listContent">
               <div class="listTitle">{{i.name}}</div>
-              <div class="listDesc">{{i.desc}}</div>
+              <div class="listDesc"></div>
               <div><span v-for="(c,item) in i.label" class="itemLabel">{{c}}</span></div>
               <div class="fontStyle"><span style="color: #09a2d6">{{i.target}}份</span>爱心</div>
             </div>

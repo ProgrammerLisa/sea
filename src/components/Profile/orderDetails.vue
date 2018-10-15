@@ -59,7 +59,7 @@
             <div style="font-size: small">成交价（珍珠）</div>
           </div>
           <div>
-            <mu-button class="publicButton" flat @click="goLogistics" v-if="datas.status=='WAITING_RECIEVE'">查看物流</mu-button>
+            <mu-button class="publicButton" flat @click="goLogistics(datas.goods_img,datas.id)" v-if="datas.status=='WAITING_RECIEVE'">查看物流</mu-button>
             <mu-button class="disabledBtn" flat v-else>暂无物流信息</mu-button>
           </div>
         </div>
@@ -109,16 +109,15 @@
               }.bind(this));
 
           },
-          goLogistics(){
+          goLogistics(image,orderNumber){
             this.$router.push({
               path: '/logistics',
               name: 'logistics',
               params: {
                 name: 'name',
                 dataObj: {
-                  image: this.datas.image,
-                  orderNumber: this.datas.orderNumber,
-                  date: this.datas.date
+                  image:image,
+                  orderNumber: orderNumber
                 }
 
               }

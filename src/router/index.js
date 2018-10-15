@@ -335,6 +335,11 @@ export default new Router({
       name:'search',
       meta:{index:3},
       component:  resolve => require(['@/components/Find/Search'], resolve)
+    },{
+      path:'/advertisement',
+      name:'advertisement',
+      meta:{index:2},
+      component:  resolve => require(['@/components/Information/Advertisement'], resolve)
     }
 
 

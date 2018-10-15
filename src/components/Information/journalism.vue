@@ -7,7 +7,7 @@
 
       <div v-if="hasSignal" id="scroll">
         <mu-load-more @refresh="refresh" :refreshing="refreshing" :loading="loading" @load="load">
-          <div v-for="(i,index) in press" @click="sendParams(i.id)">
+          <div v-for="(i,index) in press" @click="sendParams(i.id,i.label,i.is_transfer,i.url)">
             <div v-show="i.mod=='LESSPIC'" class="ul">
               <div class="list">
                 <div>
@@ -89,20 +89,7 @@
             loading:false,
             next:'/tasks/news',
             noMore:false,
-            press:[],
-            item:{
-              author:'',
-              category:'',
-              id:'',
-              image:'',
-              label:'',
-              published_at:'',
-              source:'',
-              tags:'',
-              title:'',
-              mod:'',
-              hits:''
-            }
+            press:[]
           }
         },
       mounted(){
@@ -150,37 +137,12 @@
                 this.$router.replace('/login');
               }
               if(res.data.code === 0) {
+                console.log(res.data)
                 this.hasSignal=true;
                 localStorage.setItem("hotkeys",JSON.stringify(res.data.hotkeys));
                 this.next=res.data.data.next;
                 if(res.data.data.items.length>0){
-                  for (let i=0;i<res.data.data.items.length;i++){
-                    this.item.author=res.data.data.items[i].author;
-                    this.item.category=res.data.data.items[i].category;
-                    this.item.id=res.data.data.items[i].id;
-                    this.item.image=res.data.data.items[i].image;
-                    this.item.label=res.data.data.items[i].label;
-                    this.item.published_at=res.data.data.items[i].published_at;
-                    this.item.source=res.data.data.items[i].source;
-                    this.item.tags=res.data.data.items[i].tags;
-                    this.item.title=res.data.data.items[i].title;
-                    this.item.mod=res.data.data.items[i].mod;
-                    this.item.hits=res.data.data.items[i].hits;
-                    this.press.push(this.item);
-                    this.item={
-                      author:'',
-                      category:'',
-                      id:'',
-                      image:'',
-                      label:'',
-                      published_at:'',
-                      source:'',
-                      tags:'',
-                      title:'',
-                      mod:'',
-                      hits:''
-                    };
-                  }
+                  this.press=res.data.data.items
                 }
               }else {
                 this.hasSignal=false;
@@ -193,9 +155,14 @@
                 this.hasSignal=false;
               }.bind(this))
           },
-        sendParams(id){
-        	this.$router.push({path: '/products'})
-        	localStorage.setItem("post_id",id);
+        sendParams(id,label,is_transfer,url){
+          if (label==="AD"&&is_transfer){
+            this.$router.push({path: '/Advertisement'});
+            localStorage.setItem("post_id",url);
+          } else {
+            this.$router.push({path: '/products'})
+            localStorage.setItem("post_id",id);
+          }
         },
         goSearch(){
           this.$router.push('/journalismsearch')
@@ -333,10 +300,12 @@
   .multipicImages{
     display: flex;
     justify-content: space-between;
+    max-height: 20vw;
+    overflow: hidden;
   }
   .multipicImages img{
     width: 30%;
-    max-height: 25vw;
+    height: 100%;
     border-radius: 5px;
   }
   .multipicFooter{
@@ -347,7 +316,7 @@
   }
   .bigpic{
     width: 100%;
-    max-height: 26vw;
+    max-height: 32vw;
     overflow: hidden;
     border-radius: 5px;
   }

@@ -19,7 +19,7 @@
             <div style="color: #333">每日登陆</div>
             <p style="font-size: small;margin-top: 5px">可获得能量值 <span style="color: #09a2d6">+1</span></p>
             <mu-button flat class="publicButton" v-if="signIn">已签到</mu-button>
-            <mu-button flat class="loginBtn"  v-else @click="signInFc">签到</mu-button>
+            <mu-button flat class="loginBtn"  v-else @click="signInFc"><div class="hongdian">●</div>签到</mu-button>
           </div>
         <div class="thoseBox">
           <div class="thoseBoxContainer">
@@ -40,7 +40,7 @@
             </div>
             <div class="thoseBoxRight">
               <mu-button flat class="publicButton" to="/publicgood" v-if="signto" style="color: #fff">已完成</mu-button>
-              <mu-button flat class="loginBtn" to="/publicgood" v-else>去完成</mu-button>
+              <mu-button flat class="loginBtn" to="/publicgood" v-else><div class="hongdian">●</div>去完成</mu-button>
             </div>
           </div>
           <div class="thoseBoxContainer">
@@ -51,7 +51,7 @@
             </div>
             <div class="thoseBoxRight">
               <mu-button flat class="publicButton" to="/journalism" v-if="signthree">已完成</mu-button>
-              <mu-button flat class="loginBtn" to="/journalism" v-else>去完成</mu-button>
+              <mu-button flat class="loginBtn" to="/journalism" v-else><div class="hongdian">●</div>去完成</mu-button>
             </div>
           </div>
            <div class="thoseBoxContainer">
@@ -62,7 +62,7 @@
             </div>
             <div class="thoseBoxRight">
               <mu-button flat class="publicButton" to="/friend" v-if="steal">已完成</mu-button>
-              <mu-button flat class="loginBtn" to="/friend" v-else>去完成</mu-button>
+              <mu-button flat class="loginBtn" to="/friend" v-else><div class="hongdian">●</div>去完成</mu-button>
             </div>
           </div>
           
@@ -288,6 +288,7 @@
   .loginBtn{
     border: #20C2E6 1px solid;color: #20C2E6;width: 6rem;height: 3rem;border-radius: 3px;
   }
+  
   .goThose{
     margin-top: 5px;
   }
@@ -296,6 +297,12 @@
   }
   .publicButton{
     width: 6rem;height:3rem;background: linear-gradient(to right, #38E7F8 , #0BA5D7);color: white;
+  }
+  .hongdian{
+  	position: absolute;
+  	color: red;
+  	margin-top: -14px;
+  	margin-left: 40px;
   }
   .thoseBoxContainer{
     display: flex;border-bottom: 1px solid #f5f5f5;padding: 1rem 0

@@ -27,7 +27,7 @@
         </form>
         <div class="changePsw">
           <mu-flex justify-content="center" class="submitBtn" align-items="center">
-            <mu-button flat class="publicButton" @click="submit">发消息</mu-button>
+            <mu-button flat class="publicButton" @click="submit">实名验证</mu-button>
           </mu-flex>
         </div>
       </div>

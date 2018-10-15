@@ -33,9 +33,9 @@
       </div>
       <mu-card-text style="border-bottom: 0.6rem solid #f5f5f5">
         <h4>项目详情 </h4>
-        <div style="text-indent:2.5rem;color: #444">
-          {{datas.desc}}
-        </div>
+        <dl v-html="content">
+          {{content}}
+        </dl>
 
       </mu-card-text>
       <mu-container style="color: #646464;font-size: 1.5rem">
@@ -79,6 +79,7 @@
             masrc: back,
             carouselImg1,carouselImg2,carouselImg3,carouselImg4,
             datas:'',
+            content:'',
             completed:'',
             completed_percent:0
           }
@@ -107,11 +108,13 @@
               }
             }).then(function(res) {
               if(res.data.code === 0) {
-                console.log(res.data)
                 this.datas=res.data.data;
                 this.completed_percent=parseFloat(this.datas.completed_percent.split("%")[0]);
 //              this.completed=this.completed_percent*this.datas.target;
 								this.completed=this.completed_percent;
+                this.content = res.data.data.desc + '<style type="text/css">' +
+                  'img {max-width: 100%; } p{color: #444}' +
+                  '<\/style>';
               }else {
                 this.$layer.msg(res.data.msg);
               }

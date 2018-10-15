@@ -11,7 +11,7 @@
           <div class="logisticsHeadLeft"><img :src="image"/></div>
           <div class="logisticsHeadRight">
             <div>订单号码：{{orderNumber}}</div>
-            <div>物流公司：34111111111</div>
+            <div>物流号码：{{logisticsCode}}</div>
             <div>发货时间：<span style="font-size: small">{{date}}</span></div>
           </div>
         </div>
@@ -45,6 +45,7 @@
             masrc: back,
             image:'',
             orderNumber:'',
+            logisticsCode:'',
             date:'',
             vactiveStep:0,
             list:[],
@@ -69,7 +70,6 @@
           getData(){
             this.image = this.$route.params.dataObj.image;
             this.orderNumber=this.$route.params.dataObj.orderNumber;
-            this.date=this.$route.params.dataObj.date;
             this.$http({
               method: "post",
               url: "/trace",
@@ -82,8 +82,9 @@
                 order_id:localStorage.getItem("order_id")
               }
             }).then(function(res) {
-              console.log(res.data)
               if(res.data.code === 0) {
+                this.date=res.data.sended_at;
+                this.logisticsCode=res.data.data.LogisticCode;
                 if(res.data.data.Traces.length>0){
                   this.hasData = true;
                   this.list = res.data.data.Traces;
@@ -146,7 +147,7 @@
     height: 100%;
   }
   .logisticsHeadRight{
-    line-height: 2rem;
+    line-height: 3rem;
     font-size: 1.5rem;
     vertical-align: middle;
   }

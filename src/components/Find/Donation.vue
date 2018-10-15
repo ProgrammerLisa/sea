@@ -33,17 +33,9 @@
       </div>
       <mu-card-text style="border-bottom: 0.6rem solid #f5f5f5">
         <h4>项目详情 </h4>
-<<<<<<< HEAD
-        <div style="color: #444">
-        	<dl v-html="content">
-						{{datas.content}}
-					</dl>
-        </div>
-=======
         <dl v-html="content">
           {{content}}
         </dl>
->>>>>>> b7e7c8ddcc3d79fd3d8bf70ad59e05084e3604a1
 
       </mu-card-text>
       <mu-container style="color: #646464;font-size: 1.5rem">

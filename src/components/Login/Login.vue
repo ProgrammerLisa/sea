@@ -1,6 +1,6 @@
 <template>
 
-	<div id="login1" >
+	<div id="login1">
 		<div id="login">
 			<!--<div id="nav">
 			<div id="LoginTitle">登 录</div>
@@ -35,21 +35,23 @@
 			<form v-if="isShow">
 				<div class="bjt">
 					<div style="padding:0 30px;">
+          			  			
+						
 						<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 							<!--<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: 25px;right: 7%;">
            			  <img src="../../assets/images/x.png" style="position:absolute;top: -20px;"/>
           			</button>-->
 
 							<mu-text-field @input="tou" required="required" class="phone" ref="mobile" v-on:input="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" :max-length="11" keyboard="number" is-type="china-mobile" />
-							<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top:-52px;right: 7%;">
-          			  			<img src="../../assets/images/x.png" style="position: absolute;" />
+							<button  @click="bnn" v-if="mobile!=''" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top:-55px;right: 7%;">
+          			  			<img src="../../assets/images/x.png" />
           					</button>
 						</div>
 
 						<div class="group_input" style="width: 100%;">
 							<mu-text-field :full-width="100" id="ipwd" v-on:input="ipwdshow()" v-model="inppwd" :type="types" placeholder="请输入密码" :max-length="16" is-type="sendcode" />
 							<img id="group_input_img" @click="Alt" :src="imgs" />
-							<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top:-65px;right: 14%;">
+							<button v-if="inppwd!=''" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top:-65px;right: 14%;">
           			  <img src="../../assets/images/x.png" />
           			</button>
 						</div>
@@ -79,7 +81,7 @@
 					<div style="padding: 0 30px;">
 						<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 							<mu-text-field required="required" class="phone" ref="mobile" v-on:input="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" :max-length="11" keyboard="number" is-type="china-mobile" />
-							<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top:-52px;right: 7%;">
+							<button v-if="mobile!=''" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top:-52px;right: 7%;">
           			  <img src="../../assets/images/x.png" style="position: absolute;" />
           			</button>
 						</div>
@@ -87,7 +89,7 @@
 						<div id="div_ipwd">
 							<mu-text-field id="verifica" :full-width="100" v-on:input="verifshow()" v-model="verif" maxlength="4" placeholder="请输入验证码" />
 							<mu-button flat color="primary" id="verbtn" slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</mu-button>
-							<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top: -65px;right: 120px;">
+							<button v-if="verif!=''" @click="ver" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top: -65px;right: 120px;">
             			<img src="../../assets/images/x.png" style="position: relative;"/>
           			</button>
 						</div>
@@ -142,30 +144,30 @@
 				border2: '3px solid white',
 				time: '',
 				btnShow: false,
-				btnShow1: false,
+				//				btnShow1: false,
 				btnverShow: false,
 				headDefault: true,
-				haveHeadImg:false,
+				haveHeadImg: false,
 				headPortrait: headImg
 			}
 		},
 
 		mounted: function() {
 			const that = this;
-      let clickNum = 0;
-      mui.back = function(){
-        clickNum++;
-        if(clickNum > 1) {
-          plus.runtime.quit();
-        } else {
-          mui.toast("再按一次退出应用");
-        }
-        setTimeout(function() {
-          clickNum = 0
-        }, 2000);
-        return false;
+			let clickNum = 0;
+			mui.back = function() {
+				clickNum++;
+				if(clickNum > 1) {
+					plus.runtime.quit();
+				} else {
+					mui.toast("再按一次退出应用");
+				}
+				setTimeout(function() {
+					clickNum = 0
+				}, 2000);
+				return false;
 
-      };
+			};
 			this.$nextTick(() => {
 
 			})
@@ -206,13 +208,11 @@
 					this.btnShow = true;
 				}
 			},
-			ipwdshow() {
-				if(this.inppwd === '') {} else {
-					this.btnShow1 = true;
-				}
-			},
+
 			verifshow() {
-				if(this.verif == '') {} else {
+				if(this.verif == '') {
+
+				} else {
 					this.btnverShow = true;
 				}
 			},
@@ -255,28 +255,13 @@
 			},
 
 			bnn() {
-				if(this.mobile == '') {
-
-				} else {
-					this.mobile = ''
-					this.btnShow = false;
-				}
+				this.mobile = ''
 			},
 			bnn1() {
-				if(this.inppwd == '') {
-
-				} else {
-					this.inppwd = ''
-					this.btnShow1 = false;
-				}
+				this.inppwd = ''
 			},
 			ver() {
-				if(this.verif == '') {
-
-				} else {
-					this.verif = ''
-					this.btnverShow = false;
-				}
+				this.verif = ''
 			},
 			Alt() {
 				if(this.types == "password") {
@@ -469,7 +454,6 @@
 			}
 		}
 	}
-	
 </script>
 
 <style scoped>
@@ -479,37 +463,38 @@
 		-webkit-box-shadow: 0 0 0px 1000px #fff inset;
 	}
 	/*焦点时也加上，不加会出现黄色背景闪动一下*/
-
+	
 	input[type=text]:focus,
 	input[type=password]:focus,
 	input.mu-text-field-input,
 	textarea:focus {
 		-webkit-box-shadow: 0 0 0 1000px white inset;
 	}
-
+	
 	button.weui-btn.weui-btn_primary {
 		background-color: #38E7F8;
 		border-radius: 0;
 	}
-
+	
 	button.weui-btn.weui-btn_primary:active {
 		background-color: #38E7F8;
 	}
-	#login1{
-		background:rgba(255,255,255,1);
+	
+	#login1 {
+		background: rgba(255, 255, 255, 1);
 	}
-
+	
 	#login {
 		width: 100vw;
 		height: 100vh;
 		background: #fff;
 		overflow: hidden;
 	}
-
+	
 	#LoginTitle {
 		padding: 1rem;
 	}
-
+	
 	#verifica {
 		border-top: 0;
 		border-left: 0;
@@ -522,18 +507,19 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
+	
 	div#div_ipwd {
 		padding-top: 10px;
 	}
-
+	
 	#ipwd .vux-x-input .weui-cell {
 		width: 100%;
 	}
-
+	
 	.weui-btn::after {
 		border-radius: 0;
 	}
-
+	
 	#verbtn {
 		position: relative;
 		margin-top: -68px;
@@ -548,7 +534,7 @@
 		border-radius: 0;
 		border: none;
 	}
-
+	
 	.phone {
 		border-top: 0;
 		border-left: 0;
@@ -561,15 +547,17 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-
+	
 	input::-ms-clear {
 		display: none;
 	}
-
-	.phone:valid+.close {
+	/*.phone:valid+.close {
 		display: inline;
+	}*/
+	.close{
+		opacity:1;
 	}
-
+	
 	#ipwd {
 		/*border-top: 0;
 		border-left: 0;
@@ -592,12 +580,12 @@
 		letter-spacing: 0.05rem;
 		padding-bottom: 0.5rem;
 	}
-
+	
 	.group_inputs {
 		width: 100%;
 		padding-top: 2rem;
 	}
-
+	
 	#group_input_img {
 		position: relative;
 		margin-top: -68px;
@@ -605,7 +593,7 @@
 		font-size: 1.2rem;
 		height: 30px;
 	}
-
+	
 	.group_input {
 		/*margin: -40px;*/
 		/*margin: 10px;*/
@@ -614,25 +602,23 @@
 		/*padding: 40px;*/
 		/*margin-left: -14px;*/
 	}
-
+	
 	.weui-cells:before {
 		border-top: 0px!important;
 	}
-
-
-
+	
 	.a_hyperlink {
 		color: #8C8C8C;
 	}
-
+	
 	a {
 		color: #353535;
 	}
-
+	
 	a:hover {
 		text-decoration: none;
 	}
-
+	
 	#nav {
 		width: 100%;
 		font-size: 1.8rem;
@@ -641,7 +627,7 @@
 		color: #333;
 		border-bottom: 1px solid #f6f6f6;
 	}
-
+	
 	#loginModeTitle {
 		width: 100%;
 		height: 4.3rem;
@@ -649,7 +635,7 @@
 		margin: 0;
 		border-bottom: 1px solid #f6f6f6;
 	}
-
+	
 	.loginMode {
 		width: 100%;
 		text-align: right;
@@ -658,7 +644,7 @@
 		overflow: hidden;
 		float: left;
 	}
-
+	
 	#a_common {
 		text-decoration: none;
 		/*border-bottom:3px solid #09A2D6;  #ccc换成链接的颜色*/
@@ -669,21 +655,21 @@
 		color: white;
 		/*margin-bottom:-3px;  这里设置你要空的距离*/
 	}
-
+	
 	#a_sms {
 		text-decoration: none;
 		display: inline-block;
 		font-size: 1.5rem;
 		color: white;
 	}
-
+	
 	#a_common_animation {
 		width: 50%;
 		background: #09A2D6;
 		height: 0.3rem;
 		margin-left: 25%;
 	}
-
+	
 	#a_sms_animation {
 		width: 50%;
 		background: #09A2D6;
@@ -691,32 +677,32 @@
 		margin-left: 25%;
 		/*opacity: 0;*/
 	}
-
+	
 	.weui-btn:after,
 	#btn_login_normal:after,
 	#btn_login_sms:after,
 	#verbtn:after {
 		border: none;
 	}
-
+	
 	#btn_login_normal,
 	#btn_login_sms {
 		width: 100%;
 		margin-top: 30px;
 	}
-
+	
 	#btn_login_normal:disabled {
 		background: #D9D9D9;
 	}
-
+	
 	#btn_login_sms:disabled {
 		background: #D9D9D9;
 	}
-
+	
 	button#btn_login_normal.weui-btn.weui-btn_primary {
 		width: 100%;
 	}
-
+	
 	button#btn_login_sms.weui-btn.weui-btn_primary {
 		width: 100%;
 	}
@@ -726,7 +712,7 @@
 		background-attachment: fixed;
 		height: 310px;
 	}*/
-
+	
 	#login {
 		background: url(../../assets/images/bglu.png);
 		background-repeat: no-repeat;
@@ -736,10 +722,11 @@
 		/*width: 100%;*/
 		/*height: 310px;*/
 	}
+	
 	input#ipwd.mu-text-field-input {
 		width: 100px;
 	}
-
+	
 	.bjt {
 		/*background: #fff;*/
 		width: 81%;
@@ -747,13 +734,11 @@
 		margin: 0 9vw;
 		/*border-radius: 1rem;*/
 		background: url(../../assets/images/bai.png);
-
-		background-repeat: no-repeat ;
+		background-repeat: no-repeat;
 		background-size: 100%;
 		/*margin: top right bottom left;*/
-
 	}
-
+	
 	.hyperlink {
 		margin-top: 1rem;
 		text-align: center;
@@ -761,7 +746,7 @@
 		bottom: 0;
 		right: 0;
 	}
-
+	
 	.HeadPortrait img {
 		width: 7rem;
 		height: 7rem;
@@ -769,11 +754,10 @@
 		margin-top: 10%;
 		margin-bottom: 30%;
 	}
-
+	
 	.HeadPortrait {
 		width: 50%;
 		margin: auto;
 		text-align: center;
 	}
-
 </style>

@@ -11,7 +11,7 @@
 				<div style="padding: 45px 30px">
 					<div style="padding-top: 30px;">
 						<mu-text-field style="font-size: 1.5rem;" :full-width="100" v-on:input="show()" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max-length="11" keyboard="number" is-type="china-mobile" required></mu-text-field>
-						<button v-if="btnShow" @click="bnns" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right: 7%;">
+						<button v-if="mobile!=''" @click="bnns" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right: 7%;">
             				<img src="../../assets/images/x.png" style="position: absolute;" />
          			 	</button>
 					</div>
@@ -20,7 +20,7 @@
 						<mu-text-field style="font-size: 1.5rem;" :full-width="100" v-on:input="verifshow()" id="verification" :max-length="4" v-model="verif" placeholder="请输入短信验证码"/>
 						<mu-button  id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxtes}}</mu-button >
 
-						<button v-if="btnverShow" @click="ver" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right:45%;">
+						<button v-if="verif!=''" @click="ver" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right:45%;">
             				<img src="../../assets/images/x.png" style="position: absolute;" />
          			 	</button>
 					</div>
@@ -28,7 +28,7 @@
 					<div style="padding-top: 0px;">
 						<mu-text-field :full-width="100" id="passwordModel_image" v-on:input="ipwdshow()" :type="types" style="font-size: 1.5rem;" v-model="passwordModel" placeholder="请输入新密码" :max-length="16" is-type="sendcode" calss="btns"></mu-text-field>
 						<img id="group_input_img" @click="Alt()" :src="imgs" />
-						<button v-if="btnShow1" @click="bnn1" type="button" class="close" data-dismiss="modal" style="margin-top: -20.5%;margin-right: 25%;">
+						<button v-if="passwordModel!=''" @click="bnn1" type="button" class="close" data-dismiss="modal" style="margin-top: -20.5%;margin-right: 25%;">
           			  		<img src="../../assets/images/x.png" style="position: absolute;" />
           				</button>
 						<!--<span>@{{passwordValidate.errorText}}</span>-->
@@ -77,9 +77,6 @@
 				imgs: eye,
 				//Stime:null,
 				time: '',
-				btnShow: false,
-				btnverShow: false,
-				btnShow1: false
 			}
 		},
 		mounted: function() {
@@ -119,41 +116,22 @@
 		},
 		methods: {
 			show() {
-				if(this.mobile == '') {} else {
-					this.btnShow = true;
-				}
+				this.mobile == ''
 			},
 			bnns() {
-				if(this.mobile == '') {
-
-				} else {
-					this.mobile = ''
-					this.btnShow = false;
-				}
+				this.mobile = ''
 			},
 			verifshow() {
-				if(this.verif == '') {} else {
-					this.btnverShow = true;
-				}
+				this.verif == ''
 			},
 			ver() {
-				if(this.verif == '') {} else {
-					this.verif = ''
-					this.btnverShow = false
-				}
+				this.verif = ''
 			},
 			ipwdshow() {
-				if(this.inppwd == '') {} else {
-					this.btnShow1 = true;
-				}
+				this.inppwd == ''
 			},
 			bnn1() {
-				if(this.passwordModel == '') {
-
-				} else {
-					this.passwordModel = ''
-					this.btnShow1 = false
-				}
+				this.passwordModel = ''
 			},
 			evers() {
 				this.masrc = backs;
@@ -530,7 +508,11 @@
 	.weui-btn:after {
 		border: none
 	}
-
+	
+	.close{
+		opacity:1;
+	}
+	
 	#pwsbtn {
 		width: 100%;
 	}

@@ -51,9 +51,21 @@
             </div>
             <div class="thoseBoxRight">
               <mu-button flat class="publicButton" to="/journalism" v-if="signthree">已完成</mu-button>
-              <mu-button flat class="loginBtn" to="/journalism">去完成</mu-button>
+              <mu-button flat class="loginBtn" to="/journalism" v-else>去完成</mu-button>
             </div>
           </div>
+           <div class="thoseBoxContainer">
+            <!--<div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>-->
+            <div class="thoseBoxCenter">
+              <div style="color: #333">偷取好友珍珠</div>
+              <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+1</span></div>
+            </div>
+            <div class="thoseBoxRight">
+              <mu-button flat class="publicButton" to="/friend" v-if="steal">已完成</mu-button>
+              <mu-button flat class="loginBtn" to="/friend" v-else>去完成</mu-button>
+            </div>
+          </div>
+          
         </div>
       </div>
       <div class="demo-text" v-if="active1 === 1">
@@ -160,6 +172,11 @@
 							} else {
 								this.signthree = false
 							}
+							if(res.data.has_stolen) {
+								this.steal = true
+							} else {
+								this.steal = false
+							}
 						}else {
               this.hasSignal=false;
             }
@@ -223,7 +240,7 @@
 		padding-bottom: 6rem;
 		color: #555;
 		width: 100vw;
-		height: 100vh;
+		height: 110vh;
 		overflow-x: hidden;
 		overflow-y: hidden;
     background-image: url("../../assets/images/faxianbg.png");
@@ -246,7 +263,7 @@
 	}
   .tabTitle{
     font-size: 1.6rem;
-    padding:0.8rem 1.5rem;
+    padding:0.8rem 2.5rem;
     color: #323232;
   }
   .sanjiao{

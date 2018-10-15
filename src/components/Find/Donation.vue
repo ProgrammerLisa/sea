@@ -81,7 +81,8 @@
             datas:'',
             content:'',
             completed:'',
-            completed_percent:0
+            completed_percent:0,
+            content:''
           }
         },
         mounted(){
@@ -109,6 +110,9 @@
             }).then(function(res) {
               if(res.data.code === 0) {
                 this.datas=res.data.data;
+                this.content=res.data.data.desc+'<style type="text/css">' +
+								'img {max-width: 100%; }' +
+								'<\/style>';
                 this.completed_percent=parseFloat(this.datas.completed_percent.split("%")[0]);
 //              this.completed=this.completed_percent*this.datas.target;
 								this.completed=this.completed_percent;
@@ -138,6 +142,7 @@
 </script>
 
 <style scoped>
+
   .content{
     width: 100vw;
     overflow-x: hidden;
@@ -204,4 +209,8 @@
   .invitation img{
     height: 30px;
   }
+  .Topstarnews-img {
+		width: 100%;
+		padding: 1rem 0rem 1rem;
+	}
 </style>

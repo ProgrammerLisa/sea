@@ -121,21 +121,10 @@
 				masrc: back,
 				hasMessage: false,
 				active1: 0,
-				open: '',
-				visitor: [],
-				stolens: [],
-				steals: [],
 				message: [],
-				refreshingSteal: false,
-				loadingSteal: false,
-				refreshingStolen: false,
-				loadingStolen: false,
 				refreshingMessage: false,
 				loadingMessage: false,
-				noMoreSteal: false,
-				noMoreStolen: false,
 				noMoreMessage: false,
-				messageMsg: '',
 				critic: '',
 				id:'',
 				uid:'',
@@ -353,6 +342,13 @@
 	.media {
 		border-bottom: 1px solid #eee;
 	}
+	.media-body{
+		padding-left: 4rem;
+	}
+	
+	.panel-group{
+		padding-left: 3rem;
+	}
 	
 	.media-heading {
 		font-size: 1.6rem;
@@ -360,6 +356,7 @@
 	}
 	
 	.media-left {
+		position: absolute;
 		border-radius: 50%;
 		width: 6rem;
 	}

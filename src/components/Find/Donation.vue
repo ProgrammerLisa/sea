@@ -33,8 +33,10 @@
       </div>
       <mu-card-text style="border-bottom: 0.6rem solid #f5f5f5">
         <h4>项目详情 </h4>
-        <div style="text-indent:2.5rem;color: #444">
-          {{datas.desc}}
+        <div style="color: #444">
+        	<dl v-html="content">
+						{{datas.content}}
+					</dl>
         </div>
 
       </mu-card-text>

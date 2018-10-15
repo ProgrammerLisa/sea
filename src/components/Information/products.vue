@@ -18,10 +18,10 @@
 						{{content}}
 					</dl>
 				</div>
-				<div>
+				<!--<div>
 					<div class="author">原作者:&nbsp;&nbsp;{{author}}</div>
 					<div class="author">来源地址:&nbsp;&nbsp;{{url}}</div>
-				</div>
+				</div>-->
 			</div>
 		</div>
 		<div class="protext">
@@ -57,22 +57,7 @@
 								</div>
 							</div>
 
-							<!--<div class="media-right leaveMessage" >
-								<mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="m.openMessage">
-									<div class="publicDialogTitle" style="height: 110px;padding-top: 1rem">
-										<mu-text-field type="text" label="回复评论" v-model="reverts" placeholder="请输入回复内容" full-width style="margin-bottom: 0;"></mu-text-field>
-										<mu-slide-top-transition v-show="messageMsgShow">
-											<div class="mu-transition-box mu-inverse" style="color: #EF5350;font-size: small" v-show="messageMsgShow">{{messageMsg}}</div>
-										</mu-slide-top-transition>
-									</div>
-
-									<mu-button slot="actions" flat color="primary" @click="revert(index,m.id)">发送 </mu-button>
-									<mu-button slot="actions" flat color="#555" @click="closeLeaveMessage(index)">取消</mu-button>
-
-								</mu-dialog>
-							</div>-->
-
-							<div v-show="critichf" class="tardiv" style="width: 100%;height: 150px;background: #F2F2F2;position: fixed;bottom: 0;margin: -1rem -1rem 0;">
+							<div v-show="critichf" class="tardiv" style="width: 100%;height: 150px;background: #F5F5F5;position: fixed;bottom: 0;margin: -1rem -1rem 0;">
 										<div style="margin: 1.6rem; background: #FEFFFE;">
 										<mu-text-field solo v-model="reverts" placeholder="请输入回复内容" multi-line :rows="6" :max-length="60"></mu-text-field>
 										</div>
@@ -94,7 +79,7 @@
 				<img src="../../assets/images/pinglun.png"></img>
 			</mu-appbar>
 
-			<div v-show="criticpl" class="tardiv" style="width: 100%;height: 150px;background: #F2F2F2;position: fixed;position: fixed;bottom: 0;">
+			<div v-show="criticpl" class="tardiv" style="width: 100%;height: 150px;background: #F5F5F5;position: fixed;position: fixed;bottom: 0;">
 				<div style="margin: 1.6rem; background: #FEFFFE;">
 					<mu-text-field v-model='critic' solo placeholder="说出你的想法" multi-line :rows="6" :max-length="60"></mu-text-field><br/>
 				</div>
@@ -505,7 +490,8 @@
 	.reply {
 		border-top: 1px solid #F5F5F5;
 		width: 100%;
-		/*padding: 4px;*/
+/*		height: 43px;
+*/		/*padding: 4px;*/
 		position: fixed;
 		bottom: 0;
 		/*display: none;*/
@@ -517,6 +503,7 @@
 	    margin-bottom: 3px;*/
 		/*border: 1px solid black;*/
 		margin: 5px;
+		height: 40px;
 		background: #F5F5F5;
 		padding: 0px;
 	}

@@ -42,7 +42,7 @@
         <div style="width: 95%;border: 1px solid #ddd;padding: 1rem;margin: 1rem auto">
           <div>发起机构：{{datas.sponsor}}</div>
           <div>接受机构：{{datas.accepter}}</div>
-          <div>备案号：{{datas.id}}</div>
+          <div>备案号：{{datas.record_no}}</div>
         </div>
 
       </mu-container>

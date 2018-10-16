@@ -17,6 +17,10 @@
 			<!--<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=375812877&site=qq&menu=yes"><img style="width: 90px;" border="0" src="http://wpa.qq.com/pa?p=2:1028253651:51" alt="点击这里给我发消息哦" title="点击这里给我发消息哦"/></a>-->
 			<img :src="wechatservice" />
 		</div>
+		<div class="tile">
+			<span>商务合作:  kim_im_k@pasontech.com</span>
+		</div>
+		
 	</div>
 </template>
 
@@ -158,5 +162,11 @@
 	.serviceTime {
 		color: #09a2d6;
 		font-size: larger;
+	}
+	.tile{
+		width: 100%;
+		text-align: center;
+		color: red;
+		font-size: 1.6rem;
 	}
 </style>

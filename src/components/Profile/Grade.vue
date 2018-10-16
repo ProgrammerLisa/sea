@@ -36,7 +36,7 @@
 			</div>
       <div id="#nav3">
         <div class="GradeMsg"><span style="color: #09a2d6;margin-right: 0.6rem;font-weight: 700">|</span>等级权益</div>
-        <div class="GradeMsg"><mu-avatar color="#09A2D6" size="18">1</mu-avatar> 达到3级 可解锁 “海洋之心”</div>
+        <div class="GradeMsg"><mu-avatar color="#09A2D6" size="18">1</mu-avatar> 达到5级 可解锁 “海洋之心”</div>
         <div class="GradeMsg"><mu-avatar color="#09A2D6" size="18">2</mu-avatar> 等级越高获得的珍珠价值越高</div>
         <div class="GradeMsg" style="border-top: 0.6rem solid #f5f5f5">
           <div style="display: flex">

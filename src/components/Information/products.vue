@@ -9,7 +9,7 @@
 
 		<div class="contentMarginTop" @click="aaa">
 			<div>
-				<div class="media-body">
+				<div>
 					<p class="media-heading">{{title}}</p>
 					<p class="commodityPropaganda">{{source}}<span class="commodityPropaganda-span">{{published_at}}</span></p>
 				</div>
@@ -45,15 +45,25 @@
 								<div class="panel panel-default">
 									<div class="panel-heading" style="background: #fff">
 										<a data-toggle="collapse" data-parent="#accordion" :href="m.href">
-											<h4 class="panel-title" @click="getMessageId(index,m.id,m.from_user_uid)"> {{m.content}} </h4><span class="glyphicon glyphicon-chevron-down" style="color: #999" v-show="m.hasMsg"></span> </a>
+											<h4 class="panel-title" @click="getMessageId(index,m.id,m.from_user_uid)"> {{m.content}} </h4> </a>
 									</div>
+									
 									<div :id="m.item" v-show="m.hasMsg" class="panel-collapse collapse in" style="background: #f5f5f5;min-width:100%">
-										<!--<div class="panel-body" v-for="(r,item) in m.reply" style="border: none; padding:0.5rem 1rem;font-size: 1.5rem"><span style="color: #09a2d6">{{r.from_user}}</span>：{{r.content}}</div>-->
+										<div class="panel-body" v-for="(r,item) in m.reply" v-show="item < num" style="border: none; padding:0.5rem 1rem;font-size: 1.5rem">
+											<span style="color: #09a2d6" @click="getUserId(item,m.id,r.from_user.uid)">{{r.from_user.nickname}}</span>
+											<span style="color: black"> 回复 </span>
+											<span style="color: #09a2d6" @click="getUserId(item,m.id,r.to_user.uid)">{{r.to_user.nickname}}</span>: {{r.content}}
+										</div>
+										<span v-if="m.reply.length>3" @click="showMore(m.reply.length)" class="glyphicon" style="color: #09a2d6" >{{txt}}</span>
+									</div>
+									
+									
+									<!--<div :id="m.item" v-show="m.hasMsg" class="panel-collapse collapse in" style="background: #f5f5f5;min-width:100%">
 										<div class="panel-body" v-for="(r,item) in m.reply" style="border: none; padding:0.5rem 1rem;font-size: 1.5rem">
 											<span style="color: #09a2d6" @click="getUserId(item,m.id,r.from_user.uid)">{{r.from_user.nickname}}</span>
 											<span style="color: black"> 回复 </span>
 											<span style="color: #09a2d6" @click="getUserId(item,m.id,r.to_user.uid)">{{r.to_user.nickname}}</span>: {{r.content}}</div>
-									</div>
+									</div>-->
 								</div>
 							</div>
 
@@ -117,7 +127,11 @@
 				messageMsgShow: false,
 				criticpl: false,
 				criticxf: true,
-				critichf:false
+				critichf:false,
+				
+				txt:'查看全部',
+				num:3,
+				examine:false
 			}
 		},
 		mounted() {
@@ -131,7 +145,12 @@
 			})
 		},
 		methods: {
-
+		showMore(length){
+          this.isShow = !this.isShow;
+          console.log(length);
+		  this.num = this.isShow? 3: length;
+          this.txt = this.isShow?  '查看全部':'收起'
+      	 },
 			gain() {
 				this.$http({
 						method: "post",
@@ -316,6 +335,10 @@
 </script>
 
 <style scoped>
+	.media-body{
+		padding-left: 4rem;
+	}
+	
 	.contentMarginTop {
 		margin-top: 56px;
 	}
@@ -326,13 +349,6 @@
 	
 	.media {
 		border-bottom: 1px solid #eee;
-	}
-	.media-body{
-		padding-left: 4rem;
-	}
-	
-	.panel-group{
-		padding-left: 3rem;
 	}
 	
 	.media-heading {
@@ -463,7 +479,7 @@
 	
 	.glyphicon {
 		float: right;
-		margin-top: -1.1rem;
+		/*margin-top: -1.1rem;*/
 	}
 	
 	.contentBody {
@@ -502,6 +518,7 @@
 	    padding-top: 0px;
 	    margin-bottom: 3px;*/
 		/*border: 1px solid black;*/
+		width: 80%;
 		margin: 5px;
 		height: 40px;
 		background: #F5F5F5;
@@ -510,10 +527,6 @@
 	
 	.mu-input {
 		height: 3rem;
-	}
-	
-	.mu-text-field-input {
-		margin: 0;
 	}
 	
 	div.mu-input-line {

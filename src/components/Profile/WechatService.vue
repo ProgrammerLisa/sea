@@ -166,7 +166,7 @@
 	.tile{
 		width: 100%;
 		text-align: center;
-		color: red;
+		color: black;
 		font-size: 1.6rem;
 	}
 </style>

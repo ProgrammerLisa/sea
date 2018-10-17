@@ -9,7 +9,8 @@
           <mu-bottom-nav-item title="发现" to="/find" value="发现" icon=" " v-bind:iconClass="{selected:bottomNav=='发现'}"  ></mu-bottom-nav-item>
           <mu-bottom-nav-item class='redian' to="/journalism"  icon=" " v-bind:iconClass="{selected:bottomNav=='热点'}"  ></mu-bottom-nav-item>
           <mu-bottom-nav-item title="商城" to="/shopping" value="商城" icon=" " v-bind:iconClass="{selected:bottomNav=='商城'}"  ></mu-bottom-nav-item>
-          <mu-bottom-nav-item title="我的" to="/personal" value="我的" icon=" " v-bind:iconClass="{selected:bottomNav=='我的'}"  ></mu-bottom-nav-item>
+          <mu-bottom-nav-item v-if="!hasNews" title="我的" to="/personal" value="我的" icon=" " v-bind:iconClass="{selected:bottomNav=='我的'}"  ></mu-bottom-nav-item>
+          <mu-bottom-nav-item v-else title="我的" to="/personal" value="我的" icon=" " class="hasNews" v-bind:iconClass="{selected:bottomNav=='我的'}"  ></mu-bottom-nav-item>
         </mu-bottom-nav>
 
     </div>
@@ -33,18 +34,19 @@
         uid:'',
         isLogin:true,
         phoneType:'',
-        openSimple: false
+        openSimple: false,
+        hasNews:false,
       }
     },
     mounted:function(){
       this.$nextTick(function () {
         this.begin();
+        this.getNews();
       })
 
     },
     methods:{
       begin(){
-
         if(this.$route.path==='/'||this.$route.path==='/home'){
           this.bottomNav='首页'
         }else if(this.$route.path==='/find'){
@@ -71,6 +73,32 @@
         }else {
           that.phoneType= "web"
         }
+      },
+      getNews(){
+        //消息
+        this.$http({
+          method: "post",
+          url: "/messages/box",
+          headers: {
+            "device": "android",
+            "uid": localStorage.getItem("uid"),
+            "Access-Control-Allow-Origin": "*"
+          },
+          data: {
+            "page": 1
+          }
+        }).then(function(res) {
+          if(res.data.code === 0) {
+            if(res.data.count > 0) {
+              this.hasNews = true
+            } else {
+              this.hasNews = false
+            }
+          }
+        }.bind(this))
+          .catch(function(err) {
+            this.$layer.msg("系统异常，请稍后再试");
+          }.bind(this));
 
       },
       handleChange(val,src){
@@ -179,14 +207,11 @@
       padding-top: 3px;
       border-top: 1px solid #f5f5f5;
     }
-    .msg{
-      color: #ff2424;
-      background: transparent;
-      font-size: xx-large;
-      padding: 0.5rem ;
-      line-height: 0;
-      position: absolute;
-      right: 1.2rem;
+    a:nth-child(5).hasNews .mu-bottom-item-icon{
+      background-image: url(../assets/images/mybai.png) ;
+    }
+    .mu-bottom-item-active:nth-child(5).hasNews .mu-bottom-item-icon{
+      background-image: url(../assets/images/myhui.png) ;
     }
     a:nth-child(1) .mu-bottom-item-icon,a:nth-child(2) .mu-bottom-item-icon,a:nth-child(4) .mu-bottom-item-icon,a:nth-child(5) .mu-bottom-item-icon{
       background-repeat:no-repeat;

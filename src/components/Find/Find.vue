@@ -19,7 +19,7 @@
             <div style="color: #333">每日登陆</div>
             <p style="font-size: small;margin-top: 5px">可获得能量值 <span style="color: #09a2d6">+1</span></p>
             <mu-button flat class="publicButton" v-if="signIn">已签到</mu-button>
-            <mu-button flat class="loginBtn"  v-else @click="signInFc">签到</mu-button>
+            <mu-button flat class="loginBtn"  v-else @click="signInFc"><div class="hongdian">●</div>签到</mu-button>
           </div>
         <div class="thoseBox">
           <div class="thoseBoxContainer">
@@ -40,29 +40,38 @@
             </div>
             <div class="thoseBoxRight">
               <mu-button flat class="publicButton" to="/publicgood" v-if="signto" style="color: #fff">已完成</mu-button>
-              <mu-button flat class="loginBtn" to="/publicgood" v-else>去完成</mu-button>
+              <mu-button flat class="loginBtn" to="/publicgood" v-else><div class="hongdian">●</div>去完成</mu-button>
             </div>
           </div>
           <div class="thoseBoxContainer">
-            <!--<div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>-->
             <div class="thoseBoxCenter">
               <div style="color: #333">新闻资讯</div>
               <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+2</span></div>
             </div>
             <div class="thoseBoxRight">
               <mu-button flat class="publicButton" to="/journalism" v-if="signthree">已完成</mu-button>
-              <mu-button flat class="loginBtn" to="/journalism" v-else>去完成</mu-button>
+              <mu-button flat class="loginBtn" to="/journalism" v-else><div class="hongdian">●</div>去完成</mu-button>
             </div>
           </div>
            <div class="thoseBoxContainer">
-            <!--<div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>-->
             <div class="thoseBoxCenter">
               <div style="color: #333">偷取好友珍珠</div>
               <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+1</span></div>
             </div>
             <div class="thoseBoxRight">
               <mu-button flat class="publicButton" to="/friend" v-if="steal">已完成</mu-button>
-              <mu-button flat class="loginBtn" to="/friend" v-else>去完成</mu-button>
+              <mu-button flat class="loginBtn" to="/friend" v-else><div class="hongdian">●</div>去完成</mu-button>
+            </div>
+          </div>
+          
+          <div class="thoseBoxContainer">
+            <div class="thoseBoxCenter">
+              <div style="color: #333">实名认证</div>
+              <div style="font-size: small;margin-top: 5px">可获得能量值 <span  style="color: #09a2d6">+10</span></div>
+            </div>
+            <div class="thoseBoxRight">
+              <mu-button flat class="publicButton" to="/realname" v-if="relname">已完成</mu-button>
+              <mu-button flat class="loginBtn" to="/realname" v-else><div class="hongdian">●</div>去完成</mu-button>
             </div>
           </div>
           
@@ -177,6 +186,11 @@
 							} else {
 								this.steal = false
 							}
+							if(res.data.has_finish_realname) {
+								this.relname = true
+							} else {
+								this.relname = false
+							}
 						}else {
               this.hasSignal=false;
             }
@@ -240,7 +254,7 @@
 		padding-bottom: 6rem;
 		color: #555;
 		width: 100vw;
-		height: 110vh;
+		height: 115vh;
 		overflow-x: hidden;
 		overflow-y: hidden;
     background-image: url("../../assets/images/faxianbg.png");
@@ -288,6 +302,12 @@
   .loginBtn{
     border: #20C2E6 1px solid;color: #20C2E6;width: 6rem;height: 3rem;border-radius: 3px;
   }
+  .hongdian{
+  	position: absolute;
+  	color: red;
+  	margin-top: -15px;
+  	margin-left: 40px;
+  }
   .goThose{
     margin-top: 5px;
   }
@@ -297,6 +317,7 @@
   .publicButton{
     width: 6rem;height:3rem;background: linear-gradient(to right, #38E7F8 , #0BA5D7);color: white;
   }
+ 
   .thoseBoxContainer{
     display: flex;border-bottom: 1px solid #f5f5f5;padding: 1rem 0
   }

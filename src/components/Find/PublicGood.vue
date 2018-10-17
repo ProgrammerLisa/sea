@@ -14,7 +14,7 @@
       <input class="form-control searchInput" v-model="search" placeholder="查询公益项目"/>
     </div>
     <div style="text-align: center">
-      <mu-button flat small v-for="(i,index) in key_words" :key="index" @click="goSearch(i)">#{{i}} </mu-button>
+      <!--<mu-button flat small v-for="(i,index) in key_words" :key="index" @click="goSearch(i)">#{{i}} </mu-button>-->
     </div>
     <mu-carousel hide-controls class="myCarousel">
       <mu-carousel-item v-for="(p,index) in display_pictures" :key="index">
@@ -138,17 +138,17 @@
               	this.display_pictures = res.data.display_pictures;
                 let data = res.data.data.key_words;
                 this.key_words = res.data.data.key_words;
-                for (let i=0;i<data.length;i++){
-                  if(data[i]==="DISEASE"){
-                    data[i]="大病医疗"
-                  }else if (data[i]==="EDUCATION") {
-                    data[i]="爱心助学"
-                  }else if (data[i]==="ENVIRONMENT") {
-                    data[i]="环境保护"
-                  }else if (data[i]==="POVERTY") {
-                    data[i]="爱心扶贫"
-                  }
-                }
+//              for (let i=0;i<data.length;i++){
+//                if(data[i]==="DISEASE"){
+//                  data[i]="大病医疗"
+//                }else if (data[i]==="EDUCATION") {
+//                  data[i]="爱心助学"
+//                }else if (data[i]==="ENVIRONMENT") {
+//                  data[i]="环境保护"
+//                }else if (data[i]==="POVERTY") {
+//                  data[i]="爱心扶贫"
+//                }
+//              }
                 if (res.data.data.DISEASE.length>0){
                   this.hasDISEASE=true;
                   this.DISEASE=res.data.data.DISEASE;
@@ -232,7 +232,7 @@
   }
   .mu-carousel-item img{
     width: 100%;
-    height: 15rem;
+    height: 100%;
   }
   .goodList{
     display: flex;
@@ -240,7 +240,7 @@
     border-bottom: 1px solid #f5f5f5;
   }
   .mu-carousel{
-    height: 15rem;
+    height:100%;
     margin-top: 1rem;
   }
   .mu-carousel-indicator-button{
@@ -305,4 +305,13 @@
     border-radius: 3px;
     color: #646564;
   }
+  .myCarousel{
+    width: 100%;
+    max-height: 40vw;
+    border-radius: 5px;
+  }
+  .myCarousel img{
+    width: 100%;
+  }
+  
 </style>

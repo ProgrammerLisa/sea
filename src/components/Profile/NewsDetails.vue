@@ -12,8 +12,8 @@
         <div class="text-center"><span class="DialogDate">{{created_at}}</span></div>
 
         <div class="text-center">
-          <span class="serviceContent">
-             {{content}}
+          <span class="serviceContent" v-html="content">
+          	
           </span>
         </div>
       </div>
@@ -52,7 +52,9 @@
               this.from_user = res.data.data.from_user;
               this.title = res.data.data.title;
               this.created_at = res.data.data.created_at;
-              this.content = res.data.data.content;
+              this.content = res.data.data.content+ '<style type="text/css">' +
+								'img {max-width: 100%; }' +
+								'<\/style>';
 
             }else {
               this.$layer.msg(res.data.msg);

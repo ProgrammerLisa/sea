@@ -9,7 +9,7 @@
 
 		<div class="contentMarginTop" @click="aaa">
 			<div>
-				<div class="media-body">
+				<div>
 					<p class="media-heading">{{title}}</p>
 					<p class="commodityPropaganda">{{source}}<span class="commodityPropaganda-span">{{published_at}}</span></p>
 				</div>
@@ -18,10 +18,10 @@
 						{{content}}
 					</dl>
 				</div>
-				<div>
+				<!--<div>
 					<div class="author">原作者:&nbsp;&nbsp;{{author}}</div>
 					<div class="author">来源地址:&nbsp;&nbsp;{{url}}</div>
-				</div>
+				</div>-->
 			</div>
 		</div>
 		<div class="protext">
@@ -45,34 +45,29 @@
 								<div class="panel panel-default">
 									<div class="panel-heading" style="background: #fff">
 										<a data-toggle="collapse" data-parent="#accordion" :href="m.href">
-											<h4 class="panel-title" @click="getMessageId(index,m.id,m.from_user_uid)"> {{m.content}} </h4><span class="glyphicon glyphicon-chevron-down" style="color: #999" v-show="m.hasMsg"></span> </a>
+											<h4 class="panel-title" @click="getMessageId(index,m.id,m.from_user_uid)"> {{m.content}} </h4> </a>
 									</div>
+									
 									<div :id="m.item" v-show="m.hasMsg" class="panel-collapse collapse in" style="background: #f5f5f5;min-width:100%">
-										<!--<div class="panel-body" v-for="(r,item) in m.reply" style="border: none; padding:0.5rem 1rem;font-size: 1.5rem"><span style="color: #09a2d6">{{r.from_user}}</span>：{{r.content}}</div>-->
+										<div class="panel-body" v-for="(r,item) in m.reply" v-show="item < num" style="border: none; padding:0.5rem 1rem;font-size: 1.5rem">
+											<span style="color: #09a2d6" @click="getUserId(item,m.id,r.from_user.uid)">{{r.from_user.nickname}}</span>
+											<span style="color: black"> 回复 </span>
+											<span style="color: #09a2d6" @click="getUserId(item,m.id,r.to_user.uid)">{{r.to_user.nickname}}</span>: {{r.content}}
+										</div>
+										<span v-if="m.reply.length>3" @click="showMore(m.reply.length)" class="glyphicon" style="color: #09a2d6" >{{txt}}</span>
+									</div>
+									
+									
+									<!--<div :id="m.item" v-show="m.hasMsg" class="panel-collapse collapse in" style="background: #f5f5f5;min-width:100%">
 										<div class="panel-body" v-for="(r,item) in m.reply" style="border: none; padding:0.5rem 1rem;font-size: 1.5rem">
 											<span style="color: #09a2d6" @click="getUserId(item,m.id,r.from_user.uid)">{{r.from_user.nickname}}</span>
 											<span style="color: black"> 回复 </span>
 											<span style="color: #09a2d6" @click="getUserId(item,m.id,r.to_user.uid)">{{r.to_user.nickname}}</span>: {{r.content}}</div>
-									</div>
+									</div>-->
 								</div>
 							</div>
 
-							<!--<div class="media-right leaveMessage" >
-								<mu-dialog width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="m.openMessage">
-									<div class="publicDialogTitle" style="height: 110px;padding-top: 1rem">
-										<mu-text-field type="text" label="回复评论" v-model="reverts" placeholder="请输入回复内容" full-width style="margin-bottom: 0;"></mu-text-field>
-										<mu-slide-top-transition v-show="messageMsgShow">
-											<div class="mu-transition-box mu-inverse" style="color: #EF5350;font-size: small" v-show="messageMsgShow">{{messageMsg}}</div>
-										</mu-slide-top-transition>
-									</div>
-
-									<mu-button slot="actions" flat color="primary" @click="revert(index,m.id)">发送 </mu-button>
-									<mu-button slot="actions" flat color="#555" @click="closeLeaveMessage(index)">取消</mu-button>
-
-								</mu-dialog>
-							</div>-->
-
-							<div v-show="critichf" class="tardiv" style="width: 100%;height: 150px;background: #F2F2F2;position: fixed;bottom: 0;margin: -1rem -1rem 0;">
+							<div v-show="critichf" class="tardiv" style="width: 100%;height: 150px;background: #F5F5F5;position: fixed;bottom: 0;margin: -1rem -1rem 0;">
 										<div style="margin: 1.6rem; background: #FEFFFE;">
 										<mu-text-field solo v-model="reverts" placeholder="请输入回复内容" multi-line :rows="6" :max-length="60"></mu-text-field>
 										</div>
@@ -94,7 +89,7 @@
 				<img src="../../assets/images/pinglun.png"></img>
 			</mu-appbar>
 
-			<div v-show="criticpl" class="tardiv" style="width: 100%;height: 150px;background: #F2F2F2;position: fixed;position: fixed;bottom: 0;">
+			<div v-show="criticpl" class="tardiv" style="width: 100%;height: 150px;background: #F5F5F5;position: fixed;position: fixed;bottom: 0;">
 				<div style="margin: 1.6rem; background: #FEFFFE;">
 					<mu-text-field v-model='critic' solo placeholder="说出你的想法" multi-line :rows="6" :max-length="60"></mu-text-field><br/>
 				</div>
@@ -132,7 +127,11 @@
 				messageMsgShow: false,
 				criticpl: false,
 				criticxf: true,
-				critichf:false
+				critichf:false,
+				
+				txt:'查看全部',
+				num:3,
+				examine:false
 			}
 		},
 		mounted() {
@@ -146,7 +145,12 @@
 			})
 		},
 		methods: {
-
+		showMore(length){
+          this.isShow = !this.isShow;
+          console.log(length);
+		  this.num = this.isShow? 3: length;
+          this.txt = this.isShow?  '查看全部':'收起'
+      	 },
 			gain() {
 				this.$http({
 						method: "post",
@@ -331,6 +335,10 @@
 </script>
 
 <style scoped>
+	.media-body{
+		padding-left: 4rem;
+	}
+	
 	.contentMarginTop {
 		margin-top: 56px;
 	}
@@ -341,13 +349,6 @@
 	
 	.media {
 		border-bottom: 1px solid #eee;
-	}
-	.media-body{
-		padding-left: 4rem;
-	}
-	
-	.panel-group{
-		padding-left: 3rem;
 	}
 	
 	.media-heading {
@@ -478,7 +479,7 @@
 	
 	.glyphicon {
 		float: right;
-		margin-top: -1.1rem;
+		/*margin-top: -1.1rem;*/
 	}
 	
 	.contentBody {
@@ -505,7 +506,8 @@
 	.reply {
 		border-top: 1px solid #F5F5F5;
 		width: 100%;
-		/*padding: 4px;*/
+/*		height: 43px;
+*/		/*padding: 4px;*/
 		position: fixed;
 		bottom: 0;
 		/*display: none;*/
@@ -516,17 +518,15 @@
 	    padding-top: 0px;
 	    margin-bottom: 3px;*/
 		/*border: 1px solid black;*/
+		width: 80%;
 		margin: 5px;
+		height: 40px;
 		background: #F5F5F5;
 		padding: 0px;
 	}
 	
 	.mu-input {
 		height: 3rem;
-	}
-	
-	.mu-text-field-input {
-		margin: 0;
 	}
 	
 	div.mu-input-line {

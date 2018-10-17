@@ -16,7 +16,9 @@
           <mu-ripple class="mu-ripple-demo">
             <div class="newsContent">
               <div class="newsTitle">系统消息<span class="newsDate">{{n.msg.created_at}}</span></div>
-              <div class="newsText">{{n.msg.content}}</div>
+              <div class="newsText">
+              		{{n.msg.content}}
+              </div>
             </div>
           </mu-ripple>
           <div class="media-right" >

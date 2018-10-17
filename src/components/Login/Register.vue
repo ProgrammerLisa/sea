@@ -369,7 +369,7 @@
 	}
 
 	#register {
-		height: 100vh;
+		height: 100%;
 		width: 100vw;
 		background-color: white;
 	}

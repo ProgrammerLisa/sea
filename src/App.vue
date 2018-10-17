@@ -2,7 +2,7 @@
 
     <div id="app">
       <transition :name='transitionName'>
-        <router-view v-if="isRouterAlive"></router-view>
+        	<router-view v-if="isRouterAlive"></router-view>
       </transition>
     </div>
 </template>

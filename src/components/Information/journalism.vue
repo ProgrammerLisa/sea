@@ -93,6 +93,10 @@
           }
         },
       mounted(){
+      	if(localStorage.getItem('post_id')){
+      		let id = localStorage.getItem('post_id');
+      		console.log(id)
+      	}
         let clickNum = 0;
         mui.back = function(){
           clickNum++;

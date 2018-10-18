@@ -32,6 +32,7 @@
               <mu-button flat class="loginBtn goThose" @click="signInHy">去邀请</mu-button>
             </div>
           </div>
+          
           <div class="thoseBoxContainer">
             <!--<div class="thoseBoxLeft"><img src="../../assets/images/indent.png"/></div>-->
             <div class="thoseBoxCenter">
@@ -39,10 +40,11 @@
               <div style="font-size: small;margin-top: 5px">可获得相应捐赠数 <span  style="color: #09a2d6"></span></div>
             </div>
             <div class="thoseBoxRight">
-              <mu-button flat class="publicButton" to="/publicgood" v-if="signto" style="color: #fff">已完成</mu-button>
-              <mu-button flat class="loginBtn" to="/publicgood" v-else><div class="hongdian">●</div>去完成</mu-button>
+              <mu-button flat class="publicButton" to="/publicgood" v-if="signto">已完成</mu-button>
+              <mu-button flat class="loginBtn goThose" to="/publicgood" v-else><div class="hongdian">●</div>去完成</mu-button>
             </div>
           </div>
+          
           <div class="thoseBoxContainer">
             <div class="thoseBoxCenter">
               <div style="color: #333">新闻资讯</div>
@@ -50,7 +52,7 @@
             </div>
             <div class="thoseBoxRight">
               <mu-button flat class="publicButton" to="/journalism" v-if="signthree">已完成</mu-button>
-              <mu-button flat class="loginBtn" to="/journalism" v-else><div class="hongdian">●</div>去完成</mu-button>
+              <mu-button flat class="loginBtn goThose" to="/journalism" v-else><div class="hongdian">●</div>去完成</mu-button>
             </div>
           </div>
            <div class="thoseBoxContainer">
@@ -60,7 +62,7 @@
             </div>
             <div class="thoseBoxRight">
               <mu-button flat class="publicButton" to="/friend" v-if="steal">已完成</mu-button>
-              <mu-button flat class="loginBtn" to="/friend" v-else><div class="hongdian">●</div>去完成</mu-button>
+              <mu-button flat class="loginBtn goThose" to="/friend" v-else><div class="hongdian">●</div>去完成</mu-button>
             </div>
           </div>
           
@@ -71,7 +73,7 @@
             </div>
             <div class="thoseBoxRight">
               <mu-button flat class="publicButton" to="/realname" v-if="relname">已完成</mu-button>
-              <mu-button flat class="loginBtn" to="/realname" v-else><div class="hongdian">●</div>去完成</mu-button>
+              <mu-button flat class="loginBtn goThose" to="/realname" v-else><div class="hongdian">●</div>去完成</mu-button>
             </div>
           </div>
           
@@ -174,7 +176,7 @@
 							if(res.data.has_donated) {
 								this.signto = true
 							} else {
-								this.signto = false
+								this.signto = false;
 							}
 							if(res.data.has_read) {
 								this.signthree = true

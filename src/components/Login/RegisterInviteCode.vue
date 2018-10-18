@@ -12,7 +12,7 @@
 				<input id="ask_invite" v-model="verif" placeholder="请填写邀请码" maxlength="20" keyboard="number" is-type="china-mobile" required></input>
 			</center>
 			<div style="padding:40px;margin-top: 10px;">
-				<x-button id="finish" @click.native="accomplish" type="primary">完 成</x-button>
+				<x-button :disabled="!verif" id="finish" @click.native="accomplish" type="primary">完 成</x-button>
 			</div>
 
 			<center>
@@ -67,6 +67,7 @@
 				this.$router.go(-1);
 			},
 			accomplish() {
+            	document.getElementById('finish').disabled = true;
 				event.preventDefault();
 				if(this.verif == '') {
 					this.$layer.msg('邀请码不能为空');
@@ -87,6 +88,7 @@
               nickname: this.nickname
             }
           }).then(function(res) {
+			
             if(res.data.code == 0) {
               this.$layer.msg('注册成功，正在登录...');
               this.$http({
@@ -114,6 +116,7 @@
                 }.bind(this))
             } else {
               this.$layer.msg(res.data.msg);
+              document.getElementById('finish').disabled = false;
             }
           }.bind(this))
             .catch(function(err) {
@@ -215,6 +218,18 @@
 
 	#finish:active {
 		background-color: #2894FF;
+	}
+	
+	#finish {
+		background-color: #38E7F8;
+	}
+
+	#finish:disabled {
+		background: #D9D9D9;
+	}
+
+	#finish:active {
+		background-color: #38E7F8;
 	}
 
 	button#finish.weui-btn.weui-btn_primary {

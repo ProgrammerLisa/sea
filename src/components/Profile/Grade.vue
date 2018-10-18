@@ -1,5 +1,5 @@
 <template>
-	<div class="content">
+	<div class="content" >
 		<div id="navBox">
 			<mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0" id="nav1">
 				<mu-button icon slot="left" @click="goBack" class="getBack">
@@ -36,7 +36,7 @@
 			</div>
       <div id="#nav3">
         <div class="GradeMsg"><span style="color: #09a2d6;margin-right: 0.6rem;font-weight: 700">|</span>等级权益</div>
-        <div class="GradeMsg"><mu-avatar color="#09A2D6" size="18">1</mu-avatar> 达到5级 可解锁 “海洋之心”</div>
+        <div class="GradeMsg"><mu-avatar color="#09A2D6" size="18">1</mu-avatar> {{luck_require_level}}级 可解锁“海洋之心”</div>
         <div class="GradeMsg"><mu-avatar color="#09A2D6" size="18">2</mu-avatar> 等级越高获得的珍珠价值越高</div>
         <div class="GradeMsg" style="border-top: 0.6rem solid #f5f5f5">
           <div style="display: flex">
@@ -61,7 +61,7 @@
               <mu-list-item-sub-title class="dateText">日常任务</mu-list-item-sub-title>
             </mu-list-item-content>
             <mu-list-item-action>
-              <mu-list-item-title class="count"><span class="count-text">1 能量</span> / 无上限 / 日均</mu-list-item-title>
+              <mu-list-item-title class="count"><span class="count-text">{{sign_in_add_energy}} 能量</span> / 无上限 / 日均</mu-list-item-title>
             </mu-list-item-action>
           </mu-list-item>
           <mu-list-item class="mu-list-item">
@@ -70,7 +70,7 @@
               <mu-list-item-sub-title class="dateText">额外任务</mu-list-item-sub-title>
             </mu-list-item-content>
             <mu-list-item-action>
-              <mu-list-item-title class="count"><span class="count-text">20 能量</span> / 10 次上限 / 天</mu-list-item-title>
+              <mu-list-item-title class="count"><span class="count-text">{{invite_friend_add_energy}} 能量</span> / {{invite_times_limit}} 次上限 / 天</mu-list-item-title>
             </mu-list-item-action>
           </mu-list-item>
           <mu-list-item class="mu-list-item">
@@ -88,7 +88,7 @@
               <mu-list-item-sub-title class="dateText">日常任务</mu-list-item-sub-title>
             </mu-list-item-content>
             <mu-list-item-action>
-              <mu-list-item-title class="count"><span class="count-text">2 能量</span> / 5 次上限 / 天</mu-list-item-title>
+              <mu-list-item-title class="count"><span class="count-text">2 能量</span> / 2 次上限 / 天</mu-list-item-title>
             </mu-list-item-action>
           </mu-list-item>
           <mu-divider class="mu-divider" shallow-inset></mu-divider>
@@ -121,7 +121,11 @@
 				more: more,
 				level: '',
 				need:'',
-				energ:''
+				energ:'',
+				luck_require_level:'',
+				invite_friend_add_energy:'',
+				sign_in_add_energy:'',
+				invite_times_limit:''
 
 			}
 		},
@@ -154,6 +158,9 @@
 						let rank = res.data.data.level;
 						this.level = res.data.data.level;
 						this.need = res.data.data.up_level_needed;
+						this.luck_require_level = res.data.data.luck_require_level;
+						this.invite_friend_add_energy = res.data.data.invite_friend_add_energy;
+						this.sign_in_add_energy = res.data.data.sign_in_add_energy;
 
 						if(res.data.data.avatar === ""||res.data.data.avatar === null|| res.data.data.avatar === undefined) {
 							this.headImg = headImg;

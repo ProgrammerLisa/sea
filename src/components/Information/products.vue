@@ -47,7 +47,7 @@
 										<a data-toggle="collapse" data-parent="#accordion" :href="m.href">
 											<h4 class="panel-title" @click="getMessageId(index,m.id,m.from_user_uid)"> {{m.content}} </h4> </a>
 									</div>
-									
+
 									<div :id="m.item" v-show="m.hasMsg" class="panel-collapse collapse in" style="background: #f5f5f5;min-width:100%">
 										<div class="panel-body" v-for="(r,item) in m.reply" v-show="item < num" style="border: none; padding:0.5rem 1rem;font-size: 1.5rem">
 											<span style="color: #09a2d6" @click="getUserId(item,m.id,r.from_user.uid)">{{r.from_user.nickname}}</span>
@@ -56,8 +56,8 @@
 										</div>
 										<span v-if="m.reply.length>3" @click="showMore(m.reply.length)" class="glyphicon" style="color: #09a2d6" >{{txt}}</span>
 									</div>
-									
-									
+
+
 									<!--<div :id="m.item" v-show="m.hasMsg" class="panel-collapse collapse in" style="background: #f5f5f5;min-width:100%">
 										<div class="panel-body" v-for="(r,item) in m.reply" style="border: none; padding:0.5rem 1rem;font-size: 1.5rem">
 											<span style="color: #09a2d6" @click="getUserId(item,m.id,r.from_user.uid)">{{r.from_user.nickname}}</span>
@@ -74,7 +74,7 @@
 									<button :disabled="!reverts" class="callBacks" @click="revert(index,m.id)">发送 </button>
 							</div>
 
-							
+
 						</div>
 
 					</mu-load-more>
@@ -128,7 +128,7 @@
 				criticpl: false,
 				criticxf: true,
 				critichf:false,
-				
+
 				txt:'查看全部',
 				num:3,
 				examine:false
@@ -164,7 +164,6 @@
 							"post_id": localStorage.getItem("post_id"),
 						}
 					}).then(function(res) {
-						console.log(res.data)
 						if(res.data.code === 0) {
 							var content = res.data.data.content;
 							this.title = res.data.data.title;
@@ -239,7 +238,7 @@
 						}.bind(this))
 				}
 			},
-			revert(index,id) { 
+			revert(index,id) {
 				console.log(this.id,this.uid)
 				let res = new RegExp("^[ ]+$");
 				if(this.reverts === '' || res.test(this.reverts) === true) {
@@ -265,7 +264,7 @@
 							this.$layer.msg(res.data.msg);
 							this.gain();
 							if(res.data.code === 0) {
-								
+
 							}
 						}.bind(this))
 						.catch(function(err) {
@@ -295,16 +294,16 @@
 //						this.uid = mid;
 //					}else{
 //						if(uid){
-//							this.uid = uid	
+//							this.uid = uid
 //						}
-//						
+//
 //					}
 //				}else{
 //					if(uid){
-//						this.uid = uid	
+//						this.uid = uid
 //					}
 //				}
-//				
+//
 //			},
 			closeLeaveMessage(index) {
 				this.revert = '';
@@ -338,66 +337,66 @@
 	.media-body{
 		padding-left: 4rem;
 	}
-	
+
 	.contentMarginTop {
 		margin-top: 56px;
 	}
-	
+
 	#accordion {
 		margin-left: 4rem;
 	}
-	
+
 	.media {
 		border-bottom: 1px solid #eee;
 	}
-	
+
 	.media-heading {
 		font-size: 1.6rem;
 		color: #3c3c3c;
 	}
-	
+
 	.media-left {
 		position: absolute;
 		border-radius: 50%;
 		width: 6rem;
 	}
-	
+
 	.media-object {
 		width: 3.1rem;
 		border-radius: 50%;
 	}
-	
+
 	a {
 		color: #333;
 	}
-	
+
 	.panel {
 		box-shadow: none;
 		border: none;
 		background: #FAFAFA;
 	}
-	
+
 	.panel-heading {
 		padding-left: 0;
 	}
-	
+
 	.panel-title {
 		font-size: 1.5rem;
 	}
-	
+
 	.leaveMessage {
 		padding-left: 0;
 	}
-	
+
 	.list:last-child .mu-divider {
 		display: none;
 	}
-	
+
 	.messageMsg {
 		color: #ff2424;
 		font-size: small;
 	}
-	
+
 	.noMore {
 		width: 100%;
 		line-height: 4rem;
@@ -406,7 +405,7 @@
 		background: #fff;
 		margin-top: -4rem;
 	}
-	
+
 	.products {
 		overflow-x: hidden;
 		color: #444;
@@ -416,58 +415,58 @@
 		overflow-y: scroll;
 		font-size: 1.6rem;
 	}
-	
+
 	.products::-webkit-scrollbar {
 		display: none;
 	}
-	
+
 	.panel {
 		border-radius: 0;
 	}
-	
+
 	.panel-body {
 		padding: 0 10px;
 	}
-	
+
 	.back {
 		float: left;
 	}
-	
+
 	.back img {
 		height: 2.5rem;
 	}
-	
+
 	.contentMarginTop {
 		padding: 1rem 1rem 2rem;
 	}
-	
+
 	.media-heading {
 		font-weight: bold;
 		font-size: 2rem;
 	}
-	
+
 	.commodityPropaganda {
 		font-size: 1rem;
 		color: #646464;
 		text-align: left;
 	}
-	
+
 	.commodityPropaganda-span {
 		margin-left: 10%;
 		font-size: 1rem;
 		color: #646464;
 	}
-	
+
 	p {
 		color: #323232;
 		font-size: 1.5rem;
 	}
-	
+
 	.Topstarnews-img {
 		width: 100%;
 		padding: 1rem 0rem 1rem;
 	}
-	
+
 	.author {
 		color: #646464;
 		font-size: 1.5rem;
@@ -476,17 +475,17 @@
 		display: block;
 		word-break: break-all;
 	}
-	
+
 	.glyphicon {
 		float: right;
 		/*margin-top: -1.1rem;*/
 	}
-	
+
 	.contentBody {
 		margin: 1rem 1rem;
 		box-shadow: 2px 2px 10px #E3EFF3;
 	}
-	
+
 	.protext {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -498,11 +497,11 @@
 		line-height: 4.1rem;
 		border-top: 1rem solid #F5F5F5;
 	}
-	
+
 	.spancolor {
 		color: #646464;
 	}
-	
+
 	.reply {
 		border-top: 1px solid #F5F5F5;
 		width: 100%;
@@ -512,7 +511,7 @@
 		bottom: 0;
 		/*display: none;*/
 	}
-	
+
 	.reply-input {
 		/*padding-bottom: 0px;
 	    padding-top: 0px;
@@ -524,19 +523,19 @@
 		background: #F5F5F5;
 		padding: 0px;
 	}
-	
+
 	.mu-input {
 		height: 3rem;
 	}
-	
+
 	div.mu-input-line {
 		background-color: none;
 	}
-	
+
 	.demo-text {
 		margin-bottom: 5rem;
 	}
-	
+
 	.callBack {
 		height: 4rem;
 		line-height: 4.5rem;
@@ -547,7 +546,7 @@
 		bottom: 0;
 		margin-right: 8px;
 	}
-	
+
 	.callBacks {
 		width: 50px;
 		position: absolute;

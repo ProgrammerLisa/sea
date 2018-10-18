@@ -137,7 +137,6 @@
                 this.$router.replace('/login');
               }
               if(res.data.code === 0) {
-                console.log(res.data)
                 this.hasSignal=true;
                 localStorage.setItem("hotkeys",JSON.stringify(res.data.hotkeys));
                 this.next=res.data.data.next;
@@ -361,6 +360,6 @@
   .mR{
     margin-right: 1rem;
   }
-  
-  
+
+
 </style>

@@ -18,7 +18,8 @@
     <div class="searchContainer" v-if="showSearch">
       <div v-if="hasData">
         <div class="list" v-for="(i,index) in list" @click="sendParams(i.id)">
-          <img :src="i.image" class="image" style="width:35%;"/>
+          <img :src="i.image" class="image" v-if="i.mod=='LESSPIC'"/>
+          <img :src="i.image[0]" class="image" v-else-if="i.mod=='MULTIPIC'||'BIGPIC'"/>
           <div class="list-item">
             <div class="title">{{i.title}}</div>
             <div class="footer">
@@ -102,35 +103,12 @@
               }
             }).then(function(res) {
               this.showSearch=true;
-              console.log(res.data)
               if (res.data.code===0){
                 if (res.data.data.length===0){
                   this.hasData=false;
                 } else {
                   this.hasData=true;
-                  for (let i=0;i<res.data.data.length;i++){
-                    this.item.author=res.data.data[i].author;
-                    this.item.category=res.data.data[i].category;
-                    this.item.id=res.data.data[i].id;
-                    this.item.image=res.data.data[i].image;
-                    this.item.is_paid=res.data.data[i].is_paid;
-                    this.item.published_at=res.data.data[i].published_at;
-                    this.item.source=res.data.data[i].source;
-                    this.item.tags=res.data.data[i].tags;
-                    this.item.title=res.data.data[i].title;
-                    this.list.push(this.item);
-                    this.item={
-                      author:'',
-                      category:'',
-                      id:'',
-                      image:'',
-                      is_paid:'',
-                      published_at:'',
-                      source:'',
-                      tags:'',
-                      title:''
-                    };
-                  }
+                  this.list=res.data.data
                 }
               }else {
                 this.hasData=false;
@@ -249,7 +227,8 @@
     margin: 1rem 1rem 0 0;
   }
   .list{
-    height: 11rem;
+    height: 30vw;
+    overflow: hidden;
     padding: 1rem;
     border-top: 1px solid #f5f5f5;
     background: #fff;
@@ -257,8 +236,8 @@
   }
   .list .image{
     width: 11rem;
-    height: 100%;
     margin-right: 1rem;
+    border-radius: 5px;
   }
   @media screen and (min-width: 300px) and (max-width: 350px) {
     .list .image{

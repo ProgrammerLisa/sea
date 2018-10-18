@@ -13,7 +13,7 @@
 
         <div class="text-center">
           <span class="serviceContent" v-html="content">
-          	
+
           </span>
         </div>
       </div>
@@ -53,7 +53,7 @@
               this.title = res.data.data.title;
               this.created_at = res.data.data.created_at;
               this.content = res.data.data.content+ '<style type="text/css">' +
-								'img {max-width: 100%; }' +
+								'img {max-width: 100%; }p{font-size: 1.6rem;line-height: 28px}' +
 								'<\/style>';
 
             }else {
@@ -92,6 +92,8 @@
 
   .serviceContent{
     width: 90%;
+    height: 80vh;
+    overflow-y: scroll;
     background: #fff;
     display: inline-block;
     padding: 1rem;
@@ -100,5 +102,6 @@
     box-shadow: 0.2rem 0.2rem 0.2rem #ddd;
     text-align: left;
     word-wrap:break-word;
+    font-size: 1.6rem;
   }
 </style>

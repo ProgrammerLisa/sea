@@ -1,5 +1,6 @@
 <template>
 	<div v-if="hasSignal" id="content">
+    <remote-js src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></remote-js>
 
 		<audio style="display: none;" id="pearlAudio" src="../../assets/audio/zz.mp3"></audio>
 		<div class="landscape" >
@@ -13,7 +14,12 @@
 
 
 		<div id="notice">
-			<marquee style="line-height: 2rem; height: 30px; position: relative;" scrollamount="5" scrolldelay="1"><span style=" font-size: 1.5rem;color: #fff;vertical-align:middle;padding-top: 3px;display: inline-block">{{marquee}}</span></marquee>
+			<marquee style="line-height: 2rem; height: 30px; position: relative;" scrollamount="5" scrolldelay="1">
+        <span style=" font-size: 1.5rem;color: #fff;vertical-align:middle;padding-top: 3px;display: inline-block">
+          {{marquee}}
+          哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈嗝
+        </span>
+      </marquee>
 		</div>
 		<div class="topOption option1">
 			<div class="icon">
@@ -65,6 +71,7 @@
 </template>
 
 <script>
+  import wx from 'weixin-js-sdk'
 	import { Group, Cell } from 'vux'
   import Nothing from '@/components/Nothing'
 //	import sm from '@/assets/js/shuimu.js'
@@ -114,7 +121,15 @@
 		components: {
 			Group,
 			Cell,
-      'nothing':Nothing
+      'nothing':Nothing,
+      'remote-js': {
+        render(createElement) {
+          return createElement('script', { attrs: { type: 'text/javascript', src: this.src }});
+        },
+        props: {
+          src: { type: String, required: true },
+        },
+      }
 		},
 		filters: {
 

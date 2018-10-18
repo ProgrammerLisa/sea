@@ -7,7 +7,7 @@
 			</mu-button>
 		</mu-appbar>
 
-		<div class="contentMarginTop" @click="aaa">
+		<div class="contentMarginTop"  @touchmove="touchMove()">
 			<div>
 				<div>
 					<p class="media-heading">{{title}}</p>
@@ -24,55 +24,61 @@
 				</div>-->
 			</div>
 		</div>
-		<div class="protext">
+		<div class="protext"  @touchmove="touchMove()">
 			<span><span class="spancolor">一</span> 最新评论区 <span class="spancolor">一</span> </span>
 		</div>
 
 		<div class="demo-text" v-if="active1 === 0">
-			<div v-if="hasMessage" style="margin-top:1rem;padding:1rem 1rem 0;background: #fff">
+			<div v-if="hasMessage" style="margin-top:1rem;padding:1rem 1rem 0;background: #fff"  @touchmove="touchMove()">
 				<mu-container ref="container" class="demo-loadmore-content" style="padding: 0">
 					<mu-load-more :refreshing="refreshingMessage" :loading="loadingMessage" @load="loadMessage">
 						<div class="media" v-for="(m,index) in message">
-							<div class="media-left">
-								<img class="media-object" :src="m.from_user_avatar" />
-							</div>
-							<div class="media-body">
-								<h4 class="media-heading">{{m.from_user}}</h4>
-								<div style="color: #666;font-size: small;width: 100%" class="stealerTitle">{{m.created_at}}</div>
+              <div class="flex">
+                <div>
+                  <img class="media-object" :src="m.from_user_avatar" />
+                </div>
+                <div class="middle">
+                  <div class="media-heading">{{m.from_user}}</div>
 
-							</div>
-							<div class="panel-group" id="accordion">
-								<div class="panel panel-default">
-									<div class="panel-heading" style="background: #fff">
-										<a data-toggle="collapse" data-parent="#accordion" :href="m.href">
-											<h4 class="panel-title" @click="getMessageId(index,m.id,m.from_user_uid)"> {{m.content}} </h4> </a>
-									</div>
+                  <div @click="getMessageId(index,m.id,m.from_user_uid)">{{m.content}}</div>
+                  <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                      <div class="panel-heading" style="background: #fff">
+                        <a>
+                          <h4  style="color: #666;font-size: small;width: 100%" class="panel-title">
+                            {{m.created_at}}
+                            <div class="interval">·</div>
+                            <!--<a class="replyLength" data-toggle="collapse" data-parent="#accordion"  :href="m.href">-->
+                            <div class="replyLength" v-if="m.reply.length===0" @click="getMessageId(index,m.id,m.from_user_uid)">
+                              回复
+                            </div>
+                            <div class="replyLength" v-else @click="$router.push('/comment')">
+                              {{m.reply.length}} 回复
+                            </div>
+                            <!--</a>-->
+                          </h4>
+                        </a>
+                      </div>
 
-									<div :id="m.item" v-show="m.hasMsg" class="panel-collapse collapse in" style="background: #f5f5f5;min-width:100%">
-										<div class="panel-body" v-for="(r,item) in m.reply" v-show="item < m.reply_num " style="border: none; padding:0.5rem 1rem;font-size: 1.5rem">
-											<span style="color: #09a2d6" @click="getUserId(item,m.id,r.from_user.uid)">{{r.from_user.nickname}}</span>
-											<span style="color: black"> 回复 </span>
-											<span style="color: #09a2d6" @click="getUserId(item,m.id,r.to_user.uid)">{{r.to_user.nickname}}</span>: {{r.content}}
-										</div>
-										<span v-if="m.reply.length > 3" @click="showMore(m)" class="glyphicon" style="color: #09a2d6" >{{m.reply_num == 3?'查看全部':'收起'}}</span>
-									</div>
+                      <!--<div :id="m.item" v-show="!m.hasMsg" class="panel-collapse collapse in" style="background: #f5f5f5;min-width:100%;margin-bottom: 20px">-->
+                      <!--<div class="panel-body" v-for="(r,item) in m.reply" v-show="item < m.reply_num " style="border: none; padding:0.5rem 1rem;font-size: 1.5rem">-->
+                      <!--<span style="color: #09a2d6" @click="getUserId(item,m.id,r.from_user.uid)">{{r.from_user.nickname}}</span>-->
+                      <!--<span style="color: black"> 回复 </span>-->
+                      <!--<span style="color: #09a2d6" @click="getUserId(item,m.id,r.to_user.uid)">{{r.to_user.nickname}}</span>: {{r.content}}-->
+                      <!--</div>-->
+                      <!--<span v-if="m.reply.length > 3" @click="showMore(m)" class="glyphicon" style="color: #09a2d6" >{{m.reply_num == 3?'查看全部':'收起'}}</span>-->
+                      <!--</div>-->
 
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-									<!--<div :id="m.item" v-show="m.hasMsg" class="panel-collapse collapse in" style="background: #f5f5f5;min-width:100%">
-										<div class="panel-body" v-for="(r,item) in m.reply" style="border: none; padding:0.5rem 1rem;font-size: 1.5rem">
-											<span style="color: #09a2d6" @click="getUserId(item,m.id,r.from_user.uid)">{{r.from_user.nickname}}</span>
-											<span style="color: black"> 回复 </span>
-											<span style="color: #09a2d6" @click="getUserId(item,m.id,r.to_user.uid)">{{r.to_user.nickname}}</span>: {{r.content}}</div>
-									</div>-->
-								</div>
-							</div>
+              <div class="right">
+                <img src="../../assets/images/zan.png"/>
+                <span>36</span>
+              </div>
 
-							<div v-show="critichf" class="tardiv" style="width: 100%;height: 150px;background: #F5F5F5;position: fixed;bottom: 0;margin: -1rem -1rem 0;">
-										<div style="margin: 1.6rem; background: #FEFFFE;">
-										<mu-text-field solo v-model="reverts" placeholder="请输入回复内容" multi-line :rows="6" :max-length="60"></mu-text-field>
-										</div>
-									<button :disabled="!reverts" class="callBacks" @click="revert(index,m.id)">发送 </button>
-							</div>
 
 
 						</div>
@@ -83,15 +89,20 @@
 			</div>
 
 			<div v-else class="text-center" style="padding: 3rem 0;font-size: 1.6rem;color:#777">暂无评论</div>
+      <div v-show="critichf" class="tardiv">
+        <div class="comment">
+          <mu-text-field solo v-model="reverts" placeholder="请输入回复内容" multi-line :rows="6" :max-length="60"></mu-text-field>
+        </div>
+        <button :disabled="!reverts" class="callBacks" @click="revert(index,m.id)">发送 </button>
+      </div>
+			<div v-show="criticxf" class="reply" id="nav1">
+				<input v-show="criticxf" @click="criticMessage" v-model='critic' class="reply-input" placeholder="说出你的想法" />
+				<img src="../../assets/images/pinglun.png" />
+			</div>
 
-			<mu-appbar v-show="criticxf" class="reply" color="#fff" textColor="#333" z-depth="0" id="nav1">
-				<mu-text-field v-show="criticxf" @click="criticMessage" v-model='critic' class="reply-input" underline-color="none" placeholder="说出你的想法" />
-				<img src="../../assets/images/pinglun.png"></img>
-			</mu-appbar>
-
-			<div v-show="criticpl" class="tardiv" style="width: 100%;height: 150px;background: #F5F5F5;position: fixed;position: fixed;bottom: 0;">
-				<div style="margin: 1.6rem; background: #FEFFFE;">
-					<mu-text-field v-model='critic' solo placeholder="说出你的想法" multi-line :rows="6" :max-length="60"></mu-text-field><br/>
+			<div v-show="criticpl" class="tardiv" style="">
+				<div class="comment">
+					<mu-text-field v-model='critic' solo placeholder="说出你的想法" multi-line :rows="6" :max-length="60"></mu-text-field>
 				</div>
 				<button :disabled="!critic" class="callBacks" @click="leaveMessage">评论</button>
 			</div>
@@ -131,7 +142,8 @@
 
 				txt:'查看全部',
 				num:3,
-				examine:false
+				examine:false,
+
 			}
 		},
 		mounted() {
@@ -145,6 +157,11 @@
 			})
 		},
 		methods: {
+      touchMove(){
+        this.criticpl=false;
+        this.criticxf=true;
+        this.critichf=false;
+      },
 		showMore(item){
 			let length = item.reply.length;
 			 if(item.reply_num ==3){
@@ -207,7 +224,7 @@
 			aaa() {
 				this.criticxf = true;
 				this.criticpl = false;
-				this.critichf = false;
+				this.critichf = !this.critichf;
 			},
 			leaveMessage() {
 				let res = new RegExp("^[ ]+$");
@@ -275,8 +292,12 @@
 				}
 			},
 			getMessageId(index,id,uid){
-				this.critichf = true;
-				this.criticxf = false;
+				this.critichf = !this.critichf;
+				this.criticxf = !this.criticxf;
+        this.criticpl=false;
+        if(this.critichf&&this.criticxf){
+          this.criticxf=false
+        }
 				this.id=id;
 				this.uid=uid;
 				this.message[index].openMessage = true;
@@ -322,6 +343,7 @@
 					this.noMoreMessage = true;
 				}
 			},
+
 			evers() {
 				this.masrc = backs;
 			},
@@ -336,31 +358,43 @@
 </script>
 
 <style scoped>
+  .tardiv{
+    width: 100%;background: #F5F5F5;position: fixed;bottom: 0;
+    padding:1.2rem 1rem 0.8rem;
+  }
 	.media-body{
-		padding-left: 4rem;
+		padding-left: 4.5rem;
 	}
 
 	.contentMarginTop {
 		margin-top: 56px;
 	}
 
-	#accordion {
-		margin-left: 4rem;
-	}
-
 	.media {
 		border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
 	}
-
+  .middle{
+    margin-left: 15px;
+  }
+  .right img{
+    width: 25px;
+    vertical-align: top;
+  }
+  .panel-group{
+    margin-bottom: 0;
+  }
 	.media-heading {
 		font-size: 1.6rem;
-		color: #3c3c3c;
+		color: #09a2d6;
+
 	}
 
 	.media-left {
 		position: absolute;
 		border-radius: 50%;
-		width: 6rem;
+
 	}
 
 	.media-object {
@@ -426,27 +460,9 @@
 		border-radius: 0;
 	}
 
-	.panel-body {
-		padding: 0 10px;
-	}
-
-	.back {
-		float: left;
-	}
-
-	.back img {
-		height: 2.5rem;
-	}
-
 	.contentMarginTop {
 		padding: 1rem 1rem 2rem;
 	}
-
-	.media-heading {
-		font-weight: bold;
-		font-size: 2rem;
-	}
-
 	.commodityPropaganda {
 		font-size: 1rem;
 		color: #646464;
@@ -464,29 +480,6 @@
 		font-size: 1.5rem;
 	}
 
-	.Topstarnews-img {
-		width: 100%;
-		padding: 1rem 0rem 1rem;
-	}
-
-	.author {
-		color: #646464;
-		font-size: 1.5rem;
-		width: 100%;
-		word-wrap: break-word;
-		display: block;
-		word-break: break-all;
-	}
-
-	.glyphicon {
-		float: right;
-		/*margin-top: -1.1rem;*/
-	}
-
-	.contentBody {
-		margin: 1rem 1rem;
-		box-shadow: 2px 2px 10px #E3EFF3;
-	}
 
 	.protext {
 		text-align: center;
@@ -497,7 +490,7 @@
 		margin-bottom: 0;
 		height: 4.1rem;
 		line-height: 4.1rem;
-		border-top: 1rem solid #F5F5F5;
+		border-top: 3px solid #F5F5F5;
 	}
 
 	.spancolor {
@@ -507,23 +500,23 @@
 	.reply {
 		border-top: 1px solid #F5F5F5;
 		width: 100%;
-/*		height: 43px;
-*/		/*padding: 4px;*/
 		position: fixed;
 		bottom: 0;
-		/*display: none;*/
+    text-align: center;
+    background: #fff;
 	}
-
+  .reply img{
+    width: 2.5rem;
+    margin-left: 0.5rem;
+  }
 	.reply-input {
-		/*padding-bottom: 0px;
-	    padding-top: 0px;
-	    margin-bottom: 3px;*/
-		/*border: 1px solid black;*/
 		width: 80%;
 		margin: 5px;
 		height: 40px;
 		background: #F5F5F5;
-		padding: 0px;
+		padding:0 10px;
+    border: none;
+    outline: none;
 	}
 
 	.mu-input {
@@ -531,7 +524,7 @@
 	}
 
 	div.mu-input-line {
-		background-color: none;
+		background-color: transparent;
 	}
 
 	.demo-text {
@@ -550,15 +543,40 @@
 	}
 
 	.callBacks {
+    float: right;
 		width: 50px;
-		position: absolute;
-		margin-left: 80%;
-		margin-top: -11px;
 		border: none;
 		color: #FFFFFF;
-		background: #38E7F8;
+    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
 	}
 	.callBacks:disabled {
 		background: #D9D9D9;
 	}
+  .interval{
+    display: inline-block;
+    font-weight: bold;
+    margin: 0 0.5rem;
+    color: #888;
+  }
+  .replyLength{
+    display: inline-block;
+    background: #F5F5F5;
+    border-radius: 10px;
+    padding:3px 10px;
+  }
+  .comment{
+    background: #fff;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1rem;
+  }
+  .flex{
+    display: flex;
+  }
+</style>
+<style lang="less">
+  .comment{
+    .mu-text-field-input{
+      margin: 0;
+    }
+  }
 </style>

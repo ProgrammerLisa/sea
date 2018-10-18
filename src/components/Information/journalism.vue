@@ -164,7 +164,6 @@
             localStorage.setItem("post_id",url);
           } else {
             this.$router.push({path: '/products'});
-            console.log("post_id",id);
             localStorage.setItem("post_id",id);
           }
         },

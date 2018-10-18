@@ -340,6 +340,11 @@ export default new Router({
       name:'advertisement',
       meta:{index:2},
       component:  resolve => require(['@/components/Information/Advertisement'], resolve)
+    },{
+      path:'/comment',
+      name:'comment',
+      meta:{index:4},
+      component:  resolve => require(['@/components/Information/comment'], resolve)
     }
 
 

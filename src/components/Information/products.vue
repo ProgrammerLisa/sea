@@ -52,7 +52,7 @@
                             <div class="replyLength" v-if="m.reply.length===0" @click="getMessageId(index,m.id,m.from_user_uid)">
                               回复
                             </div>
-                            <div class="replyLength" v-else @click="$router.push('/comment')">
+                            <div class="replyLength" v-else @click="goComment(m.id)">
                               {{m.reply.length}} 回复
                             </div>
                             <!--</a>-->
@@ -148,6 +148,7 @@
 		},
 		mounted() {
 			localStorage.removeItem("friend_uid");
+      localStorage.removeItem("commentId");
 			let that = this;
 			mui.back = function() {
 				that.$router.go(-1);
@@ -343,6 +344,10 @@
 					this.noMoreMessage = true;
 				}
 			},
+      goComment(id){
+        localStorage.setItem("commentId",id);
+        this.$router.push('/comment')
+      },
 
 			evers() {
 				this.masrc = backs;
@@ -530,18 +535,6 @@
 	.demo-text {
 		margin-bottom: 5rem;
 	}
-
-	.callBack {
-		height: 4rem;
-		line-height: 4.5rem;
-		border: solid 1px #23C8E8;
-		width: 5rem;
-		position: fixed;
-		margin: 0.3rem;
-		bottom: 0;
-		margin-right: 8px;
-	}
-
 	.callBacks {
     float: right;
 		width: 50px;

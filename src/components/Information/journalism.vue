@@ -93,10 +93,22 @@
           }
         },
       mounted(){
+      	//读取位置信息
+      	setTimeout(function(){
+      		if(sessionStorage.getItem('offsetTop')){
+      			document.getElementById('scroll').scrollTop = sessionStorage.getItem('offsetTop');
+      		}
+      	},500);
+      	setTimeout(function(){
+      		sessionStorage.removeItem('offsetTop');
+      	},8000);
+      	window.addEventListener('scroll',this.handleScroll,true);
+      	
       	if(localStorage.getItem('post_id')){
       		let id = localStorage.getItem('post_id');
       		console.log(id)
       	}
+      	
         let clickNum = 0;
         mui.back = function(){
           clickNum++;
@@ -122,6 +134,12 @@
         'nothing':Nothing
       },
       methods:{
+      	//保存滚动位置
+      	handleScroll(){
+      		let tpScrollTop = document.getElementById('scroll').scrollTop;
+      		sessionStorage.setItem('offsetTop',tpScrollTop);
+      	},
+      	
         again(){
           this.message();
         },

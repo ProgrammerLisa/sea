@@ -17,7 +17,7 @@
 			<marquee style="line-height: 2rem; height: 30px; position: relative;" scrollamount="5" scrolldelay="1">
         <span style=" font-size: 1.5rem;color: #fff;vertical-align:middle;padding-top: 3px;display: inline-block">
           {{marquee}}
-          哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈嗝
+          世界那么大想出去走走,一看钱包这么小,根本走不了
         </span>
       </marquee>
 		</div>

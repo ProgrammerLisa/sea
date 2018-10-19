@@ -7,7 +7,7 @@
 			</mu-button>
 		</mu-appbar>
 
-		<div class="contentMarginTop"  @touchmove="touchMove()">
+		<div class="contentMarginTop" @touchmove="touchMove()">
 			<div>
 				<div>
 					<p class="media-heading">{{title}}</p>
@@ -24,28 +24,28 @@
 				</div>-->
 			</div>
 		</div>
-		<div class="protext"  @touchmove="touchMove()">
+		<div class="protext" @touchmove="touchMove()">
 			<span><span class="spancolor">一</span> 最新评论区 <span class="spancolor">一</span> </span>
 		</div>
 
 		<div class="demo-text" v-if="active1 === 0">
-			<div v-if="hasMessage" style="margin-top:1rem;padding:1rem 1rem 0;background: #fff"  @touchmove="touchMove()">
+			<div v-if="hasMessage" style="margin-top:1rem;padding:1rem 1rem 0;background: #fff" @touchmove="touchMove()">
 				<mu-container ref="container" class="demo-loadmore-content" style="padding: 0">
 					<mu-load-more :refreshing="refreshingMessage" :loading="loadingMessage" @load="loadMessage">
 						<div class="media" v-for="(m,index) in message">
-              <div class="flex">
-                <div>
-                  <img class="media-object" :src="m.from_user_avatar" />
-                </div>
-                <div class="middle">
-                  <div class="media-heading">{{m.from_user}}</div>
+							<div class="flex">
+								<div>
+									<img class="media-object" :src="m.from_user_avatar" />
+								</div>
+								<div class="middle">
+									<div class="media-heading">{{m.from_user}}</div>
 
-                  <div @click="getMessageId(index,m.id,m.from_user_uid)">{{m.content}}</div>
-                  <div class="panel-group" id="accordion">
-                    <div class="panel panel-default">
-                      <div class="panel-heading" style="background: #fff">
-                        <a>
-                          <h4  style="color: #666;font-size: small;width: 100%" class="panel-title">
+									<div @click="getMessageId(index,m.id,m.from_user_uid)">{{m.content}}</div>
+									<div class="panel-group" id="accordion">
+										<div class="panel panel-default">
+											<div class="panel-heading" style="background: #fff">
+												<a>
+													<h4 style="color: #666;font-size: small;width: 100%" class="panel-title">
                             {{m.created_at}}
                             <div class="interval">·</div>
                             <!--<a class="replyLength" data-toggle="collapse" data-parent="#accordion"  :href="m.href">-->
@@ -57,29 +57,27 @@
                             </div>
                             <!--</a>-->
                           </h4>
-                        </a>
-                      </div>
+												</a>
+											</div>
 
-                      <!--<div :id="m.item" v-show="!m.hasMsg" class="panel-collapse collapse in" style="background: #f5f5f5;min-width:100%;margin-bottom: 20px">-->
-                      <!--<div class="panel-body" v-for="(r,item) in m.reply" v-show="item < m.reply_num " style="border: none; padding:0.5rem 1rem;font-size: 1.5rem">-->
-                      <!--<span style="color: #09a2d6" @click="getUserId(item,m.id,r.from_user.uid)">{{r.from_user.nickname}}</span>-->
-                      <!--<span style="color: black"> 回复 </span>-->
-                      <!--<span style="color: #09a2d6" @click="getUserId(item,m.id,r.to_user.uid)">{{r.to_user.nickname}}</span>: {{r.content}}-->
-                      <!--</div>-->
-                      <!--<span v-if="m.reply.length > 3" @click="showMore(m)" class="glyphicon" style="color: #09a2d6" >{{m.reply_num == 3?'查看全部':'收起'}}</span>-->
-                      <!--</div>-->
+											<!--<div :id="m.item" v-show="!m.hasMsg" class="panel-collapse collapse in" style="background: #f5f5f5;min-width:100%;margin-bottom: 20px">-->
+											<!--<div class="panel-body" v-for="(r,item) in m.reply" v-show="item < m.reply_num " style="border: none; padding:0.5rem 1rem;font-size: 1.5rem">-->
+											<!--<span style="color: #09a2d6" @click="getUserId(item,m.id,r.from_user.uid)">{{r.from_user.nickname}}</span>-->
+											<!--<span style="color: black"> 回复 </span>-->
+											<!--<span style="color: #09a2d6" @click="getUserId(item,m.id,r.to_user.uid)">{{r.to_user.nickname}}</span>: {{r.content}}-->
+											<!--</div>-->
+											<!--<span v-if="m.reply.length > 3" @click="showMore(m)" class="glyphicon" style="color: #09a2d6" >{{m.reply_num == 3?'查看全部':'收起'}}</span>-->
+											<!--</div>-->
 
-                    </div>
-                  </div>
-                </div>
-              </div>
+										</div>
+									</div>
+								</div>
+							</div>
 
-              <div class="right">
-                <img src="../../assets/images/zan.png"/>
-                <span>36</span>
-              </div>
-
-
+							<div class="right">
+								<img src="../../assets/images/zan.png" />
+								<span>36</span>
+							</div>
 
 						</div>
 
@@ -89,12 +87,12 @@
 			</div>
 
 			<div v-else class="text-center" style="padding: 3rem 0;font-size: 1.6rem;color:#777">暂无评论</div>
-      <div v-show="critichf" class="tardiv">
-        <div class="comment">
-          <mu-text-field solo v-model="reverts" placeholder="请输入回复内容" multi-line :rows="6" :max-length="60"></mu-text-field>
-        </div>
-        <button :disabled="!reverts" class="callBacks" @click="revert(index,m.id)">发送 </button>
-      </div>
+			<div v-show="critichf" class="tardiv">
+				<div class="comment">
+					<mu-text-field solo v-model="reverts" placeholder="请输入回复内容" multi-line :rows="6" :max-length="60"></mu-text-field>
+				</div>
+				<button :disabled="!reverts" class="callBacks" @click="revert(index,m.id)">发送 </button>
+			</div>
 			<div v-show="criticxf" class="reply" id="nav1">
 				<input v-show="criticxf" @click="criticMessage" v-model='critic' class="reply-input" placeholder="说出你的想法" />
 				<img src="../../assets/images/pinglun.png" />
@@ -132,17 +130,17 @@
 				loadingMessage: false,
 				noMoreMessage: false,
 				critic: '',
-				id:'',
-				uid:'',
+				id: '',
+				uid: '',
 				reverts: '',
 				messageMsgShow: false,
 				criticpl: false,
 				criticxf: true,
-				critichf:false,
+				critichf: false,
 
-				txt:'查看全部',
-				num:3,
-				examine:false,
+				txt: '查看全部',
+				num: 3,
+				examine: false,
 
 			}
 		},
@@ -158,19 +156,19 @@
 			})
 		},
 		methods: {
-      touchMove(){
-        this.criticpl=false;
-        this.criticxf=true;
-        this.critichf=false;
-      },
-		showMore(item){
-			let length = item.reply.length;
-			 if(item.reply_num ==3){
-			 	item.reply_num = length;
-			 }else{
-			 	item.reply_num = 3
-			 }
-      	 },
+			touchMove() {
+				this.criticpl = false;
+				this.criticxf = true;
+				this.critichf = false;
+			},
+			showMore(item) {
+				let length = item.reply.length;
+				if(item.reply_num == 3) {
+					item.reply_num = length;
+				} else {
+					item.reply_num = 3
+				}
+			},
 			gain() {
 				this.$http({
 						method: "post",
@@ -258,8 +256,8 @@
 						}.bind(this))
 				}
 			},
-			revert(index,id) {
-				console.log(this.id,this.uid)
+			revert(index, id) {
+				console.log(this.id, this.uid)
 				let res = new RegExp("^[ ]+$");
 				if(this.reverts === '' || res.test(this.reverts) === true) {
 					this.$layer.msg("回复内容不能为空");
@@ -292,43 +290,43 @@
 						}.bind(this))
 				}
 			},
-			getMessageId(index,id,uid){
+			getMessageId(index, id, uid) {
 				this.critichf = !this.critichf;
 				this.criticxf = !this.criticxf;
-        this.criticpl=false;
-        if(this.critichf&&this.criticxf){
-          this.criticxf=false
-        }
-				this.id=id;
-				this.uid=uid;
+				this.criticpl = false;
+				if(this.critichf && this.criticxf) {
+					this.criticxf = false
+				}
+				this.id = id;
+				this.uid = uid;
 				this.message[index].openMessage = true;
 			},
-			getUserId(index,id,uid){
+			getUserId(index, id, uid) {
 				this.critichf = true;
 				this.criticxf = false;
-				this.id=id;
-				this.uid=uid;
+				this.id = id;
+				this.uid = uid;
 			},
-//			openLeaveMessage(index,mid,uid,reply) {
-//				console.log(mid);
-//				this.critichf = true;
-//				this.criticxf = false;
-//				if(reply){
-//					if(reply.length ==0){
-//						this.uid = mid;
-//					}else{
-//						if(uid){
-//							this.uid = uid
-//						}
-//
-//					}
-//				}else{
-//					if(uid){
-//						this.uid = uid
-//					}
-//				}
-//
-//			},
+			//			openLeaveMessage(index,mid,uid,reply) {
+			//				console.log(mid);
+			//				this.critichf = true;
+			//				this.criticxf = false;
+			//				if(reply){
+			//					if(reply.length ==0){
+			//						this.uid = mid;
+			//					}else{
+			//						if(uid){
+			//							this.uid = uid
+			//						}
+			//
+			//					}
+			//				}else{
+			//					if(uid){
+			//						this.uid = uid
+			//					}
+			//				}
+			//
+			//			},
 			closeLeaveMessage(index) {
 				this.revert = '';
 				this.messageMsgShow = false;
@@ -363,81 +361,87 @@
 </script>
 
 <style scoped>
-  .tardiv{
-    width: 100%;background: #F5F5F5;position: fixed;bottom: 0;
-    padding:1.2rem 1rem 0.8rem;
-  }
-	.media-body{
+	.tardiv {
+		width: 100%;
+		background: #F5F5F5;
+		position: fixed;
+		bottom: 0;
+		padding: 1.2rem 1rem 0.8rem;
+	}
+	
+	.media-body {
 		padding-left: 4.5rem;
 	}
-
+	
 	.contentMarginTop {
 		margin-top: 56px;
 	}
-
+	
 	.media {
 		border-bottom: 1px solid #eee;
-    display: flex;
-    justify-content: space-between;
+		display: flex;
+		justify-content: space-between;
 	}
-  .middle{
-    margin-left: 15px;
-  }
-  .right img{
-    width: 25px;
-    vertical-align: top;
-  }
-  .panel-group{
-    margin-bottom: 0;
-  }
+	
+	.middle {
+		margin-left: 15px;
+	}
+	
+	.right img {
+		width: 25px;
+		vertical-align: top;
+	}
+	
+	.panel-group {
+		margin-bottom: 0;
+	}
+	
 	.media-heading {
 		font-size: 1.6rem;
 		color: #09a2d6;
-
 	}
-
+	
 	.media-left {
 		position: absolute;
 		border-radius: 50%;
-
 	}
-
+	
 	.media-object {
 		width: 3.1rem;
 		border-radius: 50%;
 	}
-
+	
 	a {
 		color: #333;
 	}
-
+	
 	.panel {
 		box-shadow: none;
 		border: none;
 		background: #FAFAFA;
 	}
-
+	
 	.panel-heading {
 		padding-left: 0;
 	}
-
+	
 	.panel-title {
 		font-size: 1.5rem;
 	}
-
+	
 	.leaveMessage {
 		padding-left: 0;
 	}
-
+	
 	.list:last-child .mu-divider {
 		display: none;
 	}
-
+	
 	.messageMsg {
 		color: #ff2424;
 		font-size: small;
 	}
-
+	
 	.noMore {
 		width: 100%;
 		line-height: 4rem;
@@ -446,7 +450,7 @@
 		background: #fff;
 		margin-top: -4rem;
 	}
-
+	
 	.products {
 		overflow-x: hidden;
 		color: #444;
@@ -456,36 +460,36 @@
 		overflow-y: scroll;
 		font-size: 1.6rem;
 	}
-
+	
 	.products::-webkit-scrollbar {
 		display: none;
 	}
-
+	
 	.panel {
 		border-radius: 0;
 	}
-
+	
 	.contentMarginTop {
 		padding: 1rem 1rem 2rem;
 	}
+	
 	.commodityPropaganda {
 		font-size: 1rem;
 		color: #646464;
 		text-align: left;
 	}
-
+	
 	.commodityPropaganda-span {
 		margin-left: 10%;
 		font-size: 1rem;
 		color: #646464;
 	}
-
+	
 	p {
 		color: #323232;
 		font-size: 1.5rem;
 	}
-
-
+	
 	.protext {
 		text-align: center;
 		letter-spacing: 0.05rem;
@@ -497,79 +501,100 @@
 		line-height: 4.1rem;
 		border-top: 3px solid #F5F5F5;
 	}
-
+	
 	.spancolor {
 		color: #646464;
 	}
-
+	
 	.reply {
 		border-top: 1px solid #F5F5F5;
 		width: 100%;
 		position: fixed;
 		bottom: 0;
-    text-align: center;
-    background: #fff;
+		text-align: center;
+		background: #fff;
 	}
-  .reply img{
-    width: 2.5rem;
-    margin-left: 0.5rem;
-  }
+	
+	.reply img {
+		width: 2.5rem;
+		margin-left: 0.5rem;
+	}
+	
 	.reply-input {
 		width: 80%;
 		margin: 5px;
 		height: 40px;
 		background: #F5F5F5;
-		padding:0 10px;
-    border: none;
-    outline: none;
+		padding: 0 10px;
+		border: none;
+		outline: none;
 	}
-
+	
 	.mu-input {
 		height: 3rem;
 	}
-
+	
 	div.mu-input-line {
 		background-color: transparent;
 	}
-
+	
 	.demo-text {
 		margin-bottom: 5rem;
 	}
+<<<<<<< HEAD
+=======
+	
+	.callBack {
+		height: 4rem;
+		line-height: 4.5rem;
+		border: solid 1px #23C8E8;
+		width: 5rem;
+		position: fixed;
+		margin: 0.3rem;
+		bottom: 0;
+		margin-right: 8px;
+	}
+	
+>>>>>>> c7a7571e2c6e2e260c598ba280093ea9cfb64bbd
 	.callBacks {
-    float: right;
+		float: right;
 		width: 50px;
 		border: none;
 		color: #FFFFFF;
-    background: linear-gradient(to right, #38E7F8 , #0BA5D7);
+		background: linear-gradient(to right, #38E7F8, #0BA5D7);
 	}
+	
 	.callBacks:disabled {
 		background: #D9D9D9;
 	}
-  .interval{
-    display: inline-block;
-    font-weight: bold;
-    margin: 0 0.5rem;
-    color: #888;
-  }
-  .replyLength{
-    display: inline-block;
-    background: #F5F5F5;
-    border-radius: 10px;
-    padding:3px 10px;
-  }
-  .comment{
-    background: #fff;
-    padding: 0.8rem 1rem;
-    margin-bottom: 1rem;
-  }
-  .flex{
-    display: flex;
-  }
+	
+	.interval {
+		display: inline-block;
+		font-weight: bold;
+		margin: 0 0.5rem;
+		color: #888;
+	}
+	
+	.replyLength {
+		display: inline-block;
+		background: #F5F5F5;
+		border-radius: 10px;
+		padding: 3px 10px;
+	}
+	
+	.comment {
+		background: #fff;
+		padding: 0.8rem 1rem;
+	}
+	
+	.flex {
+		display: flex;
+	}
 </style>
 <style lang="less">
-  .comment{
-    .mu-text-field-input{
-      margin: 0;
-    }
-  }
+	.comment {
+		.mu-text-field-input {
+			margin: 0;
+		}
+	}
 </style>

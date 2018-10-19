@@ -99,6 +99,9 @@
       			document.getElementById('scroll').scrollTop = sessionStorage.getItem('offsetTop');
       		}
       	},500);
+      	setTimeout(function(){
+      		sessionStorage.removeItem('offsetTop');
+      	},8000);
       	window.addEventListener('scroll',this.handleScroll,true);
       	
       	if(localStorage.getItem('post_id')){
@@ -156,7 +159,6 @@
                 this.$router.replace('/login');
               }
               if(res.data.code === 0) {
-                console.log(res.data)
                 this.hasSignal=true;
                 localStorage.setItem("hotkeys",JSON.stringify(res.data.hotkeys));
                 this.next=res.data.data.next;
@@ -180,7 +182,6 @@
             localStorage.setItem("post_id",url);
           } else {
             this.$router.push({path: '/products'});
-            console.log("post_id",id);
             localStorage.setItem("post_id",id);
           }
         },
@@ -380,6 +381,6 @@
   .mR{
     margin-right: 1rem;
   }
-  
-  
+
+
 </style>

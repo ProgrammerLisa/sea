@@ -6,7 +6,7 @@
       </mu-button>
       <span class="navTitleText">{{length}}条回复</span>
     </mu-appbar>
-    <div class="comment_container" @click="msgHide">
+    <div class="comment_container" @touchmove="msgHide">
       <div class="comment_main">
         <div class="headImg"> <img :src="content.from_user_avatar"/></div>
         <div class="comment_body">
@@ -15,7 +15,7 @@
           <div class="comment_date">
             {{content.created_at}}
             <div class="spot">·</div>
-            <div class="commentBtn">{{length}}回复</div>
+            <div class="commentBtn" @click="criticMessage(content.from_user_uid)">{{length}}回复</div>
           </div>
           <div class="flex">
             <div class="flex-b">
@@ -37,12 +37,13 @@
           <div class="flex">
             <div class="headImg"> <img :src="i.from_user.avatar"/></div>
             <div>
-              <div class="comment_title">{{i.from_user.nickname}}</div>
+              <div><span class="comment_title">{{i.from_user.nickname}}</span>&nbsp;回复&nbsp;<span class="comment_title">{{i.to_user.nickname}}</span></div>
               <div class="comment_content">{{i.content}}</div>
               <div class="comment_date">
                 {{i.created_at}}
                 <div class="spot">·</div>
-                <div class="commentBtn">{{i.reply.length==0?'':i.reply.length}}回复</div>
+                <div class="commentBtn" v-if="i.reply.length==0" @click="criticMessage(i.from_user.uid)">回复</div>
+                <div class="commentBtn" v-else>{{i.reply.length}}回复</div>
               </div>
             </div>
           </div>
@@ -52,11 +53,10 @@
             <span>36</span>
           </div>
         </div>
-
       </div>
     </div>
     <div v-show="criticxf" class="reply" id="nav1">
-      <input v-show="criticxf" @click="criticMessage" v-model='critic' class="reply-input" placeholder="回复" />
+      <input v-show="criticxf" @click="criticMessage(false)" v-model='critic' class="reply-input" placeholder="回复" />
       <img src="../../assets/images/zan.png" />
     </div>
     <div v-show="criticpl" class="tardiv" style="">
@@ -82,7 +82,8 @@
             head:[img,img,img],
             criticxf:true,
             criticpl:false,
-            critic:''
+            critic:'',
+            uid:'',
           }
       },
       mounted(){
@@ -115,6 +116,8 @@
                 if(localStorage.getItem("commentId")===res.data.data.comments[i].id){
                   this.content=res.data.data.comments[i];
                   this.length=this.content.reply.length;
+                  this.uid=this.content.from_user_uid;
+                  console.log(this.content)
                 }
               }
             }
@@ -123,12 +126,44 @@
               this.$layer.msg("系统异常，请稍后再试");
             }.bind(this))
         },
-        criticMessage() {
+        criticMessage(uid) {
           this.criticxf = false;
           this.criticpl = true;
+          if (uid!==false){
+            this.uid=uid;
+          }
         },
         leaveMessage(){
-
+          let res = new RegExp("^[ ]+$");
+          if(this.critic === '' || res.test(this.critic) === true) {
+            this.$layer.msg("回复内容不能为空");
+          } else {
+            this.criticxf = true;
+            this.criticpl = false;
+            this.$http({
+              method: "post",
+              url: "/tasks/news/reply",
+              headers: {
+                "device": "android",
+                "uid": localStorage.getItem("uid"),
+                "Access-Control-Allow-Origin": "*"
+              },
+              data: {
+                message_id: localStorage.getItem("commentId"),
+                content: this.critic,
+                to_user_uid: this.uid,
+              }
+            }).then(function(res) {
+              this.critic = '';
+              this.$layer.msg(res.data.msg);
+              if(res.data.code === 0) {
+                this.getList();
+              }
+            }.bind(this))
+              .catch(function(err) {
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this))
+          }
         },
         msgHide(){
           this.criticxf = true;
@@ -148,10 +183,17 @@
 </script>
 
 <style scoped>
+  .content{
+    height: 100vh;
+    overflow-y: hidden;
+  }
   .comment_container{
     padding-top: 56px;
     font-size: 1.6rem;
     overflow-y: scroll;
+  }
+  .comment_container::-webkit-scrollbar{
+    display: none;
   }
   .comment_main{
     display: flex;

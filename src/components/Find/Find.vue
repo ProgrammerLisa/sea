@@ -307,8 +307,9 @@
   .hongdian{
   	position: absolute;
   	color: red;
-  	margin-top: -15px;
+  	margin-top: -13px;
   	margin-left: 40px;
+  	font-size: 1.5rem;
   }
   .goThose{
     margin-top: 5px;

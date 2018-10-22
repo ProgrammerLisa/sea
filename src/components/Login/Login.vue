@@ -35,25 +35,24 @@
 			<form v-if="isShow">
 				<div class="bjt">
 					<div style="padding:0 30px;">
-          			  			
-						
+
 						<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 							<!--<button v-if="btnShow" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;top: 25px;right: 7%;">
            			  <img src="../../assets/images/x.png" style="position:absolute;top: -20px;"/>
           			</button>-->
 
 							<mu-text-field @input="tou" required="required" class="phone" ref="mobile" v-on:input="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" :max-length="11" keyboard="number" is-type="china-mobile" />
-							<button  @click="bnn" v-if="mobile!=''" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top:-55px;right: 7%;">
+							<button @click="bnn" v-if="mobile!=''" type="button" class="close" data-dismiss="modal" style="position: absolute;margin-top:-62px;right: 18%;">
           			  			<img src="../../assets/images/x.png" />
           					</button>
 						</div>
 
-						<div class="group_input" style="width: 100%;">
+						<div class="group_input">
 							<mu-text-field :full-width="100" id="ipwd" v-on:input="ipwdshow()" v-model="inppwd" :type="types" placeholder="请输入密码" :max-length="16" is-type="sendcode" />
 							<img id="group_input_img" @click="Alt" :src="imgs" />
-							<button v-if="inppwd!=''" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top:-65px;right: 14%;">
-          			  <img src="../../assets/images/x.png" />
-          			</button>
+							<button v-if="inppwd!=''" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position:absolute;margin-top:-65px;right: 26%;">
+          			  			<img src="../../assets/images/x.png" />
+          					</button>
 						</div>
 
 						<!--<div class="hyperlink" style="right: 9%; positdion: absolute;">
@@ -81,16 +80,16 @@
 					<div style="padding: 0 30px;">
 						<div class="group_inputs" label-width="5.5em" label-margin-right="2em" label-align="left">
 							<mu-text-field required="required" class="phone" ref="mobile" v-on:input="show()" name="mobile" v-model="mobile" placeholder="请输入手机号" :max-length="11" keyboard="number" is-type="china-mobile" />
-							<button v-if="mobile!=''" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top:-52px;right: 7%;">
-          			  <img src="../../assets/images/x.png" style="position: absolute;" />
+							<button v-if="mobile!=''" @click="bnn" type="button" class="close" data-dismiss="modal" style="position: absolute;margin-top:-52px;right: 18%;">
+          			  <img src="../../assets/images/x.png" />
           			</button>
 						</div>
 
 						<div id="div_ipwd">
-							<mu-text-field id="verifica" :full-width="100" v-on:input="verifshow()" v-model="verif" maxlength="4" placeholder="请输入验证码" />
+							<mu-text-field id="verifica" :full-width="100" v-on:input="verifshow()" v-model="verif" :max-length="4" placeholder="请输入验证码" />
 							<mu-button flat color="primary" id="verbtn" slot="right" :disabled="disabled" @click.native="SMS">{{btntxt}}</mu-button>
-							<button v-if="verif!=''" @click="ver" type="button" class="close" data-dismiss="modal" style="position: relative;margin-top: -65px;right: 120px;">
-            			<img src="../../assets/images/x.png" style="position: relative;"/>
+							<button v-if="verif!=''" @click="ver" type="button" class="close" data-dismiss="modal" style="position: absolute;margin-top: -65px;right: 48%;">
+            			<img src="../../assets/images/x.png"/>
           			</button>
 						</div>
 
@@ -457,7 +456,6 @@
 </script>
 
 <style scoped>
-	
 	input:-webkit-autofill,
 	textarea:-webkit-autofill,
 	select:-webkit-autofill {
@@ -555,8 +553,9 @@
 	/*.phone:valid+.close {
 		display: inline;
 	}*/
-	.close{
-		opacity:1;
+	
+	.close {
+		opacity: 1;
 	}
 	
 	#ipwd {

@@ -10,38 +10,38 @@
 			<div style="padding: 45px 30px">
 				<div style="padding-top: 3.5rem;">
 					<mu-text-field :full-width="100" :max-length="11" v-on:input="show()" ref="phone" name="phone" v-model="phone" placeholder="请输入11位有效手机号" maxlength="11" keyboard="number" is-type="china-mobile" required></mu-text-field>
-					<button v-if="phone!=''" @click="bnns" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right: 7%;">
-            				<img src="../../assets/images/x.png" style="position: absolute;" />
+					<button v-if="phone!=''" @click="bnns" type="button" class="close" data-dismiss="modal" >
+            				<img src="../../assets/images/x.png"  />
          			</button>
 				</div>
 
 				<div style="padding-top: 0px; display: inline-table; width: 100%;">
 					<mu-text-field :full-width="100" id="verification" v-on:input="verifshow()" name="verification" :max-length="4" v-model="verify_code" placeholder="请输入短信验证码" />
 					<mu-button id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxts}}</mu-button>
-					<button v-if="verify_code!=''" @click="ver" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right:45%;">
-            			<img src="../../assets/images/x.png" style="position: absolute;" />
+					<button v-if="verify_code!=''" @click="ver" type="button" class="yzmclose" data-dismiss="modal">
+            			<img src="../../assets/images/x.png"  />
          			</button>
 				</div>
 
 				<div>
-					<mu-text-field :full-width="100" :type="types" v-on:input="pwdshow()" style="font-size: 1.5rem;" v-model="password" placeholder="请输入密码" maxlength="16" is-type="sendcode" id="btns"></mu-text-field>
+					<mu-text-field :full-width="100" :type="types" v-on:input="pwdshow()" style="font-size: 1.5rem;" v-model="password" placeholder="请输入密码" :max-length="16" is-type="sendcode" id="btns"></mu-text-field>
 					<img id="group_input_img" @click="Alt()" :src="imgs" />
-					<button v-if="password!=''" @click="pwde" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right: 25%;">
-            				<img src="../../assets/images/x.png" style="position: absolute;" />
+					<button v-if="password!=''" @click="pwde" type="button" class="closepws" data-dismiss="modal" >
+            				<img src="../../assets/images/x.png"  />
          			</button>
 				</div>
 				<div>
-					<mu-text-field :full-width="100" :type="typeis" v-on:input="pwdeshow()" style="font-size: 1.5rem;" v-model="passwordcheckModel" placeholder="请再次输入密码" maxlength="16" is-type="sendcode" id="btn"></mu-text-field>
+					<mu-text-field :full-width="100" :type="typeis" v-on:input="pwdeshow()" style="font-size: 1.5rem;" v-model="passwordcheckModel" placeholder="请再次输入密码" :max-length="16" is-type="sendcode" id="btn"></mu-text-field>
 					<img id="group_input_imgs" @click="Alte()" :src="imges" />
-					<button v-if="passwordcheckModel!=''" @click="pwdes" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right: 25%;">
-            				<img src="../../assets/images/x.png" style="position: absolute;" />
+					<button v-if="passwordcheckModel!=''" @click="pwdes" type="button" class="closepws" data-dismiss="modal" >
+            				<img src="../../assets/images/x.png" />
          			</button>
 				</div>
 				
 				<div>
 					<mu-text-field :full-width="100" id="phone" v-on:input="names()" ref="name" name="name" v-model="nickname" placeholder="请输入昵称" maxlength="11" keyboard="number" is-type="china-mobile" required></mu-text-field>
-					<button v-if="nickname!=''" @click="nick" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right: 10%;">
-            				<img src="../../assets/images/x.png" style="position: absolute;" />
+					<button v-if="nickname!=''" @click="nick" type="button" class="close" data-dismiss="modal" >
+            				<img src="../../assets/images/x.png"  />
          			</button>
 				</div>
 
@@ -202,17 +202,6 @@
 					this.imges = eye
 				}
 			},
-			timer() {
-				if(this.time > 0) {
-					this.time--;
-					this.btntxts = this.time + "s";
-					setTimeout(this.timer, 1000);
-				} else {
-					this.time = 0;
-					this.btntxts = "获取验证码";
-					this.disabled = false;
-				}
-			},
 			userTrue() {
 				//跳转邀请码
 				//注册
@@ -282,7 +271,7 @@
 				} else {
 					this.$layer.msg("手机号码格式错误");
 				}
-				return false;
+//				return false;
 			},
 			timer() {
 				if(this.time > 0) {
@@ -476,7 +465,7 @@
 		margin-bottom: 2px;
 		width: 25%;
 		min-width: 100px;
-		height: 40px;
+		height: 44px;
 		float: right;
 		background-color: #F8F8F8;
 		color: #646464;
@@ -551,7 +540,26 @@
 		border: none;
 	}
 	.close{
+		position: absolute;
 		opacity:1;
+		right: 10%;
+		margin-top: -64px;
+	}
+	.closepws{
+		border: 0px;
+		background:none;
+		position: absolute;
+		margin-top:-63px;
+		right: 16.5%;
+	}
+	
+	.yzmclose{
+		position: absolute;
+		opacity: 1;
+		margin-top: 23px;
+		right: 40%;
+		border: 0px;
+		background:none;
 	}
 
 	button#pwsbtn.weui-btn.weui-btn_primary {

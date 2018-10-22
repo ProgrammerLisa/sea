@@ -87,9 +87,10 @@
 	.content {
 		overflow-x: hidden;
 		color: #666;
-		padding-bottom: 6rem;
+		/*padding-bottom: 6rem;*/
 		background-color: #f5f5f5;
     width: 100vw;
+    height: 100%;
     position: fixed;
     top: 0;
 	}
@@ -166,7 +167,11 @@
 	.tile{
 		width: 100%;
 		text-align: center;
-		color: black;
+		color: #323232;
 		font-size: 1.6rem;
+		position:absolute;
+ 		bottom:2rem;
+ 		padding:0;
+ 		margin:0;
 	}
 </style>

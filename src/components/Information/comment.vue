@@ -341,6 +341,7 @@
     background: #fff;
     padding: 0 1rem;
     margin-bottom: 1rem;
+    height: 90px;
   }
   .callBacks {
     float: right;
@@ -356,7 +357,9 @@
 <style lang="less">
   .comment_input{
     .mu-input-help{
-      bottom: -36px;
+      /*bottom: -36px;*/
+     margin-top: 46px;
+     right: 10%;
     }
   }
 

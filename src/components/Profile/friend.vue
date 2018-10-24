@@ -37,33 +37,33 @@
 
 	export default {
 		name: "friend",
-    computed: {
-      now() {
-        return Date.now();
-      }
-    },
+		computed: {
+			now() {
+				return Date.now();
+			}
+		},
 		data() {
 			return {
 				masrc: back,
 				noFriend: true,
 				noFriendImg: noFriendImg,
-        headImg:headImg,
+				headImg: headImg,
 				friends: [],
-        model:{
-          avatar: headImg,
-          nickname: '',
-          uid: '',
-          gender: '',
-          color: '',
-          bcColor: ''
-        }
+				model: {
+					avatar: headImg,
+					nickname: '',
+					uid: '',
+					gender: '',
+					color: '',
+					bcColor: ''
+				}
 			}
 		},
 		mounted() {
-      let that = this;
-      mui.back = function(){
-        that.$router.go(-1);
-      };
+			let that = this;
+			mui.back = function() {
+				that.$router.go(-1);
+			};
 
 			this.$nextTick(function() {
 				this.friend()
@@ -90,34 +90,34 @@
 								this.noFriend = false;
 								for(let i = 0; i < res.data.data.length; i++) {
 									if(res.data.data[i].avatar != "") {
-										 this.model.avatar= res.data.data[i].avatar;
-									}else {
-                    this.model.avatar=''
-                  }
-									if(res.data.data[i].gender != "FEMALE") {
-                    this.model.color = '#5CB3FC';
-                    this.model.bcColor = 'background: #5CB3FC;';
-                    this.model.gender = '♂';
+										this.model.avatar = res.data.data[i].avatar;
 									} else {
-                    this.model.color = '#FC8484;';
-                    this.model.bcColor = 'background: #FC8484;';
-                    this.model.gender = '♀';
+										this.model.avatar = ''
+									}
+									if(res.data.data[i].gender != "FEMALE") {
+										this.model.color = '#5CB3FC';
+										this.model.bcColor = 'background: #5CB3FC;';
+										this.model.gender = '♂';
+									} else {
+										this.model.color = '#FC8484;';
+										this.model.bcColor = 'background: #FC8484;';
+										this.model.gender = '♀';
 									}
 									if(res.data.data[i].nickname == "") {
-                    this.model.nickname = res.data.data[i].uid
-									}else {
-                    this.model.nickname = res.data.data[i].nickname
-                  }
-                  this.model.uid = res.data.data[i].uid;
-                  this.friends.push(this.model);
-									this.model={
-                    avatar: headImg,
-                    nickname: '',
-                    uid: '',
-                    gender: '',
-                    color: '',
-                    bcColor: ''
-                  }
+										this.model.nickname = res.data.data[i].uid
+									} else {
+										this.model.nickname = res.data.data[i].nickname
+									}
+									this.model.uid = res.data.data[i].uid;
+									this.friends.push(this.model);
+									this.model = {
+										avatar: headImg,
+										nickname: '',
+										uid: '',
+										gender: '',
+										color: '',
+										bcColor: ''
+									}
 								}
 
 							}
@@ -136,9 +136,9 @@
 			goBack() {
 				this.$router.go(-1);
 			},
-			friendData(f,d) {
+			friendData(f, d) {
 				localStorage.setItem("friend_uid", f);
-				localStorage.setItem('nickname',d)
+				localStorage.setItem('nickname', d)
 				this.$router.push({
 					path: '/frienddata',
 					name: 'frienddata',
@@ -166,35 +166,35 @@
 		position: fixed;
 		top: 0;
 	}
-
+	
 	.content::-webkit-scrollbar {
 		display: none;
 	}
-
+	
 	.friends {
 		background: #fff;
 		margin-top: 0;
 		border-bottom: 0.1rem solid #f5f5f5;
 		padding: 1rem;
 	}
-
+	
 	.friends:active {
 		background: #f5f5f5;
 	}
-
+	
 	.media-heading {
 		margin-top: 0.3rem;
 		margin-bottom: 5px;
 		font-size: 1.5rem;
 	}
-
+	
 	.media-left img {
 		border: 0.1rem solid #f5f5f5;
 		border-radius: 50%;
 		width: 4rem;
 		margin-right: 0.5rem;
 	}
-
+	
 	.sex {
 		color: #fff;
 		border-radius: 50%;
@@ -206,18 +206,18 @@
 		margin: 0 1rem;
 		vertical-align: top;
 	}
-
+	
 	.addressNone {
 		text-align: center;
 		padding-top: 18vh;
 		color: #999;
 	}
-
+	
 	.addressNone img {
 		width: 40%;
 		margin-bottom: 1rem;
 	}
-
+	
 	.goInvite {
 		text-align: center;
 		background: #09a2d6;
@@ -226,7 +226,7 @@
 		display: inline-block;
 		margin-top: 1.5rem;
 	}
-
+	
 	.goInvite:active {
 		background: #009ACD;
 	}

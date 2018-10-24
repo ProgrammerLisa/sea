@@ -19,10 +19,11 @@
           </div>
           <div class="flex">
             <div class="flex-b">
-              <div v-for="i in head" class="zanImg">
-                <img :src="i"/>
+
+              <div v-for="i in content.thumbup" class="zanImg" v-show="content.thumbup.length>0">
+                <img :src="i.user_avatar"/>
               </div>
-              <div style="line-height: 2.5rem;font-size: small;margin-left: 0.5rem">36人赞过</div>
+              <div style="line-height: 2.5rem;font-size: small;margin-left: 0.5rem">{{content.thumbup_num}}人赞过</div>
             </div>
             <div class="zan">
               <img :src="content.clicked_thumbup?zan:zanfalse" @click="thumbup(content.clicked_thumbup,content.id)"/>
@@ -121,6 +122,11 @@
                   this.content=res.data.data.comments[i];
                   this.length=this.content.reply.length;
                   this.uid=this.content.from_user_uid;
+                  let thumbup=[];
+                  if (this.content.thumbup.length>3){
+                    thumbup=[this.content.thumbup[0],this.content.thumbup[1],this.content.thumbup[2]];
+                    this.content.thumbup=thumbup;
+                  }
                 }
               }
             }

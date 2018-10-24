@@ -25,8 +25,8 @@
               <div style="line-height: 2.5rem;font-size: small;margin-left: 0.5rem">36人赞过</div>
             </div>
             <div class="zan">
-              <img src="../../assets/images/zan.png"/>
-              <span>36</span>
+              <img :src="content.clicked_thumbup?zan:zanfalse" @click="thumbup(content.clicked_thumbup,content.id)"/>
+              <span>{{content.thumbup_num}}</span>
             </div>
           </div>
         </div>
@@ -49,15 +49,15 @@
           </div>
 
           <div class="zan">
-            <img src="../../assets/images/zan.png"/>
-            <span>36</span>
+            <img :src="i.clicked_thumbup?zan:zanfalse" @click="thumbup(i.clicked_thumbup,i.mid)"/>
+            <span>{{i.thumbup_num}}</span>
           </div>
         </div>
       </div>
     </div>
     <div v-show="criticxf" class="reply" id="nav1">
       <input v-show="criticxf" @click="criticMessage(false)" v-model='critic' class="reply-input" placeholder="回复" />
-      <img src="../../assets/images/zan.png" />
+      <img :src="content.clicked_thumbup?zan:zanfalse"/>
     </div>
     <div v-show="criticpl" class="tardiv" style="">
       <div class="comment_input">
@@ -72,6 +72,8 @@
   import back from '@/assets/images/back.png'
   import backs from '@/assets/images/backs.png'
   import img from '@/assets/images/test/timg.jpg'
+  import zanfalse from '@/assets/images/zan.png'
+  import zan from '@/assets/images/zanxuanzhong.png'
     export default {
         name: "comment",
       data(){
@@ -84,6 +86,8 @@
             criticpl:false,
             critic:'',
             uid:'',
+            zan:zan,
+            zanfalse:zanfalse,
           }
       },
       mounted(){
@@ -117,7 +121,6 @@
                   this.content=res.data.data.comments[i];
                   this.length=this.content.reply.length;
                   this.uid=this.content.from_user_uid;
-                  console.log(this.content)
                 }
               }
             }
@@ -168,6 +171,51 @@
         msgHide(){
           this.criticxf = true;
           this.criticpl = false;
+        },
+        thumbup(zan,id){
+          if (zan){
+            this.$http({
+              method: "post",
+              url: "/tasks/news/cancel-thumbup",
+              headers: {
+                "device": "android",
+                "uid": localStorage.getItem("uid"),
+                "Access-Control-Allow-Origin": "*"
+              },
+              data: {
+                message_id: id
+              }
+            }).then(function(res) {
+              this.$layer.msg(res.data.msg);
+              if (res.data.code===0){
+                this.getList()
+              }
+            }.bind(this))
+              .catch(function(err) {
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this))
+          }else {
+            this.$http({
+              method: "post",
+              url: "/tasks/news/thumbup",
+              headers: {
+                "device": "android",
+                "uid": localStorage.getItem("uid"),
+                "Access-Control-Allow-Origin": "*"
+              },
+              data: {
+                message_id: id
+              }
+            }).then(function(res) {
+              this.$layer.msg(res.data.msg);
+              if (res.data.code===0){
+                this.getList()
+              }
+            }.bind(this))
+              .catch(function(err) {
+                this.$layer.msg("系统异常，请稍后再试");
+              }.bind(this))
+          }
         },
         evers() {
           this.masrc = backs;

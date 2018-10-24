@@ -14,8 +14,8 @@
 		<div id="notice" >
 			<marquee style="line-height: 2rem; height: 30px; position: relative;" scrollamount="5" scrolldelay="1" >
 				<span v-for="item in marquee">
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<span v-for="(items,index) in item" v-if="index==0" style=" font-size: 1.5rem;color:rgb(247,250,174);vertical-align:middle;padding-top: 3px;display: inline-block" >
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<span v-for="(items,index) in item" v-if="index==0" style=" font-size: 1.5rem;color:#fff;vertical-align:middle;padding-top: 3px;display: inline-block" >
           				{{items}}
         			</span>
         			<span v-for="(items,index) in item" v-if="index==1" style=" font-size: 1.5rem;color: #fff;vertical-align:middle;padding-top: 3px;display: inline-block" >

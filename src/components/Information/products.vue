@@ -60,23 +60,14 @@
 												</a>
 											</div>
 
-											<!--<div :id="m.item" v-show="!m.hasMsg" class="panel-collapse collapse in" style="background: #f5f5f5;min-width:100%;margin-bottom: 20px">-->
-											<!--<div class="panel-body" v-for="(r,item) in m.reply" v-show="item < m.reply_num " style="border: none; padding:0.5rem 1rem;font-size: 1.5rem">-->
-											<!--<span style="color: #09a2d6" @click="getUserId(item,m.id,r.from_user.uid)">{{r.from_user.nickname}}</span>-->
-											<!--<span style="color: black"> 回复 </span>-->
-											<!--<span style="color: #09a2d6" @click="getUserId(item,m.id,r.to_user.uid)">{{r.to_user.nickname}}</span>: {{r.content}}-->
-											<!--</div>-->
-											<!--<span v-if="m.reply.length > 3" @click="showMore(m)" class="glyphicon" style="color: #09a2d6" >{{m.reply_num == 3?'查看全部':'收起'}}</span>-->
-											<!--</div>-->
-
 										</div>
 									</div>
 								</div>
 							</div>
 
 							<div class="right">
-								<img src="../../assets/images/zan.png" />
-								<span>36</span>
+								<img :src="m.clicked_thumbup?zan:zanfalse" @click="thumbup(m.clicked_thumbup,m.id)"/>
+								<span>{{m.thumbup_num}}</span>
 							</div>
 
 						</div>
@@ -112,6 +103,8 @@
 <script>
 	import back from '@/assets/images/back.png'
 	import backs from '@/assets/images/backs.png'
+  import zanfalse from '@/assets/images/zan.png'
+  import zan from '@/assets/images/zanxuanzhong.png'
 	export default {
 		name: "record",
 		data() {
@@ -123,6 +116,8 @@
 				url: '',
 				author: '',
 				masrc: back,
+        zan:zan,
+        zanfalse:zanfalse,
 				hasMessage: false,
 				active1: 0,
 				message: [],
@@ -160,14 +155,6 @@
 				this.criticpl = false;
 				this.criticxf = true;
 				this.critichf = false;
-			},
-			showMore(item) {
-				let length = item.reply.length;
-				if(item.reply_num == 3) {
-					item.reply_num = length;
-				} else {
-					item.reply_num = 3
-				}
 			},
 			gain() {
 				this.$http({
@@ -306,26 +293,6 @@
 				this.id = id;
 				this.uid = uid;
 			},
-			//			openLeaveMessage(index,mid,uid,reply) {
-			//				console.log(mid);
-			//				this.critichf = true;
-			//				this.criticxf = false;
-			//				if(reply){
-			//					if(reply.length ==0){
-			//						this.uid = mid;
-			//					}else{
-			//						if(uid){
-			//							this.uid = uid
-			//						}
-			//
-			//					}
-			//				}else{
-			//					if(uid){
-			//						this.uid = uid
-			//					}
-			//				}
-			//
-			//			},
 			closeLeaveMessage(index) {
 				this.revert = '';
 				this.messageMsgShow = false;
@@ -345,7 +312,51 @@
         localStorage.setItem("commentId",id);
         this.$router.push('/comment')
       },
-
+      thumbup(zan,id){
+			  if (zan){
+          this.$http({
+            method: "post",
+            url: "/tasks/news/cancel-thumbup",
+            headers: {
+              "device": "android",
+              "uid": localStorage.getItem("uid"),
+              "Access-Control-Allow-Origin": "*"
+            },
+            data: {
+              message_id: id
+            }
+          }).then(function(res) {
+              this.$layer.msg(res.data.msg);
+              if (res.data.code===0){
+                this.gain()
+              }
+          }.bind(this))
+            .catch(function(err) {
+              this.$layer.msg("系统异常，请稍后再试");
+            }.bind(this))
+        }else {
+          this.$http({
+            method: "post",
+            url: "/tasks/news/thumbup",
+            headers: {
+              "device": "android",
+              "uid": localStorage.getItem("uid"),
+              "Access-Control-Allow-Origin": "*"
+            },
+            data: {
+              message_id: id
+            }
+          }).then(function(res) {
+            this.$layer.msg(res.data.msg);
+            if (res.data.code===0){
+             this.gain()
+            }
+          }.bind(this))
+            .catch(function(err) {
+              this.$layer.msg("系统异常，请稍后再试");
+            }.bind(this))
+        }
+      },
 			evers() {
 				this.masrc = backs;
 			},

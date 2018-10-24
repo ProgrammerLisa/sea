@@ -16,7 +16,7 @@
 		<div id="notice">
 			<marquee style="line-height: 2rem; height: 30px; position: relative;" scrollamount="5" scrolldelay="1">
         <span style=" font-size: 1.5rem;color: #fff;vertical-align:middle;padding-top: 3px;display: inline-block">
-          {{marquee}}
+          <span v-for="m in marquee" style="margin-right: 1.5rem">{{m}}</span>
           世界那么大想出去走走,一看钱包这么小,根本走不了
         </span>
       </marquee>
@@ -139,7 +139,7 @@
         hasSignal:true,
 				pearlCount: 0,
 				energyCount: 0,
-				marquee: '',
+				marquee:[],
 				hasPearl: false,
 				bh: defaultPearl,
 				zhenzhuIcon: zhenzhuIcon,
@@ -193,7 +193,11 @@
 							this.pearlCount = res.data.data.user.pearl;
 							this.energyCount = res.data.data.user.energy;
 							let that = this;
-							this.marquee = res.data.data.configs.marquee;
+							// this.marquee = res.data.data.configs.marquee;
+							for (let mq in res.data.data.configs.marquee){
+							  this.marquee.push(res.data.data.configs.marquee[mq][0]+'兑换了'+res.data.data.configs.marquee[mq][1])
+              }
+
 							if(res.data.data.pearls.length !== 0) {
 								that.hasPearl = true;
 

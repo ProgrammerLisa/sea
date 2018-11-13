@@ -1,4 +1,4 @@
-<template>
+ <template>
   <div class="content">
     <mu-appbar class="myNavTitle" color="#fff" textColor="#333" z-depth="0">
       <mu-button icon slot="left" @click="goBack" @touchstart="evers" @touchend="lat" class="getBack">

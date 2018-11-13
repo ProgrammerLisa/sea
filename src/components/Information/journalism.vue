@@ -17,6 +17,8 @@
                   <div class="title">{{i.title}}</div>
                   <div class="footer">
                     <div>
+                      <div class="prominent " v-show="i.label=='HOT'" style="margin: 0">推荐</div>
+                      <div class="advertisement " v-show="i.label=='AD'" style="margin: 0">广告</div>
                       <span class="time">{{i.published_at}}</span>
                       <span class="listlabel">{{i.source}}</span>
                     </div>
@@ -103,12 +105,12 @@
       		sessionStorage.removeItem('offsetTop');
       	},8000);
       	window.addEventListener('scroll',this.handleScroll,true);
-      	
+
       	if(localStorage.getItem('post_id')){
       		let id = localStorage.getItem('post_id');
       		console.log(id)
       	}
-      	
+
         let clickNum = 0;
         mui.back = function(){
           clickNum++;
@@ -136,10 +138,10 @@
       methods:{
       	//保存滚动位置
       	handleScroll(){
-      		let tpScrollTop = document.getElementById('scroll').scrollTop;
-      		sessionStorage.setItem('offsetTop',tpScrollTop);
+      		// let tpScrollTop = document.getElementById('scroll').scrollTop;
+      		// sessionStorage.setItem('offsetTop',tpScrollTop);
       	},
-      	
+
         again(){
           this.message();
         },

@@ -11,8 +11,8 @@
 				<div style="padding: 45px 30px">
 					<div style="padding-top: 30px;">
 						<mu-text-field style="font-size: 1.5rem;" :full-width="100" v-on:input="show()" id="phone" ref="mobile" name="mobile" v-model="mobile" placeholder="请输入11位有效手机号" :max-length="11" keyboard="number" is-type="china-mobile" required></mu-text-field>
-						<button v-if="mobile!=''" @click="bnns" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right: 7%;">
-            				<img src="../../assets/images/x.png" style="position: absolute;" />
+						<button v-if="mobile!=''" @click="bnns" type="button" class="close" data-dismiss="modal">
+            				<img src="../../assets/images/x.png"  />
          			 	</button>
 					</div>
 
@@ -20,16 +20,16 @@
 						<mu-text-field style="font-size: 1.5rem;" :full-width="100" v-on:input="verifshow()" id="verification" :max-length="4" v-model="verif" placeholder="请输入短信验证码"/>
 						<mu-button  id="verbtn" slot="right" :disabled="disabled" @click.native="sendcode">{{btntxtes}}</mu-button >
 
-						<button v-if="verif!=''" @click="ver" type="button" class="close" data-dismiss="modal" style="margin-top: -20%;margin-right:45%;">
-            				<img src="../../assets/images/x.png" style="position: absolute;" />
+						<button v-if="verif!=''" @click="ver" type="button" class="close" data-dismiss="modal" style="position: absolute;margin-top: 25px;right: 42%;">
+            				<img src="../../assets/images/x.png"  />
          			 	</button>
 					</div>
 
 					<div style="padding-top: 0px;">
 						<mu-text-field :full-width="100" id="passwordModel_image" v-on:input="ipwdshow()" :type="types" style="font-size: 1.5rem;" v-model="passwordModel" placeholder="请输入新密码" :max-length="16" is-type="sendcode" calss="btns"></mu-text-field>
 						<img id="group_input_img" @click="Alt()" :src="imgs" />
-						<button v-if="passwordModel!=''" @click="bnn1" type="button" class="close" data-dismiss="modal" style="margin-top: -20.5%;margin-right: 25%;">
-          			  		<img src="../../assets/images/x.png" style="position: absolute;" />
+						<button v-if="passwordModel!=''" @click="bnn1" type="button" class="close" data-dismiss="modal" style="position:absolute;margin-top:-63px;right: 17%;">
+          			  		<img src="../../assets/images/x.png" />
           				</button>
 						<!--<span>@{{passwordValidate.errorText}}</span>-->
 					</div>
@@ -84,26 +84,6 @@
 			this.$nextTick(() => {
 
 			})
-			var Verificationtimen = Verificationtimen;
-			that.time = localStorage.getItem(Verificationtimen);
-			if(that.time != "") {
-				var TimeReduction2 = setInterval(function() {
-					if(that.time > 0) {
-						localStorage.setItem(Verificationtimen, that.time);
-						that.time--;
-						that.btntxtes = that.time + "s";
-						that.disabled = true;
-					} else {
-						that.time = 0;
-						that.btntxtes = "获取验证码";
-						that.disabled = false;
-						localStorage.removeItem(Verificationtimen);
-						clearInterval(TimeReduction2);
-					}
-				}, 1000)
-			} else {
-				that.btntxtes = "获取验证码";
-			}
 		},
 		//		created:function(){
 		//			if(sessionStorage.index2){
@@ -149,18 +129,7 @@
 				} else {
 					this.types = "password"
 					this.imgs = eye
-				}
-			},
-			timer() {
-				if(this.time > 0) {
-					this.time--;
-					this.btntxtes = this.time + "s";
-					setTimeout(this.timer, 1000);
-				} else {
-					this.time = 0;
-					this.btntxtes = "获取验证码";
-					this.disabled = false;
-				}
+				} 
 			},
 			userTrue() {
 				//注册
@@ -185,48 +154,6 @@
 					.catch(function(err) {
 						console.log(err)
 					}.bind(this))
-			},
-			submitData() {
-				event.preventDefault();
-				//去获取验证手机号
-				var reg = /^1[3|4|5|7|8]\d{9}$/;
-				//				alert("result:" + this.$refs.mobile.valid);
-				if(reg.test(this.mobile)) {
-					if(this.verif == "") {
-						this.$layer.msg("验证码不能为空");
-						return;
-					}
-					if(this.passwordModel == '') {
-						this.$layer.msg("密码不能为空");
-						return;
-					}
-					if(!/^[0-9A-Za-z]{6,15}$/.test(this.passwordModel)) {
-						this.$layer.msg('密码少于6位');
-						return;
-					} else {
-						this.userTrue();
-					}
-				} else if(this.mobile == '') {
-					this.$layer.msg("手机号码不能为空");
-					return;
-				} else {
-					this.$layer.msg("手机号码格式错误");
-				}
-			},
-			timer() {
-				if(this.time > 0) {
-					this.time--;
-					this.btntxtes = this.time + "s";
-					//setTimeout(this.timer, 1000);
-					sessionStorage.index2 = this.time;
-				} else {
-					this.time = 0;
-					this.btntxtes = "获取验证码";
-					this.disabled = false;
-				}
-			},
-			setTime() {
-				this.Stime = setInterval(this.timer, 1000);
 			},
 			submitData() {
 				event.preventDefault();
@@ -492,7 +419,7 @@
 		margin-bottom: 2px;
 		width: 25%;
 		min-width: 100px;
-		height: 40px;
+		height: 42px;
 		float: right;
 		background-color: #F8F8F8;
 		color: #646464;
@@ -511,6 +438,9 @@
 	
 	.close{
 		opacity:1;
+		margin-top: -64px;
+		right: 8%;
+		position: absolute;
 	}
 	
 	#pwsbtn {
